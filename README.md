@@ -6,13 +6,13 @@ main design consideration.  This project started as an experiment with Cursor (A
 it would be able to create as far as an application like this, with continued use of AI development as well
 as traditional software development.
 
-## Features
+## Features/Planned Features
 
 - **Multi-track arrangement**: Add multiple tracks to compose songs
 - **Track types**: Configure each track for audio recording (from microphone/line-in) or MIDI recording (from keyboard/controller)
 - **Visual feedback**: Audio waveform display for audio tracks, MIDI piano roll for MIDI tracks
 - **Built-in MIDI synthesizer**: Renders MIDI tracks to audio using FluidSynth with configurable SoundFont
-- **Mix to WAV**: Export all enabled tracks to a single mixed audio file
+- **Mix to single audio file**: Export all enabled tracks to a single mixed audio file (for this, I plan to use code I've already written in my <a href='https://github.com/EricOulashin/audio_mixer_cpp' target='_blank'>C++ Audio Mixer project></a>.')
 - **Configuration**: Select audio input device, MIDI device, and SoundFont file
 
 ## Screenshots
