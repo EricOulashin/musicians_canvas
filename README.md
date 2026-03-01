@@ -12,7 +12,7 @@ as traditional software development.
 - **Track types**: Configure each track for audio recording (from microphone/line-in) or MIDI recording (from keyboard/controller)
 - **Visual feedback**: Audio waveform display for audio tracks, MIDI piano roll for MIDI tracks
 - **Built-in MIDI synthesizer**: Renders MIDI tracks to audio using FluidSynth with configurable SoundFont
-- **Mix to single audio file**: Export all enabled tracks to a single mixed audio file (for this, I plan to use code I've already written in my <a href='https://github.com/EricOulashin/audio_mixer_cpp' target='_blank'>C++ Audio Mixer project></a>.')
+- **Mix to single audio file**: Export all enabled tracks to a single mixed audio file (for this, I plan to use code I've already written in my <a href='https://github.com/EricOulashin/audio_mixer_cpp' target='_blank'>C++ Audio Mixer project</a>.)
 - **Configuration**: Select audio input device, MIDI device, and SoundFont file
 
 ## Screenshots
