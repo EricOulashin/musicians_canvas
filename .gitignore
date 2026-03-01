@@ -36,6 +36,11 @@
 *.exe
 *.out
 *.app
+musicians_canvas
+virtual_midi_keyboard
 
 # debug information files
 *.dwo
+
+# Notes
+*AI prompt text*.txt

@@ -1,0 +1,4 @@
+set(__QT_DEPLOY_TARGET_musicians_canvas_FILE /home/erico/projects/musicians_canvas/build/musicians_canvas)
+set(__QT_DEPLOY_TARGET_musicians_canvas_TYPE EXECUTABLE)
+set(__QT_DEPLOY_TARGET_virtual_midi_keyboard_FILE /home/erico/projects/musicians_canvas/build/virtual_midi_keyboard)
+set(__QT_DEPLOY_TARGET_virtual_midi_keyboard_TYPE EXECUTABLE)
