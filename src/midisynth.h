@@ -1,6 +1,7 @@
 #ifndef MIDISYNTH_H
 #define MIDISYNTH_H
 
+#include <memory>
 #include <QString>
 #include <QVector>
 #include "trackdata.h"
@@ -18,7 +19,7 @@ public:
 
 private:
     class Impl;
-    Impl* m_impl = nullptr;
+    std::shared_ptr<Impl> m_impl;
 };
 
 #endif // MIDISYNTH_H

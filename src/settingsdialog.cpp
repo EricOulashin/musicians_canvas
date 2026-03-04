@@ -19,6 +19,9 @@
 #include <QAudioDevice>
 #endif
 #include <RtMidi.h>
+#include <string>
+
+using std::string;
 
 SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent) {
     setWindowTitle(tr("Configuration"));
@@ -148,7 +151,7 @@ void SettingsDialog::refreshDevices() {
         unsigned int portCount = midiIn.getPortCount();
         m_midiDeviceCombo->addItem(tr("(No MIDI device)"), -1);
         for (unsigned int i = 0; i < portCount; ++i) {
-            std::string name = midiIn.getPortName(i);
+            string name = midiIn.getPortName(i);
             m_midiDeviceCombo->addItem(QString::fromStdString(name), (int)i);
         }
     } catch (...) {

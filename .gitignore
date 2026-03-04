@@ -42,5 +42,10 @@ virtual_midi_keyboard
 # debug information files
 *.dwo
 
+# CMake generated files
+compiler_depend.internal
+compiler_depend.make
+ParseCache.txt
+
 # Notes
 *AI prompt text*.txt

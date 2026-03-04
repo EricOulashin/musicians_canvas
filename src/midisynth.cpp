@@ -1,11 +1,15 @@
 #include "midisynth.h"
 #include "appsettings.h"
 #include <fluidsynth.h>
+#include <memory>
 #include <QFile>
 #include <QDataStream>
 #include <QByteArray>
 #include <algorithm>
 #include <cstring>
+
+using std::make_shared;
+using std::shared_ptr;
 
 class MidiSynth::Impl {
 public:
@@ -50,13 +54,11 @@ static void writeWavHeader(QFile& file, quint32 sampleRate, quint32 numSamples) 
 }
 
 MidiSynth::MidiSynth() {
-    m_impl = new Impl();
+    m_impl = make_shared<Impl>();
     m_impl->settings = new_fluid_settings();
 }
 
-MidiSynth::~MidiSynth() {
-    delete m_impl;
-}
+MidiSynth::~MidiSynth() = default;
 
 bool MidiSynth::loadSoundFont(const QString& path) {
     if (!m_impl->synth) {
