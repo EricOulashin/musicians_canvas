@@ -43,6 +43,7 @@ virtual_midi_keyboard
 *.dwo
 
 # CMake generated files
+build/
 compiler_depend.internal
 compiler_depend.make
 ParseCache.txt

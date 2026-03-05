@@ -1,8 +1,0 @@
-/home/erico/projects/musicians_canvas/build/CMakeFiles/musicians_canvas.dir
-/home/erico/projects/musicians_canvas/build/CMakeFiles/virtual_midi_keyboard.dir
-/home/erico/projects/musicians_canvas/build/CMakeFiles/edit_cache.dir
-/home/erico/projects/musicians_canvas/build/CMakeFiles/rebuild_cache.dir
-/home/erico/projects/musicians_canvas/build/CMakeFiles/musicians_canvas_autogen_timestamp_deps.dir
-/home/erico/projects/musicians_canvas/build/CMakeFiles/musicians_canvas_autogen.dir
-/home/erico/projects/musicians_canvas/build/CMakeFiles/virtual_midi_keyboard_autogen_timestamp_deps.dir
-/home/erico/projects/musicians_canvas/build/CMakeFiles/virtual_midi_keyboard_autogen.dir
