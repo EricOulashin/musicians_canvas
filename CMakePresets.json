@@ -1,0 +1,43 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "windows-mingw-debug",
+      "displayName": "Windows MinGW Debug",
+      "description": "Build with Qt MinGW toolchain (Debug). Requires MSYS2 with fluidsynth and rtmidi packages.",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/Debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_COMPILER": "C:/Qt/Tools/mingw1310_64/bin/g++.exe",
+        "CMAKE_MAKE_PROGRAM": "C:/Qt/Tools/Ninja/ninja.exe",
+        "CMAKE_PREFIX_PATH": "C:/Qt/6.10.2/mingw_64;C:/msys64/mingw64"
+      }
+    },
+    {
+      "name": "windows-mingw-release",
+      "displayName": "Windows MinGW Release",
+      "description": "Build with Qt MinGW toolchain (Release). Requires MSYS2 with fluidsynth and rtmidi packages.",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/Release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CXX_COMPILER": "C:/Qt/Tools/mingw1310_64/bin/g++.exe",
+        "CMAKE_MAKE_PROGRAM": "C:/Qt/Tools/Ninja/ninja.exe",
+        "CMAKE_PREFIX_PATH": "C:/Qt/6.10.2/mingw_64;C:/msys64/mingw64"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "windows-mingw-debug",
+      "displayName": "Debug",
+      "configurePreset": "windows-mingw-debug"
+    },
+    {
+      "name": "windows-mingw-release",
+      "displayName": "Release",
+      "configurePreset": "windows-mingw-release"
+    }
+  ]
+}

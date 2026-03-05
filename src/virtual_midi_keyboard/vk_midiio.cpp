@@ -85,7 +85,13 @@ void VkMidiIo::setOutputDevice(int index) {
 
     if (index <= 0) {
         m_impl->fluidSettings = new_fluid_settings();
+#if defined(_WIN32)
+        fluid_settings_setstr(m_impl->fluidSettings, "audio.driver", "dsound");
+#elif defined(__APPLE__)
+        fluid_settings_setstr(m_impl->fluidSettings, "audio.driver", "coreaudio");
+#else
         fluid_settings_setstr(m_impl->fluidSettings, "audio.driver", "pulseaudio");
+#endif
         fluid_settings_setint(m_impl->fluidSettings, "audio.realtime-prio", 0);
         m_impl->fluidSynth = new_fluid_synth(m_impl->fluidSettings);
         const QString sfPath = VkSettings::instance().soundFontPath();
