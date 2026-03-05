@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+    Common property sheet for Musicians Canvas projects.
+
+    The build uses CMake + Ninja + MinGW (g++), delegating compilation entirely to
+    CMake rather than MSBuild. The properties here drive the cmake configure command
+    and VS IntelliSense.
+
+    To override paths for your machine, create a LocalPaths.props file next to this
+    file (it is gitignored). Example LocalPaths.props:
+
+      <?xml version="1.0" encoding="utf-8"?>
+      <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+        <PropertyGroup Label="UserMacros">
+          <QtDir>C:\Qt\6.10.2\mingw_64</QtDir>
+          <MinGWDir>C:\Qt\Tools\mingw1310_64</MinGWDir>
+          <NinjaExe>C:\Qt\Tools\Ninja\ninja.exe</NinjaExe>
+          <Msys2MingwDir>C:\msys64\mingw64</Msys2MingwDir>
+        </PropertyGroup>
+      </Project>
+
+    Required MSYS2 packages (install with: pacman -S mingw-w64-x86_64-fluidsynth mingw-w64-x86_64-rtmidi):
+      mingw-w64-x86_64-fluidsynth
+      mingw-w64-x86_64-rtmidi
+  -->
+
+  <PropertyGroup Label="UserMacros">
+    <!-- Qt MinGW kit directory -->
+    <QtDir>C:\Qt\6.10.2\mingw_64</QtDir>
+
+    <!-- MinGW toolchain bundled with Qt -->
+    <MinGWDir>C:\Qt\Tools\mingw1310_64</MinGWDir>
+
+    <!-- Ninja build tool bundled with Qt -->
+    <NinjaExe>C:\Qt\Tools\Ninja\ninja.exe</NinjaExe>
+
+    <!-- MSYS2 mingw64 prefix — provides FluidSynth and RtMidi -->
+    <Msys2MingwDir>C:\msys64\mingw64</Msys2MingwDir>
+  </PropertyGroup>
+
+  <!--
+    CMake configure command shared by both projects.
+    $(Configuration) expands to Debug or Release at build time.
+    $(SolutionDir) expands to the vs\ directory; ..\  steps up to the repo root.
+  -->
+  <PropertyGroup>
+    <CmakeConfigure>cmake -B "$(SolutionDir)..\build\$(Configuration)" -G Ninja "-DCMAKE_MAKE_PROGRAM=$(NinjaExe)" "-DCMAKE_CXX_COMPILER=$(MinGWDir)\bin\g++.exe" -DCMAKE_BUILD_TYPE=$(Configuration) "-DCMAKE_PREFIX_PATH=$(QtDir);$(Msys2MingwDir)" -S "$(SolutionDir).."</CmakeConfigure>
+  </PropertyGroup>
+
+  <!-- IntelliSense paths (used by NMakeIncludeSearchPath / NMakePreprocessorDefinitions) -->
+  <PropertyGroup>
+    <SharedIncludePaths>$(QtDir)\include;$(QtDir)\include\QtCore;$(QtDir)\include\QtGui;$(QtDir)\include\QtWidgets;$(Msys2MingwDir)\include;$(Msys2MingwDir)\include\rtmidi;$(SolutionDir)..\src</SharedIncludePaths>
+    <SharedPreprocessorDefs>WIN32;UNICODE;_UNICODE;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB</SharedPreprocessorDefs>
+  </PropertyGroup>
+
+</Project>

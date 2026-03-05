@@ -12,7 +12,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
 find_package(Qt6 COMPONENTS Multimedia QUIET)
 set(QT_MULTIMEDIA_FOUND ${Qt6Multimedia_FOUND})
 
-find_library(FLUIDSYNTH_LIBRARY NAMES fluidsynth libfluidsynth fluidsynth.so.3)
+find_library(FLUIDSYNTH_LIBRARY NAMES fluidsynth libfluidsynth fluidsynth-3 libfluidsynth-3 fluidsynth.so.3)
 find_path(FLUIDSYNTH_INCLUDE_DIR fluidsynth.h)
 find_library(RTMIDI_LIBRARY NAMES rtmidi librtmidi)
 find_path(RTMIDI_INCLUDE_DIR RtMidi.h PATH_SUFFIXES "" rtmidi)

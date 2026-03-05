@@ -50,3 +50,17 @@ ParseCache.txt
 
 # Notes
 *AI prompt text*.txt
+
+# Visual Studio
+.vs/
+vs/LocalPaths.props
+vs/**/obj/
+vs/**/GeneratedFiles/
+bin/
+
+# CMake build trees and user-local preset overrides
+build_test/
+CMakeUserPresets.json
+
+# Claude
+.claude/
