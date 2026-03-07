@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{3A7B8C9D-4E5F-6A7B-8C9D-0E1F2A3B4C5D}</ProjectGuid>
+    <RootNamespace>musicians_canvas</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>musicians_canvas</ProjectName>
+    <Keyword>MakeFileProj</Keyword>
+  </PropertyGroup>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(SolutionDir)Common.props" />
+    <Import Project="$(SolutionDir)LocalPaths.props" Condition="exists('$(SolutionDir)LocalPaths.props')" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(SolutionDir)Common.props" />
+    <Import Project="$(SolutionDir)LocalPaths.props" Condition="exists('$(SolutionDir)LocalPaths.props')" />
+  </ImportGroup>
+
+  <PropertyGroup Label="UserMacros" />
+
+  <!--
+    Build commands — all configurations.
+    $(CmakeConfigure) from Common.props runs cmake with the MinGW+Ninja toolchain.
+    $(Configuration) expands to Debug or Release at build time.
+  -->
+  <PropertyGroup>
+    <NMakeBuildCommandLine>$(CmakeConfigure) &amp;&amp; cmake --build "$(SolutionDir)..\build\$(Configuration)" --target musicians_canvas</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>cmake --build "$(SolutionDir)..\build\$(Configuration)" --target clean 2&gt;nul &amp; $(CmakeConfigure) &amp;&amp; cmake --build "$(SolutionDir)..\build\$(Configuration)" --target musicians_canvas</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>cmake --build "$(SolutionDir)..\build\$(Configuration)" --target clean 2&gt;nul</NMakeCleanCommandLine>
+    <NMakeOutput>$(SolutionDir)..\build\$(Configuration)\musicians_canvas.exe</NMakeOutput>
+    <!-- IntelliSense -->
+    <NMakePreprocessorDefinitions>$(SharedPreprocessorDefs)</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath>$(SharedIncludePaths)</NMakeIncludeSearchPath>
+  </PropertyGroup>
+
+  <!-- Source files listed for Solution Explorer browsing (build is driven by CMake, not MSBuild) -->
+  <ItemGroup>
+    <ClCompile Include="..\..\src\musicians_canvas_main.cpp" />
+    <ClCompile Include="..\..\src\mainwindow.cpp" />
+    <ClCompile Include="..\..\src\trackwidget.cpp" />
+    <ClCompile Include="..\..\src\trackconfigdialog.cpp" />
+    <ClCompile Include="..\..\src\settingsdialog.cpp" />
+    <ClCompile Include="..\..\src\waveformwidget.cpp" />
+    <ClCompile Include="..\..\src\midivisualizationwidget.cpp" />
+    <ClCompile Include="..\..\src\midisynth.cpp" />
+    <ClCompile Include="..\..\src\themeutils.cpp" />
+    <ClCompile Include="..\..\src\audioutils.cpp" />
+    <ClCompile Include="..\..\src\trackdata.cpp" />
+    <ClCompile Include="..\..\src\appsettings.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\mainwindow.h" />
+    <ClInclude Include="..\..\src\trackwidget.h" />
+    <ClInclude Include="..\..\src\trackconfigdialog.h" />
+    <ClInclude Include="..\..\src\settingsdialog.h" />
+    <ClInclude Include="..\..\src\waveformwidget.h" />
+    <ClInclude Include="..\..\src\midivisualizationwidget.h" />
+    <ClInclude Include="..\..\src\midisynth.h" />
+    <ClInclude Include="..\..\src\themeutils.h" />
+    <ClInclude Include="..\..\src\audioutils.h" />
+    <ClInclude Include="..\..\src\trackdata.h" />
+    <ClInclude Include="..\..\src\appsettings.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\CMakeLists.txt" />
+  </ItemGroup>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+
+</Project>

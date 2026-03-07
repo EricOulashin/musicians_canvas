@@ -48,6 +48,20 @@ sudo dnf install cmake gcc-c++ \
 brew install qt cmake fluid-synth rtmidi
 ```
 
+### Windows
+Download & install Msys2 here:
+<a href='https://www.msys2.org' target='_blank'>https://www.msys2.org</a>.
+After installing, add its bin path to your system path in the environment variables.  Assuming you
+left it with the default path of C:\msys64, add C:\msys64\mingw64\bin to your system path.
+Then install the fluidsynth & rtmidi packages:
+```cmd
+pacman -S mingw-w64-x86_64-fluidsynth
+pacman -S mingw-w64-ucrt-x86_64-rtmidi
+```
+The following pages are information about the fluidsynth & rtmidi packages:
+<a href='https://packages.msys2.org/packages/mingw-w64-x86_64-fluidsynth' target='_blank'>https://packages.msys2.org/packages/mingw-w64-x86_64-fluidsynth</a>
+<a href='https://packages.msys2.org/packages/mingw-w64-ucrt-x86_64-rtmidi' target='_blank'>https://packages.msys2.org/packages/mingw-w64-ucrt-x86_64-rtmidi</a>
+
 ## Building
 
 ```bash
@@ -59,6 +73,18 @@ Or manually:
 mkdir build && cd build
 cmake ..
 make
+```
+
+In Windows, when the build\Release directory exists:
+```cmd
+cd build\Release
+cmake --build . --config Release
+```
+And if you've installed Msys2 and the requirements, even if you add C:\msys64\bin to the system path,
+for some reason it might not always find the required DLLs; in that situation, you can run the
+copyRequiredWinDLLs.bat from the build\Release directory if you haven't already:
+```cmd
+..\..\copyRequiredWinDLLs.bat
 ```
 
 ## Running

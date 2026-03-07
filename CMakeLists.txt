@@ -46,6 +46,9 @@ set(SOURCES
 )
 
 add_executable(musicians_canvas ${SOURCES})
+if(WIN32)
+    set_target_properties(musicians_canvas PROPERTIES WIN32_EXECUTABLE TRUE)
+endif()
 
 set(VK_SOURCES
     src/virtual_midi_keyboard/virtual_midi_keyboard_main.cpp
@@ -65,6 +68,9 @@ set(VK_SOURCES
     src/virtual_midi_keyboard/vk_settings.h
 )
 add_executable(virtual_midi_keyboard ${VK_SOURCES})
+if(WIN32)
+    set_target_properties(virtual_midi_keyboard PROPERTIES WIN32_EXECUTABLE TRUE)
+endif()
 target_include_directories(virtual_midi_keyboard PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${FLUIDSYNTH_INCLUDE_DIR}

@@ -114,10 +114,7 @@ void VkConfigDialog::setupAudioTab() {
     m_tabWidget->addTab(widget, tr("Audio"));
 }
 
-void VkConfigDialog::onOutputDeviceChanged(int index) {
-    const bool isSoftSynth = (index <= 0);
-    if (m_soundFontEdit) m_soundFontEdit->setEnabled(isSoftSynth);
-    if (m_loadSoundFontBtn) m_loadSoundFontBtn->setEnabled(isSoftSynth);
+void VkConfigDialog::onOutputDeviceChanged(int /*index*/) {
 }
 
 void VkConfigDialog::refreshDevices() {

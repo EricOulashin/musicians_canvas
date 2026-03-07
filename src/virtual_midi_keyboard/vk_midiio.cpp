@@ -85,19 +85,28 @@ void VkMidiIo::setOutputDevice(int index) {
 
     if (index <= 0) {
         m_impl->fluidSettings = new_fluid_settings();
-#if defined(_WIN32)
-        fluid_settings_setstr(m_impl->fluidSettings, "audio.driver", "dsound");
-#elif defined(__APPLE__)
-        fluid_settings_setstr(m_impl->fluidSettings, "audio.driver", "coreaudio");
-#else
-        fluid_settings_setstr(m_impl->fluidSettings, "audio.driver", "pulseaudio");
-#endif
         fluid_settings_setint(m_impl->fluidSettings, "audio.realtime-prio", 0);
         m_impl->fluidSynth = new_fluid_synth(m_impl->fluidSettings);
         const QString sfPath = VkSettings::instance().soundFontPath();
         if (!sfPath.isEmpty())
             fluid_synth_sfload(m_impl->fluidSynth, sfPath.toUtf8().constData(), 1);
-        m_impl->fluidDriver = new_fluid_audio_driver(m_impl->fluidSettings, m_impl->fluidSynth);
+
+        // Try audio drivers in priority order until one succeeds.
+        static const char* const s_drivers[] = {
+#if defined(_WIN32)
+            "wasapi", "dsound", "winmm",
+#elif defined(__APPLE__)
+            "coreaudio",
+#else
+            "pulseaudio", "alsa", "jack",
+#endif
+            nullptr
+        };
+        for (int di = 0; s_drivers[di] != nullptr; ++di) {
+            fluid_settings_setstr(m_impl->fluidSettings, "audio.driver", s_drivers[di]);
+            m_impl->fluidDriver = new_fluid_audio_driver(m_impl->fluidSettings, m_impl->fluidSynth);
+            if (m_impl->fluidDriver) break;
+        }
         m_outputOpen = (m_impl->fluidDriver != nullptr);
     } else {
         try {

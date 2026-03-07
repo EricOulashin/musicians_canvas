@@ -152,7 +152,6 @@ void VkMainWindow::setupToolbar(QVBoxLayout* mainLayout) {
     soundLayout->addWidget(m_soundCombo);
     connect(m_soundCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
         this, &VkMainWindow::onSoundApply);
-    m_soundGroup->setEnabled(false);
     toolbarLayout->addWidget(m_soundGroup);
     connect(m_midiIo, &VkMidiIo::soundListChanged, this, &VkMainWindow::onSoundListChanged);
 
@@ -236,7 +235,6 @@ void VkMainWindow::onMidiNoteOff(int note) {
 
 void VkMainWindow::onSoundListChanged() {
     const bool soft = m_midiIo->isUsingFluidSynth();
-    m_soundGroup->setEnabled(soft);
     {
         QSignalBlocker blocker(m_soundCombo);
         m_soundCombo->clear();
@@ -251,7 +249,7 @@ void VkMainWindow::onSoundListChanged() {
 }
 
 void VkMainWindow::onSoundApply() {
-    if (!m_soundGroup->isEnabled() || m_soundCombo->currentIndex() < 0) return;
+    if (m_soundCombo->currentIndex() < 0) return;
     const QPoint bp = m_soundCombo->currentData().toPoint();
     m_midiIo->selectPreset(bp.x(), bp.y());
 }
