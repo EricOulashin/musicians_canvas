@@ -16,6 +16,8 @@ find_library(FLUIDSYNTH_LIBRARY NAMES fluidsynth libfluidsynth fluidsynth-3 libf
 find_path(FLUIDSYNTH_INCLUDE_DIR fluidsynth.h)
 find_library(RTMIDI_LIBRARY NAMES rtmidi librtmidi)
 find_path(RTMIDI_INCLUDE_DIR RtMidi.h PATH_SUFFIXES "" rtmidi)
+find_library(FLAC_LIBRARY NAMES FLAC libFLAC)
+find_path(FLAC_INCLUDE_DIR FLAC/stream_decoder.h)
 
 if(NOT FLUIDSYNTH_LIBRARY OR NOT FLUIDSYNTH_INCLUDE_DIR)
     message(FATAL_ERROR "FluidSynth not found. Install libfluidsynth-dev")
@@ -23,6 +25,25 @@ endif()
 if(NOT RTMIDI_LIBRARY OR NOT RTMIDI_INCLUDE_DIR)
     message(FATAL_ERROR "RtMidi not found. Install librtmidi-dev")
 endif()
+if(NOT FLAC_LIBRARY)
+    message(FATAL_ERROR "libFLAC not found. Install libflac-dev")
+endif()
+
+# Path to the shared audio_mixer_cpp library sources (relative to this project)
+set(AUDIO_MIXER_CPP_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../audio_mixer_cpp/code/common)
+
+set(AUDIO_MIXER_SOURCES
+    ${AUDIO_MIXER_CPP_DIR}/AudioFile.cpp
+    ${AUDIO_MIXER_CPP_DIR}/AudioFileInfo.cpp
+    ${AUDIO_MIXER_CPP_DIR}/AudioFileResultType.cpp
+    ${AUDIO_MIXER_CPP_DIR}/AudioFileTools.cpp
+    ${AUDIO_MIXER_CPP_DIR}/EOUtils.cpp
+    ${AUDIO_MIXER_CPP_DIR}/FLACFile.cpp
+    ${AUDIO_MIXER_CPP_DIR}/FLACFileInfo.cpp
+    ${AUDIO_MIXER_CPP_DIR}/WAVFile.cpp
+    ${AUDIO_MIXER_CPP_DIR}/WAVFileInfo.cpp
+    ${AUDIO_MIXER_CPP_DIR}/utilFunctions.cpp
+)
 
 set(SOURCES
     src/musicians_canvas_main.cpp
@@ -43,6 +64,12 @@ set(SOURCES
     src/audioutils.cpp
     src/trackdata.cpp
     src/appsettings.cpp
+    src/mixdialog.cpp
+    src/mixdialog.h
+    src/audiostartup.cpp
+    src/audiostartup.h
+    src/resources.qrc
+    ${AUDIO_MIXER_SOURCES}
 )
 
 add_executable(musicians_canvas ${SOURCES})
@@ -94,6 +121,7 @@ target_link_libraries(musicians_canvas
     Qt6::Widgets
     ${FLUIDSYNTH_LIBRARY}
     ${RTMIDI_LIBRARY}
+    ${FLAC_LIBRARY}
 )
 if(QT_MULTIMEDIA_FOUND)
     target_link_libraries(musicians_canvas Qt6::Multimedia)
@@ -103,4 +131,16 @@ endif()
 target_include_directories(musicians_canvas PRIVATE
     ${FLUIDSYNTH_INCLUDE_DIR}
     ${RTMIDI_INCLUDE_DIR}
+    ${AUDIO_MIXER_CPP_DIR}
 )
+
+# Platform-specific libraries for low-latency audio initialisation
+if(WIN32)
+    # advapi32: Windows registry API (RegOpenKeyExW, RegEnumKeyExW) for ASIO detection
+    # winmm:    Windows Multimedia API used by the MIDI and audio subsystems
+    target_link_libraries(musicians_canvas advapi32 winmm)
+else()
+    # Threads (pthreads on Linux) – used by Qt Multimedia's audio backend
+    find_package(Threads REQUIRED)
+    target_link_libraries(musicians_canvas Threads::Threads)
+endif()

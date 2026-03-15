@@ -32,6 +32,9 @@ void AppSettings::load() {
     m_audioInputDeviceIndex = settings.value("Audio/inputDeviceIndex", 0).toInt();
     QString deviceIdHex = settings.value("Audio/inputDeviceId").toString();
     m_audioInputDeviceId = QByteArray::fromHex(deviceIdHex.toLatin1());
+    QString outputDeviceIdHex = settings.value("Audio/outputDeviceId").toString();
+    m_audioOutputDeviceId = QByteArray::fromHex(outputDeviceIdHex.toLatin1());
+    m_projectLocation = settings.value("Project/location").toString();
 }
 
 void AppSettings::save() {
@@ -61,6 +64,12 @@ void AppSettings::save() {
     out << "inputDeviceIndex=" << m_audioInputDeviceIndex << "\n";
     out << "; Audio input device ID (system identifier, hex encoded)\n";
     out << "inputDeviceId=" << QString::fromLatin1(m_audioInputDeviceId.toHex()) << "\n";
+    out << "; Audio output device ID (system identifier, hex encoded; empty = default)\n";
+    out << "outputDeviceId=" << QString::fromLatin1(m_audioOutputDeviceId.toHex()) << "\n\n";
+
+    out << "[Project]\n";
+    out << "; Default project directory for storing recorded audio and MIDI files\n";
+    out << "location=" << m_projectLocation << "\n";
 
     file.close();
 }

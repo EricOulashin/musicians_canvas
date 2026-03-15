@@ -70,7 +70,7 @@ void VkMainWindow::setupToolbar(QVBoxLayout* mainLayout) {
 
     m_volumeSpin = new QSpinBox();
     m_volumeSpin->setRange(0, 127);
-    m_volumeSpin->setValue(100);
+    m_volumeSpin->setValue(127);
     m_volumeSpin->setFixedWidth(50);
     m_volumeSpin->setFocusPolicy(Qt::ClickFocus);
     connect(m_volumeSpin, QOverload<int>::of(&QSpinBox::valueChanged), this, &VkMainWindow::onVolumeChanged);
@@ -233,18 +233,82 @@ void VkMainWindow::onMidiNoteOff(int note) {
     m_midiIo->sendNoteOff(note);
 }
 
+// Standard General MIDI Level 1 program names (128 instruments)
+static const char* const s_gmNames[128] = {
+    // Piano
+    "Acoustic Grand Piano","Bright Acoustic Piano","Electric Grand Piano","Honky-tonk Piano",
+    "Electric Piano 1","Electric Piano 2","Harpsichord","Clavinet",
+    // Chromatic Perc
+    "Celesta","Glockenspiel","Music Box","Vibraphone","Marimba","Xylophone","Tubular Bells","Dulcimer",
+    // Organ
+    "Drawbar Organ","Percussive Organ","Rock Organ","Church Organ","Reed Organ","Accordion","Harmonica","Tango Accordion",
+    // Guitar
+    "Nylon String Guitar","Steel String Guitar","Jazz Guitar","Clean Electric Guitar",
+    "Muted Electric Guitar","Overdriven Guitar","Distortion Guitar","Guitar Harmonics",
+    // Bass
+    "Acoustic Bass","Fingered Bass","Picked Bass","Fretless Bass",
+    "Slap Bass 1","Slap Bass 2","Synth Bass 1","Synth Bass 2",
+    // Strings
+    "Violin","Viola","Cello","Contrabass","Tremolo Strings","Pizzicato Strings","Orchestral Harp","Timpani",
+    // Ensemble
+    "String Ensemble 1","String Ensemble 2","Synth Strings 1","Synth Strings 2",
+    "Choir Aahs","Voice Oohs","Synth Voice","Orchestra Hit",
+    // Brass
+    "Trumpet","Trombone","Tuba","Muted Trumpet","French Horn","Brass Section","Synth Brass 1","Synth Brass 2",
+    // Reed
+    "Soprano Sax","Alto Sax","Tenor Sax","Baritone Sax","Oboe","English Horn","Bassoon","Clarinet",
+    // Pipe
+    "Piccolo","Flute","Recorder","Pan Flute","Blown Bottle","Shakuhachi","Whistle","Ocarina",
+    // Synth Lead
+    "Square Lead","Sawtooth Lead","Calliope Lead","Chiff Lead","Charang Lead","Voice Lead","Fifths Lead","Bass+Lead",
+    // Synth Pad
+    "New Age Pad","Warm Pad","Polysynth Pad","Choir Pad","Bowed Pad","Metallic Pad","Halo Pad","Sweep Pad",
+    // Synth FX
+    "Rain FX","Soundtrack FX","Crystal FX","Atmosphere FX","Brightness FX","Goblins FX","Echoes FX","Sci-fi FX",
+    // Ethnic
+    "Sitar","Banjo","Shamisen","Koto","Kalimba","Bagpipe","Fiddle","Shanai",
+    // Percussive
+    "Tinkle Bell","Agogo","Steel Drums","Woodblock","Taiko Drum","Melodic Tom","Synth Drum","Reverse Cymbal",
+    // Sound FX
+    "Guitar Fret Noise","Breath Noise","Seashore","Bird Tweet","Telephone Ring","Helicopter","Applause","Gunshot"
+};
+
 void VkMainWindow::onSoundListChanged() {
-    const bool soft = m_midiIo->isUsingFluidSynth();
+    const bool usingFluid = m_midiIo->isUsingFluidSynth();
     {
         QSignalBlocker blocker(m_soundCombo);
         m_soundCombo->clear();
-        if (soft) {
-            for (const auto& p : m_midiIo->getPresets()) {
-                const QString label = QString("%1:%2 %3")
-                    .arg(p.bank).arg(p.program, 3, 10, QChar('0')).arg(p.name);
-                m_soundCombo->addItem(label, QPoint(p.bank, p.program));
+        if (usingFluid) {
+            const auto presets = m_midiIo->getPresets();
+            if (presets.isEmpty()) {
+                // FluidSynth loaded but no SoundFont — show placeholder
+                m_soundCombo->addItem(tr("(No SoundFont — configure one in Settings)"), QPoint(0, 0));
+            } else {
+                for (const auto& p : presets) {
+                    const QString label = QString("%1:%2 %3")
+                        .arg(p.bank).arg(p.program, 3, 10, QChar('0')).arg(p.name);
+                    m_soundCombo->addItem(label, QPoint(p.bank, p.program));
+                }
+            }
+        } else if (m_midiIo->isOutputOpen()) {
+            // External MIDI device: offer standard GM program names
+            for (int i = 0; i < 128; ++i) {
+                const QString label = QString("%1 %2").arg(i + 1, 3).arg(s_gmNames[i]);
+                m_soundCombo->addItem(label, QPoint(0, i));
             }
         }
+        // else: no output open, leave combo empty
+    }
+    // Apply the first sound immediately so audio is ready on startup
+    if (m_soundCombo->count() > 0)
+        onSoundApply();
+
+    // Warn the user if audio driver failed for the built-in synth
+    if (usingFluid && !m_midiIo->isAudioDriverRunning()) {
+        m_soundCombo->setToolTip(tr("Audio driver failed to initialise. "
+            "Check that PulseAudio or PipeWire is running."));
+    } else {
+        m_soundCombo->setToolTip(QString());
     }
 }
 

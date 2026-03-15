@@ -1,0 +1,7 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/">
+        <file>images/play_button.png</file>
+        <file>images/record_button.png</file>
+    </qresource>
+</RCC>

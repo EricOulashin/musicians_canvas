@@ -22,6 +22,7 @@ struct TrackData {
     QString name;
     TrackType type = TrackType::Audio;
     bool enabled = true;
+    bool armed = false;
 
     // For audio tracks: raw PCM data (16-bit stereo, 44100 Hz)
     QByteArray audioData;

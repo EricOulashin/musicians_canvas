@@ -31,6 +31,8 @@ public:
 
     [[nodiscard]] bool isOutputOpen() const { return m_outputOpen; }
     [[nodiscard]] bool isUsingFluidSynth() const;
+    [[nodiscard]] bool isAudioDriverRunning() const;
+    [[nodiscard]] bool hasSoundFont() const;
     [[nodiscard]] QList<SoundPreset> getPresets() const;
 
 public slots:

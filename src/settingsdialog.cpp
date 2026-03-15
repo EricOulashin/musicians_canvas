@@ -134,12 +134,20 @@ void SettingsDialog::setupAudioTab() {
     layout->addWidget(createTabHeader(speakerIcon,
         tr("Here, you can configure audio settings for the application.")));
 
-    auto* audioGroup = new QGroupBox(tr("Audio Input Device"));
-    auto* audioLayout = new QVBoxLayout(audioGroup);
+    auto* inputGroup = new QGroupBox(tr("Audio Input Device"));
+    auto* inputLayout = new QVBoxLayout(inputGroup);
     m_audioInputCombo = new QComboBox();
     m_audioInputCombo->setMinimumWidth(300);
-    audioLayout->addWidget(m_audioInputCombo);
-    layout->addWidget(audioGroup);
+    inputLayout->addWidget(m_audioInputCombo);
+    layout->addWidget(inputGroup);
+
+    auto* outputGroup = new QGroupBox(tr("Audio Output Device"));
+    auto* outputLayout = new QVBoxLayout(outputGroup);
+    m_audioOutputCombo = new QComboBox();
+    m_audioOutputCombo->setMinimumWidth(300);
+    outputLayout->addWidget(m_audioOutputCombo);
+    layout->addWidget(outputGroup);
+
     layout->addStretch();
     m_tabWidget->addTab(widget, tr("Audio"));
 }
@@ -159,14 +167,21 @@ void SettingsDialog::refreshDevices() {
     }
 
     m_audioInputCombo->clear();
+    m_audioOutputCombo->clear();
 #ifdef QT_MULTIMEDIA_AVAILABLE
     const auto inputs = QMediaDevices::audioInputs();
     m_audioInputCombo->addItem(tr("(Default)"), QByteArray());
     for (const auto& device : inputs) {
         m_audioInputCombo->addItem(device.description(), device.id());
     }
+    const auto outputs = QMediaDevices::audioOutputs();
+    m_audioOutputCombo->addItem(tr("(Default)"), QByteArray());
+    for (const auto& device : outputs) {
+        m_audioOutputCombo->addItem(device.description(), device.id());
+    }
 #else
     m_audioInputCombo->addItem(tr("(Default - install qt6-multimedia-dev for device list)"), QByteArray());
+    m_audioOutputCombo->addItem(tr("(Default - install qt6-multimedia-dev for device list)"), QByteArray());
 #endif
 }
 
@@ -194,6 +209,14 @@ void SettingsDialog::loadSettings() {
             break;
         }
     }
+
+    QByteArray outputId = settings.audioOutputDeviceId();
+    for (int i = 0; i < m_audioOutputCombo->count(); ++i) {
+        if (m_audioOutputCombo->itemData(i).toByteArray() == outputId) {
+            m_audioOutputCombo->setCurrentIndex(i);
+            break;
+        }
+    }
 }
 
 void SettingsDialog::saveSettings() {
@@ -210,6 +233,7 @@ void SettingsDialog::saveSettings() {
             break;
         }
     }
+    settings.setAudioOutputDeviceId(m_audioOutputCombo->currentData().toByteArray());
     settings.save();
 }
 

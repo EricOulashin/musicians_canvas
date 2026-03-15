@@ -4,6 +4,12 @@
 #include <QDir>
 #include <QTemporaryFile>
 #include <algorithm>
+#include <vector>
+#include <string>
+#include <memory>
+#include "AudioFileTools.h"
+#include "AudioFileInfo.h"
+#include "FLACFileInfo.h"
 
 static void writeWavHeader(QFile& file, quint32 sampleRate, quint32 numSamples) {
     quint32 byteRate = sampleRate * 4;
@@ -102,4 +108,123 @@ bool AudioUtils::mixTracksToWav(const QVector<TrackData>& tracks,
     }
     file.close();
     return true;
+}
+
+// Writes a raw audio track's PCM data to a temporary WAV file.
+// Returns the path, or empty string on failure.  Caller must delete the file.
+static QString writeAudioTrackToTempWav(const TrackData& track) {
+    QTemporaryFile tmp(QDir::temp().filePath("mc_audio_XXXXXX.wav"));
+    tmp.setAutoRemove(false);
+    if (!tmp.open()) return {};
+    const QString path = tmp.fileName();
+
+    const quint32 sr = static_cast<quint32>(track.sampleRate > 0 ? track.sampleRate : 44100);
+    const int frames = track.audioData.size() / (track.channelCount * 2);
+    writeWavHeader(tmp, sr, static_cast<quint32>(frames));
+    // Write audio data; if mono, duplicate to stereo
+    if (track.channelCount == 2) {
+        tmp.write(track.audioData);
+    } else {
+        const qint16* src = reinterpret_cast<const qint16*>(track.audioData.constData());
+        for (int i = 0; i < frames; ++i) {
+            tmp.write(reinterpret_cast<const char*>(&src[i]), 2);
+            tmp.write(reinterpret_cast<const char*>(&src[i]), 2);
+        }
+    }
+    tmp.close();
+    return path;
+}
+
+// Renders a MIDI track to a FLAC file in projectPath (or system temp if projectPath is empty).
+// Returns the path to the FLAC file, or empty string on failure.
+static QString renderMidiTrackToFlac(const TrackData& track,
+                                     const QString& projectPath,
+                                     int sampleRate) {
+    // Step 1: render MIDI to a temporary WAV using MidiSynth
+    QTemporaryFile tmpWav(QDir::temp().filePath("mc_midi_XXXXXX.wav"));
+    tmpWav.setAutoRemove(false);
+    if (!tmpWav.open()) return {};
+    const QString tmpWavPath = tmpWav.fileName();
+    tmpWav.close();
+
+    MidiSynth synth;
+    if (!synth.renderMidiToWav(track.midiNotes, track.lengthSeconds, tmpWavPath, sampleRate)) {
+        QFile::remove(tmpWavPath);
+        return {};
+    }
+
+    // Step 2: determine output FLAC path
+    const QString dir = projectPath.isEmpty() ? QDir::tempPath() : projectPath;
+    QDir().mkpath(dir);
+    const QString flacPath = dir + QDir::separator() +
+                             QString("track_%1_midi.flac").arg(track.id);
+
+    // Step 3: open the temp WAV via audio_mixer_cpp
+    auto wavFile = EOUtils::createAudioFileObjForExistingFile(tmpWavPath.toStdString().c_str());
+    if (!wavFile) { QFile::remove(tmpWavPath); return {}; }
+
+    auto openResult = wavFile->open(EOUtils::AUDIO_FILE_READ);
+    if (!openResult) { QFile::remove(tmpWavPath); return {}; }
+
+    const EOUtils::AudioFileInfo wavInfo = wavFile->getAudioFileInfo();
+
+    // Step 4: create output FLAC file and configure it with the same audio format
+    auto flacFile = EOUtils::createAudioFileObjForNewFile(flacPath.toStdString().c_str());
+    if (!flacFile) { wavFile->close(); QFile::remove(tmpWavPath); return {}; }
+
+    flacFile->setAudioFileInfo(wavInfo);
+
+    auto writeResult = flacFile->open(EOUtils::AUDIO_FILE_WRITE);
+    if (!writeResult) { wavFile->close(); QFile::remove(tmpWavPath); return {}; }
+
+    // Step 5: copy all samples from WAV → FLAC
+    const size_t numSamples = wavFile->numSamples();
+    for (size_t i = 0; i < numSamples; ++i) {
+        int64_t sample = 0;
+        if (!wavFile->getNextSample_int64(sample)) break;
+        flacFile->writeSample_int64(sample);
+    }
+
+    wavFile->close();
+    flacFile->close();
+    QFile::remove(tmpWavPath);
+
+    return flacPath;
+}
+
+bool AudioUtils::mixTracksToFile(const QVector<TrackData>& tracks,
+                                  const QString& outputPath,
+                                  const QString& projectPath,
+                                  int sampleRate) {
+    std::vector<std::string> inputFiles;
+    std::vector<std::string> tempFiles;  // files to clean up afterward
+
+    for (const auto& track : tracks) {
+        if (!track.enabled) continue;
+
+        if (track.type == TrackType::Audio && !track.audioData.isEmpty()) {
+            const QString wavPath = writeAudioTrackToTempWav(track);
+            if (!wavPath.isEmpty()) {
+                inputFiles.push_back(wavPath.toStdString());
+                tempFiles.push_back(wavPath.toStdString());
+            }
+        } else if (track.type == TrackType::MIDI && !track.midiNotes.isEmpty()) {
+            const QString flacPath = renderMidiTrackToFlac(track, projectPath, sampleRate);
+            if (!flacPath.isEmpty()) {
+                inputFiles.push_back(flacPath.toStdString());
+                // FLAC files in project dir are intentionally kept, not added to tempFiles
+            }
+        }
+    }
+
+    bool success = false;
+    if (!inputFiles.empty()) {
+        const auto result = EOUtils::mixAudioFiles(inputFiles, outputPath.toStdString());
+        success = static_cast<bool>(result);
+    }
+
+    for (const auto& f : tempFiles)
+        QFile::remove(QString::fromStdString(f));
+
+    return success;
 }

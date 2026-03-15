@@ -23,6 +23,12 @@ public:
     void setAudioInputDeviceIndex(int index) { m_audioInputDeviceIndex = index; }
     QByteArray audioInputDeviceId() const { return m_audioInputDeviceId; }
     void setAudioInputDeviceId(const QByteArray& id) { m_audioInputDeviceId = id; }
+    QByteArray audioOutputDeviceId() const { return m_audioOutputDeviceId; }
+    void setAudioOutputDeviceId(const QByteArray& id) { m_audioOutputDeviceId = id; }
+
+    // Project settings
+    QString projectLocation() const { return m_projectLocation; }
+    void setProjectLocation(const QString& path) { m_projectLocation = path; }
 
     void load();
     void save();
@@ -37,6 +43,8 @@ private:
     QString m_soundFontPath;
     int m_audioInputDeviceIndex = 0;
     QByteArray m_audioInputDeviceId;
+    QByteArray m_audioOutputDeviceId;
+    QString m_projectLocation;
 };
 
 #endif // APPSETTINGS_H

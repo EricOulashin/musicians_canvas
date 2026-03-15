@@ -3,6 +3,7 @@
 #include <RtMidi.h>
 #include <fluidsynth.h>
 #include <QMetaObject>
+#include <QFile>
 #include <algorithm>
 #include <cstring>
 #include <memory>
@@ -79,6 +80,28 @@ VkMidiIo::VkMidiIo(QObject* parent) : QObject(parent) {
 
 VkMidiIo::~VkMidiIo() = default;
 
+// Common system SoundFont paths to try when none is configured
+static QString findSystemSoundFont() {
+    static const char* const s_sfPaths[] = {
+        // Debian/Ubuntu
+        "/usr/share/sounds/sf2/default-GM.sf2",
+        "/usr/share/sounds/sf2/default.sf2",
+        "/usr/share/sounds/sf2/FluidR3_GM.sf2",
+        "/usr/share/sounds/sf2/TimGM6mb.sf2",
+        // Fedora/RHEL
+        "/usr/share/soundfonts/default.sf2",
+        "/usr/share/soundfonts/FluidR3_GM.sf2",
+        // Arch Linux
+        "/usr/share/soundfonts/freepats-general-midi.sf2",
+        nullptr
+    };
+    for (int i = 0; s_sfPaths[i] != nullptr; ++i) {
+        if (QFile::exists(QString::fromUtf8(s_sfPaths[i])))
+            return QString::fromUtf8(s_sfPaths[i]);
+    }
+    return {};
+}
+
 void VkMidiIo::setOutputDevice(int index) {
     m_impl->cleanup();
     m_outputOpen = false;
@@ -87,9 +110,21 @@ void VkMidiIo::setOutputDevice(int index) {
         m_impl->fluidSettings = new_fluid_settings();
         fluid_settings_setint(m_impl->fluidSettings, "audio.realtime-prio", 0);
         m_impl->fluidSynth = new_fluid_synth(m_impl->fluidSettings);
-        const QString sfPath = VkSettings::instance().soundFontPath();
-        if (!sfPath.isEmpty())
-            fluid_synth_sfload(m_impl->fluidSynth, sfPath.toUtf8().constData(), 1);
+
+        // Load configured SoundFont, or search for a system one
+        QString sfPath = VkSettings::instance().soundFontPath();
+        if (sfPath.isEmpty())
+            sfPath = findSystemSoundFont();
+        if (!sfPath.isEmpty()) {
+            int sfId = fluid_synth_sfload(m_impl->fluidSynth, sfPath.toUtf8().constData(), 1);
+            if (sfId != FLUID_FAILED) {
+                // Update settings so the UI reflects the auto-found SF
+                if (VkSettings::instance().soundFontPath().isEmpty()) {
+                    VkSettings::instance().setSoundFontPath(sfPath);
+                    VkSettings::instance().save();
+                }
+            }
+        }
 
         // Try audio drivers in priority order until one succeeds.
         static const char* const s_drivers[] = {
@@ -98,7 +133,7 @@ void VkMidiIo::setOutputDevice(int index) {
 #elif defined(__APPLE__)
             "coreaudio",
 #else
-            "pulseaudio", "alsa", "jack",
+            "pipewire-pulse", "pipewire", "pulseaudio", "alsa", "jack",
 #endif
             nullptr
         };
@@ -107,7 +142,9 @@ void VkMidiIo::setOutputDevice(int index) {
             m_impl->fluidDriver = new_fluid_audio_driver(m_impl->fluidSettings, m_impl->fluidSynth);
             if (m_impl->fluidDriver) break;
         }
-        m_outputOpen = (m_impl->fluidDriver != nullptr);
+        // Consider FluidSynth "open" if synth was created, even if driver failed
+        // (so notes are accepted; audio will be silent if driver is missing)
+        m_outputOpen = (m_impl->fluidSynth != nullptr);
     } else {
         try {
             auto out = make_shared<RtMidiOut>();
@@ -150,6 +187,15 @@ void VkMidiIo::setAudioOutputDevice(const QByteArray& /*deviceId*/) {
 
 bool VkMidiIo::isUsingFluidSynth() const {
     return m_impl && m_impl->fluidSynth != nullptr;
+}
+
+bool VkMidiIo::isAudioDriverRunning() const {
+    return m_impl && m_impl->fluidDriver != nullptr;
+}
+
+bool VkMidiIo::hasSoundFont() const {
+    if (!m_impl || !m_impl->fluidSynth) return false;
+    return fluid_synth_get_sfont(m_impl->fluidSynth, 0) != nullptr;
 }
 
 QList<VkMidiIo::SoundPreset> VkMidiIo::getPresets() const {

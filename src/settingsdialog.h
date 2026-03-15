@@ -30,6 +30,7 @@ private:
     QComboBox* m_midiDeviceCombo = nullptr;
     QLineEdit* m_soundFontEdit = nullptr;
     QComboBox* m_audioInputCombo = nullptr;
+    QComboBox* m_audioOutputCombo = nullptr;
 };
 
 #endif // SETTINGSDIALOG_H
