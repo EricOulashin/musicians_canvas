@@ -5,12 +5,14 @@
 #include <QVector>
 #include <QIcon>
 #include "trackdata.h"
+#include "projectsettings.h"
 
 class QScrollArea;
 class QWidget;
 class QVBoxLayout;
 class QPushButton;
 class QLineEdit;
+class QTimer;
 class TrackWidget;
 class SettingsDialog;
 
@@ -21,7 +23,8 @@ class QAudioSource;
 class QBuffer;
 #endif
 
-class MainWindow : public QMainWindow {
+class MainWindow : public QMainWindow
+{
     Q_OBJECT
 public:
     explicit MainWindow(QWidget* parent = nullptr);
@@ -44,10 +47,12 @@ private slots:
     void onTrackNameChanged(TrackWidget* widget, const QString& oldName, const QString& newName);
     void onTrackRemoveRequested(TrackWidget* widget);
     void onClearTracks();
+    void onProjectSettings();
 
 private:
     void setupMenuBar();
     void setupUi();
+    void loadProjectFromFile(const QString& path);
     TrackData createNewTrack();
     void updatePlayRecordButton();
     bool isAnyTrackArmed() const;
@@ -74,6 +79,17 @@ private:
     QIcon m_stopIcon;
     bool m_isActive = false;  // true while playing or recording
     bool m_isDirty = false;   // true when there are unsaved changes
+
+    ProjectSettings m_projectSettings;
+
+    QTimer* m_recordingLevelTimer = nullptr;
+
+#ifdef QT_MULTIMEDIA_AVAILABLE
+    // Actual format the recording is using (may differ from project settings if unsupported)
+    int  m_recordingSampleRate    = 44100;
+    int  m_recordingChannelCount  = 2;
+    int  m_recordingSampleFormat  = 2;   // QAudioFormat::SampleFormat enum value (2 = Int16)
+#endif
 
 #ifdef QT_MULTIMEDIA_AVAILABLE
     QMediaPlayer* m_player = nullptr;

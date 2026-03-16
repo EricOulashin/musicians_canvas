@@ -5,9 +5,11 @@
 #include <QStyle>
 #include <QStyleFactory>
 
-namespace ThemeUtils {
+namespace ThemeUtils
+{
 
-static QString darkStylesheet() {
+static QString darkStylesheet()
+{
     return R"(
         QMainWindow { background-color: #1e1e24; }
         QWidget { background-color: #252530; color: #e0e0e0; }
@@ -38,7 +40,8 @@ static QString darkStylesheet() {
     )";
 }
 
-static QString lightStylesheet() {
+static QString lightStylesheet()
+{
     return R"(
         QMainWindow { background-color: #f0f0f0; }
         QWidget { background-color: #ffffff; color: #333333; }
@@ -69,16 +72,20 @@ static QString lightStylesheet() {
     )";
 }
 
-void applyTheme(const QString& theme) {
+void applyTheme(const QString& theme)
+{
     QApplication* app = qobject_cast<QApplication*>(qApp);
     if (!app) return;
 
     app->setStyle(QStyleFactory::create("Fusion"));
 
-    if (theme == "light") {
+    if (theme == "light")
+    {
         app->setPalette(app->style()->standardPalette());
         app->setStyleSheet(lightStylesheet());
-    } else {
+    }
+    else
+    {
         QPalette darkPalette;
         darkPalette.setColor(QPalette::Window, QColor(30, 30, 36));
         darkPalette.setColor(QPalette::WindowText, QColor(224, 224, 224));
@@ -94,7 +101,8 @@ void applyTheme(const QString& theme) {
     }
 }
 
-void applySavedTheme() {
+void applySavedTheme()
+{
     applyTheme(AppSettings::instance().theme());
 }
 

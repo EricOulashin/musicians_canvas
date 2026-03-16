@@ -2,7 +2,8 @@
 #include <QVBoxLayout>
 #include <QLabel>
 
-VkHelpDialog::VkHelpDialog(QWidget* parent) : QDialog(parent) {
+VkHelpDialog::VkHelpDialog(QWidget* parent) : QDialog(parent)
+{
     setWindowTitle(tr("Using this application"));
     setMinimumSize(450, 300);
     resize(500, 350);

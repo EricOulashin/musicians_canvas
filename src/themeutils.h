@@ -5,7 +5,8 @@
 
 class QApplication;
 
-namespace ThemeUtils {
+namespace ThemeUtils
+{
     void applyTheme(const QString& theme);
     void applySavedTheme();
 }

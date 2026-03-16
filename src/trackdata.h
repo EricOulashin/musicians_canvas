@@ -5,19 +5,22 @@
 #include <QVector>
 #include <QByteArray>
 
-enum class TrackType {
+enum class TrackType
+{
     Audio,
     MIDI
 };
 
-struct MidiNote {
+struct MidiNote
+{
     int note;       // MIDI note number (0-127)
     int velocity;
     double startTime;  // in seconds
     double duration;  // in seconds
 };
 
-struct TrackData {
+struct TrackData
+{
     int id = -1;
     QString name;
     TrackType type = TrackType::Audio;
@@ -33,11 +36,15 @@ struct TrackData {
     QVector<MidiNote> midiNotes;
     double lengthSeconds = 0;  // Track length in seconds
 
-    [[nodiscard]] double length() const {
-        if (type == TrackType::Audio) {
+    [[nodiscard]] double length() const
+    {
+        if (type == TrackType::Audio)
+        {
             int sampleCount = audioData.size() / (channelCount * 2);  // 16-bit = 2 bytes
             return sampleCount / (double)sampleRate;
-        } else {
+        }
+        else
+        {
             return lengthSeconds;
         }
     }

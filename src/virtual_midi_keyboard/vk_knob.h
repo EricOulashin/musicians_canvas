@@ -3,12 +3,16 @@
 
 #include <QWidget>
 
-class VkKnob : public QWidget {
+class VkKnob : public QWidget
+{
     Q_OBJECT
 public:
     explicit VkKnob(QWidget* parent = nullptr);
 
-    [[nodiscard]] int value() const { return m_value; }
+    [[nodiscard]] int value() const
+    {
+        return m_value;
+    }
     void setValue(int val);
     void setRange(int minVal, int maxVal);
 

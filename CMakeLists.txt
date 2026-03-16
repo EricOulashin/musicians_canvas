@@ -55,6 +55,9 @@ set(SOURCES
     src/trackconfigdialog.h
     src/settingsdialog.cpp
     src/settingsdialog.h
+    src/projectsettings.h
+    src/projectsettingsdialog.cpp
+    src/projectsettingsdialog.h
     src/waveformwidget.cpp
     src/waveformwidget.h
     src/midivisualizationwidget.cpp
@@ -143,4 +146,21 @@ else()
     # Threads (pthreads on Linux) – used by Qt Multimedia's audio backend
     find_package(Threads REQUIRED)
     target_link_libraries(musicians_canvas Threads::Threads)
+
+    # PipeWire: FluidSynth's native PipeWire audio driver requires pw_init() to be
+    # called before any PipeWire resources are created.  Link both executables against
+    # libpipewire so they can call pw_init()/pw_deinit() directly.
+    find_package(PkgConfig QUIET)
+    if(PkgConfig_FOUND)
+        pkg_check_modules(PIPEWIRE libpipewire-0.3)
+        if(PIPEWIRE_FOUND)
+            target_include_directories(virtual_midi_keyboard PRIVATE ${PIPEWIRE_INCLUDE_DIRS})
+            target_link_libraries(virtual_midi_keyboard ${PIPEWIRE_LIBRARIES})
+            target_compile_definitions(virtual_midi_keyboard PRIVATE HAVE_PIPEWIRE)
+
+            target_include_directories(musicians_canvas PRIVATE ${PIPEWIRE_INCLUDE_DIRS})
+            target_link_libraries(musicians_canvas ${PIPEWIRE_LIBRARIES})
+            target_compile_definitions(musicians_canvas PRIVATE HAVE_PIPEWIRE)
+        endif()
+    endif()
 endif()

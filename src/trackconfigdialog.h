@@ -8,7 +8,8 @@
 class QRadioButton;
 class QDialogButtonBox;
 
-class TrackConfigDialog : public QDialog {
+class TrackConfigDialog : public QDialog
+{
     Q_OBJECT
 public:
     explicit TrackConfigDialog(QWidget* parent = nullptr);

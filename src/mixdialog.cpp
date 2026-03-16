@@ -39,27 +39,31 @@ MixDialog::MixDialog(const QString& defaultDir, QWidget* parent)
     layout->addWidget(buttons);
 }
 
-QString MixDialog::outputFilename() const {
+QString MixDialog::outputFilename() const
+{
     return m_filenameEdit ? m_filenameEdit->text().trimmed() : QString();
 }
 
-void MixDialog::onBrowse() {
+void MixDialog::onBrowse()
+{
     const QString startDir = m_defaultDir.isEmpty() ? QDir::homePath() : m_defaultDir;
     QString path = QFileDialog::getSaveFileName(
         this, tr("Choose output file"), startDir,
-        tr("WAV files (*.wav);;FLAC files (*.flac)"));
+        tr("FLAC files (*.flac);;WAV files (*.wav)"));
     if (path.isEmpty()) return;
 
     // Ensure a recognised extension is present
     if (!path.endsWith(".wav", Qt::CaseInsensitive) &&
         !path.endsWith(".flac", Qt::CaseInsensitive))
-        path += ".wav";
+        path += ".flac";
 
     m_filenameEdit->setText(path);
 }
 
-void MixDialog::onAccept() {
-    if (outputFilename().isEmpty()) {
+void MixDialog::onAccept()
+{
+    if (outputFilename().isEmpty())
+    {
         QMessageBox::warning(this, tr("No file chosen"), tr("Please choose an output file."));
         return;
     }

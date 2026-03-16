@@ -6,6 +6,8 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QCheckBox>
+#include <QRadioButton>
+#include <QToolButton>
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QStackedWidget>
@@ -16,7 +18,8 @@ TrackWidget::TrackWidget(const TrackData& data, QWidget* parent)
     setupUi();
 }
 
-void TrackWidget::setupUi() {
+void TrackWidget::setupUi()
+{
     setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     setLineWidth(1);
     setObjectName("trackFrame");
@@ -34,22 +37,43 @@ void TrackWidget::setupUi() {
     m_configButton = new QPushButton(tr("Options"));
     m_configButton->setFixedWidth(80);
     connect(m_configButton, &QPushButton::clicked, this,
-            [this]() { emit configurationRequested(this); });
+            [this]()
+            {
+                emit configurationRequested(this);
+            });
     topRow->addWidget(m_configButton);
+
+    m_typeIconLabel = new QToolButton();
+    m_typeIconLabel->setFixedSize(26, 26);
+    m_typeIconLabel->setAutoRaise(true);
+    m_typeIconLabel->setCursor(Qt::PointingHandCursor);
+    // Use a slightly larger font so the emoji is clear at the icon size
+    QFont iconFont = m_typeIconLabel->font();
+    iconFont.setPointSize(14);
+    m_typeIconLabel->setFont(iconFont);
+    connect(m_typeIconLabel, &QToolButton::clicked, this,
+            [this]()
+            {
+                emit configurationRequested(this);
+            });
+    topRow->addWidget(m_typeIconLabel);
 
     m_nameEdit = new QLineEdit();
     m_nameEdit->setText(m_data.name);
     m_nameEdit->setPlaceholderText(tr("Track name"));
-    connect(m_nameEdit, &QLineEdit::editingFinished, this, [this]() {
+    connect(m_nameEdit, &QLineEdit::editingFinished, this, [this]()
+    {
         const QString newName = m_nameEdit->text().trimmed();
-        if (newName.isEmpty()) {
+        if (newName.isEmpty())
+        {
             QMessageBox::warning(this, tr("Invalid Name"),
                                  tr("Track name cannot be empty."));
             QSignalBlocker blocker(m_nameEdit);
             m_nameEdit->setText(m_lastValidName);
             return;
         }
-        if (newName != m_lastValidName) {
+        if (newName != m_lastValidName)
+        {
             const QString oldName = m_lastValidName;
             m_lastValidName = newName;
             m_data.name = newName;
@@ -58,10 +82,10 @@ void TrackWidget::setupUi() {
     });
     topRow->addWidget(m_nameEdit, 1);
 
-    auto* removeBtn = new QPushButton(QStringLiteral("\u2715"));  // ✕
-    removeBtn->setFixedSize(22, 22);
-    removeBtn->setToolTip(tr("Remove track"));
-    removeBtn->setStyleSheet(
+    m_removeBtn = new QPushButton(QStringLiteral("\u2715"));  // ✕
+    m_removeBtn->setFixedSize(22, 22);
+    m_removeBtn->setToolTip(tr("Remove track"));
+    m_removeBtn->setStyleSheet(
         "QPushButton {"
         "  background-color: #cc2222;"
         "  color: white;"
@@ -72,9 +96,12 @@ void TrackWidget::setupUi() {
         "}"
         "QPushButton:hover { background-color: #ee4444; }"
         "QPushButton:pressed { background-color: #aa1111; }");
-    connect(removeBtn, &QPushButton::clicked, this,
-            [this]() { emit removeRequested(this); });
-    topRow->addWidget(removeBtn);
+    connect(m_removeBtn, &QPushButton::clicked, this,
+            [this]()
+            {
+                emit removeRequested(this);
+            });
+    topRow->addWidget(m_removeBtn);
 
     outerLayout->addLayout(topRow);
 
@@ -91,9 +118,9 @@ void TrackWidget::setupUi() {
     m_enabledCheck->setChecked(m_data.enabled);
     connect(m_enabledCheck, &QCheckBox::toggled, this, &TrackWidget::onEnabledToggled);
 
-    m_armCheck = new QCheckBox(tr("Arm"));
+    m_armCheck = new QRadioButton(tr("Arm"));
     m_armCheck->setChecked(m_data.armed);
-    connect(m_armCheck, &QCheckBox::toggled, this, &TrackWidget::onArmToggled);
+    connect(m_armCheck, &QRadioButton::toggled, this, &TrackWidget::onArmToggled);
 
     leftLayout->addWidget(m_enabledCheck);
     leftLayout->addWidget(m_armCheck);
@@ -113,61 +140,128 @@ void TrackWidget::setupUi() {
     outerLayout->addLayout(bottomRow);
 
     updateVisualization();
+    updateTypeIcon();
 }
 
-bool TrackWidget::isArmed() const {
+bool TrackWidget::isArmed() const
+{
     return m_armCheck ? m_armCheck->isChecked() : false;
 }
 
-void TrackWidget::setArmed(bool armed) {
+void TrackWidget::setArmed(bool armed)
+{
     m_data.armed = armed;
-    if (m_armCheck) {
+    if (m_armCheck)
+    {
         QSignalBlocker blocker(m_armCheck);
         m_armCheck->setChecked(armed);
     }
 }
 
-void TrackWidget::setArmEnabled(bool enabled) {
+void TrackWidget::setArmEnabled(bool enabled)
+{
     if (m_armCheck)
+    {
+        if (!enabled && m_armCheck->isChecked())
+        {
+            QSignalBlocker blocker(m_armCheck);
+            m_armCheck->setChecked(false);
+            m_data.armed = false;
+            // Notify the rest of the app that arm was cleared
+            emit armChanged(this, false);
+        }
         m_armCheck->setEnabled(enabled);
+    }
 }
 
-void TrackWidget::setTrackData(const TrackData& data) {
+void TrackWidget::setInteractiveControlsEnabled(bool enabled)
+{
+    if (m_enabledCheck)   m_enabledCheck->setEnabled(enabled);
+    if (m_armCheck)       m_armCheck->setEnabled(enabled);
+    if (m_nameEdit)       m_nameEdit->setEnabled(enabled);
+    if (m_removeBtn)      m_removeBtn->setEnabled(enabled);
+    if (m_typeIconLabel)  m_typeIconLabel->setEnabled(enabled);
+}
+
+void TrackWidget::setTrackData(const TrackData& data)
+{
     m_data = data;
     m_lastValidName = data.name;
-    if (m_nameEdit) {
+    if (m_nameEdit)
+    {
         QSignalBlocker blocker(m_nameEdit);
         m_nameEdit->setText(m_data.name);
     }
     m_enabledCheck->setChecked(m_data.enabled);
-    if (m_stackedWidget) {
+    if (m_stackedWidget)
+    {
         m_stackedWidget->setCurrentWidget(m_data.type == TrackType::Audio
                                           ? static_cast<QWidget*>(m_waveformWidget)
                                           : static_cast<QWidget*>(m_midiWidget));
     }
     updateVisualization();
+    updateTypeIcon();
 }
 
-void TrackWidget::updateVisualization() {
-    if (m_data.type == TrackType::Audio) {
+void TrackWidget::setRecordingLevel(float level)
+{
+    if (m_waveformWidget) m_waveformWidget->setRecordingLevel(level);
+}
+
+void TrackWidget::clearRecordingLevel()
+{
+    if (m_waveformWidget) m_waveformWidget->clearRecordingLevel();
+}
+
+void TrackWidget::updateTypeIcon()
+{
+    if (!m_typeIconLabel) return;
+    if (m_data.type == TrackType::MIDI)
+    {
+        m_typeIconLabel->setText(QStringLiteral("\U0001F3B9"));  // 🎹 piano keyboard
+        m_typeIconLabel->setToolTip(tr("MIDI track — click to change input type"));
+    }
+    else
+    {
+        m_typeIconLabel->setText(QStringLiteral("\U0001F50A"));  // 🔊 speaker
+        m_typeIconLabel->setToolTip(tr("Audio track — click to change input type"));
+    }
+}
+
+void TrackWidget::updateVisualization()
+{
+    if (m_data.type == TrackType::Audio)
+    {
         m_waveformWidget->setAudioData(m_data.audioData, m_data.sampleRate, m_data.channelCount);
         m_midiWidget->clear();
-    } else {
+    }
+    else
+    {
         m_waveformWidget->clear();
         m_midiWidget->setMidiNotes(m_data.midiNotes, m_data.lengthSeconds);
     }
 }
 
-void TrackWidget::onConfigClicked() {
+void TrackWidget::onConfigClicked()
+{
     emit configurationRequested(this);
 }
 
-void TrackWidget::onEnabledToggled(bool checked) {
+void TrackWidget::onEnabledToggled(bool checked)
+{
     m_data.enabled = checked;
+    if (!checked && m_armCheck && m_armCheck->isChecked())
+    {
+        QSignalBlocker blocker(m_armCheck);
+        m_armCheck->setChecked(false);
+        m_data.armed = false;
+        emit armChanged(this, false);
+    }
     emit dataChanged(this);
 }
 
-void TrackWidget::onArmToggled(bool checked) {
+void TrackWidget::onArmToggled(bool checked)
+{
     m_data.armed = checked;
     emit armChanged(this, checked);
 }

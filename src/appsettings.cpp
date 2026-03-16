@@ -6,21 +6,25 @@
 #include <QTextStream>
 #include <QStringConverter>
 
-static QString configFilePath() {
+static QString configFilePath()
+{
     QString dir = QCoreApplication::applicationDirPath();
     return dir + QDir::separator() + "config.ini";
 }
 
-AppSettings& AppSettings::instance() {
+AppSettings& AppSettings::instance()
+{
     static AppSettings instance;
     return instance;
 }
 
-AppSettings::AppSettings() {
+AppSettings::AppSettings()
+{
     load();
 }
 
-void AppSettings::load() {
+void AppSettings::load()
+{
     const QString path = configFilePath();
     QSettings settings(path, QSettings::IniFormat);
 
@@ -37,7 +41,8 @@ void AppSettings::load() {
     m_projectLocation = settings.value("Project/location").toString();
 }
 
-void AppSettings::save() {
+void AppSettings::save()
+{
     const QString path = configFilePath();
     QFile file(path);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))

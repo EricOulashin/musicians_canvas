@@ -43,7 +43,8 @@ VkMainWindow::VkMainWindow(QWidget* parent)
     m_piano->setFocus();
 }
 
-void VkMainWindow::setupMenuBar() {
+void VkMainWindow::setupMenuBar()
+{
     auto* menuBar = this->menuBar();
 
     auto* fileMenu = menuBar->addMenu(tr("&File"));
@@ -62,7 +63,8 @@ void VkMainWindow::setupMenuBar() {
     connect(helpAction, &QAction::triggered, this, &VkMainWindow::onHelp);
 }
 
-void VkMainWindow::setupToolbar(QVBoxLayout* mainLayout) {
+void VkMainWindow::setupToolbar(QVBoxLayout* mainLayout)
+{
     auto* toolbar = new QWidget();
     auto* toolbarLayout = new QHBoxLayout(toolbar);
     toolbarLayout->setSpacing(2);
@@ -114,16 +116,26 @@ void VkMainWindow::setupToolbar(QVBoxLayout* mainLayout) {
     knob->setRange(1, 127);
     knob->setValue(64);
     knob->setFocusPolicy(Qt::NoFocus);
-    connect(knob, &VkKnob::valueChanged, [this](int v) { m_chorusValue = v; if (m_chorusEdit) m_chorusEdit->setText(QString::number(v)); });
+    connect(knob, &VkKnob::valueChanged, [this](int v)
+    {
+        m_chorusValue = v;
+        if (m_chorusEdit)
+            m_chorusEdit->setText(QString::number(v));
+    });
     m_chorusEdit = new QLineEdit();
     m_chorusEdit->setText("64");
     m_chorusEdit->setFixedWidth(34);
     m_chorusEdit->setValidator(new QIntValidator(1, 127, this));
     m_chorusEdit->setStyleSheet("background:#002200;color:#00ff00;font-family:monospace;");
     m_chorusEdit->setFocusPolicy(Qt::ClickFocus);
-    connect(m_chorusEdit, &QLineEdit::editingFinished, [this, knob]() {
+    connect(m_chorusEdit, &QLineEdit::editingFinished, [this, knob]()
+    {
         const int v = m_chorusEdit->text().toInt();
-        if (v >= 1 && v <= 127) { m_chorusValue = v; knob->setValue(v); }
+        if (v >= 1 && v <= 127)
+        {
+            m_chorusValue = v;
+            knob->setValue(v);
+        }
     });
 
     auto* chorusCol = new QVBoxLayout();
@@ -159,7 +171,8 @@ void VkMainWindow::setupToolbar(QVBoxLayout* mainLayout) {
     mainLayout->addWidget(toolbar);
 }
 
-void VkMainWindow::setupPiano(QVBoxLayout* mainLayout) {
+void VkMainWindow::setupPiano(QVBoxLayout* mainLayout)
+{
     m_piano = new VkPianoKeyboard(this);
     // Trying to make the piano window the width of the main window, but it's not working:
     QSize winSize = this->size();
@@ -170,66 +183,85 @@ void VkMainWindow::setupPiano(QVBoxLayout* mainLayout) {
     mainLayout->addWidget(m_piano, 1);
 }
 
-void VkMainWindow::applyMidiOutput() {
-    m_midiIo->setOutputDevice(VkSettings::instance().midiOutputIndex());
-    m_midiIo->setInputDevice(VkSettings::instance().midiInputIndex());
+void VkMainWindow::applyMidiOutput()
+{
+    m_midiIo->setOutputDevice(VkSettings::instance().midiOutputPortName());
+    m_midiIo->setInputDevice(VkSettings::instance().midiInputPortName());
 }
 
-void VkMainWindow::onClose() {
+void VkMainWindow::onClose()
+{
     QApplication::quit();
 }
 
-void VkMainWindow::onConfiguration() {
+void VkMainWindow::onConfiguration()
+{
     VkConfigDialog dlg(this);
     if (dlg.exec() == QDialog::Accepted)
+    {
         applyMidiOutput();
+        // Apply the new gain immediately to the live synth without requiring restart
+        m_midiIo->setSynthGain(VkSettings::instance().synthGain());
+    }
 }
 
-void VkMainWindow::onHelp() {
+void VkMainWindow::onHelp()
+{
     VkHelpDialog dlg(this);
     dlg.exec();
 }
 
-void VkMainWindow::onOctaveChanged(int value) {
+void VkMainWindow::onOctaveChanged(int value)
+{
     m_octave = value;
     if (m_piano) m_piano->setOctave(m_octave);
 }
 
-void VkMainWindow::onOctaveUp() {
+void VkMainWindow::onOctaveUp()
+{
     m_octaveSpin->setValue(m_octaveSpin->value() + 1);
 }
 
-void VkMainWindow::onOctaveDown() {
+void VkMainWindow::onOctaveDown()
+{
     m_octaveSpin->setValue(m_octaveSpin->value() - 1);
 }
 
-void VkMainWindow::onChorusChanged(int value) {
+void VkMainWindow::onChorusChanged(int value)
+{
     m_chorusValue = value;
 }
 
-void VkMainWindow::onChorusApply() {
-    if (m_chorusEdit) {
+void VkMainWindow::onChorusApply()
+{
+    if (m_chorusEdit)
+    {
         const int v = m_chorusEdit->text().toInt();
-        if (v >= 1 && v <= 127) {
+        if (v >= 1 && v <= 127)
+        {
             m_chorusValue = v;
             m_midiIo->sendControlChange(93, v);
         }
     }
 }
 
-void VkMainWindow::onNoteOn(int note) {
+void VkMainWindow::onNoteOn(int note)
+{
     m_midiIo->sendNoteOn(note, 100);
 }
 
-void VkMainWindow::onNoteOff(int note) {
+void VkMainWindow::onNoteOff(int note)
+{
     m_midiIo->sendNoteOff(note);
 }
 
-void VkMainWindow::onMidiNoteOn(int note, int velocity) {
+void VkMainWindow::onMidiNoteOn(int note, int velocity)
+{
     m_midiIo->sendNoteOn(note, velocity);
 }
 
-void VkMainWindow::onMidiNoteOff(int note) {
+void VkMainWindow::onMidiNoteOff(int note)
+{
     m_midiIo->sendNoteOff(note);
 }
 
@@ -273,26 +305,35 @@ static const char* const s_gmNames[128] = {
     "Guitar Fret Noise","Breath Noise","Seashore","Bird Tweet","Telephone Ring","Helicopter","Applause","Gunshot"
 };
 
-void VkMainWindow::onSoundListChanged() {
+void VkMainWindow::onSoundListChanged()
+{
     const bool usingFluid = m_midiIo->isUsingFluidSynth();
     {
         QSignalBlocker blocker(m_soundCombo);
         m_soundCombo->clear();
-        if (usingFluid) {
+        if (usingFluid)
+        {
             const auto presets = m_midiIo->getPresets();
-            if (presets.isEmpty()) {
+            if (presets.isEmpty())
+            {
                 // FluidSynth loaded but no SoundFont — show placeholder
                 m_soundCombo->addItem(tr("(No SoundFont — configure one in Settings)"), QPoint(0, 0));
-            } else {
-                for (const auto& p : presets) {
+            }
+            else
+            {
+                for (const auto& p : presets)
+                {
                     const QString label = QString("%1:%2 %3")
                         .arg(p.bank).arg(p.program, 3, 10, QChar('0')).arg(p.name);
                     m_soundCombo->addItem(label, QPoint(p.bank, p.program));
                 }
             }
-        } else if (m_midiIo->isOutputOpen()) {
+        }
+        else if (m_midiIo->isOutputOpen())
+        {
             // External MIDI device: offer standard GM program names
-            for (int i = 0; i < 128; ++i) {
+            for (int i = 0; i < 128; ++i)
+            {
                 const QString label = QString("%1 %2").arg(i + 1, 3).arg(s_gmNames[i]);
                 m_soundCombo->addItem(label, QPoint(0, i));
             }
@@ -304,28 +345,35 @@ void VkMainWindow::onSoundListChanged() {
         onSoundApply();
 
     // Warn the user if audio driver failed for the built-in synth
-    if (usingFluid && !m_midiIo->isAudioDriverRunning()) {
+    if (usingFluid && !m_midiIo->isAudioDriverRunning())
+    {
         m_soundCombo->setToolTip(tr("Audio driver failed to initialise. "
             "Check that PulseAudio or PipeWire is running."));
-    } else {
+    }
+    else
+    {
         m_soundCombo->setToolTip(QString());
     }
 }
 
-void VkMainWindow::onSoundApply() {
+void VkMainWindow::onSoundApply()
+{
     if (m_soundCombo->currentIndex() < 0) return;
     const QPoint bp = m_soundCombo->currentData().toPoint();
     m_midiIo->selectPreset(bp.x(), bp.y());
 }
 
-void VkMainWindow::onVolumeChanged(int value) {
+void VkMainWindow::onVolumeChanged(int value)
+{
     m_midiIo->sendControlChange(7, value);
 }
 
-void VkMainWindow::keyPressEvent(QKeyEvent* event) {
+void VkMainWindow::keyPressEvent(QKeyEvent* event)
+{
     QApplication::sendEvent(m_piano, event);
 }
 
-void VkMainWindow::keyReleaseEvent(QKeyEvent* event) {
+void VkMainWindow::keyReleaseEvent(QKeyEvent* event)
+{
     QApplication::sendEvent(m_piano, event);
 }

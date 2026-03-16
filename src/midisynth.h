@@ -6,16 +6,19 @@
 #include <QVector>
 #include "trackdata.h"
 
-class MidiSynth {
+class MidiSynth
+{
 public:
     MidiSynth();
     ~MidiSynth();
 
     [[nodiscard]] bool loadSoundFont(const QString& path);
     [[nodiscard]] bool renderMidiToWav(const QVector<MidiNote>& notes, double lengthSeconds,
-                         const QString& outputPath, int sampleRate = 44100);
+                         const QString& outputPath, int sampleRate = 44100,
+                         const QString& soundFontPath = QString());
     [[nodiscard]] bool renderMidiFileToWav(const QString& midiPath, const QString& outputPath,
-                            int sampleRate = 44100);
+                            int sampleRate = 44100,
+                            const QString& soundFontPath = QString());
 
 private:
     class Impl;

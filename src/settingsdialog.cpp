@@ -23,7 +23,8 @@
 
 using std::string;
 
-SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent) {
+SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
+{
     setWindowTitle(tr("Configuration"));
     setMinimumSize(450, 350);
     resize(500, 380);
@@ -50,7 +51,8 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent) {
     loadSettings();
 }
 
-static QWidget* createTabHeader(const QIcon& icon, const QString& text) {
+static QWidget* createTabHeader(const QIcon& icon, const QString& text)
+{
     auto* header = new QFrame();
     header->setFrameShape(QFrame::NoFrame);
     auto* headerLayout = new QHBoxLayout(header);
@@ -67,7 +69,8 @@ static QWidget* createTabHeader(const QIcon& icon, const QString& text) {
     return header;
 }
 
-void SettingsDialog::setupGeneralTab() {
+void SettingsDialog::setupGeneralTab()
+{
     auto* widget = new QWidget();
     auto* layout = new QVBoxLayout(widget);
 
@@ -89,7 +92,8 @@ void SettingsDialog::setupGeneralTab() {
     m_tabWidget->addTab(widget, tr("General"));
 }
 
-void SettingsDialog::setupMidiTab() {
+void SettingsDialog::setupMidiTab()
+{
     auto* widget = new QWidget();
     auto* layout = new QVBoxLayout(widget);
 
@@ -125,7 +129,8 @@ void SettingsDialog::setupMidiTab() {
     m_tabWidget->addTab(widget, tr("MIDI"));
 }
 
-void SettingsDialog::setupAudioTab() {
+void SettingsDialog::setupAudioTab()
+{
     auto* widget = new QWidget();
     auto* layout = new QVBoxLayout(widget);
 
@@ -152,18 +157,26 @@ void SettingsDialog::setupAudioTab() {
     m_tabWidget->addTab(widget, tr("Audio"));
 }
 
-void SettingsDialog::refreshDevices() {
+void SettingsDialog::refreshDevices()
+{
     m_midiDeviceCombo->clear();
-    try {
-        RtMidiIn midiIn;
-        unsigned int portCount = midiIn.getPortCount();
-        m_midiDeviceCombo->addItem(tr("(No MIDI device)"), -1);
-        for (unsigned int i = 0; i < portCount; ++i) {
-            string name = midiIn.getPortName(i);
-            m_midiDeviceCombo->addItem(QString::fromStdString(name), (int)i);
+    // Index 0 is always the built-in FluidSynth synthesizer (matches VK convention
+    // where setOutputDevice(<=0) uses the embedded FluidSynth).
+    m_midiDeviceCombo->addItem(tr("Built-in FluidSynth synthesizer"), 0);
+    try
+    {
+        RtMidiOut midiOut;
+        const unsigned int portCount = midiOut.getPortCount();
+        for (unsigned int i = 0; i < portCount; ++i)
+        {
+            const string name = midiOut.getPortName(i);
+            // External ports are stored as 1-based so index 0 stays reserved for FluidSynth
+            m_midiDeviceCombo->addItem(QString::fromStdString(name), static_cast<int>(i + 1));
         }
-    } catch (...) {
-        m_midiDeviceCombo->addItem(tr("(MIDI not available)"), -1);
+    }
+    catch (...)
+    {
+        // External MIDI output not available; FluidSynth entry above still works
     }
 
     m_audioInputCombo->clear();
@@ -171,12 +184,14 @@ void SettingsDialog::refreshDevices() {
 #ifdef QT_MULTIMEDIA_AVAILABLE
     const auto inputs = QMediaDevices::audioInputs();
     m_audioInputCombo->addItem(tr("(Default)"), QByteArray());
-    for (const auto& device : inputs) {
+    for (const auto& device : inputs)
+    {
         m_audioInputCombo->addItem(device.description(), device.id());
     }
     const auto outputs = QMediaDevices::audioOutputs();
     m_audioOutputCombo->addItem(tr("(Default)"), QByteArray());
-    for (const auto& device : outputs) {
+    for (const auto& device : outputs)
+    {
         m_audioOutputCombo->addItem(device.description(), device.id());
     }
 #else
@@ -185,50 +200,62 @@ void SettingsDialog::refreshDevices() {
 #endif
 }
 
-void SettingsDialog::loadSettings() {
+void SettingsDialog::loadSettings()
+{
     refreshDevices();
     auto& settings = AppSettings::instance();
-    if (m_themeCombo) {
+    if (m_themeCombo)
+    {
         int idx = m_themeCombo->findData(settings.theme());
         if (idx >= 0) m_themeCombo->setCurrentIndex(idx);
     }
     m_soundFontEdit->setText(settings.soundFontPath());
 
     int midiIdx = settings.midiDeviceIndex();
-    for (int i = 0; i < m_midiDeviceCombo->count(); ++i) {
-        if (m_midiDeviceCombo->itemData(i).toInt() == midiIdx) {
+    for (int i = 0; i < m_midiDeviceCombo->count(); ++i)
+    {
+        if (m_midiDeviceCombo->itemData(i).toInt() == midiIdx)
+        {
             m_midiDeviceCombo->setCurrentIndex(i);
             break;
         }
     }
 
     QByteArray audioId = settings.audioInputDeviceId();
-    for (int i = 0; i < m_audioInputCombo->count(); ++i) {
-        if (m_audioInputCombo->itemData(i).toByteArray() == audioId) {
+    for (int i = 0; i < m_audioInputCombo->count(); ++i)
+    {
+        if (m_audioInputCombo->itemData(i).toByteArray() == audioId)
+        {
             m_audioInputCombo->setCurrentIndex(i);
             break;
         }
     }
 
     QByteArray outputId = settings.audioOutputDeviceId();
-    for (int i = 0; i < m_audioOutputCombo->count(); ++i) {
-        if (m_audioOutputCombo->itemData(i).toByteArray() == outputId) {
+    for (int i = 0; i < m_audioOutputCombo->count(); ++i)
+    {
+        if (m_audioOutputCombo->itemData(i).toByteArray() == outputId)
+        {
             m_audioOutputCombo->setCurrentIndex(i);
             break;
         }
     }
 }
 
-void SettingsDialog::saveSettings() {
+void SettingsDialog::saveSettings()
+{
     auto& settings = AppSettings::instance();
-    if (m_themeCombo) {
+    if (m_themeCombo)
+    {
         settings.setTheme(m_themeCombo->currentData().toString());
     }
     settings.setMidiDeviceIndex(m_midiDeviceCombo->currentData().toInt());
     settings.setSoundFontPath(m_soundFontEdit->text().trimmed());
     settings.setAudioInputDeviceId(m_audioInputCombo->currentData().toByteArray());
-    for (int i = 0; i < m_audioInputCombo->count(); ++i) {
-        if (m_audioInputCombo->itemData(i).toByteArray() == m_audioInputCombo->currentData().toByteArray()) {
+    for (int i = 0; i < m_audioInputCombo->count(); ++i)
+    {
+        if (m_audioInputCombo->itemData(i).toByteArray() == m_audioInputCombo->currentData().toByteArray())
+        {
             settings.setAudioInputDeviceIndex(i);
             break;
         }
@@ -237,16 +264,19 @@ void SettingsDialog::saveSettings() {
     settings.save();
 }
 
-void SettingsDialog::onBrowseSoundFont() {
+void SettingsDialog::onBrowseSoundFont()
+{
     QString path = QFileDialog::getOpenFileName(this, tr("Select SoundFont"),
         m_soundFontEdit->text(),
         tr("SoundFont files (*.sf2 *.SF2);;All files (*)"));
-    if (!path.isEmpty()) {
+    if (!path.isEmpty())
+    {
         m_soundFontEdit->setText(path);
     }
 }
 
-void SettingsDialog::onApply() {
+void SettingsDialog::onApply()
+{
     saveSettings();
     ThemeUtils::applySavedTheme();
     accept();

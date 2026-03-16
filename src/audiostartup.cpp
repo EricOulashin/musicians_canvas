@@ -16,7 +16,8 @@
 #endif
 #include <windows.h>
 
-QStringList AudioStartup::installedAsioDrivers() {
+QStringList AudioStartup::installedAsioDrivers()
+{
     QStringList drivers;
     HKEY hKey;
     if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\ASIO",
@@ -27,7 +28,8 @@ QStringList AudioStartup::installedAsioDrivers() {
     wchar_t name[256];
     DWORD nameLen = sizeof(name) / sizeof(wchar_t);
     while (RegEnumKeyExW(hKey, index++, name, &nameLen,
-                         nullptr, nullptr, nullptr, nullptr) == ERROR_SUCCESS) {
+                         nullptr, nullptr, nullptr, nullptr) == ERROR_SUCCESS)
+    {
         drivers.append(QString::fromWCharArray(name));
         nameLen = sizeof(name) / sizeof(wchar_t);
     }
@@ -35,9 +37,11 @@ QStringList AudioStartup::installedAsioDrivers() {
     return drivers;
 }
 
-bool AudioStartup::initialize(QString& errorMessage) {
+bool AudioStartup::initialize(QString& errorMessage)
+{
     const QStringList drivers = installedAsioDrivers();
-    if (drivers.isEmpty()) {
+    if (drivers.isEmpty())
+    {
         errorMessage = QCoreApplication::translate("AudioStartup",
             "No ASIO audio drivers were detected on this system.\n\n"
             "ASIO (Audio Stream Input/Output) drivers are required for the "
@@ -61,7 +65,8 @@ bool AudioStartup::initialize(QString& errorMessage) {
     return true;
 }
 
-void AudioStartup::shutdown() {
+void AudioStartup::shutdown()
+{
     // Qt Multimedia destroys its WASAPI client on QAudioSource/QAudioOutput
     // destruction, automatically returning exclusive access to the audio device
     // so other applications can use it.  A full ASIO integration would call
@@ -77,7 +82,8 @@ void AudioStartup::shutdown() {
 
 #include <sys/resource.h>
 
-bool AudioStartup::initialize(QString& errorMessage) {
+bool AudioStartup::initialize(QString& errorMessage)
+{
     Q_UNUSED(errorMessage)
 
     // Nice value −10 gives the process higher priority than the default 0.
@@ -88,7 +94,8 @@ bool AudioStartup::initialize(QString& errorMessage) {
     return true;
 }
 
-void AudioStartup::shutdown() {
+void AudioStartup::shutdown()
+{
     // Nothing to tear down explicitly on Linux; the OS and Qt Multimedia handle it.
 }
 
@@ -96,7 +103,8 @@ void AudioStartup::shutdown() {
 
 // ─── platform-neutral ─────────────────────────────────────────────────────────
 
-int AudioStartup::recommendedBufferBytes() {
+int AudioStartup::recommendedBufferBytes()
+{
     // 512 frames × 2 channels × 2 bytes/sample (16-bit PCM) ≈ 11.6 ms at 44 100 Hz.
     // Lower this to 256 frames (1 024 bytes) for sub-6 ms if your system supports it.
     return 512 * 2 * 2;

@@ -4,7 +4,8 @@
 #include <QWidget>
 #include "trackdata.h"
 
-class MidiVisualizationWidget : public QWidget {
+class MidiVisualizationWidget : public QWidget
+{
     Q_OBJECT
 public:
     explicit MidiVisualizationWidget(QWidget* parent = nullptr);

@@ -1,15 +1,18 @@
 #include "waveformwidget.h"
 #include <QPainter>
 #include <QPainterPath>
+#include <QLinearGradient>
 #include <cmath>
 
-WaveformWidget::WaveformWidget(QWidget* parent) : QWidget(parent) {
+WaveformWidget::WaveformWidget(QWidget* parent) : QWidget(parent)
+{
     setMinimumHeight(60);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     setAutoFillBackground(true);
 }
 
-void WaveformWidget::setAudioData(const QByteArray& data, int sampleRate, int channelCount) {
+void WaveformWidget::setAudioData(const QByteArray& data, int sampleRate, int channelCount)
+{
     m_audioData = data;
     m_sampleRate = sampleRate;
     m_channelCount = channelCount;
@@ -17,13 +20,27 @@ void WaveformWidget::setAudioData(const QByteArray& data, int sampleRate, int ch
     update();
 }
 
-void WaveformWidget::clear() {
+void WaveformWidget::clear()
+{
     m_audioData.clear();
     m_peaks.clear();
     update();
 }
 
-void WaveformWidget::computePeaks() {
+void WaveformWidget::setRecordingLevel(float level)
+{
+    m_recordingLevel = level;
+    update();
+}
+
+void WaveformWidget::clearRecordingLevel()
+{
+    m_recordingLevel = -1.0f;
+    update();
+}
+
+void WaveformWidget::computePeaks()
+{
     m_peaks.clear();
     if (m_audioData.isEmpty()) return;
 
@@ -33,11 +50,13 @@ void WaveformWidget::computePeaks() {
     const int totalFrames = m_audioData.size() / frameSize;
     const int framesPerPeak = qMax(1, totalFrames / peakCount);
 
-    for (int i = 0; i < peakCount && (i * framesPerPeak) < totalFrames; ++i) {
+    for (int i = 0; i < peakCount && (i * framesPerPeak) < totalFrames; ++i)
+    {
         float maxVal = 0;
         int start = i * framesPerPeak * frameSize;
         int end = qMin(start + framesPerPeak * frameSize, m_audioData.size());
-        for (int j = start; j + 1 < end; j += frameSize) {
+        for (int j = start; j + 1 < end; j += frameSize)
+        {
             qint16 sample = *reinterpret_cast<const qint16*>(m_audioData.constData() + j);
             float val = std::abs(sample / 32768.0f);
             if (val > maxVal) maxVal = val;
@@ -46,7 +65,8 @@ void WaveformWidget::computePeaks() {
     }
 }
 
-void WaveformWidget::paintEvent(QPaintEvent* event) {
+void WaveformWidget::paintEvent(QPaintEvent* event)
+{
     Q_UNUSED(event);
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
@@ -58,7 +78,31 @@ void WaveformWidget::paintEvent(QPaintEvent* event) {
     QColor centerLineColor = palette().color(QPalette::Mid);
     painter.fillRect(rect(), bgColor);
 
-    if (m_peaks.isEmpty()) {
+    // Live recording level meter
+    if (m_recordingLevel >= 0.0f)
+    {
+        const int barMargin = 4;
+        const int barH = height() - barMargin * 2;
+        const int barW = static_cast<int>((width() - barMargin * 2) * m_recordingLevel);
+
+        // Gradient: green → yellow → red
+        QLinearGradient grad(barMargin, 0, width() - barMargin, 0);
+        grad.setColorAt(0.0, QColor(60, 200, 80));
+        grad.setColorAt(0.7, QColor(220, 200, 30));
+        grad.setColorAt(1.0, QColor(220, 50, 50));
+
+        painter.setPen(Qt::NoPen);
+        painter.setBrush(QBrush(grad));
+        painter.drawRoundedRect(barMargin, barMargin, qMax(barW, 2), barH, 3, 3);
+
+        // "Recording" label
+        painter.setPen(palette().color(QPalette::PlaceholderText));
+        painter.drawText(rect(), Qt::AlignCenter, tr("\u25CF Recording"));
+        return;
+    }
+
+    if (m_peaks.isEmpty())
+    {
         painter.setPen(centerLineColor);
         painter.drawLine(0, height() / 2, width(), height() / 2);
         painter.setPen(palette().color(QPalette::PlaceholderText));
@@ -72,12 +116,14 @@ void WaveformWidget::paintEvent(QPaintEvent* event) {
 
     QPainterPath path;
     path.moveTo(0, centerY);
-    for (int i = 0; i < m_peaks.size(); ++i) {
+    for (int i = 0; i < m_peaks.size(); ++i)
+    {
         float x = i * step;
         float amplitude = m_peaks[i] * halfHeight;
         path.lineTo(x, centerY - amplitude);
     }
-    for (int i = m_peaks.size() - 1; i >= 0; --i) {
+    for (int i = m_peaks.size() - 1; i >= 0; --i)
+    {
         float x = i * step;
         float amplitude = m_peaks[i] * halfHeight;
         path.lineTo(x, centerY + amplitude);

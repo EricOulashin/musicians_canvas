@@ -4,15 +4,22 @@
 #include <QWidget>
 #include <QVector>
 
-class VkPianoKeyboard : public QWidget {
+class VkPianoKeyboard : public QWidget
+{
     Q_OBJECT
 public:
     explicit VkPianoKeyboard(QWidget* parent = nullptr);
 
     void setOctave(int octave);
     void setVisibleKeyCount(int count);
-    [[nodiscard]] int baseNote() const { return 36 + m_octave * 12; }
-    [[nodiscard]] int keyCount() const { return m_keyCount; }
+    [[nodiscard]] int baseNote() const
+    {
+        return 36 + m_octave * 12;
+    }
+    [[nodiscard]] int keyCount() const
+    {
+        return m_keyCount;
+    }
 
 signals:
     void noteOn(int note);

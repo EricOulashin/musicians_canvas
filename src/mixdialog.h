@@ -6,7 +6,8 @@
 
 class QLineEdit;
 
-class MixDialog : public QDialog {
+class MixDialog : public QDialog
+{
     Q_OBJECT
 public:
     explicit MixDialog(const QString& defaultDir, QWidget* parent = nullptr);

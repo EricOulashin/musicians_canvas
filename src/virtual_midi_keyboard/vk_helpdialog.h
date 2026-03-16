@@ -3,7 +3,8 @@
 
 #include <QDialog>
 
-class VkHelpDialog : public QDialog {
+class VkHelpDialog : public QDialog
+{
     Q_OBJECT
 public:
     explicit VkHelpDialog(QWidget* parent = nullptr);

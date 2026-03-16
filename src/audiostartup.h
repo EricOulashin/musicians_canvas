@@ -20,7 +20,8 @@
 //   less OS-induced jitter.  Qt Multimedia will automatically use PipeWire,
 //   PulseAudio, or ALSA depending on what the system provides.
 //
-class AudioStartup {
+class AudioStartup
+{
 public:
     // Must be called before any QAudioSource / QAudioOutput instances are created.
     // Returns false (and fills errorMessage) when the required audio subsystem is

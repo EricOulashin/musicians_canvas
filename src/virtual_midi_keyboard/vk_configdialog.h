@@ -7,8 +7,11 @@ class QTabWidget;
 class QComboBox;
 class QLineEdit;
 class QPushButton;
+class QSlider;
+class QLabel;
 
-class VkConfigDialog : public QDialog {
+class VkConfigDialog : public QDialog
+{
     Q_OBJECT
 public:
     explicit VkConfigDialog(QWidget* parent = nullptr);
@@ -31,6 +34,8 @@ private:
     QLineEdit* m_soundFontEdit = nullptr;
     QPushButton* m_loadSoundFontBtn = nullptr;
     QComboBox* m_audioOutputCombo = nullptr;
+    QSlider* m_gainSlider = nullptr;
+    QLabel* m_gainLabel = nullptr;
 };
 
 #endif // VK_CONFIGDIALOG_H

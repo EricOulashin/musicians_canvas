@@ -5,7 +5,8 @@
 #include <QDialogButtonBox>
 #include <QLabel>
 
-TrackConfigDialog::TrackConfigDialog(QWidget* parent) : QDialog(parent) {
+TrackConfigDialog::TrackConfigDialog(QWidget* parent) : QDialog(parent)
+{
     setWindowTitle(tr("Track Configuration"));
     setMinimumSize(350, 200);
     resize(400, 220);
@@ -36,14 +37,19 @@ TrackConfigDialog::TrackConfigDialog(QWidget* parent) : QDialog(parent) {
     layout->addWidget(buttonBox);
 }
 
-TrackType TrackConfigDialog::trackType() const {
+TrackType TrackConfigDialog::trackType() const
+{
     return m_midiRadio->isChecked() ? TrackType::MIDI : TrackType::Audio;
 }
 
-void TrackConfigDialog::setTrackType(TrackType type) {
-    if (type == TrackType::MIDI) {
+void TrackConfigDialog::setTrackType(TrackType type)
+{
+    if (type == TrackType::MIDI)
+    {
         m_midiRadio->setChecked(true);
-    } else {
+    }
+    else
+    {
         m_audioRadio->setChecked(true);
     }
 }

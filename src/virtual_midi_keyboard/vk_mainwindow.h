@@ -11,7 +11,8 @@ class QSpinBox;
 class QLineEdit;
 class QComboBox;
 
-class VkMainWindow : public QMainWindow {
+class VkMainWindow : public QMainWindow
+{
     Q_OBJECT
 public:
     explicit VkMainWindow(QWidget* parent = nullptr);

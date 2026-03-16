@@ -8,6 +8,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QGroupBox>
+#include <QSlider>
 #include <QFileDialog>
 #include <QIcon>
 #include <QStyle>
@@ -18,7 +19,8 @@
 #endif
 #include <RtMidi.h>
 
-static QWidget* createTabHeader(const QIcon& icon, const QString& text) {
+static QWidget* createTabHeader(const QIcon& icon, const QString& text)
+{
     auto* header = new QFrame();
     header->setFrameShape(QFrame::NoFrame);
     auto* layout = new QHBoxLayout(header);
@@ -33,10 +35,11 @@ static QWidget* createTabHeader(const QIcon& icon, const QString& text) {
     return header;
 }
 
-VkConfigDialog::VkConfigDialog(QWidget* parent) : QDialog(parent) {
+VkConfigDialog::VkConfigDialog(QWidget* parent) : QDialog(parent)
+{
     setWindowTitle(tr("Configuration"));
-    setMinimumSize(450, 350);
-    resize(500, 380);
+    setMinimumSize(500, 460);
+    resize(540, 480);
 
     auto* layout = new QVBoxLayout(this);
     m_tabWidget = new QTabWidget();
@@ -51,7 +54,8 @@ VkConfigDialog::VkConfigDialog(QWidget* parent) : QDialog(parent) {
     loadSettings();
 }
 
-void VkConfigDialog::setupMidiTab() {
+void VkConfigDialog::setupMidiTab()
+{
     auto* widget = new QWidget();
     auto* layout = new QVBoxLayout(widget);
 
@@ -90,11 +94,39 @@ void VkConfigDialog::setupMidiTab() {
     connect(refreshBtn, &QPushButton::clicked, this, &VkConfigDialog::refreshDevices);
     layout->addWidget(refreshBtn);
 
+    auto* gainGroup = new QGroupBox(tr("Synthesizer Volume (Master Gain)"));
+    auto* gainLayout = new QVBoxLayout(gainGroup);
+    auto* gainRow = new QHBoxLayout();
+    gainLayout->addLayout(gainRow);
+
+    gainRow->addWidget(new QLabel(tr("Quiet")));
+
+    // Slider represents gain × 100 (range 10–200 → 0.10–2.00)
+    m_gainSlider = new QSlider(Qt::Horizontal);
+    m_gainSlider->setRange(10, 200);
+    m_gainSlider->setTickInterval(10);
+    m_gainSlider->setTickPosition(QSlider::TicksBelow);
+    m_gainSlider->setFocusPolicy(Qt::ClickFocus);
+    gainRow->addWidget(m_gainSlider, 1);
+
+    gainRow->addWidget(new QLabel(tr("Loud")));
+
+    m_gainLabel = new QLabel();
+    m_gainLabel->setAlignment(Qt::AlignCenter);
+    gainLayout->addWidget(m_gainLabel);
+
+    connect(m_gainSlider, &QSlider::valueChanged, this, [this](int v)
+    {
+        m_gainLabel->setText(QString::number(v) + "%");
+    });
+
+    layout->addWidget(gainGroup);
     layout->addStretch();
     m_tabWidget->addTab(widget, tr("MIDI"));
 }
 
-void VkConfigDialog::setupAudioTab() {
+void VkConfigDialog::setupAudioTab()
+{
     auto* widget = new QWidget();
     auto* layout = new QVBoxLayout(widget);
 
@@ -110,29 +142,55 @@ void VkConfigDialog::setupAudioTab() {
     m_audioOutputCombo->setMinimumWidth(300);
     audioLayout->addWidget(m_audioOutputCombo);
     layout->addWidget(audioGroup);
+
     layout->addStretch();
     m_tabWidget->addTab(widget, tr("Audio"));
 }
 
-void VkConfigDialog::onOutputDeviceChanged(int /*index*/) {
+void VkConfigDialog::onOutputDeviceChanged(int /*index*/)
+{
 }
 
-void VkConfigDialog::refreshDevices() {
+void VkConfigDialog::refreshDevices()
+{
+    // Enumerate MIDI output ports (places we can SEND notes to).
+    // We use a scoped block so the temporary RtMidiOut is destroyed before the
+    // RtMidiIn is created.  On Linux/ALSA, every RtMidi instance registers an
+    // ALSA sequencer client; if both exist at the same time each one shows up
+    // in the other's port list ("RtMidi Output Client" in the input list, etc.).
+    // Sequential scoped enumeration prevents that cross-contamination.
+    // Item data stores the port NAME (a stable identifier) rather than the
+    // integer port index, which shifts as ALSA clients appear and disappear.
     m_midiOutputCombo->clear();
-    m_midiOutputCombo->addItem(tr("Built-in Software Synthesizer"), 0);
-    try {
-        RtMidiOut midiOut;
-        for (unsigned i = 0; i < midiOut.getPortCount(); ++i)
-            m_midiOutputCombo->addItem(QString::fromStdString(midiOut.getPortName(i)), static_cast<int>(i + 1));
-    } catch (...) {}
+    m_midiOutputCombo->addItem(tr("Built-in Software Synthesizer"), QString());
+    {
+        try
+        {
+            RtMidiOut midiOut;
+            for (unsigned i = 0; i < midiOut.getPortCount(); ++i)
+            {
+                const QString name = QString::fromStdString(midiOut.getPortName(i));
+                m_midiOutputCombo->addItem(name, name);
+            }
+        }
+        catch (...) {}
+    }  // RtMidiOut destroyed here — removes its ALSA client before RtMidiIn is created
 
+    // Enumerate MIDI input ports (sources we can RECEIVE notes from — external controllers).
     m_midiInputCombo->clear();
-    m_midiInputCombo->addItem(tr("(None)"), -1);
-    try {
-        RtMidiIn midiIn;
-        for (unsigned i = 0; i < midiIn.getPortCount(); ++i)
-            m_midiInputCombo->addItem(QString::fromStdString(midiIn.getPortName(i)), static_cast<int>(i));
-    } catch (...) {}
+    m_midiInputCombo->addItem(tr("(None)"), QString());
+    {
+        try
+        {
+            RtMidiIn midiIn;
+            for (unsigned i = 0; i < midiIn.getPortCount(); ++i)
+            {
+                const QString name = QString::fromStdString(midiIn.getPortName(i));
+                m_midiInputCombo->addItem(name, name);
+            }
+        }
+        catch (...) {}
+    }  // RtMidiIn destroyed here
 
 #ifdef QT_MULTIMEDIA_AVAILABLE
     m_audioOutputCombo->clear();
@@ -145,51 +203,69 @@ void VkConfigDialog::refreshDevices() {
 #endif
 }
 
-void VkConfigDialog::loadSettings() {
+void VkConfigDialog::loadSettings()
+{
     refreshDevices();
     auto& s = VkSettings::instance();
     m_soundFontEdit->setText(s.soundFontPath());
 
-    for (int i = 0; i < m_midiOutputCombo->count(); ++i) {
-        if (m_midiOutputCombo->itemData(i).toInt() == s.midiOutputIndex()) {
+    // Match by port name (empty = built-in synth / none)
+    const QString outName = s.midiOutputPortName();
+    for (int i = 0; i < m_midiOutputCombo->count(); ++i)
+    {
+        if (m_midiOutputCombo->itemData(i).toString() == outName)
+        {
             m_midiOutputCombo->setCurrentIndex(i);
             break;
         }
     }
     onOutputDeviceChanged(m_midiOutputCombo->currentIndex());
 
-    for (int i = 0; i < m_midiInputCombo->count(); ++i) {
-        if (m_midiInputCombo->itemData(i).toInt() == s.midiInputIndex()) {
+    const QString inName = s.midiInputPortName();
+    for (int i = 0; i < m_midiInputCombo->count(); ++i)
+    {
+        if (m_midiInputCombo->itemData(i).toString() == inName)
+        {
             m_midiInputCombo->setCurrentIndex(i);
             break;
         }
     }
 
     const QByteArray audioId = s.audioOutputDeviceId();
-    for (int i = 0; i < m_audioOutputCombo->count(); ++i) {
-        if (m_audioOutputCombo->itemData(i).toByteArray() == audioId) {
+    for (int i = 0; i < m_audioOutputCombo->count(); ++i)
+    {
+        if (m_audioOutputCombo->itemData(i).toByteArray() == audioId)
+        {
             m_audioOutputCombo->setCurrentIndex(i);
             break;
         }
     }
+
+    // Gain slider: stored as 0.1–2.0, slider range 10–200
+    const int gainSliderVal = qBound(10, qRound(s.synthGain() * 100.0f), 200);
+    m_gainSlider->setValue(gainSliderVal);
 }
 
-void VkConfigDialog::saveSettings() {
+void VkConfigDialog::saveSettings()
+{
     auto& s = VkSettings::instance();
-    s.setMidiOutputIndex(m_midiOutputCombo->currentData().toInt());
-    s.setMidiInputIndex(m_midiInputCombo->currentData().toInt());
+    s.setMidiOutputPortName(m_midiOutputCombo->currentData().toString());
+    s.setMidiInputPortName(m_midiInputCombo->currentData().toString());
     s.setSoundFontPath(m_soundFontEdit->text().trimmed());
     s.setAudioOutputDeviceId(m_audioOutputCombo->currentData().toByteArray());
+    s.setSynthGain(m_gainSlider->value() / 100.0f);
     s.save();
 }
 
-void VkConfigDialog::onBrowseSoundFont() {
+void VkConfigDialog::onBrowseSoundFont()
+{
     const QString path = QFileDialog::getOpenFileName(this, tr("Select SoundFont"),
         m_soundFontEdit->text(), tr("SoundFont (*.sf2 *.SF2);;All files (*)"));
     if (!path.isEmpty()) m_soundFontEdit->setText(path);
 }
 
-void VkConfigDialog::onApply() {
+void VkConfigDialog::onApply()
+{
     saveSettings();
     accept();
 }

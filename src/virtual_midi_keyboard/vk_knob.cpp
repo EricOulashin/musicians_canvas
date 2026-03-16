@@ -7,22 +7,26 @@
 #include <QValidator>
 #include <algorithm>
 
-VkKnob::VkKnob(QWidget* parent) : QWidget(parent) {
+VkKnob::VkKnob(QWidget* parent) : QWidget(parent)
+{
     setMinimumSize(80, 100);
 }
 
-void VkKnob::setValue(int val) {
+void VkKnob::setValue(int val)
+{
     m_value = std::clamp(val, m_min, m_max);
     update();
 }
 
-void VkKnob::setRange(int minVal, int maxVal) {
+void VkKnob::setRange(int minVal, int maxVal)
+{
     m_min = minVal;
     m_max = maxVal;
     m_value = std::clamp(m_value, m_min, m_max);
 }
 
-void VkKnob::paintEvent(QPaintEvent*) {
+void VkKnob::paintEvent(QPaintEvent*)
+{
     QPainter p(this);
     p.setRenderHint(QPainter::Antialiasing);
 
@@ -49,21 +53,26 @@ void VkKnob::paintEvent(QPaintEvent*) {
     p.drawLine(cx, cy, tipX, tipY);
 }
 
-void VkKnob::mousePressEvent(QMouseEvent* event) {
-    if (event->button() == Qt::LeftButton) {
+void VkKnob::mousePressEvent(QMouseEvent* event)
+{
+    if (event->button() == Qt::LeftButton)
+    {
         m_dragging = true;
         m_dragStart = event->globalPosition().toPoint();
         m_dragStartValue = m_value;
     }
 }
 
-void VkKnob::mouseMoveEvent(QMouseEvent* event) {
-    if (m_dragging) {
+void VkKnob::mouseMoveEvent(QMouseEvent* event)
+{
+    if (m_dragging)
+    {
         const int dx = event->globalPosition().toPoint().x() - m_dragStart.x();
         const int range = m_max - m_min + 1;
         const int delta = (dx * range) / 150;
         const int newVal = std::clamp(m_dragStartValue + delta, m_min, m_max);
-        if (newVal != m_value) {
+        if (newVal != m_value)
+        {
             m_value = newVal;
             m_dragStart = event->globalPosition().toPoint();
             m_dragStartValue = m_value;
@@ -73,7 +82,8 @@ void VkKnob::mouseMoveEvent(QMouseEvent* event) {
     }
 }
 
-void VkKnob::mouseReleaseEvent(QMouseEvent* event) {
+void VkKnob::mouseReleaseEvent(QMouseEvent* event)
+{
     if (event->button() == Qt::LeftButton)
         m_dragging = false;
 }

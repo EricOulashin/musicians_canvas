@@ -8,16 +8,18 @@ as traditional software development.
 
 ## Features
 
-- **Multi-track arrangement**: Add multiple tracks to compose songs
+- **Multi-track arrangement**: Add and remove multiple tracks to compose songs
 - **Named tracks**: Each track has an editable name used as the filename for recorded audio
-- **Track types**: Configure each track for audio recording (from microphone/line-in) or MIDI recording (from keyboard/controller)
+- **Track types**: Configure each track for audio recording (from microphone/line-in) or MIDI recording (from keyboard/controller); click the track type icon to quickly change the input source
+- **Track arming**: Check "Arm" on a track to select it as the recording target; only one track can be armed at a time
 - **Visual feedback**: Audio waveform display for audio tracks, MIDI piano roll for MIDI tracks
 - **Built-in MIDI synthesizer**: Renders MIDI tracks to audio using FluidSynth with a configurable SoundFont
 - **Mix to single audio file**: Export all enabled tracks to a single mixed WAV or FLAC file using the [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp) library
 - **Save / Open project**: Serialize and restore the full project (tracks, names, types, MIDI notes, audio file references) to/from a JSON file
+- **Project-specific settings**: Override global MIDI and audio defaults per project (sample rate, SoundFont, MIDI device)
 - **Low-latency audio**: On Windows, ASIO driver detection ensures low-latency audio; on Linux, process scheduling priority is raised for lower jitter with PipeWire / PulseAudio / ALSA
-- **Virtual MIDI keyboard**: A companion application for sending MIDI notes via a software piano keyboard
-- **Configuration**: Select audio input device, MIDI device, and SoundFont file
+- **Virtual MIDI keyboard**: A companion application for sending MIDI notes via a software piano keyboard, with a built-in FluidSynth synthesizer and adjustable master gain
+- **Configuration**: Select audio input device, MIDI device, and SoundFont file (global defaults and per-project overrides)
 - **Dark / light theme**: Configurable via Settings → Configuration
 
 ## Screenshots
@@ -26,13 +28,21 @@ as traditional software development.
 	<a href="screenshots/MusiciansCanvas_1_MainWin.png" target='_blank'><img src="screenshots/MusiciansCanvas_1_MainWin.png" alt="Main window" width="800"></a>
 	<a href="screenshots/MusiciansCanvas_2_TrackConfig.png" target='_blank'><img src="screenshots/MusiciansCanvas_2_TrackConfig.png" alt="Track configuration" width="800"></a>
 	<a href="screenshots/MusiciansCanvas_3_GeneralSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_3_GeneralSettings.png" alt="General settings" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_4_MIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_4_MIDISettings.png" alt="MIDI settings" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_5_AudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_5_AudioSettings.png" alt="Audio settings" width="800"></a>
+	<a href="screenshots/MusiciansCanvas_4_MIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_4_MIDISettings.png" alt="Default/general MIDI settings" width="800"></a>
+	<a href="screenshots/MusiciansCanvas_5_AudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_5_AudioSettings.png" alt="Default/general audio settings" width="800"></a>
+	<a href="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" alt="Project-specific MIDI settings" width="800"></a>
+	<a href="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" alt="Project-specific audio settings" width="800"></a>
 	<a href="screenshots/VMIDIKeyboard1.png" target='_blank'><img src="screenshots/VMIDIKeyboard1.png" alt="Virtual MIDI keyboard" width="800"></a>
 	<a href="screenshots/VMIDIKeyboard2.png" target='_blank'><img src="screenshots/VMIDIKeyboard2.png" alt="Virtual MIDI keyboard" width="800"></a>
 </p>
 
 ## Dependencies
+
+### Compiler
+
+A **C++17**-capable compiler is required (GCC 8+, Clang 7+, MSVC 2017+).
+
+---
 
 ### audio_mixer_cpp (required on all platforms)
 
@@ -48,21 +58,68 @@ The CMake build expects to find it at `../audio_mixer_cpp` relative to this proj
 
 ---
 
+### Qt6 Multimedia (optional but strongly recommended)
+
+`qt6-multimedia` is optional. Without it the application still builds and runs, but
+**audio recording and playback are disabled** — only MIDI editing and project management
+will work. Install it alongside the core Qt6 libraries using the platform commands below.
+
+---
+
+### SoundFont for MIDI synthesis
+
+A SoundFont (`.sf2`) file is required for MIDI tracks to produce audio. Without one,
+MIDI tracks will render as silence. On **Linux**, the built-in FluidSynth synthesizer
+will automatically detect a SoundFont if one is installed to a standard system path
+(see the package names below). On **macOS and Windows** there is no standard system
+path, so you must configure the SoundFont manually in
+**Settings → Configuration → MIDI**.
+
+---
+
 ### Linux — Ubuntu / Debian
 
 ```bash
 sudo apt install build-essential cmake \
   qt6-base-dev qt6-multimedia-dev \
-  libfluidsynth-dev librtmidi-dev libflac-dev
+  libfluidsynth-dev librtmidi-dev libflac-dev \
+  libpipewire-0.3-dev \
+  fluid-soundfont-gm
 ```
+
+> `fluid-soundfont-gm` installs `FluidR3_GM.sf2` to `/usr/share/sounds/sf2/` and is
+> auto-detected at startup. `timgm6mb-soundfont` is a smaller alternative.
+>
+> `libpipewire-0.3-dev` is required on PipeWire-based systems so the virtual MIDI
+> keyboard can call `pw_init()` before FluidSynth creates its audio resources.
+> The build proceeds without it; the `HAVE_PIPEWIRE` flag is simply not defined.
 
 ### Linux — Fedora
 
 ```bash
 sudo dnf install cmake gcc-c++ \
   qt6-qtbase-devel qt6-qtmultimedia-devel \
-  fluidsynth-devel rtmidi-devel flac-devel
+  fluidsynth-devel rtmidi-devel flac-devel \
+  pipewire-devel \
+  fluid-soundfont-gm
 ```
+
+> `fluid-soundfont-gm` installs `FluidR3_GM.sf2` to `/usr/share/soundfonts/` and is
+> auto-detected at startup.
+
+### Linux — Arch Linux
+
+```bash
+sudo pacman -S base-devel cmake \
+  qt6-base qt6-multimedia \
+  fluidsynth rtmidi flac \
+  pipewire \
+  soundfont-fluid
+```
+
+> `soundfont-fluid` installs `FluidR3_GM.sf2` to `/usr/share/soundfonts/` and is
+> auto-detected at startup. `pipewire` is typically already installed on modern
+> Arch systems; its development headers are included in the main package.
 
 ### macOS
 
@@ -70,14 +127,24 @@ sudo dnf install cmake gcc-c++ \
 brew install cmake qt fluidsynth rtmidi flac
 ```
 
+> PipeWire is a Linux-only subsystem and is **not** required on macOS. FluidSynth
+> will use CoreAudio automatically via the Qt Multimedia backend.
+>
+> Download a General MIDI SoundFont (e.g.
+> [GeneralUser GS](https://schristiancollins.com/generaluser.php) or
+> [FluidR3_GM](https://member.keymusician.com/Member/FluidR3_GM/index.html))
+> and configure its path in **Settings → Configuration → MIDI**.
+
 ---
 
 ### Windows
 
-Windows requires an **ASIO audio driver** for low-latency recording and playback.
-Musician's Canvas will not start if no ASIO driver is detected.
+**musicians_canvas** requires an **ASIO audio driver** for low-latency recording and
+playback. The application will not start if no ASIO driver is detected.
+**virtual_midi_keyboard** does not require ASIO and uses Qt Multimedia's WASAPI
+backend directly.
 
-**Installing an ASIO driver (choose one):**
+**Installing an ASIO driver for musicians_canvas (choose one):**
 
 | Driver | Notes |
 |--------|-------|
@@ -95,11 +162,20 @@ pacman -S mingw-w64-x86_64-qt6-multimedia
 pacman -S mingw-w64-x86_64-fluidsynth
 pacman -S mingw-w64-ucrt-x86_64-rtmidi
 pacman -S mingw-w64-x86_64-flac
+pacman -S mingw-w64-x86_64-soundfont-fluid
 ```
+
+> `mingw-w64-x86_64-soundfont-fluid` installs `FluidR3_GM.sf2` to
+> `C:\msys64\mingw64\share\soundfonts\` (adjust if MSYS2 is installed elsewhere).
+> Because Windows has no standard SoundFont search path, you must configure this path
+> manually in **Settings → Configuration → MIDI** after first launch.
+>
+> PipeWire is a Linux-only subsystem; no PipeWire package is needed on Windows.
 
 Package reference pages:
 - <https://packages.msys2.org/packages/mingw-w64-x86_64-fluidsynth>
 - <https://packages.msys2.org/packages/mingw-w64-ucrt-x86_64-rtmidi>
+- <https://packages.msys2.org/packages/mingw-w64-x86_64-soundfont-fluid>
 
 **Toolchain — Visual Studio 2022:**
 
@@ -107,6 +183,11 @@ Install Qt 6 via the [Qt Online Installer](https://www.qt.io/download) and obtai
 FluidSynth, RtMidi, and libFLAC binaries (or build them from source).
 The CMake build will locate them via `find_library` / `find_path` as long as the
 appropriate directories are on `CMAKE_PREFIX_PATH`.
+
+A SoundFont must be downloaded separately (e.g.
+[GeneralUser GS](https://schristiancollins.com/generaluser.php) or
+[FluidR3_GM](https://member.keymusician.com/Member/FluidR3_GM/index.html)) and its
+path configured in **Settings → Configuration → MIDI** after first launch.
 
 > **Note:** `advapi32` (Windows registry) and `winmm` (Windows Multimedia) are
 > linked automatically by CMake; no additional installation is required for those.
@@ -151,16 +232,32 @@ output directory:
 
 ## Usage
 
+### musicians_canvas
+
 1. **Set project directory**: Enter or browse to a folder where recordings and the project file will be stored
 2. **Add tracks**: Click "+ Add Track"; name each track in the text field next to "Options"
-3. **Configure track type**: Click "Options" on a track to choose Audio or MIDI
-4. **Settings**: Use **Settings → Configuration** to select:
-   - *MIDI* tab: MIDI input device and SoundFont (.sf2) for synthesis
-   - *Audio* tab: Audio input device for recording
-5. **Record**: Check "Arm" on the target track, then click the record button (red circle)
-6. **Play**: Click the play button to mix and play back all enabled tracks
-7. **Mix to file**: Use **Tools → Mix tracks to file** (Ctrl+M) to export to WAV or FLAC
-8. **Save / Open**: Use **File → Save Project** (Ctrl+S) and **File → Open Project** (Ctrl+O)
+3. **Configure track type**: Click "Options" on a track (or click the track type icon between "Options" and the name field) to choose Audio or MIDI and set the input source
+4. **Remove a track**: Click the "×" button on the right side of the track row
+5. **Global settings**: Use **Settings → Configuration** to set global defaults:
+   - *General* tab: Theme (dark/light)
+   - *MIDI* tab: Default MIDI output device (built-in FluidSynth synthesizer or an external MIDI device) and default SoundFont (`.sf2`) for synthesis
+   - *Audio* tab: Default audio input/output device for recording and playback
+6. **Project settings**: Use **Project → Project Settings** (Ctrl+P) to override MIDI and audio settings for the current project only (e.g. a different sample rate or SoundFont per song)
+7. **Record**: Check "Arm" on the target track, then click the record button (red circle). Only one track can be armed at a time
+8. **Play**: Click the play button to mix and play back all enabled tracks
+9. **Mix to file**: Use **Tools → Mix tracks to file** (Ctrl+M) to export to WAV or FLAC
+10. **Save / Open**: Use **File → Save Project** (Ctrl+S) and **File → Open Project** (Ctrl+O)
+
+### virtual_midi_keyboard
+
+1. **Open Configuration**: Use the **Configuration** button or menu to open the settings dialog
+2. **MIDI tab**:
+   - Select a MIDI output device (an external hardware/software synthesizer) or leave blank to use the built-in FluidSynth synthesizer
+   - Select a MIDI input device to forward incoming MIDI notes to the keyboard display
+   - Adjust **Synthesizer Volume (Master Gain)** to control the output level of the built-in synthesizer (10%–200%)
+3. **Audio tab**: Select the audio output device used by the built-in synthesizer
+4. **SoundFont**: Select a `.sf2` SoundFont file for the built-in synthesizer (auto-detected on Linux if a system SoundFont is installed)
+5. **Play notes**: Click keys on the on-screen piano keyboard or use a connected MIDI controller
 
 ---
 
@@ -171,6 +268,7 @@ output directory:
 | Ctrl+S | Save project |
 | Ctrl+O | Open project |
 | Ctrl+M | Mix tracks to file |
+| Ctrl+P | Project Settings |
 | Ctrl+, | Settings / Configuration |
 | Ctrl+Q / Alt+F4 | Quit |
 

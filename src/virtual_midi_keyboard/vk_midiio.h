@@ -6,10 +6,12 @@
 #include <QList>
 #include <QString>
 
-class VkMidiIo : public QObject {
+class VkMidiIo : public QObject
+{
     Q_OBJECT
 public:
-    struct SoundPreset {
+    struct SoundPreset
+    {
         int bank;
         int program;
         QString name;
@@ -18,10 +20,17 @@ public:
     explicit VkMidiIo(QObject* parent = nullptr);
     ~VkMidiIo();
 
-    void setOutputDevice(int index);
-    void setInputDevice(int index);
+    // portName: empty string = built-in software synthesizer (FluidSynth via Qt audio)
+    //           non-empty   = open the RtMidiOut port whose name matches portName
+    void setOutputDevice(const QString& portName);
+
+    // portName: empty string = no MIDI input (external controller disabled)
+    //           non-empty   = open the RtMidiIn port whose name matches portName
+    void setInputDevice(const QString& portName);
     void setSoundFont(const QString& path);
     void setAudioOutputDevice(const QByteArray& deviceId);
+    // Adjust the FluidSynth master gain (0.1 – 2.0). Takes effect immediately.
+    void setSynthGain(float gain);
 
     void sendNoteOn(int note, int velocity);
     void sendNoteOff(int note);
@@ -29,7 +38,10 @@ public:
     void sendControlChange(int controller, int value);
     void selectPreset(int bank, int program);
 
-    [[nodiscard]] bool isOutputOpen() const { return m_outputOpen; }
+    [[nodiscard]] bool isOutputOpen() const
+    {
+        return m_outputOpen;
+    }
     [[nodiscard]] bool isUsingFluidSynth() const;
     [[nodiscard]] bool isAudioDriverRunning() const;
     [[nodiscard]] bool hasSoundFont() const;
