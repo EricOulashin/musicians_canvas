@@ -17,6 +17,10 @@ public:
     void setRecordingLevel(float level);
     void clearRecordingLevel();
 
+    // Status text overlay (shown centered in the waveform area)
+    void setStatusText(const QString& text, const QColor& color = QColor());
+    void clearStatusText();
+
 protected:
     void paintEvent(QPaintEvent* event) override;
 
@@ -26,6 +30,8 @@ private:
     int m_channelCount = 2;
     QVector<float> m_peaks;  // Pre-computed peak values for display
     float m_recordingLevel = -1.0f;  // <0 = not recording
+    QString m_statusText;
+    QColor  m_statusColor;
     void computePeaks();
 };
 

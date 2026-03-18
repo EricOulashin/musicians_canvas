@@ -213,6 +213,16 @@ void TrackWidget::clearRecordingLevel()
     if (m_waveformWidget) m_waveformWidget->clearRecordingLevel();
 }
 
+void TrackWidget::setRecordingStatus(const QString& status)
+{
+    if (m_waveformWidget) m_waveformWidget->setStatusText(status, QColor(220, 160, 30));
+}
+
+void TrackWidget::clearRecordingStatus()
+{
+    if (m_waveformWidget) m_waveformWidget->clearStatusText();
+}
+
 void TrackWidget::updateTypeIcon()
 {
     if (!m_typeIconLabel) return;

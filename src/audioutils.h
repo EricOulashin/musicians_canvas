@@ -34,6 +34,15 @@ public:
                                                  QByteArray& audioData,
                                                  int& sampleRate,
                                                  int& channelCount);
+
+    // Resample Int16 PCM data from srcRate to dstRate using linear interpolation.
+    // The input contains interleaved Int16 samples with the given channelCount.
+    // Returns a new QByteArray at the target rate.  If srcRate == dstRate,
+    // returns the input unchanged.
+    [[nodiscard]] static QByteArray resampleInt16(const QByteArray& int16Data,
+                                                   int srcRate,
+                                                   int dstRate,
+                                                   int channelCount);
 };
 
 #endif // AUDIOUTILS_H

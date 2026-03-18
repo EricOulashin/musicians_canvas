@@ -34,6 +34,8 @@ public:
     void setInteractiveControlsEnabled(bool enabled);
     void setRecordingLevel(float level);   // 0.0–1.0, shown in waveform area while recording
     void clearRecordingLevel();            // restore normal waveform display
+    void setRecordingStatus(const QString& status);  // overlay text on waveform area
+    void clearRecordingStatus();                     // hide overlay text
 
 signals:
     void configurationRequested(TrackWidget* widget);

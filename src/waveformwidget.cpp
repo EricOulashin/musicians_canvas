@@ -39,6 +39,19 @@ void WaveformWidget::clearRecordingLevel()
     update();
 }
 
+void WaveformWidget::setStatusText(const QString& text, const QColor& color)
+{
+    m_statusText = text;
+    m_statusColor = color.isValid() ? color : palette().color(QPalette::PlaceholderText);
+    update();
+}
+
+void WaveformWidget::clearStatusText()
+{
+    m_statusText.clear();
+    update();
+}
+
 void WaveformWidget::computePeaks()
 {
     m_peaks.clear();
@@ -77,6 +90,18 @@ void WaveformWidget::paintEvent(QPaintEvent* event)
     if (waveColor.lightness() < 128) waveColor = QColor(100, 180, 255);
     QColor centerLineColor = palette().color(QPalette::Mid);
     painter.fillRect(rect(), bgColor);
+
+    // Status text overlay (e.g. "Getting ready..." or "3...")
+    if (!m_statusText.isEmpty())
+    {
+        QFont statusFont = painter.font();
+        statusFont.setPointSize(14);
+        statusFont.setBold(true);
+        painter.setFont(statusFont);
+        painter.setPen(m_statusColor);
+        painter.drawText(rect(), Qt::AlignCenter, m_statusText);
+        return;
+    }
 
     // Live recording level meter
     if (m_recordingLevel >= 0.0f)

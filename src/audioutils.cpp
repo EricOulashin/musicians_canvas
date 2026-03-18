@@ -4,6 +4,7 @@
 #include <QDir>
 #include <QTemporaryFile>
 #include <algorithm>
+#include <cmath>
 #include <vector>
 #include <string>
 #include <memory>
@@ -279,6 +280,44 @@ bool AudioUtils::readFlacAudioData(const QString& path,
 
     flacFile->close();
     return true;
+}
+
+QByteArray AudioUtils::resampleInt16(const QByteArray& int16Data,
+                                      int srcRate,
+                                      int dstRate,
+                                      int channelCount)
+{
+    if (srcRate == dstRate || srcRate <= 0 || dstRate <= 0 || channelCount <= 0)
+        return int16Data;
+
+    const qint16* src = reinterpret_cast<const qint16*>(int16Data.constData());
+    const int srcFrames = int16Data.size() / (channelCount * static_cast<int>(sizeof(qint16)));
+    if (srcFrames <= 0)
+        return int16Data;
+
+    const double ratio = static_cast<double>(srcRate) / static_cast<double>(dstRate);
+    const int dstFrames = static_cast<int>(std::ceil(srcFrames / ratio));
+
+    QByteArray result(dstFrames * channelCount * static_cast<int>(sizeof(qint16)), 0);
+    qint16* dst = reinterpret_cast<qint16*>(result.data());
+
+    for (int i = 0; i < dstFrames; ++i)
+    {
+        const double srcPos = i * ratio;
+        const int srcIdx    = static_cast<int>(srcPos);
+        const double frac   = srcPos - srcIdx;
+        const int nextIdx   = std::min(srcIdx + 1, srcFrames - 1);
+
+        for (int c = 0; c < channelCount; ++c)
+        {
+            const double s0 = src[srcIdx  * channelCount + c];
+            const double s1 = src[nextIdx * channelCount + c];
+            const double interpolated = s0 * (1.0 - frac) + s1 * frac;
+            dst[i * channelCount + c] = static_cast<qint16>(
+                std::max(-32768.0, std::min(32767.0, std::round(interpolated))));
+        }
+    }
+    return result;
 }
 
 bool AudioUtils::mixTracksToFile(const QVector<TrackData>& tracks,

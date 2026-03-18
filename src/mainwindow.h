@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QVector>
 #include <QIcon>
+#include <QElapsedTimer>
 #include "trackdata.h"
 #include "projectsettings.h"
 
@@ -59,6 +60,7 @@ private:
     TrackWidget* armedTrack() const;
     void startPlayback();
     void startRecording();
+    void beginRecordingAfterCountdown();
     void stopPlaybackOrRecording();
     QString effectiveProjectPath() const;
     void moveProjectFiles(const QString& oldDir, const QString& newDir);
@@ -83,12 +85,15 @@ private:
     ProjectSettings m_projectSettings;
 
     QTimer* m_recordingLevelTimer = nullptr;
+    QTimer* m_countdownTimer = nullptr;
+    int     m_countdownRemaining = 0;
 
 #ifdef QT_MULTIMEDIA_AVAILABLE
     // Actual format the recording is using (may differ from project settings if unsupported)
     int  m_recordingSampleRate    = 44100;
     int  m_recordingChannelCount  = 2;
     int  m_recordingSampleFormat  = 2;   // QAudioFormat::SampleFormat enum value (2 = Int16)
+    QElapsedTimer m_recordingTimer;      // validates reported sample rate
 #endif
 
 #ifdef QT_MULTIMEDIA_AVAILABLE
