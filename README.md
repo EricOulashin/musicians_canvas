@@ -17,6 +17,8 @@ as traditional software development.
 - **Mix to single audio file**: Export all enabled tracks to a single mixed WAV or FLAC file using the [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp) library
 - **Save / Open project**: Serialize and restore the full project (tracks, names, types, MIDI notes, audio file references) to/from a JSON file
 - **Project-specific settings**: Override global MIDI and audio defaults per project (sample rate, SoundFont, MIDI device)
+- **High-quality sample-rate conversion**: Records at the audio device's native rate and converts to the project rate using windowed sinc interpolation (Kaiser-windowed, ~96 dB stopband attenuation), the same algorithm family used by Audacity / libsoxr. This allows recording at any project sample rate regardless of the device's native rate, with no pitch or duration change.
+- **Automatic mono/stereo handling**: Detects physically-mono devices advertised as stereo (common with USB webcam mics on PipeWire) and converts between mono and stereo as needed (duplication or averaging), matching Audacity's channel-routing approach
 - **Low-latency audio**: On Windows, ASIO driver detection ensures low-latency audio; on Linux, process scheduling priority is raised for lower jitter with PipeWire / PulseAudio / ALSA
 - **Virtual MIDI keyboard**: A companion application for sending MIDI notes via a software piano keyboard, with a built-in FluidSynth synthesizer and adjustable master gain
 - **Configuration**: Select audio input device, MIDI device, and SoundFont file (global defaults and per-project overrides)

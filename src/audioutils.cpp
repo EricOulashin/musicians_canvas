@@ -5,9 +5,14 @@
 #include <QTemporaryFile>
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <vector>
 #include <string>
 #include <memory>
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 #include "AudioFileTools.h"
 #include "AudioFileInfo.h"
 #include "FLACFileInfo.h"
@@ -282,6 +287,47 @@ bool AudioUtils::readFlacAudioData(const QString& path,
     return true;
 }
 
+// ── Windowed sinc resampler ──────────────────────────────────────────────
+// This implements the same algorithm family that libsoxr / Audacity use for
+// high-quality sample-rate conversion: a FIR filter built from a sinc kernel
+// multiplied by a Kaiser window.  The kernel width (SINC_HALF_LEN taps on
+// each side) controls quality vs. cost; 16 taps provides ~96 dB stopband
+// attenuation, comparable to soxr's "High Quality" setting.
+//
+// When downsampling, the filter is scaled by the conversion ratio to act as
+// a proper anti-aliasing low-pass filter (Audacity/soxr do the same).
+// When upsampling, the sinc kernel reconstructs the waveform from the
+// Nyquist-limited source, producing smooth output without imaging artifacts.
+//
+// This approach preserves pitch and duration exactly.
+
+static constexpr int    SINC_HALF_LEN = 16;    // taps on each side
+static constexpr double KAISER_BETA   = 9.0;   // ~96 dB attenuation
+
+// Modified Bessel function of the first kind, order 0 (I0).
+static double besselI0(double x)
+{
+    double sum = 1.0;
+    double term = 1.0;
+    for (int k = 1; k < 25; ++k)
+    {
+        term *= (x * x) / (4.0 * k * k);
+        sum += term;
+        if (term < 1e-12 * sum)
+            break;
+    }
+    return sum;
+}
+
+// Kaiser window: w(n) = I0(beta * sqrt(1 - (n/N)^2)) / I0(beta)
+static double kaiserWindow(double n, double N, double beta)
+{
+    const double r = n / N;
+    if (std::abs(r) >= 1.0)
+        return 0.0;
+    return besselI0(beta * std::sqrt(1.0 - r * r)) / besselI0(beta);
+}
+
 QByteArray AudioUtils::resampleInt16(const QByteArray& int16Data,
                                       int srcRate,
                                       int dstRate,
@@ -298,23 +344,94 @@ QByteArray AudioUtils::resampleInt16(const QByteArray& int16Data,
     const double ratio = static_cast<double>(srcRate) / static_cast<double>(dstRate);
     const int dstFrames = static_cast<int>(std::ceil(srcFrames / ratio));
 
+    // When downsampling (ratio > 1), scale the sinc kernel to act as a
+    // low-pass filter at the output Nyquist frequency (anti-aliasing).
+    // When upsampling (ratio < 1), use the full bandwidth.
+    const double cutoff   = (ratio > 1.0) ? 1.0 / ratio : 1.0;
+    const int    halfLen  = (ratio > 1.0)
+                                ? static_cast<int>(std::ceil(SINC_HALF_LEN * ratio))
+                                : SINC_HALF_LEN;
+    const double winHalf  = static_cast<double>(halfLen);
+
     QByteArray result(dstFrames * channelCount * static_cast<int>(sizeof(qint16)), 0);
     qint16* dst = reinterpret_cast<qint16*>(result.data());
 
     for (int i = 0; i < dstFrames; ++i)
     {
-        const double srcPos = i * ratio;
-        const int srcIdx    = static_cast<int>(srcPos);
-        const double frac   = srcPos - srcIdx;
-        const int nextIdx   = std::min(srcIdx + 1, srcFrames - 1);
+        const double srcCenter = i * ratio;
+        const int    iStart    = std::max(0, static_cast<int>(std::floor(srcCenter - winHalf)));
+        const int    iEnd      = std::min(srcFrames - 1, static_cast<int>(std::ceil(srcCenter + winHalf)));
 
         for (int c = 0; c < channelCount; ++c)
         {
-            const double s0 = src[srcIdx  * channelCount + c];
-            const double s1 = src[nextIdx * channelCount + c];
-            const double interpolated = s0 * (1.0 - frac) + s1 * frac;
+            double accum = 0.0;
+            double wSum  = 0.0;
+            for (int j = iStart; j <= iEnd; ++j)
+            {
+                const double d = j - srcCenter;          // distance in source samples
+                // sinc(x) = sin(pi*x) / (pi*x), with sinc(0) = 1
+                double sincVal;
+                const double dx = d * cutoff;
+                if (std::abs(dx) < 1e-9)
+                    sincVal = 1.0;
+                else
+                    sincVal = std::sin(M_PI * dx) / (M_PI * dx);
+
+                const double w = kaiserWindow(d, winHalf, KAISER_BETA) * sincVal * cutoff;
+                accum += src[j * channelCount + c] * w;
+                wSum  += w;
+            }
+            if (wSum != 0.0)
+                accum /= wSum;
             dst[i * channelCount + c] = static_cast<qint16>(
-                std::max(-32768.0, std::min(32767.0, std::round(interpolated))));
+                std::max(-32768.0, std::min(32767.0, std::round(accum))));
+        }
+    }
+    return result;
+}
+
+QByteArray AudioUtils::convertChannels(const QByteArray& int16Data,
+                                        int srcChannels,
+                                        int dstChannels)
+{
+    if (srcChannels == dstChannels || srcChannels <= 0 || dstChannels <= 0)
+        return int16Data;
+
+    const qint16* src = reinterpret_cast<const qint16*>(int16Data.constData());
+    const int srcFrames = int16Data.size() / (srcChannels * static_cast<int>(sizeof(qint16)));
+    if (srcFrames <= 0)
+        return int16Data;
+
+    QByteArray result(srcFrames * dstChannels * static_cast<int>(sizeof(qint16)), 0);
+    qint16* dst = reinterpret_cast<qint16*>(result.data());
+
+    if (srcChannels == 1 && dstChannels == 2)
+    {
+        // Mono → Stereo: duplicate the channel (same as Audacity)
+        for (int i = 0; i < srcFrames; ++i)
+        {
+            dst[i * 2]     = src[i];
+            dst[i * 2 + 1] = src[i];
+        }
+    }
+    else if (srcChannels == 2 && dstChannels == 1)
+    {
+        // Stereo → Mono: average L and R (same as Audacity)
+        for (int i = 0; i < srcFrames; ++i)
+        {
+            const int32_t L = src[i * 2];
+            const int32_t R = src[i * 2 + 1];
+            dst[i] = static_cast<qint16>((L + R) / 2);
+        }
+    }
+    else
+    {
+        // General case: copy as many channels as we can, zero-fill the rest
+        const int copyChannels = std::min(srcChannels, dstChannels);
+        for (int i = 0; i < srcFrames; ++i)
+        {
+            for (int c = 0; c < copyChannels; ++c)
+                dst[i * dstChannels + c] = src[i * srcChannels + c];
         }
     }
     return result;

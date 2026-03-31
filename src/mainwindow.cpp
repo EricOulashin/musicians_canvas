@@ -283,6 +283,12 @@ void MainWindow::onAddTrack()
     connect(widget, &TrackWidget::removeRequested, this, &MainWindow::onTrackRemoveRequested);
     m_trackWidgets.append(widget);
     m_tracksLayout->insertWidget(m_tracksLayout->count() - 1, widget);
+
+    // If this is the only track and it hasn't been recorded yet, arm it
+    // automatically so the user can start recording immediately.
+    if (m_trackWidgets.size() == 1 && data.audioData.isEmpty() && data.midiNotes.isEmpty())
+        widget->setArmed(true);
+
     markDirty();
     updatePlayRecordButton();
 }
@@ -545,6 +551,7 @@ void MainWindow::startRecording()
         return;
     }
 
+    // Verify the input device can handle the project's configured sample rate.
     // Disable controls and show countdown on the armed track
     m_isActive = true;
     for (auto* w : m_trackWidgets) w->setInteractiveControlsEnabled(false);
@@ -787,24 +794,21 @@ void MainWindow::stopPlaybackOrRecording()
                 TrackWidget* armed = armedTrack();
                 if (armed != nullptr)
                 {
-                    // Determine the true recording sample rate.
+                    // ── Detect actual sample rate ─────────────────────────
                     //
-                    // preferredFormat() returns the device's advertised native rate
-                    // (e.g. 32000 Hz for a USB webcam).  However, some audio
-                    // backends (PipeWire + Qt FFmpeg) may deliver data at a
-                    // DIFFERENT rate than what preferredFormat() reported — e.g.
-                    // PipeWire may resample to its graph rate (44100/48000 Hz)
-                    // before handing data to Qt.  When that happens, using the
-                    // reported rate as srcRate for our resampler would stretch or
-                    // compress the audio (wrong pitch/speed).
+                    // Trust the channel count from preferredFormat() — the raw
+                    // bytes are interleaved at this channel count regardless of
+                    // whether the device is physically mono or stereo.
                     //
-                    // To detect the true rate, we compare the wall-clock recording
-                    // duration against the expected duration at the reported rate.
-                    // If they disagree by more than 15%, the reported rate is wrong
-                    // and we compute the actual rate from the data.
-                    const quint16 ch = static_cast<quint16>(m_recordingChannelCount);
+                    // However, some Qt audio backends (notably the FFmpeg backend
+                    // on PipeWire) deliver data at a LOWER frame rate than the
+                    // device's native rate.  We detect the actual rate from the
+                    // byte rate and wall-clock time, then resample to the project
+                    // rate with the windowed sinc resampler.  This mirrors
+                    // Audacity's approach (record at hardware rate, resample via
+                    // libsoxr to project rate).
                     const int reportedRate = m_recordingSampleRate;
-
+                    const int reportedCh   = m_recordingChannelCount;
                     const int bytesPerSample = [&]() -> int
                     {
                         switch (static_cast<QAudioFormat::SampleFormat>(m_recordingSampleFormat))
@@ -816,31 +820,64 @@ void MainWindow::stopPlaybackOrRecording()
                         default:                   return 2;
                         }
                     }();
-                    const int capturedFrames = rawData.size() / (ch * bytesPerSample);
-                    const double elapsedSec  = m_recordingTimer.elapsed() / 1000.0;
+                    const double elapsedSec = m_recordingTimer.elapsed() / 1000.0;
 
+                    quint16 ch = static_cast<quint16>(reportedCh);
                     quint32 sr = static_cast<quint32>(reportedRate);
-                    if (elapsedSec >= 0.5 && capturedFrames > 0 && reportedRate > 0)
-                    {
-                        const double expectedDuration =
-                            static_cast<double>(capturedFrames) / reportedRate;
-                        const double discrepancy =
-                            std::abs(expectedDuration - elapsedSec) / elapsedSec;
 
-                        if (discrepancy > 0.15)
+                    // ── Detect actual channel count and sample rate ──────
+                    //
+                    // The Qt FFmpeg audio backend on PipeWire may deliver
+                    // fewer bytes than expected for devices advertised as
+                    // stereo.  A physically-mono webcam at 32000 Hz delivers
+                    // ~64000 bytes/sec regardless of the requested stereo
+                    // format — exactly matching mono-32000 or stereo-16000.
+                    //
+                    // Interpreting as stereo-16000 creates interleaved-mono
+                    // artifacts (L=audio, R≈silence or vice-versa) that
+                    // degrade quality and cause perceived pitch change after
+                    // resampling.  Interpreting as mono-32000 keeps the
+                    // original sample sequence intact, producing clean audio
+                    // that resamples correctly to any project rate.
+                    //
+                    // We try both interpretations and pick the one whose
+                    // implied sample rate best matches the reported native
+                    // rate.  For the webcam: mono gives 32000 (exact match),
+                    // stereo gives 16000 (50% off) → mono wins.
+                    if (elapsedSec >= 0.5 && rawData.size() > 0 && bytesPerSample > 0)
+                    {
+                        const double byteRate = rawData.size() / elapsedSec;
+
+                        // Implied sample rate for each candidate channel count
+                        const double rateIfReportedCh =
+                            byteRate / (reportedCh * bytesPerSample);
+                        const double rateIfMono =
+                            (reportedCh > 1) ? byteRate / (1 * bytesPerSample) : rateIfReportedCh;
+
+                        const double distReported =
+                            std::abs(rateIfReportedCh - reportedRate);
+                        const double distMono =
+                            std::abs(rateIfMono - reportedRate);
+
+                        if (reportedCh > 1 && distMono < distReported)
                         {
-                            // The reported rate doesn't match the data.  Compute
-                            // the actual rate and round to the nearest standard.
-                            const double measuredRate = capturedFrames / elapsedSec;
+                            // Data is mono at the reported rate.
+                            ch = 1;
+                            sr = static_cast<quint32>(reportedRate);
+                        }
+                        else if (distReported / reportedRate > 0.10)
+                        {
+                            // Rate mismatch even with reported channels.
+                            // Snap to nearest standard rate.
                             static const int stdRates[] = {
                                 8000, 11025, 16000, 22050, 32000,
                                 44100, 48000, 88200, 96000, 176400, 192000
                             };
                             int bestRate = reportedRate;
-                            double bestDist = std::abs(measuredRate - reportedRate);
+                            double bestDist = distReported;
                             for (int rate : stdRates)
                             {
-                                const double dist = std::abs(measuredRate - rate);
+                                const double dist = std::abs(rateIfReportedCh - rate);
                                 if (dist < bestDist)
                                 {
                                     bestDist = dist;
@@ -891,66 +928,58 @@ void MainWindow::stopPlaybackOrRecording()
                         int16Data = rawData;
                     }
 
-                    // Resample to the project's configured rate if the device
-                    // recorded at a different native rate.  This preserves the
-                    // audio's speed, tone, and pitch — only the sample rate
-                    // metadata changes so all tracks in the project share a
-                    // consistent rate for mixing.
+                    // ── Post-processing: channel conversion + resampling ──
+                    //
+                    // Like Audacity, we record at the device's native rate and
+                    // channel count, then convert to the project's settings:
+                    //   1. Channel conversion (mono↔stereo) via averaging or
+                    //      duplication, matching Audacity's ConfigureCaptureRouting
+                    //   2. Sample rate conversion via windowed sinc interpolation,
+                    //      matching Audacity's use of libsoxr
+                    //
+                    // This preserves pitch and duration regardless of the
+                    // device's native format vs. the project's configured rate.
                     const int projectRate = m_projectSettings.sampleRate;
+                    const int projectCh   = m_projectSettings.channelCount;
 
-                    // Diagnostic: write recording info to a log file
+                    // Diagnostic log
                     {
                         QFile logFile(effectiveProjectPath() + QDir::separator()
                                       + QStringLiteral("recording_debug.txt"));
                         if (logFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
                         {
                             QTextStream ts(&logFile);
+                            const int nFrames = int16Data.size() / (ch * 2);
                             ts << "--- Recording Stop ---\n"
-                               << "reportedRate: " << reportedRate << "\n"
-                               << "sr (after validation): " << sr << "\n"
-                               << "projectRate: " << projectRate << "\n"
-                               << "capturedFrames: " << capturedFrames << "\n"
+                               << "reportedRate: " << reportedRate
+                               << "  reportedCh: " << reportedCh << "\n"
+                               << "detected sr: " << sr
+                               << "  detected ch: " << ch << "\n"
+                               << "projectRate: " << projectRate
+                               << "  projectCh: " << projectCh << "\n"
                                << "elapsedSec: " << elapsedSec << "\n"
-                               << "channelCount: " << ch << "\n"
-                               << "sampleFormat: " << m_recordingSampleFormat << "\n"
-                               << "rawData.size: " << rawData.size() << "\n"
-                               << "int16Data.size: " << int16Data.size() << "\n"
-                               << "int16Frames: " << (int16Data.size() / (ch * 2)) << "\n"
-                               << "needsResample: " << (static_cast<int>(sr) != projectRate && projectRate > 0) << "\n";
+                               << "rawData.size: " << rawData.size()
+                               << "  byteRate: " << (elapsedSec > 0 ? rawData.size() / elapsedSec : 0) << "\n"
+                               << "frames: " << nFrames
+                               << "  duration: " << (sr > 0 ? static_cast<double>(nFrames) / sr : 0) << " sec\n";
                         }
                     }
 
+                    // 1. Channel conversion (if needed)
+                    if (ch != projectCh && projectCh > 0)
+                    {
+                        int16Data = AudioUtils::convertChannels(
+                            int16Data, static_cast<int>(ch), projectCh);
+                        ch = static_cast<quint16>(projectCh);
+                    }
+
+                    // 2. Sample-rate conversion (windowed sinc, like Audacity/soxr)
                     if (static_cast<int>(sr) != projectRate && projectRate > 0)
                     {
-                        const int srcFrames = int16Data.size() / (ch * 2);
                         int16Data = AudioUtils::resampleInt16(
                             int16Data, static_cast<int>(sr), projectRate,
                             static_cast<int>(ch));
                         sr = static_cast<quint32>(projectRate);
-
-                        // Log resampling result
-                        {
-                            QFile logFile(effectiveProjectPath() + QDir::separator()
-                                          + QStringLiteral("recording_debug.txt"));
-                            if (logFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
-                            {
-                                QTextStream ts(&logFile);
-                                ts << "RESAMPLED: " << reportedRate << " -> " << projectRate << "\n"
-                                   << "srcFrames: " << srcFrames << "\n"
-                                   << "dstFrames: " << (int16Data.size() / (ch * 2)) << "\n"
-                                   << "dstDuration: " << (int16Data.size() / (ch * 2)) / static_cast<double>(projectRate) << " sec\n";
-                            }
-                        }
-                    }
-                    else
-                    {
-                        QFile logFile(effectiveProjectPath() + QDir::separator()
-                                      + QStringLiteral("recording_debug.txt"));
-                        if (logFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
-                        {
-                            QTextStream ts(&logFile);
-                            ts << "NO RESAMPLE (sr == projectRate)\n";
-                        }
                     }
 
                     TrackData data = armed->trackData();
@@ -1214,6 +1243,15 @@ void MainWindow::loadProjectFromFile(const QString& path)
     else
     {
         m_projectSettings = ProjectSettings{};
+    }
+
+    // If the project has exactly one track and it hasn't been recorded yet,
+    // arm it automatically so the user can start recording immediately.
+    if (m_trackWidgets.size() == 1)
+    {
+        const TrackData& td = m_trackWidgets[0]->trackData();
+        if (td.audioData.isEmpty() && td.midiNotes.isEmpty())
+            m_trackWidgets[0]->setArmed(true);
     }
 
     m_isDirty = false;

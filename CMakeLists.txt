@@ -40,6 +40,7 @@ set(AUDIO_MIXER_SOURCES
     ${AUDIO_MIXER_CPP_DIR}/EOUtils.cpp
     ${AUDIO_MIXER_CPP_DIR}/FLACFile.cpp
     ${AUDIO_MIXER_CPP_DIR}/FLACFileInfo.cpp
+    ${AUDIO_MIXER_CPP_DIR}/MetadataAudioFile.cpp
     ${AUDIO_MIXER_CPP_DIR}/WAVFile.cpp
     ${AUDIO_MIXER_CPP_DIR}/WAVFileInfo.cpp
     ${AUDIO_MIXER_CPP_DIR}/utilFunctions.cpp

@@ -35,14 +35,24 @@ public:
                                                  int& sampleRate,
                                                  int& channelCount);
 
-    // Resample Int16 PCM data from srcRate to dstRate using linear interpolation.
-    // The input contains interleaved Int16 samples with the given channelCount.
-    // Returns a new QByteArray at the target rate.  If srcRate == dstRate,
-    // returns the input unchanged.
+    // Resample Int16 PCM data from srcRate to dstRate using windowed sinc
+    // interpolation (similar to libsoxr / Audacity).  The input contains
+    // interleaved Int16 samples with the given channelCount.  Returns a new
+    // QByteArray at the target rate.  If srcRate == dstRate, returns the
+    // input unchanged.  Pitch and duration are preserved.
     [[nodiscard]] static QByteArray resampleInt16(const QByteArray& int16Data,
                                                    int srcRate,
                                                    int dstRate,
                                                    int channelCount);
+
+    // Convert channel layout of Int16 PCM data.
+    //   mono → stereo:  duplicates the single channel to both L and R
+    //   stereo → mono:  averages L and R into a single channel
+    // Returns a new QByteArray with the target channel count.
+    // If srcChannels == dstChannels, returns the input unchanged.
+    [[nodiscard]] static QByteArray convertChannels(const QByteArray& int16Data,
+                                                      int srcChannels,
+                                                      int dstChannels);
 };
 
 #endif // AUDIOUTILS_H

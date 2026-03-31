@@ -11,14 +11,26 @@
 #include <QButtonGroup>
 #include <QFileDialog>
 #include <QDialogButtonBox>
+#include <QApplication>
 #ifdef QT_MULTIMEDIA_AVAILABLE
 #include <QMediaDevices>
 #include <QAudioDevice>
+#include <QAudioSource>
+#include <QBuffer>
+#include <QElapsedTimer>
+#include <QEventLoop>
+#include <QTimer>
 #endif
 #include <RtMidi.h>
 #include <string>
+#include <cmath>
 
 using std::string;
+
+// Standard sample rates offered in the UI
+static const int s_stdRates[] = {
+    8000, 11025, 16000, 22050, 32000, 44100, 48000, 88200, 96000, 176400, 192000
+};
 
 ProjectSettingsDialog::ProjectSettingsDialog(const ProjectSettings& settings,
                                              QWidget* parent)
@@ -102,6 +114,10 @@ void ProjectSettingsDialog::setupAudioTab()
     inputLayout->addWidget(m_audioInputCombo);
     layout->addWidget(inputGroup);
 
+    // Re-populate format options when the input device changes
+    connect(m_audioInputCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, &ProjectSettingsDialog::updateAudioFormatOptions);
+
     auto* outputGroup = new QGroupBox(tr("Audio Output Device"));
     auto* outputLayout = new QVBoxLayout(outputGroup);
     m_audioOutputCombo = new QComboBox();
@@ -113,15 +129,10 @@ void ProjectSettingsDialog::setupAudioTab()
     auto* fmtGroup = new QGroupBox(tr("Audio Format (applies to all audio tracks)"));
     auto* fmtLayout = new QVBoxLayout(fmtGroup);
 
-    // Sample rate
+    // Sample rate — populated dynamically from the selected input device
     auto* srRow = new QHBoxLayout();
     srRow->addWidget(new QLabel(tr("Sample rate:")));
     m_sampleRateCombo = new QComboBox();
-    m_sampleRateCombo->addItem(QStringLiteral("22050 Hz"),  22050);
-    m_sampleRateCombo->addItem(QStringLiteral("44100 Hz"),  44100);
-    m_sampleRateCombo->addItem(QStringLiteral("48000 Hz"),  48000);
-    m_sampleRateCombo->addItem(QStringLiteral("96000 Hz"),  96000);
-    m_sampleRateCombo->setCurrentIndex(1);  // default 44100
     srRow->addWidget(m_sampleRateCombo);
     srRow->addStretch();
     fmtLayout->addLayout(srRow);
@@ -139,6 +150,11 @@ void ProjectSettingsDialog::setupAudioTab()
     chRow->addWidget(m_stereoRadio);
     chRow->addStretch();
     fmtLayout->addLayout(chRow);
+
+    // When the user toggles mono/stereo, refresh the sample rate list
+    // since the max rate may differ between mono and stereo.
+    connect(m_monoRadio, &QRadioButton::toggled,
+            this, &ProjectSettingsDialog::refreshSampleRateList);
 
     layout->addWidget(fmtGroup);
     layout->addStretch();
@@ -218,19 +234,251 @@ void ProjectSettingsDialog::loadSettings(const ProjectSettings& settings)
         }
     }
 
-    // Sample rate
-    int srIdx = m_sampleRateCombo->findData(settings.sampleRate);
-    m_sampleRateCombo->setCurrentIndex(srIdx >= 0 ? srIdx : 1);  // fall back to 44100
-
-    // Channels
+    // Channels — set before sample rates so refreshSampleRateList uses
+    // the correct mono/stereo selection.
     if (settings.channelCount == 1)
-    {
         m_monoRadio->setChecked(true);
+    else
+        m_stereoRadio->setChecked(true);
+
+    // Sample rate — updateAudioFormatOptions() was already called via the
+    // currentIndexChanged signal when we populated the input combo above.
+    // Now select the correct rate from the project settings.
+    int srIdx = m_sampleRateCombo->findData(settings.sampleRate);
+    if (srIdx >= 0)
+        m_sampleRateCombo->setCurrentIndex(srIdx);
+    // If the saved rate isn't available for this device,
+    // refreshSampleRateList already selected the best fallback.
+}
+
+#ifdef QT_MULTIMEDIA_AVAILABLE
+QAudioDevice ProjectSettingsDialog::selectedInputDevice() const
+{
+    const QByteArray selectedId = m_audioInputCombo->currentData().toByteArray();
+    if (selectedId.isEmpty())
+        return QMediaDevices::defaultAudioInput();
+
+    const auto inputs = QMediaDevices::audioInputs();
+    for (const auto& dev : inputs)
+    {
+        if (dev.id() == selectedId)
+            return dev;
+    }
+    return {};
+}
+
+void ProjectSettingsDialog::probeDeviceRates()
+{
+    m_probedMonoMaxRate   = 0;
+    m_probedStereoMaxRate = 0;
+
+    const QAudioDevice device = selectedInputDevice();
+    if (device.isNull())
+        return;
+
+    // Use the device's preferred format for the probe (typically stereo).
+    const QAudioFormat fmt = device.preferredFormat();
+    const int reportedRate = fmt.sampleRate();
+    const int reportedCh   = fmt.channelCount();
+    const int bps          = fmt.bytesPerSample();  // bytes per single sample
+    if (reportedRate <= 0 || reportedCh <= 0 || bps <= 0)
+        return;
+
+    // Brief capture — 750 ms is enough to measure the byte rate reliably.
+    QBuffer buffer;
+    buffer.open(QBuffer::WriteOnly);
+
+    QAudioSource source(device, fmt);
+    source.start(&buffer);
+
+    QElapsedTimer timer;
+    timer.start();
+
+    QEventLoop loop;
+    QTimer::singleShot(750, &loop, &QEventLoop::quit);
+    loop.exec();
+
+    source.stop();
+    // Process any remaining events so the buffer receives final data.
+    QApplication::processEvents();
+
+    const double elapsed = timer.elapsed() / 1000.0;
+    const int    bytes   = buffer.data().size();
+
+    if (elapsed < 0.3 || bytes <= 0)
+        return;  // probe too short, keep defaults
+
+    // Compute the measured byte rate.
+    const double byteRate = bytes / elapsed;
+
+    // Expected byte rate if the reported format is accurate:
+    const double expectedByteRate = reportedRate * reportedCh * bps;
+
+    // Compute the actual frame rate at the reported channel count.
+    const int bytesPerFrame   = reportedCh * bps;
+    const double actualRate   = byteRate / bytesPerFrame;
+
+    // Snap to nearest standard rate.
+    auto snapRate = [](double measured) -> int
+    {
+        int best = 0;
+        double bestDist = 1e9;
+        for (int rate : s_stdRates)
+        {
+            const double dist = std::abs(measured - rate);
+            if (dist < bestDist)
+            {
+                bestDist = dist;
+                best = rate;
+            }
+        }
+        return best;
+    };
+
+    const int stereoRate = snapRate(actualRate);
+
+    // The device's true byte rate is constant regardless of what channel
+    // count we request (the hardware can only send what it has).
+    // For mono, the same byte stream gives twice as many frames per second
+    // because each frame is half as wide.
+    const double monoFrameRate = byteRate / bps;  // 1 channel
+    const int monoRate = snapRate(monoFrameRate);
+
+    // If the probed rates match the reported rate, the device is truthful.
+    // If they differ, we've discovered the actual hardware behavior.
+    m_probedStereoMaxRate = stereoRate;
+    m_probedMonoMaxRate   = monoRate;
+}
+#endif // QT_MULTIMEDIA_AVAILABLE
+
+void ProjectSettingsDialog::updateAudioFormatOptions()
+{
+#ifdef QT_MULTIMEDIA_AVAILABLE
+    // Probe the device to discover its true data rate.
+    // This is a brief (~750 ms) capture that measures the actual byte rate
+    // delivered by QAudioSource, which may differ from what the API reports
+    // (e.g. on PipeWire, a 32 kHz mono webcam is presented as stereo but
+    // delivers data at half the advertised frame rate).
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+    probeDeviceRates();
+    QApplication::restoreOverrideCursor();
+
+    // ── Channel options ───────────────────────────────────────────
+    const QAudioDevice device = selectedInputDevice();
+    if (!device.isNull())
+    {
+        QAudioFormat chTest = device.preferredFormat();
+
+        chTest.setChannelCount(1);
+        const bool monoSupported = device.isFormatSupported(chTest);
+
+        chTest.setChannelCount(2);
+        const bool stereoSupported = device.isFormatSupported(chTest);
+
+        // If the probed stereo rate equals the mono rate, the device is
+        // truly stereo.  If the stereo rate is lower (e.g. half), the
+        // device is physically mono and stereo wastes bandwidth.
+        const bool stereoIsReduced =
+            (m_probedStereoMaxRate > 0 && m_probedMonoMaxRate > 0 &&
+             m_probedStereoMaxRate < m_probedMonoMaxRate);
+
+        if (monoSupported && (stereoSupported || !stereoIsReduced))
+        {
+            m_monoRadio->setEnabled(true);
+            m_stereoRadio->setEnabled(stereoSupported);
+        }
+        else if (monoSupported)
+        {
+            m_monoRadio->setEnabled(true);
+            m_stereoRadio->setEnabled(false);
+            m_monoRadio->setChecked(true);
+        }
+        else
+        {
+            m_monoRadio->setEnabled(true);
+            m_stereoRadio->setEnabled(true);
+        }
     }
     else
     {
-        m_stereoRadio->setChecked(true);
+        m_monoRadio->setEnabled(true);
+        m_stereoRadio->setEnabled(true);
     }
+#endif
+
+    // Now populate the sample rate list based on the current channel selection.
+    refreshSampleRateList();
+}
+
+void ProjectSettingsDialog::refreshSampleRateList()
+{
+    const int previousRate = m_sampleRateCombo->currentData().toInt();
+
+    m_sampleRateCombo->clear();
+
+    // Always offer the common recording sample rates.  Like Audacity,
+    // rates above the device's native rate are supported via high-quality
+    // windowed sinc resampling after recording.
+    static const int s_offeredRates[] = {
+        8000, 11025, 16000, 22050, 32000, 44100, 48000, 96000
+    };
+
+#ifdef QT_MULTIMEDIA_AVAILABLE
+    const bool isMono = m_monoRadio->isChecked();
+    const int nativeRate = isMono ? m_probedMonoMaxRate : m_probedStereoMaxRate;
+
+    if (nativeRate > 0)
+    {
+        for (int rate : s_offeredRates)
+        {
+            QString label = QStringLiteral("%1 Hz").arg(rate);
+            if (rate == nativeRate)
+                label += tr(" (native)");
+            else if (rate > nativeRate)
+                label += tr(" (resampled)");
+            m_sampleRateCombo->addItem(label, rate);
+        }
+        // If the native rate isn't in the offered list, add it
+        bool nativeInList = false;
+        for (int rate : s_offeredRates)
+        {
+            if (rate == nativeRate)
+            {
+                nativeInList = true;
+                break;
+            }
+        }
+        if (!nativeInList)
+        {
+            const QString label = QStringLiteral("%1 Hz").arg(nativeRate) + tr(" (native)");
+            // Insert in sorted position
+            int insertIdx = 0;
+            for (int i = 0; i < m_sampleRateCombo->count(); ++i)
+            {
+                if (m_sampleRateCombo->itemData(i).toInt() > nativeRate)
+                    break;
+                insertIdx = i + 1;
+            }
+            m_sampleRateCombo->insertItem(insertIdx, label, nativeRate);
+        }
+    }
+    else
+#endif
+    {
+        // No probe data — show the standard list without annotations
+        for (int rate : s_offeredRates)
+            m_sampleRateCombo->addItem(QStringLiteral("%1 Hz").arg(rate), rate);
+    }
+
+    // Restore the previous selection, or fall back to 44100
+    int bestIdx = -1;
+    if (previousRate > 0)
+        bestIdx = m_sampleRateCombo->findData(previousRate);
+    if (bestIdx < 0)
+        bestIdx = m_sampleRateCombo->findData(44100);
+    if (bestIdx < 0)
+        bestIdx = m_sampleRateCombo->count() - 1;
+    m_sampleRateCombo->setCurrentIndex(bestIdx);
 }
 
 void ProjectSettingsDialog::onBrowseSoundFont()
