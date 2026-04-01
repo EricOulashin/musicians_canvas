@@ -53,8 +53,9 @@ jobs:
         run: |
           brew install cmake ninja qt@6 fluidsynth rtmidi flac portaudio pkgconf
 
-      # Qt6 is keg-only; combine with Homebrew prefix so find_package / find_library see
-      # Qt, FluidSynth, RtMidi, FLAC, and PortAudio (same pattern as local macOS builds).
+      # Qt6 is keg-only; CMAKE_PREFIX_PATH lets find_package(Qt6) and find_library see deps.
+      # PKG_CONFIG_PATH must find portaudio-2.0.pc; CMake links PortAudio via PkgConfig::PORTAUDIO_PC
+      # (IMPORTED_TARGET) so -L.../opt/portaudio/lib is applied — plain -lportaudio fails on macOS.
       - name: Configure Homebrew paths for CMake (macOS)
         if: runner.os == 'macOS'
         run: |
