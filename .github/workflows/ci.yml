@@ -31,6 +31,8 @@ jobs:
           repository: EricOulashin/audio_mixer_cpp
           path: audio_mixer_cpp
 
+      # libpipewire-0.3-dev: Linux only — CMake defines HAVE_PIPEWIRE only when
+      # CMAKE_SYSTEM_NAME is Linux (macOS/Windows skip PipeWire pkg-config entirely).
       - name: Install dependencies (Linux)
         if: runner.os == 'Linux'
         run: |
@@ -48,6 +50,7 @@ jobs:
             portaudio19-dev \
             pkg-config
 
+      # No PipeWire on macOS — not required for FluidSynth/CoreAudio; avoids missing .pc fails.
       - name: Install dependencies (macOS)
         if: runner.os == 'macOS'
         run: |

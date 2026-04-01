@@ -160,7 +160,7 @@ target_include_directories(virtual_midi_keyboard PRIVATE
     ${FLUIDSYNTH_INCLUDE_DIR}
     ${RTMIDI_INCLUDE_DIR}
 )
-target_link_libraries(virtual_midi_keyboard
+target_link_libraries(virtual_midi_keyboard PRIVATE
     Qt6::Core
     Qt6::Gui
     Qt6::Widgets
@@ -168,11 +168,11 @@ target_link_libraries(virtual_midi_keyboard
     ${RTMIDI_LIBRARY}
 )
 if(QT_MULTIMEDIA_FOUND)
-    target_link_libraries(virtual_midi_keyboard Qt6::Multimedia)
+    target_link_libraries(virtual_midi_keyboard PRIVATE Qt6::Multimedia)
     target_compile_definitions(virtual_midi_keyboard PRIVATE QT_MULTIMEDIA_AVAILABLE)
 endif()
 
-target_link_libraries(musicians_canvas
+target_link_libraries(musicians_canvas PRIVATE
     Qt6::Core
     Qt6::Gui
     Qt6::Widgets
@@ -181,7 +181,7 @@ target_link_libraries(musicians_canvas
     ${FLAC_LIBRARY}
 )
 if(QT_MULTIMEDIA_FOUND)
-    target_link_libraries(musicians_canvas Qt6::Multimedia)
+    target_link_libraries(musicians_canvas PRIVATE Qt6::Multimedia)
     target_compile_definitions(musicians_canvas PRIVATE QT_MULTIMEDIA_AVAILABLE)
 endif()
 
@@ -195,25 +195,24 @@ target_include_directories(musicians_canvas PRIVATE
 if(WIN32)
     # advapi32: Windows registry API (RegOpenKeyExW, RegEnumKeyExW) for ASIO detection
     # winmm:    Windows Multimedia API used by the MIDI and audio subsystems
-    target_link_libraries(musicians_canvas advapi32 winmm)
+    target_link_libraries(musicians_canvas PRIVATE advapi32 winmm)
 else()
-    # Threads (pthreads on Linux) – used by Qt Multimedia's audio backend
+    # Threads (pthreads on Linux/macOS) – used by Qt Multimedia's audio backend
     find_package(Threads REQUIRED)
-    target_link_libraries(musicians_canvas Threads::Threads)
+    target_link_libraries(musicians_canvas PRIVATE Threads::Threads)
 
-    # PipeWire: FluidSynth's native PipeWire audio driver requires pw_init() to be
-    # called before any PipeWire resources are created.  Link both executables against
-    # libpipewire so they can call pw_init()/pw_deinit() directly.
-    find_package(PkgConfig QUIET)
-    if(PkgConfig_FOUND)
-        pkg_check_modules(PIPEWIRE libpipewire-0.3)
+    # PipeWire exists only on Linux in practice. Skip pkg-config on macOS so CI does not
+    # run "Checking for module 'libpipewire-0.3'" (and avoid any toolchain edge cases).
+    if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND PkgConfig_FOUND)
+        pkg_check_modules(PIPEWIRE QUIET libpipewire-0.3)
         if(PIPEWIRE_FOUND)
+            # FluidSynth's PipeWire driver: link libpipewire so pw_init() is available.
             target_include_directories(virtual_midi_keyboard PRIVATE ${PIPEWIRE_INCLUDE_DIRS})
-            target_link_libraries(virtual_midi_keyboard ${PIPEWIRE_LIBRARIES})
+            target_link_libraries(virtual_midi_keyboard PRIVATE ${PIPEWIRE_LIBRARIES})
             target_compile_definitions(virtual_midi_keyboard PRIVATE HAVE_PIPEWIRE)
 
             target_include_directories(musicians_canvas PRIVATE ${PIPEWIRE_INCLUDE_DIRS})
-            target_link_libraries(musicians_canvas ${PIPEWIRE_LIBRARIES})
+            target_link_libraries(musicians_canvas PRIVATE ${PIPEWIRE_LIBRARIES})
             target_compile_definitions(musicians_canvas PRIVATE HAVE_PIPEWIRE)
         endif()
     endif()
