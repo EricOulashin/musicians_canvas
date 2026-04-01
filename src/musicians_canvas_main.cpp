@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "themeutils.h"
 #include "audiostartup.h"
+#include "portaudiorecorder.h"
 #include <QApplication>
 #include <QMessageBox>
 
@@ -24,9 +25,28 @@ int main(int argc, char* argv[])
         return 1;
     }
 
+#if defined(HAVE_PORTAUDIO)
+      {
+          QString paInitErr;
+          if (!PortAudioRecorder::initializeLibrary(&paInitErr))
+          {
+              QMessageBox::warning(
+                  nullptr,
+                  QObject::tr("PortAudio"),
+                  QObject::tr("PortAudio could not be initialized. Recording will use Qt Multimedia "
+                              "only.\n%1")
+                      .arg(paInitErr));
+          }
+      }
+#endif
+
     MainWindow window;
     window.show();
     const int ret = app.exec();
+
+#if defined(HAVE_PORTAUDIO)
+    PortAudioRecorder::terminateLibrary();
+#endif
 
     // Release audio resources and (on Windows) restore default audio device access.
     AudioStartup::shutdown();

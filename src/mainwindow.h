@@ -5,8 +5,13 @@
 #include <QVector>
 #include <QIcon>
 #include <QElapsedTimer>
+#include <memory>
 #include "trackdata.h"
 #include "projectsettings.h"
+
+#ifdef HAVE_PORTAUDIO
+#include "portaudiorecorder.h"
+#endif
 
 class QScrollArea;
 class QWidget;
@@ -67,6 +72,13 @@ private:
     void markDirty();
     void closeEvent(QCloseEvent* event) override;
 
+#ifdef QT_MULTIMEDIA_AVAILABLE
+    void startOverdubDuringRecording();
+    void startRecordingLevelMeter();
+    void finalizeRecordedAudio(const QByteArray& rawData, qint64 processedMicroseconds,
+                               const char* captureBackendLabel);
+#endif
+
     QScrollArea* m_scrollArea = nullptr;
     QWidget* m_tracksContainer = nullptr;
     QVBoxLayout* m_tracksLayout = nullptr;
@@ -102,6 +114,11 @@ private:
     QAudioSource* m_audioSource = nullptr;
     QBuffer* m_recordBuffer = nullptr;
     QString m_playbackTempFile;
+#endif
+
+#ifdef HAVE_PORTAUDIO
+    std::unique_ptr<PortAudioRecorder> m_portAudioRecorder;
+    bool m_recordingUsesPortAudio = false;
 #endif
 };
 

@@ -17,6 +17,7 @@ as traditional software development.
 - **Mix to single audio file**: Export all enabled tracks to a single mixed WAV or FLAC file using the [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp) library
 - **Save / Open project**: Serialize and restore the full project (tracks, names, types, MIDI notes, audio file references) to/from a JSON file
 - **Project-specific settings**: Override global MIDI and audio defaults per project (sample rate, SoundFont, MIDI device)
+- **PortAudio capture (optional build)**: When the project is built with PortAudio (`HAVE_PORTAUDIO`), recording can use a native PortAudio input path (similar in spirit to Audacity) instead of Qt Multimedia. **Project → Project Settings → Audio** lets you choose **PortAudio** or **Qt Multimedia** and pick a PortAudio input device. If PortAudio is not installed, the build still succeeds and recording uses Qt Multimedia only.
 - **High-quality sample-rate conversion**: Records at the audio device's native rate and converts to the project rate using windowed sinc interpolation (Kaiser-windowed, ~96 dB stopband attenuation), the same algorithm family used by Audacity / libsoxr. This allows recording at any project sample rate regardless of the device's native rate, with no pitch or duration change.
 - **Automatic mono/stereo handling**: Detects physically-mono devices advertised as stereo (common with USB webcam mics on PipeWire) and converts between mono and stereo as needed (duplication or averaging), matching Audacity's channel-routing approach
 - **Low-latency audio**: On Windows, ASIO driver detection ensures low-latency audio; on Linux, process scheduling priority is raised for lower jitter with PipeWire / PulseAudio / ALSA
@@ -68,6 +69,15 @@ will work. Install it alongside the core Qt6 libraries using the platform comman
 
 ---
 
+### PortAudio (optional)
+
+If the PortAudio library and headers are installed, CMake enables **`HAVE_PORTAUDIO`** and
+links it into **musicians_canvas**. Recording then defaults to the PortAudio path unless the
+project is set to **Qt Multimedia** in **Project → Project Settings → Audio**. If PortAudio is
+not found, the build continues without it (wrapper compiles as stubs).
+
+---
+
 ### SoundFont for MIDI synthesis
 
 A SoundFont (`.sf2`) file is required for MIDI tracks to produce audio. Without one,
@@ -85,6 +95,7 @@ path, so you must configure the SoundFont manually in
 sudo apt install build-essential cmake \
   qt6-base-dev qt6-multimedia-dev \
   libfluidsynth-dev librtmidi-dev libflac-dev \
+  libportaudio2 portaudio19-dev \
   libpipewire-0.3-dev \
   fluid-soundfont-gm
 ```
@@ -102,6 +113,7 @@ sudo apt install build-essential cmake \
 sudo dnf install cmake gcc-c++ \
   qt6-qtbase-devel qt6-qtmultimedia-devel \
   fluidsynth-devel rtmidi-devel flac-devel \
+  portaudio-devel \
   pipewire-devel \
   fluid-soundfont-gm
 ```
@@ -114,7 +126,7 @@ sudo dnf install cmake gcc-c++ \
 ```bash
 sudo pacman -S base-devel cmake \
   qt6-base qt6-multimedia \
-  fluidsynth rtmidi flac \
+  fluidsynth rtmidi flac portaudio \
   pipewire \
   soundfont-fluid
 ```
@@ -126,7 +138,7 @@ sudo pacman -S base-devel cmake \
 ### macOS
 
 ```bash
-brew install cmake qt fluidsynth rtmidi flac
+brew install cmake qt fluidsynth rtmidi flac portaudio
 ```
 
 > PipeWire is a Linux-only subsystem and is **not** required on macOS. FluidSynth
@@ -164,6 +176,7 @@ pacman -S mingw-w64-x86_64-qt6-multimedia
 pacman -S mingw-w64-x86_64-fluidsynth
 pacman -S mingw-w64-ucrt-x86_64-rtmidi
 pacman -S mingw-w64-x86_64-flac
+pacman -S mingw-w64-x86_64-portaudio
 pacman -S mingw-w64-x86_64-soundfont-fluid
 ```
 

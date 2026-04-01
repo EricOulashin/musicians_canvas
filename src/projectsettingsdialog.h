@@ -36,6 +36,10 @@ private:
     QAudioDevice selectedInputDevice() const;
     void probeDeviceRates();
 #endif
+#if defined(HAVE_PORTAUDIO)
+    void refreshPortAudioInputDevices();
+    void onRecordingBackendChanged();
+#endif
 
     QTabWidget*   m_tabWidget          = nullptr;
     QComboBox*    m_midiDeviceCombo    = nullptr;
@@ -45,6 +49,11 @@ private:
     QComboBox*    m_sampleRateCombo    = nullptr;
     QRadioButton* m_monoRadio          = nullptr;
     QRadioButton* m_stereoRadio        = nullptr;
+#if defined(HAVE_PORTAUDIO)
+    QRadioButton* m_recordingUsePortAudioRadio = nullptr;
+    QRadioButton* m_recordingUseQtRadio        = nullptr;
+    QComboBox*    m_portAudioDeviceCombo        = nullptr;
+#endif
 
     // Probed actual max sample rates for the selected input device.
     // These may differ from the device's reported rates when the audio

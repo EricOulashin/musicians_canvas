@@ -24,6 +24,9 @@
 #include <RtMidi.h>
 #include <string>
 #include <cmath>
+#if defined(HAVE_PORTAUDIO)
+#include "portaudiorecorder.h"
+#endif
 
 using std::string;
 
@@ -65,6 +68,13 @@ ProjectSettings ProjectSettingsDialog::projectSettings() const
     s.audioOutputDeviceId = m_audioOutputCombo->currentData().toByteArray();
     s.sampleRate          = m_sampleRateCombo->currentData().toInt();
     s.channelCount        = m_monoRadio->isChecked() ? 1 : 2;
+#if defined(HAVE_PORTAUDIO)
+    s.useQtAudioInput              = m_recordingUseQtRadio->isChecked();
+    s.portAudioInputDeviceIndex    = m_portAudioDeviceCombo->currentData().toInt();
+#else
+    s.useQtAudioInput              = true;
+    s.portAudioInputDeviceIndex    = -1;
+#endif
     return s;
 }
 
@@ -113,6 +123,31 @@ void ProjectSettingsDialog::setupAudioTab()
     m_audioInputCombo->setMinimumWidth(300);
     inputLayout->addWidget(m_audioInputCombo);
     layout->addWidget(inputGroup);
+
+#if defined(HAVE_PORTAUDIO)
+    {
+        auto* capGroup  = new QGroupBox(tr("Recording capture"));
+        auto* capLayout = new QVBoxLayout(capGroup);
+        m_recordingUsePortAudioRadio =
+            new QRadioButton(tr("PortAudio (native input, recommended when built-in)"));
+        m_recordingUseQtRadio = new QRadioButton(tr("Qt Multimedia"));
+        auto* capBackendGroup = new QButtonGroup(this);
+        capBackendGroup->addButton(m_recordingUsePortAudioRadio);
+        capBackendGroup->addButton(m_recordingUseQtRadio);
+        m_recordingUsePortAudioRadio->setChecked(true);
+        capLayout->addWidget(m_recordingUsePortAudioRadio);
+        capLayout->addWidget(m_recordingUseQtRadio);
+        capLayout->addWidget(new QLabel(tr("PortAudio input device:")));
+        m_portAudioDeviceCombo = new QComboBox();
+        m_portAudioDeviceCombo->setMinimumWidth(300);
+        capLayout->addWidget(m_portAudioDeviceCombo);
+        connect(m_recordingUsePortAudioRadio, &QRadioButton::toggled, this,
+                &ProjectSettingsDialog::onRecordingBackendChanged);
+        connect(m_recordingUseQtRadio, &QRadioButton::toggled, this,
+                &ProjectSettingsDialog::onRecordingBackendChanged);
+        layout->addWidget(capGroup);
+    }
+#endif
 
     // Re-populate format options when the input device changes
     connect(m_audioInputCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
@@ -199,6 +234,10 @@ void ProjectSettingsDialog::refreshDevices()
     m_audioInputCombo->addItem(tr("(App default)"), QByteArray());
     m_audioOutputCombo->addItem(tr("(App default)"), QByteArray());
 #endif
+
+#if defined(HAVE_PORTAUDIO)
+    refreshPortAudioInputDevices();
+#endif
 }
 
 void ProjectSettingsDialog::loadSettings(const ProjectSettings& settings)
@@ -249,6 +288,27 @@ void ProjectSettingsDialog::loadSettings(const ProjectSettings& settings)
         m_sampleRateCombo->setCurrentIndex(srIdx);
     // If the saved rate isn't available for this device,
     // refreshSampleRateList already selected the best fallback.
+
+#if defined(HAVE_PORTAUDIO)
+    if (settings.useQtAudioInput)
+        m_recordingUseQtRadio->setChecked(true);
+    else
+        m_recordingUsePortAudioRadio->setChecked(true);
+
+    {
+        const int savedPaDev = settings.portAudioInputDeviceIndex;
+        int paIdx            = m_portAudioDeviceCombo->findData(savedPaDev);
+        if (paIdx >= 0)
+            m_portAudioDeviceCombo->setCurrentIndex(paIdx);
+        else if (savedPaDev >= 0)
+        {
+            m_portAudioDeviceCombo->addItem(
+                tr("Saved device %1 (not in current list)").arg(savedPaDev), savedPaDev);
+            m_portAudioDeviceCombo->setCurrentIndex(m_portAudioDeviceCombo->count() - 1);
+        }
+    }
+    onRecordingBackendChanged();
+#endif
 }
 
 #ifdef QT_MULTIMEDIA_AVAILABLE
@@ -490,3 +550,35 @@ void ProjectSettingsDialog::onBrowseSoundFont()
     if (!path.isEmpty())
         m_soundFontEdit->setText(path);
 }
+
+#if defined(HAVE_PORTAUDIO)
+void ProjectSettingsDialog::refreshPortAudioInputDevices()
+{
+    m_portAudioDeviceCombo->clear();
+    m_portAudioDeviceCombo->addItem(tr("(Default audio input)"), -1);
+
+    if (!PortAudioRecorder::isCompiledWithPortAudio())
+    {
+        onRecordingBackendChanged();
+        return;
+    }
+
+    const int n = PortAudioRecorder::deviceCount();
+    for (int i = 0; i < n; ++i)
+    {
+        if (PortAudioRecorder::maxInputChannels(i) <= 0)
+            continue;
+        const QString name = PortAudioRecorder::deviceName(i);
+        m_portAudioDeviceCombo->addItem(name.isEmpty() ? QString::number(i)
+                                                       : QStringLiteral("%1: %2").arg(i).arg(name),
+                                       i);
+    }
+    onRecordingBackendChanged();
+}
+
+void ProjectSettingsDialog::onRecordingBackendChanged()
+{
+    const bool usePa = m_recordingUsePortAudioRadio && m_recordingUsePortAudioRadio->isChecked();
+    m_portAudioDeviceCombo->setEnabled(usePa && PortAudioRecorder::isCompiledWithPortAudio());
+}
+#endif

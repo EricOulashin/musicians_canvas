@@ -4,6 +4,10 @@
 #include "settingsdialog.h"
 #include "projectsettingsdialog.h"
 #include "audioutils.h"
+#include "recordingpostprocess.h"
+#if defined(HAVE_PORTAUDIO)
+#include "portaudiorecorder.h"
+#endif
 #include "mixdialog.h"
 #include "appsettings.h"
 #include "audiostartup.h"
@@ -34,6 +38,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QFileInfo>
+#include <QTextStream>
 
 #ifdef QT_MULTIMEDIA_AVAILABLE
 #include <QMediaPlayer>
@@ -405,6 +410,18 @@ void MainWindow::onPlayRecord()
 void MainWindow::onPlaybackFinished()
 {
 #ifdef QT_MULTIMEDIA_AVAILABLE
+#    if defined(HAVE_PORTAUDIO)
+    // PortAudio capture does not use m_audioSource; overdub still uses m_player.
+    if (m_recordingUsesPortAudio && m_portAudioRecorder != nullptr)
+    {
+        if (!m_playbackTempFile.isEmpty())
+        {
+            QFile::remove(m_playbackTempFile);
+            m_playbackTempFile.clear();
+        }
+        return;
+    }
+#    endif
     // If recording is still in progress the player just finished the overdub backing track —
     // don't stop the recording; just clean up the temp file.
     if (m_audioSource != nullptr)
@@ -587,110 +604,57 @@ void MainWindow::startRecording()
 #endif
 }
 
-void MainWindow::beginRecordingAfterCountdown()
-{
 #ifdef QT_MULTIMEDIA_AVAILABLE
-    const QString projectDir = effectiveProjectPath();
-    QDir().mkpath(projectDir);
-
-    const QAudioDevice inputDevice = QMediaDevices::defaultAudioInput();
-
-    // Use preferredFormat() as-is — this returns the device's native sample
-    // rate, channel count, and sample type.  Recording at the device's native
-    // rate is essential because some audio backends (e.g. PipeWire's PulseAudio
-    // compatibility layer) report non-native rates as "supported" via
-    // isFormatSupported() but do not actually resample the data.  When that
-    // happens the raw audio arrives at the hardware's native rate but gets
-    // labelled with the requested rate, causing playback to be too fast or too
-    // slow.  Using preferredFormat() guarantees the metadata matches the data.
-    //
-    // The mixing pipeline already adapts to each track's actual sample rate
-    // (see mixTracksToFile), so a recording at 32 000 Hz or 48 000 Hz will
-    // play back correctly regardless of the project's configured rate.
-    const QAudioFormat format = inputDevice.preferredFormat();
-
-    // Capture the actual format fields that will be used.  These determine how
-    // the raw bytes in m_recordBuffer must be interpreted when recording stops.
-    m_recordingSampleRate   = format.sampleRate();
-    m_recordingChannelCount = format.channelCount();
-    m_recordingSampleFormat = static_cast<int>(format.sampleFormat());
-
-    // Diagnostic: log the recording format
+void MainWindow::startOverdubDuringRecording()
+{
+    QVector<TrackData> overdubTracks;
+    for (auto* w : m_trackWidgets)
     {
-        const QString projectDir = effectiveProjectPath();
-        QFile logFile(projectDir + QDir::separator() + QStringLiteral("recording_debug.txt"));
-        if (logFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
-        {
-            QTextStream ts(&logFile);
-            ts << "\n=== Recording Start ===\n"
-               << "device: " << inputDevice.description() << "\n"
-               << "preferredFormat sampleRate: " << format.sampleRate() << "\n"
-               << "preferredFormat channels: " << format.channelCount() << "\n"
-               << "preferredFormat sampleFormat: " << static_cast<int>(format.sampleFormat()) << "\n"
-               << "m_projectSettings.sampleRate: " << m_projectSettings.sampleRate << "\n";
-        }
+        const TrackData& td = w->trackData();
+        if (!w->isArmed() && td.enabled)
+            overdubTracks.append(td);
     }
+    if (overdubTracks.isEmpty())
+        return;
 
-    m_recordBuffer = new QBuffer(this);
-    m_recordBuffer->open(QBuffer::WriteOnly);
-
-    m_audioSource = new QAudioSource(inputDevice, format, this);
-    // Use a small buffer to minimise recording latency.
-    m_audioSource->setBufferSize(AudioStartup::recommendedBufferBytes());
-
-    m_audioSource->start(m_recordBuffer);
-    m_recordingTimer.start();
-
-    // --- Overdub: play other enabled tracks while recording ---
+    QTemporaryFile* tmpFile = new QTemporaryFile(
+        QDir::temp().filePath("mc_overdub_XXXXXX.wav"), this);
+    tmpFile->setAutoRemove(false);
+    if (!tmpFile->open())
+        return;
+    m_playbackTempFile = tmpFile->fileName();
+    tmpFile->close();
+    const bool mixed = AudioUtils::mixTracksToFile(
+        overdubTracks, m_playbackTempFile,
+        effectiveProjectPath(),
+        m_projectSettings.sampleRate,
+        m_projectSettings.soundFontPath);
+    if (mixed)
     {
-        QVector<TrackData> overdubTracks;
-        for (auto* w : m_trackWidgets)
+        if (m_player == nullptr)
         {
-            const TrackData& td = w->trackData();
-            if (!w->isArmed() && td.enabled)
-                overdubTracks.append(td);
-        }
-        if (!overdubTracks.isEmpty())
-        {
-            QTemporaryFile* tmpFile = new QTemporaryFile(
-                QDir::temp().filePath("mc_overdub_XXXXXX.wav"), this);
-            tmpFile->setAutoRemove(false);
-            if (tmpFile->open())
-            {
-                m_playbackTempFile = tmpFile->fileName();
-                tmpFile->close();
-                const bool mixed = AudioUtils::mixTracksToFile(
-                    overdubTracks, m_playbackTempFile,
-                    effectiveProjectPath(),
-                    m_projectSettings.sampleRate,
-                    m_projectSettings.soundFontPath);
-                if (mixed)
+            m_player = new QMediaPlayer(this);
+            m_audioOutput = new QAudioOutput(this);
+            m_player->setAudioOutput(m_audioOutput);
+            connect(m_player, &QMediaPlayer::playbackStateChanged, this,
+                [this](QMediaPlayer::PlaybackState state)
                 {
-                    if (m_player == nullptr)
-                    {
-                        m_player = new QMediaPlayer(this);
-                        m_audioOutput = new QAudioOutput(this);
-                        m_player->setAudioOutput(m_audioOutput);
-                        connect(m_player, &QMediaPlayer::playbackStateChanged, this,
-                            [this](QMediaPlayer::PlaybackState state)
-                            {
-                                if (state == QMediaPlayer::StoppedState && m_isActive)
-                                    onPlaybackFinished();
-                            });
-                    }
-                    m_player->setSource(QUrl::fromLocalFile(m_playbackTempFile));
-                    m_player->play();
-                }
-                else
-                {
-                    QFile::remove(m_playbackTempFile);
-                    m_playbackTempFile.clear();
-                }
-            }
+                    if (state == QMediaPlayer::StoppedState && m_isActive)
+                        onPlaybackFinished();
+                });
         }
+        m_player->setSource(QUrl::fromLocalFile(m_playbackTempFile));
+        m_player->play();
     }
+    else
+    {
+        QFile::remove(m_playbackTempFile);
+        m_playbackTempFile.clear();
+    }
+}
 
-    // --- Real-time level meter timer ---
+void MainWindow::startRecordingLevelMeter()
+{
     if (m_recordingLevelTimer != nullptr)
     {
         m_recordingLevelTimer->stop();
@@ -700,9 +664,18 @@ void MainWindow::beginRecordingAfterCountdown()
     m_recordingLevelTimer = new QTimer(this);
     connect(m_recordingLevelTimer, &QTimer::timeout, this, [this]()
     {
-        if (m_recordBuffer == nullptr || !m_isActive) return;
+        if (!m_isActive) return;
         TrackWidget* armed = armedTrack();
         if (armed == nullptr) return;
+
+#if defined(HAVE_PORTAUDIO)
+        if (m_recordingUsesPortAudio && m_portAudioRecorder != nullptr)
+        {
+            armed->setRecordingLevel(m_portAudioRecorder->recentPeak());
+            return;
+        }
+#endif
+        if (m_recordBuffer == nullptr) return;
         const QByteArray& buf = m_recordBuffer->data();
         if (buf.isEmpty())
         {
@@ -742,7 +715,6 @@ void MainWindow::beginRecordingAfterCountdown()
         }
         else
         {
-            // Int16 (default)
             const int windowBytes = qMin(buf.size(),
                                          m_recordingChannelCount * static_cast<int>(sizeof(qint16)) * 2048);
             const auto* samples = reinterpret_cast<const qint16*>(
@@ -753,7 +725,185 @@ void MainWindow::beginRecordingAfterCountdown()
         }
         armed->setRecordingLevel(qMin(peak, 1.0f));
     });
-    m_recordingLevelTimer->start(50);  // update ~20 times per second
+    m_recordingLevelTimer->start(50);
+}
+
+void MainWindow::finalizeRecordedAudio(const QByteArray& rawData, qint64 processedMicroseconds,
+                                      const char* captureBackendLabel)
+{
+    TrackWidget* armed = armedTrack();
+    if (armed == nullptr) return;
+
+    const int reportedRate = m_recordingSampleRate;
+    const int reportedCh   = m_recordingChannelCount;
+    const double elapsedSec = m_recordingTimer.elapsed() / 1000.0;
+
+    RecordingPostProcessParams rp;
+    rp.rawBytes = rawData;
+    rp.sampleFormat = m_recordingSampleFormat;
+    rp.reportedChannels = reportedCh;
+    rp.reportedSampleRate = reportedRate;
+    rp.processedMicroseconds = processedMicroseconds;
+    rp.wallClockSeconds = elapsedSec;
+    rp.projectSampleRate = m_projectSettings.sampleRate;
+    rp.projectChannelCount = m_projectSettings.channelCount;
+
+    const RecordingPostProcessResult rec = RecordingPostProcess::process(rp);
+
+    {
+        QFile logFile(effectiveProjectPath() + QDir::separator()
+                      + QStringLiteral("recording_debug.txt"));
+        if (logFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
+        {
+            QTextStream ts(&logFile);
+            const int nFrames = rec.int16Pcm.size() / (rec.channelCount * 2);
+            ts << "--- Recording Stop ---\n"
+               << "captureBackend: " << (captureBackendLabel ? captureBackendLabel : "?") << "\n"
+               << "reportedRate: " << reportedRate
+               << "  reportedCh: " << reportedCh << "\n"
+               << "processedUSecs: " << processedMicroseconds << "\n"
+               << "throughputVsReported: " << rec.throughputVsReported << "\n"
+               << "inferredCaptureRate: " << rec.inferredCaptureRate << "\n"
+               << "projectRate: " << m_projectSettings.sampleRate
+               << "  projectCh: " << m_projectSettings.channelCount << "\n"
+               << "elapsedSec: " << elapsedSec << "\n"
+               << "rawData.size: " << rawData.size() << "\n"
+               << "outputFrames: " << nFrames
+               << "  trackLength: "
+               << (rec.sampleRate > 0 ? static_cast<double>(nFrames) / rec.sampleRate : 0)
+               << " sec\n";
+        }
+    }
+
+    TrackData data = armed->trackData();
+    data.type         = TrackType::Audio;
+    data.audioData    = rec.int16Pcm;
+    data.sampleRate   = rec.sampleRate;
+    data.channelCount = rec.channelCount;
+    armed->setTrackData(data);
+    markDirty();
+
+    armed->setArmed(false);
+
+    const QString flacPath = effectiveProjectPath() + QDir::separator() +
+                             sanitizedTrackFilename(data.name) + ".flac";
+    static_cast<void>(
+        AudioUtils::writeAudioDataToFlac(rec.int16Pcm,
+                                         rec.sampleRate,
+                                         rec.channelCount,
+                                         flacPath));
+}
+#endif  // QT_MULTIMEDIA_AVAILABLE
+
+void MainWindow::beginRecordingAfterCountdown()
+{
+#ifdef QT_MULTIMEDIA_AVAILABLE
+    const QString projectDir = effectiveProjectPath();
+    QDir().mkpath(projectDir);
+
+#if defined(HAVE_PORTAUDIO)
+    if (!m_projectSettings.useQtAudioInput && PortAudioRecorder::isCompiledWithPortAudio()
+        && PortAudioRecorder::hasInputDevice())
+    {
+        const int paDev = m_projectSettings.portAudioInputDeviceIndex;
+        m_portAudioRecorder = std::make_unique<PortAudioRecorder>();
+        QString paErr;
+        if (m_portAudioRecorder->start(paDev, m_projectSettings.channelCount,
+                                       m_projectSettings.sampleRate, paErr))
+        {
+            m_recordingUsesPortAudio = true;
+            m_recordingSampleRate   = m_portAudioRecorder->streamSampleRate();
+            m_recordingChannelCount = m_portAudioRecorder->streamChannelCount();
+            m_recordingSampleFormat = 2;  // Int16 (QAudioFormat::Int16)
+
+            const int logDev =
+                (paDev < 0) ? PortAudioRecorder::defaultInputDeviceIndex() : paDev;
+            {
+                QFile logFile(projectDir + QDir::separator() + QStringLiteral("recording_debug.txt"));
+                if (logFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
+                {
+                    QTextStream ts(&logFile);
+                    ts << "\n=== Recording Start ===\n"
+                       << "captureBackend: PortAudio\n"
+                       << "device: " << PortAudioRecorder::deviceName(logDev) << "\n"
+                       << "paDeviceIndex: " << logDev << "\n"
+                       << "streamSampleRate: " << m_recordingSampleRate << "\n"
+                       << "streamChannels: " << m_recordingChannelCount << "\n"
+                       << "sampleFormat: 2 (Int16)\n"
+                       << "m_projectSettings.sampleRate: " << m_projectSettings.sampleRate << "\n";
+                }
+            }
+
+            m_recordingTimer.start();
+            startOverdubDuringRecording();
+            startRecordingLevelMeter();
+            return;
+        }
+
+        QMessageBox::warning(
+            this,
+            tr("PortAudio"),
+            tr("Could not start PortAudio recording (%1). Falling back to Qt Multimedia.")
+                .arg(paErr));
+        m_portAudioRecorder.reset();
+        m_recordingUsesPortAudio = false;
+    }
+#endif
+
+#if defined(HAVE_PORTAUDIO)
+    m_recordingUsesPortAudio = false;
+#endif
+    const QAudioDevice inputDevice = QMediaDevices::defaultAudioInput();
+
+    // Use preferredFormat() as-is — this returns the device's native sample
+    // rate, channel count, and sample type.  Recording at the device's native
+    // rate is essential because some audio backends (e.g. PipeWire's PulseAudio
+    // compatibility layer) report non-native rates as "supported" via
+    // isFormatSupported() but do not actually resample the data.  When that
+    // happens the raw audio arrives at the hardware's native rate but gets
+    // labelled with the requested rate, causing playback to be too fast or too
+    // slow.  Using preferredFormat() guarantees the metadata matches the data.
+    //
+    // The mixing pipeline already adapts to each track's actual sample rate
+    // (see mixTracksToFile), so a recording at 32 000 Hz or 48 000 Hz will
+    // play back correctly regardless of the project's configured rate.
+    const QAudioFormat format = inputDevice.preferredFormat();
+
+    // Capture the actual format fields that will be used.  These determine how
+    // the raw bytes in m_recordBuffer must be interpreted when recording stops.
+    m_recordingSampleRate   = format.sampleRate();
+    m_recordingChannelCount = format.channelCount();
+    m_recordingSampleFormat = static_cast<int>(format.sampleFormat());
+
+    // Diagnostic: log the recording format
+    {
+        const QString projectDir = effectiveProjectPath();
+        QFile logFile(projectDir + QDir::separator() + QStringLiteral("recording_debug.txt"));
+        if (logFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
+        {
+            QTextStream ts(&logFile);
+            ts << "\n=== Recording Start ===\n"
+               << "captureBackend: Qt Multimedia\n"
+               << "device: " << inputDevice.description() << "\n"
+               << "preferredFormat sampleRate: " << format.sampleRate() << "\n"
+               << "preferredFormat channels: " << format.channelCount() << "\n"
+               << "preferredFormat sampleFormat: " << static_cast<int>(format.sampleFormat()) << "\n"
+               << "m_projectSettings.sampleRate: " << m_projectSettings.sampleRate << "\n";
+        }
+    }
+
+    m_recordBuffer = new QBuffer(this);
+    m_recordBuffer->open(QBuffer::WriteOnly);
+
+    m_audioSource = new QAudioSource(inputDevice, format, this);
+    // Use a small buffer to minimise recording latency.
+    m_audioSource->setBufferSize(AudioStartup::recommendedBufferBytes());
+
+    m_audioSource->start(m_recordBuffer);
+    m_recordingTimer.start();
+
+    startOverdubDuringRecording();
+    startRecordingLevelMeter();
 #endif
 }
 
@@ -781,228 +931,29 @@ void MainWindow::stopPlaybackOrRecording()
     if (m_player != nullptr && m_player->playbackState() != QMediaPlayer::StoppedState)
         m_player->stop();
 
+#if defined(HAVE_PORTAUDIO)
+    if (m_recordingUsesPortAudio && m_portAudioRecorder != nullptr)
+    {
+        m_portAudioRecorder->stop();
+        const qint64 processedMicroseconds = m_portAudioRecorder->processedMicroseconds();
+        const QByteArray rawData = m_portAudioRecorder->takeRecordedPcm();
+        m_portAudioRecorder.reset();
+        m_recordingUsesPortAudio = false;
+        if (!rawData.isEmpty())
+            finalizeRecordedAudio(rawData, processedMicroseconds, "PortAudio");
+    }
+#endif
+
     if (m_audioSource != nullptr)
     {
         m_audioSource->stop();
+        const qint64 processedMicroseconds = m_audioSource->processedUSecs();
 
-        // Save the recorded audio to the armed track
         if (m_recordBuffer != nullptr)
         {
-            const QByteArray& rawData = m_recordBuffer->data();
+            const QByteArray rawData = m_recordBuffer->data();
             if (!rawData.isEmpty())
-            {
-                TrackWidget* armed = armedTrack();
-                if (armed != nullptr)
-                {
-                    // ── Detect actual sample rate ─────────────────────────
-                    //
-                    // Trust the channel count from preferredFormat() — the raw
-                    // bytes are interleaved at this channel count regardless of
-                    // whether the device is physically mono or stereo.
-                    //
-                    // However, some Qt audio backends (notably the FFmpeg backend
-                    // on PipeWire) deliver data at a LOWER frame rate than the
-                    // device's native rate.  We detect the actual rate from the
-                    // byte rate and wall-clock time, then resample to the project
-                    // rate with the windowed sinc resampler.  This mirrors
-                    // Audacity's approach (record at hardware rate, resample via
-                    // libsoxr to project rate).
-                    const int reportedRate = m_recordingSampleRate;
-                    const int reportedCh   = m_recordingChannelCount;
-                    const int bytesPerSample = [&]() -> int
-                    {
-                        switch (static_cast<QAudioFormat::SampleFormat>(m_recordingSampleFormat))
-                        {
-                        case QAudioFormat::UInt8:  return 1;
-                        case QAudioFormat::Int16:  return 2;
-                        case QAudioFormat::Int32:  return 4;
-                        case QAudioFormat::Float:  return 4;
-                        default:                   return 2;
-                        }
-                    }();
-                    const double elapsedSec = m_recordingTimer.elapsed() / 1000.0;
-
-                    quint16 ch = static_cast<quint16>(reportedCh);
-                    quint32 sr = static_cast<quint32>(reportedRate);
-
-                    // ── Detect actual channel count and sample rate ──────
-                    //
-                    // The Qt FFmpeg audio backend on PipeWire may deliver
-                    // fewer bytes than expected for devices advertised as
-                    // stereo.  A physically-mono webcam at 32000 Hz delivers
-                    // ~64000 bytes/sec regardless of the requested stereo
-                    // format — exactly matching mono-32000 or stereo-16000.
-                    //
-                    // Interpreting as stereo-16000 creates interleaved-mono
-                    // artifacts (L=audio, R≈silence or vice-versa) that
-                    // degrade quality and cause perceived pitch change after
-                    // resampling.  Interpreting as mono-32000 keeps the
-                    // original sample sequence intact, producing clean audio
-                    // that resamples correctly to any project rate.
-                    //
-                    // We try both interpretations and pick the one whose
-                    // implied sample rate best matches the reported native
-                    // rate.  For the webcam: mono gives 32000 (exact match),
-                    // stereo gives 16000 (50% off) → mono wins.
-                    if (elapsedSec >= 0.5 && rawData.size() > 0 && bytesPerSample > 0)
-                    {
-                        const double byteRate = rawData.size() / elapsedSec;
-
-                        // Implied sample rate for each candidate channel count
-                        const double rateIfReportedCh =
-                            byteRate / (reportedCh * bytesPerSample);
-                        const double rateIfMono =
-                            (reportedCh > 1) ? byteRate / (1 * bytesPerSample) : rateIfReportedCh;
-
-                        const double distReported =
-                            std::abs(rateIfReportedCh - reportedRate);
-                        const double distMono =
-                            std::abs(rateIfMono - reportedRate);
-
-                        if (reportedCh > 1 && distMono < distReported)
-                        {
-                            // Data is mono at the reported rate.
-                            ch = 1;
-                            sr = static_cast<quint32>(reportedRate);
-                        }
-                        else if (distReported / reportedRate > 0.10)
-                        {
-                            // Rate mismatch even with reported channels.
-                            // Snap to nearest standard rate.
-                            static const int stdRates[] = {
-                                8000, 11025, 16000, 22050, 32000,
-                                44100, 48000, 88200, 96000, 176400, 192000
-                            };
-                            int bestRate = reportedRate;
-                            double bestDist = distReported;
-                            for (int rate : stdRates)
-                            {
-                                const double dist = std::abs(rateIfReportedCh - rate);
-                                if (dist < bestDist)
-                                {
-                                    bestDist = dist;
-                                    bestRate = rate;
-                                }
-                            }
-                            sr = static_cast<quint32>(bestRate);
-                        }
-                    }
-
-                    // Normalise the sample data to Int16 PCM regardless of the
-                    // format the hardware chose, so all downstream code can assume
-                    // 16-bit signed integers.
-                    QByteArray int16Data;
-                    const auto recFmt =
-                        static_cast<QAudioFormat::SampleFormat>(m_recordingSampleFormat);
-                    if (recFmt == QAudioFormat::Float)
-                    {
-                        const int n = rawData.size() / static_cast<int>(sizeof(float));
-                        int16Data.resize(n * static_cast<int>(sizeof(qint16)));
-                        const float* src = reinterpret_cast<const float*>(rawData.constData());
-                        qint16*      dst = reinterpret_cast<qint16*>(int16Data.data());
-                        for (int i = 0; i < n; ++i)
-                            dst[i] = static_cast<qint16>(
-                                qBound(-32768.0f, src[i] * 32767.0f, 32767.0f));
-                    }
-                    else if (recFmt == QAudioFormat::Int32)
-                    {
-                        const int n = rawData.size() / static_cast<int>(sizeof(qint32));
-                        int16Data.resize(n * static_cast<int>(sizeof(qint16)));
-                        const qint32* src = reinterpret_cast<const qint32*>(rawData.constData());
-                        qint16*       dst = reinterpret_cast<qint16*>(int16Data.data());
-                        for (int i = 0; i < n; ++i)
-                            dst[i] = static_cast<qint16>(src[i] >> 16);
-                    }
-                    else if (recFmt == QAudioFormat::UInt8)
-                    {
-                        const int n = rawData.size();  // 1 byte per sample
-                        int16Data.resize(n * static_cast<int>(sizeof(qint16)));
-                        const quint8* src = reinterpret_cast<const quint8*>(rawData.constData());
-                        qint16*       dst = reinterpret_cast<qint16*>(int16Data.data());
-                        for (int i = 0; i < n; ++i)
-                            dst[i] = static_cast<qint16>((src[i] - 128) << 8);
-                    }
-                    else
-                    {
-                        // Int16 or Unknown — assume raw data is already 16-bit PCM
-                        int16Data = rawData;
-                    }
-
-                    // ── Post-processing: channel conversion + resampling ──
-                    //
-                    // Like Audacity, we record at the device's native rate and
-                    // channel count, then convert to the project's settings:
-                    //   1. Channel conversion (mono↔stereo) via averaging or
-                    //      duplication, matching Audacity's ConfigureCaptureRouting
-                    //   2. Sample rate conversion via windowed sinc interpolation,
-                    //      matching Audacity's use of libsoxr
-                    //
-                    // This preserves pitch and duration regardless of the
-                    // device's native format vs. the project's configured rate.
-                    const int projectRate = m_projectSettings.sampleRate;
-                    const int projectCh   = m_projectSettings.channelCount;
-
-                    // Diagnostic log
-                    {
-                        QFile logFile(effectiveProjectPath() + QDir::separator()
-                                      + QStringLiteral("recording_debug.txt"));
-                        if (logFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
-                        {
-                            QTextStream ts(&logFile);
-                            const int nFrames = int16Data.size() / (ch * 2);
-                            ts << "--- Recording Stop ---\n"
-                               << "reportedRate: " << reportedRate
-                               << "  reportedCh: " << reportedCh << "\n"
-                               << "detected sr: " << sr
-                               << "  detected ch: " << ch << "\n"
-                               << "projectRate: " << projectRate
-                               << "  projectCh: " << projectCh << "\n"
-                               << "elapsedSec: " << elapsedSec << "\n"
-                               << "rawData.size: " << rawData.size()
-                               << "  byteRate: " << (elapsedSec > 0 ? rawData.size() / elapsedSec : 0) << "\n"
-                               << "frames: " << nFrames
-                               << "  duration: " << (sr > 0 ? static_cast<double>(nFrames) / sr : 0) << " sec\n";
-                        }
-                    }
-
-                    // 1. Channel conversion (if needed)
-                    if (ch != projectCh && projectCh > 0)
-                    {
-                        int16Data = AudioUtils::convertChannels(
-                            int16Data, static_cast<int>(ch), projectCh);
-                        ch = static_cast<quint16>(projectCh);
-                    }
-
-                    // 2. Sample-rate conversion (windowed sinc, like Audacity/soxr)
-                    if (static_cast<int>(sr) != projectRate && projectRate > 0)
-                    {
-                        int16Data = AudioUtils::resampleInt16(
-                            int16Data, static_cast<int>(sr), projectRate,
-                            static_cast<int>(ch));
-                        sr = static_cast<quint32>(projectRate);
-                    }
-
-                    TrackData data = armed->trackData();
-                    data.type         = TrackType::Audio;
-                    data.audioData    = int16Data;   // always Int16
-                    data.sampleRate   = static_cast<int>(sr);
-                    data.channelCount = static_cast<int>(ch);
-                    armed->setTrackData(data);
-                    markDirty();
-
-                    // Disarm the track now that recording has completed
-                    armed->setArmed(false);
-
-                    // Persist to FLAC (always Int16 PCM — we normalised above)
-                    const QString flacPath = effectiveProjectPath() + QDir::separator() +
-                                             sanitizedTrackFilename(data.name) + ".flac";
-                    static_cast<void>(
-                        AudioUtils::writeAudioDataToFlac(int16Data,
-                                                         static_cast<int>(sr),
-                                                         static_cast<int>(ch),
-                                                         flacPath));
-                }
-            }
+                finalizeRecordedAudio(rawData, processedMicroseconds, "Qt Multimedia");
             delete m_recordBuffer;
             m_recordBuffer = nullptr;
         }
@@ -1087,6 +1038,9 @@ void MainWindow::onSaveProject()
         QString::fromLatin1(m_projectSettings.audioOutputDeviceId.toHex());
     psObj[QStringLiteral("sampleRate")]          = m_projectSettings.sampleRate;
     psObj[QStringLiteral("channelCount")]        = m_projectSettings.channelCount;
+    psObj[QStringLiteral("useQtAudioInput")] = m_projectSettings.useQtAudioInput;
+    psObj[QStringLiteral("portAudioInputDeviceIndex")] =
+        m_projectSettings.portAudioInputDeviceIndex;
 
     QJsonObject root;
     root[QStringLiteral("version")]         = 1;
@@ -1239,6 +1193,11 @@ void MainWindow::loadProjectFromFile(const QString& path)
             QByteArray::fromHex(ps[QStringLiteral("audioOutputDeviceId")].toString().toLatin1());
         m_projectSettings.sampleRate   = ps[QStringLiteral("sampleRate")].toInt(44100);
         m_projectSettings.channelCount = ps[QStringLiteral("channelCount")].toInt(2);
+        if (ps.contains(QStringLiteral("useQtAudioInput")))
+            m_projectSettings.useQtAudioInput = ps[QStringLiteral("useQtAudioInput")].toBool();
+        if (ps.contains(QStringLiteral("portAudioInputDeviceIndex")))
+            m_projectSettings.portAudioInputDeviceIndex =
+                ps[QStringLiteral("portAudioInputDeviceIndex")].toInt(-1);
     }
     else
     {

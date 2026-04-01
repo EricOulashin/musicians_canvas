@@ -66,6 +66,8 @@ set(SOURCES
     src/midisynth.cpp
     src/themeutils.cpp
     src/audioutils.cpp
+    src/recordingpostprocess.cpp
+    src/portaudiorecorder.cpp
     src/trackdata.cpp
     src/appsettings.cpp
     src/mixdialog.cpp
@@ -79,6 +81,53 @@ set(SOURCES
 add_executable(musicians_canvas ${SOURCES})
 if(WIN32)
     set_target_properties(musicians_canvas PROPERTIES WIN32_EXECUTABLE TRUE)
+endif()
+
+find_package(PkgConfig QUIET)
+
+set(PORTAUDIO_INCLUDE_DIR "")
+set(PORTAUDIO_LIBRARY "")
+if(PkgConfig_FOUND)
+    pkg_check_modules(PORTAUDIO_PC QUIET portaudio-2.0)
+endif()
+if(PORTAUDIO_PC_FOUND)
+    set(PORTAUDIO_INCLUDE_DIR ${PORTAUDIO_PC_INCLUDE_DIRS})
+    set(PORTAUDIO_LIBRARY ${PORTAUDIO_PC_LIBRARIES})
+else()
+    find_path(PORTAUDIO_INCLUDE_DIR portaudio.h PATH_SUFFIXES include)
+    find_library(PORTAUDIO_LIBRARY NAMES portaudio libportaudio)
+endif()
+if(PORTAUDIO_INCLUDE_DIR AND PORTAUDIO_LIBRARY)
+    target_include_directories(musicians_canvas PRIVATE ${PORTAUDIO_INCLUDE_DIR})
+    target_link_libraries(musicians_canvas ${PORTAUDIO_LIBRARY})
+    target_compile_definitions(musicians_canvas PRIVATE HAVE_PORTAUDIO)
+    message(STATUS "PortAudio found — recording can use native capture (HAVE_PORTAUDIO)")
+else()
+    message(STATUS "PortAudio not found — build continues; PortAudio capture disabled (stubs)")
+endif()
+
+option(BUILD_TESTING "Build headless musicians_canvas_tests executable (unit tests)" ON)
+if(BUILD_TESTING)
+    add_executable(musicians_canvas_tests
+        tests/musicians_canvas_tests.cpp
+        src/recordingpostprocess.cpp
+        src/audioutils.cpp
+        src/midisynth.cpp
+        src/appsettings.cpp
+        ${AUDIO_MIXER_SOURCES}
+    )
+    target_link_libraries(musicians_canvas_tests PRIVATE
+        Qt6::Core
+        ${FLAC_LIBRARY}
+        ${FLUIDSYNTH_LIBRARY}
+    )
+    target_include_directories(musicians_canvas_tests PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${AUDIO_MIXER_CPP_DIR}
+        ${FLUIDSYNTH_INCLUDE_DIR}
+    )
+    enable_testing()
+    add_test(NAME musicians_canvas_tests COMMAND musicians_canvas_tests)
 endif()
 
 set(VK_SOURCES
