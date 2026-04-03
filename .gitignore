@@ -64,3 +64,6 @@ CMakeUserPresets.json
 
 # Claude
 .claude/
+
+# Generated documentation screenshots (copied from project root)
+docs/html/screenshots/

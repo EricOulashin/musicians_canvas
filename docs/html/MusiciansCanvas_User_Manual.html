@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Musician's Canvas User Manual</title>
+<style>
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px 40px;
+    color: #24292e; background-color: #fff;
+}
+h1 { border-bottom: 2px solid #0366d6; padding-bottom: 0.3em; color: #0366d6; }
+h2 { border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; margin-top: 2em; }
+h3 { color: #0366d6; margin-top: 1.5em; }
+h4 { color: #586069; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid #dfe2e5; padding: 8px 12px; text-align: left; }
+th { background-color: #f6f8fa; font-weight: 600; }
+tr:nth-child(even) { background-color: #f6f8fa; }
+code { background-color: #f6f8fa; padding: 0.2em 0.4em; border-radius: 3px; font-size: 0.9em;
+       font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; }
+pre { background-color: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+strong { color: #24292e; }
+a { color: #0366d6; text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6px; margin: 1em 0; }
+.toc { background-color: #f6f8fa; border: 1px solid #dfe2e5; border-radius: 6px;
+       padding: 15px 20px; margin: 1em 0 2em 0; }
+.toc h2 { margin-top: 0; border-bottom: none; font-size: 1.1em; }
+.toc ul { list-style: none; padding-left: 1.2em; }
+.toc > ul { padding-left: 0; }
+.toc li { margin: 0.3em 0; }
+.title-block { text-align: center; margin-bottom: 2em; padding-bottom: 1em;
+               border-bottom: 2px solid #0366d6; }
+@media print {
+    body { max-width: none; padding: 0; }
+    h1, h2, h3 { page-break-after: avoid; }
+    table, pre, img { page-break-inside: avoid; }
+    img { max-width: 80%; }
+}
+</style>
+</head>
+<body>
+<div class="title-block">
+<h1>Musician&#8217;s Canvas User Manual</h1>
+<p>Multi-Track Music Recording Application &mdash; Version 0.1.0</p>
+<p>2026-04-03</p>
+</div>
+<div class="toc">
+<h2>Table of Contents</h2>
+<div class="toc">
+<ul>
+<li><a href="#musicians-canvas-user-manual">Musician's Canvas User Manual</a><ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#getting-started">Getting Started</a><ul>
+<li><a href="#launching-the-application">Launching the Application</a></li>
+<li><a href="#setting-up-a-project">Setting Up a Project</a></li>
+<li><a href="#saving-and-opening-projects">Saving and Opening Projects</a></li>
+</ul>
+</li>
+<li><a href="#track-management">Track Management</a><ul>
+<li><a href="#adding-and-removing-tracks">Adding and Removing Tracks</a></li>
+<li><a href="#configuring-track-type">Configuring Track Type</a></li>
+<li><a href="#arming-a-track-for-recording">Arming a Track for Recording</a></li>
+</ul>
+</li>
+<li><a href="#recording">Recording</a><ul>
+<li><a href="#audio-recording">Audio Recording</a></li>
+<li><a href="#midi-recording">MIDI Recording</a></li>
+</ul>
+</li>
+<li><a href="#playback">Playback</a></li>
+<li><a href="#mixing-to-a-file">Mixing to a File</a></li>
+<li><a href="#settings">Settings</a><ul>
+<li><a href="#global-settings">Global Settings</a></li>
+<li><a href="#project-settings">Project Settings</a></li>
+</ul>
+</li>
+<li><a href="#virtual-midi-keyboard">Virtual MIDI Keyboard</a><ul>
+<li><a href="#features">Features</a></li>
+<li><a href="#configuration">Configuration</a></li>
+</ul>
+</li>
+<li><a href="#keyboard-shortcuts">Keyboard Shortcuts</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a><ul>
+<li><a href="#no-audio-output">No Audio Output</a></li>
+<li><a href="#midi-tracks-are-silent">MIDI Tracks Are Silent</a></li>
+<li><a href="#recording-sounds-distorted-or-has-wrong-pitch">Recording Sounds Distorted or Has Wrong Pitch</a></li>
+<li><a href="#virtual-midi-keyboard-has-no-audio">Virtual MIDI Keyboard Has No Audio</a></li>
+</ul>
+</li>
+<li><a href="#building-from-source">Building from Source</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+<h1 id="musicians-canvas-user-manual">Musician's Canvas User Manual</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Musician's Canvas is a multi-track music recording application for desktop PCs. It supports
+audio recording from microphones and line-in devices, MIDI recording from keyboards and
+controllers, and mixing all tracks to a single WAV or FLAC file. A companion application,
+Virtual MIDI Keyboard, provides a software piano keyboard for sending MIDI notes.</p>
+<p>Musician's Canvas is designed for ease of use while providing features commonly found in
+digital audio workstations (DAWs):</p>
+<ul>
+<li>Multi-track audio and MIDI recording</li>
+<li>Built-in FluidSynth MIDI synthesizer with SoundFont support</li>
+<li>High-quality sample-rate conversion (windowed sinc interpolation)</li>
+<li>Automatic mono/stereo device detection</li>
+<li>Project-based settings with per-project overrides</li>
+<li>Mix to WAV or FLAC</li>
+<li>Dark and light themes</li>
+</ul>
+<h2 id="getting-started">Getting Started</h2>
+<h3 id="launching-the-application">Launching the Application</h3>
+<p>Run the <code>musicians_canvas</code> executable from the build directory or your installation
+location:</p>
+<pre><code>./musicians_canvas
+</code></pre>
+<p>On first launch, the application opens with an empty project. You will need to set a
+project directory before recording.</p>
+<h3 id="setting-up-a-project">Setting Up a Project</h3>
+<ol>
+<li>
+<p><strong>Set the project directory</strong>: Enter or browse to a folder in the "Project Location"
+   field at the top of the window. This is where recordings and the project file will
+   be stored.</p>
+</li>
+<li>
+<p><strong>Add a track</strong>: Click the <strong>+ Add Track</strong> button. A new track appears with default
+   settings. If it is the only track in the project and has not been recorded yet, it
+   is automatically armed for recording.</p>
+</li>
+<li>
+<p><strong>Name the track</strong>: Type a name in the text field next to the "Options" button. This
+   name is used as the filename for the recorded audio file.</p>
+</li>
+</ol>
+<p><img alt="Main window" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="saving-and-opening-projects">Saving and Opening Projects</h3>
+<ul>
+<li><strong>Save</strong>: Use <strong>File &gt; Save Project</strong> (Ctrl+S) to save the current project as a JSON
+  file in the project directory.</li>
+<li><strong>Open</strong>: Use <strong>File &gt; Open Project</strong> (Ctrl+O) to load a previously saved project.</li>
+</ul>
+<p>The project file stores track names, types, MIDI notes, audio file references, and all
+project-specific settings.</p>
+<h2 id="track-management">Track Management</h2>
+<h3 id="adding-and-removing-tracks">Adding and Removing Tracks</h3>
+<ul>
+<li>Click <strong>+ Add Track</strong> to add a new track to the arrangement.</li>
+<li>Click the <strong>x</strong> button on the right side of a track row to remove it.</li>
+</ul>
+<h3 id="configuring-track-type">Configuring Track Type</h3>
+<p>Each track can be configured as either <strong>Audio</strong> (for microphone/line-in recording) or
+<strong>MIDI</strong> (for keyboard/controller recording).</p>
+<p>To change the track type:</p>
+<ul>
+<li>Click the <strong>Options</strong> button on the track, or</li>
+<li>Click the <strong>track type icon</strong> (between "Options" and the name field)</li>
+</ul>
+<p>This opens the Track Configuration dialog where you can select the input source.</p>
+<p><img alt="Track configuration" src="screenshots/MusiciansCanvas_2_TrackConfig.png" /></p>
+<h3 id="arming-a-track-for-recording">Arming a Track for Recording</h3>
+<p>To record, you must first "arm" the target track by checking the <strong>Arm</strong> checkbox on
+that track. Only one track can be armed at a time; arming a new track automatically
+disarms any previously armed track.</p>
+<h2 id="recording">Recording</h2>
+<h3 id="audio-recording">Audio Recording</h3>
+<ol>
+<li>Arm the target track (check the "Arm" checkbox).</li>
+<li>Click the <strong>Record</strong> button (red circle).</li>
+<li>A 3-second countdown appears on the track, then recording begins.</li>
+<li>Click the <strong>Stop</strong> button to end recording.</li>
+</ol>
+<p>The recorded audio is saved as a FLAC file in the project directory, named after the
+track.</p>
+<h4 id="sample-rate-and-device-handling">Sample Rate and Device Handling</h4>
+<p>Musician's Canvas records at the audio input device's native sample rate and then
+converts to the project's configured sample rate using high-quality windowed sinc
+interpolation (Kaiser window, ~96 dB stopband attenuation). This is the same algorithm
+family used by Audacity and libsoxr.</p>
+<p>This means you can set any project sample rate (e.g., 44100 Hz or 48000 Hz) regardless
+of the device's native rate. The conversion preserves pitch and duration exactly.</p>
+<h4 id="mono-device-detection">Mono Device Detection</h4>
+<p>Some audio devices (e.g., USB webcam microphones) are physically mono but are advertised
+as stereo by the operating system. Musician's Canvas automatically detects this by
+comparing the actual data rate against the expected rate and adjusts the channel count
+accordingly. If the project is configured for stereo, the mono signal is duplicated to
+both channels.</p>
+<h3 id="midi-recording">MIDI Recording</h3>
+<ol>
+<li>Set the track type to <strong>MIDI</strong> via the Options button.</li>
+<li>Ensure a MIDI input device is configured in <strong>Settings &gt; Configuration &gt; MIDI</strong>.</li>
+<li>Arm the track and click Record.</li>
+<li>Play notes on your MIDI controller.</li>
+<li>Click Stop to end recording.</li>
+</ol>
+<p>MIDI notes are displayed in a piano roll visualization on the track.</p>
+<h2 id="playback">Playback</h2>
+<p>Click the <strong>Play</strong> button to mix and play back all enabled tracks. Disabled tracks
+(unchecked) are excluded from playback.</p>
+<p>During playback, audio tracks are decoded from their FLAC files and MIDI tracks are
+rendered to audio using the built-in FluidSynth synthesizer. All tracks are mixed
+together and played through the system's audio output device.</p>
+<h2 id="mixing-to-a-file">Mixing to a File</h2>
+<p>Use <strong>Tools &gt; Mix tracks to file</strong> (Ctrl+M) to export all enabled tracks to a single
+WAV or FLAC file. A dialog lets you choose the output path and format.</p>
+<p>The mix uses the project's configured sample rate. MIDI tracks are rendered using the
+configured SoundFont.</p>
+<h2 id="settings">Settings</h2>
+<h3 id="global-settings">Global Settings</h3>
+<p>Use <strong>Settings &gt; Configuration</strong> (Ctrl+,) to set global defaults that apply to all
+projects:</p>
+<p><img alt="General settings" src="screenshots/MusiciansCanvas_3_GeneralSettings.png" /></p>
+<h4 id="general-tab">General Tab</h4>
+<ul>
+<li><strong>Theme</strong>: Choose between Dark and Light themes.</li>
+</ul>
+<h4 id="midi-tab">MIDI Tab</h4>
+<ul>
+<li><strong>MIDI Output Device</strong>: Select the built-in FluidSynth synthesizer or an external
+  MIDI device.</li>
+<li><strong>SoundFont</strong>: Browse to a <code>.sf2</code> SoundFont file for MIDI synthesis.</li>
+</ul>
+<p><img alt="MIDI settings" src="screenshots/MusiciansCanvas_4_MIDISettings.png" /></p>
+<h4 id="audio-tab">Audio Tab</h4>
+<ul>
+<li><strong>Audio Input Device</strong>: Select the microphone or line-in device for recording.</li>
+<li><strong>Audio Output Device</strong>: Select the speaker or headphone device for playback.</li>
+</ul>
+<p><img alt="Audio settings" src="screenshots/MusiciansCanvas_5_AudioSettings.png" /></p>
+<h3 id="project-settings">Project Settings</h3>
+<p>Use <strong>Project &gt; Project Settings</strong> (Ctrl+P) to override global defaults for the current
+project only. This is useful for projects that need a specific sample rate, SoundFont,
+or audio device.</p>
+<p><img alt="Project MIDI settings" src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" /></p>
+<h4 id="audio-format-settings">Audio Format Settings</h4>
+<ul>
+<li><strong>Sample rate</strong>: Choose from standard rates (8000 Hz to 96000 Hz). Rates above the
+  device's native rate are labeled "(resampled)" and will be converted automatically.
+  The device's native rate is labeled "(native)".</li>
+<li><strong>Channels</strong>: Mono or Stereo. If the device only supports mono, the Stereo option
+  may be disabled.</li>
+</ul>
+<p><img alt="Project audio settings" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
+<h2 id="virtual-midi-keyboard">Virtual MIDI Keyboard</h2>
+<p>The Virtual MIDI Keyboard is a companion application (<code>virtual_midi_keyboard</code>) that
+provides an on-screen piano keyboard for sending MIDI notes.</p>
+<p><img alt="Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard1.png" /></p>
+<h3 id="features">Features</h3>
+<ul>
+<li>Click keys on the on-screen piano to play notes</li>
+<li>Connect to external MIDI output devices or use the built-in FluidSynth synthesizer</li>
+<li>Connect to a MIDI input device to display incoming notes</li>
+<li>Adjustable synthesizer volume (master gain, 10%--200%)</li>
+<li>SoundFont selection for the built-in synthesizer</li>
+</ul>
+<h3 id="configuration">Configuration</h3>
+<p>Open the Configuration dialog to set up MIDI and audio devices:</p>
+<p><img alt="Virtual MIDI Keyboard configuration" src="screenshots/VMIDIKeyboard2.png" /></p>
+<h4 id="midi-tab_1">MIDI Tab</h4>
+<ul>
+<li><strong>MIDI Output Device</strong>: Select an external device or leave blank for the built-in
+  FluidSynth synthesizer.</li>
+<li><strong>MIDI Input Device</strong>: Select a controller to forward notes to the keyboard display.</li>
+<li><strong>Synthesizer Volume (Master Gain)</strong>: Adjust the output level of the built-in
+  synthesizer (10%--200%).</li>
+</ul>
+<h4 id="audio-tab_1">Audio Tab</h4>
+<ul>
+<li><strong>Audio Output Device</strong>: Select the output device for the built-in synthesizer.</li>
+<li><strong>SoundFont</strong>: Browse to a <code>.sf2</code> SoundFont file.</li>
+</ul>
+<h2 id="keyboard-shortcuts">Keyboard Shortcuts</h2>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl+S</td>
+<td>Save project</td>
+</tr>
+<tr>
+<td>Ctrl+O</td>
+<td>Open project</td>
+</tr>
+<tr>
+<td>Ctrl+M</td>
+<td>Mix tracks to file</td>
+</tr>
+<tr>
+<td>Ctrl+P</td>
+<td>Project Settings</td>
+</tr>
+<tr>
+<td>Ctrl+,</td>
+<td>Settings / Configuration</td>
+</tr>
+<tr>
+<td>Ctrl+Q / Alt+F4</td>
+<td>Quit</td>
+</tr>
+</tbody>
+</table>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="no-audio-output">No Audio Output</h3>
+<ul>
+<li>Check that the correct audio output device is selected in Settings &gt; Configuration &gt;
+  Audio.</li>
+<li>On Linux, verify that PipeWire or PulseAudio is running and that the output is not
+  muted. Use <code>amixer</code> or your desktop's sound settings to check volume levels.</li>
+<li>On Windows, ensure an ASIO driver is installed (required for musicians_canvas).</li>
+</ul>
+<h3 id="midi-tracks-are-silent">MIDI Tracks Are Silent</h3>
+<ul>
+<li>Ensure a SoundFont (<code>.sf2</code> file) is configured in Settings &gt; Configuration &gt; MIDI.</li>
+<li>On Linux, a system SoundFont may be auto-detected if the <code>fluid-soundfont-gm</code> package
+  is installed.</li>
+<li>On Windows and macOS, you must configure the SoundFont path manually.</li>
+</ul>
+<h3 id="recording-sounds-distorted-or-has-wrong-pitch">Recording Sounds Distorted or Has Wrong Pitch</h3>
+<ul>
+<li>This can happen when the audio input device's native sample rate differs from the
+  project's configured rate. Musician's Canvas automatically handles this via
+  resampling, but if issues persist, try setting the project sample rate to match the
+  device's native rate.</li>
+<li>USB webcam microphones often have unusual native rates (e.g., 32000 Hz). The
+  application detects these automatically.</li>
+</ul>
+<h3 id="virtual-midi-keyboard-has-no-audio">Virtual MIDI Keyboard Has No Audio</h3>
+<ul>
+<li>On Linux with PipeWire, ensure the <code>libpipewire-0.3-dev</code> package is installed (needed
+  for <code>pw_init()</code> before FluidSynth creates audio resources).</li>
+<li>Check that a SoundFont is loaded (see the Audio tab in the configuration dialog).</li>
+<li>Verify the audio output device is selected and the system volume is not muted.</li>
+</ul>
+<h2 id="building-from-source">Building from Source</h2>
+<p>See the <a href="../README.md">README</a> for complete build instructions for Linux, macOS, and
+Windows, including all required dependencies.</p>
+</body>
+</html>

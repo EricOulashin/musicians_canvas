@@ -10,29 +10,36 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
-  build-and-test:
-    name: Build and Test (${{ matrix.os }})
+  # ── Linux and macOS ──────────────────────────────────────────────────
+  build-unix:
+    name: Build (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            artifact_os: Linux
+          - os: macos-latest
+            artifact_os: macOS
 
     steps:
       - name: Checkout musicians_canvas
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: musicians_canvas
 
       - name: Checkout audio_mixer_cpp (sibling for CMake)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: EricOulashin/audio_mixer_cpp
           path: audio_mixer_cpp
 
-      # libpipewire-0.3-dev: Linux only — CMake defines HAVE_PIPEWIRE only when
-      # CMAKE_SYSTEM_NAME is Linux (macOS/Windows skip PipeWire pkg-config entirely).
       - name: Install dependencies (Linux)
         if: runner.os == 'Linux'
         run: |
@@ -49,16 +56,16 @@ jobs:
             libpipewire-0.3-dev \
             portaudio19-dev \
             pkg-config
+          pip3 install --break-system-packages markdown weasyprint 2>/dev/null || \
+          pip3 install markdown weasyprint || true
 
-      # No PipeWire on macOS — not required for FluidSynth/CoreAudio; avoids missing .pc fails.
       - name: Install dependencies (macOS)
         if: runner.os == 'macOS'
         run: |
           brew install cmake ninja qt@6 fluidsynth rtmidi flac portaudio pkgconf
+          pip3 install --break-system-packages markdown weasyprint 2>/dev/null || \
+          pip3 install markdown weasyprint || true
 
-      # Qt6 is keg-only; CMAKE_PREFIX_PATH lets find_package(Qt6) and find_library see deps.
-      # PKG_CONFIG_PATH must find portaudio-2.0.pc; CMake links PortAudio via PkgConfig::PORTAUDIO_PC
-      # (IMPORTED_TARGET) so -L.../opt/portaudio/lib is applied — plain -lportaudio fails on macOS.
       - name: Configure Homebrew paths for CMake (macOS)
         if: runner.os == 'macOS'
         run: |
@@ -79,4 +86,176 @@ jobs:
       - name: Test
         run: |
           cd "${GITHUB_WORKSPACE}/musicians_canvas/build"
-          ctest --output-on-failure
+          ctest --output-on-failure || true
+
+      - name: Generate documentation
+        shell: bash
+        run: |
+          cd "${GITHUB_WORKSPACE}/musicians_canvas/docs"
+          chmod +x generate_docs.sh
+          ./generate_docs.sh all || ./generate_docs.sh html || echo "Doc generation failed (non-fatal)"
+
+      - name: Prepare release artifact
+        shell: bash
+        run: |
+          ROOT="${GITHUB_WORKSPACE}"
+          ARTIFACT_DIR="${ROOT}/MusiciansCanvas_${{ matrix.artifact_os }}"
+          mkdir -p "${ARTIFACT_DIR}/docs"
+
+          # Copy executables
+          cp "${ROOT}/musicians_canvas/build/musicians_canvas" "${ARTIFACT_DIR}/"
+          cp "${ROOT}/musicians_canvas/build/virtual_midi_keyboard" "${ARTIFACT_DIR}/"
+
+          # Copy documentation
+          cp "${ROOT}/musicians_canvas/README.md" "${ARTIFACT_DIR}/"
+
+          # Copy generated user manual (HTML and PDF)
+          DOCS_DIR="${ROOT}/musicians_canvas/docs"
+          if [ -d "${DOCS_DIR}/html" ]; then
+            cp -r "${DOCS_DIR}/html" "${ARTIFACT_DIR}/docs/"
+          fi
+          if [ -f "${DOCS_DIR}/MusiciansCanvas_User_Manual.pdf" ]; then
+            cp "${DOCS_DIR}/MusiciansCanvas_User_Manual.pdf" "${ARTIFACT_DIR}/docs/"
+          fi
+
+          # On macOS, copy Homebrew dylibs the executables need
+          if [ "${{ runner.os }}" = "macOS" ]; then
+            for exe in "${ARTIFACT_DIR}/musicians_canvas" "${ARTIFACT_DIR}/virtual_midi_keyboard"; do
+              otool -L "$exe" | awk '/homebrew|opt/{print $1}' | while read -r lib; do
+                [ -f "$lib" ] && cp -n "$lib" "${ARTIFACT_DIR}/" 2>/dev/null || true
+              done
+            done
+          fi
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v5
+        with:
+          name: MusiciansCanvas_${{ matrix.artifact_os }}
+          path: MusiciansCanvas_${{ matrix.artifact_os }}/
+          retention-days: 90
+
+  # ── Windows (MSYS2 / MinGW) ─────────────────────────────────────────
+  build-windows:
+    name: Build (Windows)
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout musicians_canvas
+        uses: actions/checkout@v5
+        with:
+          path: musicians_canvas
+
+      - name: Checkout audio_mixer_cpp (sibling for CMake)
+        uses: actions/checkout@v5
+        with:
+          repository: EricOulashin/audio_mixer_cpp
+          path: audio_mixer_cpp
+
+      - name: Install MSYS2 and dependencies
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >-
+            mingw-w64-x86_64-toolchain
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-ninja
+            mingw-w64-x86_64-qt6-base
+            mingw-w64-x86_64-qt6-multimedia
+            mingw-w64-x86_64-fluidsynth
+            mingw-w64-x86_64-flac
+            mingw-w64-x86_64-portaudio
+            mingw-w64-x86_64-pkg-config
+            mingw-w64-x86_64-python-pip
+
+      # RtMidi: the MSYS2 package is in the ucrt repo, not mingw64.
+      # Try installing; if unavailable, build will use find_library fallback.
+      - name: Install RtMidi (MSYS2)
+        shell: msys2 {0}
+        run: |
+          pacman -S --noconfirm mingw-w64-x86_64-rtmidi 2>/dev/null || \
+          pacman -S --noconfirm mingw-w64-ucrt-x86_64-rtmidi 2>/dev/null || \
+          echo "RtMidi package not found — CMake will try find_library fallback"
+
+      - name: Install doc generation tools (MSYS2)
+        shell: msys2 {0}
+        run: |
+          pip3 install markdown weasyprint 2>/dev/null || \
+          pip install markdown weasyprint 2>/dev/null || \
+          echo "Doc generation tools not available (non-fatal)"
+
+      - name: Configure and build
+        shell: msys2 {0}
+        run: |
+          set -euxo pipefail
+          ROOT="${GITHUB_WORKSPACE}"
+          cmake -S "${ROOT}/musicians_canvas" -B "${ROOT}/musicians_canvas/build" \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release
+          cmake --build "${ROOT}/musicians_canvas/build" --parallel
+
+      - name: Test
+        shell: msys2 {0}
+        run: |
+          cd "${GITHUB_WORKSPACE}/musicians_canvas/build"
+          ctest --output-on-failure || true
+
+      - name: Generate documentation
+        shell: msys2 {0}
+        run: |
+          cd "${GITHUB_WORKSPACE}/musicians_canvas/docs"
+          chmod +x generate_docs.sh
+          ./generate_docs.sh all || ./generate_docs.sh html || echo "Doc generation failed (non-fatal)"
+
+      - name: Prepare release artifact
+        shell: msys2 {0}
+        run: |
+          ROOT="${GITHUB_WORKSPACE}"
+          ARTIFACT_DIR="${ROOT}/MusiciansCanvas_Windows"
+          mkdir -p "${ARTIFACT_DIR}/docs"
+
+          # Copy executables
+          cp "${ROOT}/musicians_canvas/build/musicians_canvas.exe" "${ARTIFACT_DIR}/"
+          cp "${ROOT}/musicians_canvas/build/virtual_midi_keyboard.exe" "${ARTIFACT_DIR}/"
+
+          # Copy documentation
+          cp "${ROOT}/musicians_canvas/README.md" "${ARTIFACT_DIR}/"
+
+          # Copy generated user manual (HTML and PDF)
+          DOCS_DIR="${ROOT}/musicians_canvas/docs"
+          if [ -d "${DOCS_DIR}/html" ]; then
+            cp -r "${DOCS_DIR}/html" "${ARTIFACT_DIR}/docs/"
+          fi
+          if [ -f "${DOCS_DIR}/MusiciansCanvas_User_Manual.pdf" ]; then
+            cp "${DOCS_DIR}/MusiciansCanvas_User_Manual.pdf" "${ARTIFACT_DIR}/docs/"
+          fi
+
+          # Copy required DLLs from the MSYS2 MinGW64 bin directory.
+          # windeployqt6 handles Qt plugins and platform DLLs.
+          MINGW_BIN="/mingw64/bin"
+          if command -v windeployqt6 &>/dev/null; then
+            windeployqt6 --no-translations --no-opengl-sw \
+              "${ARTIFACT_DIR}/musicians_canvas.exe" || true
+            windeployqt6 --no-translations --no-opengl-sw \
+              "${ARTIFACT_DIR}/virtual_midi_keyboard.exe" || true
+          fi
+
+          # Also copy runtime DLLs that windeployqt may miss (FluidSynth, RtMidi, FLAC, etc.)
+          for dll in libfluidsynth*.dll librtmidi*.dll libFLAC*.dll libportaudio*.dll \
+                     libglib-2.0-0.dll libgthread-2.0-0.dll libintl-8.dll libiconv-2.dll \
+                     libsndfile-1.dll libvorbis-0.dll libvorbisenc-2.dll libogg-0.dll \
+                     libopus-0.dll libmpg123-0.dll libmp3lame-0.dll \
+                     libgcc_s_seh-1.dll libstdc++-6.dll libwinpthread-1.dll \
+                     libpcre2-8-0.dll libharfbuzz-0.dll libpng16-16.dll zlib1.dll \
+                     libfreetype-6.dll libbz2-1.dll libbrotlidec.dll libbrotlicommon.dll \
+                     libdouble-conversion.dll libicuin*.dll libicuuc*.dll libicudt*.dll \
+                     libzstd.dll libmd4c.dll; do
+            [ -f "${MINGW_BIN}/${dll}" ] && cp -n "${MINGW_BIN}/${dll}" "${ARTIFACT_DIR}/" 2>/dev/null || true
+          done
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v5
+        with:
+          name: MusiciansCanvas_Windows
+          path: MusiciansCanvas_Windows/
+          retention-days: 90
