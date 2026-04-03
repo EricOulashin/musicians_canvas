@@ -191,6 +191,22 @@ target_include_directories(musicians_canvas PRIVATE
     ${AUDIO_MIXER_CPP_DIR}
 )
 
+# The audio_mixer_cpp headers use int16_t / int32_t / int64_t without
+# including <cstdint>.  On Linux/macOS the type is pulled in transitively,
+# but MinGW on Windows does not.  Force-include <cstdint> so the types are
+# always visible.
+if(MSVC)
+    target_compile_options(musicians_canvas PRIVATE /FIcstdint)
+    if(BUILD_TESTING AND TARGET musicians_canvas_tests)
+        target_compile_options(musicians_canvas_tests PRIVATE /FIcstdint)
+    endif()
+else()
+    target_compile_options(musicians_canvas PRIVATE -include cstdint)
+    if(BUILD_TESTING AND TARGET musicians_canvas_tests)
+        target_compile_options(musicians_canvas_tests PRIVATE -include cstdint)
+    endif()
+endif()
+
 # Platform-specific libraries for low-latency audio initialisation
 if(WIN32)
     # advapi32: Windows registry API (RegOpenKeyExW, RegEnumKeyExW) for ASIO detection

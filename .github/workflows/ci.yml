@@ -83,6 +83,13 @@ jobs:
             -DCMAKE_BUILD_TYPE=Release
           cmake --build "${ROOT}/musicians_canvas/build" --parallel
 
+      - name: Extract version
+        id: version
+        shell: bash
+        run: |
+          ver=$(grep 'project(musicians_canvas VERSION' "${GITHUB_WORKSPACE}/musicians_canvas/CMakeLists.txt" | sed -E 's/.*VERSION ([0-9.]+).*/\1/' | tr -d '.')
+          echo "ver=$ver" >> "$GITHUB_OUTPUT"
+
       - name: Test
         run: |
           cd "${GITHUB_WORKSPACE}/musicians_canvas/build"
@@ -106,9 +113,6 @@ jobs:
           cp "${ROOT}/musicians_canvas/build/musicians_canvas" "${ARTIFACT_DIR}/"
           cp "${ROOT}/musicians_canvas/build/virtual_midi_keyboard" "${ARTIFACT_DIR}/"
 
-          # Copy documentation
-          cp "${ROOT}/musicians_canvas/README.md" "${ARTIFACT_DIR}/"
-
           # Copy generated user manual (HTML and PDF)
           DOCS_DIR="${ROOT}/musicians_canvas/docs"
           if [ -d "${DOCS_DIR}/html" ]; then
@@ -130,7 +134,7 @@ jobs:
       - name: Upload release artifact
         uses: actions/upload-artifact@v5
         with:
-          name: MusiciansCanvas_${{ matrix.artifact_os }}
+          name: MusiciansCanvas_${{ steps.version.outputs.ver }}_${{ matrix.artifact_os }}
           path: MusiciansCanvas_${{ matrix.artifact_os }}/
           retention-days: 90
 
@@ -194,6 +198,13 @@ jobs:
             -DCMAKE_BUILD_TYPE=Release
           cmake --build "${ROOT}/musicians_canvas/build" --parallel
 
+      - name: Extract version
+        id: version
+        shell: bash
+        run: |
+          ver=$(grep 'project(musicians_canvas VERSION' "${GITHUB_WORKSPACE}/musicians_canvas/CMakeLists.txt" | sed -E 's/.*VERSION ([0-9.]+).*/\1/' | tr -d '.')
+          echo "ver=$ver" >> "$GITHUB_OUTPUT"
+
       - name: Test
         shell: msys2 {0}
         run: |
@@ -217,9 +228,6 @@ jobs:
           # Copy executables
           cp "${ROOT}/musicians_canvas/build/musicians_canvas.exe" "${ARTIFACT_DIR}/"
           cp "${ROOT}/musicians_canvas/build/virtual_midi_keyboard.exe" "${ARTIFACT_DIR}/"
-
-          # Copy documentation
-          cp "${ROOT}/musicians_canvas/README.md" "${ARTIFACT_DIR}/"
 
           # Copy generated user manual (HTML and PDF)
           DOCS_DIR="${ROOT}/musicians_canvas/docs"
@@ -256,6 +264,6 @@ jobs:
       - name: Upload release artifact
         uses: actions/upload-artifact@v5
         with:
-          name: MusiciansCanvas_Windows
+          name: MusiciansCanvas_${{ steps.version.outputs.ver }}_Windows
           path: MusiciansCanvas_Windows/
           retention-days: 90
