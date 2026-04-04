@@ -118,9 +118,10 @@ jobs:
           if [ -d "${DOCS_DIR}/html" ]; then
             cp -r "${DOCS_DIR}/html" "${ARTIFACT_DIR}/docs/"
           fi
-          if [ -f "${DOCS_DIR}/MusiciansCanvas_User_Manual.pdf" ]; then
-            cp "${DOCS_DIR}/MusiciansCanvas_User_Manual.pdf" "${ARTIFACT_DIR}/docs/"
-          fi
+          # Copy all PDF user manuals (English + translations)
+          for pdf in "${DOCS_DIR}"/MusiciansCanvas_User_Manual*.pdf; do
+            [ -f "$pdf" ] && cp "$pdf" "${ARTIFACT_DIR}/docs/" || true
+          done
 
           # On macOS, copy Homebrew dylibs the executables need
           if [ "${{ runner.os }}" = "macOS" ]; then
@@ -234,9 +235,10 @@ jobs:
           if [ -d "${DOCS_DIR}/html" ]; then
             cp -r "${DOCS_DIR}/html" "${ARTIFACT_DIR}/docs/"
           fi
-          if [ -f "${DOCS_DIR}/MusiciansCanvas_User_Manual.pdf" ]; then
-            cp "${DOCS_DIR}/MusiciansCanvas_User_Manual.pdf" "${ARTIFACT_DIR}/docs/"
-          fi
+          # Copy all PDF user manuals (English + translations)
+          for pdf in "${DOCS_DIR}"/MusiciansCanvas_User_Manual*.pdf; do
+            [ -f "$pdf" ] && cp "$pdf" "${ARTIFACT_DIR}/docs/" || true
+          done
 
           # Copy required DLLs from the MSYS2 MinGW64 bin directory.
           # windeployqt6 handles Qt plugins and platform DLLs.

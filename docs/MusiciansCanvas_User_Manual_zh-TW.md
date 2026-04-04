@@ -1,0 +1,387 @@
+---
+title: "Musician's Canvas 使用手冊"
+subtitle: "多軌音樂錄製應用程式"
+version: "0.1.0"
+date: "2026-04-03"
+author: "Eric Oulashin"
+lang: "zh-TW"
+---
+
+# Musician's Canvas 使用手冊
+
+## 簡介
+
+Musician's Canvas 是一款適用於桌上型電腦的多軌音樂錄製應用程式。它支援從麥克風和線路輸入裝置進行音訊錄製、從鍵盤和控制器進行 MIDI 錄製，並可將所有音軌混音為單一 WAV 或 FLAC 檔案。附屬應用程式 Virtual MIDI Keyboard 提供了一個軟體鋼琴鍵盤，用於傳送 MIDI 音符。
+
+Musician's Canvas 的設計注重易用性，同時提供數位音訊工作站（DAW）中常見的功能：
+
+- 多軌音訊和 MIDI 錄製
+- 疊錄功能，可同步播放現有音軌
+- 內建 FluidSynth MIDI 合成器，支援 SoundFont
+- 高品質取樣率轉換，支援以任何專案取樣率進行錄製
+- 自動單聲道/立體聲裝置偵測
+- 基於專案的設定，可針對個別專案進行覆寫
+- 混音匯出為 WAV 或 FLAC
+- 深色和淺色主題
+- 附屬 Virtual MIDI Keyboard 應用程式
+
+## 入門指南
+
+### 啟動應用程式
+
+從建置目錄或安裝位置執行 `musicians_canvas` 可執行檔：
+
+```
+./musicians_canvas
+```
+
+首次啟動時，應用程式會開啟一個空白專案。您需要在錄製前設定專案目錄。
+
+啟動時，應用程式會套用已儲存的主題（深色或淺色），如果先前使用的專案目錄中包含 `project.json` 檔案，則會自動載入該專案。
+
+### 設定專案
+
+1. **設定專案目錄**：在視窗頂部的「Project Location」欄位中輸入或瀏覽至一個資料夾。錄音檔案和專案檔案將儲存在此處。
+
+2. **新增音軌**：點選 **+ Add Track** 按鈕。一個具有預設設定的新音軌將會出現。如果它是專案中唯一的音軌且尚未錄製，則會自動啟用錄製待命。
+
+3. **為音軌命名**：在「Options」按鈕旁的文字欄位中輸入名稱。此名稱將作為錄製音訊檔案的檔案名稱。
+
+![主視窗](../screenshots/MusiciansCanvas_1_MainWin.png)
+
+### 儲存和開啟專案
+
+- **儲存**：使用 **File > Save Project**（Ctrl+S）將目前專案儲存為專案目錄中的 JSON 檔案。
+- **開啟**：使用 **File > Open Project**（Ctrl+O）載入先前儲存的專案。
+
+專案檔案（`project.json`）儲存音軌名稱、類型、MIDI 音符、音訊檔案參照及所有專案特定設定。音訊檔案儲存在與 `project.json` 相同的目錄中，並以其音軌名稱命名（例如 `My_Track.flac`）。
+
+如果您在有未儲存變更的情況下關閉應用程式，系統會顯示確認對話框，詢問是否要在退出前儲存。
+
+## 音軌管理
+
+### 新增和移除音軌
+
+- 點選 **+ Add Track** 以新增音軌至編曲中。
+- 點選音軌列右側的 **x** 按鈕以移除該音軌。
+- 點選 **Clear Tracks**（工具列中的紅色按鈕）以移除所有音軌。在執行前會顯示確認對話框。
+
+### 設定音軌類型
+
+每個音軌可設定為 **Audio**（用於麥克風/線路輸入錄製）或 **MIDI**（用於鍵盤/控制器錄製）。
+
+若要變更音軌類型：
+
+- 點選音軌上的 **Options** 按鈕，或
+- 點選 **音軌類型圖示**（位於「Options」和名稱欄位之間）
+
+這將開啟「Track Configuration」對話框，您可以在其中選擇輸入來源。
+
+![音軌設定](../screenshots/MusiciansCanvas_2_TrackConfig.png)
+
+### 音軌控制項
+
+每個音軌列提供以下控制項：
+
+- **Enable 核取方塊**：切換音軌是否包含在播放和混音中。停用音軌也會自動取消其錄製待命狀態。
+- **Arm 選項按鈕**：選擇此音軌作為錄製目標。一次只能有一個音軌處於待命狀態；啟用新音軌的待命會自動取消先前待命的音軌。
+- **名稱欄位**：可編輯的文字欄位，用於設定音軌名稱。此名稱作為音訊檔案名稱使用（無效的檔案系統字元會被替換為底線）。
+- **Options 按鈕**：開啟「Track Configuration」對話框。
+- **類型圖示**：音訊音軌顯示喇叭圖示，MIDI 音軌顯示鋼琴圖示。點選它會開啟「Track Configuration」對話框。
+- **移除按鈕 (x)**：從專案中移除該音軌。
+
+### 自動待命
+
+當專案只有一個音軌且該音軌尚未錄製時，它會自動進入錄製待命狀態。這適用於在新專案中新增第一個音軌，以及開啟僅含單一空白音軌的現有專案。
+
+### 音軌視覺化
+
+- **音訊音軌** 顯示已錄製音訊的波形視覺化。當沒有錄製音訊時，該區域顯示「No audio recorded」。
+- **MIDI 音軌** 顯示鋼琴捲軸視覺化，在跨越 A0 至 C8 的網格上顯示已錄製的音符。音符依力度著色。當沒有錄製 MIDI 資料時，該區域顯示「No MIDI data recorded」。
+
+## 錄製
+
+### 音訊錄製
+
+1. 確保已設定專案目錄。
+2. 將目標音軌設為待命（勾選「Arm」選項按鈕）。
+3. 點選 **Record** 按鈕（紅色圓圈）。
+4. 音軌上會出現 3 秒倒數計時（「Get ready... 3」、「2」、「1」），然後開始錄製。
+5. 錄製期間，音軌的波形區域會顯示即時電平表，以漸層條（綠色到黃色到紅色）顯示目前振幅，並標有「Recording」標籤。
+6. 點選 **Stop** 按鈕結束錄製。
+
+錄製的音訊以 FLAC 檔案格式儲存在專案目錄中，以音軌名稱命名。
+
+在錄製和播放期間，所有互動控制項（音軌按鈕、設定等）都會被停用，以防止意外變更。
+
+#### 疊錄
+
+當錄製新音軌時，如果其他已啟用的音軌已包含音訊或 MIDI 資料，Musician's Canvas 會執行疊錄：現有音軌會混合在一起，並在錄製新音軌的同時即時播放。這讓您可以在錄製新段落時聽到先前錄製的部分。
+
+現有音軌的混音會在擷取開始前準備好，因此錄製和播放幾乎同時開始，保持所有音軌同步。
+
+#### 錄製後端
+
+Musician's Canvas 支援兩種音訊擷取後端：
+
+- **PortAudio**（可用時為預設）：提供穩定的低延遲錄製，是建議使用的後端。
+- **Qt Multimedia**：使用 Qt 內建音訊擷取的備用後端。當 PortAudio 不可用或在 Project Settings 中明確選擇時使用。
+
+錄製後端可在 **Project > Project Settings > Audio** 中針對每個專案進行設定。
+
+#### 取樣率與裝置處理
+
+Musician's Canvas 以音訊輸入裝置的原生取樣率進行錄製，然後使用高品質重新取樣自動轉換為專案設定的取樣率。這意味著您可以設定任何專案取樣率（例如 44100 Hz 或 48000 Hz），而不受裝置原生取樣率的限制。轉換過程會精確保留音高和時間長度。
+
+#### 單聲道裝置偵測
+
+某些音訊裝置（例如 USB 網路攝影機麥克風）實際上是單聲道，但被作業系統報告為立體聲。Musician's Canvas 會自動偵測此情況並相應調整聲道數。如果專案設定為立體聲，單聲道訊號會被複製到兩個聲道。
+
+### MIDI 錄製
+
+1. 透過 Options 按鈕將音軌類型設定為 **MIDI**。
+2. 確保在 **Settings > Configuration > MIDI** 中已設定 MIDI 輸入裝置。
+3. 將音軌設為待命並點選 Record。
+4. 在您的 MIDI 控制器上演奏音符。
+5. 點選 Stop 結束錄製。
+
+MIDI 音符會以鋼琴捲軸視覺化顯示在音軌上。
+
+## 播放
+
+點選 **Play** 按鈕以混音並播放所有已啟用的音軌。按鈕的工具提示會根據是否有音軌處於待命狀態，指示將執行播放或錄製。已停用的音軌（未勾選）會從播放中排除。
+
+播放期間，音訊音軌會從其 FLAC 檔案中解碼，MIDI 音軌會使用內建的 FluidSynth 合成器轉譯為音訊。所有音軌會混合在一起，並透過系統的音訊輸出裝置播放。
+
+點選 **Stop** 按鈕可隨時結束播放。
+
+## 混音匯出為檔案
+
+使用 **Tools > Mix tracks to file**（Ctrl+M）將所有已啟用的音軌匯出為單一音訊檔案。對話框可讓您選擇輸出路徑和格式：
+
+- **輸出檔案**：瀏覽以選擇目的地檔案路徑。
+- **格式**：選擇 FLAC（無損壓縮，檔案較小）或 WAV（未壓縮）。
+
+混音使用專案設定的取樣率。MIDI 音軌使用設定的 SoundFont 進行轉譯。
+
+## 設定
+
+### 全域設定
+
+使用 **Settings > Configuration**（Ctrl+,）設定適用於所有專案的全域預設值：
+
+![一般設定](../screenshots/MusiciansCanvas_3_GeneralSettings.png)
+
+#### General 分頁
+
+- **主題**：選擇深色或淺色主題。
+
+#### MIDI 分頁
+
+- **MIDI Output Device**：選擇內建的 FluidSynth 合成器或外部 MIDI 裝置。使用 **Refresh** 按鈕重新掃描可用的 MIDI 裝置。
+- **SoundFont**：瀏覽至 `.sf2` SoundFont 檔案以進行 MIDI 合成。在 Linux 上，如果已安裝 `fluid-soundfont-gm` 套件，系統可能會自動偵測 SoundFont。在 Windows 和 macOS 上，您需要手動設定 SoundFont 路徑。
+
+![MIDI 設定](../screenshots/MusiciansCanvas_4_MIDISettings.png)
+
+#### Audio 分頁
+
+- **Audio Input Device**：選擇用於錄製的麥克風或線路輸入裝置。
+- **Audio Output Device**：選擇用於播放的喇叭或耳機裝置。
+
+![音訊設定](../screenshots/MusiciansCanvas_5_AudioSettings.png)
+
+### 專案設定
+
+使用 **Project > Project Settings**（Ctrl+P）為目前專案覆寫全域預設值。這對於需要特定取樣率、SoundFont 或音訊裝置的專案非常有用。專案特定設定儲存在 `project.json` 檔案中。
+
+![專案 MIDI 設定](../screenshots/MusiciansCanvas_6_ProjectMIDISettings.png)
+
+#### MIDI 分頁
+
+- **MIDI Device**：為此專案選擇 MIDI 裝置，或保持預設以使用全域設定。
+- **SoundFont**：為此專案選擇 SoundFont 檔案。
+- **Refresh**：重新掃描可用的 MIDI 裝置。
+
+#### Audio 分頁
+
+- **Audio Input Device**：為此專案選擇錄製裝置。
+- **Recording capture backend**（當 PortAudio 可用時）：
+  - **PortAudio (native input)**：建議使用。使用與 Audacity 相同的音訊函式庫。
+  - **Qt Multimedia**：使用 Qt 內建音訊擷取的備用選項。
+- **PortAudio Input Device**：使用 PortAudio 後端時，選擇特定的 PortAudio 輸入裝置。
+- **Audio Output Device**：為此專案選擇播放裝置。
+
+##### 音訊格式設定
+
+- **取樣率**：從標準取樣率（8000 Hz 至 192000 Hz）中選擇。裝置的原生取樣率標記為「(native)」。需要重新取樣的取樣率標記為「(resampled)」。您可以選擇任何取樣率，不受裝置能力限制；Musician's Canvas 會根據需要自動重新取樣。
+- **聲道**：單聲道或立體聲。如果裝置僅支援單聲道，則立體聲選項會被停用。
+
+![專案音訊設定](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
+
+## 選單
+
+### File 選單
+
+| 選單項目      | 快捷鍵   | 說明                           |
+|---------------|----------|--------------------------------|
+| Save Project  | Ctrl+S   | 將目前專案儲存至磁碟           |
+| Open Project  | Ctrl+O   | 開啟現有的專案檔案             |
+| Close         | Ctrl+Q   | 結束應用程式                   |
+
+### Project 選單
+
+| 選單項目                            | 快捷鍵   | 說明                                   |
+|-------------------------------------|----------|----------------------------------------|
+| Project Settings                    | Ctrl+P   | 設定專案特定的設定                     |
+| Add Demo Data to Selected Track     |          | 為選取的音軌新增範例 MIDI 音符         |
+
+### Settings 選單
+
+| 選單項目      | 快捷鍵   | 說明                           |
+|---------------|----------|--------------------------------|
+| Configuration | Ctrl+,   | 開啟全域應用程式設定           |
+
+### Tools 選單
+
+| 選單項目              | 快捷鍵   | 說明                                   |
+|-----------------------|----------|----------------------------------------|
+| Mix tracks to file    | Ctrl+M   | 將所有已啟用的音軌匯出為檔案           |
+| Virtual MIDI Keyboard |          | 啟動附屬鍵盤應用程式                   |
+
+## 鍵盤快捷鍵
+
+| 快捷鍵          | 動作                           |
+|-----------------|--------------------------------|
+| Ctrl+S          | 儲存專案                       |
+| Ctrl+O          | 開啟專案                       |
+| Ctrl+M          | 混音匯出為檔案                 |
+| Ctrl+P          | 專案設定                       |
+| Ctrl+,          | 設定 / Configuration           |
+| Ctrl+Q / Alt+F4 | 結束應用程式                   |
+
+## Virtual MIDI Keyboard
+
+Virtual MIDI Keyboard 是一款附屬應用程式（`virtual_midi_keyboard`），提供螢幕上的鋼琴鍵盤，用於傳送 MIDI 音符。它可以從主應用程式的 **Tools > Virtual MIDI Keyboard** 選單中啟動，也可以獨立執行。
+
+![Virtual MIDI Keyboard](../screenshots/VMIDIKeyboard1.png)
+
+### 功能
+
+- 點選螢幕上的鋼琴鍵來演奏音符
+- 使用電腦鍵盤作為鋼琴鍵盤（請參閱下方的按鍵對應表）
+- 連接至外部 MIDI 輸出裝置或使用內建的 FluidSynth 合成器
+- 連接至 MIDI 輸入裝置，在鍵盤上顯示傳入的音符
+- 可調整的合成器音量（主增益，10%--200%）
+- 為內建合成器選擇 SoundFont
+- MIDI 樂器/音色選擇（General MIDI 或 SoundFont 預設音色）
+- 合唱/效果控制旋鈕
+- 八度移調（-3 至 +5）
+- MIDI 音量控制（CC#7，0--127）
+
+### 工具列控制項
+
+- **Volume**：MIDI 音量（CC#7），可透過微調方塊從 0 調整到 127。
+- **Octave**：使用 **<** 和 **>** 按鈕或微調方塊來移動鍵盤八度。範圍為 -3 至 +5。
+- **Chorus/Effect**：旋轉旋鈕和文字欄位（1--127），用於設定合唱/效果等級（MIDI CC#93）。點選 **Apply** 傳送該值。
+- **樂器選擇器**：選擇 MIDI 樂器。使用內建 FluidSynth 合成器時，會顯示 SoundFont 預設音色（Bank:Program Name）。連接至外部 MIDI 裝置時，會列出 128 種 General MIDI 樂器。
+
+### 使用電腦鍵盤演奏
+
+電腦鍵盤對應至跨越兩個八度的鋼琴鍵：
+
+**低八度（從目前八度開始）：**
+
+| 按鍵 | 音符  |
+|------|-------|
+| Z    | C     |
+| S    | C#/Db |
+| X    | D     |
+| D    | D#/Eb |
+| C    | E     |
+| V    | F     |
+| G    | F#/Gb |
+| B    | G     |
+| H    | G#/Ab |
+| N    | A     |
+| J    | A#/Bb |
+| M    | B     |
+
+**高八度（高一個八度）：**
+
+| 按鍵 | 音符  |
+|------|-------|
+| Q    | C     |
+| 2    | C#/Db |
+| W    | D     |
+| 3    | D#/Eb |
+| E    | E     |
+| R    | F     |
+| 5    | F#/Gb |
+| T    | G     |
+| 6    | G#/Ab |
+| Y    | A     |
+| 7    | A#/Bb |
+| U    | B     |
+| I    | C（下一個八度）|
+| 9    | C#/Db |
+| O    | D     |
+| 0    | D#/Eb |
+| P    | E     |
+
+按下按鍵時，鍵盤會有視覺反應（白鍵變為淺藍色，黑鍵變深）。
+
+### 設定
+
+開啟 Configuration 對話框（**Settings > Configuration**，Ctrl+,）以設定 MIDI 和音訊裝置：
+
+![Virtual MIDI Keyboard 設定](../screenshots/VMIDIKeyboard2.png)
+
+#### MIDI 分頁
+
+- **MIDI Output Device**：選擇外部裝置，或留空以使用內建的 FluidSynth 合成器。
+- **MIDI Input Device**：選擇控制器以將音符轉發至鍵盤顯示。
+- **Synthesizer Volume (Master Gain)**：調整內建合成器的輸出音量（10%--200%）。
+- **SoundFont**：瀏覽至 `.sf2` SoundFont 檔案以供內建合成器使用。
+- **Refresh**：重新掃描可用的 MIDI 裝置。
+
+#### Audio 分頁
+
+- **Audio Output Device**：選擇內建合成器的輸出裝置。
+
+### Virtual MIDI Keyboard 快捷鍵
+
+| 快捷鍵   | 動作                 |
+|----------|----------------------|
+| Ctrl+,   | Configuration 對話框 |
+| Ctrl+U   | 說明 / 使用資訊      |
+| Ctrl+Q   | 關閉                 |
+
+## 疑難排解
+
+### 沒有音訊輸出
+
+- 檢查 Settings > Configuration > Audio 中是否選擇了正確的音訊輸出裝置。
+- 在 Linux 上，確認 PipeWire 或 PulseAudio 正在執行，且輸出未被靜音。使用 `amixer` 或您桌面的音效設定來檢查音量。
+- 在 Windows 上，確保已安裝 ASIO 音訊驅動程式（例如 [ASIO4ALL](https://asio4all.org/) 或音訊介面製造商提供的 ASIO 驅動程式）。Musician's Canvas 在 Windows 上需要 ASIO 才能實現低延遲音訊。
+
+### MIDI 音軌沒有聲音
+
+- 確保在 Settings > Configuration > MIDI 中已設定 SoundFont（`.sf2` 檔案）。
+- 在 Linux 上，如果已安裝 `fluid-soundfont-gm` 套件，系統可能會自動偵測 SoundFont。
+- 在 Windows 和 macOS 上，您需要手動設定 SoundFont 路徑。
+
+### 錄音聽起來失真或音高不正確
+
+- 當音訊輸入裝置的原生取樣率與專案設定的取樣率不同時，可能會發生此問題。Musician's Canvas 會透過重新取樣自動處理此問題，但如果問題持續存在，請嘗試將專案取樣率設定為與裝置的原生取樣率相符。
+- USB 網路攝影機麥克風通常具有不常見的原生取樣率（例如 32000 Hz）。應用程式會自動偵測這些情況。
+- 如果使用 Qt Multimedia 後端時遇到問題，請嘗試在 Project Settings > Audio 中切換至 PortAudio 後端。
+
+### Virtual MIDI Keyboard 沒有音訊
+
+- 在使用 PipeWire 的 Linux 上，確保已安裝 `libpipewire-0.3-dev` 套件（FluidSynth 合成器與 PipeWire 整合所需）。
+- 檢查是否已載入 SoundFont（請參閱 Configuration 對話框中的 MIDI 分頁）。
+- 確認已選擇音訊輸出裝置且系統音量未被靜音。
+
+## 從原始碼建置
+
+請參閱 [README](../README.md) 以取得 Linux、macOS 和 Windows 的完整建置說明，包括所有必要的相依套件。

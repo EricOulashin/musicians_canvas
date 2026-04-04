@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual do Usu&aacute;rio do Musician&#8217;s Canvas</title>
+<style>
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px 40px;
+    color: #24292e; background-color: #fff;
+}
+h1 { border-bottom: 2px solid #0366d6; padding-bottom: 0.3em; color: #0366d6; }
+h2 { border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; margin-top: 2em; }
+h3 { color: #0366d6; margin-top: 1.5em; }
+h4 { color: #586069; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid #dfe2e5; padding: 8px 12px; text-align: left; }
+th { background-color: #f6f8fa; font-weight: 600; }
+tr:nth-child(even) { background-color: #f6f8fa; }
+code { background-color: #f6f8fa; padding: 0.2em 0.4em; border-radius: 3px; font-size: 0.9em;
+       font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; }
+pre { background-color: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+strong { color: #24292e; }
+a { color: #0366d6; text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6px; margin: 1em 0; }
+.toc { background-color: #f6f8fa; border: 1px solid #dfe2e5; border-radius: 6px;
+       padding: 15px 20px; margin: 1em 0 2em 0; }
+.toc h2 { margin-top: 0; border-bottom: none; font-size: 1.1em; }
+.toc ul { list-style: none; padding-left: 1.2em; }
+.toc > ul { padding-left: 0; }
+.toc li { margin: 0.3em 0; }
+.title-block { text-align: center; margin-bottom: 2em; padding-bottom: 1em;
+               border-bottom: 2px solid #0366d6; }
+@media print {
+    body { max-width: none; padding: 0; }
+    h1, h2, h3 { page-break-after: avoid; }
+    table, pre, img { page-break-inside: avoid; }
+    img { max-width: 80%; }
+}
+</style>
+</head>
+<body>
+<div class="title-block">
+<h1>Manual do Usu&aacute;rio do Musician&#8217;s Canvas</h1>
+<p>Aplicativo de Gravacao Musical Multi-Faixa &mdash; Version 0.1.0</p>
+<p>2026-04-03</p>
+</div>
+<div class="toc">
+<h2>&Iacute;ndice</h2>
+<div class="toc">
+<ul>
+<li><a href="#manual-do-usuario-do-musicians-canvas">Manual do Usuario do Musician's Canvas</a><ul>
+<li><a href="#introducao">Introducao</a></li>
+<li><a href="#primeiros-passos">Primeiros Passos</a><ul>
+<li><a href="#iniciando-o-aplicativo">Iniciando o Aplicativo</a></li>
+<li><a href="#configurando-um-projeto">Configurando um Projeto</a></li>
+<li><a href="#salvando-e-abrindo-projetos">Salvando e Abrindo Projetos</a></li>
+</ul>
+</li>
+<li><a href="#gerenciamento-de-faixas">Gerenciamento de Faixas</a><ul>
+<li><a href="#adicionando-e-removendo-faixas">Adicionando e Removendo Faixas</a></li>
+<li><a href="#configurando-o-tipo-de-faixa">Configurando o Tipo de Faixa</a></li>
+<li><a href="#controles-de-faixa">Controles de Faixa</a></li>
+<li><a href="#auto-armamento">Auto-Armamento</a></li>
+<li><a href="#visualizacao-de-faixas">Visualizacao de Faixas</a></li>
+</ul>
+</li>
+<li><a href="#gravacao">Gravacao</a><ul>
+<li><a href="#gravacao-de-audio">Gravacao de Audio</a></li>
+<li><a href="#gravacao-midi">Gravacao MIDI</a></li>
+</ul>
+</li>
+<li><a href="#reproducao">Reproducao</a></li>
+<li><a href="#mixagem-para-arquivo">Mixagem para Arquivo</a></li>
+<li><a href="#configuracoes">Configuracoes</a><ul>
+<li><a href="#configuracoes-globais">Configuracoes Globais</a></li>
+<li><a href="#configuracoes-do-projeto">Configuracoes do Projeto</a></li>
+</ul>
+</li>
+<li><a href="#menus">Menus</a><ul>
+<li><a href="#menu-file">Menu File</a></li>
+<li><a href="#menu-project">Menu Project</a></li>
+<li><a href="#menu-settings">Menu Settings</a></li>
+<li><a href="#menu-tools">Menu Tools</a></li>
+</ul>
+</li>
+<li><a href="#atalhos-de-teclado">Atalhos de Teclado</a></li>
+<li><a href="#virtual-midi-keyboard">Virtual MIDI Keyboard</a><ul>
+<li><a href="#recursos">Recursos</a></li>
+<li><a href="#controles-da-barra-de-ferramentas">Controles da Barra de Ferramentas</a></li>
+<li><a href="#tocando-com-o-teclado-do-computador">Tocando com o Teclado do Computador</a></li>
+<li><a href="#configuracao">Configuracao</a></li>
+<li><a href="#atalhos-do-virtual-midi-keyboard">Atalhos do Virtual MIDI Keyboard</a></li>
+</ul>
+</li>
+<li><a href="#solucao-de-problemas">Solucao de Problemas</a><ul>
+<li><a href="#sem-saida-de-audio">Sem Saida de Audio</a></li>
+<li><a href="#faixas-midi-estao-silenciosas">Faixas MIDI Estao Silenciosas</a></li>
+<li><a href="#a-gravacao-soa-distorcida-ou-com-tom-errado">A Gravacao Soa Distorcida ou Com Tom Errado</a></li>
+<li><a href="#virtual-midi-keyboard-sem-audio">Virtual MIDI Keyboard Sem Audio</a></li>
+</ul>
+</li>
+<li><a href="#compilando-a-partir-do-codigo-fonte">Compilando a Partir do Codigo-Fonte</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+<h1 id="manual-do-usuario-do-musicians-canvas">Manual do Usuario do Musician's Canvas</h1>
+<h2 id="introducao">Introducao</h2>
+<p>Musician's Canvas e um aplicativo de gravacao musical multi-faixa para desktops. Ele suporta
+gravacao de audio a partir de microfones e dispositivos de entrada de linha, gravacao MIDI
+a partir de teclados e controladores, e mixagem de todas as faixas em um unico arquivo WAV
+ou FLAC. Um aplicativo complementar, Virtual MIDI Keyboard, fornece um teclado de piano
+virtual para envio de notas MIDI.</p>
+<p>Musician's Canvas foi projetado para facilidade de uso, oferecendo recursos comumente
+encontrados em estacoes de trabalho de audio digital (DAWs):</p>
+<ul>
+<li>Gravacao multi-faixa de audio e MIDI</li>
+<li>Gravacao overdub com reproducao sincronizada das faixas existentes</li>
+<li>Sintetizador MIDI FluidSynth integrado com suporte a SoundFont</li>
+<li>Conversao de taxa de amostragem de alta qualidade para gravacao em qualquer taxa de amostragem do projeto</li>
+<li>Deteccao automatica de dispositivos mono/estereo</li>
+<li>Configuracoes baseadas em projeto com opcoes especificas por projeto</li>
+<li>Mixagem para WAV ou FLAC</li>
+<li>Temas escuro e claro</li>
+<li>Aplicativo complementar Virtual MIDI Keyboard</li>
+</ul>
+<h2 id="primeiros-passos">Primeiros Passos</h2>
+<h3 id="iniciando-o-aplicativo">Iniciando o Aplicativo</h3>
+<p>Execute o executavel <code>musicians_canvas</code> a partir do diretorio de compilacao ou do local
+de instalacao:</p>
+<pre><code>./musicians_canvas
+</code></pre>
+<p>Na primeira execucao, o aplicativo abre com um projeto vazio. Voce precisara definir um
+diretorio de projeto antes de gravar.</p>
+<p>Na inicializacao, o aplicativo aplica o tema salvo (escuro ou claro) e, se um diretorio
+de projeto foi usado anteriormente e contem um arquivo <code>project.json</code>, o projeto e
+carregado automaticamente.</p>
+<h3 id="configurando-um-projeto">Configurando um Projeto</h3>
+<ol>
+<li>
+<p><strong>Defina o diretorio do projeto</strong>: Insira ou navegue ate uma pasta no campo "Project
+   Location" na parte superior da janela. E aqui que as gravacoes e o arquivo de projeto
+   serao armazenados.</p>
+</li>
+<li>
+<p><strong>Adicione uma faixa</strong>: Clique no botao <strong>+ Add Track</strong>. Uma nova faixa aparece com
+   configuracoes padrao. Se for a unica faixa no projeto e ainda nao tiver sido gravada,
+   ela e automaticamente armada para gravacao.</p>
+</li>
+<li>
+<p><strong>Nomeie a faixa</strong>: Digite um nome no campo de texto ao lado do botao "Options". Este
+   nome e usado como nome do arquivo de audio gravado.</p>
+</li>
+</ol>
+<p><img alt="Janela principal" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="salvando-e-abrindo-projetos">Salvando e Abrindo Projetos</h3>
+<ul>
+<li><strong>Salvar</strong>: Use <strong>File &gt; Save Project</strong> (Ctrl+S) para salvar o projeto atual como um
+  arquivo JSON no diretorio do projeto.</li>
+<li><strong>Abrir</strong>: Use <strong>File &gt; Open Project</strong> (Ctrl+O) para carregar um projeto salvo
+  anteriormente.</li>
+</ul>
+<p>O arquivo de projeto (<code>project.json</code>) armazena nomes de faixas, tipos, notas MIDI,
+referencias de arquivos de audio e todas as configuracoes especificas do projeto. Os
+arquivos de audio sao armazenados no mesmo diretorio que o <code>project.json</code> e sao nomeados
+de acordo com suas faixas (por exemplo, <code>My_Track.flac</code>).</p>
+<p>Se voce fechar o aplicativo com alteracoes nao salvas, um dialogo de confirmacao pergunta
+se deseja salvar antes de sair.</p>
+<h2 id="gerenciamento-de-faixas">Gerenciamento de Faixas</h2>
+<h3 id="adicionando-e-removendo-faixas">Adicionando e Removendo Faixas</h3>
+<ul>
+<li>Clique em <strong>+ Add Track</strong> para adicionar uma nova faixa ao arranjo.</li>
+<li>Clique no botao <strong>x</strong> no lado direito da linha da faixa para remove-la.</li>
+<li>Clique em <strong>Clear Tracks</strong> (o botao vermelho na barra de ferramentas) para remover
+  todas as faixas. Um dialogo de confirmacao e exibido antes de prosseguir.</li>
+</ul>
+<h3 id="configurando-o-tipo-de-faixa">Configurando o Tipo de Faixa</h3>
+<p>Cada faixa pode ser configurada como <strong>Audio</strong> (para gravacao de microfone/entrada de
+linha) ou <strong>MIDI</strong> (para gravacao de teclado/controlador).</p>
+<p>Para alterar o tipo de faixa:</p>
+<ul>
+<li>Clique no botao <strong>Options</strong> na faixa, ou</li>
+<li>Clique no <strong>icone do tipo de faixa</strong> (entre "Options" e o campo de nome)</li>
+</ul>
+<p>Isso abre o dialogo de Configuracao de Faixa, onde voce pode selecionar a fonte de entrada.</p>
+<p><img alt="Configuracao de faixa" src="screenshots/MusiciansCanvas_2_TrackConfig.png" /></p>
+<h3 id="controles-de-faixa">Controles de Faixa</h3>
+<p>Cada linha de faixa fornece os seguintes controles:</p>
+<ul>
+<li><strong>Caixa de selecao Enable</strong>: Alterna se a faixa esta incluida na reproducao e mixagem.
+  Desabilitar uma faixa tambem a desarma automaticamente, caso esteja armada.</li>
+<li><strong>Botao de radio Arm</strong>: Seleciona esta faixa como alvo da gravacao. Apenas uma faixa
+  pode estar armada por vez; armar uma nova faixa desarma automaticamente qualquer faixa
+  anteriormente armada.</li>
+<li><strong>Campo de nome</strong>: Campo de texto editavel para o nome da faixa. Este nome e usado como
+  nome do arquivo de audio (com caracteres invalidos do sistema de arquivos substituidos
+  por underscores).</li>
+<li><strong>Botao Options</strong>: Abre o dialogo de Configuracao de Faixa.</li>
+<li><strong>Icone de tipo</strong>: Mostra um icone de alto-falante para faixas de audio ou um icone de
+  piano para faixas MIDI. Clicar nele abre o dialogo de Configuracao de Faixa.</li>
+<li><strong>Botao de remocao (x)</strong>: Remove a faixa do projeto.</li>
+</ul>
+<h3 id="auto-armamento">Auto-Armamento</h3>
+<p>Quando um projeto tem exatamente uma faixa e essa faixa ainda nao foi gravada, ela e
+automaticamente armada para gravacao. Isso se aplica tanto ao adicionar a primeira faixa
+a um novo projeto quanto ao abrir um projeto existente que tenha uma unica faixa vazia.</p>
+<h3 id="visualizacao-de-faixas">Visualizacao de Faixas</h3>
+<ul>
+<li><strong>Faixas de audio</strong> exibem uma visualizacao de forma de onda do audio gravado. Quando
+  nenhum audio foi gravado, a area mostra "No audio recorded".</li>
+<li><strong>Faixas MIDI</strong> exibem uma visualizacao de piano roll mostrando as notas gravadas em uma
+  grade que abrange de A0 a C8. As notas sao coloridas por velocidade. Quando nenhum dado
+  MIDI foi gravado, a area mostra "No MIDI data recorded".</li>
+</ul>
+<h2 id="gravacao">Gravacao</h2>
+<h3 id="gravacao-de-audio">Gravacao de Audio</h3>
+<ol>
+<li>Certifique-se de que o diretorio do projeto esta definido.</li>
+<li>Arme a faixa alvo (marque o botao de radio "Arm").</li>
+<li>Clique no botao <strong>Record</strong> (circulo vermelho).</li>
+<li>Uma contagem regressiva de 3 segundos aparece na faixa ("Get ready... 3", "2", "1"),
+   e entao a gravacao comeca.</li>
+<li>Durante a gravacao, um medidor de nivel ao vivo e exibido na area de forma de onda da
+   faixa, mostrando a amplitude atual como uma barra de gradiente (verde para amarelo para
+   vermelho) com um rotulo "Recording".</li>
+<li>Clique no botao <strong>Stop</strong> para encerrar a gravacao.</li>
+</ol>
+<p>O audio gravado e salvo como um arquivo FLAC no diretorio do projeto, nomeado de acordo
+com a faixa.</p>
+<p>Durante a gravacao e reproducao, todos os controles interativos (botoes de faixa,
+configuracoes, etc.) sao desabilitados para evitar alteracoes acidentais.</p>
+<h4 id="gravacao-overdub">Gravacao Overdub</h4>
+<p>Ao gravar uma nova faixa enquanto outras faixas habilitadas ja contem dados de audio ou
+MIDI, Musician's Canvas realiza gravacao overdub: as faixas existentes sao mixadas e
+reproduzidas em tempo real enquanto a nova faixa esta sendo gravada. Isso permite que
+voce ouca as partes gravadas anteriormente enquanto grava uma nova.</p>
+<p>A mixagem das faixas existentes e preparada antes do inicio da captura, de modo que a
+gravacao e a reproducao comecam aproximadamente no mesmo instante, mantendo todas as
+faixas sincronizadas.</p>
+<h4 id="backends-de-gravacao">Backends de Gravacao</h4>
+<p>Musician's Canvas suporta dois backends de captura de audio:</p>
+<ul>
+<li><strong>PortAudio</strong> (padrao quando disponivel): Fornece gravacao confiavel e de baixa latencia,
+  sendo o backend recomendado.</li>
+<li><strong>Qt Multimedia</strong>: Um backend alternativo que utiliza a captura de audio integrada do Qt.
+  Usado quando PortAudio nao esta disponivel ou quando explicitamente selecionado nas
+  Configuracoes do Projeto.</li>
+</ul>
+<p>O backend de gravacao pode ser configurado por projeto em <strong>Project &gt; Project Settings &gt;
+Audio</strong>.</p>
+<h4 id="taxa-de-amostragem-e-tratamento-de-dispositivos">Taxa de Amostragem e Tratamento de Dispositivos</h4>
+<p>Musician's Canvas grava na taxa de amostragem nativa do dispositivo de entrada de audio e
+entao converte automaticamente para a taxa de amostragem configurada do projeto usando
+reamostragem de alta qualidade. Isso significa que voce pode definir qualquer taxa de
+amostragem do projeto (por exemplo, 44100 Hz ou 48000 Hz) independentemente da taxa
+nativa do dispositivo. A conversao preserva o tom e a duracao com exatidao.</p>
+<h4 id="deteccao-de-dispositivos-mono">Deteccao de Dispositivos Mono</h4>
+<p>Alguns dispositivos de audio (por exemplo, microfones de webcam USB) sao fisicamente mono,
+mas sao anunciados como estereo pelo sistema operacional. Musician's Canvas detecta isso
+automaticamente e ajusta a contagem de canais de acordo. Se o projeto estiver configurado
+para estereo, o sinal mono e duplicado para ambos os canais.</p>
+<h3 id="gravacao-midi">Gravacao MIDI</h3>
+<ol>
+<li>Defina o tipo de faixa como <strong>MIDI</strong> pelo botao Options.</li>
+<li>Certifique-se de que um dispositivo de entrada MIDI esta configurado em <strong>Settings &gt;
+   Configuration &gt; MIDI</strong>.</li>
+<li>Arme a faixa e clique em Record.</li>
+<li>Toque notas no seu controlador MIDI.</li>
+<li>Clique em Stop para encerrar a gravacao.</li>
+</ol>
+<p>As notas MIDI sao exibidas em uma visualizacao de piano roll na faixa.</p>
+<h2 id="reproducao">Reproducao</h2>
+<p>Clique no botao <strong>Play</strong> para mixar e reproduzir todas as faixas habilitadas. A dica do
+botao muda para indicar se ele ira reproduzir ou gravar, dependendo de haver uma faixa
+armada. Faixas desabilitadas (desmarcadas) sao excluidas da reproducao.</p>
+<p>Durante a reproducao, faixas de audio sao decodificadas de seus arquivos FLAC e faixas
+MIDI sao renderizadas em audio usando o sintetizador FluidSynth integrado. Todas as faixas
+sao mixadas e reproduzidas pelo dispositivo de saida de audio do sistema.</p>
+<p>Clique no botao <strong>Stop</strong> para encerrar a reproducao a qualquer momento.</p>
+<h2 id="mixagem-para-arquivo">Mixagem para Arquivo</h2>
+<p>Use <strong>Tools &gt; Mix tracks to file</strong> (Ctrl+M) para exportar todas as faixas habilitadas
+para um unico arquivo de audio. Um dialogo permite que voce escolha o caminho de saida e
+o formato:</p>
+<ul>
+<li><strong>Arquivo de saida</strong>: Navegue para selecionar o caminho do arquivo de destino.</li>
+<li><strong>Formato</strong>: Escolha entre FLAC (compressao sem perdas, arquivos menores) ou WAV
+  (sem compressao).</li>
+</ul>
+<p>A mixagem usa a taxa de amostragem configurada do projeto. Faixas MIDI sao renderizadas
+usando o SoundFont configurado.</p>
+<h2 id="configuracoes">Configuracoes</h2>
+<h3 id="configuracoes-globais">Configuracoes Globais</h3>
+<p>Use <strong>Settings &gt; Configuration</strong> (Ctrl+,) para definir padroes globais que se aplicam a
+todos os projetos:</p>
+<p><img alt="Configuracoes gerais" src="screenshots/MusiciansCanvas_3_GeneralSettings.png" /></p>
+<h4 id="aba-general">Aba General</h4>
+<ul>
+<li><strong>Theme</strong>: Escolha entre os temas Dark e Light.</li>
+</ul>
+<h4 id="aba-midi">Aba MIDI</h4>
+<ul>
+<li><strong>MIDI Output Device</strong>: Selecione o sintetizador FluidSynth integrado ou um dispositivo
+  MIDI externo. Use o botao <strong>Refresh</strong> para reescanear os dispositivos MIDI disponiveis.</li>
+<li><strong>SoundFont</strong>: Navegue ate um arquivo SoundFont <code>.sf2</code> para sintese MIDI. No Linux, um
+  SoundFont do sistema pode ser detectado automaticamente se o pacote <code>fluid-soundfont-gm</code>
+  estiver instalado. No Windows e macOS, voce deve configurar o caminho do SoundFont
+  manualmente.</li>
+</ul>
+<p><img alt="Configuracoes MIDI" src="screenshots/MusiciansCanvas_4_MIDISettings.png" /></p>
+<h4 id="aba-audio">Aba Audio</h4>
+<ul>
+<li><strong>Audio Input Device</strong>: Selecione o microfone ou dispositivo de entrada de linha para
+  gravacao.</li>
+<li><strong>Audio Output Device</strong>: Selecione o alto-falante ou fone de ouvido para reproducao.</li>
+</ul>
+<p><img alt="Configuracoes de audio" src="screenshots/MusiciansCanvas_5_AudioSettings.png" /></p>
+<h3 id="configuracoes-do-projeto">Configuracoes do Projeto</h3>
+<p>Use <strong>Project &gt; Project Settings</strong> (Ctrl+P) para substituir os padroes globais apenas
+para o projeto atual. Isso e util para projetos que precisam de uma taxa de amostragem,
+SoundFont ou dispositivo de audio especificos. As configuracoes especificas do projeto
+sao salvas dentro do arquivo <code>project.json</code>.</p>
+<p><img alt="Configuracoes MIDI do projeto" src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" /></p>
+<h4 id="aba-midi_1">Aba MIDI</h4>
+<ul>
+<li><strong>MIDI Device</strong>: Selecione um dispositivo MIDI para este projeto, ou deixe no padrao
+  para usar a configuracao global.</li>
+<li><strong>SoundFont</strong>: Selecione um arquivo SoundFont para este projeto.</li>
+<li><strong>Refresh</strong>: Reescanear os dispositivos MIDI disponiveis.</li>
+</ul>
+<h4 id="aba-audio_1">Aba Audio</h4>
+<ul>
+<li><strong>Audio Input Device</strong>: Selecione o dispositivo de gravacao para este projeto.</li>
+<li><strong>Recording capture backend</strong> (quando PortAudio esta disponivel):</li>
+<li><strong>PortAudio (native input)</strong>: Recomendado. Usa a mesma biblioteca de audio que o
+    Audacity.</li>
+<li><strong>Qt Multimedia</strong>: Opcao alternativa que usa a captura de audio integrada do Qt.</li>
+<li><strong>PortAudio Input Device</strong>: Ao usar o backend PortAudio, selecione o dispositivo de
+  entrada PortAudio especifico.</li>
+<li><strong>Audio Output Device</strong>: Selecione o dispositivo de reproducao para este projeto.</li>
+</ul>
+<h5 id="configuracoes-de-formato-de-audio">Configuracoes de Formato de Audio</h5>
+<ul>
+<li><strong>Sample rate</strong>: Escolha entre taxas padrao (8000 Hz a 192000 Hz). A taxa nativa do
+  dispositivo e rotulada como "(native)". Taxas que requerem reamostragem sao rotuladas
+  como "(resampled)". Voce pode selecionar qualquer taxa independentemente da capacidade
+  do dispositivo; Musician's Canvas fara a reamostragem automaticamente conforme
+  necessario.</li>
+<li><strong>Channels</strong>: Mono ou Stereo. Se o dispositivo suportar apenas mono, a opcao Stereo
+  e desabilitada.</li>
+</ul>
+<p><img alt="Configuracoes de audio do projeto" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
+<h2 id="menus">Menus</h2>
+<h3 id="menu-file">Menu File</h3>
+<table>
+<thead>
+<tr>
+<th>Item do Menu</th>
+<th>Atalho</th>
+<th>Descricao</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Save Project</td>
+<td>Ctrl+S</td>
+<td>Salvar o projeto atual no disco</td>
+</tr>
+<tr>
+<td>Open Project</td>
+<td>Ctrl+O</td>
+<td>Abrir um arquivo de projeto existente</td>
+</tr>
+<tr>
+<td>Close</td>
+<td>Ctrl+Q</td>
+<td>Sair do aplicativo</td>
+</tr>
+</tbody>
+</table>
+<h3 id="menu-project">Menu Project</h3>
+<table>
+<thead>
+<tr>
+<th>Item do Menu</th>
+<th>Atalho</th>
+<th>Descricao</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project Settings</td>
+<td>Ctrl+P</td>
+<td>Configurar opcoes especificas do projeto</td>
+</tr>
+<tr>
+<td>Add Demo Data to Selected Track</td>
+<td></td>
+<td>Adicionar notas MIDI de exemplo para demonstracao</td>
+</tr>
+</tbody>
+</table>
+<h3 id="menu-settings">Menu Settings</h3>
+<table>
+<thead>
+<tr>
+<th>Item do Menu</th>
+<th>Atalho</th>
+<th>Descricao</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Configuration</td>
+<td>Ctrl+,</td>
+<td>Abrir configuracoes globais do aplicativo</td>
+</tr>
+</tbody>
+</table>
+<h3 id="menu-tools">Menu Tools</h3>
+<table>
+<thead>
+<tr>
+<th>Item do Menu</th>
+<th>Atalho</th>
+<th>Descricao</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mix tracks to file</td>
+<td>Ctrl+M</td>
+<td>Exportar todas as faixas habilitadas para um arquivo</td>
+</tr>
+<tr>
+<td>Virtual MIDI Keyboard</td>
+<td></td>
+<td>Iniciar o aplicativo de teclado complementar</td>
+</tr>
+</tbody>
+</table>
+<h2 id="atalhos-de-teclado">Atalhos de Teclado</h2>
+<table>
+<thead>
+<tr>
+<th>Atalho</th>
+<th>Acao</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl+S</td>
+<td>Salvar projeto</td>
+</tr>
+<tr>
+<td>Ctrl+O</td>
+<td>Abrir projeto</td>
+</tr>
+<tr>
+<td>Ctrl+M</td>
+<td>Mixar faixas para arquivo</td>
+</tr>
+<tr>
+<td>Ctrl+P</td>
+<td>Configuracoes do Projeto</td>
+</tr>
+<tr>
+<td>Ctrl+,</td>
+<td>Configuracoes / Configuration</td>
+</tr>
+<tr>
+<td>Ctrl+Q / Alt+F4</td>
+<td>Sair</td>
+</tr>
+</tbody>
+</table>
+<h2 id="virtual-midi-keyboard">Virtual MIDI Keyboard</h2>
+<p>Virtual MIDI Keyboard e um aplicativo complementar (<code>virtual_midi_keyboard</code>) que fornece
+um teclado de piano na tela para envio de notas MIDI. Ele pode ser iniciado a partir do
+menu <strong>Tools &gt; Virtual MIDI Keyboard</strong> no aplicativo principal, ou executado
+independentemente.</p>
+<p><img alt="Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard1.png" /></p>
+<h3 id="recursos">Recursos</h3>
+<ul>
+<li>Clique nas teclas do piano na tela para tocar notas</li>
+<li>Use o teclado do computador como um teclado de piano (veja o mapeamento de teclas abaixo)</li>
+<li>Conecte-se a dispositivos de saida MIDI externos ou use o sintetizador FluidSynth
+  integrado</li>
+<li>Conecte-se a um dispositivo de entrada MIDI para exibir notas recebidas no teclado</li>
+<li>Volume do sintetizador ajustavel (ganho mestre, 10%--200%)</li>
+<li>Selecao de SoundFont para o sintetizador integrado</li>
+<li>Selecao de instrumento/programa MIDI (General MIDI ou presets do SoundFont)</li>
+<li>Botao de controle de chorus/efeito</li>
+<li>Transposicao de oitava (-3 a +5)</li>
+<li>Controle de volume MIDI (CC#7, 0--127)</li>
+</ul>
+<h3 id="controles-da-barra-de-ferramentas">Controles da Barra de Ferramentas</h3>
+<ul>
+<li><strong>Volume</strong>: Volume MIDI (CC#7), ajustavel de 0 a 127 pela caixa numerica.</li>
+<li><strong>Octave</strong>: Mude a oitava do teclado usando os botoes <strong>&lt;</strong> e <strong>&gt;</strong> ou a caixa
+  numerica. O intervalo e de -3 a +5.</li>
+<li><strong>Chorus/Effect</strong>: Um botao rotativo e campo de texto (1--127) para definir o nivel de
+  chorus/efeito (MIDI CC#93). Clique em <strong>Apply</strong> para enviar o valor.</li>
+<li><strong>Seletor de instrumento</strong>: Escolha um instrumento MIDI. Ao usar o sintetizador
+  FluidSynth integrado, isso mostra os presets do SoundFont (Bank:Program Name). Quando
+  conectado a um dispositivo MIDI externo, lista os 128 instrumentos General MIDI.</li>
+</ul>
+<h3 id="tocando-com-o-teclado-do-computador">Tocando com o Teclado do Computador</h3>
+<p>O teclado do computador e mapeado para teclas de piano ao longo de duas oitavas:</p>
+<p><strong>Oitava inferior (comecando na oitava atual):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tecla</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z</td>
+<td>C</td>
+</tr>
+<tr>
+<td>S</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>X</td>
+<td>D</td>
+</tr>
+<tr>
+<td>D</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>C</td>
+<td>E</td>
+</tr>
+<tr>
+<td>V</td>
+<td>F</td>
+</tr>
+<tr>
+<td>G</td>
+<td>F#/Gb</td>
+</tr>
+<tr>
+<td>B</td>
+<td>G</td>
+</tr>
+<tr>
+<td>H</td>
+<td>G#/Ab</td>
+</tr>
+<tr>
+<td>N</td>
+<td>A</td>
+</tr>
+<tr>
+<td>J</td>
+<td>A#/Bb</td>
+</tr>
+<tr>
+<td>M</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Oitava superior (uma oitava acima):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tecla</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q</td>
+<td>C</td>
+</tr>
+<tr>
+<td>2</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>W</td>
+<td>D</td>
+</tr>
+<tr>
+<td>3</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>E</td>
+<td>E</td>
+</tr>
+<tr>
+<td>R</td>
+<td>F</td>
+</tr>
+<tr>
+<td>5</td>
+<td>F#/Gb</td>
+</tr>
+<tr>
+<td>T</td>
+<td>G</td>
+</tr>
+<tr>
+<td>6</td>
+<td>G#/Ab</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>A</td>
+</tr>
+<tr>
+<td>7</td>
+<td>A#/Bb</td>
+</tr>
+<tr>
+<td>U</td>
+<td>B</td>
+</tr>
+<tr>
+<td>I</td>
+<td>C (proxima oitava)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>O</td>
+<td>D</td>
+</tr>
+<tr>
+<td>0</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>P</td>
+<td>E</td>
+</tr>
+</tbody>
+</table>
+<p>As teclas se iluminam visualmente quando pressionadas (teclas brancas ficam azul claro,
+teclas pretas escurecem).</p>
+<h3 id="configuracao">Configuracao</h3>
+<p>Abra o dialogo de Configuracao (<strong>Settings &gt; Configuration</strong>, Ctrl+,) para configurar
+dispositivos MIDI e audio:</p>
+<p><img alt="Configuracao do Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard2.png" /></p>
+<h4 id="aba-midi_2">Aba MIDI</h4>
+<ul>
+<li><strong>MIDI Output Device</strong>: Selecione um dispositivo externo ou deixe em branco para o
+  sintetizador FluidSynth integrado.</li>
+<li><strong>MIDI Input Device</strong>: Selecione um controlador para encaminhar notas para a exibicao
+  do teclado.</li>
+<li><strong>Synthesizer Volume (Master Gain)</strong>: Ajuste o nivel de saida do sintetizador integrado
+  (10%--200%).</li>
+<li><strong>SoundFont</strong>: Navegue ate um arquivo SoundFont <code>.sf2</code> para o sintetizador integrado.</li>
+<li><strong>Refresh</strong>: Reescanear os dispositivos MIDI disponiveis.</li>
+</ul>
+<h4 id="aba-audio_2">Aba Audio</h4>
+<ul>
+<li><strong>Audio Output Device</strong>: Selecione o dispositivo de saida para o sintetizador integrado.</li>
+</ul>
+<h3 id="atalhos-do-virtual-midi-keyboard">Atalhos do Virtual MIDI Keyboard</h3>
+<table>
+<thead>
+<tr>
+<th>Atalho</th>
+<th>Acao</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl+,</td>
+<td>Dialogo de configuracao</td>
+</tr>
+<tr>
+<td>Ctrl+U</td>
+<td>Ajuda / Informacoes de uso</td>
+</tr>
+<tr>
+<td>Ctrl+Q</td>
+<td>Fechar</td>
+</tr>
+</tbody>
+</table>
+<h2 id="solucao-de-problemas">Solucao de Problemas</h2>
+<h3 id="sem-saida-de-audio">Sem Saida de Audio</h3>
+<ul>
+<li>Verifique se o dispositivo de saida de audio correto esta selecionado em Settings &gt;
+  Configuration &gt; Audio.</li>
+<li>No Linux, verifique se o PipeWire ou PulseAudio esta em execucao e se a saida nao esta
+  muda. Use <code>amixer</code> ou as configuracoes de som da sua area de trabalho para verificar os
+  niveis de volume.</li>
+<li>No Windows, certifique-se de que um driver de audio ASIO esta instalado (por exemplo,
+  <a href="https://asio4all.org/">ASIO4ALL</a> ou um driver ASIO fornecido pelo fabricante para sua
+  interface de audio). Musician's Canvas requer ASIO para audio de baixa latencia no
+  Windows.</li>
+</ul>
+<h3 id="faixas-midi-estao-silenciosas">Faixas MIDI Estao Silenciosas</h3>
+<ul>
+<li>Certifique-se de que um SoundFont (arquivo <code>.sf2</code>) esta configurado em Settings &gt;
+  Configuration &gt; MIDI.</li>
+<li>No Linux, um SoundFont do sistema pode ser detectado automaticamente se o pacote
+  <code>fluid-soundfont-gm</code> estiver instalado.</li>
+<li>No Windows e macOS, voce deve configurar o caminho do SoundFont manualmente.</li>
+</ul>
+<h3 id="a-gravacao-soa-distorcida-ou-com-tom-errado">A Gravacao Soa Distorcida ou Com Tom Errado</h3>
+<ul>
+<li>Isso pode acontecer quando a taxa de amostragem nativa do dispositivo de entrada de
+  audio difere da taxa configurada do projeto. Musician's Canvas lida com isso
+  automaticamente via reamostragem, mas se os problemas persistirem, tente definir a taxa
+  de amostragem do projeto para corresponder a taxa nativa do dispositivo.</li>
+<li>Microfones de webcam USB frequentemente possuem taxas nativas incomuns (por exemplo,
+  32000 Hz). O aplicativo detecta essas taxas automaticamente.</li>
+<li>Se estiver usando o backend Qt Multimedia e experimentando problemas, tente mudar para
+  o backend PortAudio em Project Settings &gt; Audio.</li>
+</ul>
+<h3 id="virtual-midi-keyboard-sem-audio">Virtual MIDI Keyboard Sem Audio</h3>
+<ul>
+<li>No Linux com PipeWire, certifique-se de que o pacote <code>libpipewire-0.3-dev</code> esta
+  instalado (necessario para integracao do PipeWire com o sintetizador FluidSynth).</li>
+<li>Verifique se um SoundFont esta carregado (veja a aba MIDI no dialogo de configuracao).</li>
+<li>Confirme que o dispositivo de saida de audio esta selecionado e que o volume do sistema
+  nao esta mudo.</li>
+</ul>
+<h2 id="compilando-a-partir-do-codigo-fonte">Compilando a Partir do Codigo-Fonte</h2>
+<p>Consulte o <a href="../README.md">README</a> para instrucoes completas de compilacao para Linux,
+macOS e Windows, incluindo todas as dependencias necessarias.</p>
+</body>
+</html>

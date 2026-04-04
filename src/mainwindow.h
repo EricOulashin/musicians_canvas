@@ -73,7 +73,8 @@ private:
     void closeEvent(QCloseEvent* event) override;
 
 #ifdef QT_MULTIMEDIA_AVAILABLE
-    void startOverdubDuringRecording();
+    void prepareOverdubPlayback();
+    void startOverdubPlayback();
     void startRecordingLevelMeter();
     void finalizeRecordedAudio(const QByteArray& rawData, qint64 processedMicroseconds,
                                const char* captureBackendLabel);

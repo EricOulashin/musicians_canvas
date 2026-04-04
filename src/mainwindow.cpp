@@ -560,7 +560,22 @@ void MainWindow::startRecording()
             return;  // User cancelled the directory chooser
     }
 
-    const QAudioDevice inputDevice = QMediaDevices::defaultAudioInput();
+    // Use the device selected in project settings, or system default
+    QAudioDevice inputDevice;
+    if (!m_projectSettings.audioInputDeviceId.isEmpty())
+    {
+        const auto inputs = QMediaDevices::audioInputs();
+        for (const auto& dev : inputs)
+        {
+            if (dev.id() == m_projectSettings.audioInputDeviceId)
+            {
+                inputDevice = dev;
+                break;
+            }
+        }
+    }
+    if (inputDevice.isNull())
+        inputDevice = QMediaDevices::defaultAudioInput();
     if (inputDevice.isNull())
     {
         QMessageBox::warning(this, tr("Recording Error"),
@@ -605,7 +620,7 @@ void MainWindow::startRecording()
 }
 
 #ifdef QT_MULTIMEDIA_AVAILABLE
-void MainWindow::startOverdubDuringRecording()
+void MainWindow::prepareOverdubPlayback()
 {
     QVector<TrackData> overdubTracks;
     for (auto* w : m_trackWidgets)
@@ -617,6 +632,10 @@ void MainWindow::startOverdubDuringRecording()
     if (overdubTracks.isEmpty())
         return;
 
+    // Mix existing tracks to a temporary WAV file.  This blocking I/O
+    // must complete BEFORE capture starts so that the mix is ready to
+    // play the instant recording begins — otherwise the capture would
+    // record dead time while the file is being written.
     QTemporaryFile* tmpFile = new QTemporaryFile(
         QDir::temp().filePath("mc_overdub_XXXXXX.wav"), this);
     tmpFile->setAutoRemove(false);
@@ -643,14 +662,26 @@ void MainWindow::startOverdubDuringRecording()
                         onPlaybackFinished();
                 });
         }
+
+        // Pre-load the media source so QMediaPlayer buffers it.  When
+        // startOverdubPlayback() calls play(), audio output will begin
+        // with minimal latency.
         m_player->setSource(QUrl::fromLocalFile(m_playbackTempFile));
-        m_player->play();
     }
     else
     {
         QFile::remove(m_playbackTempFile);
         m_playbackTempFile.clear();
     }
+}
+
+void MainWindow::startOverdubPlayback()
+{
+    if (m_player == nullptr || m_playbackTempFile.isEmpty())
+        return;
+    // Trigger playback right after capture has started so recording and
+    // playback begin at approximately the same instant.
+    m_player->play();
 }
 
 void MainWindow::startRecordingLevelMeter()
@@ -801,11 +832,86 @@ void MainWindow::beginRecordingAfterCountdown()
     const QString projectDir = effectiveProjectPath();
     QDir().mkpath(projectDir);
 
+    // Prepare overdub playback (mix existing tracks, pre-load media)
+    // BEFORE starting capture, so no dead time is recorded while the
+    // mix file is being written to disk.
+    prepareOverdubPlayback();
+
 #if defined(HAVE_PORTAUDIO)
-    if (!m_projectSettings.useQtAudioInput && PortAudioRecorder::isCompiledWithPortAudio()
+    // Always prefer PortAudio when available — it delivers reliable, accurate
+    // PCM at the requested sample rate (like Audacity).  Qt Multimedia's
+    // QAudioSource has known throughput issues on PipeWire/ALSA backends that
+    // cause pitched-down or distorted recordings.  The useQtAudioInput flag
+    // is only honored as a last-resort manual override.
+    if (PortAudioRecorder::isCompiledWithPortAudio()
         && PortAudioRecorder::hasInputDevice())
     {
-        const int paDev = m_projectSettings.portAudioInputDeviceIndex;
+        int paDev = m_projectSettings.portAudioInputDeviceIndex;
+
+        // If no PortAudio device is explicitly configured but the user
+        // selected a Qt audio input device, try to find the matching
+        // PortAudio device by name substring matching.
+        if (paDev < 0 && !m_projectSettings.audioInputDeviceId.isEmpty())
+        {
+            // Decode the Qt device description for matching
+            const auto inputs = QMediaDevices::audioInputs();
+            QString qtDeviceName;
+            for (const auto& dev : inputs)
+            {
+                if (dev.id() == m_projectSettings.audioInputDeviceId)
+                {
+                    qtDeviceName = dev.description();
+                    break;
+                }
+            }
+            // The Qt device ID on Linux/PipeWire is the ALSA source name,
+            // e.g. "alsa_input.pci-0000_00_1f.3.analog-stereo".
+            // PortAudio ALSA device names look like "HDA Intel PCH: ALC1220
+            // Analog (hw:0,0)".  Match by checking if both refer to the
+            // same ALSA card (e.g. "pci-0000_00_1f.3" ↔ "hw:0").
+            const QString qtId = QString::fromUtf8(m_projectSettings.audioInputDeviceId);
+            if (!qtDeviceName.isEmpty() || !qtId.isEmpty())
+            {
+                const int paCount = PortAudioRecorder::deviceCount();
+                for (int i = 0; i < paCount; ++i)
+                {
+                    if (PortAudioRecorder::maxInputChannels(i) <= 0)
+                        continue;
+                    const QString paName = PortAudioRecorder::deviceName(i);
+
+                    // Direct name substring match
+                    if (!qtDeviceName.isEmpty()
+                        && (paName.contains(qtDeviceName, Qt::CaseInsensitive)
+                            || qtDeviceName.contains(paName, Qt::CaseInsensitive)))
+                    {
+                        paDev = i;
+                        break;
+                    }
+
+                    // Match via ALSA hw: index.  The Qt ID contains the
+                    // PCI path; the PortAudio name contains "(hw:N,M)".
+                    // Both "analog-stereo" and "Analog" indicate the same
+                    // interface.
+                    if (qtId.contains(QStringLiteral("pci-"))
+                        && paName.contains(QStringLiteral("(hw:"))
+                        && (qtId.contains(QStringLiteral("analog"))
+                            == paName.contains(QStringLiteral("Analog"), Qt::CaseInsensitive)))
+                    {
+                        // Extract hw:N from PortAudio name and card N from Qt ID
+                        const auto hwMatch = QRegularExpression(QStringLiteral("hw:(\\d+)")).match(paName);
+                        if (hwMatch.hasMatch())
+                        {
+                            const QString hwCard = hwMatch.captured(1);
+                            // On PipeWire, card 0 maps to the first PCI audio device
+                            // Prefer the first matching hw: device
+                            paDev = i;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
         m_portAudioRecorder = std::make_unique<PortAudioRecorder>();
         QString paErr;
         if (m_portAudioRecorder->start(paDev, m_projectSettings.channelCount,
@@ -835,7 +941,7 @@ void MainWindow::beginRecordingAfterCountdown()
             }
 
             m_recordingTimer.start();
-            startOverdubDuringRecording();
+            startOverdubPlayback();
             startRecordingLevelMeter();
             return;
         }
@@ -853,7 +959,24 @@ void MainWindow::beginRecordingAfterCountdown()
 #if defined(HAVE_PORTAUDIO)
     m_recordingUsesPortAudio = false;
 #endif
-    const QAudioDevice inputDevice = QMediaDevices::defaultAudioInput();
+    // Use the device selected in project settings (if any), otherwise fall
+    // back to the system default.  The old code always used
+    // QMediaDevices::defaultAudioInput() which ignored the user's choice.
+    QAudioDevice inputDevice;
+    if (!m_projectSettings.audioInputDeviceId.isEmpty())
+    {
+        const auto inputs = QMediaDevices::audioInputs();
+        for (const auto& dev : inputs)
+        {
+            if (dev.id() == m_projectSettings.audioInputDeviceId)
+            {
+                inputDevice = dev;
+                break;
+            }
+        }
+    }
+    if (inputDevice.isNull())
+        inputDevice = QMediaDevices::defaultAudioInput();
 
     // Use preferredFormat() as-is — this returns the device's native sample
     // rate, channel count, and sample type.  Recording at the device's native
@@ -896,13 +1019,15 @@ void MainWindow::beginRecordingAfterCountdown()
     m_recordBuffer->open(QBuffer::WriteOnly);
 
     m_audioSource = new QAudioSource(inputDevice, format, this);
-    // Use a small buffer to minimise recording latency.
-    m_audioSource->setBufferSize(AudioStartup::recommendedBufferBytes());
+    // Use the platform default buffer size.  Overriding with a small value
+    // (e.g. 2048) causes massive data loss on devices that use 32-bit
+    // sample formats (Int32/Float32), because the tiny buffer cannot hold
+    // enough frames and the audio callback drops ~75% of the data.
 
     m_audioSource->start(m_recordBuffer);
     m_recordingTimer.start();
 
-    startOverdubDuringRecording();
+    startOverdubPlayback();
     startRecordingLevelMeter();
 #endif
 }

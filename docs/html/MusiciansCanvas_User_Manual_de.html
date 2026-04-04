@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Musician&#8217;s Canvas Benutzerhandbuch</title>
+<style>
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px 40px;
+    color: #24292e; background-color: #fff;
+}
+h1 { border-bottom: 2px solid #0366d6; padding-bottom: 0.3em; color: #0366d6; }
+h2 { border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; margin-top: 2em; }
+h3 { color: #0366d6; margin-top: 1.5em; }
+h4 { color: #586069; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid #dfe2e5; padding: 8px 12px; text-align: left; }
+th { background-color: #f6f8fa; font-weight: 600; }
+tr:nth-child(even) { background-color: #f6f8fa; }
+code { background-color: #f6f8fa; padding: 0.2em 0.4em; border-radius: 3px; font-size: 0.9em;
+       font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; }
+pre { background-color: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+strong { color: #24292e; }
+a { color: #0366d6; text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6px; margin: 1em 0; }
+.toc { background-color: #f6f8fa; border: 1px solid #dfe2e5; border-radius: 6px;
+       padding: 15px 20px; margin: 1em 0 2em 0; }
+.toc h2 { margin-top: 0; border-bottom: none; font-size: 1.1em; }
+.toc ul { list-style: none; padding-left: 1.2em; }
+.toc > ul { padding-left: 0; }
+.toc li { margin: 0.3em 0; }
+.title-block { text-align: center; margin-bottom: 2em; padding-bottom: 1em;
+               border-bottom: 2px solid #0366d6; }
+@media print {
+    body { max-width: none; padding: 0; }
+    h1, h2, h3 { page-break-after: avoid; }
+    table, pre, img { page-break-inside: avoid; }
+    img { max-width: 80%; }
+}
+</style>
+</head>
+<body>
+<div class="title-block">
+<h1>Musician&#8217;s Canvas Benutzerhandbuch</h1>
+<p>Mehrspurige Musikaufnahme-Anwendung &mdash; Version 0.1.0</p>
+<p>2026-04-03</p>
+</div>
+<div class="toc">
+<h2>Inhaltsverzeichnis</h2>
+<div class="toc">
+<ul>
+<li><a href="#musicians-canvas-benutzerhandbuch">Musician's Canvas Benutzerhandbuch</a><ul>
+<li><a href="#einleitung">Einleitung</a></li>
+<li><a href="#erste-schritte">Erste Schritte</a><ul>
+<li><a href="#starten-der-anwendung">Starten der Anwendung</a></li>
+<li><a href="#ein-projekt-einrichten">Ein Projekt einrichten</a></li>
+<li><a href="#projekte-speichern-und-offnen">Projekte speichern und öffnen</a></li>
+</ul>
+</li>
+<li><a href="#spurverwaltung">Spurverwaltung</a><ul>
+<li><a href="#spuren-hinzufugen-und-entfernen">Spuren hinzufügen und entfernen</a></li>
+<li><a href="#spurtyp-konfigurieren">Spurtyp konfigurieren</a></li>
+<li><a href="#spursteuerungen">Spursteuerungen</a></li>
+<li><a href="#automatisches-scharfschalten">Automatisches Scharfschalten</a></li>
+<li><a href="#spurvisualisierung">Spurvisualisierung</a></li>
+</ul>
+</li>
+<li><a href="#aufnahme">Aufnahme</a><ul>
+<li><a href="#audioaufnahme">Audioaufnahme</a></li>
+<li><a href="#midi-aufnahme">MIDI-Aufnahme</a></li>
+</ul>
+</li>
+<li><a href="#wiedergabe">Wiedergabe</a></li>
+<li><a href="#in-eine-datei-abmischen">In eine Datei abmischen</a></li>
+<li><a href="#einstellungen">Einstellungen</a><ul>
+<li><a href="#globale-einstellungen">Globale Einstellungen</a></li>
+<li><a href="#projekteinstellungen">Projekteinstellungen</a></li>
+</ul>
+</li>
+<li><a href="#menus">Menüs</a><ul>
+<li><a href="#menue-file">Menue "File"</a></li>
+<li><a href="#menue-project">Menue "Project"</a></li>
+<li><a href="#menue-settings">Menue "Settings"</a></li>
+<li><a href="#menue-tools">Menue "Tools"</a></li>
+</ul>
+</li>
+<li><a href="#tastenkurzel">Tastenkürzel</a></li>
+<li><a href="#virtual-midi-keyboard">Virtual MIDI Keyboard</a><ul>
+<li><a href="#funktionen">Funktionen</a></li>
+<li><a href="#werkzeugleisten-steuerungen">Werkzeugleisten-Steuerungen</a></li>
+<li><a href="#spielen-mit-der-computertastatur">Spielen mit der Computertastatur</a></li>
+<li><a href="#konfiguration">Konfiguration</a></li>
+<li><a href="#virtual-midi-keyboard-tastenkurzel">Virtual MIDI Keyboard Tastenkürzel</a></li>
+</ul>
+</li>
+<li><a href="#fehlerbehebung">Fehlerbehebung</a><ul>
+<li><a href="#keine-audioausgabe">Keine Audioausgabe</a></li>
+<li><a href="#midi-spuren-sind-stumm">MIDI-Spuren sind stumm</a></li>
+<li><a href="#aufnahme-klingt-verzerrt-oder-hat-falsche-tonhohe">Aufnahme klingt verzerrt oder hat falsche Tonhöhe</a></li>
+<li><a href="#virtual-midi-keyboard-hat-keinen-ton">Virtual MIDI Keyboard hat keinen Ton</a></li>
+</ul>
+</li>
+<li><a href="#aus-dem-quellcode-erstellen">Aus dem Quellcode erstellen</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+<h1 id="musicians-canvas-benutzerhandbuch">Musician's Canvas Benutzerhandbuch</h1>
+<h2 id="einleitung">Einleitung</h2>
+<p>Musician's Canvas ist eine Mehrspuranwendung zur Musikaufnahme für Desktop-PCs. Sie unterstützt
+Audioaufnahmen von Mikrofonen und Line-In-Geräten, MIDI-Aufnahmen von Keyboards und
+Controllern sowie das Abmischen aller Spuren in eine einzelne WAV- oder FLAC-Datei. Eine
+Begleitanwendung, Virtual MIDI Keyboard, stellt eine Software-Klaviertastatur zum Senden von
+MIDI-Noten bereit.</p>
+<p>Musician's Canvas ist auf einfache Bedienung ausgelegt und bietet gleichzeitig Funktionen, die
+häufig in digitalen Audio-Workstations (DAWs) zu finden sind:</p>
+<ul>
+<li>Mehrspur-Audio- und MIDI-Aufnahme</li>
+<li>Overdub-Aufnahme mit synchronisierter Wiedergabe vorhandener Spuren</li>
+<li>Integrierter FluidSynth MIDI-Synthesizer mit SoundFont-Unterstützung</li>
+<li>Hochwertige Abtastratenkonvertierung für Aufnahmen mit beliebiger Projekt-Abtastrate</li>
+<li>Automatische Mono/Stereo-Geräteerkennung</li>
+<li>Projektbasierte Einstellungen mit projektspezifischen Überschreibungen</li>
+<li>Abmischen in WAV oder FLAC</li>
+<li>Dunkles und helles Design</li>
+<li>Begleitanwendung Virtual MIDI Keyboard</li>
+</ul>
+<h2 id="erste-schritte">Erste Schritte</h2>
+<h3 id="starten-der-anwendung">Starten der Anwendung</h3>
+<p>Führen Sie die ausführbare Datei <code>musicians_canvas</code> aus dem Build-Verzeichnis oder Ihrem
+Installationsort aus:</p>
+<pre><code>./musicians_canvas
+</code></pre>
+<p>Beim ersten Start öffnet die Anwendung ein leeres Projekt. Sie müssen ein
+Projektverzeichnis festlegen, bevor Sie aufnehmen können.</p>
+<p>Beim Starten wendet die Anwendung das gespeicherte Design (dunkel oder hell) an, und wenn
+zuvor ein Projektverzeichnis verwendet wurde, das eine <code>project.json</code>-Datei enthält, wird
+das Projekt automatisch geladen.</p>
+<h3 id="ein-projekt-einrichten">Ein Projekt einrichten</h3>
+<ol>
+<li>
+<p><strong>Projektverzeichnis festlegen</strong>: Geben Sie im Feld "Project Location" oben im Fenster
+   einen Ordnerpfad ein oder navigieren Sie dorthin. Hier werden Aufnahmen und die
+   Projektdatei gespeichert.</p>
+</li>
+<li>
+<p><strong>Eine Spur hinzufügen</strong>: Klicken Sie auf die Schaltfläche <strong>+ Add Track</strong>. Eine neue
+   Spur erscheint mit Standardeinstellungen. Wenn es die einzige Spur im Projekt ist und
+   noch nicht aufgenommen wurde, wird sie automatisch für die Aufnahme scharfgeschaltet.</p>
+</li>
+<li>
+<p><strong>Die Spur benennen</strong>: Geben Sie einen Namen in das Textfeld neben der Schaltfläche
+   "Options" ein. Dieser Name wird als Dateiname für die aufgenommene Audiodatei verwendet.</p>
+</li>
+</ol>
+<p><img alt="Hauptfenster" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="projekte-speichern-und-offnen">Projekte speichern und öffnen</h3>
+<ul>
+<li><strong>Speichern</strong>: Verwenden Sie <strong>File &gt; Save Project</strong> (Ctrl+S), um das aktuelle Projekt als
+  JSON-Datei im Projektverzeichnis zu speichern.</li>
+<li><strong>Öffnen</strong>: Verwenden Sie <strong>File &gt; Open Project</strong> (Ctrl+O), um ein zuvor gespeichertes
+  Projekt zu laden.</li>
+</ul>
+<p>Die Projektdatei (<code>project.json</code>) speichert Spurnamen, -typen, MIDI-Noten,
+Audiodatei-Referenzen und alle projektspezifischen Einstellungen. Audiodateien werden im
+selben Verzeichnis wie <code>project.json</code> gespeichert und nach ihren Spuren benannt (z.B.
+<code>My_Track.flac</code>).</p>
+<p>Wenn Sie die Anwendung mit ungespeicherten Änderungen schließen, fragt ein
+Bestätigungsdialog, ob Sie vor dem Beenden speichern möchten.</p>
+<h2 id="spurverwaltung">Spurverwaltung</h2>
+<h3 id="spuren-hinzufugen-und-entfernen">Spuren hinzufügen und entfernen</h3>
+<ul>
+<li>Klicken Sie auf <strong>+ Add Track</strong>, um eine neue Spur zur Anordnung hinzuzufügen.</li>
+<li>Klicken Sie auf die Schaltfläche <strong>x</strong> auf der rechten Seite einer Spurzeile, um sie zu
+  entfernen.</li>
+<li>Klicken Sie auf <strong>Clear Tracks</strong> (die rote Schaltfläche in der Werkzeugleiste), um alle
+  Spuren zu entfernen. Vor dem Fortfahren wird ein Bestätigungsdialog angezeigt.</li>
+</ul>
+<h3 id="spurtyp-konfigurieren">Spurtyp konfigurieren</h3>
+<p>Jede Spur kann entweder als <strong>Audio</strong> (für Mikrofon-/Line-In-Aufnahme) oder <strong>MIDI</strong> (für
+Keyboard-/Controller-Aufnahme) konfiguriert werden.</p>
+<p>Um den Spurtyp zu ändern:</p>
+<ul>
+<li>Klicken Sie auf die Schaltfläche <strong>Options</strong> der Spur, oder</li>
+<li>Klicken Sie auf das <strong>Spurtyp-Symbol</strong> (zwischen "Options" und dem Namensfeld)</li>
+</ul>
+<p>Dies öffnet den Dialog zur Spurkonfiguration, in dem Sie die Eingangsqülle auswählen
+können.</p>
+<p><img alt="Spurkonfiguration" src="screenshots/MusiciansCanvas_2_TrackConfig.png" /></p>
+<h3 id="spursteuerungen">Spursteuerungen</h3>
+<p>Jede Spurzeile bietet folgende Steuerungen:</p>
+<ul>
+<li><strong>Aktivierungs-Kontrollkästchen</strong>: Schaltet um, ob die Spur bei Wiedergabe und Abmischung
+  berücksichtigt wird. Das Deaktivieren einer Spur entschärft sie automatisch, falls sie
+  scharfgeschaltet war.</li>
+<li><strong>Scharfschaltungs-Radiobutton</strong>: Wählt diese Spur als Aufnahmeziel aus. Es kann jeweils
+  nur eine Spur scharfgeschaltet sein; das Scharfschalten einer neuen Spur entschärft
+  automatisch jede zuvor scharfgeschaltete Spur.</li>
+<li><strong>Namensfeld</strong>: Bearbeitbares Textfeld für den Spurnamen. Dieser Name wird als
+  Audiodateiname verwendet (ungültige Dateisystemzeichen werden durch Unterstriche ersetzt).</li>
+<li><strong>Options-Schaltfläche</strong>: Öffnet den Dialog zur Spurkonfiguration.</li>
+<li><strong>Typ-Symbol</strong>: Zeigt ein Lautsprechersymbol für Audiospuren oder ein Klaviersymbol für
+  MIDI-Spuren. Ein Klick darauf öffnet den Dialog zur Spurkonfiguration.</li>
+<li><strong>Entfernen-Schaltfläche (x)</strong>: Entfernt die Spur aus dem Projekt.</li>
+</ul>
+<h3 id="automatisches-scharfschalten">Automatisches Scharfschalten</h3>
+<p>Wenn ein Projekt genau eine Spur hat und diese Spur noch nicht aufgenommen wurde, wird sie
+automatisch für die Aufnahme scharfgeschaltet. Dies gilt sowohl beim Hinzufügen der ersten
+Spur zu einem neuen Projekt als auch beim Öffnen eines bestehenden Projekts mit einer
+einzelnen leeren Spur.</p>
+<h3 id="spurvisualisierung">Spurvisualisierung</h3>
+<ul>
+<li><strong>Audiospuren</strong> zeigen eine Wellenformvisualisierung des aufgenommenen Audios. Wenn kein
+  Audio aufgenommen wurde, zeigt der Bereich "No audio recorded" an.</li>
+<li><strong>MIDI-Spuren</strong> zeigen eine Piano-Roll-Visualisierung mit aufgenommenen Noten auf einem
+  Raster von A0 bis C8. Die Noten sind nach Anschlagstärke eingefärbt. Wenn keine
+  MIDI-Daten aufgenommen wurden, zeigt der Bereich "No MIDI data recorded" an.</li>
+</ul>
+<h2 id="aufnahme">Aufnahme</h2>
+<h3 id="audioaufnahme">Audioaufnahme</h3>
+<ol>
+<li>Stellen Sie sicher, dass das Projektverzeichnis festgelegt ist.</li>
+<li>Schalten Sie die Zielspur scharf (aktivieren Sie den "Arm"-Radiobutton).</li>
+<li>Klicken Sie auf die Schaltfläche <strong>Record</strong> (roter Kreis).</li>
+<li>Ein 3-Sekunden-Countdown erscheint auf der Spur ("Get ready... 3", "2", "1"), dann
+   beginnt die Aufnahme.</li>
+<li>Während der Aufnahme wird ein Live-Pegelanzeiger im Wellenformbereich der Spur
+   angezeigt, der die aktuelle Amplitude als Verlaufsbalken (grün nach gelb nach rot) mit
+   einer "Recording"-Beschriftung darstellt.</li>
+<li>Klicken Sie auf die Schaltfläche <strong>Stop</strong>, um die Aufnahme zu beenden.</li>
+</ol>
+<p>Das aufgenommene Audio wird als FLAC-Datei im Projektverzeichnis gespeichert und nach der
+Spur benannt.</p>
+<p>Während der Aufnahme und Wiedergabe werden alle interaktiven Steuerelemente (Spur-
+Schaltflächen, Einstellungen usw.) deaktiviert, um versehentliche Änderungen zu verhindern.</p>
+<h4 id="overdub-aufnahme">Overdub-Aufnahme</h4>
+<p>Wenn Sie eine neue Spur aufnehmen, während andere aktivierte Spuren bereits Audio- oder
+MIDI-Daten enthalten, führt Musician's Canvas eine Overdub-Aufnahme durch: Die vorhandenen
+Spuren werden zusammengemischt und in Echtzeit wiedergegeben, während die neue Spur
+aufgenommen wird. So können Sie zuvor aufgenommene Teile hören, während Sie einen neuen
+einspielen.</p>
+<p>Die Mischung der vorhandenen Spuren wird vor Beginn der Aufnahme vorbereitet, sodass
+Aufnahme und Wiedergabe annähernd gleichzeitig starten und alle Spuren synchron bleiben.</p>
+<h4 id="aufnahme-backends">Aufnahme-Backends</h4>
+<p>Musician's Canvas unterstützt zwei Audio-Aufnahme-Backends:</p>
+<ul>
+<li><strong>PortAudio</strong> (Standard, wenn verfügbar): Bietet zuverlässige Aufnahme mit niedriger
+  Latenz und ist das empfohlene Backend.</li>
+<li><strong>Qt Multimedia</strong>: Ein Ausweich-Backend, das die integrierte Audioaufnahme von Qt
+  verwendet. Wird genutzt, wenn PortAudio nicht verfügbar ist oder wenn es in den
+  Projekteinstellungen explizit ausgewählt wird.</li>
+</ul>
+<p>Das Aufnahme-Backend kann projektspezifisch unter <strong>Project &gt; Project Settings &gt; Audio</strong>
+konfiguriert werden.</p>
+<h4 id="abtastrate-und-geratebehandlung">Abtastrate und Gerätebehandlung</h4>
+<p>Musician's Canvas nimmt mit der nativen Abtastrate des Audio-Eingangsgeräts auf und
+konvertiert anschließend automatisch in die konfigurierte Projekt-Abtastrate mittels
+hochwertiger Neuabtastung. Das bedeutet, Sie können jede Projekt-Abtastrate festlegen
+(z.B. 44100 Hz oder 48000 Hz), unabhängig von der nativen Rate des Geräts. Die Konvertierung
+bewahrt Tonhöhe und Daür exakt.</p>
+<h4 id="mono-gerateerkennung">Mono-Geräteerkennung</h4>
+<p>Einige Audiogeräte (z.B. USB-Webcam-Mikrofone) sind physisch mono, werden aber vom
+Betriebssystem als Stereo angezeigt. Musician's Canvas erkennt dies automatisch und passt die
+Kanalanzahl entsprechend an. Wenn das Projekt für Stereo konfiguriert ist, wird das
+Mono-Signal auf beide Kanäle dupliziert.</p>
+<h3 id="midi-aufnahme">MIDI-Aufnahme</h3>
+<ol>
+<li>Setzen Sie den Spurtyp über die Options-Schaltfläche auf <strong>MIDI</strong>.</li>
+<li>Stellen Sie sicher, dass ein MIDI-Eingangsgerät unter <strong>Settings &gt; Configuration &gt; MIDI</strong>
+   konfiguriert ist.</li>
+<li>Schalten Sie die Spur scharf und klicken Sie auf Record.</li>
+<li>Spielen Sie Noten auf Ihrem MIDI-Controller.</li>
+<li>Klicken Sie auf Stop, um die Aufnahme zu beenden.</li>
+</ol>
+<p>MIDI-Noten werden in einer Piano-Roll-Visualisierung auf der Spur angezeigt.</p>
+<h2 id="wiedergabe">Wiedergabe</h2>
+<p>Klicken Sie auf die Schaltfläche <strong>Play</strong>, um alle aktivierten Spuren abzumischen und
+wiederzugeben. Der Tooltip der Schaltfläche zeigt an, ob sie abspielen oder aufnehmen wird,
+je nachdem ob eine Spur scharfgeschaltet ist. Deaktivierte Spuren (nicht angehakt) werden von
+der Wiedergabe ausgeschlossen.</p>
+<p>Während der Wiedergabe werden Audiospuren aus ihren FLAC-Dateien dekodiert und MIDI-Spuren
+mit dem integrierten FluidSynth-Synthesizer in Audio umgewandelt. Alle Spuren werden
+zusammengemischt und über das Audio-Ausgabegerät des Systems wiedergegeben.</p>
+<p>Klicken Sie jederzeit auf die Schaltfläche <strong>Stop</strong>, um die Wiedergabe zu beenden.</p>
+<h2 id="in-eine-datei-abmischen">In eine Datei abmischen</h2>
+<p>Verwenden Sie <strong>Tools &gt; Mix tracks to file</strong> (Ctrl+M), um alle aktivierten Spuren in eine
+einzelne Audiodatei zu exportieren. Ein Dialog ermöglicht die Auswahl des Ausgabepfads und
+Formats:</p>
+<ul>
+<li><strong>Ausgabedatei</strong>: Navigieren Sie zum gewünschten Zieldateipfad.</li>
+<li><strong>Format</strong>: Wählen Sie zwischen FLAC (verlustfreie Komprimierung, kleinere Dateien) oder
+  WAV (unkomprimiert).</li>
+</ul>
+<p>Die Abmischung verwendet die konfigurierte Projekt-Abtastrate. MIDI-Spuren werden mit dem
+konfigurierten SoundFont gerendert.</p>
+<h2 id="einstellungen">Einstellungen</h2>
+<h3 id="globale-einstellungen">Globale Einstellungen</h3>
+<p>Verwenden Sie <strong>Settings &gt; Configuration</strong> (Ctrl+,), um globale Standardwerte festzulegen,
+die für alle Projekte gelten:</p>
+<p><img alt="Allgemeine Einstellungen" src="screenshots/MusiciansCanvas_3_GeneralSettings.png" /></p>
+<h4 id="registerkarte-general">Registerkarte "General"</h4>
+<ul>
+<li><strong>Theme</strong>: Wählen Sie zwischen dunklem und hellem Design.</li>
+</ul>
+<h4 id="registerkarte-midi">Registerkarte "MIDI"</h4>
+<ul>
+<li><strong>MIDI Output Device</strong>: Wählen Sie den integrierten FluidSynth-Synthesizer oder ein
+  externes MIDI-Gerät. Verwenden Sie die Schaltfläche <strong>Refresh</strong>, um nach verfügbaren
+  MIDI-Geräten erneut zu suchen.</li>
+<li><strong>SoundFont</strong>: Navigieren Sie zu einer <code>.sf2</code> SoundFont-Datei für die MIDI-Synthese.
+  Unter Linux kann ein System-SoundFont automatisch erkannt werden, wenn das Paket
+  <code>fluid-soundfont-gm</code> installiert ist. Unter Windows und macOS müssen Sie den
+  SoundFont-Pfad manuell konfigurieren.</li>
+</ul>
+<p><img alt="MIDI-Einstellungen" src="screenshots/MusiciansCanvas_4_MIDISettings.png" /></p>
+<h4 id="registerkarte-audio">Registerkarte "Audio"</h4>
+<ul>
+<li><strong>Audio Input Device</strong>: Wählen Sie das Mikrofon oder Line-In-Gerät für die Aufnahme.</li>
+<li><strong>Audio Output Device</strong>: Wählen Sie den Lautsprecher oder Kopfhörer für die Wiedergabe.</li>
+</ul>
+<p><img alt="Audio-Einstellungen" src="screenshots/MusiciansCanvas_5_AudioSettings.png" /></p>
+<h3 id="projekteinstellungen">Projekteinstellungen</h3>
+<p>Verwenden Sie <strong>Project &gt; Project Settings</strong> (Ctrl+P), um die globalen Standardwerte nur
+für das aktuelle Projekt zu überschreiben. Dies ist nützlich für Projekte, die eine
+bestimmte Abtastrate, ein bestimmtes SoundFont oder ein bestimmtes Audiogerät benötigen.
+Projektspezifische Einstellungen werden in der Datei <code>project.json</code> gespeichert.</p>
+<p><img alt="Projekt-MIDI-Einstellungen" src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" /></p>
+<h4 id="registerkarte-midi_1">Registerkarte "MIDI"</h4>
+<ul>
+<li><strong>MIDI Device</strong>: Wählen Sie ein MIDI-Gerät für dieses Projekt, oder belassen Sie die
+  Standardeinstellung, um die globale Einstellung zu verwenden.</li>
+<li><strong>SoundFont</strong>: Wählen Sie eine SoundFont-Datei für dieses Projekt.</li>
+<li><strong>Refresh</strong>: Erneute Suche nach verfügbaren MIDI-Geräten.</li>
+</ul>
+<h4 id="registerkarte-audio_1">Registerkarte "Audio"</h4>
+<ul>
+<li><strong>Audio Input Device</strong>: Wählen Sie das Aufnahmegerät für dieses Projekt.</li>
+<li><strong>Recording capture backend</strong> (wenn PortAudio verfügbar ist):</li>
+<li><strong>PortAudio (native input)</strong>: Empfohlen. Verwendet dieselbe Audiobibliothek wie Audacity.</li>
+<li><strong>Qt Multimedia</strong>: Ausweichoption mit der integrierten Audioaufnahme von Qt.</li>
+<li><strong>PortAudio Input Device</strong>: Wählen Sie bei Verwendung des PortAudio-Backends das
+  spezifische PortAudio-Eingangsgerät aus.</li>
+<li><strong>Audio Output Device</strong>: Wählen Sie das Wiedergabegerät für dieses Projekt.</li>
+</ul>
+<h5 id="audioformat-einstellungen">Audioformat-Einstellungen</h5>
+<ul>
+<li><strong>Sample rate</strong>: Wählen Sie aus Standardraten (8000 Hz bis 192000 Hz). Die native Rate des
+  Geräts ist mit "(native)" gekennzeichnet. Raten, die eine Neuabtastung erfordern, sind mit
+  "(resampled)" gekennzeichnet. Sie können jede Rate unabhängig von der Geräteeigenschaft
+  wählen; Musician's Canvas führt bei Bedarf automatisch eine Neuabtastung durch.</li>
+<li><strong>Channels</strong>: Mono oder Stereo. Wenn das Gerät nur Mono unterstützt, ist die
+  Stereo-Option deaktiviert.</li>
+</ul>
+<p><img alt="Projekt-Audio-Einstellungen" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
+<h2 id="menus">Menüs</h2>
+<h3 id="menue-file">Menue "File"</h3>
+<table>
+<thead>
+<tr>
+<th>Menüeintrag</th>
+<th>Tastenkürzel</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Save Project</td>
+<td>Ctrl+S</td>
+<td>Aktülles Projekt auf der Festplatte speichern</td>
+</tr>
+<tr>
+<td>Open Project</td>
+<td>Ctrl+O</td>
+<td>Ein bestehendes Projekt öffnen</td>
+</tr>
+<tr>
+<td>Close</td>
+<td>Ctrl+Q</td>
+<td>Die Anwendung beenden</td>
+</tr>
+</tbody>
+</table>
+<h3 id="menue-project">Menue "Project"</h3>
+<table>
+<thead>
+<tr>
+<th>Menüeintrag</th>
+<th>Tastenkürzel</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project Settings</td>
+<td>Ctrl+P</td>
+<td>Projektspezifische Einstellungen konfigurieren</td>
+</tr>
+<tr>
+<td>Add Demo Data to Selected Track</td>
+<td></td>
+<td>Beispiel-MIDI-Noten zur Demonstration hinzufügen</td>
+</tr>
+</tbody>
+</table>
+<h3 id="menue-settings">Menue "Settings"</h3>
+<table>
+<thead>
+<tr>
+<th>Menüeintrag</th>
+<th>Tastenkürzel</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Configuration</td>
+<td>Ctrl+,</td>
+<td>Globale Anwendungseinstellungen öffnen</td>
+</tr>
+</tbody>
+</table>
+<h3 id="menue-tools">Menue "Tools"</h3>
+<table>
+<thead>
+<tr>
+<th>Menüeintrag</th>
+<th>Tastenkürzel</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mix tracks to file</td>
+<td>Ctrl+M</td>
+<td>Alle aktivierten Spuren in eine Datei exportieren</td>
+</tr>
+<tr>
+<td>Virtual MIDI Keyboard</td>
+<td></td>
+<td>Die Begleit-Tastaturanwendung starten</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tastenkurzel">Tastenkürzel</h2>
+<table>
+<thead>
+<tr>
+<th>Tastenkürzel</th>
+<th>Aktion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl+S</td>
+<td>Projekt speichern</td>
+</tr>
+<tr>
+<td>Ctrl+O</td>
+<td>Projekt öffnen</td>
+</tr>
+<tr>
+<td>Ctrl+M</td>
+<td>Spuren in eine Datei abmischen</td>
+</tr>
+<tr>
+<td>Ctrl+P</td>
+<td>Projekteinstellungen</td>
+</tr>
+<tr>
+<td>Ctrl+,</td>
+<td>Einstellungen / Konfiguration</td>
+</tr>
+<tr>
+<td>Ctrl+Q / Alt+F4</td>
+<td>Beenden</td>
+</tr>
+</tbody>
+</table>
+<h2 id="virtual-midi-keyboard">Virtual MIDI Keyboard</h2>
+<p>Das Virtual MIDI Keyboard ist eine Begleitanwendung (<code>virtual_midi_keyboard</code>), die eine
+Bildschirm-Klaviertastatur zum Senden von MIDI-Noten bereitstellt. Es kann über das Menue
+<strong>Tools &gt; Virtual MIDI Keyboard</strong> in der Hauptanwendung gestartet oder unabhängig
+ausgeführt werden.</p>
+<p><img alt="Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard1.png" /></p>
+<h3 id="funktionen">Funktionen</h3>
+<ul>
+<li>Klicken Sie auf die Tasten der Bildschirm-Klaviatur, um Noten zu spielen</li>
+<li>Verwenden Sie die Computertastatur als Klaviertastatur (siehe Tastenbelegung unten)</li>
+<li>Verbindung mit externen MIDI-Ausgabegeräten oder Verwendung des integrierten
+  FluidSynth-Synthesizers</li>
+<li>Verbindung mit einem MIDI-Eingangsgerät zur Anzeige eingehender Noten auf der Tastatur</li>
+<li>Einstellbare Synthesizer-Lautstärke (Gesamtverstärkung, 10%--200%)</li>
+<li>SoundFont-Auswahl für den integrierten Synthesizer</li>
+<li>MIDI-Instrument-/Programmauswahl (General MIDI oder SoundFont-Presets)</li>
+<li>Chorus-/Effekt-Regler</li>
+<li>Oktavverschiebung (-3 bis +5)</li>
+<li>MIDI-Lautstärkeregelung (CC#7, 0--127)</li>
+</ul>
+<h3 id="werkzeugleisten-steuerungen">Werkzeugleisten-Steuerungen</h3>
+<ul>
+<li><strong>Volume</strong>: MIDI-Lautstärke (CC#7), einstellbar von 0 bis 127 über das Drehfeld.</li>
+<li><strong>Octave</strong>: Verschieben Sie die Tastatur-Oktave mit den Schaltflächen <strong>&lt;</strong> und <strong>&gt;</strong> oder
+  dem Drehfeld. Der Bereich ist -3 bis +5.</li>
+<li><strong>Chorus/Effect</strong>: Ein Drehregler und Textfeld (1--127) zum Einstellen des Chorus-/Effekt-
+  Pegels (MIDI CC#93). Klicken Sie auf <strong>Apply</strong>, um den Wert zu senden.</li>
+<li><strong>Instrumentenauswahl</strong>: Wählen Sie ein MIDI-Instrument. Bei Verwendung des integrierten
+  FluidSynth-Synthesizers werden SoundFont-Presets angezeigt (Bank:Programm Name). Bei
+  Verbindung mit einem externen MIDI-Gerät werden die 128 General-MIDI-Instrumente
+  aufgelistet.</li>
+</ul>
+<h3 id="spielen-mit-der-computertastatur">Spielen mit der Computertastatur</h3>
+<p>Die Computertastatur ist über zwei Oktaven auf Klaviertasten abgebildet:</p>
+<p><strong>Untere Oktave (beginnend bei der aktuellen Oktave):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Taste</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z</td>
+<td>C</td>
+</tr>
+<tr>
+<td>S</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>X</td>
+<td>D</td>
+</tr>
+<tr>
+<td>D</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>C</td>
+<td>E</td>
+</tr>
+<tr>
+<td>V</td>
+<td>F</td>
+</tr>
+<tr>
+<td>G</td>
+<td>F#/Gb</td>
+</tr>
+<tr>
+<td>B</td>
+<td>G</td>
+</tr>
+<tr>
+<td>H</td>
+<td>G#/Ab</td>
+</tr>
+<tr>
+<td>N</td>
+<td>A</td>
+</tr>
+<tr>
+<td>J</td>
+<td>A#/Bb</td>
+</tr>
+<tr>
+<td>M</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Obere Oktave (eine Oktave höher):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Taste</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q</td>
+<td>C</td>
+</tr>
+<tr>
+<td>2</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>W</td>
+<td>D</td>
+</tr>
+<tr>
+<td>3</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>E</td>
+<td>E</td>
+</tr>
+<tr>
+<td>R</td>
+<td>F</td>
+</tr>
+<tr>
+<td>5</td>
+<td>F#/Gb</td>
+</tr>
+<tr>
+<td>T</td>
+<td>G</td>
+</tr>
+<tr>
+<td>6</td>
+<td>G#/Ab</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>A</td>
+</tr>
+<tr>
+<td>7</td>
+<td>A#/Bb</td>
+</tr>
+<tr>
+<td>U</td>
+<td>B</td>
+</tr>
+<tr>
+<td>I</td>
+<td>C (nächste Oktave)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>O</td>
+<td>D</td>
+</tr>
+<tr>
+<td>0</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>P</td>
+<td>E</td>
+</tr>
+</tbody>
+</table>
+<p>Tasten leuchten beim Drücken visuell auf (weiße Tasten werden hellblau, schwarze Tasten
+werden dunkler).</p>
+<h3 id="konfiguration">Konfiguration</h3>
+<p>Öffnen Sie den Konfigurationsdialog (<strong>Settings &gt; Configuration</strong>, Ctrl+,), um MIDI- und
+Audiogeräte einzurichten:</p>
+<p><img alt="Virtual MIDI Keyboard Konfiguration" src="screenshots/VMIDIKeyboard2.png" /></p>
+<h4 id="registerkarte-midi_2">Registerkarte "MIDI"</h4>
+<ul>
+<li><strong>MIDI Output Device</strong>: Wählen Sie ein externes Gerät oder lassen Sie das Feld leer für
+  den integrierten FluidSynth-Synthesizer.</li>
+<li><strong>MIDI Input Device</strong>: Wählen Sie einen Controller, um Noten an die Tastaturanzeige
+  weiterzuleiten.</li>
+<li><strong>Synthesizer Volume (Master Gain)</strong>: Passen Sie den Ausgabepegel des integrierten
+  Synthesizers an (10%--200%).</li>
+<li><strong>SoundFont</strong>: Navigieren Sie zu einer <code>.sf2</code> SoundFont-Datei für den integrierten
+  Synthesizer.</li>
+<li><strong>Refresh</strong>: Erneute Suche nach verfügbaren MIDI-Geräten.</li>
+</ul>
+<h4 id="registerkarte-audio_2">Registerkarte "Audio"</h4>
+<ul>
+<li><strong>Audio Output Device</strong>: Wählen Sie das Ausgabegerät für den integrierten Synthesizer.</li>
+</ul>
+<h3 id="virtual-midi-keyboard-tastenkurzel">Virtual MIDI Keyboard Tastenkürzel</h3>
+<table>
+<thead>
+<tr>
+<th>Tastenkürzel</th>
+<th>Aktion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl+,</td>
+<td>Konfigurationsdialog</td>
+</tr>
+<tr>
+<td>Ctrl+U</td>
+<td>Hilfe / Nutzungsinformationen</td>
+</tr>
+<tr>
+<td>Ctrl+Q</td>
+<td>Schließen</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fehlerbehebung">Fehlerbehebung</h2>
+<h3 id="keine-audioausgabe">Keine Audioausgabe</h3>
+<ul>
+<li>Überprüfen Sie, ob das korrekte Audio-Ausgabegerät unter Settings &gt; Configuration &gt;
+  Audio ausgewählt ist.</li>
+<li>Unter Linux stellen Sie sicher, dass PipeWire oder PulseAudio läuft und die Ausgabe nicht
+  stummgeschaltet ist. Verwenden Sie <code>amixer</code> oder die Klangeinstellungen Ihres Desktops, um
+  die Lautstärkepegel zu überprüfen.</li>
+<li>Unter Windows stellen Sie sicher, dass ein ASIO-Audiotreiber installiert ist (z.B.
+  <a href="https://asio4all.org/">ASIO4ALL</a> oder ein vom Hersteller bereitgestellter ASIO-Treiber
+  für Ihre Audio-Schnittstelle). Musician's Canvas benötigt ASIO für latenzarmes Audio
+  unter Windows.</li>
+</ul>
+<h3 id="midi-spuren-sind-stumm">MIDI-Spuren sind stumm</h3>
+<ul>
+<li>Stellen Sie sicher, dass ein SoundFont (<code>.sf2</code>-Datei) unter Settings &gt; Configuration &gt;
+  MIDI konfiguriert ist.</li>
+<li>Unter Linux kann ein System-SoundFont automatisch erkannt werden, wenn das Paket
+  <code>fluid-soundfont-gm</code> installiert ist.</li>
+<li>Unter Windows und macOS müssen Sie den SoundFont-Pfad manuell konfigurieren.</li>
+</ul>
+<h3 id="aufnahme-klingt-verzerrt-oder-hat-falsche-tonhohe">Aufnahme klingt verzerrt oder hat falsche Tonhöhe</h3>
+<ul>
+<li>Dies kann auftreten, wenn die native Abtastrate des Audio-Eingangsgeräts von der
+  konfigurierten Projektrate abweicht. Musician's Canvas handhabt dies automatisch durch
+  Neuabtastung, aber falls Probleme bestehen bleiben, versuchen Sie, die Projekt-Abtastrate
+  an die native Rate des Geräts anzupassen.</li>
+<li>USB-Webcam-Mikrofone haben oft ungewöhnliche native Raten (z.B. 32000 Hz). Die Anwendung
+  erkennt diese automatisch.</li>
+<li>Wenn Sie das Qt Multimedia-Backend verwenden und Probleme auftreten, versuchen Sie, in den
+  Projekteinstellungen unter Project Settings &gt; Audio zum PortAudio-Backend zu wechseln.</li>
+</ul>
+<h3 id="virtual-midi-keyboard-hat-keinen-ton">Virtual MIDI Keyboard hat keinen Ton</h3>
+<ul>
+<li>Unter Linux mit PipeWire stellen Sie sicher, dass das Paket <code>libpipewire-0.3-dev</code>
+  installiert ist (wird für die PipeWire-Integration mit dem FluidSynth-Synthesizer
+  benötigt).</li>
+<li>Überprüfen Sie, ob ein SoundFont geladen ist (siehe die Registerkarte MIDI im
+  Konfigurationsdialog).</li>
+<li>Stellen Sie sicher, dass das Audio-Ausgabegerät ausgewählt und die Systemlautstärke
+  nicht stummgeschaltet ist.</li>
+</ul>
+<h2 id="aus-dem-quellcode-erstellen">Aus dem Quellcode erstellen</h2>
+<p>Siehe die <a href="../README.md">README</a> für vollständige Build-Anleitungen für Linux, macOS und
+Windows, einschliesslich aller erforderlichen Abhängigkeiten.</p>
+</body>
+</html>

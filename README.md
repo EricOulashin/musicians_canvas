@@ -6,24 +6,30 @@ main design consideration.  This project started as an experiment with Cursor (A
 it would be able to create as far as an application like this, with continued use of AI development as well
 as traditional software development.
 
+Years ago, I made a multi-track music recording program in college (with the same name); this is an attempt
+to make something better.
+
 ## Features
 
 - **Multi-track arrangement**: Add and remove multiple tracks to compose songs
 - **Named tracks**: Each track has an editable name used as the filename for recorded audio
 - **Track types**: Configure each track for audio recording (from microphone/line-in) or MIDI recording (from keyboard/controller); click the track type icon to quickly change the input source
-- **Track arming**: Check "Arm" on a track to select it as the recording target; only one track can be armed at a time
-- **Visual feedback**: Audio waveform display for audio tracks, MIDI piano roll for MIDI tracks
+- **Track arming**: Check "Arm" on a track to select it as the recording target; only one track can be armed at a time. A single unrecorded track is automatically armed for convenience
+- **Recording countdown**: A 3-second visual countdown before recording begins, giving the performer time to prepare
+- **Overdub recording**: When recording a new track while existing tracks are enabled, the existing tracks are mixed and played back in real time so you can hear them while recording. Playback and capture are synchronized to keep all tracks aligned
+- **Visual feedback**: Audio waveform display for audio tracks (with live level meter during recording), MIDI piano roll for MIDI tracks
 - **Built-in MIDI synthesizer**: Renders MIDI tracks to audio using FluidSynth with a configurable SoundFont
 - **Mix to single audio file**: Export all enabled tracks to a single mixed WAV or FLAC file using the [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp) library
-- **Save / Open project**: Serialize and restore the full project (tracks, names, types, MIDI notes, audio file references) to/from a JSON file
+- **Save / Open project**: Serialize and restore the full project (tracks, names, types, MIDI notes, audio file references) to/from a JSON file, with unsaved-changes detection on exit
 - **Project-specific settings**: Override global MIDI and audio defaults per project (sample rate, SoundFont, MIDI device)
 - **PortAudio capture (optional build)**: When the project is built with PortAudio (`HAVE_PORTAUDIO`), recording can use a native PortAudio input path (similar in spirit to Audacity) instead of Qt Multimedia. **Project → Project Settings → Audio** lets you choose **PortAudio** or **Qt Multimedia** and pick a PortAudio input device. If PortAudio is not installed, the build still succeeds and recording uses Qt Multimedia only.
-- **High-quality sample-rate conversion**: Records at the audio device's native rate and converts to the project rate using windowed sinc interpolation (Kaiser-windowed, ~96 dB stopband attenuation), the same algorithm family used by Audacity / libsoxr. This allows recording at any project sample rate regardless of the device's native rate, with no pitch or duration change.
+- **High-quality sample-rate conversion**: Records at the audio device's native rate and converts to the project rate using windowed sinc interpolation (Kaiser-windowed, ~96 dB stopband attenuation), the same algorithm family used by Audacity / libsoxr. This allows recording at any project sample rate (8000 Hz to 192000 Hz) regardless of the device's native rate, with no pitch or duration change.
 - **Automatic mono/stereo handling**: Detects physically-mono devices advertised as stereo (common with USB webcam mics on PipeWire) and converts between mono and stereo as needed (duplication or averaging), matching Audacity's channel-routing approach
 - **Low-latency audio**: On Windows, ASIO driver detection ensures low-latency audio; on Linux, process scheduling priority is raised for lower jitter with PipeWire / PulseAudio / ALSA
-- **Virtual MIDI keyboard**: A companion application for sending MIDI notes via a software piano keyboard, with a built-in FluidSynth synthesizer and adjustable master gain
+- **Virtual MIDI keyboard**: A companion application for sending MIDI notes via a software piano keyboard, with a built-in FluidSynth synthesizer, adjustable master gain, computer keyboard-to-piano mapping, instrument/program selection, chorus/effect control, and octave shifting
 - **Configuration**: Select audio input device, MIDI device, and SoundFont file (global defaults and per-project overrides)
 - **Dark / light theme**: Configurable via Settings → Configuration
+- **User manual**: HTML and PDF documentation generated from Markdown source (see [docs/](docs/))
 
 ## Screenshots
 
@@ -235,6 +241,26 @@ output directory:
 
 ---
 
+## Generating Documentation
+
+The user manual can be generated as HTML and PDF from the Markdown source:
+
+```bash
+cd docs
+./generate_docs.sh          # Generate both HTML and PDF
+./generate_docs.sh html     # Generate HTML only
+./generate_docs.sh pdf      # Generate PDF only
+```
+
+**Prerequisites:**
+
+- **Python (preferred):** `pip3 install markdown weasyprint`
+- **Fallback:** `pandoc` and `wkhtmltopdf` (via system package manager)
+
+The generated HTML is written to `docs/html/` and the PDF to `docs/MusiciansCanvas_User_Manual.pdf`.
+
+---
+
 ## Running
 
 ```bash
@@ -265,18 +291,23 @@ output directory:
 
 ### virtual_midi_keyboard
 
-1. **Open Configuration**: Use the **Configuration** button or menu to open the settings dialog
+1. **Open Configuration**: Use the **Configuration** button or menu (Ctrl+,) to open the settings dialog
 2. **MIDI tab**:
    - Select a MIDI output device (an external hardware/software synthesizer) or leave blank to use the built-in FluidSynth synthesizer
    - Select a MIDI input device to forward incoming MIDI notes to the keyboard display
    - Adjust **Synthesizer Volume (Master Gain)** to control the output level of the built-in synthesizer (10%–200%)
 3. **Audio tab**: Select the audio output device used by the built-in synthesizer
 4. **SoundFont**: Select a `.sf2` SoundFont file for the built-in synthesizer (auto-detected on Linux if a system SoundFont is installed)
-5. **Play notes**: Click keys on the on-screen piano keyboard or use a connected MIDI controller
+5. **Play notes**: Click keys on the on-screen piano keyboard, use a connected MIDI controller, or use the computer keyboard:
+   - Lower octave: Z/X/C/V/B/N/M = C/D/E/F/G/A/B, S/D/G/H/J = sharps/flats
+   - Upper octave: Q/W/E/R/T/Y/U/I/O/P = C through E, 2/3/5/6/7/9/0 = sharps/flats
+6. **Toolbar controls**: Adjust MIDI volume (0–127), octave (-3 to +5), chorus/effect level, and select instruments
 
 ---
 
 ## Keyboard Shortcuts
+
+**musicians_canvas:**
 
 | Shortcut | Action |
 |----------|--------|
@@ -286,6 +317,14 @@ output directory:
 | Ctrl+P | Project Settings |
 | Ctrl+, | Settings / Configuration |
 | Ctrl+Q / Alt+F4 | Quit |
+
+**virtual_midi_keyboard:**
+
+| Shortcut | Action |
+|----------|--------|
+| Ctrl+, | Configuration dialog |
+| Ctrl+U | Help / Usage info |
+| Ctrl+Q | Close |
 
 ---
 

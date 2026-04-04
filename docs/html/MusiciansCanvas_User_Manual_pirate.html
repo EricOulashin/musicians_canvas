@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Musician&#8217;s Canvas &#8212; A Pirate&#8217;s Guide</title>
+<style>
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px 40px;
+    color: #24292e; background-color: #fff;
+}
+h1 { border-bottom: 2px solid #0366d6; padding-bottom: 0.3em; color: #0366d6; }
+h2 { border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; margin-top: 2em; }
+h3 { color: #0366d6; margin-top: 1.5em; }
+h4 { color: #586069; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid #dfe2e5; padding: 8px 12px; text-align: left; }
+th { background-color: #f6f8fa; font-weight: 600; }
+tr:nth-child(even) { background-color: #f6f8fa; }
+code { background-color: #f6f8fa; padding: 0.2em 0.4em; border-radius: 3px; font-size: 0.9em;
+       font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; }
+pre { background-color: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+strong { color: #24292e; }
+a { color: #0366d6; text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6px; margin: 1em 0; }
+.toc { background-color: #f6f8fa; border: 1px solid #dfe2e5; border-radius: 6px;
+       padding: 15px 20px; margin: 1em 0 2em 0; }
+.toc h2 { margin-top: 0; border-bottom: none; font-size: 1.1em; }
+.toc ul { list-style: none; padding-left: 1.2em; }
+.toc > ul { padding-left: 0; }
+.toc li { margin: 0.3em 0; }
+.title-block { text-align: center; margin-bottom: 2em; padding-bottom: 1em;
+               border-bottom: 2px solid #0366d6; }
+@media print {
+    body { max-width: none; padding: 0; }
+    h1, h2, h3 { page-break-after: avoid; }
+    table, pre, img { page-break-inside: avoid; }
+    img { max-width: 80%; }
+}
+</style>
+</head>
+<body>
+<div class="title-block">
+<h1>Musician&#8217;s Canvas &#8212; A Pirate&#8217;s Guide</h1>
+<p>A Multi-Shanty Music Plunderin' Application fer Scallywags an' Sea Dogs Alike &mdash; Version 0.1.0</p>
+<p>2026-04-03</p>
+</div>
+<div class="toc">
+<h2>Table of Contents</h2>
+<div class="toc">
+<ul>
+<li><a href="#musicians-canvas-user-manual-pirate-edition">Musician's Canvas User Manual -- Pirate Edition</a><ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#gettin-started">Gettin' Started</a><ul>
+<li><a href="#launchin-the-ship">Launchin' the Ship</a></li>
+<li><a href="#settin-up-a-project">Settin' Up a Project</a></li>
+<li><a href="#savin-and-openin-projects">Savin' and Openin' Projects</a></li>
+</ul>
+</li>
+<li><a href="#shanty-management">Shanty Management</a><ul>
+<li><a href="#addin-an-removin-shanties">Addin' an' Removin' Shanties</a></li>
+<li><a href="#configurin-shanty-type">Configurin' Shanty Type</a></li>
+<li><a href="#shanty-controls">Shanty Controls</a></li>
+<li><a href="#auto-armin">Auto-Armin'</a></li>
+<li><a href="#shanty-visualization">Shanty Visualization</a></li>
+</ul>
+</li>
+<li><a href="#plunderin-sounds-recording">Plunderin' Sounds (Recording)</a><ul>
+<li><a href="#audio-plunderin">Audio Plunderin'</a></li>
+<li><a href="#midi-plunderin">MIDI Plunderin'</a></li>
+</ul>
+</li>
+<li><a href="#replayin-the-shanty-playback">Replayin' the Shanty (Playback)</a></li>
+<li><a href="#mixin-to-a-file">Mixin' to a File</a></li>
+<li><a href="#settings">Settings</a><ul>
+<li><a href="#global-settings">Global Settings</a></li>
+<li><a href="#project-settings">Project Settings</a></li>
+</ul>
+</li>
+<li><a href="#menus">Menus</a><ul>
+<li><a href="#file-menu">File Menu</a></li>
+<li><a href="#project-menu">Project Menu</a></li>
+<li><a href="#settings-menu">Settings Menu</a></li>
+<li><a href="#tools-menu">Tools Menu</a></li>
+</ul>
+</li>
+<li><a href="#keyboard-shortcuts">Keyboard Shortcuts</a></li>
+<li><a href="#virtual-midi-keyboard">Virtual MIDI Keyboard</a><ul>
+<li><a href="#features">Features</a></li>
+<li><a href="#toolbar-controls">Toolbar Controls</a></li>
+<li><a href="#playin-with-the-computer-keyboard">Playin' with the Computer Keyboard</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#virtual-midi-keyboard-shortcuts">Virtual MIDI Keyboard Shortcuts</a></li>
+</ul>
+</li>
+<li><a href="#troubleshootin-when-ye-hit-rough-seas">Troubleshootin' (When Ye Hit Rough Seas)</a><ul>
+<li><a href="#no-audio-output">No Audio Output</a></li>
+<li><a href="#midi-shanties-be-silent">MIDI Shanties Be Silent</a></li>
+<li><a href="#plundered-sounds-be-distorted-or-have-wrong-pitch">Plundered Sounds Be Distorted or Have Wrong Pitch</a></li>
+<li><a href="#virtual-midi-keyboard-has-no-audio">Virtual MIDI Keyboard Has No Audio</a></li>
+</ul>
+</li>
+<li><a href="#buildin-from-source">Buildin' from Source</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+<h1 id="musicians-canvas-user-manual-pirate-edition">Musician's Canvas User Manual -- Pirate Edition</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Ahoy, matey! Welcome aboard Musician's Canvas, a mighty multi-shanty music plunderin' application fer desktop vessels. She supports plunderin' sounds from microphones an' line-in devices, capturin' MIDI treasure from keyboards an' controllers, an' mixin' all yer shanties down to a single WAV or FLAC file. A trusty companion ship, Virtual MIDI Keyboard, provides a software pianer keyboard fer sendin' MIDI notes across the briny deep.</p>
+<p>Musician's Canvas be designed fer ease o' use while providin' features commonly found in digital audio workstations (DAWs), savvy?</p>
+<ul>
+<li>Multi-shanty audio an' MIDI plunderin'</li>
+<li>Overdub plunderin' with synchronized replayin' o' existing shanties</li>
+<li>Built-in FluidSynth MIDI synthesizer with SoundFont support</li>
+<li>High-quality sample-rate conversion fer plunderin' at any project sample rate</li>
+<li>Automatic mono/stereo device detection -- she figures it out on 'er own!</li>
+<li>Project-based settings with per-project overrides</li>
+<li>Mix to WAV or FLAC</li>
+<li>Dark an' light themes (fer sailin' by night or by day)</li>
+<li>Companion Virtual MIDI Keyboard application</li>
+</ul>
+<h2 id="gettin-started">Gettin' Started</h2>
+<h3 id="launchin-the-ship">Launchin' the Ship</h3>
+<p>Run the <code>musicians_canvas</code> executable from the build directory or yer installation berth:</p>
+<pre><code>./musicians_canvas
+</code></pre>
+<p>On first launch, the application opens with an empty project, like a blank treasure map. Ye'll need to set a project directory before ye can start plunderin' sounds.</p>
+<p>On startup, the application applies the saved theme (dark or light) an', if a project directory was previously charted an' contains a <code>project.json</code> file, the project be automatically loaded fer ye.</p>
+<h3 id="settin-up-a-project">Settin' Up a Project</h3>
+<ol>
+<li>
+<p><strong>Set the project directory</strong>: Enter or browse to a folder in the "Project Location" field at the top o' the window. This be where yer plundered recordings an' the project file will be stowed.</p>
+</li>
+<li>
+<p><strong>Add a shanty</strong>: Click the <strong>+ Add Track</strong> button. A new shanty appears with default settings. If it be the only shanty in the project an' has not been recorded yet, it be automatically armed fer plunderin'.</p>
+</li>
+<li>
+<p><strong>Name the shanty</strong>: Type a name in the text field next to the "Options" button. This name be used as the filename fer the recorded audio file, so choose wisely, ye scallywag!</p>
+</li>
+</ol>
+<p><img alt="Main window" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="savin-and-openin-projects">Savin' and Openin' Projects</h3>
+<ul>
+<li><strong>Save</strong>: Use <strong>File &gt; Save Project</strong> (Ctrl+S) to save yer current project as a JSON file in the project directory. Don't forget to save, lest ye lose yer treasure!</li>
+<li><strong>Open</strong>: Use <strong>File &gt; Open Project</strong> (Ctrl+O) to load a previously saved project from the depths.</li>
+</ul>
+<p>The project file (<code>project.json</code>) stores shanty names, types, MIDI notes, audio file references, an' all project-specific settings. Audio files be stored in the same directory as <code>project.json</code> an' be named after their shanties (e.g., <code>My_Track.flac</code>).</p>
+<p>If ye close the application with unsaved changes, a confirmation dialog asks whether to save before abandonin' ship.</p>
+<h2 id="shanty-management">Shanty Management</h2>
+<h3 id="addin-an-removin-shanties">Addin' an' Removin' Shanties</h3>
+<ul>
+<li>Click <strong>+ Add Track</strong> to add a new shanty to the arrangement.</li>
+<li>Click the <strong>x</strong> button on the starboard side of a shanty row to remove it -- walk the plank, shanty!</li>
+<li>Click <strong>Clear Tracks</strong> (the red button in the toolbar) to scuttle all shanties. A confirmation dialog be shown before proceedin', so ye don't accidentally sink yer own fleet.</li>
+</ul>
+<h3 id="configurin-shanty-type">Configurin' Shanty Type</h3>
+<p>Each shanty can be configured as either <strong>Audio</strong> (fer microphone/line-in plunderin') or <strong>MIDI</strong> (fer keyboard/controller plunderin').</p>
+<p>To change the shanty type:</p>
+<ul>
+<li>Click the <strong>Options</strong> button on the shanty, or</li>
+<li>Click the <strong>track type icon</strong> (between "Options" and the name field)</li>
+</ul>
+<p>This opens the Track Configuration dialog where ye can select the input source, arr.</p>
+<p><img alt="Track configuration" src="screenshots/MusiciansCanvas_2_TrackConfig.png" /></p>
+<h3 id="shanty-controls">Shanty Controls</h3>
+<p>Each shanty row provides the followin' controls:</p>
+<ul>
+<li><strong>Enable checkbox</strong>: Toggles whether the shanty be included in replayin' an' mixin'. Disablin' a shanty also automatically disarms it if it was armed -- can't fire a cannon that ain't loaded!</li>
+<li><strong>Arm radio button</strong>: Selects this shanty as the plunderin' target. Only one shanty can be armed at a time; armin' a new shanty automatically disarms any previously armed one.</li>
+<li><strong>Name field</strong>: Editable text field fer the shanty name. This name be used as the audio filename (with invalid filesystem characters replaced by underscores).</li>
+<li><strong>Options button</strong>: Opens the Track Configuration dialog.</li>
+<li><strong>Type icon</strong>: Shows a speaker icon fer audio shanties or a piano icon fer MIDI shanties. Clickin' it opens the Track Configuration dialog.</li>
+<li><strong>Remove button (x)</strong>: Sends the shanty to Davy Jones' locker.</li>
+</ul>
+<h3 id="auto-armin">Auto-Armin'</h3>
+<p>When a project has exactly one shanty an' that shanty has not been recorded yet, it be automatically armed fer plunderin'. This applies both when addin' the first shanty to a new project an' when openin' an existing project that has a single empty shanty. Convenient, that be!</p>
+<h3 id="shanty-visualization">Shanty Visualization</h3>
+<ul>
+<li><strong>Audio shanties</strong> display a waveform visualization of the plundered audio. When no audio has been plundered, the area shows "No audio recorded".</li>
+<li><strong>MIDI shanties</strong> display a piano roll visualization showin' recorded notes on a grid spannin' A0 to C8. Notes be colored by velocity -- the harder ye strike, the bolder the color! When no MIDI data has been plundered, the area shows "No MIDI data recorded".</li>
+</ul>
+<h2 id="plunderin-sounds-recording">Plunderin' Sounds (Recording)</h2>
+<h3 id="audio-plunderin">Audio Plunderin'</h3>
+<ol>
+<li>Ensure the project directory be set.</li>
+<li>Arm the target shanty (check the "Arm" radio button).</li>
+<li>Click the <strong>Record</strong> button (red circle) -- fire the cannons!</li>
+<li>A 3-second countdown appears on the shanty ("Get ready... 3", "2", "1"), then plunderin' begins.</li>
+<li>Durin' plunderin', a live level meter be displayed in the shanty's waveform area, showin' the current amplitude as a gradient bar (green to yellow to red) with a "Recording" label.</li>
+<li>Click the <strong>Stop</strong> button to end plunderin'.</li>
+</ol>
+<p>The plundered audio be saved as a FLAC file in the project directory, named after the shanty.</p>
+<p>Durin' plunderin' an' replayin', all interactive controls (shanty buttons, settings, etc.) be disabled to prevent accidental changes. Keep yer hands off the riggin' while we're recordin'!</p>
+<h4 id="overdub-plunderin">Overdub Plunderin'</h4>
+<p>When plunderin' a new shanty while other enabled shanties already contain audio or MIDI data, Musician's Canvas performs overdub plunderin': the existing shanties be mixed together an' played back in real time while the new shanty be recorded. This lets ye hear previously plundered parts while layin' down a new one, like singin' harmony with yer crewmates!</p>
+<p>The mix o' existing shanties be prepared before capture begins, so plunderin' an' replayin' start at approximately the same instant, keepin' all shanties synchronized like a well-drilled crew.</p>
+<h4 id="plunderin-backends">Plunderin' Backends</h4>
+<p>Musician's Canvas supports two audio capture backends:</p>
+<ul>
+<li><strong>PortAudio</strong> (default when available): Provides reliable, low-latency plunderin' an' be the recommended backend. Steady as she goes!</li>
+<li><strong>Qt Multimedia</strong>: A fallback backend using Qt's built-in audio capture. Used when PortAudio be not available or when explicitly selected in Project Settings.</li>
+</ul>
+<p>The plunderin' backend can be configured per-project in <strong>Project &gt; Project Settings &gt; Audio</strong>.</p>
+<h4 id="sample-rate-an-device-handlin">Sample Rate an' Device Handlin'</h4>
+<p>Musician's Canvas records at the audio input device's native sample rate an' then automatically converts to the project's configured sample rate using high-quality resamplin'. This means ye can set any project sample rate (e.g., 44100 Hz or 48000 Hz) regardless o' the device's native rate, arr. The conversion preserves pitch an' duration exactly -- no cursed pitch-shiftin' here!</p>
+<h4 id="mono-device-detection">Mono Device Detection</h4>
+<p>Some audio devices (e.g., USB webcam microphones) be physically mono but are advertised as stereo by the operatin' system -- sneaky bilge rats! Musician's Canvas automatically detects this an' adjusts the channel count accordingly. If the project be configured fer stereo, the mono signal be duplicated to both channels.</p>
+<h3 id="midi-plunderin">MIDI Plunderin'</h3>
+<ol>
+<li>Set the shanty type to <strong>MIDI</strong> via the Options button.</li>
+<li>Ensure a MIDI input device be configured in <strong>Settings &gt; Configuration &gt; MIDI</strong>.</li>
+<li>Arm the shanty an' click Record.</li>
+<li>Play notes on yer MIDI controller -- let the music flow like rum!</li>
+<li>Click Stop to end plunderin'.</li>
+</ol>
+<p>MIDI notes be displayed in a piano roll visualization on the shanty.</p>
+<h2 id="replayin-the-shanty-playback">Replayin' the Shanty (Playback)</h2>
+<p>Click the <strong>Play</strong> button to mix an' replay all enabled shanties. The button tooltip changes to indicate whether it will play or record based on whether a shanty be armed. Disabled shanties (unchecked) be excluded from replayin' -- they stay below deck.</p>
+<p>Durin' replayin', audio shanties be decoded from their FLAC files an' MIDI shanties be rendered to audio using the built-in FluidSynth synthesizer. All shanties be mixed together an' played through the system's audio output device. 'Tis a grand sound, if ye do say so yerself!</p>
+<p>Click the <strong>Stop</strong> button to end replayin' at any time.</p>
+<h2 id="mixin-to-a-file">Mixin' to a File</h2>
+<p>Use <strong>Tools &gt; Mix tracks to file</strong> (Ctrl+M) to export all enabled shanties to a single audio file. A dialog lets ye choose the output path an' format:</p>
+<ul>
+<li><strong>Output file</strong>: Browse to select the destination file path -- where shall we bury this treasure?</li>
+<li><strong>Format</strong>: Choose between FLAC (lossless compression, smaller files) or WAV (uncompressed).</li>
+</ul>
+<p>The mix uses the project's configured sample rate. MIDI shanties be rendered using the configured SoundFont.</p>
+<h2 id="settings">Settings</h2>
+<h3 id="global-settings">Global Settings</h3>
+<p>Use <strong>Settings &gt; Configuration</strong> (Ctrl+,) to set global defaults that apply to all projects across the seven seas:</p>
+<p><img alt="General settings" src="screenshots/MusiciansCanvas_3_GeneralSettings.png" /></p>
+<h4 id="general-tab">General Tab</h4>
+<ul>
+<li><strong>Theme</strong>: Choose between Dark an' Light themes. Dark fer night watches, Light fer sunny sailin'!</li>
+</ul>
+<h4 id="midi-tab">MIDI Tab</h4>
+<ul>
+<li><strong>MIDI Output Device</strong>: Select the built-in FluidSynth synthesizer or an external MIDI device. Use the <strong>Refresh</strong> button to rescan fer available MIDI devices on the horizon.</li>
+<li><strong>SoundFont</strong>: Browse to a <code>.sf2</code> SoundFont file fer MIDI synthesis. On Linux, a system SoundFont may be auto-detected if the <code>fluid-soundfont-gm</code> package be installed. On Windows an' macOS, ye must configure the SoundFont path manually, ye landlubber.</li>
+</ul>
+<p><img alt="MIDI settings" src="screenshots/MusiciansCanvas_4_MIDISettings.png" /></p>
+<h4 id="audio-tab">Audio Tab</h4>
+<ul>
+<li><strong>Audio Input Device</strong>: Select the microphone or line-in device fer plunderin' sounds.</li>
+<li><strong>Audio Output Device</strong>: Select the speaker or headphone device fer replayin' shanties.</li>
+</ul>
+<p><img alt="Audio settings" src="screenshots/MusiciansCanvas_5_AudioSettings.png" /></p>
+<h3 id="project-settings">Project Settings</h3>
+<p>Use <strong>Project &gt; Project Settings</strong> (Ctrl+P) to override global defaults fer the current project only. This be useful fer projects that need a specific sample rate, SoundFont, or audio device. Project-specific settings be saved inside the <code>project.json</code> file, safe in the treasure chest.</p>
+<p><img alt="Project MIDI settings" src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" /></p>
+<h4 id="midi-tab_1">MIDI Tab</h4>
+<ul>
+<li><strong>MIDI Device</strong>: Select a MIDI device fer this project, or leave at the default to use the global settin'.</li>
+<li><strong>SoundFont</strong>: Select a SoundFont file fer this project.</li>
+<li><strong>Refresh</strong>: Rescan fer available MIDI devices -- look alive, swab the decks fer new gear!</li>
+</ul>
+<h4 id="audio-tab_1">Audio Tab</h4>
+<ul>
+<li><strong>Audio Input Device</strong>: Select the plunderin' device fer this project.</li>
+<li><strong>Recording capture backend</strong> (when PortAudio be available):</li>
+<li><strong>PortAudio (native input)</strong>: Recommended. Uses the same audio library as Audacity. A fine vessel!</li>
+<li><strong>Qt Multimedia</strong>: Fallback option using Qt's built-in audio capture.</li>
+<li><strong>PortAudio Input Device</strong>: When using the PortAudio backend, select the specific PortAudio input device.</li>
+<li><strong>Audio Output Device</strong>: Select the replayin' device fer this project.</li>
+</ul>
+<h5 id="audio-format-settings">Audio Format Settings</h5>
+<ul>
+<li><strong>Sample rate</strong>: Choose from standard rates (8000 Hz to 192000 Hz). The device's native rate be labeled "(native)". Rates that require resamplin' be labeled "(resampled)". Ye can select any rate regardless of device capability; Musician's Canvas will automatically resample as needed -- no excuses, we sail at any speed!</li>
+<li><strong>Channels</strong>: Mono or Stereo. If the device only supports mono, the Stereo option be disabled.</li>
+</ul>
+<p><img alt="Project audio settings" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
+<h2 id="menus">Menus</h2>
+<h3 id="file-menu">File Menu</h3>
+<table>
+<thead>
+<tr>
+<th>Menu Item</th>
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Save Project</td>
+<td>Ctrl+S</td>
+<td>Save yer current project to disk</td>
+</tr>
+<tr>
+<td>Open Project</td>
+<td>Ctrl+O</td>
+<td>Open an existing project file from the depths</td>
+</tr>
+<tr>
+<td>Close</td>
+<td>Ctrl+Q</td>
+<td>Abandon ship (quit the application)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="project-menu">Project Menu</h3>
+<table>
+<thead>
+<tr>
+<th>Menu Item</th>
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project Settings</td>
+<td>Ctrl+P</td>
+<td>Configure project-specific settings</td>
+</tr>
+<tr>
+<td>Add Demo Data to Selected Track</td>
+<td></td>
+<td>Add sample MIDI notes fer demonstration purposes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="settings-menu">Settings Menu</h3>
+<table>
+<thead>
+<tr>
+<th>Menu Item</th>
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Configuration</td>
+<td>Ctrl+,</td>
+<td>Open global application settings, matey</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tools-menu">Tools Menu</h3>
+<table>
+<thead>
+<tr>
+<th>Menu Item</th>
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mix tracks to file</td>
+<td>Ctrl+M</td>
+<td>Export all enabled shanties to a single file</td>
+</tr>
+<tr>
+<td>Virtual MIDI Keyboard</td>
+<td></td>
+<td>Launch the companion keyboard vessel</td>
+</tr>
+</tbody>
+</table>
+<h2 id="keyboard-shortcuts">Keyboard Shortcuts</h2>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl+S</td>
+<td>Save project (stow yer treasure!)</td>
+</tr>
+<tr>
+<td>Ctrl+O</td>
+<td>Open project</td>
+</tr>
+<tr>
+<td>Ctrl+M</td>
+<td>Mix shanties to file</td>
+</tr>
+<tr>
+<td>Ctrl+P</td>
+<td>Project Settings</td>
+</tr>
+<tr>
+<td>Ctrl+,</td>
+<td>Settings / Configuration</td>
+</tr>
+<tr>
+<td>Ctrl+Q / Alt+F4</td>
+<td>Quit (abandon ship)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="virtual-midi-keyboard">Virtual MIDI Keyboard</h2>
+<p>The Virtual MIDI Keyboard be a companion vessel (<code>virtual_midi_keyboard</code>) that provides an on-screen pianer keyboard fer sendin' MIDI notes across the musical seas. It can be launched from the <strong>Tools &gt; Virtual MIDI Keyboard</strong> menu in the main application, or run independently as a lone privateer.</p>
+<p><img alt="Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard1.png" /></p>
+<h3 id="features">Features</h3>
+<ul>
+<li>Click keys on the on-screen pianer to play notes -- tickle them ivories!</li>
+<li>Use the computer keyboard as a pianer keyboard (see key mappin' below)</li>
+<li>Connect to external MIDI output devices or use the built-in FluidSynth synthesizer</li>
+<li>Connect to a MIDI input device to display incomin' notes on the keyboard</li>
+<li>Adjustable synthesizer volume (master gain, 10%--200%)</li>
+<li>SoundFont selection fer the built-in synthesizer</li>
+<li>MIDI instrument/program selection (General MIDI or SoundFont presets)</li>
+<li>Chorus/effect control knob -- add some sea shanty reverb!</li>
+<li>Octave shiftin' (-3 to +5)</li>
+<li>MIDI volume control (CC#7, 0--127)</li>
+</ul>
+<h3 id="toolbar-controls">Toolbar Controls</h3>
+<ul>
+<li><strong>Volume</strong>: MIDI volume (CC#7), adjustable from 0 to 127 via the spin box. Crank it up, ye sea dog!</li>
+<li><strong>Octave</strong>: Shift the keyboard octave using the <strong>&lt;</strong> and <strong>&gt;</strong> buttons or the spin box. Range be -3 to +5.</li>
+<li><strong>Chorus/Effect</strong>: A rotary knob an' text field (1--127) to set the chorus/effect level (MIDI CC#93). Click <strong>Apply</strong> to send the value across the wire.</li>
+<li><strong>Instrument selector</strong>: Choose a MIDI instrument. When using the built-in FluidSynth synthesizer, this shows SoundFont presets (Bank:Program Name). When connected to an external MIDI device, this lists the 128 General MIDI instruments.</li>
+</ul>
+<h3 id="playin-with-the-computer-keyboard">Playin' with the Computer Keyboard</h3>
+<p>The computer keyboard be mapped to pianer keys across two octaves. Here be yer treasure map o' keys:</p>
+<p><strong>Lower octave (startin' at the current octave):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z</td>
+<td>C</td>
+</tr>
+<tr>
+<td>S</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>X</td>
+<td>D</td>
+</tr>
+<tr>
+<td>D</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>C</td>
+<td>E</td>
+</tr>
+<tr>
+<td>V</td>
+<td>F</td>
+</tr>
+<tr>
+<td>G</td>
+<td>F#/Gb</td>
+</tr>
+<tr>
+<td>B</td>
+<td>G</td>
+</tr>
+<tr>
+<td>H</td>
+<td>G#/Ab</td>
+</tr>
+<tr>
+<td>N</td>
+<td>A</td>
+</tr>
+<tr>
+<td>J</td>
+<td>A#/Bb</td>
+</tr>
+<tr>
+<td>M</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Upper octave (one octave higher):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q</td>
+<td>C</td>
+</tr>
+<tr>
+<td>2</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>W</td>
+<td>D</td>
+</tr>
+<tr>
+<td>3</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>E</td>
+<td>E</td>
+</tr>
+<tr>
+<td>R</td>
+<td>F</td>
+</tr>
+<tr>
+<td>5</td>
+<td>F#/Gb</td>
+</tr>
+<tr>
+<td>T</td>
+<td>G</td>
+</tr>
+<tr>
+<td>6</td>
+<td>G#/Ab</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>A</td>
+</tr>
+<tr>
+<td>7</td>
+<td>A#/Bb</td>
+</tr>
+<tr>
+<td>U</td>
+<td>B</td>
+</tr>
+<tr>
+<td>I</td>
+<td>C (next octave)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>O</td>
+<td>D</td>
+</tr>
+<tr>
+<td>0</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>P</td>
+<td>E</td>
+</tr>
+</tbody>
+</table>
+<p>Keys light up visually when pressed (white keys turn light blue like the Caribbean sea, black keys darken like a moonless night).</p>
+<h3 id="configuration">Configuration</h3>
+<p>Open the Configuration dialog (<strong>Settings &gt; Configuration</strong>, Ctrl+,) to set up MIDI an' audio devices:</p>
+<p><img alt="Virtual MIDI Keyboard configuration" src="screenshots/VMIDIKeyboard2.png" /></p>
+<h4 id="midi-tab_2">MIDI Tab</h4>
+<ul>
+<li><strong>MIDI Output Device</strong>: Select an external device or leave blank fer the built-in FluidSynth synthesizer.</li>
+<li><strong>MIDI Input Device</strong>: Select a controller to forward notes to the keyboard display.</li>
+<li><strong>Synthesizer Volume (Master Gain)</strong>: Adjust the output level o' the built-in synthesizer (10%--200%). From a whisper to a cannon blast!</li>
+<li><strong>SoundFont</strong>: Browse to a <code>.sf2</code> SoundFont file fer the built-in synthesizer.</li>
+<li><strong>Refresh</strong>: Rescan fer available MIDI devices.</li>
+</ul>
+<h4 id="audio-tab_2">Audio Tab</h4>
+<ul>
+<li><strong>Audio Output Device</strong>: Select the output device fer the built-in synthesizer.</li>
+</ul>
+<h3 id="virtual-midi-keyboard-shortcuts">Virtual MIDI Keyboard Shortcuts</h3>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl+,</td>
+<td>Configuration dialog</td>
+</tr>
+<tr>
+<td>Ctrl+U</td>
+<td>Help / Usage info</td>
+</tr>
+<tr>
+<td>Ctrl+Q</td>
+<td>Close (abandon this vessel)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="troubleshootin-when-ye-hit-rough-seas">Troubleshootin' (When Ye Hit Rough Seas)</h2>
+<h3 id="no-audio-output">No Audio Output</h3>
+<ul>
+<li>Check that the correct audio output device be selected in Settings &gt; Configuration &gt; Audio. Did ye plug in yer speakin' horns?</li>
+<li>On Linux, verify that PipeWire or PulseAudio be runnin' an' that the output be not muted. Use <code>amixer</code> or yer desktop's sound settings to check volume levels. Don't let silence be yer only shanty!</li>
+<li>On Windows, ensure an ASIO audio driver be installed (e.g., <a href="https://asio4all.org/">ASIO4ALL</a> or a manufacturer-provided ASIO driver fer yer audio interface). Musician's Canvas requires ASIO fer low-latency audio on Windows.</li>
+</ul>
+<h3 id="midi-shanties-be-silent">MIDI Shanties Be Silent</h3>
+<ul>
+<li>Ensure a SoundFont (<code>.sf2</code> file) be configured in Settings &gt; Configuration &gt; MIDI. Without a SoundFont, the synth be mute as a dead parrot!</li>
+<li>On Linux, a system SoundFont may be auto-detected if the <code>fluid-soundfont-gm</code> package be installed.</li>
+<li>On Windows an' macOS, ye must configure the SoundFont path manually.</li>
+</ul>
+<h3 id="plundered-sounds-be-distorted-or-have-wrong-pitch">Plundered Sounds Be Distorted or Have Wrong Pitch</h3>
+<ul>
+<li>This can happen when the audio input device's native sample rate differs from the project's configured rate. Musician's Canvas automatically handles this via resamplin', but if issues persist, try settin' the project sample rate to match the device's native rate.</li>
+<li>USB webcam microphones often have unusual native rates (e.g., 32000 Hz). The application detects these automatically, the clever lass.</li>
+<li>If using the Qt Multimedia backend an' experiencin' issues, try switchin' to the PortAudio backend in Project Settings &gt; Audio. Sometimes ye need a different ship fer different waters!</li>
+</ul>
+<h3 id="virtual-midi-keyboard-has-no-audio">Virtual MIDI Keyboard Has No Audio</h3>
+<ul>
+<li>On Linux with PipeWire, ensure the <code>libpipewire-0.3-dev</code> package be installed (needed fer PipeWire integration with the FluidSynth synthesizer).</li>
+<li>Check that a SoundFont be loaded (see the MIDI tab in the configuration dialog). No SoundFont, no sound -- savvy?</li>
+<li>Verify the audio output device be selected an' the system volume be not muted. Arr, don't be a fool -- check the obvious first!</li>
+</ul>
+<h2 id="buildin-from-source">Buildin' from Source</h2>
+<p>See the <a href="../README.md">README</a> fer complete build instructions fer Linux, macOS, an' Windows, includin' all required dependencies. Fair winds an' smooth compilin' to ye!</p>
+<hr />
+<p><em>Arr, that be the end o' the manual, ye salty sea dog! Now go forth an' make glorious music on the high seas! May yer shanties be mighty an' yer recordings be free o' clippin'!</em> 🏴‍☠️</p>
+</body>
+</html>
