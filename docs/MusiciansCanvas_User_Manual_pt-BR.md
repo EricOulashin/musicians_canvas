@@ -28,6 +28,7 @@ encontrados em estacoes de trabalho de audio digital (DAWs):
 - Configuracoes baseadas em projeto com opcoes especificas por projeto
 - Mixagem para WAV ou FLAC
 - Temas escuro e claro
+- Localizado em multiplos idiomas (English, Deutsch, Español, Français, Japanese, Português, Chinese e Pirate)
 - Aplicativo complementar Virtual MIDI Keyboard
 
 ## Primeiros Passos
@@ -240,6 +241,14 @@ todos os projetos:
 
 - **Theme**: Escolha entre os temas Dark e Light.
 
+#### Aba Language
+
+- **Idioma**: Escolha o idioma de exibicao do aplicativo. O padrao e "System Default",
+  que utiliza a configuracao de idioma do sistema operacional. Os idiomas disponiveis sao
+  English, Deutsch (German), Español (Spanish), Français (French), Japanese, Português
+  (Brazilian Portuguese), Chinese (Traditional), Chinese (Simplified) e Pirate. A
+  interface e atualizada imediatamente ao alterar o idioma.
+
 #### Aba MIDI
 
 - **MIDI Output Device**: Selecione o sintetizador FluidSynth integrado ou um dispositivo
@@ -440,6 +449,11 @@ dispositivos MIDI e audio:
 #### Aba Audio
 
 - **Audio Output Device**: Selecione o dispositivo de saida para o sintetizador integrado.
+
+#### Aba Language
+
+- **Idioma**: Escolha o idioma de exibicao. Os mesmos idiomas do Musician's Canvas estao
+  disponiveis. A interface e atualizada imediatamente ao alterar o idioma.
 
 ### Atalhos do Virtual MIDI Keyboard
 

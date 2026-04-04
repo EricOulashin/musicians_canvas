@@ -1,6 +1,9 @@
 #include "settingsdialog.h"
 #include "appsettings.h"
 #include "themeutils.h"
+
+// Defined in musicians_canvas_main.cpp — swaps the global QTranslator at runtime
+extern void loadAppTranslation(const QString& lang);
 #include <QTabWidget>
 #include <QLabel>
 #include <QVBoxLayout>
@@ -34,6 +37,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     setupGeneralTab();
     setupMidiTab();
     setupAudioTab();
+    setupLanguageTab();
     layout->addWidget(m_tabWidget);
 
     auto* buttonLayout = new QHBoxLayout();
@@ -157,6 +161,37 @@ void SettingsDialog::setupAudioTab()
     m_tabWidget->addTab(widget, tr("Audio"));
 }
 
+void SettingsDialog::setupLanguageTab()
+{
+    auto* widget = new QWidget();
+    auto* layout = new QVBoxLayout(widget);
+
+    QIcon langIcon = QIcon::fromTheme("preferences-desktop-locale",
+        style()->standardIcon(QStyle::SP_FileDialogContentsView));
+    layout->addWidget(createTabHeader(langIcon,
+        tr("Choose the display language for the application.")));
+
+    auto* langGroup = new QGroupBox(tr("Language"));
+    auto* langLayout = new QVBoxLayout(langGroup);
+    m_languageCombo = new QComboBox();
+    m_languageCombo->setMinimumWidth(250);
+    m_languageCombo->addItem(tr("System Default"), QString());
+    m_languageCombo->addItem(QStringLiteral("English"), QStringLiteral("en"));
+    m_languageCombo->addItem(QStringLiteral("Deutsch"), QStringLiteral("de"));
+    m_languageCombo->addItem(QStringLiteral("Español"), QStringLiteral("es"));
+    m_languageCombo->addItem(QStringLiteral("Français"), QStringLiteral("fr"));
+    m_languageCombo->addItem(QStringLiteral("日本語"), QStringLiteral("ja"));
+    m_languageCombo->addItem(QStringLiteral("Português (Brasil)"), QStringLiteral("pt_BR"));
+    m_languageCombo->addItem(QStringLiteral("中文（繁體）"), QStringLiteral("zh_TW"));
+    m_languageCombo->addItem(QStringLiteral("中文（简体）"), QStringLiteral("zh_CN"));
+    m_languageCombo->addItem(QStringLiteral("Pirate"), QStringLiteral("pirate"));
+    langLayout->addWidget(m_languageCombo);
+    layout->addWidget(langGroup);
+
+    layout->addStretch();
+    m_tabWidget->addTab(widget, tr("Language"));
+}
+
 void SettingsDialog::refreshDevices()
 {
     m_midiDeviceCombo->clear();
@@ -209,6 +244,11 @@ void SettingsDialog::loadSettings()
         int idx = m_themeCombo->findData(settings.theme());
         if (idx >= 0) m_themeCombo->setCurrentIndex(idx);
     }
+    if (m_languageCombo)
+    {
+        int langIdx = m_languageCombo->findData(settings.language());
+        if (langIdx >= 0) m_languageCombo->setCurrentIndex(langIdx);
+    }
     m_soundFontEdit->setText(settings.soundFontPath());
 
     int midiIdx = settings.midiDeviceIndex();
@@ -249,6 +289,8 @@ void SettingsDialog::saveSettings()
     {
         settings.setTheme(m_themeCombo->currentData().toString());
     }
+    if (m_languageCombo)
+        settings.setLanguage(m_languageCombo->currentData().toString());
     settings.setMidiDeviceIndex(m_midiDeviceCombo->currentData().toInt());
     settings.setSoundFontPath(m_soundFontEdit->text().trimmed());
     settings.setAudioInputDeviceId(m_audioInputCombo->currentData().toByteArray());
@@ -277,7 +319,14 @@ void SettingsDialog::onBrowseSoundFont()
 
 void SettingsDialog::onApply()
 {
+    const QString oldLang = AppSettings::instance().language();
     saveSettings();
     ThemeUtils::applySavedTheme();
+
+    // If the language changed, swap the translator so the UI updates immediately
+    const QString newLang = AppSettings::instance().language();
+    if (newLang != oldLang)
+        loadAppTranslation(newLang);
+
     accept();
 }

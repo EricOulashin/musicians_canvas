@@ -25,6 +25,10 @@ public:
     QByteArray audioOutputDeviceId() const          { return m_audioOutputDeviceId; }
     void setAudioOutputDeviceId(const QByteArray& id) { m_audioOutputDeviceId = id; }
 
+    // Language setting (empty = system default)
+    QString language() const              { return m_language; }
+    void setLanguage(const QString& lang) { m_language = lang; }
+
     // Master gain for the FluidSynth synthesiser (0.1 – 2.0, default 0.8).
     // FluidSynth's built-in default of 0.2 is intentionally conservative;
     // 0.8 gives a much more usable output level without risking clipping.
@@ -41,6 +45,7 @@ private:
 
     static QString configFilePath();
 
+    QString    m_language;             // "" = system default
     QString    m_midiOutputPortName;   // "" = built-in synth
     QString    m_midiInputPortName;    // "" = none
     QString    m_soundFontPath;

@@ -63,6 +63,16 @@ public:
         m_audioOutputDeviceId = id;
     }
 
+    // Language setting (empty = system default)
+    QString language() const
+    {
+        return m_language;
+    }
+    void setLanguage(const QString& lang)
+    {
+        m_language = lang;
+    }
+
     // Project settings
     QString projectLocation() const
     {
@@ -81,6 +91,7 @@ private:
     AppSettings(const AppSettings&) = delete;
     AppSettings& operator=(const AppSettings&) = delete;
 
+    QString m_language;  // empty = system default
     QString m_theme = "dark";
     int m_midiDeviceIndex = 0;
     QString m_soundFontPath;

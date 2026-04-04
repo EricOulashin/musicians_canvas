@@ -23,6 +23,7 @@ Musician's Canvas be designed fer ease o' use while providin' features commonly 
 - Project-based settings with per-project overrides
 - Mix to WAV or FLAC
 - Dark an' light themes (fer sailin' by night or by day)
+- Localized in multiple tongues (English, Deutsch, Español, Français, Japanese, Português, Chinese, an' Pirate -- the finest language on the seven seas!)
 - Companion Virtual MIDI Keyboard application
 
 ## Gettin' Started
@@ -175,6 +176,14 @@ Use **Settings > Configuration** (Ctrl+,) to set global defaults that apply to a
 #### General Tab
 
 - **Theme**: Choose between Dark an' Light themes. Dark fer night watches, Light fer sunny sailin'!
+
+#### Language Tab
+
+- **Language**: Choose the display language fer the application, ye worldly pirate! The
+  default be "System Default", which uses the operatin' system's language settin'. Available
+  tongues be English, Deutsch (German), Español (Spanish), Français (French), Japanese,
+  Português (Brazilian Portuguese), Chinese (Traditional), Chinese (Simplified), an' Pirate.
+  The interface updates immediately when ye change the language -- no need to restart the ship!
 
 #### MIDI Tab
 
@@ -347,6 +356,11 @@ Open the Configuration dialog (**Settings > Configuration**, Ctrl+,) to set up M
 #### Audio Tab
 
 - **Audio Output Device**: Select the output device fer the built-in synthesizer.
+
+#### Language Tab
+
+- **Language**: Choose the display language. The same tongues as Musician's Canvas be
+  available. The interface updates immediately when ye change the language, arr!
 
 ### Virtual MIDI Keyboard Shortcuts
 

@@ -26,6 +26,7 @@ digital audio workstations (DAWs):
 - Project-based settings with per-project overrides
 - Mix to WAV or FLAC
 - Dark and light themes
+- Localized in multiple languages (English, German, Spanish, French, Japanese, Portuguese, Chinese, and Pirate)
 - Companion Virtual MIDI Keyboard application
 
 ## Getting Started
@@ -231,6 +232,14 @@ projects:
 
 - **Theme**: Choose between Dark and Light themes.
 
+#### Language Tab
+
+- **Language**: Choose the display language for the application. The default is "System
+  Default", which uses the operating system's language setting. Available languages are
+  English, Deutsch (German), Español (Spanish), Français (French), Japanese, Português
+  (Brazilian Portuguese), Chinese (Traditional), Chinese (Simplified), and Pirate.
+  The interface updates immediately when you change the language.
+
 #### MIDI Tab
 
 - **MIDI Output Device**: Select the built-in FluidSynth synthesizer or an external
@@ -422,6 +431,11 @@ audio devices:
 #### Audio Tab
 
 - **Audio Output Device**: Select the output device for the built-in synthesizer.
+
+#### Language Tab
+
+- **Language**: Choose the display language. The same languages as Musician's Canvas
+  are available. The interface updates immediately when you change the language.
 
 ### Virtual MIDI Keyboard Shortcuts
 

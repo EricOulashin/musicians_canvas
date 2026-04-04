@@ -1,5 +1,8 @@
 #include "vk_configdialog.h"
 #include "vk_settings.h"
+
+// Defined in virtual_midi_keyboard_main.cpp — swaps the global QTranslator at runtime
+extern void loadVkTranslation(const QString& lang);
 #include <QTabWidget>
 #include <QLabel>
 #include <QVBoxLayout>
@@ -45,6 +48,7 @@ VkConfigDialog::VkConfigDialog(QWidget* parent) : QDialog(parent)
     m_tabWidget = new QTabWidget();
     setupMidiTab();
     setupAudioTab();
+    setupLanguageTab();
     layout->addWidget(m_tabWidget);
 
     auto* applyBtn = new QPushButton(tr("Apply"));
@@ -151,6 +155,37 @@ void VkConfigDialog::onOutputDeviceChanged(int /*index*/)
 {
 }
 
+void VkConfigDialog::setupLanguageTab()
+{
+    auto* widget = new QWidget();
+    auto* layout = new QVBoxLayout(widget);
+
+    QIcon langIcon = QIcon::fromTheme("preferences-desktop-locale",
+        style()->standardIcon(QStyle::SP_FileDialogContentsView));
+    layout->addWidget(createTabHeader(langIcon,
+        tr("Choose the display language for the application.")));
+
+    auto* langGroup = new QGroupBox(tr("Language"));
+    auto* langLayout = new QVBoxLayout(langGroup);
+    m_languageCombo = new QComboBox();
+    m_languageCombo->setMinimumWidth(250);
+    m_languageCombo->addItem(tr("System Default"), QString());
+    m_languageCombo->addItem(QStringLiteral("English"), QStringLiteral("en"));
+    m_languageCombo->addItem(QStringLiteral("Deutsch"), QStringLiteral("de"));
+    m_languageCombo->addItem(QStringLiteral("Español"), QStringLiteral("es"));
+    m_languageCombo->addItem(QStringLiteral("Français"), QStringLiteral("fr"));
+    m_languageCombo->addItem(QStringLiteral("日本語"), QStringLiteral("ja"));
+    m_languageCombo->addItem(QStringLiteral("Português (Brasil)"), QStringLiteral("pt_BR"));
+    m_languageCombo->addItem(QStringLiteral("中文（繁體）"), QStringLiteral("zh_TW"));
+    m_languageCombo->addItem(QStringLiteral("中文（简体）"), QStringLiteral("zh_CN"));
+    m_languageCombo->addItem(QStringLiteral("Pirate"), QStringLiteral("pirate"));
+    langLayout->addWidget(m_languageCombo);
+    layout->addWidget(langGroup);
+
+    layout->addStretch();
+    m_tabWidget->addTab(widget, tr("Language"));
+}
+
 void VkConfigDialog::refreshDevices()
 {
     // Enumerate MIDI output ports (places we can SEND notes to).
@@ -209,6 +244,12 @@ void VkConfigDialog::loadSettings()
     auto& s = VkSettings::instance();
     m_soundFontEdit->setText(s.soundFontPath());
 
+    if (m_languageCombo)
+    {
+        int langIdx = m_languageCombo->findData(s.language());
+        if (langIdx >= 0) m_languageCombo->setCurrentIndex(langIdx);
+    }
+
     // Match by port name (empty = built-in synth / none)
     const QString outName = s.midiOutputPortName();
     for (int i = 0; i < m_midiOutputCombo->count(); ++i)
@@ -249,6 +290,8 @@ void VkConfigDialog::loadSettings()
 void VkConfigDialog::saveSettings()
 {
     auto& s = VkSettings::instance();
+    if (m_languageCombo)
+        s.setLanguage(m_languageCombo->currentData().toString());
     s.setMidiOutputPortName(m_midiOutputCombo->currentData().toString());
     s.setMidiInputPortName(m_midiInputCombo->currentData().toString());
     s.setSoundFontPath(m_soundFontEdit->text().trimmed());
@@ -266,6 +309,13 @@ void VkConfigDialog::onBrowseSoundFont()
 
 void VkConfigDialog::onApply()
 {
+    const QString oldLang = VkSettings::instance().language();
     saveSettings();
+
+    // If the language changed, swap the translator so the UI updates immediately
+    const QString newLang = VkSettings::instance().language();
+    if (newLang != oldLang)
+        loadVkTranslation(newLang);
+
     accept();
 }

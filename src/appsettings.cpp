@@ -30,6 +30,7 @@ void AppSettings::load()
 
     settings.beginGroup("");
     m_theme = settings.value("theme", "dark").toString();
+    m_language = settings.value("language").toString();
     settings.endGroup();
     m_midiDeviceIndex = settings.value("MIDI/deviceIndex", 0).toInt();
     m_soundFontPath = settings.value("MIDI/soundFontPath").toString();
@@ -56,7 +57,9 @@ void AppSettings::save()
 
     out << "[General]\n";
     out << "; GUI theme: dark or light\n";
-    out << "theme=" << m_theme << "\n\n";
+    out << "theme=" << m_theme << "\n";
+    out << "; Language (empty = system default)\n";
+    out << "language=" << m_language << "\n\n";
 
     out << "[MIDI]\n";
     out << "; Default MIDI input device index (-1 for no device)\n";

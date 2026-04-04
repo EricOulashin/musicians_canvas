@@ -28,6 +28,7 @@ fonctionnalités couramment présentes dans les stations de travail audio numér
 - Paramètres basés sur le projet avec possibilité de remplacement par projet
 - Mixage vers WAV ou FLAC
 - Thèmes sombre et clair
+- Localisé en plusieurs langues (English, Deutsch, Español, Français, Japanese, Português, Chinese et Pirate)
 - Application compagnon Virtual MIDI Keyboard
 
 ## Premiers pas
@@ -249,6 +250,15 @@ globales qui s'appliquent à tous les projets :
 
 - **Thème** : Choisissez entre les thèmes sombre (Dark) et clair (Light).
 
+#### Onglet Language
+
+- **Langue** : Choisissez la langue d'affichage de l'application. La valeur par défaut
+  est « System Default », qui utilise le paramètre de langue du système d'exploitation.
+  Les langues disponibles sont English, Deutsch (German), Español (Spanish), Français
+  (French), Japanese, Português (Brazilian Portuguese), Chinese (Traditional), Chinese
+  (Simplified) et Pirate. L'interface se met à jour immédiatement lorsque vous changez
+  la langue.
+
 #### Onglet MIDI
 
 - **Périphérique de sortie MIDI** : Sélectionnez le synthétiseur FluidSynth intégré ou
@@ -454,6 +464,11 @@ configurer les périphériques MIDI et audio :
 
 - **Périphérique de sortie audio** : Sélectionnez le périphérique de sortie pour le
   synthétiseur intégré.
+
+#### Onglet Language
+
+- **Langue** : Choisissez la langue d'affichage. Les mêmes langues que Musician's Canvas
+  sont disponibles. L'interface se met à jour immédiatement lorsque vous changez la langue.
 
 ### Raccourcis de Virtual MIDI Keyboard
 

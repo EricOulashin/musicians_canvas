@@ -36,6 +36,7 @@ public:
     void clearRecordingLevel();            // restore normal waveform display
     void setRecordingStatus(const QString& status);  // overlay text on waveform area
     void clearRecordingStatus();                     // hide overlay text
+    void retranslateUi();
 
 signals:
     void configurationRequested(TrackWidget* widget);

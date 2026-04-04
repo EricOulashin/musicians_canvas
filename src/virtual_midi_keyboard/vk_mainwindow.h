@@ -3,7 +3,10 @@
 
 #include <QMainWindow>
 
+class QEvent;
 class QKeyEvent;
+class QLabel;
+class QPushButton;
 class QVBoxLayout;
 class VkMidiIo;
 class VkPianoKeyboard;
@@ -20,6 +23,7 @@ public:
 protected:
     void keyPressEvent(QKeyEvent* event) override;
     void keyReleaseEvent(QKeyEvent* event) override;
+    void changeEvent(QEvent* event) override;
 
 private slots:
     void onClose();
@@ -40,6 +44,7 @@ private slots:
 
 private:
     void setupMenuBar();
+    void retranslateUi();
     void setupToolbar(QVBoxLayout* mainLayout);
     void setupPiano(QVBoxLayout* mainLayout);
     void applyMidiOutput();
@@ -51,6 +56,12 @@ private:
     QLineEdit* m_chorusEdit = nullptr;
     QWidget*   m_soundGroup = nullptr;
     QComboBox* m_soundCombo = nullptr;
+    // Labels and buttons that need retranslation
+    QLabel* m_volumeLabel = nullptr;
+    QLabel* m_octaveLabel = nullptr;
+    QLabel* m_chorusLabel = nullptr;
+    QLabel* m_soundLabel = nullptr;
+    QPushButton* m_chorusApplyBtn = nullptr;
     int m_chorusValue = 64;
     int m_octave = 0;
 };

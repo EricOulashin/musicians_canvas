@@ -10,6 +10,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
 find_package(Qt6 COMPONENTS Multimedia QUIET)
+find_package(Qt6 COMPONENTS LinguistTools QUIET)
 set(QT_MULTIMEDIA_FOUND ${Qt6Multimedia_FOUND})
 
 find_library(FLUIDSYNTH_LIBRARY NAMES fluidsynth libfluidsynth fluidsynth-3 libfluidsynth-3 fluidsynth.so.3)
@@ -78,7 +79,78 @@ set(SOURCES
     ${AUDIO_MIXER_SOURCES}
 )
 
-add_executable(musicians_canvas ${SOURCES})
+# ── Translations (Qt Linguist) ────────────────────────────────────────
+set(MC_LANGS de es fr ja pt_BR zh_TW zh_CN pirate)
+
+set(MC_TS_FILES "")
+set(VK_TS_FILES "")
+foreach(lang ${MC_LANGS})
+    list(APPEND MC_TS_FILES "${CMAKE_CURRENT_SOURCE_DIR}/translations/musicians_canvas_${lang}.ts")
+    list(APPEND VK_TS_FILES "${CMAKE_CURRENT_SOURCE_DIR}/translations/virtual_midi_keyboard_${lang}.ts")
+endforeach()
+
+set(MC_QM_FILES "")
+set(VK_QM_FILES "")
+
+if(Qt6LinguistTools_FOUND)
+    qt_add_translation(MC_QM_FILES ${MC_TS_FILES})
+    qt_add_translation(VK_QM_FILES ${VK_TS_FILES})
+else()
+    # Fallback: invoke lrelease directly if available
+    find_program(LRELEASE_EXECUTABLE NAMES lrelease-qt6 lrelease
+                 HINTS "${Qt6Core_DIR}/../../../bin" "${Qt6Core_DIR}/../../libexec"
+                       "/usr/lib/qt6/bin" "/usr/bin")
+    if(LRELEASE_EXECUTABLE)
+        message(STATUS "Using lrelease directly: ${LRELEASE_EXECUTABLE}")
+        foreach(ts ${MC_TS_FILES} ${VK_TS_FILES})
+            get_filename_component(ts_name "${ts}" NAME_WE)
+            set(qm "${CMAKE_CURRENT_BINARY_DIR}/${ts_name}.qm")
+            add_custom_command(OUTPUT "${qm}"
+                COMMAND "${LRELEASE_EXECUTABLE}" "${ts}" -qm "${qm}"
+                DEPENDS "${ts}" COMMENT "Compiling ${ts_name}.qm"
+                VERBATIM)
+            if(ts_name MATCHES "^musicians_canvas_")
+                list(APPEND MC_QM_FILES "${qm}")
+            else()
+                list(APPEND VK_QM_FILES "${qm}")
+            endif()
+        endforeach()
+    else()
+        message(STATUS "lrelease not found — translations will not be compiled")
+    endif()
+endif()
+
+# Generate a .qrc file embedding all .qm files so they are available via :/translations/
+set(MC_TR_QRC "${CMAKE_CURRENT_BINARY_DIR}/musicians_canvas_translations.qrc")
+file(WRITE "${MC_TR_QRC}" "<!DOCTYPE RCC>\n<RCC version=\"1.0\">\n  <qresource prefix=\"/translations\">\n")
+foreach(qm ${MC_QM_FILES})
+    get_filename_component(qm_name "${qm}" NAME)
+    file(APPEND "${MC_TR_QRC}" "    <file alias=\"${qm_name}\">${qm}</file>\n")
+endforeach()
+file(APPEND "${MC_TR_QRC}" "  </qresource>\n</RCC>\n")
+
+set(VK_TR_QRC "${CMAKE_CURRENT_BINARY_DIR}/virtual_midi_keyboard_translations.qrc")
+file(WRITE "${VK_TR_QRC}" "<!DOCTYPE RCC>\n<RCC version=\"1.0\">\n  <qresource prefix=\"/translations\">\n")
+foreach(qm ${VK_QM_FILES})
+    get_filename_component(qm_name "${qm}" NAME)
+    file(APPEND "${VK_TR_QRC}" "    <file alias=\"${qm_name}\">${qm}</file>\n")
+endforeach()
+file(APPEND "${VK_TR_QRC}" "  </qresource>\n</RCC>\n")
+
+# Also copy .qm files to build/translations/ for external loading
+if(MC_QM_FILES OR VK_QM_FILES)
+    file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/translations")
+    foreach(qm ${MC_QM_FILES} ${VK_QM_FILES})
+        get_filename_component(qm_name "${qm}" NAME)
+        add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/translations/${qm_name}"
+            COMMAND ${CMAKE_COMMAND} -E copy "${qm}" "${CMAKE_CURRENT_BINARY_DIR}/translations/${qm_name}"
+            DEPENDS "${qm}" COMMENT "Copying ${qm_name}")
+        list(APPEND MC_QM_COPY_TARGETS "${CMAKE_CURRENT_BINARY_DIR}/translations/${qm_name}")
+    endforeach()
+    add_custom_target(copy_translations ALL DEPENDS ${MC_QM_COPY_TARGETS})
+endif()
+
+add_executable(musicians_canvas ${SOURCES} ${MC_TR_QRC} ${MC_QM_FILES})
 if(WIN32)
     set_target_properties(musicians_canvas PROPERTIES WIN32_EXECUTABLE TRUE)
 endif()
@@ -151,7 +223,7 @@ set(VK_SOURCES
     src/virtual_midi_keyboard/vk_settings.cpp
     src/virtual_midi_keyboard/vk_settings.h
 )
-add_executable(virtual_midi_keyboard ${VK_SOURCES})
+add_executable(virtual_midi_keyboard ${VK_SOURCES} ${VK_TR_QRC} ${VK_QM_FILES})
 if(WIN32)
     set_target_properties(virtual_midi_keyboard PROPERTIES WIN32_EXECUTABLE TRUE)
 endif()

@@ -18,6 +18,7 @@ class QWidget;
 class QVBoxLayout;
 class QPushButton;
 class QLineEdit;
+class QLabel;
 class QTimer;
 class TrackWidget;
 class SettingsDialog;
@@ -58,6 +59,8 @@ private slots:
 private:
     void setupMenuBar();
     void setupUi();
+    void retranslateUi();
+    void changeEvent(QEvent* event) override;
     void loadProjectFromFile(const QString& path);
     TrackData createNewTrack();
     void updatePlayRecordButton();
@@ -85,6 +88,9 @@ private:
     QVBoxLayout* m_tracksLayout = nullptr;
     QPushButton* m_addTrackButton = nullptr;
     QPushButton* m_playRecordButton = nullptr;
+    QPushButton* m_browseButton = nullptr;
+    QPushButton* m_clearTracksButton = nullptr;
+    QLabel* m_projectLocationLabel = nullptr;
     QLineEdit* m_projectLocationEdit = nullptr;
     QVector<TrackWidget*> m_trackWidgets;
     int m_nextTrackId = 1;

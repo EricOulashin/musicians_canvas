@@ -19,6 +19,26 @@
 #include <QIntValidator>
 #include <QApplication>
 #include <QKeyEvent>
+#include <QEvent>
+
+void VkMainWindow::changeEvent(QEvent* event)
+{
+    if (event->type() == QEvent::LanguageChange)
+        retranslateUi();
+    QMainWindow::changeEvent(event);
+}
+
+void VkMainWindow::retranslateUi()
+{
+    setWindowTitle(tr("Virtual MIDI Keyboard"));
+    menuBar()->clear();
+    setupMenuBar();
+    if (m_volumeLabel) m_volumeLabel->setText(tr("Volume"));
+    if (m_octaveLabel) m_octaveLabel->setText(tr("Octave"));
+    if (m_chorusLabel) m_chorusLabel->setText(tr("Chorus"));
+    if (m_chorusApplyBtn) m_chorusApplyBtn->setText(tr("Apply"));
+    if (m_soundLabel) m_soundLabel->setText(tr("Virtual MIDI sound:"));
+}
 
 VkMainWindow::VkMainWindow(QWidget* parent)
     : QMainWindow(parent)
@@ -81,7 +101,8 @@ void VkMainWindow::setupToolbar(QVBoxLayout* mainLayout)
     volumeCol->setSpacing(1);
     volumeCol->setContentsMargins(0, 0, 0, 0);
     volumeCol->addWidget(m_volumeSpin);
-    volumeCol->addWidget(new QLabel(tr("Volume")));
+    m_volumeLabel = new QLabel(tr("Volume"));
+    volumeCol->addWidget(m_volumeLabel);
     toolbarLayout->addLayout(volumeCol);
 
     auto* octaveDown = new QPushButton(tr("<"));
@@ -108,7 +129,8 @@ void VkMainWindow::setupToolbar(QVBoxLayout* mainLayout)
     octaveRow->addWidget(m_octaveSpin);
     octaveRow->addWidget(octaveUp);
     octaveCol->addLayout(octaveRow);
-    octaveCol->addWidget(new QLabel(tr("Octave")));
+    m_octaveLabel = new QLabel(tr("Octave"));
+    octaveCol->addWidget(m_octaveLabel);
     toolbarLayout->addLayout(octaveCol);
 
     auto* knob = new VkKnob(this);
@@ -146,18 +168,20 @@ void VkMainWindow::setupToolbar(QVBoxLayout* mainLayout)
     chorusTopRow->addWidget(knob);
     chorusTopRow->addWidget(m_chorusEdit);
     chorusCol->addLayout(chorusTopRow);
-    chorusCol->addWidget(new QLabel(tr("Chorus")));
-    auto* applyBtn = new QPushButton(tr("Apply"));
-    applyBtn->setFocusPolicy(Qt::NoFocus);
-    connect(applyBtn, &QPushButton::clicked, this, &VkMainWindow::onChorusApply);
-    chorusCol->addWidget(applyBtn);
+    m_chorusLabel = new QLabel(tr("Chorus"));
+    chorusCol->addWidget(m_chorusLabel);
+    m_chorusApplyBtn = new QPushButton(tr("Apply"));
+    m_chorusApplyBtn->setFocusPolicy(Qt::NoFocus);
+    connect(m_chorusApplyBtn, &QPushButton::clicked, this, &VkMainWindow::onChorusApply);
+    chorusCol->addWidget(m_chorusApplyBtn);
     toolbarLayout->addLayout(chorusCol);
 
     m_soundGroup = new QWidget();
     auto* soundLayout = new QVBoxLayout(m_soundGroup);
     soundLayout->setSpacing(1);
     soundLayout->setContentsMargins(4, 0, 4, 0);
-    soundLayout->addWidget(new QLabel(tr("Virtual MIDI sound:")));
+    m_soundLabel = new QLabel(tr("Virtual MIDI sound:"));
+    soundLayout->addWidget(m_soundLabel);
     m_soundCombo = new QComboBox();
     m_soundCombo->setMinimumWidth(200);
     m_soundCombo->setFocusPolicy(Qt::ClickFocus);

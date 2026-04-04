@@ -223,6 +223,15 @@ void TrackWidget::clearRecordingStatus()
     if (m_waveformWidget) m_waveformWidget->clearStatusText();
 }
 
+void TrackWidget::retranslateUi()
+{
+    if (m_configButton) m_configButton->setText(tr("Options"));
+    if (m_removeBtn) m_removeBtn->setToolTip(tr("Remove track"));
+    if (m_enabledCheck) m_enabledCheck->setText(tr("Enable"));
+    if (m_armCheck) m_armCheck->setText(tr("Arm"));
+    updateTypeIcon();
+}
+
 void TrackWidget::updateTypeIcon()
 {
     if (!m_typeIconLabel) return;

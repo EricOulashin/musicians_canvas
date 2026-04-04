@@ -23,11 +23,13 @@ private:
     void setupGeneralTab();
     void setupMidiTab();
     void setupAudioTab();
+    void setupLanguageTab();
     void loadSettings();
     void saveSettings();
 
     QTabWidget* m_tabWidget = nullptr;
     QComboBox* m_themeCombo = nullptr;
+    QComboBox* m_languageCombo = nullptr;
     QComboBox* m_midiDeviceCombo = nullptr;
     QLineEdit* m_soundFontEdit = nullptr;
     QComboBox* m_audioInputCombo = nullptr;

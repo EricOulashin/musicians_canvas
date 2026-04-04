@@ -1,25 +1,85 @@
 #include "vk_mainwindow.h"
+#include "vk_settings.h"
 #include <QApplication>
+#include <QTranslator>
+#include <QLocale>
+#include <QLibraryInfo>
+#include <QDir>
 
 #ifdef HAVE_PIPEWIRE
 #include <pipewire/pipewire.h>
 #endif
 
+static QTranslator* s_vkTranslator = nullptr;
+static QTranslator* s_vkQtTranslator = nullptr;
+
+void loadVkTranslation(const QString& lang)
+{
+    auto* app = qApp;
+    if (s_vkTranslator)
+    {
+        app->removeTranslator(s_vkTranslator);
+        delete s_vkTranslator;
+        s_vkTranslator = nullptr;
+    }
+    if (s_vkQtTranslator)
+    {
+        app->removeTranslator(s_vkQtTranslator);
+        delete s_vkQtTranslator;
+        s_vkQtTranslator = nullptr;
+    }
+
+    QString effectiveLang = lang;
+    if (effectiveLang.isEmpty())
+        effectiveLang = QLocale::system().name();
+
+    // Load Qt's built-in translations (Yes/No/Cancel, etc.)
+    auto* qtTr = new QTranslator(app);
+    if (qtTr->load(QStringLiteral("qtbase_") + effectiveLang,
+                   QLibraryInfo::path(QLibraryInfo::TranslationsPath))
+        || qtTr->load(QStringLiteral("qtbase_") + effectiveLang.left(2),
+                      QLibraryInfo::path(QLibraryInfo::TranslationsPath)))
+    {
+        app->installTranslator(qtTr);
+        s_vkQtTranslator = qtTr;
+    }
+    else
+    {
+        delete qtTr;
+    }
+
+    // Load app-specific translations
+    auto* translator = new QTranslator(app);
+    const QString baseName = QStringLiteral("virtual_midi_keyboard_") + effectiveLang;
+    const QString trDir = QCoreApplication::applicationDirPath()
+                          + QDir::separator() + QStringLiteral("translations");
+    if (translator->load(baseName, trDir)
+        || translator->load(baseName, QStringLiteral(":/translations"))
+        || translator->load(QStringLiteral("virtual_midi_keyboard_") + effectiveLang.left(2), trDir)
+        || translator->load(QStringLiteral("virtual_midi_keyboard_") + effectiveLang.left(2),
+                            QStringLiteral(":/translations")))
+    {
+        app->installTranslator(translator);
+        s_vkTranslator = translator;
+    }
+    else
+    {
+        delete translator;
+    }
+}
+
 int main(int argc, char* argv[])
 {
     // Initialise PipeWire before any FluidSynth objects are created.
-    // FluidSynth's native PipeWire audio driver calls pw_loop_new() internally,
-    // which requires pw_init() to have been called first so that PipeWire can
-    // locate its SPA plugins.  Without this call the driver fails with:
-    //   "load lib: plugin directory undefined, set SPA_PLUGIN_DIR"
-    //   "Failed to allocate PipeWire loop. Have you called pw_init() ?"
-    // and FluidSynth falls back to PulseAudio or produces no audio at all.
 #ifdef HAVE_PIPEWIRE
     pw_init(&argc, &argv);
 #endif
 
     QApplication app(argc, argv);
     app.setApplicationName("Virtual MIDI Keyboard");
+
+    // Load translation based on saved language setting or system locale
+    loadVkTranslation(VkSettings::instance().language());
 
     VkMainWindow window;
     window.show();

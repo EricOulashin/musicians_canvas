@@ -23,6 +23,7 @@ Musician's Canvas está diseñado para ser fácil de usar y al mismo tiempo ofre
 - Configuración basada en proyectos con ajustes específicos por proyecto
 - Mezcla a WAV o FLAC
 - Temas oscuro y claro
+- Localizado en múltiples idiomas (English, Deutsch, Español, Français, Japanese, Português, Chinese y Pirate)
 - Aplicación complementaria Virtual MIDI Keyboard
 
 ## Primeros Pasos
@@ -175,6 +176,14 @@ Use **Settings > Configuration** (Ctrl+,) para establecer los valores predetermi
 #### Pestaña General
 
 - **Tema**: Elija entre los temas Oscuro y Claro.
+
+#### Pestaña Language
+
+- **Idioma**: Elija el idioma de la interfaz de la aplicación. El valor predeterminado es
+  "System Default", que utiliza la configuración de idioma del sistema operativo. Los
+  idiomas disponibles son English, Deutsch (German), Español (Spanish), Français (French),
+  Japanese, Português (Brazilian Portuguese), Chinese (Traditional), Chinese (Simplified)
+  y Pirate. La interfaz se actualiza inmediatamente al cambiar el idioma.
 
 #### Pestaña MIDI
 
@@ -347,6 +356,11 @@ Abra el diálogo de Configuración (**Settings > Configuration**, Ctrl+,) para c
 #### Pestaña Audio
 
 - **Dispositivo de Salida de Audio**: Seleccione el dispositivo de salida para el sintetizador integrado.
+
+#### Pestaña Language
+
+- **Idioma**: Elija el idioma de la interfaz. Los mismos idiomas que Musician's Canvas
+  están disponibles. La interfaz se actualiza inmediatamente al cambiar el idioma.
 
 ### Atajos de Virtual MIDI Keyboard
 

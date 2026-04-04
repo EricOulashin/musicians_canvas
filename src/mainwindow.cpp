@@ -23,6 +23,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QApplication>
+#include <QEvent>
 #include <QCoreApplication>
 #include <QFrame>
 #include <QProcess>
@@ -156,6 +157,34 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 
 MainWindow::~MainWindow() = default;
 
+void MainWindow::changeEvent(QEvent* event)
+{
+    if (event->type() == QEvent::LanguageChange)
+        retranslateUi();
+    QMainWindow::changeEvent(event);
+}
+
+void MainWindow::retranslateUi()
+{
+    setWindowTitle(tr("Musician's Canvas"));
+    // Rebuild menus with new translations
+    menuBar()->clear();
+    setupMenuBar();
+    // Update toolbar and label texts
+    if (m_projectLocationLabel)
+        m_projectLocationLabel->setText(tr("Project location:"));
+    if (m_browseButton)
+        m_browseButton->setText(tr("Browse..."));
+    if (m_addTrackButton)
+        m_addTrackButton->setText(tr("+ Add Track"));
+    if (m_clearTracksButton)
+        m_clearTracksButton->setText(tr("Clear Tracks"));
+    updatePlayRecordButton();
+    // Update track widgets
+    for (auto* tw : m_trackWidgets)
+        tw->retranslateUi();
+}
+
 void MainWindow::setupMenuBar()
 {
     auto* menuBar = this->menuBar();
@@ -204,7 +233,8 @@ void MainWindow::setupUi()
     // Project location row
     auto* projectRow = new QHBoxLayout();
     projectRow->setSpacing(6);
-    projectRow->addWidget(new QLabel(tr("Project location:")));
+    m_projectLocationLabel = new QLabel(tr("Project location:"));
+    projectRow->addWidget(m_projectLocationLabel);
     m_projectLocationEdit = new QLineEdit();
     m_projectLocationEdit->setPlaceholderText(tr("Select a project directory..."));
     m_projectLocationEdit->setText(AppSettings::instance().projectLocation());
@@ -220,10 +250,10 @@ void MainWindow::setupUi()
         }
     });
     projectRow->addWidget(m_projectLocationEdit, 1);
-    auto* browseBtn = new QPushButton(tr("Browse..."));
-    browseBtn->setFixedHeight(28);
-    connect(browseBtn, &QPushButton::clicked, this, &MainWindow::onBrowseProjectLocation);
-    projectRow->addWidget(browseBtn);
+    m_browseButton = new QPushButton(tr("Browse..."));
+    m_browseButton->setFixedHeight(28);
+    connect(m_browseButton, &QPushButton::clicked, this, &MainWindow::onBrowseProjectLocation);
+    projectRow->addWidget(m_browseButton);
     mainLayout->addLayout(projectRow);
 
     // Toolbar row: play/record button + add track button
@@ -244,14 +274,14 @@ void MainWindow::setupUi()
     connect(m_addTrackButton, &QPushButton::clicked, this, &MainWindow::onAddTrack);
     toolbarLayout->addWidget(m_addTrackButton);
 
-    auto* clearTracksBtn = new QPushButton(tr("Clear Tracks"));
-    clearTracksBtn->setFixedHeight(36);
-    clearTracksBtn->setStyleSheet(
+    m_clearTracksButton = new QPushButton(tr("Clear Tracks"));
+    m_clearTracksButton->setFixedHeight(36);
+    m_clearTracksButton->setStyleSheet(
         "QPushButton { background-color: #e8521e; color: white; font-weight: bold; }"
         "QPushButton:hover { background-color: #f07040; }"
         "QPushButton:pressed { background-color: #c03010; }");
-    connect(clearTracksBtn, &QPushButton::clicked, this, &MainWindow::onClearTracks);
-    toolbarLayout->addWidget(clearTracksBtn);
+    connect(m_clearTracksButton, &QPushButton::clicked, this, &MainWindow::onClearTracks);
+    toolbarLayout->addWidget(m_clearTracksButton);
 
     toolbarLayout->addStretch();
     mainLayout->addLayout(toolbarLayout);

@@ -55,6 +55,7 @@ jobs:
             libflac-dev \
             libpipewire-0.3-dev \
             portaudio19-dev \
+            qt6-l10n-tools \
             pkg-config
           pip3 install --break-system-packages markdown weasyprint 2>/dev/null || \
           pip3 install markdown weasyprint || true
@@ -112,6 +113,13 @@ jobs:
           # Copy executables
           cp "${ROOT}/musicians_canvas/build/musicians_canvas" "${ARTIFACT_DIR}/"
           cp "${ROOT}/musicians_canvas/build/virtual_midi_keyboard" "${ARTIFACT_DIR}/"
+
+          # Copy compiled translation files (.qm)
+          BUILD_TR="${ROOT}/musicians_canvas/build/translations"
+          if [ -d "${BUILD_TR}" ]; then
+            mkdir -p "${ARTIFACT_DIR}/translations"
+            cp "${BUILD_TR}"/*.qm "${ARTIFACT_DIR}/translations/" 2>/dev/null || true
+          fi
 
           # Copy generated user manual (HTML and PDF)
           DOCS_DIR="${ROOT}/musicians_canvas/docs"
@@ -229,6 +237,13 @@ jobs:
           # Copy executables
           cp "${ROOT}/musicians_canvas/build/musicians_canvas.exe" "${ARTIFACT_DIR}/"
           cp "${ROOT}/musicians_canvas/build/virtual_midi_keyboard.exe" "${ARTIFACT_DIR}/"
+
+          # Copy compiled translation files (.qm)
+          BUILD_TR="${ROOT}/musicians_canvas/build/translations"
+          if [ -d "${BUILD_TR}" ]; then
+            mkdir -p "${ARTIFACT_DIR}/translations"
+            cp "${BUILD_TR}"/*.qm "${ARTIFACT_DIR}/translations/" 2>/dev/null || true
+          fi
 
           # Copy generated user manual (HTML and PDF)
           DOCS_DIR="${ROOT}/musicians_canvas/docs"

@@ -25,10 +25,12 @@ private slots:
 private:
     void setupMidiTab();
     void setupAudioTab();
+    void setupLanguageTab();
     void loadSettings();
     void saveSettings();
 
     QTabWidget* m_tabWidget = nullptr;
+    QComboBox* m_languageCombo = nullptr;
     QComboBox* m_midiOutputCombo = nullptr;
     QComboBox* m_midiInputCombo = nullptr;
     QLineEdit* m_soundFontEdit = nullptr;

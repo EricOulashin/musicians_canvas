@@ -28,6 +28,7 @@ häufig in digitalen Audio-Workstations (DAWs) zu finden sind:
 - Projektbasierte Einstellungen mit projektspezifischen Überschreibungen
 - Abmischen in WAV oder FLAC
 - Dunkles und helles Design
+- Lokalisiert in mehreren Sprachen (English, Deutsch, Español, Français, Japanese, Português, Chinese und Pirate)
 - Begleitanwendung Virtual MIDI Keyboard
 
 ## Erste Schritte
@@ -244,6 +245,14 @@ die für alle Projekte gelten:
 
 - **Theme**: Wählen Sie zwischen dunklem und hellem Design.
 
+#### Registerkarte "Language"
+
+- **Sprache**: Wählen Sie die Anzeigesprache der Anwendung. Die Standardeinstellung ist
+  „Systemstandard", die die Spracheinstellung des Betriebssystems verwendet. Verfügbare
+  Sprachen sind English, Deutsch (German), Español (Spanish), Français (French), Japanese,
+  Português (Brazilian Portuguese), Chinese (Traditional), Chinese (Simplified) und Pirate.
+  Die Benutzeroberfläche wird sofort aktualisiert, wenn Sie die Sprache ändern.
+
 #### Registerkarte "MIDI"
 
 - **MIDI Output Device**: Wählen Sie den integrierten FluidSynth-Synthesizer oder ein
@@ -444,6 +453,12 @@ Audiogeräte einzurichten:
 #### Registerkarte "Audio"
 
 - **Audio Output Device**: Wählen Sie das Ausgabegerät für den integrierten Synthesizer.
+
+#### Registerkarte "Language"
+
+- **Sprache**: Wählen Sie die Anzeigesprache. Die gleichen Sprachen wie bei Musician's
+  Canvas stehen zur Verfügung. Die Benutzeroberfläche wird sofort aktualisiert, wenn Sie
+  die Sprache ändern.
 
 ### Virtual MIDI Keyboard Tastenkürzel
 
