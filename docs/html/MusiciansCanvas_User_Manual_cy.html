@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="cy">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Llawlyfr Defnyddiwr Musician&#8217;s Canvas</title>
+<style>
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px 40px;
+    color: #24292e; background-color: #fff;
+}
+h1 { border-bottom: 2px solid #0366d6; padding-bottom: 0.3em; color: #0366d6; }
+h2 { border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; margin-top: 2em; }
+h3 { color: #0366d6; margin-top: 1.5em; }
+h4 { color: #586069; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid #dfe2e5; padding: 8px 12px; text-align: left; }
+th { background-color: #f6f8fa; font-weight: 600; }
+tr:nth-child(even) { background-color: #f6f8fa; }
+code { background-color: #f6f8fa; padding: 0.2em 0.4em; border-radius: 3px; font-size: 0.9em;
+       font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; }
+pre { background-color: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+strong { color: #24292e; }
+a { color: #0366d6; text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6px; margin: 1em 0; }
+.toc { background-color: #f6f8fa; border: 1px solid #dfe2e5; border-radius: 6px;
+       padding: 15px 20px; margin: 1em 0 2em 0; }
+.toc h2 { margin-top: 0; border-bottom: none; font-size: 1.1em; }
+.toc ul { list-style: none; padding-left: 1.2em; }
+.toc > ul { padding-left: 0; }
+.toc li { margin: 0.3em 0; }
+.title-block { text-align: center; margin-bottom: 2em; padding-bottom: 1em;
+               border-bottom: 2px solid #0366d6; }
+@media print {
+    body { max-width: none; padding: 0; }
+    h1, h2, h3 { page-break-after: avoid; }
+    table, pre, img { page-break-inside: avoid; }
+    img { max-width: 80%; }
+}
+</style>
+</head>
+<body>
+<div class="title-block">
+<h1>Llawlyfr Defnyddiwr Musician&#8217;s Canvas</h1>
+<p>Cymhwysiad Recordio Cerddoriaeth Aml-Drac &mdash; Version 0.1.0</p>
+<p>2026-04-05</p>
+</div>
+<div class="toc">
+<h2>Tabl Cynnwys</h2>
+<div class="toc">
+<ul>
+<li><a href="#llawlyfr-defnyddiwr-musicians-canvas">Llawlyfr Defnyddiwr Musician's Canvas</a><ul>
+<li><a href="#cyflwyniad">Cyflwyniad</a></li>
+<li><a href="#dechrau-arni">Dechrau Arni</a><ul>
+<li><a href="#lansior-cymhwysiad">Lansio'r Cymhwysiad</a></li>
+<li><a href="#sefydlu-prosiect">Sefydlu Prosiect</a></li>
+<li><a href="#cadw-ac-agor-prosiectau">Cadw ac Agor Prosiectau</a></li>
+</ul>
+</li>
+<li><a href="#rheoli-traciau">Rheoli Traciau</a><ul>
+<li><a href="#ychwanegu-a-dileu-traciau">Ychwanegu a Dileu Traciau</a></li>
+<li><a href="#ffurfweddu-math-trac">Ffurfweddu Math Trac</a></li>
+<li><a href="#rheolaethau-trac">Rheolaethau Trac</a></li>
+<li><a href="#awtomatig-arfogi">Awtomatig-Arfogi</a></li>
+<li><a href="#delweddu-trac">Delweddu Trac</a></li>
+</ul>
+</li>
+<li><a href="#recordio">Recordio</a><ul>
+<li><a href="#recordio-sain">Recordio Sain</a></li>
+<li><a href="#recordio-midi">Recordio MIDI</a></li>
+</ul>
+</li>
+<li><a href="#chwaraen-ol">Chwarae'n Ôl</a></li>
+<li><a href="#cymysgu-i-ffeil">Cymysgu i Ffeil</a></li>
+<li><a href="#gosodiadau">Gosodiadau</a><ul>
+<li><a href="#gosodiadau-byd-eang">Gosodiadau Byd-eang</a></li>
+<li><a href="#gosodiadau-prosiect">Gosodiadau Prosiect</a></li>
+</ul>
+</li>
+<li><a href="#dewislenni">Dewislenni</a><ul>
+<li><a href="#dewislen-file">Dewislen File</a></li>
+<li><a href="#dewislen-project">Dewislen Project</a></li>
+<li><a href="#dewislen-settings">Dewislen Settings</a></li>
+<li><a href="#dewislen-tools">Dewislen Tools</a></li>
+</ul>
+</li>
+<li><a href="#llwybrau-byr-bysellfwrdd">Llwybrau Byr Bysellfwrdd</a></li>
+<li><a href="#virtual-midi-keyboard">Virtual MIDI Keyboard</a><ul>
+<li><a href="#nodweddion">Nodweddion</a></li>
+<li><a href="#rheolaethau-bar-offer">Rheolaethau Bar Offer</a></li>
+<li><a href="#chwarae-gyda-bysellfwrdd-y-cyfrifiadur">Chwarae gyda Bysellfwrdd y Cyfrifiadur</a></li>
+<li><a href="#ffurfweddiad">Ffurfweddiad</a></li>
+<li><a href="#llwybrau-byr-virtual-midi-keyboard">Llwybrau Byr Virtual MIDI Keyboard</a></li>
+</ul>
+</li>
+<li><a href="#datrys-problemau">Datrys Problemau</a><ul>
+<li><a href="#dim-allbwn-sain">Dim Allbwn Sain</a></li>
+<li><a href="#mae-traciau-midi-yn-dawel">Mae Traciau MIDI yn Dawel</a></li>
+<li><a href="#maer-recordiad-yn-swnion-ystumedig-neu-maer-draw-yn-anghywir">Mae'r Recordiad yn Swnio'n Ystumedig neu Mae'r Draw yn Anghywir</a></li>
+<li><a href="#nid-oes-sain-gan-virtual-midi-keyboard">Nid oes Sain gan Virtual MIDI Keyboard</a></li>
+</ul>
+</li>
+<li><a href="#adeiladu-or-cod-ffynhonnell">Adeiladu o'r Cod Ffynhonnell</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+<h1 id="llawlyfr-defnyddiwr-musicians-canvas">Llawlyfr Defnyddiwr Musician's Canvas</h1>
+<h2 id="cyflwyniad">Cyflwyniad</h2>
+<p>Mae Musician's Canvas yn gymhwysiad recordio cerddoriaeth aml-drac ar gyfer cyfrifiaduron bwrdd gwaith. Mae'n cefnogi recordio sain o feicroffonau a dyfeisiau line-in, recordio MIDI o fysellfyrddau a rheolyddion, a chymysgu'r holl draciau i ffeil WAV neu FLAC sengl. Mae cymhwysiad cydymaith, Virtual MIDI Keyboard, yn darparu bysellfwrdd piano meddalwedd ar gyfer anfon nodau MIDI.</p>
+<p>Mae Musician's Canvas wedi'i ddylunio ar gyfer hawster defnydd tra'n darparu nodweddion a geir yn gyffredin mewn gorsafoedd gwaith sain digidol (DAWs):</p>
+<ul>
+<li>Recordio sain a MIDI aml-drac</li>
+<li>Recordio overdub gyda chwarae'n ôl wedi'i gydamseru o draciau presennol</li>
+<li>Synth MIDI FluidSynth adeiledig gyda chefnogaeth SoundFont</li>
+<li>Trawsnewid cyfradd samplu o ansawdd uchel ar gyfer recordio ar unrhyw gyfradd samplu prosiect</li>
+<li>Canfod dyfais mono/stereo yn awtomatig</li>
+<li>Gosodiadau sy'n seiliedig ar brosiect gyda gorosgyniadau fesul prosiect</li>
+<li>Cymysgu i WAV neu FLAC</li>
+<li>Themâu tywyll a golau</li>
+<li>Wedi'i leoleiddio mewn sawl iaith (Saesneg, Almaeneg, Sbaeneg, Ffrangeg, Siapanëeg, Portiwgaleg, Tsieinëeg, a Môr-ladron)</li>
+<li>Cymhwysiad cydymaith Virtual MIDI Keyboard</li>
+</ul>
+<h2 id="dechrau-arni">Dechrau Arni</h2>
+<h3 id="lansior-cymhwysiad">Lansio'r Cymhwysiad</h3>
+<p>Rhedwch y ffeil weithredadwy <code>musicians_canvas</code> o'r cyfeiriadur adeiladu neu eich lleoliad gosod:</p>
+<pre><code>./musicians_canvas
+</code></pre>
+<p>Ar y lansiad cyntaf, mae'r cymhwysiad yn agor gyda phrosiect gwag. Bydd angen i chi osod cyfeiriadur prosiect cyn recordio.</p>
+<p>Ar gychwyn, mae'r cymhwysiad yn cymhwyso'r thema a gadwyd (tywyll neu olau) ac, os defnyddiwyd cyfeiriadur prosiect o'r blaen ac mae'n cynnwys ffeil <code>project.json</code>, mae'r prosiect yn cael ei lwytho'n awtomatig.</p>
+<h3 id="sefydlu-prosiect">Sefydlu Prosiect</h3>
+<ol>
+<li>
+<p><strong>Gosodwch y cyfeiriadur prosiect</strong>: Rhowch neu porwch i ffolder yn y maes "Project Location" ar frig y ffenestr. Dyma lle bydd recordiadau a'r ffeil prosiect yn cael eu storio.</p>
+</li>
+<li>
+<p><strong>Ychwanegwch drac</strong>: Cliciwch y botwm <strong>+ Add Track</strong>. Mae trac newydd yn ymddangos gyda gosodiadau rhagosodedig. Os mai dyma'r unig drac yn y prosiect ac nad yw wedi'i recordio eto, mae'n cael ei arfogi'n awtomatig ar gyfer recordio.</p>
+</li>
+<li>
+<p><strong>Enwch y trac</strong>: Teipiwch enw yn y maes testun wrth ymyl y botwm "Options". Defnyddir yr enw hwn fel enw ffeil ar gyfer y ffeil sain a recordiwyd.</p>
+</li>
+</ol>
+<p><img alt="Prif ffenestr" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="cadw-ac-agor-prosiectau">Cadw ac Agor Prosiectau</h3>
+<ul>
+<li><strong>Cadw</strong>: Defnyddiwch <strong>File &gt; Save Project</strong> (Ctrl+S) i gadw'r prosiect cyfredol fel ffeil JSON yn y cyfeiriadur prosiect.</li>
+<li><strong>Agor</strong>: Defnyddiwch <strong>File &gt; Open Project</strong> (Ctrl+O) i lwytho prosiect a gadwyd yn flaenorol.</li>
+</ul>
+<p>Mae'r ffeil prosiect (<code>project.json</code>) yn storio enwau traciau, mathau, nodau MIDI, cyfeiriadau ffeiliau sain, a'r holl osodiadau sy'n benodol i'r prosiect. Mae ffeiliau sain yn cael eu storio yn yr un cyfeiriadur â <code>project.json</code> ac yn cael eu henwi ar ôl eu traciau (e.e., <code>My_Track.flac</code>).</p>
+<p>Os byddwch yn cau'r cymhwysiad gyda newidiadau heb eu cadw, mae deialog gadarnhau yn gofyn a ydych am gadw cyn gadael.</p>
+<h2 id="rheoli-traciau">Rheoli Traciau</h2>
+<h3 id="ychwanegu-a-dileu-traciau">Ychwanegu a Dileu Traciau</h3>
+<ul>
+<li>Cliciwch <strong>+ Add Track</strong> i ychwanegu trac newydd at y trefniant.</li>
+<li>Cliciwch y botwm <strong>x</strong> ar ochr dde rhes trac i'w ddileu.</li>
+<li>Cliciwch <strong>Clear Tracks</strong> (y botwm coch yn y bar offer) i ddileu'r holl draciau. Dangosir deialog gadarnhau cyn bwrw ymlaen.</li>
+</ul>
+<h3 id="ffurfweddu-math-trac">Ffurfweddu Math Trac</h3>
+<p>Gellir ffurfweddu pob trac fel <strong>Audio</strong> (ar gyfer recordio meicroffon/line-in) neu <strong>MIDI</strong> (ar gyfer recordio bysellfwrdd/rheolydd).</p>
+<p>I newid y math trac:</p>
+<ul>
+<li>Cliciwch y botwm <strong>Options</strong> ar y trac, neu</li>
+<li>Cliciwch yr <strong>eicon math trac</strong> (rhwng "Options" a'r maes enw)</li>
+</ul>
+<p>Mae hyn yn agor y ddeialog Ffurfweddu Trac lle gallwch ddewis y ffynhonnell fewnbwn.</p>
+<p><img alt="Ffurfweddu trac" src="screenshots/MusiciansCanvas_2_TrackConfig.png" /></p>
+<h3 id="rheolaethau-trac">Rheolaethau Trac</h3>
+<p>Mae pob rhes trac yn darparu'r rheolaethau canlynol:</p>
+<ul>
+<li><strong>Blwch ticio galluogi</strong>: Toglo a yw'r trac wedi'i gynnwys mewn chwarae'n ôl a chymysgu. Mae analluogi trac hefyd yn ei ddarfogi'n awtomatig os oedd wedi'i arfogi.</li>
+<li><strong>Botwm radio arfogi</strong>: Dewis y trac hwn fel y targed recordio. Dim ond un trac all fod wedi'i arfogi ar y tro; mae arfogi trac newydd yn darfogi unrhyw drac a arfogwyd yn flaenorol yn awtomatig.</li>
+<li><strong>Maes enw</strong>: Maes testun y gellir ei olygu ar gyfer enw'r trac. Defnyddir yr enw hwn fel enw'r ffeil sain (gyda chymeriadau system ffeiliau annilys yn cael eu disodli gan danlinellau).</li>
+<li><strong>Botwm Options</strong>: Agor y ddeialog Ffurfweddu Trac.</li>
+<li><strong>Eicon math</strong>: Dangos eicon seinydd ar gyfer traciau sain neu eicon piano ar gyfer traciau MIDI. Mae clicio arno yn agor y ddeialog Ffurfweddu Trac.</li>
+<li><strong>Botwm dileu (x)</strong>: Dileu'r trac o'r prosiect.</li>
+</ul>
+<h3 id="awtomatig-arfogi">Awtomatig-Arfogi</h3>
+<p>Pan fo gan brosiect un trac yn union ac nad yw'r trac hwnnw wedi'i recordio eto, mae'n cael ei arfogi'n awtomatig ar gyfer recordio. Mae hyn yn berthnasol wrth ychwanegu'r trac cyntaf at brosiect newydd ac wrth agor prosiect presennol sydd ag un trac gwag.</p>
+<h3 id="delweddu-trac">Delweddu Trac</h3>
+<ul>
+<li>Mae <strong>traciau sain</strong> yn arddangos delweddiad tonnffurf o'r sain a recordiwyd. Pan nad oes sain wedi'i recordio, mae'r ardal yn dangos "No audio recorded".</li>
+<li>Mae <strong>traciau MIDI</strong> yn arddangos delweddiad piano roll sy'n dangos nodau a recordiwyd ar grid sy'n rhychwantu A0 i C8. Mae nodau wedi'u lliwio yn ôl cyflymder. Pan nad oes data MIDI wedi'i recordio, mae'r ardal yn dangos "No MIDI data recorded".</li>
+</ul>
+<h2 id="recordio">Recordio</h2>
+<h3 id="recordio-sain">Recordio Sain</h3>
+<ol>
+<li>Sicrhewch fod y cyfeiriadur prosiect wedi'i osod.</li>
+<li>Arfogwch y trac targed (ticiwch y botwm radio "Arm").</li>
+<li>Cliciwch y botwm <strong>Record</strong> (cylch coch).</li>
+<li>Mae cyfrif i lawr o 3 eiliad yn ymddangos ar y trac ("Get ready... 3", "2", "1"), yna mae recordio'n dechrau.</li>
+<li>Yn ystod recordio, dangosir mesurydd lefel byw yn ardal tonnffurf y trac, yn dangos yr osgled gyfredol fel bar graddiant (gwyrdd i felyn i goch) gyda label "Recording".</li>
+<li>Cliciwch y botwm <strong>Stop</strong> i orffen recordio.</li>
+</ol>
+<p>Mae'r sain a recordiwyd yn cael ei chadw fel ffeil FLAC yn y cyfeiriadur prosiect, wedi'i enwi ar ôl y trac.</p>
+<p>Yn ystod recordio a chwarae'n ôl, mae'r holl reolaethau rhyngweithiol (botymau traciau, gosodiadau, ayyb) wedi'u hanalluogi i atal newidiadau damweiniol.</p>
+<h4 id="recordio-overdub">Recordio Overdub</h4>
+<p>Wrth recordio trac newydd tra bod traciau galluogedig eraill eisoes yn cynnwys data sain neu MIDI, mae Musician's Canvas yn cyflawni recordio overdub: mae'r traciau presennol yn cael eu cymysgu gyda'i gilydd a'u chwarae'n ôl mewn amser real tra bod y trac newydd yn cael ei recordio. Mae hyn yn caniatáu i chi glywed rhannau a recordiwyd yn flaenorol wrth osod un newydd i lawr.</p>
+<p>Mae'r cymysgedd o draciau presennol yn cael ei baratoi cyn i'r cipio ddechrau, felly mae recordio a chwarae'n ôl yn dechrau ar tua'r un eiliad, gan gadw'r holl draciau wedi'u cydamseru.</p>
+<h4 id="backends-recordio">Backends Recordio</h4>
+<p>Mae Musician's Canvas yn cefnogi dau backend cipio sain:</p>
+<ul>
+<li><strong>PortAudio</strong> (rhagosodedig pan fo ar gael): Yn darparu recordio dibynadwy, hwyrni isel ac mae'n backend a argymhellir.</li>
+<li><strong>Qt Multimedia</strong>: Backend wrth gefn sy'n defnyddio cipio sain adeiledig Qt. Fe'i defnyddir pan nad yw PortAudio ar gael neu pan ddewisir ef yn benodol yng Ngosodiadau'r Prosiect.</li>
+</ul>
+<p>Gellir ffurfweddu'r backend recordio fesul prosiect yn <strong>Project &gt; Project Settings &gt; Audio</strong>.</p>
+<h4 id="cyfradd-samplu-a-thrin-dyfeisiau">Cyfradd Samplu a Thrin Dyfeisiau</h4>
+<p>Mae Musician's Canvas yn recordio ar gyfradd samplu frodorol y ddyfais fewnbwn sain ac yna'n trawsnewid yn awtomatig i gyfradd samplu ffurfweddig y prosiect gan ddefnyddio ailsamplu o ansawdd uchel. Mae hyn yn golygu y gallwch osod unrhyw gyfradd samplu prosiect (e.e., 44100 Hz neu 48000 Hz) waeth beth yw cyfradd frodorol y ddyfais. Mae'r trawsnewidiad yn cadw traw a hyd yn union.</p>
+<h4 id="canfod-dyfais-mono">Canfod Dyfais Mono</h4>
+<p>Mae rhai dyfeisiau sain (e.e., meicroffonau gwe-gamera USB) yn ffisegol mono ond yn cael eu hysbysebu fel stereo gan y system weithredu. Mae Musician's Canvas yn canfod hyn yn awtomatig ac yn addasu'r cyfrif sianeli yn unol â hynny. Os yw'r prosiect wedi'i ffurfweddu ar gyfer stereo, mae'r signal mono yn cael ei ddyblygu i'r ddwy sianel.</p>
+<h3 id="recordio-midi">Recordio MIDI</h3>
+<ol>
+<li>Gosodwch fath y trac i <strong>MIDI</strong> trwy'r botwm Options.</li>
+<li>Sicrhewch fod dyfais fewnbwn MIDI wedi'i ffurfweddu yn <strong>Settings &gt; Configuration &gt; MIDI</strong>.</li>
+<li>Arfogwch y trac a chliciwch Record.</li>
+<li>Chwaraewch nodau ar eich rheolydd MIDI.</li>
+<li>Cliciwch Stop i orffen recordio.</li>
+</ol>
+<p>Dangosir nodau MIDI mewn delweddiad piano roll ar y trac.</p>
+<h2 id="chwaraen-ol">Chwarae'n Ôl</h2>
+<p>Cliciwch y botwm <strong>Play</strong> i gymysgu a chwarae'n ôl yr holl draciau galluogedig. Mae tooltip y botwm yn newid i ddangos a fydd yn chwarae neu'n recordio yn seiliedig ar p'un a yw trac wedi'i arfogi. Mae traciau analluogedig (heb eu ticio) yn cael eu heithrio o chwarae'n ôl.</p>
+<p>Yn ystod chwarae'n ôl, mae traciau sain yn cael eu datgodio o'u ffeiliau FLAC ac mae traciau MIDI yn cael eu rendro i sain gan ddefnyddio'r synth FluidSynth adeiledig. Mae'r holl draciau yn cael eu cymysgu gyda'i gilydd a'u chwarae trwy ddyfais allbwn sain y system.</p>
+<p>Cliciwch y botwm <strong>Stop</strong> i orffen chwarae'n ôl ar unrhyw adeg.</p>
+<h2 id="cymysgu-i-ffeil">Cymysgu i Ffeil</h2>
+<p>Defnyddiwch <strong>Tools &gt; Mix tracks to file</strong> (Ctrl+M) i allforio'r holl draciau galluogedig i ffeil sain sengl. Mae deialog yn gadael i chi ddewis y llwybr allbwn a'r fformat:</p>
+<ul>
+<li><strong>Ffeil allbwn</strong>: Porwch i ddewis llwybr ffeil y cyrchfan.</li>
+<li><strong>Fformat</strong>: Dewiswch rhwng FLAC (cywasgu di-golled, ffeiliau llai) neu WAV (heb ei gywasgu).</li>
+</ul>
+<p>Mae'r cymysgedd yn defnyddio cyfradd samplu ffurfweddig y prosiect. Mae traciau MIDI yn cael eu rendro gan ddefnyddio'r SoundFont ffurfweddig.</p>
+<h2 id="gosodiadau">Gosodiadau</h2>
+<h3 id="gosodiadau-byd-eang">Gosodiadau Byd-eang</h3>
+<p>Defnyddiwch <strong>Settings &gt; Configuration</strong> (Ctrl+,) i osod rhagosodiadau byd-eang sy'n berthnasol i bob prosiect:</p>
+<p><img alt="Gosodiadau cyffredinol" src="screenshots/MusiciansCanvas_3_GeneralSettings.png" /></p>
+<h4 id="tab-general">Tab General</h4>
+<ul>
+<li><strong>Thema</strong>: Dewiswch rhwng themâu tywyll a golau.</li>
+</ul>
+<h4 id="tab-language">Tab Language</h4>
+<ul>
+<li><strong>Iaith</strong>: Dewiswch iaith arddangos y cymhwysiad. Y rhagosodiad yw "System Default", sy'n defnyddio gosodiad iaith y system weithredu. Yr ieithoedd sydd ar gael yw Saesneg, Deutsch (Almaeneg), Español (Sbaeneg), Français (Ffrangeg), Siapanëeg, Português (Portiwgaleg Brasil), Tsieinëeg (Traddodiadol), Tsieinëeg (Symledig), a Môr-ladron. Mae'r rhyngwyneb yn diweddaru ar unwaith pan fyddwch yn newid yr iaith.</li>
+</ul>
+<h4 id="tab-midi">Tab MIDI</h4>
+<ul>
+<li><strong>Dyfais Allbwn MIDI</strong>: Dewiswch y synth FluidSynth adeiledig neu ddyfais MIDI allanol. Defnyddiwch y botwm <strong>Refresh</strong> i ailsganio am ddyfeisiau MIDI sydd ar gael.</li>
+<li><strong>SoundFont</strong>: Porwch i ffeil SoundFont <code>.sf2</code> ar gyfer synthesis MIDI. Ar Linux, gellir canfod SoundFont system yn awtomatig os yw'r pecyn <code>fluid-soundfont-gm</code> wedi'i osod. Ar Windows a macOS, rhaid i chi ffurfweddu'r llwybr SoundFont â llaw.</li>
+</ul>
+<p><img alt="Gosodiadau MIDI" src="screenshots/MusiciansCanvas_4_MIDISettings.png" /></p>
+<h4 id="tab-audio">Tab Audio</h4>
+<ul>
+<li><strong>Dyfais Fewnbwn Sain</strong>: Dewiswch y meicroffon neu'r ddyfais line-in ar gyfer recordio.</li>
+<li><strong>Dyfais Allbwn Sain</strong>: Dewiswch y seinydd neu'r ddyfais clustffonau ar gyfer chwarae'n ôl.</li>
+</ul>
+<p><img alt="Gosodiadau sain" src="screenshots/MusiciansCanvas_5_AudioSettings.png" /></p>
+<h3 id="gosodiadau-prosiect">Gosodiadau Prosiect</h3>
+<p>Defnyddiwch <strong>Project &gt; Project Settings</strong> (Ctrl+P) i orosgyn rhagosodiadau byd-eang ar gyfer y prosiect cyfredol yn unig. Mae hyn yn ddefnyddiol ar gyfer prosiectau sydd angen cyfradd samplu benodol, SoundFont, neu ddyfais sain. Mae gosodiadau penodol i'r prosiect yn cael eu cadw y tu mewn i'r ffeil <code>project.json</code>.</p>
+<p><img alt="Gosodiadau MIDI prosiect" src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" /></p>
+<h4 id="tab-midi_1">Tab MIDI</h4>
+<ul>
+<li><strong>Dyfais MIDI</strong>: Dewiswch ddyfais MIDI ar gyfer y prosiect hwn, neu gadewch ar y rhagosodiad i ddefnyddio'r gosodiad byd-eang.</li>
+<li><strong>SoundFont</strong>: Dewiswch ffeil SoundFont ar gyfer y prosiect hwn.</li>
+<li><strong>Refresh</strong>: Ailsganio am ddyfeisiau MIDI sydd ar gael.</li>
+</ul>
+<h4 id="tab-audio_1">Tab Audio</h4>
+<ul>
+<li><strong>Dyfais Fewnbwn Sain</strong>: Dewiswch y ddyfais recordio ar gyfer y prosiect hwn.</li>
+<li><strong>Backend cipio recordio</strong> (pan fo PortAudio ar gael):</li>
+<li><strong>PortAudio (native input)</strong>: Argymhellir. Yn defnyddio'r un llyfrgell sain ag Audacity.</li>
+<li><strong>Qt Multimedia</strong>: Opsiwn wrth gefn sy'n defnyddio cipio sain adeiledig Qt.</li>
+<li><strong>Dyfais Fewnbwn PortAudio</strong>: Wrth ddefnyddio'r backend PortAudio, dewiswch y ddyfais fewnbwn PortAudio benodol.</li>
+<li><strong>Dyfais Allbwn Sain</strong>: Dewiswch y ddyfais chwarae'n ôl ar gyfer y prosiect hwn.</li>
+</ul>
+<h5 id="gosodiadau-fformat-sain">Gosodiadau Fformat Sain</h5>
+<ul>
+<li><strong>Cyfradd samplu</strong>: Dewiswch o gyfraddau safonol (8000 Hz i 192000 Hz). Mae cyfradd frodorol y ddyfais wedi'i labelu "(native)". Mae cyfraddau sydd angen ailsamplu wedi'u labelu "(resampled)". Gallwch ddewis unrhyw gyfradd waeth beth yw gallu'r ddyfais; bydd Musician's Canvas yn ailsamplu'n awtomatig yn ôl yr angen.</li>
+<li><strong>Sianeli</strong>: Mono neu Stereo. Os mai dim ond mono y mae'r ddyfais yn ei gefnogi, mae'r opsiwn Stereo wedi'i analluogi.</li>
+</ul>
+<p><img alt="Gosodiadau sain prosiect" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
+<h2 id="dewislenni">Dewislenni</h2>
+<h3 id="dewislen-file">Dewislen File</h3>
+<table>
+<thead>
+<tr>
+<th>Eitem Dewislen</th>
+<th>Llwybr Byr</th>
+<th>Disgrifiad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Save Project</td>
+<td>Ctrl+S</td>
+<td>Cadw'r prosiect cyfredol i ddisg</td>
+</tr>
+<tr>
+<td>Open Project</td>
+<td>Ctrl+O</td>
+<td>Agor ffeil prosiect presennol</td>
+</tr>
+<tr>
+<td>Close</td>
+<td>Ctrl+Q</td>
+<td>Cau'r cymhwysiad</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dewislen-project">Dewislen Project</h3>
+<table>
+<thead>
+<tr>
+<th>Eitem Dewislen</th>
+<th>Llwybr Byr</th>
+<th>Disgrifiad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project Settings</td>
+<td>Ctrl+P</td>
+<td>Ffurfweddu gosodiadau penodol i'r prosiect</td>
+</tr>
+<tr>
+<td>Add Demo Data to Selected Track</td>
+<td></td>
+<td>Ychwanegu nodau MIDI sampl ar gyfer arddangosiad</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dewislen-settings">Dewislen Settings</h3>
+<table>
+<thead>
+<tr>
+<th>Eitem Dewislen</th>
+<th>Llwybr Byr</th>
+<th>Disgrifiad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Configuration</td>
+<td>Ctrl+,</td>
+<td>Agor gosodiadau byd-eang y cymhwysiad</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dewislen-tools">Dewislen Tools</h3>
+<table>
+<thead>
+<tr>
+<th>Eitem Dewislen</th>
+<th>Llwybr Byr</th>
+<th>Disgrifiad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mix tracks to file</td>
+<td>Ctrl+M</td>
+<td>Allforio'r holl draciau galluogedig i ffeil</td>
+</tr>
+<tr>
+<td>Virtual MIDI Keyboard</td>
+<td></td>
+<td>Lansio'r cymhwysiad bysellfwrdd cydymaith</td>
+</tr>
+</tbody>
+</table>
+<h2 id="llwybrau-byr-bysellfwrdd">Llwybrau Byr Bysellfwrdd</h2>
+<table>
+<thead>
+<tr>
+<th>Llwybr Byr</th>
+<th>Gweithred</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl+S</td>
+<td>Cadw prosiect</td>
+</tr>
+<tr>
+<td>Ctrl+O</td>
+<td>Agor prosiect</td>
+</tr>
+<tr>
+<td>Ctrl+M</td>
+<td>Cymysgu traciau i ffeil</td>
+</tr>
+<tr>
+<td>Ctrl+P</td>
+<td>Gosodiadau Prosiect</td>
+</tr>
+<tr>
+<td>Ctrl+,</td>
+<td>Gosodiadau / Ffurfweddiad</td>
+</tr>
+<tr>
+<td>Ctrl+Q / Alt+F4</td>
+<td>Cau</td>
+</tr>
+</tbody>
+</table>
+<h2 id="virtual-midi-keyboard">Virtual MIDI Keyboard</h2>
+<p>Mae Virtual MIDI Keyboard yn gymhwysiad cydymaith (<code>virtual_midi_keyboard</code>) sy'n darparu bysellfwrdd piano ar y sgrin ar gyfer anfon nodau MIDI. Gellir ei lansio o'r ddewislen <strong>Tools &gt; Virtual MIDI Keyboard</strong> yn y prif gymhwysiad, neu ei redeg yn annibynnol.</p>
+<p><img alt="Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard1.png" /></p>
+<h3 id="nodweddion">Nodweddion</h3>
+<ul>
+<li>Cliciwch allweddi ar y bysellfwrdd piano ar y sgrin i chwarae nodau</li>
+<li>Defnyddiwch fysellfwrdd y cyfrifiadur fel bysellfwrdd piano (gweler y mapio allweddi isod)</li>
+<li>Cysylltu â dyfeisiau allbwn MIDI allanol neu ddefnyddio'r synth FluidSynth adeiledig</li>
+<li>Cysylltu â dyfais fewnbwn MIDI i arddangos nodau sy'n dod i mewn ar y bysellfwrdd</li>
+<li>Cyfaint synth addasadwy (master gain, 10%--200%)</li>
+<li>Dewis SoundFont ar gyfer y synth adeiledig</li>
+<li>Dewis offeryn/rhaglen MIDI (General MIDI neu ragosodiadau SoundFont)</li>
+<li>Nobyn rheoli Chorus/effaith</li>
+<li>Symud wythawdau (-3 i +5)</li>
+<li>Rheolaeth cyfaint MIDI (CC#7, 0--127)</li>
+</ul>
+<h3 id="rheolaethau-bar-offer">Rheolaethau Bar Offer</h3>
+<ul>
+<li><strong>Volume</strong>: Cyfaint MIDI (CC#7), addasadwy o 0 i 127 trwy'r blwch troelli.</li>
+<li><strong>Octave</strong>: Symudwch wythawdau'r bysellfwrdd gan ddefnyddio'r botymau <strong>&lt;</strong> a <strong>&gt;</strong> neu'r blwch troelli. Ystod -3 i +5.</li>
+<li><strong>Chorus/Effect</strong>: Nobyn cylchdro a maes testun (1--127) i osod lefel y chorus/effaith (MIDI CC#93). Cliciwch <strong>Apply</strong> i anfon y gwerth.</li>
+<li><strong>Dewisydd offeryn</strong>: Dewiswch offeryn MIDI. Wrth ddefnyddio'r synth FluidSynth adeiledig, mae hwn yn dangos rhagosodiadau SoundFont (Bank:Program Name). Pan fo wedi'i gysylltu â dyfais MIDI allanol, mae hwn yn rhestru'r 128 offeryn General MIDI.</li>
+</ul>
+<h3 id="chwarae-gyda-bysellfwrdd-y-cyfrifiadur">Chwarae gyda Bysellfwrdd y Cyfrifiadur</h3>
+<p>Mae bysellfwrdd y cyfrifiadur wedi'i fapio i allweddi piano ar draws dwy wythawdau:</p>
+<p><strong>Wythawdau isaf (yn dechrau ar yr wythawdau gyfredol):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Allwedd</th>
+<th>Nodyn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z</td>
+<td>C</td>
+</tr>
+<tr>
+<td>S</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>X</td>
+<td>D</td>
+</tr>
+<tr>
+<td>D</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>C</td>
+<td>E</td>
+</tr>
+<tr>
+<td>V</td>
+<td>F</td>
+</tr>
+<tr>
+<td>G</td>
+<td>F#/Gb</td>
+</tr>
+<tr>
+<td>B</td>
+<td>G</td>
+</tr>
+<tr>
+<td>H</td>
+<td>G#/Ab</td>
+</tr>
+<tr>
+<td>N</td>
+<td>A</td>
+</tr>
+<tr>
+<td>J</td>
+<td>A#/Bb</td>
+</tr>
+<tr>
+<td>M</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Wythawdau uchaf (un wythawdau yn uwch):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Allwedd</th>
+<th>Nodyn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q</td>
+<td>C</td>
+</tr>
+<tr>
+<td>2</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>W</td>
+<td>D</td>
+</tr>
+<tr>
+<td>3</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>E</td>
+<td>E</td>
+</tr>
+<tr>
+<td>R</td>
+<td>F</td>
+</tr>
+<tr>
+<td>5</td>
+<td>F#/Gb</td>
+</tr>
+<tr>
+<td>T</td>
+<td>G</td>
+</tr>
+<tr>
+<td>6</td>
+<td>G#/Ab</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>A</td>
+</tr>
+<tr>
+<td>7</td>
+<td>A#/Bb</td>
+</tr>
+<tr>
+<td>U</td>
+<td>B</td>
+</tr>
+<tr>
+<td>I</td>
+<td>C (wythawdau nesaf)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>O</td>
+<td>D</td>
+</tr>
+<tr>
+<td>0</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>P</td>
+<td>E</td>
+</tr>
+</tbody>
+</table>
+<p>Mae allweddi'n goleuo'n weledol pan gânt eu gwasgu (mae allweddi gwyn yn troi'n las golau, mae allweddi du'n tywyllu).</p>
+<h3 id="ffurfweddiad">Ffurfweddiad</h3>
+<p>Agorwch y ddeialog Ffurfweddiad (<strong>Settings &gt; Configuration</strong>, Ctrl+,) i sefydlu dyfeisiau MIDI a sain:</p>
+<p><img alt="Ffurfweddiad Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard2.png" /></p>
+<h4 id="tab-midi_2">Tab MIDI</h4>
+<ul>
+<li><strong>Dyfais Allbwn MIDI</strong>: Dewiswch ddyfais allanol neu gadewch yn wag ar gyfer y synth FluidSynth adeiledig.</li>
+<li><strong>Dyfais Fewnbwn MIDI</strong>: Dewiswch reolydd i anfon nodau ymlaen at arddangosfa'r bysellfwrdd.</li>
+<li><strong>Cyfaint y Synth (Master Gain)</strong>: Addaswch lefel allbwn y synth adeiledig (10%--200%).</li>
+<li><strong>SoundFont</strong>: Porwch i ffeil SoundFont <code>.sf2</code> ar gyfer y synth adeiledig.</li>
+<li><strong>Refresh</strong>: Ailsganio am ddyfeisiau MIDI sydd ar gael.</li>
+</ul>
+<h4 id="tab-audio_2">Tab Audio</h4>
+<ul>
+<li><strong>Dyfais Allbwn Sain</strong>: Dewiswch y ddyfais allbwn ar gyfer y synth adeiledig.</li>
+</ul>
+<h4 id="tab-language_1">Tab Language</h4>
+<ul>
+<li><strong>Iaith</strong>: Dewiswch yr iaith arddangos. Mae'r un ieithoedd â Musician's Canvas ar gael. Mae'r rhyngwyneb yn diweddaru ar unwaith pan fyddwch yn newid yr iaith.</li>
+</ul>
+<h3 id="llwybrau-byr-virtual-midi-keyboard">Llwybrau Byr Virtual MIDI Keyboard</h3>
+<table>
+<thead>
+<tr>
+<th>Llwybr Byr</th>
+<th>Gweithred</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl+,</td>
+<td>Deialog ffurfweddiad</td>
+</tr>
+<tr>
+<td>Ctrl+U</td>
+<td>Cymorth / Gwybodaeth defnydd</td>
+</tr>
+<tr>
+<td>Ctrl+Q</td>
+<td>Cau</td>
+</tr>
+</tbody>
+</table>
+<h2 id="datrys-problemau">Datrys Problemau</h2>
+<h3 id="dim-allbwn-sain">Dim Allbwn Sain</h3>
+<ul>
+<li>Gwiriwch fod y ddyfais allbwn sain gywir wedi'i dewis yn Settings &gt; Configuration &gt; Audio.</li>
+<li>Ar Linux, gwiriwch fod PipeWire neu PulseAudio yn rhedeg a bod yr allbwn heb ei fudo. Defnyddiwch <code>amixer</code> neu osodiadau sain eich bwrdd gwaith i wirio lefelau cyfaint.</li>
+<li>Ar Windows, sicrhewch fod gyrrwr sain ASIO wedi'i osod (e.e., <a href="https://asio4all.org/">ASIO4ALL</a> neu yrrwr ASIO a ddarperir gan y gwneuthurwr ar gyfer eich rhyngwyneb sain). Mae Musician's Canvas yn gofyn am ASIO ar gyfer sain hwyrni isel ar Windows.</li>
+</ul>
+<h3 id="mae-traciau-midi-yn-dawel">Mae Traciau MIDI yn Dawel</h3>
+<ul>
+<li>Sicrhewch fod SoundFont (ffeil <code>.sf2</code>) wedi'i ffurfweddu yn Settings &gt; Configuration &gt; MIDI.</li>
+<li>Ar Linux, gellir canfod SoundFont system yn awtomatig os yw'r pecyn <code>fluid-soundfont-gm</code> wedi'i osod.</li>
+<li>Ar Windows a macOS, rhaid i chi ffurfweddu'r llwybr SoundFont â llaw.</li>
+</ul>
+<h3 id="maer-recordiad-yn-swnion-ystumedig-neu-maer-draw-yn-anghywir">Mae'r Recordiad yn Swnio'n Ystumedig neu Mae'r Draw yn Anghywir</h3>
+<ul>
+<li>Gall hyn ddigwydd pan fo cyfradd samplu frodorol y ddyfais fewnbwn sain yn wahanol i gyfradd ffurfweddig y prosiect. Mae Musician's Canvas yn trin hyn yn awtomatig trwy ailsamplu, ond os bydd problemau'n parhau, ceisiwch osod cyfradd samplu'r prosiect i gyfateb â chyfradd frodorol y ddyfais.</li>
+<li>Mae meicroffonau gwe-gamera USB yn aml â chyfraddau brodorol anarferol (e.e., 32000 Hz). Mae'r cymhwysiad yn canfod y rhain yn awtomatig.</li>
+<li>Os ydych yn defnyddio'r backend Qt Multimedia ac yn profi problemau, ceisiwch newid i'r backend PortAudio yn Project Settings &gt; Audio.</li>
+</ul>
+<h3 id="nid-oes-sain-gan-virtual-midi-keyboard">Nid oes Sain gan Virtual MIDI Keyboard</h3>
+<ul>
+<li>Ar Linux gyda PipeWire, sicrhewch fod y pecyn <code>libpipewire-0.3-dev</code> wedi'i osod (sydd ei angen ar gyfer integreiddio PipeWire â'r synth FluidSynth).</li>
+<li>Gwiriwch fod SoundFont wedi'i lwytho (gweler y tab MIDI yn y ddeialog ffurfweddiad).</li>
+<li>Gwiriwch fod y ddyfais allbwn sain wedi'i dewis a bod cyfaint y system heb ei fudo.</li>
+</ul>
+<h2 id="adeiladu-or-cod-ffynhonnell">Adeiladu o'r Cod Ffynhonnell</h2>
+<p>Gweler y <a href="../README.md">README</a> am gyfarwyddiadau adeiladu cyflawn ar gyfer Linux, macOS, a Windows, gan gynnwys yr holl ddibyniaethau gofynnol.</p>
+</body>
+</html>

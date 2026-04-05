@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas &#29992;&#25143;&#25163;&#20876;</h1>
 <p>多轨音乐录音应用程序 &mdash; Version 0.1.0</p>
-<p>2026-04-04</p>
+<p>2026-04-05</p>
 </div>
 <div class="toc">
 <h2>&#30446;&#24405;</h2>
@@ -123,7 +123,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>基于项目的设置，支持按项目覆盖</li>
 <li>混合导出为 WAV 或 FLAC</li>
 <li>深色和浅色主题</li>
-<li>支持多种语言本地化（English、Deutsch、Español、Français、Japanese、Português、Chinese 和 Pirate）</li>
+<li>支持 18 种语言本地化，包括 English、Deutsch、Español、Français、Japanese、Português、Chinese、Русский、Svenska、Suomi、Dansk、Norsk、Polski、Ελληνικά、Gaeilge、Cymraeg 和 Pirate</li>
 <li>配套 Virtual MIDI Keyboard 应用程序</li>
 </ul>
 <h2 id="_2">快速入门</h2>
@@ -239,13 +239,18 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <h4 id="general">General 标签页</h4>
 <ul>
 <li><strong>Theme</strong>：在深色和浅色主题之间选择。</li>
+<li><strong>写入录制调试日志</strong>：启用后，Musician's Canvas 会将详细的录制诊断信息写入项目目录中
+  名为 <code>recording_debug.txt</code> 的文件。这包括采集后端、设备名称、采样率、声道数和计时
+  数据。此选项默认禁用，主要用于排查录制问题。</li>
 </ul>
 <h4 id="language">Language 标签页</h4>
 <ul>
 <li><strong>语言</strong>：选择应用程序的显示语言。默认值为"System Default"，使用操作系统的语言
   设置。可用语言包括 English、Deutsch (German)、Español (Spanish)、Français (French)、
   Japanese、Português (Brazilian Portuguese)、Chinese (Traditional)、Chinese
-  (Simplified) 和 Pirate。更改语言后，界面会立即更新。</li>
+  (Simplified)、Dansk (Danish)、Ελληνικά (Greek)、Gaeilge (Irish)、Norsk (Norwegian)、
+  Polski (Polish)、Русский (Russian)、Suomi (Finnish)、Svenska (Swedish)、Cymraeg (Welsh)
+  和 Pirate。更改语言后，界面会立即更新。</li>
 </ul>
 <h4 id="midi_1">MIDI 标签页</h4>
 <ul>

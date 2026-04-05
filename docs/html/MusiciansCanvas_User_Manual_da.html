@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Musician&#8217;s Canvas Brugermanual</title>
+<style>
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px 40px;
+    color: #24292e; background-color: #fff;
+}
+h1 { border-bottom: 2px solid #0366d6; padding-bottom: 0.3em; color: #0366d6; }
+h2 { border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; margin-top: 2em; }
+h3 { color: #0366d6; margin-top: 1.5em; }
+h4 { color: #586069; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid #dfe2e5; padding: 8px 12px; text-align: left; }
+th { background-color: #f6f8fa; font-weight: 600; }
+tr:nth-child(even) { background-color: #f6f8fa; }
+code { background-color: #f6f8fa; padding: 0.2em 0.4em; border-radius: 3px; font-size: 0.9em;
+       font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; }
+pre { background-color: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+strong { color: #24292e; }
+a { color: #0366d6; text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6px; margin: 1em 0; }
+.toc { background-color: #f6f8fa; border: 1px solid #dfe2e5; border-radius: 6px;
+       padding: 15px 20px; margin: 1em 0 2em 0; }
+.toc h2 { margin-top: 0; border-bottom: none; font-size: 1.1em; }
+.toc ul { list-style: none; padding-left: 1.2em; }
+.toc > ul { padding-left: 0; }
+.toc li { margin: 0.3em 0; }
+.title-block { text-align: center; margin-bottom: 2em; padding-bottom: 1em;
+               border-bottom: 2px solid #0366d6; }
+@media print {
+    body { max-width: none; padding: 0; }
+    h1, h2, h3 { page-break-after: avoid; }
+    table, pre, img { page-break-inside: avoid; }
+    img { max-width: 80%; }
+}
+</style>
+</head>
+<body>
+<div class="title-block">
+<h1>Musician&#8217;s Canvas Brugermanual</h1>
+<p>Multispors musikoptagelsesapplikation &mdash; Version 0.1.0</p>
+<p>2026-04-05</p>
+</div>
+<div class="toc">
+<h2>Indholdsfortegnelse</h2>
+<div class="toc">
+<ul>
+<li><a href="#musicians-canvas-brugervejledning">Musician's Canvas Brugervejledning</a><ul>
+<li><a href="#introduktion">Introduktion</a></li>
+<li><a href="#kom-godt-i-gang">Kom godt i gang</a><ul>
+<li><a href="#start-af-applikationen">Start af applikationen</a></li>
+<li><a href="#opstning-af-et-projekt">Opsætning af et projekt</a></li>
+<li><a href="#gem-og-abn-projekter">Gem og åbn projekter</a></li>
+</ul>
+</li>
+<li><a href="#sporhandtering">Sporhåndtering</a><ul>
+<li><a href="#tilfjelse-og-fjernelse-af-spor">Tilføjelse og fjernelse af spor</a></li>
+<li><a href="#konfiguration-af-sportype">Konfiguration af sportype</a></li>
+<li><a href="#sporkontroller">Sporkontroller</a></li>
+<li><a href="#automatisk-armering">Automatisk armering</a></li>
+<li><a href="#sporvisualisering">Sporvisualisering</a></li>
+</ul>
+</li>
+<li><a href="#optagelse">Optagelse</a><ul>
+<li><a href="#lydoptagelse">Lydoptagelse</a></li>
+<li><a href="#midi-optagelse">MIDI-optagelse</a></li>
+</ul>
+</li>
+<li><a href="#afspilning">Afspilning</a></li>
+<li><a href="#miksning-til-en-fil">Miksning til en fil</a></li>
+<li><a href="#indstillinger">Indstillinger</a><ul>
+<li><a href="#globale-indstillinger">Globale indstillinger</a></li>
+<li><a href="#projektindstillinger">Projektindstillinger</a></li>
+</ul>
+</li>
+<li><a href="#menuer">Menuer</a><ul>
+<li><a href="#filen-menuen">Filen-menuen</a></li>
+<li><a href="#projekt-menuen">Projekt-menuen</a></li>
+<li><a href="#indstillingsmenuen">Indstillingsmenuen</a></li>
+<li><a href="#vrktjsmenuen">Værktøjsmenuen</a></li>
+</ul>
+</li>
+<li><a href="#tastaturgenveje">Tastaturgenveje</a></li>
+<li><a href="#virtual-midi-keyboard">Virtual MIDI Keyboard</a><ul>
+<li><a href="#funktioner">Funktioner</a></li>
+<li><a href="#vrktjslinjekontroller">Værktøjslinjekontroller</a></li>
+<li><a href="#spil-med-computerens-tastatur">Spil med computerens tastatur</a></li>
+<li><a href="#konfiguration">Konfiguration</a></li>
+<li><a href="#virtual-midi-keyboard-genveje">Virtual MIDI Keyboard genveje</a></li>
+</ul>
+</li>
+<li><a href="#fejlfinding">Fejlfinding</a><ul>
+<li><a href="#ingen-lydoutput">Ingen lydoutput</a></li>
+<li><a href="#midi-spor-er-tavse">MIDI-spor er tavse</a></li>
+<li><a href="#optagelse-lyder-forvrnget-eller-har-forkert-tonehjde">Optagelse lyder forvrænget eller har forkert tonehøjde</a></li>
+<li><a href="#virtual-midi-keyboard-har-ingen-lyd">Virtual MIDI Keyboard har ingen lyd</a></li>
+</ul>
+</li>
+<li><a href="#bygning-fra-kildekode">Bygning fra kildekode</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+<h1 id="musicians-canvas-brugervejledning">Musician's Canvas Brugervejledning</h1>
+<h2 id="introduktion">Introduktion</h2>
+<p>Musician's Canvas er en multispors musikoptagelsesapplikation til stationære computere. Den understøtter lydoptagelse fra mikrofoner og line-in-enheder, MIDI-optagelse fra keyboards og controllere samt miksning af alle spor til en enkelt WAV- eller FLAC-fil. Et ledsagerprogram, Virtual MIDI Keyboard, giver et software-klaviatur til afsendelse af MIDI-noter.</p>
+<p>Musician's Canvas er designet til at være let at bruge, samtidig med at det tilbyder funktioner, der ofte findes i digitale lydarbejdsstationer (DAW'er):</p>
+<ul>
+<li>Multispors lyd- og MIDI-optagelse</li>
+<li>Overdub-optagelse med synkroniseret afspilning af eksisterende spor</li>
+<li>Indbygget FluidSynth MIDI-synthesizer med SoundFont-understøttelse</li>
+<li>Højkvalitets sampleratekonvertering ved optagelse med enhver projektsamplerate</li>
+<li>Automatisk mono/stereo-enhedsdetektering</li>
+<li>Projektbaserede indstillinger med projektspecifikke tilsidesættelser</li>
+<li>Miks til WAV eller FLAC</li>
+<li>Mørke og lyse temaer</li>
+<li>Lokaliseret på flere sprog (engelsk, tysk, spansk, fransk, japansk, portugisisk, kinesisk og pirat)</li>
+<li>Ledsagerapplikation Virtual MIDI Keyboard</li>
+</ul>
+<h2 id="kom-godt-i-gang">Kom godt i gang</h2>
+<h3 id="start-af-applikationen">Start af applikationen</h3>
+<p>Kør den eksekverbare fil <code>musicians_canvas</code> fra byggmappen eller din installationsplacering:</p>
+<pre><code>./musicians_canvas
+</code></pre>
+<p>Ved første start åbner applikationen med et tomt projekt. Du skal angive en projektmappe, før du kan optage.</p>
+<p>Ved opstart anvender applikationen det gemte tema (mørkt eller lyst), og hvis en projektmappe tidligere er blevet brugt og indeholder en <code>project.json</code>-fil, indlæses projektet automatisk.</p>
+<h3 id="opstning-af-et-projekt">Opsætning af et projekt</h3>
+<ol>
+<li>
+<p><strong>Angiv projektmappen</strong>: Indtast eller gennemse til en mappe i feltet "Project Location" øverst i vinduet. Det er her, optagelser og projektfilen gemmes.</p>
+</li>
+<li>
+<p><strong>Tilføj et spor</strong>: Klik på knappen <strong>+ Add Track</strong>. Et nyt spor vises med standardindstillinger. Hvis det er det eneste spor i projektet og endnu ikke er optaget, armeres det automatisk til optagelse.</p>
+</li>
+<li>
+<p><strong>Navngiv sporet</strong>: Skriv et navn i tekstfeltet ved siden af knappen "Options". Dette navn bruges som filnavn for den optagede lydfil.</p>
+</li>
+</ol>
+<p><img alt="Hovedvindue" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="gem-og-abn-projekter">Gem og åbn projekter</h3>
+<ul>
+<li><strong>Gem</strong>: Brug <strong>File &gt; Save Project</strong> (Ctrl+S) til at gemme det aktuelle projekt som en JSON-fil i projektmappen.</li>
+<li><strong>Åbn</strong>: Brug <strong>File &gt; Open Project</strong> (Ctrl+O) til at indlæse et tidligere gemt projekt.</li>
+</ul>
+<p>Projektfilen (<code>project.json</code>) gemmer spornavne, typer, MIDI-noter, lydfilreferencer og alle projektspecifikke indstillinger. Lydfiler gemmes i samme mappe som <code>project.json</code> og navngives efter deres spor (f.eks. <code>My_Track.flac</code>).</p>
+<p>Hvis du lukker applikationen med ikke-gemte ændringer, spørger en bekræftelsesdialog, om du vil gemme, før du afslutter.</p>
+<h2 id="sporhandtering">Sporhåndtering</h2>
+<h3 id="tilfjelse-og-fjernelse-af-spor">Tilføjelse og fjernelse af spor</h3>
+<ul>
+<li>Klik på <strong>+ Add Track</strong> for at tilføje et nyt spor til arrangementet.</li>
+<li>Klik på <strong>x</strong>-knappen i højre side af en sporrække for at fjerne det.</li>
+<li>Klik på <strong>Clear Tracks</strong> (den røde knap i værktøjslinjen) for at fjerne alle spor. En bekræftelsesdialog vises, før handlingen udføres.</li>
+</ul>
+<h3 id="konfiguration-af-sportype">Konfiguration af sportype</h3>
+<p>Hvert spor kan konfigureres som enten <strong>Audio</strong> (til mikrofon/line-in-optagelse) eller <strong>MIDI</strong> (til keyboard/controller-optagelse).</p>
+<p>For at ændre sportypen:</p>
+<ul>
+<li>Klik på knappen <strong>Options</strong> på sporet, eller</li>
+<li>Klik på <strong>sportypeikonet</strong> (mellem "Options" og navnefeltet)</li>
+</ul>
+<p>Dette åbner dialogen Sporkonfiguration, hvor du kan vælge inputkilden.</p>
+<p><img alt="Sporkonfiguration" src="screenshots/MusiciansCanvas_2_TrackConfig.png" /></p>
+<h3 id="sporkontroller">Sporkontroller</h3>
+<p>Hver sporrække har følgende kontroller:</p>
+<ul>
+<li><strong>Aktiver afkrydsningsfelt</strong>: Skifter, om sporet er inkluderet i afspilning og miksning. Deaktivering af et spor afarmerer det også automatisk, hvis det var armeret.</li>
+<li><strong>Armer radioknap</strong>: Vælger dette spor som optagelsesmål. Kun ét spor kan armeres ad gangen; armering af et nyt spor afarmerer automatisk ethvert tidligere armeret spor.</li>
+<li><strong>Navnefelt</strong>: Redigerbart tekstfelt til spornavnet. Dette navn bruges som lydfilnavn (med ugyldige filsystemtegn erstattet af understregninger).</li>
+<li><strong>Options-knap</strong>: Åbner dialogen Sporkonfiguration.</li>
+<li><strong>Typeikon</strong>: Viser et højttalerikon for lydspor eller et klaverikon for MIDI-spor. Klik på det åbner dialogen Sporkonfiguration.</li>
+<li><strong>Fjern-knap (x)</strong>: Fjerner sporet fra projektet.</li>
+</ul>
+<h3 id="automatisk-armering">Automatisk armering</h3>
+<p>Når et projekt har præcis ét spor, og det spor endnu ikke er optaget, armeres det automatisk til optagelse. Dette gælder både, når det første spor tilføjes til et nyt projekt, og når et eksisterende projekt med et enkelt tomt spor åbnes.</p>
+<h3 id="sporvisualisering">Sporvisualisering</h3>
+<ul>
+<li><strong>Lydspor</strong> viser en bølgeformsvisualisering af den optagede lyd. Når ingen lyd er optaget, viser området "No audio recorded".</li>
+<li><strong>MIDI-spor</strong> viser en pianorulle-visualisering, der viser optagede noter på et gitter, der spænder fra A0 til C8. Noter er farvet efter velocity. Når ingen MIDI-data er optaget, viser området "No MIDI data recorded".</li>
+</ul>
+<h2 id="optagelse">Optagelse</h2>
+<h3 id="lydoptagelse">Lydoptagelse</h3>
+<ol>
+<li>Sørg for, at projektmappen er angivet.</li>
+<li>Armér målsporet (marker radioknappen "Arm").</li>
+<li>Klik på knappen <strong>Record</strong> (rød cirkel).</li>
+<li>En 3-sekunders nedtælling vises på sporet ("Get ready... 3", "2", "1"), derefter begynder optagelsen.</li>
+<li>Under optagelse vises en live-niveaumåler i sporets bølgeformsområde, der viser den aktuelle amplitude som en gradientbjælke (grøn til gul til rød) med etiketten "Recording".</li>
+<li>Klik på knappen <strong>Stop</strong> for at afslutte optagelsen.</li>
+</ol>
+<p>Den optagede lyd gemmes som en FLAC-fil i projektmappen, navngivet efter sporet.</p>
+<p>Under optagelse og afspilning deaktiveres alle interaktive kontroller (sporknapper, indstillinger osv.) for at forhindre utilsigtede ændringer.</p>
+<h4 id="overdub-optagelse">Overdub-optagelse</h4>
+<p>Når du optager et nyt spor, mens andre aktiverede spor allerede indeholder lyd- eller MIDI-data, udfører Musician's Canvas overdub-optagelse: de eksisterende spor mikses sammen og afspilles i realtid, mens det nye spor optages. Dette giver dig mulighed for at høre tidligere optagede dele, mens du lægger en ny del.</p>
+<p>Mikset af eksisterende spor forberedes, før optagelsen begynder, så optagelse og afspilning starter på omtrent samme tidspunkt, hvilket holder alle spor synkroniserede.</p>
+<h4 id="optagelsesbackends">Optagelsesbackends</h4>
+<p>Musician's Canvas understøtter to lyd-capture-backends:</p>
+<ul>
+<li><strong>PortAudio</strong> (standard når tilgængelig): Giver pålidelig optagelse med lav latenstid og er den anbefalede backend.</li>
+<li><strong>Qt Multimedia</strong>: En fallback-backend, der bruger Qt's indbyggede lydoptagelse. Bruges når PortAudio ikke er tilgængelig, eller når den eksplicit vælges i Projektindstillinger.</li>
+</ul>
+<p>Optagelsesbackenden kan konfigureres pr. projekt i <strong>Project &gt; Project Settings &gt; Audio</strong>.</p>
+<h4 id="samplerate-og-enhedshandtering">Samplerate og enhedshåndtering</h4>
+<p>Musician's Canvas optager med lydinputenhedens native samplerate og konverterer derefter automatisk til projektets konfigurerede samplerate ved hjælp af resampling i høj kvalitet. Det betyder, at du kan indstille enhver projektsamplerate (f.eks. 44100 Hz eller 48000 Hz) uanset enhedens native rate. Konverteringen bevarer tonehøjde og varighed nøjagtigt.</p>
+<h4 id="mono-enhedsdetektering">Mono-enhedsdetektering</h4>
+<p>Nogle lydenheder (f.eks. USB-webcam-mikrofoner) er fysisk mono, men annonceres som stereo af operativsystemet. Musician's Canvas detekterer dette automatisk og justerer kanalantallet i overensstemmelse hermed. Hvis projektet er konfigureret til stereo, duplikeres monosignalet til begge kanaler.</p>
+<h3 id="midi-optagelse">MIDI-optagelse</h3>
+<ol>
+<li>Indstil sportypen til <strong>MIDI</strong> via Options-knappen.</li>
+<li>Sørg for, at en MIDI-inputenhed er konfigureret i <strong>Settings &gt; Configuration &gt; MIDI</strong>.</li>
+<li>Armér sporet og klik på Record.</li>
+<li>Spil noter på din MIDI-controller.</li>
+<li>Klik på Stop for at afslutte optagelsen.</li>
+</ol>
+<p>MIDI-noter vises i en pianorulle-visualisering på sporet.</p>
+<h2 id="afspilning">Afspilning</h2>
+<p>Klik på knappen <strong>Play</strong> for at mikse og afspille alle aktiverede spor. Knappens værktøjstip ændres for at angive, om den vil afspille eller optage, baseret på om et spor er armeret. Deaktiverede spor (ikke afkrydset) udelukkes fra afspilningen.</p>
+<p>Under afspilning dekodes lydspor fra deres FLAC-filer, og MIDI-spor renderes til lyd ved hjælp af den indbyggede FluidSynth-synthesizer. Alle spor mikses sammen og afspilles gennem systemets lydoutputenhed.</p>
+<p>Klik på knappen <strong>Stop</strong> for at afslutte afspilningen når som helst.</p>
+<h2 id="miksning-til-en-fil">Miksning til en fil</h2>
+<p>Brug <strong>Tools &gt; Mix tracks to file</strong> (Ctrl+M) til at eksportere alle aktiverede spor til en enkelt lydfil. En dialog giver dig mulighed for at vælge outputstien og formatet:</p>
+<ul>
+<li><strong>Outputfil</strong>: Gennemse for at vælge destinationsfilstien.</li>
+<li><strong>Format</strong>: Vælg mellem FLAC (tabsfri komprimering, mindre filer) eller WAV (ukomprimeret).</li>
+</ul>
+<p>Mikset bruger projektets konfigurerede samplerate. MIDI-spor renderes ved hjælp af den konfigurerede SoundFont.</p>
+<h2 id="indstillinger">Indstillinger</h2>
+<h3 id="globale-indstillinger">Globale indstillinger</h3>
+<p>Brug <strong>Settings &gt; Configuration</strong> (Ctrl+,) til at indstille globale standarder, der gælder for alle projekter:</p>
+<p><img alt="Generelle indstillinger" src="screenshots/MusiciansCanvas_3_GeneralSettings.png" /></p>
+<h4 id="fanen-generelt">Fanen Generelt</h4>
+<ul>
+<li><strong>Tema</strong>: Vælg mellem mørkt og lyst tema.</li>
+</ul>
+<h4 id="fanen-sprog">Fanen Sprog</h4>
+<ul>
+<li><strong>Sprog</strong>: Vælg visningssproget for applikationen. Standard er "System Default", som bruger operativsystemets sprogindstilling. Tilgængelige sprog er engelsk, Deutsch (tysk), Español (spansk), Français (fransk), japansk, Português (brasiliansk portugisisk), kinesisk (traditionelt), kinesisk (forenklet) og pirat. Grænsefladen opdateres med det samme, når du ændrer sproget.</li>
+</ul>
+<h4 id="fanen-midi">Fanen MIDI</h4>
+<ul>
+<li><strong>MIDI-outputenhed</strong>: Vælg den indbyggede FluidSynth-synthesizer eller en ekstern MIDI-enhed. Brug knappen <strong>Refresh</strong> til at scanne efter tilgængelige MIDI-enheder igen.</li>
+<li><strong>SoundFont</strong>: Gennemse til en <code>.sf2</code> SoundFont-fil til MIDI-syntese. På Linux kan en system-SoundFont blive automatisk detekteret, hvis pakken <code>fluid-soundfont-gm</code> er installeret. På Windows og macOS skal du konfigurere SoundFont-stien manuelt.</li>
+</ul>
+<p><img alt="MIDI-indstillinger" src="screenshots/MusiciansCanvas_4_MIDISettings.png" /></p>
+<h4 id="fanen-lyd">Fanen Lyd</h4>
+<ul>
+<li><strong>Lydinputenhed</strong>: Vælg mikrofonen eller line-in-enheden til optagelse.</li>
+<li><strong>Lydoutputenhed</strong>: Vælg højttaleren eller hovedtelefonenheden til afspilning.</li>
+</ul>
+<p><img alt="Lydindstillinger" src="screenshots/MusiciansCanvas_5_AudioSettings.png" /></p>
+<h3 id="projektindstillinger">Projektindstillinger</h3>
+<p>Brug <strong>Project &gt; Project Settings</strong> (Ctrl+P) til at tilsidesætte globale standarder kun for det aktuelle projekt. Dette er nyttigt for projekter, der kræver en bestemt samplerate, SoundFont eller lydenhed. Projektspecifikke indstillinger gemmes i <code>project.json</code>-filen.</p>
+<p><img alt="Projekt-MIDI-indstillinger" src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" /></p>
+<h4 id="fanen-midi_1">Fanen MIDI</h4>
+<ul>
+<li><strong>MIDI-enhed</strong>: Vælg en MIDI-enhed til dette projekt, eller lad den stå på standard for at bruge den globale indstilling.</li>
+<li><strong>SoundFont</strong>: Vælg en SoundFont-fil til dette projekt.</li>
+<li><strong>Refresh</strong>: Scan efter tilgængelige MIDI-enheder igen.</li>
+</ul>
+<h4 id="fanen-lyd_1">Fanen Lyd</h4>
+<ul>
+<li><strong>Lydinputenhed</strong>: Vælg optagelsesenheden til dette projekt.</li>
+<li><strong>Optagelses-capture-backend</strong> (når PortAudio er tilgængelig):</li>
+<li><strong>PortAudio (native input)</strong>: Anbefalet. Bruger det samme lydbibliotek som Audacity.</li>
+<li><strong>Qt Multimedia</strong>: Fallback-mulighed, der bruger Qt's indbyggede lydoptagelse.</li>
+<li><strong>PortAudio-inputenhed</strong>: Når PortAudio-backenden bruges, vælg den specifikke PortAudio-inputenhed.</li>
+<li><strong>Lydoutputenhed</strong>: Vælg afspilningsenheden til dette projekt.</li>
+</ul>
+<h5 id="lydformatindstillinger">Lydformatindstillinger</h5>
+<ul>
+<li><strong>Samplerate</strong>: Vælg mellem standardrater (8000 Hz til 192000 Hz). Enhedens native rate er mærket "(native)". Rater, der kræver resampling, er mærket "(resampled)". Du kan vælge enhver rate uanset enhedens kapabilitet; Musician's Canvas vil automatisk resample efter behov.</li>
+<li><strong>Kanaler</strong>: Mono eller Stereo. Hvis enheden kun understøtter mono, er Stereo-indstillingen deaktiveret.</li>
+</ul>
+<p><img alt="Projekt-lydindstillinger" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
+<h2 id="menuer">Menuer</h2>
+<h3 id="filen-menuen">Filen-menuen</h3>
+<table>
+<thead>
+<tr>
+<th>Menupunkt</th>
+<th>Genvej</th>
+<th>Beskrivelse</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Save Project</td>
+<td>Ctrl+S</td>
+<td>Gem det aktuelle projekt til disk</td>
+</tr>
+<tr>
+<td>Open Project</td>
+<td>Ctrl+O</td>
+<td>Åbn en eksisterende projektfil</td>
+</tr>
+<tr>
+<td>Close</td>
+<td>Ctrl+Q</td>
+<td>Afslut applikationen</td>
+</tr>
+</tbody>
+</table>
+<h3 id="projekt-menuen">Projekt-menuen</h3>
+<table>
+<thead>
+<tr>
+<th>Menupunkt</th>
+<th>Genvej</th>
+<th>Beskrivelse</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project Settings</td>
+<td>Ctrl+P</td>
+<td>Konfigurer projektspecifikke indstillinger</td>
+</tr>
+<tr>
+<td>Add Demo Data to Selected Track</td>
+<td></td>
+<td>Tilføj eksempel-MIDI-noter til demonstration</td>
+</tr>
+</tbody>
+</table>
+<h3 id="indstillingsmenuen">Indstillingsmenuen</h3>
+<table>
+<thead>
+<tr>
+<th>Menupunkt</th>
+<th>Genvej</th>
+<th>Beskrivelse</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Configuration</td>
+<td>Ctrl+,</td>
+<td>Åbn globale applikationsindstillinger</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vrktjsmenuen">Værktøjsmenuen</h3>
+<table>
+<thead>
+<tr>
+<th>Menupunkt</th>
+<th>Genvej</th>
+<th>Beskrivelse</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mix tracks to file</td>
+<td>Ctrl+M</td>
+<td>Eksportér alle aktiverede spor til en fil</td>
+</tr>
+<tr>
+<td>Virtual MIDI Keyboard</td>
+<td></td>
+<td>Start ledsagerapplikationen til keyboard</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tastaturgenveje">Tastaturgenveje</h2>
+<table>
+<thead>
+<tr>
+<th>Genvej</th>
+<th>Handling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl+S</td>
+<td>Gem projekt</td>
+</tr>
+<tr>
+<td>Ctrl+O</td>
+<td>Åbn projekt</td>
+</tr>
+<tr>
+<td>Ctrl+M</td>
+<td>Miks spor til fil</td>
+</tr>
+<tr>
+<td>Ctrl+P</td>
+<td>Projektindstillinger</td>
+</tr>
+<tr>
+<td>Ctrl+,</td>
+<td>Indstillinger / Konfiguration</td>
+</tr>
+<tr>
+<td>Ctrl+Q / Alt+F4</td>
+<td>Afslut</td>
+</tr>
+</tbody>
+</table>
+<h2 id="virtual-midi-keyboard">Virtual MIDI Keyboard</h2>
+<p>Virtual MIDI Keyboard er en ledsagerapplikation (<code>virtual_midi_keyboard</code>), der giver et skærmklaviatur til afsendelse af MIDI-noter. Den kan startes fra menuen <strong>Tools &gt; Virtual MIDI Keyboard</strong> i hovedapplikationen eller køres selvstændigt.</p>
+<p><img alt="Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard1.png" /></p>
+<h3 id="funktioner">Funktioner</h3>
+<ul>
+<li>Klik på tangenter på skærmklaviaturet for at spille noter</li>
+<li>Brug computerens tastatur som et klaviatur (se tastaturkortlægning nedenfor)</li>
+<li>Opret forbindelse til eksterne MIDI-outputenheder eller brug den indbyggede FluidSynth-synthesizer</li>
+<li>Opret forbindelse til en MIDI-inputenhed for at vise indgående noter på klaviaturet</li>
+<li>Justerbar synthesizervolumen (master gain, 10%--200%)</li>
+<li>SoundFont-valg til den indbyggede synthesizer</li>
+<li>MIDI-instrument/programvalg (General MIDI eller SoundFont-presets)</li>
+<li>Chorus/effekt-kontrolknap</li>
+<li>Oktavskift (-3 til +5)</li>
+<li>MIDI-volumenkontrol (CC#7, 0--127)</li>
+</ul>
+<h3 id="vrktjslinjekontroller">Værktøjslinjekontroller</h3>
+<ul>
+<li><strong>Volume</strong>: MIDI-volumen (CC#7), justerbar fra 0 til 127 via spinboksen.</li>
+<li><strong>Octave</strong>: Skift tastaturets oktav ved hjælp af knapperne <strong>&lt;</strong> og <strong>&gt;</strong> eller spinboksen. Området er -3 til +5.</li>
+<li><strong>Chorus/Effect</strong>: En drejeknap og et tekstfelt (1--127) til at indstille chorus/effektniveauet (MIDI CC#93). Klik på <strong>Apply</strong> for at sende værdien.</li>
+<li><strong>Instrumentvælger</strong>: Vælg et MIDI-instrument. Når den indbyggede FluidSynth-synthesizer bruges, viser den SoundFont-presets (Bank:Program Navn). Når den er forbundet til en ekstern MIDI-enhed, viser den de 128 General MIDI-instrumenter.</li>
+</ul>
+<h3 id="spil-med-computerens-tastatur">Spil med computerens tastatur</h3>
+<p>Computerens tastatur er kortlagt til klavertangenter over to oktaver:</p>
+<p><strong>Nedre oktav (starter ved den aktuelle oktav):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tast</th>
+<th>Node</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z</td>
+<td>C</td>
+</tr>
+<tr>
+<td>S</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>X</td>
+<td>D</td>
+</tr>
+<tr>
+<td>D</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>C</td>
+<td>E</td>
+</tr>
+<tr>
+<td>V</td>
+<td>F</td>
+</tr>
+<tr>
+<td>G</td>
+<td>F#/Gb</td>
+</tr>
+<tr>
+<td>B</td>
+<td>G</td>
+</tr>
+<tr>
+<td>H</td>
+<td>G#/Ab</td>
+</tr>
+<tr>
+<td>N</td>
+<td>A</td>
+</tr>
+<tr>
+<td>J</td>
+<td>A#/Bb</td>
+</tr>
+<tr>
+<td>M</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Øvre oktav (en oktav højere):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tast</th>
+<th>Node</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q</td>
+<td>C</td>
+</tr>
+<tr>
+<td>2</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>W</td>
+<td>D</td>
+</tr>
+<tr>
+<td>3</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>E</td>
+<td>E</td>
+</tr>
+<tr>
+<td>R</td>
+<td>F</td>
+</tr>
+<tr>
+<td>5</td>
+<td>F#/Gb</td>
+</tr>
+<tr>
+<td>T</td>
+<td>G</td>
+</tr>
+<tr>
+<td>6</td>
+<td>G#/Ab</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>A</td>
+</tr>
+<tr>
+<td>7</td>
+<td>A#/Bb</td>
+</tr>
+<tr>
+<td>U</td>
+<td>B</td>
+</tr>
+<tr>
+<td>I</td>
+<td>C (næste oktav)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>O</td>
+<td>D</td>
+</tr>
+<tr>
+<td>0</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>P</td>
+<td>E</td>
+</tr>
+</tbody>
+</table>
+<p>Taster lyser visuelt op, når de trykkes ned (hvide tangenter bliver lyseblå, sorte tangenter mørkner).</p>
+<h3 id="konfiguration">Konfiguration</h3>
+<p>Åbn konfigurationsdialogen (<strong>Settings &gt; Configuration</strong>, Ctrl+,) for at opsætte MIDI- og lydenheder:</p>
+<p><img alt="Virtual MIDI Keyboard konfiguration" src="screenshots/VMIDIKeyboard2.png" /></p>
+<h4 id="fanen-midi_2">Fanen MIDI</h4>
+<ul>
+<li><strong>MIDI-outputenhed</strong>: Vælg en ekstern enhed eller lad feltet være tomt for den indbyggede FluidSynth-synthesizer.</li>
+<li><strong>MIDI-inputenhed</strong>: Vælg en controller til at videresende noter til klaviaturvisningen.</li>
+<li><strong>Synthesizervolumen (Master Gain)</strong>: Juster outputniveauet for den indbyggede synthesizer (10%--200%).</li>
+<li><strong>SoundFont</strong>: Gennemse til en <code>.sf2</code> SoundFont-fil til den indbyggede synthesizer.</li>
+<li><strong>Refresh</strong>: Scan efter tilgængelige MIDI-enheder igen.</li>
+</ul>
+<h4 id="fanen-lyd_2">Fanen Lyd</h4>
+<ul>
+<li><strong>Lydoutputenhed</strong>: Vælg outputenheden til den indbyggede synthesizer.</li>
+</ul>
+<h4 id="fanen-sprog_1">Fanen Sprog</h4>
+<ul>
+<li><strong>Sprog</strong>: Vælg visningssproget. De samme sprog som i Musician's Canvas er tilgængelige. Grænsefladen opdateres med det samme, når du ændrer sproget.</li>
+</ul>
+<h3 id="virtual-midi-keyboard-genveje">Virtual MIDI Keyboard genveje</h3>
+<table>
+<thead>
+<tr>
+<th>Genvej</th>
+<th>Handling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl+,</td>
+<td>Konfigurationsdialog</td>
+</tr>
+<tr>
+<td>Ctrl+U</td>
+<td>Hjælp / Brugsinformation</td>
+</tr>
+<tr>
+<td>Ctrl+Q</td>
+<td>Luk</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fejlfinding">Fejlfinding</h2>
+<h3 id="ingen-lydoutput">Ingen lydoutput</h3>
+<ul>
+<li>Kontrollér, at den korrekte lydoutputenhed er valgt i Settings &gt; Configuration &gt; Audio.</li>
+<li>På Linux, verificér at PipeWire eller PulseAudio kører, og at outputtet ikke er sat på lydløs. Brug <code>amixer</code> eller dit skrivebordsmiljøs lydindstillinger til at kontrollere lydstyrkeniveauer.</li>
+<li>På Windows, sørg for at en ASIO-lyddriver er installeret (f.eks. <a href="https://asio4all.org/">ASIO4ALL</a> eller en producentleveret ASIO-driver til dit lydinterface). Musician's Canvas kræver ASIO til lyd med lav latenstid på Windows.</li>
+</ul>
+<h3 id="midi-spor-er-tavse">MIDI-spor er tavse</h3>
+<ul>
+<li>Sørg for, at en SoundFont (<code>.sf2</code>-fil) er konfigureret i Settings &gt; Configuration &gt; MIDI.</li>
+<li>På Linux kan en system-SoundFont blive automatisk detekteret, hvis pakken <code>fluid-soundfont-gm</code> er installeret.</li>
+<li>På Windows og macOS skal du konfigurere SoundFont-stien manuelt.</li>
+</ul>
+<h3 id="optagelse-lyder-forvrnget-eller-har-forkert-tonehjde">Optagelse lyder forvrænget eller har forkert tonehøjde</h3>
+<ul>
+<li>Dette kan ske, når lydinputenhedens native samplerate adskiller sig fra projektets konfigurerede rate. Musician's Canvas håndterer dette automatisk via resampling, men hvis problemerne fortsætter, prøv at indstille projektets samplerate til at matche enhedens native rate.</li>
+<li>USB-webcam-mikrofoner har ofte usædvanlige native rater (f.eks. 32000 Hz). Applikationen detekterer disse automatisk.</li>
+<li>Hvis du bruger Qt Multimedia-backenden og oplever problemer, prøv at skifte til PortAudio-backenden i Project Settings &gt; Audio.</li>
+</ul>
+<h3 id="virtual-midi-keyboard-har-ingen-lyd">Virtual MIDI Keyboard har ingen lyd</h3>
+<ul>
+<li>På Linux med PipeWire, sørg for at pakken <code>libpipewire-0.3-dev</code> er installeret (nødvendig for PipeWire-integration med FluidSynth-synthesizeren).</li>
+<li>Kontrollér, at en SoundFont er indlæst (se MIDI-fanen i konfigurationsdialogen).</li>
+<li>Verificér, at lydoutputenheden er valgt, og at systemets lydstyrke ikke er sat på lydløs.</li>
+</ul>
+<h2 id="bygning-fra-kildekode">Bygning fra kildekode</h2>
+<p>Se <a href="../README.md">README</a> for komplet byggevejledning til Linux, macOS og Windows, inklusive alle nødvendige afhængigheder.</p>
+</body>
+</html>

@@ -23,7 +23,7 @@ Musician's Canvas está diseñado para ser fácil de usar y al mismo tiempo ofre
 - Configuración basada en proyectos con ajustes específicos por proyecto
 - Mezcla a WAV o FLAC
 - Temas oscuro y claro
-- Localizado en múltiples idiomas (English, Deutsch, Español, Français, Japanese, Português, Chinese y Pirate)
+- Localizado en 18 idiomas incluyendo English, Deutsch, Español, Français, Japanese, Português, Chinese, Русский, Svenska, Suomi, Dansk, Norsk, Polski, Ελληνικά, Gaeilge, Cymraeg y Pirate
 - Aplicación complementaria Virtual MIDI Keyboard
 
 ## Primeros Pasos
@@ -176,14 +176,22 @@ Use **Settings > Configuration** (Ctrl+,) para establecer los valores predetermi
 #### Pestaña General
 
 - **Tema**: Elija entre los temas Oscuro y Claro.
+- **Escribir registro de depuración de grabación**: Cuando está habilitado, Musician's
+  Canvas escribe información detallada de diagnóstico de grabación en un archivo llamado
+  `recording_debug.txt` en el directorio del proyecto. Esto incluye el backend de captura,
+  el nombre del dispositivo, la frecuencia de muestreo, el número de canales y datos de
+  temporización. Esta opción está deshabilitada por defecto y es principalmente útil para
+  solucionar problemas de grabación.
 
 #### Pestaña Language
 
 - **Idioma**: Elija el idioma de la interfaz de la aplicación. El valor predeterminado es
   "System Default", que utiliza la configuración de idioma del sistema operativo. Los
   idiomas disponibles son English, Deutsch (German), Español (Spanish), Français (French),
-  Japanese, Português (Brazilian Portuguese), Chinese (Traditional), Chinese (Simplified)
-  y Pirate. La interfaz se actualiza inmediatamente al cambiar el idioma.
+  Japanese, Português (Brazilian Portuguese), Chinese (Traditional), Chinese (Simplified),
+  Dansk (Danish), Ελληνικά (Greek), Gaeilge (Irish), Norsk (Norwegian), Polski (Polish),
+  Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh) y Pirate. La
+  interfaz se actualiza inmediatamente al cambiar el idioma.
 
 #### Pestaña MIDI
 

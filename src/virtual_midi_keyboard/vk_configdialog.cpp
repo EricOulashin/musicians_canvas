@@ -178,6 +178,15 @@ void VkConfigDialog::setupLanguageTab()
     m_languageCombo->addItem(QStringLiteral("Português (Brasil)"), QStringLiteral("pt_BR"));
     m_languageCombo->addItem(QStringLiteral("中文（繁體）"), QStringLiteral("zh_TW"));
     m_languageCombo->addItem(QStringLiteral("中文（简体）"), QStringLiteral("zh_CN"));
+    m_languageCombo->addItem(QStringLiteral("Dansk"), QStringLiteral("da"));
+    m_languageCombo->addItem(QStringLiteral("Ελληνικά"), QStringLiteral("el"));
+    m_languageCombo->addItem(QStringLiteral("Gaeilge"), QStringLiteral("ga"));
+    m_languageCombo->addItem(QStringLiteral("Norsk"), QStringLiteral("nb"));
+    m_languageCombo->addItem(QStringLiteral("Polski"), QStringLiteral("pl"));
+    m_languageCombo->addItem(QStringLiteral("Русский"), QStringLiteral("ru"));
+    m_languageCombo->addItem(QStringLiteral("Suomi"), QStringLiteral("fi"));
+    m_languageCombo->addItem(QStringLiteral("Svenska"), QStringLiteral("sv"));
+    m_languageCombo->addItem(QStringLiteral("Cymraeg"), QStringLiteral("cy"));
     m_languageCombo->addItem(QStringLiteral("Pirate"), QStringLiteral("pirate"));
     langLayout->addWidget(m_languageCombo);
     layout->addWidget(langGroup);

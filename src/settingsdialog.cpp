@@ -11,6 +11,7 @@ extern void loadAppTranslation(const QString& lang);
 #include <QComboBox>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QCheckBox>
 #include <QGroupBox>
 #include <QIcon>
 #include <QStyle>
@@ -92,6 +93,13 @@ void SettingsDialog::setupGeneralTab()
     m_themeCombo->setMinimumWidth(200);
     themeLayout->addWidget(m_themeCombo);
     layout->addWidget(themeGroup);
+
+    auto* debugGroup = new QGroupBox(tr("Diagnostics"));
+    auto* debugLayout = new QVBoxLayout(debugGroup);
+    m_debugLogCheck = new QCheckBox(tr("Write recording debug log"));
+    debugLayout->addWidget(m_debugLogCheck);
+    layout->addWidget(debugGroup);
+
     layout->addStretch();
     m_tabWidget->addTab(widget, tr("General"));
 }
@@ -184,6 +192,15 @@ void SettingsDialog::setupLanguageTab()
     m_languageCombo->addItem(QStringLiteral("Português (Brasil)"), QStringLiteral("pt_BR"));
     m_languageCombo->addItem(QStringLiteral("中文（繁體）"), QStringLiteral("zh_TW"));
     m_languageCombo->addItem(QStringLiteral("中文（简体）"), QStringLiteral("zh_CN"));
+    m_languageCombo->addItem(QStringLiteral("Dansk"), QStringLiteral("da"));
+    m_languageCombo->addItem(QStringLiteral("Ελληνικά"), QStringLiteral("el"));
+    m_languageCombo->addItem(QStringLiteral("Gaeilge"), QStringLiteral("ga"));
+    m_languageCombo->addItem(QStringLiteral("Norsk"), QStringLiteral("nb"));
+    m_languageCombo->addItem(QStringLiteral("Polski"), QStringLiteral("pl"));
+    m_languageCombo->addItem(QStringLiteral("Русский"), QStringLiteral("ru"));
+    m_languageCombo->addItem(QStringLiteral("Suomi"), QStringLiteral("fi"));
+    m_languageCombo->addItem(QStringLiteral("Svenska"), QStringLiteral("sv"));
+    m_languageCombo->addItem(QStringLiteral("Cymraeg"), QStringLiteral("cy"));
     m_languageCombo->addItem(QStringLiteral("Pirate"), QStringLiteral("pirate"));
     langLayout->addWidget(m_languageCombo);
     layout->addWidget(langGroup);
@@ -244,6 +261,8 @@ void SettingsDialog::loadSettings()
         int idx = m_themeCombo->findData(settings.theme());
         if (idx >= 0) m_themeCombo->setCurrentIndex(idx);
     }
+    if (m_debugLogCheck)
+        m_debugLogCheck->setChecked(settings.recordingDebugLog());
     if (m_languageCombo)
     {
         int langIdx = m_languageCombo->findData(settings.language());
@@ -289,6 +308,8 @@ void SettingsDialog::saveSettings()
     {
         settings.setTheme(m_themeCombo->currentData().toString());
     }
+    if (m_debugLogCheck)
+        settings.setRecordingDebugLog(m_debugLogCheck->isChecked());
     if (m_languageCombo)
         settings.setLanguage(m_languageCombo->currentData().toString());
     settings.setMidiDeviceIndex(m_midiDeviceCombo->currentData().toInt());

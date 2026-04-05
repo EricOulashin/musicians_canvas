@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ga">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tr&#233;oirleabhar &#218;s&#225;ideora Musician&#8217;s Canvas</title>
+<style>
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px 40px;
+    color: #24292e; background-color: #fff;
+}
+h1 { border-bottom: 2px solid #0366d6; padding-bottom: 0.3em; color: #0366d6; }
+h2 { border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; margin-top: 2em; }
+h3 { color: #0366d6; margin-top: 1.5em; }
+h4 { color: #586069; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid #dfe2e5; padding: 8px 12px; text-align: left; }
+th { background-color: #f6f8fa; font-weight: 600; }
+tr:nth-child(even) { background-color: #f6f8fa; }
+code { background-color: #f6f8fa; padding: 0.2em 0.4em; border-radius: 3px; font-size: 0.9em;
+       font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; }
+pre { background-color: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+strong { color: #24292e; }
+a { color: #0366d6; text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6px; margin: 1em 0; }
+.toc { background-color: #f6f8fa; border: 1px solid #dfe2e5; border-radius: 6px;
+       padding: 15px 20px; margin: 1em 0 2em 0; }
+.toc h2 { margin-top: 0; border-bottom: none; font-size: 1.1em; }
+.toc ul { list-style: none; padding-left: 1.2em; }
+.toc > ul { padding-left: 0; }
+.toc li { margin: 0.3em 0; }
+.title-block { text-align: center; margin-bottom: 2em; padding-bottom: 1em;
+               border-bottom: 2px solid #0366d6; }
+@media print {
+    body { max-width: none; padding: 0; }
+    h1, h2, h3 { page-break-after: avoid; }
+    table, pre, img { page-break-inside: avoid; }
+    img { max-width: 80%; }
+}
+</style>
+</head>
+<body>
+<div class="title-block">
+<h1>Tr&#233;oirleabhar &#218;s&#225;ideora Musician&#8217;s Canvas</h1>
+<p>Feidhmchlár Taifeadta Ceoil Il-Rian &mdash; Version 0.1.0</p>
+<p>2026-04-05</p>
+</div>
+<div class="toc">
+<h2>Cl&aacute;r &Aacute;bhair</h2>
+<div class="toc">
+<ul>
+<li><a href="#lamhleabhar-usaideora-musicians-canvas">Lámhleabhar Úsáideora Musician's Canvas</a><ul>
+<li><a href="#reamhra">Réamhrá</a></li>
+<li><a href="#ag-tosu">Ag Tosú</a><ul>
+<li><a href="#ag-seoladh-an-fheidhmchlair">Ag Seoladh an Fheidhmchláir</a></li>
+<li><a href="#tionscadal-a-shocru">Tionscadal a Shocrú</a></li>
+<li><a href="#tionscadail-a-shabhail-agus-a-oscailt">Tionscadail a Shábháil agus a Oscailt</a></li>
+</ul>
+</li>
+<li><a href="#bainistiocht-rianta">Bainistíocht Rianta</a><ul>
+<li><a href="#rianta-a-chur-leis-agus-a-bhaint">Rianta a Chur Leis agus a Bhaint</a></li>
+<li><a href="#cineal-rian-a-chumru">Cineál Rian a Chumrú</a></li>
+<li><a href="#rialuithe-rian">Rialuithe Rian</a></li>
+<li><a href="#uath-armail">Uath-Armáil</a></li>
+<li><a href="#amharcleiriu-rian">Amharcléiriú Rian</a></li>
+</ul>
+</li>
+<li><a href="#taifeadadh">Taifeadadh</a><ul>
+<li><a href="#taifeadadh-fuaime">Taifeadadh Fuaime</a></li>
+<li><a href="#taifeadadh-midi">Taifeadadh MIDI</a></li>
+</ul>
+</li>
+<li><a href="#athsheinm">Athsheinm</a></li>
+<li><a href="#meascadh-go-comhad">Meascadh go Comhad</a></li>
+<li><a href="#socruithe">Socruithe</a><ul>
+<li><a href="#socruithe-domhanda">Socruithe Domhanda</a></li>
+<li><a href="#socruithe-tionscadail">Socruithe Tionscadail</a></li>
+</ul>
+</li>
+<li><a href="#roghchlair">Roghchláir</a><ul>
+<li><a href="#roghchlar-file">Roghchlár File</a></li>
+<li><a href="#roghchlar-project">Roghchlár Project</a></li>
+<li><a href="#roghchlar-settings">Roghchlár Settings</a></li>
+<li><a href="#roghchlar-tools">Roghchlár Tools</a></li>
+</ul>
+</li>
+<li><a href="#aicearrai-mearchlair">Aicearraí Méarchláir</a></li>
+<li><a href="#virtual-midi-keyboard">Virtual MIDI Keyboard</a><ul>
+<li><a href="#gneithe">Gnéithe</a></li>
+<li><a href="#rialuithe-barra-uirlisi">Rialuithe Barra Uirlisí</a></li>
+<li><a href="#ag-seinm-le-mearchlar-an-riomhaire">Ag Seinm le Méarchlár an Ríomhaire</a></li>
+<li><a href="#cumraiocht">Cumraíocht</a></li>
+<li><a href="#aicearrai-virtual-midi-keyboard">Aicearraí Virtual MIDI Keyboard</a></li>
+</ul>
+</li>
+<li><a href="#fabhtcheartu">Fabhtcheartú</a><ul>
+<li><a href="#gan-aschur-fuaime">Gan Aschur Fuaime</a></li>
+<li><a href="#ta-rianta-midi-ciuin">Tá Rianta MIDI Ciúin</a></li>
+<li><a href="#fuaimeann-an-taifeadadh-saobhtha-no-ta-an-tuinairde-micheart">Fuaimeann an Taifeadadh Saobhtha nó Tá an Tuinairde Mícheart</a></li>
+<li><a href="#nil-fuaim-ag-virtual-midi-keyboard">Níl Fuaim ag Virtual MIDI Keyboard</a></li>
+</ul>
+</li>
+<li><a href="#togail-on-mbunchod">Tógáil ón mBunchód</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+<h1 id="lamhleabhar-usaideora-musicians-canvas">Lámhleabhar Úsáideora Musician's Canvas</h1>
+<h2 id="reamhra">Réamhrá</h2>
+<p>Is feidhmchlár taifeadta ceoil il-rian do ríomhairí deisce é Musician's Canvas. Tacaíonn sé le taifeadadh fuaime ó mhicreafóin agus gléasanna line-in, taifeadadh MIDI ó mhéarchláir agus rialtóirí, agus meascadh na rianta go léir i gcomhad WAV nó FLAC amháin. Soláthraíonn feidhmchlár comhpháirteach, Virtual MIDI Keyboard, méarchlár pianó bogearraí chun nótaí MIDI a sheoladh.</p>
+<p>Tá Musician's Canvas deartha le bheith éasca le húsáid agus gnéithe a thairiscint a fhaightear go coitianta i stáisiúin oibre fuaime digiteacha (DAWanna):</p>
+<ul>
+<li>Taifeadadh fuaime agus MIDI il-rian</li>
+<li>Taifeadadh overdub le hathsheinm sioncronaithe na rianta atá ann cheana</li>
+<li>Sintéiseoir FluidSynth MIDI ionsuite le tacaíocht SoundFont</li>
+<li>Tiontú ardchaighdeáin ráta samplála le haghaidh taifeadta ag aon ráta samplála tionscadail</li>
+<li>Braith uathoibríoch monafónach/steiréafónach ar ghléasanna</li>
+<li>Socruithe bunaithe ar thionscadal le forchealú in aghaidh an tionscadail</li>
+<li>Measc go WAV nó FLAC</li>
+<li>Téamaí dorcha agus éadroma</li>
+<li>Logánaithe i dteangacha iomaí (Béarla, Gearmáinis, Spáinnis, Fraincis, Seapáinis, Portaingéilis, Sínis, agus Foghlaeireacht)</li>
+<li>Feidhmchlár comhpháirteach Virtual MIDI Keyboard</li>
+</ul>
+<h2 id="ag-tosu">Ag Tosú</h2>
+<h3 id="ag-seoladh-an-fheidhmchlair">Ag Seoladh an Fheidhmchláir</h3>
+<p>Rith an comhad inrite <code>musicians_canvas</code> ón gcomhadlann tógála nó ó shuíomh do shuiteála:</p>
+<pre><code>./musicians_canvas
+</code></pre>
+<p>Ar an gcéad seoladh, osclaíonn an feidhmchlár le tionscadal folamh. Beidh ort comhadlann tionscadail a shocrú sula ndéanfaidh tú taifeadadh.</p>
+<p>Ar thosach, cuireann an feidhmchlár an téama sábháilte i bhfeidhm (dorcha nó éadrom) agus, má úsáideadh comhadlann tionscadail roimhe seo agus má tá comhad <code>project.json</code> inti, luchtaítear an tionscadal go huathoibríoch.</p>
+<h3 id="tionscadal-a-shocru">Tionscadal a Shocrú</h3>
+<ol>
+<li>
+<p><strong>Socraigh an chomhadlann tionscadail</strong>: Cuir isteach nó brabhsáil chuig fillteán sa réimse "Project Location" ag barr na fuinneoige. Seo an áit a stórálfar na taifeadtaí agus an comhad tionscadail.</p>
+</li>
+<li>
+<p><strong>Cuir rian leis</strong>: Cliceáil an cnaipe <strong>+ Add Track</strong>. Feictear rian nua le socruithe réamhshocraithe. Más é an t-aon rian sa tionscadal é agus nach bhfuil taifeadta fós, armáiltear go huathoibríoch é le haghaidh taifeadta.</p>
+</li>
+<li>
+<p><strong>Ainmnigh an rian</strong>: Clóscríobh ainm sa réimse téacs in aice leis an gcnaipe "Options". Úsáidtear an t-ainm seo mar ainm comhaid don chomhad fuaime taifeadta.</p>
+</li>
+</ol>
+<p><img alt="Príomhfhuinneog" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="tionscadail-a-shabhail-agus-a-oscailt">Tionscadail a Shábháil agus a Oscailt</h3>
+<ul>
+<li><strong>Sábháil</strong>: Úsáid <strong>File &gt; Save Project</strong> (Ctrl+S) chun an tionscadal reatha a shábháil mar chomhad JSON sa chomhadlann tionscadail.</li>
+<li><strong>Oscail</strong>: Úsáid <strong>File &gt; Open Project</strong> (Ctrl+O) chun tionscadal a sábháladh roimhe seo a luchtú.</li>
+</ul>
+<p>Stórálann an comhad tionscadail (<code>project.json</code>) ainmneacha rianta, cineálacha, nótaí MIDI, tagairtí comhad fuaime, agus gach socrú a bhaineann leis an tionscadal. Stóráiltear comhaid fuaime sa chomhadlann chéanna le <code>project.json</code> agus ainmnítear iad i ndiaidh a gcuid rianta (m.sh., <code>My_Track.flac</code>).</p>
+<p>Má dhúnann tú an feidhmchlár le hathruithe neamhshábháilte, iarrann dialóg deimhniúcháin an bhfuil tú ag iarraidh sábháil sula scoirfidh tú.</p>
+<h2 id="bainistiocht-rianta">Bainistíocht Rianta</h2>
+<h3 id="rianta-a-chur-leis-agus-a-bhaint">Rianta a Chur Leis agus a Bhaint</h3>
+<ul>
+<li>Cliceáil <strong>+ Add Track</strong> chun rian nua a chur leis an socrú.</li>
+<li>Cliceáil an cnaipe <strong>x</strong> ar thaobh na láimhe deise de ró rian chun é a bhaint.</li>
+<li>Cliceáil <strong>Clear Tracks</strong> (an cnaipe dearg sa bharra uirlisí) chun gach rian a bhaint. Taispeántar dialóg deimhniúcháin sula dtéitear ar aghaidh.</li>
+</ul>
+<h3 id="cineal-rian-a-chumru">Cineál Rian a Chumrú</h3>
+<p>Is féidir gach rian a chumrú mar <strong>Audio</strong> (le haghaidh taifeadta micreafóin/line-in) nó <strong>MIDI</strong> (le haghaidh taifeadta méarchláir/rialtóra).</p>
+<p>Chun an cineál rian a athrú:</p>
+<ul>
+<li>Cliceáil an cnaipe <strong>Options</strong> ar an rian, nó</li>
+<li>Cliceáil an <strong>deilbhín cineáil rian</strong> (idir "Options" agus an réimse ainm)</li>
+</ul>
+<p>Osclaíonn sé seo an dialóg Cumraíochta Rian inar féidir leat an fhoinse ionchuir a roghnú.</p>
+<p><img alt="Cumraíocht rian" src="screenshots/MusiciansCanvas_2_TrackConfig.png" /></p>
+<h3 id="rialuithe-rian">Rialuithe Rian</h3>
+<p>Soláthraíonn gach ró rian na rialuithe seo a leanas:</p>
+<ul>
+<li><strong>Ticbhosca cumasaithe</strong>: Scoránann an bhfuil an rian san áireamh in athsheinm agus meascadh. Má dhíchumasaítear rian, díarmáiltear go huathoibríoch é má bhí sé armáilte.</li>
+<li><strong>Cnaipe raidió armála</strong>: Roghnaíonn sé an rian seo mar sprioc taifeadta. Ní féidir ach rian amháin a bheith armáilte ag an am céanna; nuair a armáiltear rian nua, díarmáiltear go huathoibríoch aon rian a bhí armáilte roimhe seo.</li>
+<li><strong>Réimse ainm</strong>: Réimse téacs ineagair d'ainm an rian. Úsáidtear an t-ainm seo mar ainm comhaid fuaime (le carachtair neamhbhailí córais comhad á n-athchur le fostríoc).</li>
+<li><strong>Cnaipe Options</strong>: Osclaíonn sé an dialóg Cumraíochta Rian.</li>
+<li><strong>Deilbhín cineáil</strong>: Taispeánann sé deilbhín callaire do rianta fuaime nó deilbhín pianó do rianta MIDI. Má chliceáiltear é osclaíonn sé an dialóg Cumraíochta Rian.</li>
+<li><strong>Cnaipe bainte (x)</strong>: Baineann sé an rian ón tionscadal.</li>
+</ul>
+<h3 id="uath-armail">Uath-Armáil</h3>
+<p>Nuair nach bhfuil ach rian amháin ag tionscadal agus nár taifeadadh an rian sin fós, armáiltear go huathoibríoch é le haghaidh taifeadta. Baineann sé seo le cur an chéad rian le tionscadal nua agus le tionscadal atá ann cheana a oscailt a bhfuil rian folamh amháin aige.</p>
+<h3 id="amharcleiriu-rian">Amharcléiriú Rian</h3>
+<ul>
+<li><strong>Rianta fuaime</strong>: Taispeánann siad amharcléiriú tonnchrothaí den fhuaim taifeadta. Nuair nach bhfuil fuaim taifeadta, taispeánann an limistéar "No audio recorded".</li>
+<li><strong>Rianta MIDI</strong>: Taispeánann siad amharcléiriú piano roll a léiríonn nótaí taifeadta ar ghreille ó A0 go C8. Dathanna na nótaí de réir treise. Nuair nach bhfuil sonraí MIDI taifeadta, taispeánann an limistéar "No MIDI data recorded".</li>
+</ul>
+<h2 id="taifeadadh">Taifeadadh</h2>
+<h3 id="taifeadadh-fuaime">Taifeadadh Fuaime</h3>
+<ol>
+<li>Cinntigh go bhfuil an chomhadlann tionscadail socraithe.</li>
+<li>Armáil an rian sprioc (tic an cnaipe raidió "Arm").</li>
+<li>Cliceáil an cnaipe <strong>Record</strong> (ciorcal dearg).</li>
+<li>Feictear comhaireamh síos 3 soicind ar an rian ("Get ready... 3", "2", "1"), ansin tosaíonn an taifeadadh.</li>
+<li>Le linn taifeadta, taispeántar méadar leibhéil beo i limistéar tonnchrothaí an rian, ag taispeáint an aimplitiúid reatha mar bharra grádáin (glas go buí go dearg) le lipéad "Recording".</li>
+<li>Cliceáil an cnaipe <strong>Stop</strong> chun an taifeadadh a chríochnú.</li>
+</ol>
+<p>Sábháiltear an fhuaim taifeadta mar chomhad FLAC sa chomhadlann tionscadail, ainmnithe i ndiaidh an rian.</p>
+<p>Le linn taifeadta agus athsheinm, díchumasaítear gach rialú idirghníomhach (cnaipí rianta, socruithe, srl.) chun athruithe de thaisme a chosc.</p>
+<h4 id="taifeadadh-overdub">Taifeadadh Overdub</h4>
+<p>Nuair a thaifeadtar rian nua agus rianta cumasaithe eile ann cheana le sonraí fuaime nó MIDI, déanann Musician's Canvas taifeadadh overdub: measctar na rianta atá ann cheana le chéile agus seinntar iad i bhfíor-am agus an rian nua á thaifeadadh. Ligeann sé seo duit na codanna a taifeadadh roimhe seo a chloisteáil agus tú ag leagan síos ceann nua.</p>
+<p>Ullmhaítear meascán na rianta atá ann cheana sula dtosaíonn an ghabháil, ionas go dtosaíonn an taifeadadh agus an athsheinm ag an nóiméad céanna beagnach, ag coinneáil gach rian sioncronaithe.</p>
+<h4 id="culai-taifeadta">Cúlaí Taifeadta</h4>
+<p>Tacaíonn Musician's Canvas le dhá chúla gabhála fuaime:</p>
+<ul>
+<li><strong>PortAudio</strong> (réamhshocraithe nuair atá sé ar fáil): Soláthraíonn sé taifeadadh iontaofa íseal-aga freagartha agus is é an cúla molta.</li>
+<li><strong>Qt Multimedia</strong>: Cúla cúltaca ag baint úsáide as gabháil fuaime ionsuite Qt. Úsáidtear é nuair nach bhfuil PortAudio ar fáil nó nuair a roghnaítear go sainráite é i Socruithe Tionscadail.</li>
+</ul>
+<p>Is féidir an cúla taifeadta a chumrú in aghaidh an tionscadail ag <strong>Project &gt; Project Settings &gt; Audio</strong>.</p>
+<h4 id="rata-samplala-agus-laimhseail-gleasanna">Ráta Samplála agus Láimhseáil Gléasanna</h4>
+<p>Taifeadann Musician's Canvas ag ráta samplála dúchais an ghléis ionchuir fuaime agus ansin tiontaíonn sé go huathoibríoch go ráta samplála cumraithe an tionscadail ag úsáid athshamplála ardchaighdeáin. Ciallaíonn sé seo gur féidir leat aon ráta samplála tionscadail a shocrú (m.sh., 44100 Hz nó 48000 Hz) beag beann ar ráta dúchais an ghléis. Caomhnaíonn an tiontú tuinairde agus fad go beacht.</p>
+<h4 id="braith-gleas-monafonach">Braith Gléas Monafónach</h4>
+<p>Tá roinnt gléasanna fuaime (m.sh., micreafóin ceamara gréasáin USB) monafónach go fisiciúil ach fógraítear iad mar steiréafónach ag an gcóras oibriúcháin. Braitheann Musician's Canvas é seo go huathoibríoch agus coigeartaíonn sé an líon cainéal dá réir. Má tá an tionscadal cumraithe le haghaidh steiréafónach, dúblaítear an comhartha monafónach go dtí an dá chainéal.</p>
+<h3 id="taifeadadh-midi">Taifeadadh MIDI</h3>
+<ol>
+<li>Socraigh cineál an rian go <strong>MIDI</strong> tríd an gcnaipe Options.</li>
+<li>Cinntigh go bhfuil gléas ionchuir MIDI cumraithe ag <strong>Settings &gt; Configuration &gt; MIDI</strong>.</li>
+<li>Armáil an rian agus cliceáil Record.</li>
+<li>Seinn nótaí ar do rialtóir MIDI.</li>
+<li>Cliceáil Stop chun an taifeadadh a chríochnú.</li>
+</ol>
+<p>Taispeántar nótaí MIDI in amharcléiriú piano roll ar an rian.</p>
+<h2 id="athsheinm">Athsheinm</h2>
+<p>Cliceáil an cnaipe <strong>Play</strong> chun gach rian cumasaithe a mheascadh agus a athsheinm. Athraíonn leid uirlise an chnaipe chun a léiriú an seinnfidh sé nó an dtaifeadfaidh sé bunaithe ar an gcé acu an bhfuil rian armáilte. Ní chuirtear rianta díchumasaithe (gan tic) san áireamh san athsheinm.</p>
+<p>Le linn athsheinm, díchódaítear rianta fuaime óna gcomhaid FLAC agus rindreáiltear rianta MIDI go fuaim ag úsáid an tsintéiseora FluidSynth ionsuite. Measctar gach rian le chéile agus seinntar iad trí ghléas aschuir fuaime an chórais.</p>
+<p>Cliceáil an cnaipe <strong>Stop</strong> chun an athsheinm a chríochnú ag am ar bith.</p>
+<h2 id="meascadh-go-comhad">Meascadh go Comhad</h2>
+<p>Úsáid <strong>Tools &gt; Mix tracks to file</strong> (Ctrl+M) chun gach rian cumasaithe a easpórtáil go comhad fuaime amháin. Ligeann dialóg duit an cosán aschuir agus an formáid a roghnú:</p>
+<ul>
+<li><strong>Comhad aschuir</strong>: Brabhsáil chun cosán comhad cinn scríbe a roghnú.</li>
+<li><strong>Formáid</strong>: Roghnaigh idir FLAC (comhbhrú gan chaillteanas, comhaid níos lú) nó WAV (neamh-chomhbhrúite).</li>
+</ul>
+<p>Úsáideann an meascadh ráta samplála cumraithe an tionscadail. Rindreáiltear rianta MIDI ag úsáid an SoundFont cumraithe.</p>
+<h2 id="socruithe">Socruithe</h2>
+<h3 id="socruithe-domhanda">Socruithe Domhanda</h3>
+<p>Úsáid <strong>Settings &gt; Configuration</strong> (Ctrl+,) chun réamhshocruithe domhanda a shocrú a bhaineann le gach tionscadal:</p>
+<p><img alt="Socruithe ginearálta" src="screenshots/MusiciansCanvas_3_GeneralSettings.png" /></p>
+<h4 id="cluaisin-general">Cluaisín General</h4>
+<ul>
+<li><strong>Téama</strong>: Roghnaigh idir téamaí dorcha agus éadroma.</li>
+</ul>
+<h4 id="cluaisin-language">Cluaisín Language</h4>
+<ul>
+<li><strong>Teanga</strong>: Roghnaigh teanga taispeána an fheidhmchláir. Is é "System Default" an réamhshocrú, a úsáideann socrú teanga an chórais oibriúcháin. Is iad na teangacha atá ar fáil ná Béarla, Deutsch (Gearmáinis), Español (Spáinnis), Français (Fraincis), Seapáinis, Português (Portaingéilis na Brasaíle), Sínis (Traidisiúnta), Sínis (Simplithe), agus Foghlaeireacht. Déantar an comhéadan a nuashonrú láithreach nuair a athraíonn tú an teanga.</li>
+</ul>
+<h4 id="cluaisin-midi">Cluaisín MIDI</h4>
+<ul>
+<li><strong>Gléas Aschuir MIDI</strong>: Roghnaigh an sintéiseoir FluidSynth ionsuite nó gléas MIDI seachtrach. Úsáid an cnaipe <strong>Refresh</strong> chun athscanadh a dhéanamh le haghaidh gléasanna MIDI atá ar fáil.</li>
+<li><strong>SoundFont</strong>: Brabhsáil chuig comhad SoundFont <code>.sf2</code> le haghaidh sintéise MIDI. Ar Linux, d'fhéadfaí SoundFont córais a bhrath go huathoibríoch má tá an pacáiste <code>fluid-soundfont-gm</code> suiteáilte. Ar Windows agus macOS, ní mór duit cosán SoundFont a chumrú de láimh.</li>
+</ul>
+<p><img alt="Socruithe MIDI" src="screenshots/MusiciansCanvas_4_MIDISettings.png" /></p>
+<h4 id="cluaisin-audio">Cluaisín Audio</h4>
+<ul>
+<li><strong>Gléas Ionchuir Fuaime</strong>: Roghnaigh an micreafón nó an gléas line-in le haghaidh taifeadta.</li>
+<li><strong>Gléas Aschuir Fuaime</strong>: Roghnaigh an callaire nó an gléas cluasán le haghaidh athsheinm.</li>
+</ul>
+<p><img alt="Socruithe fuaime" src="screenshots/MusiciansCanvas_5_AudioSettings.png" /></p>
+<h3 id="socruithe-tionscadail">Socruithe Tionscadail</h3>
+<p>Úsáid <strong>Project &gt; Project Settings</strong> (Ctrl+P) chun réamhshocruithe domhanda a fhorchealú don tionscadal reatha amháin. Tá sé seo úsáideach do thionscadail a dteastaíonn ráta samplála sonrach, SoundFont, nó gléas fuaime uathu. Sábháiltear socruithe a bhaineann leis an tionscadal taobh istigh den chomhad <code>project.json</code>.</p>
+<p><img alt="Socruithe MIDI tionscadail" src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" /></p>
+<h4 id="cluaisin-midi_1">Cluaisín MIDI</h4>
+<ul>
+<li><strong>Gléas MIDI</strong>: Roghnaigh gléas MIDI don tionscadal seo, nó fág ag an réamhshocrú chun an socrú domhanda a úsáid.</li>
+<li><strong>SoundFont</strong>: Roghnaigh comhad SoundFont don tionscadal seo.</li>
+<li><strong>Refresh</strong>: Athscanadh le haghaidh gléasanna MIDI atá ar fáil.</li>
+</ul>
+<h4 id="cluaisin-audio_1">Cluaisín Audio</h4>
+<ul>
+<li><strong>Gléas Ionchuir Fuaime</strong>: Roghnaigh an gléas taifeadta don tionscadal seo.</li>
+<li><strong>Cúla gabhála taifeadta</strong> (nuair atá PortAudio ar fáil):</li>
+<li><strong>PortAudio (native input)</strong>: Molta. Úsáideann sé an leabharlann fuaime chéanna le Audacity.</li>
+<li><strong>Qt Multimedia</strong>: Rogha chúltaca ag úsáid gabháil fuaime ionsuite Qt.</li>
+<li><strong>Gléas Ionchuir PortAudio</strong>: Nuair a úsáidtear an cúla PortAudio, roghnaigh an gléas ionchuir PortAudio sonrach.</li>
+<li><strong>Gléas Aschuir Fuaime</strong>: Roghnaigh an gléas athsheinm don tionscadal seo.</li>
+</ul>
+<h5 id="socruithe-formaid-fuaime">Socruithe Formáid Fuaime</h5>
+<ul>
+<li><strong>Ráta samplála</strong>: Roghnaigh ó rátaí caighdeánacha (8000 Hz go 192000 Hz). Lipéadaítear ráta dúchais an ghléis mar "(native)". Lipéadaítear rátaí a dteastaíonn athshamplú uathu mar "(resampled)". Is féidir leat aon ráta a roghnú beag beann ar chumas an ghléis; déanfaidh Musician's Canvas athshamplú go huathoibríoch de réir mar is gá.</li>
+<li><strong>Cainéil</strong>: Monafónach nó Steiréafónach. Mura dtacaíonn an gléas ach le monafónach, tá an rogha Steiréafónach díchumasaithe.</li>
+</ul>
+<p><img alt="Socruithe fuaime tionscadail" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
+<h2 id="roghchlair">Roghchláir</h2>
+<h3 id="roghchlar-file">Roghchlár File</h3>
+<table>
+<thead>
+<tr>
+<th>Mír Roghchláir</th>
+<th>Aicearra</th>
+<th>Cur Síos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Save Project</td>
+<td>Ctrl+S</td>
+<td>Sábháil an tionscadal reatha ar dhiosca</td>
+</tr>
+<tr>
+<td>Open Project</td>
+<td>Ctrl+O</td>
+<td>Oscail comhad tionscadail atá ann cheana</td>
+</tr>
+<tr>
+<td>Close</td>
+<td>Ctrl+Q</td>
+<td>Scoir den fheidhmchlár</td>
+</tr>
+</tbody>
+</table>
+<h3 id="roghchlar-project">Roghchlár Project</h3>
+<table>
+<thead>
+<tr>
+<th>Mír Roghchláir</th>
+<th>Aicearra</th>
+<th>Cur Síos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project Settings</td>
+<td>Ctrl+P</td>
+<td>Cumraigh socruithe a bhaineann leis an tionscadal</td>
+</tr>
+<tr>
+<td>Add Demo Data to Selected Track</td>
+<td></td>
+<td>Cuir nótaí samplacha MIDI leis le haghaidh taispeána</td>
+</tr>
+</tbody>
+</table>
+<h3 id="roghchlar-settings">Roghchlár Settings</h3>
+<table>
+<thead>
+<tr>
+<th>Mír Roghchláir</th>
+<th>Aicearra</th>
+<th>Cur Síos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Configuration</td>
+<td>Ctrl+,</td>
+<td>Oscail socruithe domhanda an fheidhmchláir</td>
+</tr>
+</tbody>
+</table>
+<h3 id="roghchlar-tools">Roghchlár Tools</h3>
+<table>
+<thead>
+<tr>
+<th>Mír Roghchláir</th>
+<th>Aicearra</th>
+<th>Cur Síos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mix tracks to file</td>
+<td>Ctrl+M</td>
+<td>Easpórtáil gach rian cumasaithe go comhad</td>
+</tr>
+<tr>
+<td>Virtual MIDI Keyboard</td>
+<td></td>
+<td>Seoladh an fheidhmchláir mhéarchláir chomhpháirtigh</td>
+</tr>
+</tbody>
+</table>
+<h2 id="aicearrai-mearchlair">Aicearraí Méarchláir</h2>
+<table>
+<thead>
+<tr>
+<th>Aicearra</th>
+<th>Gníomh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl+S</td>
+<td>Sábháil tionscadal</td>
+</tr>
+<tr>
+<td>Ctrl+O</td>
+<td>Oscail tionscadal</td>
+</tr>
+<tr>
+<td>Ctrl+M</td>
+<td>Measc rianta go comhad</td>
+</tr>
+<tr>
+<td>Ctrl+P</td>
+<td>Socruithe Tionscadail</td>
+</tr>
+<tr>
+<td>Ctrl+,</td>
+<td>Socruithe / Cumraíocht</td>
+</tr>
+<tr>
+<td>Ctrl+Q / Alt+F4</td>
+<td>Scoir</td>
+</tr>
+</tbody>
+</table>
+<h2 id="virtual-midi-keyboard">Virtual MIDI Keyboard</h2>
+<p>Is feidhmchlár comhpháirteach é Virtual MIDI Keyboard (<code>virtual_midi_keyboard</code>) a sholáthraíonn méarchlár pianó ar an scáileán chun nótaí MIDI a sheoladh. Is féidir é a sheoladh ón roghchlár <strong>Tools &gt; Virtual MIDI Keyboard</strong> sa phríomhfheidhmchlár, nó é a rith go neamhspleách.</p>
+<p><img alt="Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard1.png" /></p>
+<h3 id="gneithe">Gnéithe</h3>
+<ul>
+<li>Cliceáil eochracha ar an méarchlár pianó ar an scáileán chun nótaí a sheinm</li>
+<li>Úsáid méarchlár an ríomhaire mar mhéarchlár pianó (féach ar mhapáil eochracha thíos)</li>
+<li>Ceangail le gléasanna aschuir MIDI seachtracha nó úsáid an sintéiseoir FluidSynth ionsuite</li>
+<li>Ceangail le gléas ionchuir MIDI chun nótaí isteach a thaispeáint ar an méarchlár</li>
+<li>Toirt sintéiseora inchóirithe (master gain, 10%--200%)</li>
+<li>Roghnú SoundFont don tsintéiseoir ionsuite</li>
+<li>Roghnú ionstraime/cláir MIDI (General MIDI nó réamhshocruithe SoundFont)</li>
+<li>Cnaipe rialaithe Chorus/éifeacht</li>
+<li>Aistriú ochtáif (-3 go +5)</li>
+<li>Rialú toirte MIDI (CC#7, 0--127)</li>
+</ul>
+<h3 id="rialuithe-barra-uirlisi">Rialuithe Barra Uirlisí</h3>
+<ul>
+<li><strong>Volume</strong>: Toirt MIDI (CC#7), inchóirithe ó 0 go 127 tríd an mbosca snáthaide.</li>
+<li><strong>Octave</strong>: Aistrigh ochtáif an mhéarchláir ag úsáid na gcnaipí <strong>&lt;</strong> agus <strong>&gt;</strong> nó an bhosca snáthaide. Raon -3 go +5.</li>
+<li><strong>Chorus/Effect</strong>: Cnaipe rothlach agus réimse téacs (1--127) chun leibhéal chorus/éifeachta a shocrú (MIDI CC#93). Cliceáil <strong>Apply</strong> chun an luach a sheoladh.</li>
+<li><strong>Roghnóir ionstraime</strong>: Roghnaigh ionstraim MIDI. Nuair a úsáidtear an sintéiseoir FluidSynth ionsuite, taispeánann sé seo réamhshocruithe SoundFont (Bank:Program Name). Nuair atá sé ceangailte le gléas MIDI seachtrach, liostáítear na 128 ionstraim General MIDI.</li>
+</ul>
+<h3 id="ag-seinm-le-mearchlar-an-riomhaire">Ag Seinm le Méarchlár an Ríomhaire</h3>
+<p>Tá méarchlár an ríomhaire mapáilte go heochracha pianó trasna dhá ochtáif:</p>
+<p><strong>Ochtáif íochtair (ag tosú ag an ochtáif reatha):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Eochair</th>
+<th>Nóta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z</td>
+<td>C</td>
+</tr>
+<tr>
+<td>S</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>X</td>
+<td>D</td>
+</tr>
+<tr>
+<td>D</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>C</td>
+<td>E</td>
+</tr>
+<tr>
+<td>V</td>
+<td>F</td>
+</tr>
+<tr>
+<td>G</td>
+<td>F#/Gb</td>
+</tr>
+<tr>
+<td>B</td>
+<td>G</td>
+</tr>
+<tr>
+<td>H</td>
+<td>G#/Ab</td>
+</tr>
+<tr>
+<td>N</td>
+<td>A</td>
+</tr>
+<tr>
+<td>J</td>
+<td>A#/Bb</td>
+</tr>
+<tr>
+<td>M</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ochtáif uachtair (ochtáif amháin níos airde):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Eochair</th>
+<th>Nóta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q</td>
+<td>C</td>
+</tr>
+<tr>
+<td>2</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>W</td>
+<td>D</td>
+</tr>
+<tr>
+<td>3</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>E</td>
+<td>E</td>
+</tr>
+<tr>
+<td>R</td>
+<td>F</td>
+</tr>
+<tr>
+<td>5</td>
+<td>F#/Gb</td>
+</tr>
+<tr>
+<td>T</td>
+<td>G</td>
+</tr>
+<tr>
+<td>6</td>
+<td>G#/Ab</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>A</td>
+</tr>
+<tr>
+<td>7</td>
+<td>A#/Bb</td>
+</tr>
+<tr>
+<td>U</td>
+<td>B</td>
+</tr>
+<tr>
+<td>I</td>
+<td>C (an chéad ochtáif eile)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>O</td>
+<td>D</td>
+</tr>
+<tr>
+<td>0</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>P</td>
+<td>E</td>
+</tr>
+</tbody>
+</table>
+<p>Lasann eochracha go hamhairc nuair a bhrúitear iad (athraíonn eochracha bána go gorm éadrom, éiríonn eochracha dubha níos dorcha).</p>
+<h3 id="cumraiocht">Cumraíocht</h3>
+<p>Oscail an dialóg Cumraíochta (<strong>Settings &gt; Configuration</strong>, Ctrl+,) chun gléasanna MIDI agus fuaime a shocrú:</p>
+<p><img alt="Cumraíocht Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard2.png" /></p>
+<h4 id="cluaisin-midi_2">Cluaisín MIDI</h4>
+<ul>
+<li><strong>Gléas Aschuir MIDI</strong>: Roghnaigh gléas seachtrach nó fág folamh don tsintéiseoir FluidSynth ionsuite.</li>
+<li><strong>Gléas Ionchuir MIDI</strong>: Roghnaigh rialtóir chun nótaí a chur ar aghaidh chuig taispeáint an mhéarchláir.</li>
+<li><strong>Toirt an tSintéiseora (Master Gain)</strong>: Coigeartaigh leibhéal aschuir na sintéiseora ionsuite (10%--200%).</li>
+<li><strong>SoundFont</strong>: Brabhsáil chuig comhad SoundFont <code>.sf2</code> don tsintéiseoir ionsuite.</li>
+<li><strong>Refresh</strong>: Athscanadh le haghaidh gléasanna MIDI atá ar fáil.</li>
+</ul>
+<h4 id="cluaisin-audio_2">Cluaisín Audio</h4>
+<ul>
+<li><strong>Gléas Aschuir Fuaime</strong>: Roghnaigh an gléas aschuir don tsintéiseoir ionsuite.</li>
+</ul>
+<h4 id="cluaisin-language_1">Cluaisín Language</h4>
+<ul>
+<li><strong>Teanga</strong>: Roghnaigh an teanga taispeána. Tá na teangacha céanna ar fáil agus atá i Musician's Canvas. Déantar an comhéadan a nuashonrú láithreach nuair a athraíonn tú an teanga.</li>
+</ul>
+<h3 id="aicearrai-virtual-midi-keyboard">Aicearraí Virtual MIDI Keyboard</h3>
+<table>
+<thead>
+<tr>
+<th>Aicearra</th>
+<th>Gníomh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl+,</td>
+<td>Dialóg cumraíochta</td>
+</tr>
+<tr>
+<td>Ctrl+U</td>
+<td>Cabhair / Eolas úsáide</td>
+</tr>
+<tr>
+<td>Ctrl+Q</td>
+<td>Dún</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fabhtcheartu">Fabhtcheartú</h2>
+<h3 id="gan-aschur-fuaime">Gan Aschur Fuaime</h3>
+<ul>
+<li>Seiceáil go bhfuil an gléas aschuir fuaime ceart roghnaithe ag Settings &gt; Configuration &gt; Audio.</li>
+<li>Ar Linux, fíoraigh go bhfuil PipeWire nó PulseAudio ag rith agus nach bhfuil an t-aschur balbhaithe. Úsáid <code>amixer</code> nó socruithe fuaime do dheasc chun leibhéil toirte a sheiceáil.</li>
+<li>Ar Windows, cinntigh go bhfuil tiománaí fuaime ASIO suiteáilte (m.sh., <a href="https://asio4all.org/">ASIO4ALL</a> nó tiománaí ASIO ón monaróir do do chomhéadan fuaime). Éilíonn Musician's Canvas ASIO le haghaidh fuaime íseal-aga freagartha ar Windows.</li>
+</ul>
+<h3 id="ta-rianta-midi-ciuin">Tá Rianta MIDI Ciúin</h3>
+<ul>
+<li>Cinntigh go bhfuil SoundFont (comhad <code>.sf2</code>) cumraithe ag Settings &gt; Configuration &gt; MIDI.</li>
+<li>Ar Linux, d'fhéadfaí SoundFont córais a bhrath go huathoibríoch má tá an pacáiste <code>fluid-soundfont-gm</code> suiteáilte.</li>
+<li>Ar Windows agus macOS, ní mór duit cosán SoundFont a chumrú de láimh.</li>
+</ul>
+<h3 id="fuaimeann-an-taifeadadh-saobhtha-no-ta-an-tuinairde-micheart">Fuaimeann an Taifeadadh Saobhtha nó Tá an Tuinairde Mícheart</h3>
+<ul>
+<li>Is féidir é seo a tharlú nuair a bhíonn ráta samplála dúchais an ghléis ionchuir fuaime difriúil ó ráta cumraithe an tionscadail. Láimhseálann Musician's Canvas é seo go huathoibríoch trí athshamplú, ach má leanann na fadhbanna ar aghaidh, bain triail as ráta samplála an tionscadail a shocrú chun ráta dúchais an ghléis a mheaitseáil.</li>
+<li>Is minic a bhíonn rátaí dúchais neamhghnácha ag micreafóin ceamara gréasáin USB (m.sh., 32000 Hz). Braitheann an feidhmchlár iad seo go huathoibríoch.</li>
+<li>Má tá tú ag úsáid an chúla Qt Multimedia agus má tá fadhbanna agat, bain triail as athrú go dtí an cúla PortAudio ag Project Settings &gt; Audio.</li>
+</ul>
+<h3 id="nil-fuaim-ag-virtual-midi-keyboard">Níl Fuaim ag Virtual MIDI Keyboard</h3>
+<ul>
+<li>Ar Linux le PipeWire, cinntigh go bhfuil an pacáiste <code>libpipewire-0.3-dev</code> suiteáilte (teastaíonn sé le haghaidh comhtháthú PipeWire leis an tsintéiseoir FluidSynth).</li>
+<li>Seiceáil go bhfuil SoundFont luchtaithe (féach an cluaisín MIDI sa dialóg cumraíochta).</li>
+<li>Fíoraigh go bhfuil an gléas aschuir fuaime roghnaithe agus nach bhfuil toirt an chórais balbhaithe.</li>
+</ul>
+<h2 id="togail-on-mbunchod">Tógáil ón mBunchód</h2>
+<p>Féach ar an <a href="../README.md">README</a> le haghaidh treoracha iomlána tógála do Linux, macOS, agus Windows, lena n-áirítear gach spleáchas riachtanach.</p>
+</body>
+</html>

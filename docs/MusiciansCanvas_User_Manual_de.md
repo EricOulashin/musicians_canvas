@@ -28,7 +28,7 @@ häufig in digitalen Audio-Workstations (DAWs) zu finden sind:
 - Projektbasierte Einstellungen mit projektspezifischen Überschreibungen
 - Abmischen in WAV oder FLAC
 - Dunkles und helles Design
-- Lokalisiert in mehreren Sprachen (English, Deutsch, Español, Français, Japanese, Português, Chinese und Pirate)
+- Lokalisiert in 18 Sprachen, darunter English, Deutsch, Español, Français, Japanese, Português, Chinese, Русский, Svenska, Suomi, Dansk, Norsk, Polski, Ελληνικά, Gaeilge, Cymraeg und Pirate
 - Begleitanwendung Virtual MIDI Keyboard
 
 ## Erste Schritte
@@ -244,13 +244,20 @@ die für alle Projekte gelten:
 #### Registerkarte "General"
 
 - **Theme**: Wählen Sie zwischen dunklem und hellem Design.
+- **Debug-Protokoll für Aufnahme schreiben**: Wenn aktiviert, schreibt Musician's Canvas
+  detaillierte Diagnoseinformationen zur Aufnahme in eine Datei namens `recording_debug.txt`
+  im Projektverzeichnis. Dies umfasst das Aufnahme-Backend, den Gerätenamen, die
+  Abtastrate, die Kanalanzahl und Zeitdaten. Diese Option ist standardmäßig deaktiviert
+  und dient hauptsächlich zur Fehlerbehebung bei Aufnahmeproblemen.
 
 #### Registerkarte "Language"
 
 - **Sprache**: Wählen Sie die Anzeigesprache der Anwendung. Die Standardeinstellung ist
   „Systemstandard", die die Spracheinstellung des Betriebssystems verwendet. Verfügbare
   Sprachen sind English, Deutsch (German), Español (Spanish), Français (French), Japanese,
-  Português (Brazilian Portuguese), Chinese (Traditional), Chinese (Simplified) und Pirate.
+  Português (Brazilian Portuguese), Chinese (Traditional), Chinese (Simplified), Dansk
+  (Danish), Ελληνικά (Greek), Gaeilge (Irish), Norsk (Norwegian), Polski (Polish),
+  Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh) und Pirate.
   Die Benutzeroberfläche wird sofort aktualisiert, wenn Sie die Sprache ändern.
 
 #### Registerkarte "MIDI"

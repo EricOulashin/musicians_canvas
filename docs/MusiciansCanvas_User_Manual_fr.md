@@ -28,7 +28,7 @@ fonctionnalités couramment présentes dans les stations de travail audio numér
 - Paramètres basés sur le projet avec possibilité de remplacement par projet
 - Mixage vers WAV ou FLAC
 - Thèmes sombre et clair
-- Localisé en plusieurs langues (English, Deutsch, Español, Français, Japanese, Português, Chinese et Pirate)
+- Localisé en 18 langues dont English, Deutsch, Español, Français, Japanese, Português, Chinese, Русский, Svenska, Suomi, Dansk, Norsk, Polski, Ελληνικά, Gaeilge, Cymraeg et Pirate
 - Application compagnon Virtual MIDI Keyboard
 
 ## Premiers pas
@@ -249,6 +249,12 @@ globales qui s'appliquent à tous les projets :
 #### Onglet General
 
 - **Thème** : Choisissez entre les thèmes sombre (Dark) et clair (Light).
+- **Écrire le journal de débogage d'enregistrement** : Lorsque cette option est activée,
+  Musician's Canvas écrit des informations de diagnostic détaillées sur l'enregistrement
+  dans un fichier appelé `recording_debug.txt` dans le répertoire du projet. Cela inclut
+  le moteur de capture, le nom du périphérique, la fréquence d'échantillonnage, le nombre
+  de canaux et les données de chronométrage. Cette option est désactivée par défaut et est
+  principalement utile pour le dépannage des problèmes d'enregistrement.
 
 #### Onglet Language
 
@@ -256,8 +262,9 @@ globales qui s'appliquent à tous les projets :
   est « System Default », qui utilise le paramètre de langue du système d'exploitation.
   Les langues disponibles sont English, Deutsch (German), Español (Spanish), Français
   (French), Japanese, Português (Brazilian Portuguese), Chinese (Traditional), Chinese
-  (Simplified) et Pirate. L'interface se met à jour immédiatement lorsque vous changez
-  la langue.
+  (Simplified), Dansk (Danish), Ελληνικά (Greek), Gaeilge (Irish), Norsk (Norwegian),
+  Polski (Polish), Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh)
+  et Pirate. L'interface se met à jour immédiatement lorsque vous changez la langue.
 
 #### Onglet MIDI
 

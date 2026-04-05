@@ -22,7 +22,7 @@ PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 HTML_DIR="$SCRIPT_DIR/html"
 
 # Supported language suffixes (empty string = English)
-LANG_SUFFIXES=("" "_de" "_es" "_pt-BR" "_fr" "_zh-TW" "_zh-CN" "_ja" "_pirate")
+LANG_SUFFIXES=("" "_de" "_es" "_pt-BR" "_fr" "_zh-TW" "_zh-CN" "_ja" "_da" "_el" "_ga" "_nb" "_pl" "_ru" "_fi" "_sv" "_cy" "_pirate")
 
 # Export dirs for Python scripts
 export SCRIPT_DIR

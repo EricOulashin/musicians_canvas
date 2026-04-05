@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Manuel d&#8217;utilisation de Musician&#8217;s Canvas</h1>
 <p>Application d'enregistrement musical multipiste &mdash; Version 0.1.0</p>
-<p>2026-04-04</p>
+<p>2026-04-05</p>
 </div>
 <div class="toc">
 <h2>Table des mati&egrave;res</h2>
@@ -128,7 +128,7 @@ fonctionnalités couramment présentes dans les stations de travail audio numér
 <li>Paramètres basés sur le projet avec possibilité de remplacement par projet</li>
 <li>Mixage vers WAV ou FLAC</li>
 <li>Thèmes sombre et clair</li>
-<li>Localisé en plusieurs langues (English, Deutsch, Español, Français, Japanese, Português, Chinese et Pirate)</li>
+<li>Localisé en 18 langues dont English, Deutsch, Español, Français, Japanese, Português, Chinese, Русский, Svenska, Suomi, Dansk, Norsk, Polski, Ελληνικά, Gaeilge, Cymraeg et Pirate</li>
 <li>Application compagnon Virtual MIDI Keyboard</li>
 </ul>
 <h2 id="premiers-pas">Premiers pas</h2>
@@ -312,6 +312,12 @@ globales qui s'appliquent à tous les projets :</p>
 <h4 id="onglet-general">Onglet General</h4>
 <ul>
 <li><strong>Thème</strong> : Choisissez entre les thèmes sombre (Dark) et clair (Light).</li>
+<li><strong>Écrire le journal de débogage d'enregistrement</strong> : Lorsque cette option est activée,
+  Musician's Canvas écrit des informations de diagnostic détaillées sur l'enregistrement
+  dans un fichier appelé <code>recording_debug.txt</code> dans le répertoire du projet. Cela inclut
+  le moteur de capture, le nom du périphérique, la fréquence d'échantillonnage, le nombre
+  de canaux et les données de chronométrage. Cette option est désactivée par défaut et est
+  principalement utile pour le dépannage des problèmes d'enregistrement.</li>
 </ul>
 <h4 id="onglet-language">Onglet Language</h4>
 <ul>
@@ -319,8 +325,9 @@ globales qui s'appliquent à tous les projets :</p>
   est « System Default », qui utilise le paramètre de langue du système d'exploitation.
   Les langues disponibles sont English, Deutsch (German), Español (Spanish), Français
   (French), Japanese, Português (Brazilian Portuguese), Chinese (Traditional), Chinese
-  (Simplified) et Pirate. L'interface se met à jour immédiatement lorsque vous changez
-  la langue.</li>
+  (Simplified), Dansk (Danish), Ελληνικά (Greek), Gaeilge (Irish), Norsk (Norwegian),
+  Polski (Polish), Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh)
+  et Pirate. L'interface se met à jour immédiatement lorsque vous changez la langue.</li>
 </ul>
 <h4 id="onglet-midi">Onglet MIDI</h4>
 <ul>

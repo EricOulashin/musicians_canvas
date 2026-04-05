@@ -3,6 +3,7 @@
 
 #include <QDialog>
 
+class QCheckBox;
 class QTabWidget;
 class QComboBox;
 class QLineEdit;
@@ -29,6 +30,7 @@ private:
 
     QTabWidget* m_tabWidget = nullptr;
     QComboBox* m_themeCombo = nullptr;
+    QCheckBox* m_debugLogCheck = nullptr;
     QComboBox* m_languageCombo = nullptr;
     QComboBox* m_midiDeviceCombo = nullptr;
     QLineEdit* m_soundFontEdit = nullptr;

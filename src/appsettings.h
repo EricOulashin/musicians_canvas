@@ -63,6 +63,16 @@ public:
         m_audioOutputDeviceId = id;
     }
 
+    // Debug log setting
+    bool recordingDebugLog() const
+    {
+        return m_recordingDebugLog;
+    }
+    void setRecordingDebugLog(bool enabled)
+    {
+        m_recordingDebugLog = enabled;
+    }
+
     // Language setting (empty = system default)
     QString language() const
     {
@@ -91,6 +101,7 @@ private:
     AppSettings(const AppSettings&) = delete;
     AppSettings& operator=(const AppSettings&) = delete;
 
+    bool m_recordingDebugLog = false;
     QString m_language;  // empty = system default
     QString m_theme = "dark";
     int m_midiDeviceIndex = 0;

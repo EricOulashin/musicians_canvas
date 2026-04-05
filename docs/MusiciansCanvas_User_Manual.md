@@ -26,7 +26,7 @@ digital audio workstations (DAWs):
 - Project-based settings with per-project overrides
 - Mix to WAV or FLAC
 - Dark and light themes
-- Localized in multiple languages (English, German, Spanish, French, Japanese, Portuguese, Chinese, and Pirate)
+- Localized in 18 languages including English, German, Spanish, French, Japanese, Portuguese, Chinese, Russian, Swedish, Finnish, Danish, Norwegian, Polish, Greek, Irish, Welsh, and Pirate
 - Companion Virtual MIDI Keyboard application
 
 ## Getting Started
@@ -231,13 +231,20 @@ projects:
 #### General Tab
 
 - **Theme**: Choose between Dark and Light themes.
+- **Write recording debug log**: When enabled, Musician's Canvas writes detailed
+  recording diagnostic information to a file called `recording_debug.txt` in the
+  project directory. This includes the capture backend, device name, sample rate,
+  channel count, and timing data. This is disabled by default and is primarily useful
+  for troubleshooting recording issues.
 
 #### Language Tab
 
 - **Language**: Choose the display language for the application. The default is "System
   Default", which uses the operating system's language setting. Available languages are
   English, Deutsch (German), Español (Spanish), Français (French), Japanese, Português
-  (Brazilian Portuguese), Chinese (Traditional), Chinese (Simplified), and Pirate.
+  (Brazilian Portuguese), Chinese (Traditional), Chinese (Simplified), Dansk (Danish),
+  Ελληνικά (Greek), Gaeilge (Irish), Norsk (Norwegian), Polski (Polish),
+  Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh), and Pirate.
   The interface updates immediately when you change the language.
 
 #### MIDI Tab

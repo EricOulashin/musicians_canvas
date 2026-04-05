@@ -28,7 +28,7 @@ encontrados em estacoes de trabalho de audio digital (DAWs):
 - Configuracoes baseadas em projeto com opcoes especificas por projeto
 - Mixagem para WAV ou FLAC
 - Temas escuro e claro
-- Localizado em multiplos idiomas (English, Deutsch, Español, Français, Japanese, Português, Chinese e Pirate)
+- Localizado em 18 idiomas incluindo English, Deutsch, Español, Français, Japanese, Português, Chinese, Русский, Svenska, Suomi, Dansk, Norsk, Polski, Ελληνικά, Gaeilge, Cymraeg e Pirate
 - Aplicativo complementar Virtual MIDI Keyboard
 
 ## Primeiros Passos
@@ -240,14 +240,22 @@ todos os projetos:
 #### Aba General
 
 - **Theme**: Escolha entre os temas Dark e Light.
+- **Gravar log de depuracao de gravacao**: Quando habilitado, Musician's Canvas grava
+  informacoes detalhadas de diagnostico de gravacao em um arquivo chamado
+  `recording_debug.txt` no diretorio do projeto. Isso inclui o backend de captura, o nome
+  do dispositivo, a taxa de amostragem, a contagem de canais e dados de temporizacao. Esta
+  opcao esta desabilitada por padrao e e principalmente util para solucionar problemas de
+  gravacao.
 
 #### Aba Language
 
 - **Idioma**: Escolha o idioma de exibicao do aplicativo. O padrao e "System Default",
   que utiliza a configuracao de idioma do sistema operacional. Os idiomas disponiveis sao
   English, Deutsch (German), Español (Spanish), Français (French), Japanese, Português
-  (Brazilian Portuguese), Chinese (Traditional), Chinese (Simplified) e Pirate. A
-  interface e atualizada imediatamente ao alterar o idioma.
+  (Brazilian Portuguese), Chinese (Traditional), Chinese (Simplified), Dansk (Danish),
+  Ελληνικά (Greek), Gaeilge (Irish), Norsk (Norwegian), Polski (Polish), Русский
+  (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh) e Pirate. A interface e
+  atualizada imediatamente ao alterar o idioma.
 
 #### Aba MIDI
 

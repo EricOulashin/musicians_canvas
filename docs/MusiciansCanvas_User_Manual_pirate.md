@@ -23,7 +23,7 @@ Musician's Canvas be designed fer ease o' use while providin' features commonly 
 - Project-based settings with per-project overrides
 - Mix to WAV or FLAC
 - Dark an' light themes (fer sailin' by night or by day)
-- Localized in multiple tongues (English, Deutsch, Español, Français, Japanese, Português, Chinese, an' Pirate -- the finest language on the seven seas!)
+- Localized in 18 tongues includin' English, Deutsch, Español, Français, Japanese, Português, Chinese, Русский, Svenska, Suomi, Dansk, Norsk, Polski, Ελληνικά, Gaeilge, Cymraeg, an' Pirate -- the finest language on the seven seas!
 - Companion Virtual MIDI Keyboard application
 
 ## Gettin' Started
@@ -176,13 +176,20 @@ Use **Settings > Configuration** (Ctrl+,) to set global defaults that apply to a
 #### General Tab
 
 - **Theme**: Choose between Dark an' Light themes. Dark fer night watches, Light fer sunny sailin'!
+- **Write recording debug log**: When enabled, Musician's Canvas writes detailed
+  plunderin' diagnostic information to a file called `recording_debug.txt` in the project
+  directory. This includes the capture backend, device name, sample rate, channel count,
+  an' timin' data. This be disabled by default an' be primarily useful fer troubleshootin'
+  plunderin' issues, savvy?
 
 #### Language Tab
 
 - **Language**: Choose the display language fer the application, ye worldly pirate! The
   default be "System Default", which uses the operatin' system's language settin'. Available
   tongues be English, Deutsch (German), Español (Spanish), Français (French), Japanese,
-  Português (Brazilian Portuguese), Chinese (Traditional), Chinese (Simplified), an' Pirate.
+  Português (Brazilian Portuguese), Chinese (Traditional), Chinese (Simplified), Dansk
+  (Danish), Ελληνικά (Greek), Gaeilge (Irish), Norsk (Norwegian), Polski (Polish),
+  Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh), an' Pirate.
   The interface updates immediately when ye change the language -- no need to restart the ship!
 
 #### MIDI Tab

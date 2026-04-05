@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Podr&#281;cznik u&#380;ytkownika Musician&#8217;s Canvas</title>
+<style>
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px 40px;
+    color: #24292e; background-color: #fff;
+}
+h1 { border-bottom: 2px solid #0366d6; padding-bottom: 0.3em; color: #0366d6; }
+h2 { border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; margin-top: 2em; }
+h3 { color: #0366d6; margin-top: 1.5em; }
+h4 { color: #586069; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid #dfe2e5; padding: 8px 12px; text-align: left; }
+th { background-color: #f6f8fa; font-weight: 600; }
+tr:nth-child(even) { background-color: #f6f8fa; }
+code { background-color: #f6f8fa; padding: 0.2em 0.4em; border-radius: 3px; font-size: 0.9em;
+       font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; }
+pre { background-color: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+strong { color: #24292e; }
+a { color: #0366d6; text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6px; margin: 1em 0; }
+.toc { background-color: #f6f8fa; border: 1px solid #dfe2e5; border-radius: 6px;
+       padding: 15px 20px; margin: 1em 0 2em 0; }
+.toc h2 { margin-top: 0; border-bottom: none; font-size: 1.1em; }
+.toc ul { list-style: none; padding-left: 1.2em; }
+.toc > ul { padding-left: 0; }
+.toc li { margin: 0.3em 0; }
+.title-block { text-align: center; margin-bottom: 2em; padding-bottom: 1em;
+               border-bottom: 2px solid #0366d6; }
+@media print {
+    body { max-width: none; padding: 0; }
+    h1, h2, h3 { page-break-after: avoid; }
+    table, pre, img { page-break-inside: avoid; }
+    img { max-width: 80%; }
+}
+</style>
+</head>
+<body>
+<div class="title-block">
+<h1>Podr&#281;cznik u&#380;ytkownika Musician&#8217;s Canvas</h1>
+<p>Wielościeżkowa aplikacja do nagrywania muzyki &mdash; Version 0.1.0</p>
+<p>2026-04-05</p>
+</div>
+<div class="toc">
+<h2>Spis tre&sacute;ci</h2>
+<div class="toc">
+<ul>
+<li><a href="#musicians-canvas-podrecznik-uzytkownika">Musician's Canvas Podręcznik Użytkownika</a><ul>
+<li><a href="#wprowadzenie">Wprowadzenie</a></li>
+<li><a href="#pierwsze-kroki">Pierwsze kroki</a><ul>
+<li><a href="#uruchamianie-aplikacji">Uruchamianie aplikacji</a></li>
+<li><a href="#konfiguracja-projektu">Konfiguracja projektu</a></li>
+<li><a href="#zapisywanie-i-otwieranie-projektow">Zapisywanie i otwieranie projektów</a></li>
+</ul>
+</li>
+<li><a href="#zarzadzanie-sciezkami">Zarządzanie ścieżkami</a><ul>
+<li><a href="#dodawanie-i-usuwanie-sciezek">Dodawanie i usuwanie ścieżek</a></li>
+<li><a href="#konfiguracja-typu-sciezki">Konfiguracja typu ścieżki</a></li>
+<li><a href="#kontrolki-sciezki">Kontrolki ścieżki</a></li>
+<li><a href="#automatyczne-uzbrajanie">Automatyczne uzbrajanie</a></li>
+<li><a href="#wizualizacja-sciezki">Wizualizacja ścieżki</a></li>
+</ul>
+</li>
+<li><a href="#nagrywanie">Nagrywanie</a><ul>
+<li><a href="#nagrywanie-audio">Nagrywanie audio</a></li>
+<li><a href="#nagrywanie-midi">Nagrywanie MIDI</a></li>
+</ul>
+</li>
+<li><a href="#odtwarzanie">Odtwarzanie</a></li>
+<li><a href="#miksowanie-do-pliku">Miksowanie do pliku</a></li>
+<li><a href="#ustawienia">Ustawienia</a><ul>
+<li><a href="#ustawienia-globalne">Ustawienia globalne</a></li>
+<li><a href="#ustawienia-projektu">Ustawienia projektu</a></li>
+</ul>
+</li>
+<li><a href="#menu">Menu</a><ul>
+<li><a href="#menu-plik">Menu Plik</a></li>
+<li><a href="#menu-projekt">Menu Projekt</a></li>
+<li><a href="#menu-ustawienia">Menu Ustawienia</a></li>
+<li><a href="#menu-narzedzia">Menu Narzędzia</a></li>
+</ul>
+</li>
+<li><a href="#skroty-klawiaturowe">Skróty klawiaturowe</a></li>
+<li><a href="#virtual-midi-keyboard">Virtual MIDI Keyboard</a><ul>
+<li><a href="#funkcje">Funkcje</a></li>
+<li><a href="#kontrolki-paska-narzedzi">Kontrolki paska narzędzi</a></li>
+<li><a href="#granie-na-klawiaturze-komputera">Granie na klawiaturze komputera</a></li>
+<li><a href="#konfiguracja">Konfiguracja</a></li>
+<li><a href="#skroty-virtual-midi-keyboard">Skróty Virtual MIDI Keyboard</a></li>
+</ul>
+</li>
+<li><a href="#rozwiazywanie-problemow">Rozwiązywanie problemów</a><ul>
+<li><a href="#brak-wyjscia-audio">Brak wyjścia audio</a></li>
+<li><a href="#sciezki-midi-sa-ciche">Ścieżki MIDI są ciche</a></li>
+<li><a href="#nagranie-brzmi-znieksztacone-lub-ma-za-wysokosc-dzwieku">Nagranie brzmi zniekształcone lub ma złą wysokość dźwięku</a></li>
+<li><a href="#virtual-midi-keyboard-nie-ma-dzwieku">Virtual MIDI Keyboard nie ma dźwięku</a></li>
+</ul>
+</li>
+<li><a href="#kompilacja-ze-zrode">Kompilacja ze źródeł</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+<h1 id="musicians-canvas-podrecznik-uzytkownika">Musician's Canvas Podręcznik Użytkownika</h1>
+<h2 id="wprowadzenie">Wprowadzenie</h2>
+<p>Musician's Canvas to wielościeżkowa aplikacja do nagrywania muzyki na komputery stacjonarne. Obsługuje nagrywanie dźwięku z mikrofonów i urządzeń line-in, nagrywanie MIDI z klawiatur i kontrolerów oraz miksowanie wszystkich ścieżek do jednego pliku WAV lub FLAC. Aplikacja towarzysząca, Virtual MIDI Keyboard, udostępnia programową klawiaturę fortepianową do wysyłania nut MIDI.</p>
+<p>Musician's Canvas został zaprojektowany z myślą o łatwości użytkowania, oferując jednocześnie funkcje powszechnie spotykane w cyfrowych stacjach roboczych audio (DAW):</p>
+<ul>
+<li>Wielościeżkowe nagrywanie audio i MIDI</li>
+<li>Nagrywanie overdub z zsynchronizowanym odtwarzaniem istniejących ścieżek</li>
+<li>Wbudowany syntezator MIDI FluidSynth z obsługą SoundFont</li>
+<li>Wysokiej jakości konwersja częstotliwości próbkowania przy nagrywaniu z dowolną częstotliwością próbkowania projektu</li>
+<li>Automatyczne wykrywanie urządzeń mono/stereo</li>
+<li>Ustawienia oparte na projektach z nadpisywaniem ustawień per projekt</li>
+<li>Miksowanie do WAV lub FLAC</li>
+<li>Ciemne i jasne motywy</li>
+<li>Lokalizacja w wielu językach (angielski, niemiecki, hiszpański, francuski, japoński, portugalski, chiński i piracki)</li>
+<li>Aplikacja towarzysząca Virtual MIDI Keyboard</li>
+</ul>
+<h2 id="pierwsze-kroki">Pierwsze kroki</h2>
+<h3 id="uruchamianie-aplikacji">Uruchamianie aplikacji</h3>
+<p>Uruchom plik wykonywalny <code>musicians_canvas</code> z katalogu kompilacji lub lokalizacji instalacji:</p>
+<pre><code>./musicians_canvas
+</code></pre>
+<p>Przy pierwszym uruchomieniu aplikacja otwiera się z pustym projektem. Przed nagrywaniem należy ustawić katalog projektu.</p>
+<p>Przy uruchomieniu aplikacja stosuje zapisany motyw (ciemny lub jasny), a jeśli katalog projektu był wcześniej używany i zawiera plik <code>project.json</code>, projekt jest automatycznie ładowany.</p>
+<h3 id="konfiguracja-projektu">Konfiguracja projektu</h3>
+<ol>
+<li>
+<p><strong>Ustaw katalog projektu</strong>: Wpisz lub przejdź do folderu w polu "Project Location" u góry okna. Tutaj będą przechowywane nagrania i plik projektu.</p>
+</li>
+<li>
+<p><strong>Dodaj ścieżkę</strong>: Kliknij przycisk <strong>+ Add Track</strong>. Pojawi się nowa ścieżka z domyślnymi ustawieniami. Jeśli jest jedyną ścieżką w projekcie i nie została jeszcze nagrana, zostaje automatycznie uzbrojona do nagrywania.</p>
+</li>
+<li>
+<p><strong>Nazwij ścieżkę</strong>: Wpisz nazwę w polu tekstowym obok przycisku "Options". Ta nazwa jest używana jako nazwa pliku nagrywanego pliku audio.</p>
+</li>
+</ol>
+<p><img alt="Okno główne" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="zapisywanie-i-otwieranie-projektow">Zapisywanie i otwieranie projektów</h3>
+<ul>
+<li><strong>Zapisz</strong>: Użyj <strong>File &gt; Save Project</strong> (Ctrl+S), aby zapisać bieżący projekt jako plik JSON w katalogu projektu.</li>
+<li><strong>Otwórz</strong>: Użyj <strong>File &gt; Open Project</strong> (Ctrl+O), aby załadować wcześniej zapisany projekt.</li>
+</ul>
+<p>Plik projektu (<code>project.json</code>) przechowuje nazwy ścieżek, typy, nuty MIDI, odniesienia do plików audio oraz wszystkie ustawienia specyficzne dla projektu. Pliki audio są przechowywane w tym samym katalogu co <code>project.json</code> i noszą nazwy odpowiadające ścieżkom (np. <code>My_Track.flac</code>).</p>
+<p>Jeśli zamkniesz aplikację z niezapisanymi zmianami, dialog potwierdzenia zapyta, czy chcesz zapisać przed wyjściem.</p>
+<h2 id="zarzadzanie-sciezkami">Zarządzanie ścieżkami</h2>
+<h3 id="dodawanie-i-usuwanie-sciezek">Dodawanie i usuwanie ścieżek</h3>
+<ul>
+<li>Kliknij <strong>+ Add Track</strong>, aby dodać nową ścieżkę do aranżacji.</li>
+<li>Kliknij przycisk <strong>x</strong> po prawej stronie wiersza ścieżki, aby ją usunąć.</li>
+<li>Kliknij <strong>Clear Tracks</strong> (czerwony przycisk na pasku narzędzi), aby usunąć wszystkie ścieżki. Przed wykonaniem wyświetlany jest dialog potwierdzenia.</li>
+</ul>
+<h3 id="konfiguracja-typu-sciezki">Konfiguracja typu ścieżki</h3>
+<p>Każda ścieżka może być skonfigurowana jako <strong>Audio</strong> (do nagrywania z mikrofonu/line-in) lub <strong>MIDI</strong> (do nagrywania z klawiatury/kontrolera).</p>
+<p>Aby zmienić typ ścieżki:</p>
+<ul>
+<li>Kliknij przycisk <strong>Options</strong> na ścieżce, lub</li>
+<li>Kliknij <strong>ikonę typu ścieżki</strong> (między "Options" a polem nazwy)</li>
+</ul>
+<p>Otworzy się dialog Konfiguracja ścieżki, w którym można wybrać źródło wejściowe.</p>
+<p><img alt="Konfiguracja ścieżki" src="screenshots/MusiciansCanvas_2_TrackConfig.png" /></p>
+<h3 id="kontrolki-sciezki">Kontrolki ścieżki</h3>
+<p>Każdy wiersz ścieżki udostępnia następujące kontrolki:</p>
+<ul>
+<li><strong>Pole wyboru Włącz</strong>: Przełącza, czy ścieżka jest uwzględniona w odtwarzaniu i miksowaniu. Wyłączenie ścieżki automatycznie ją rozbraja, jeśli była uzbrojona.</li>
+<li><strong>Przycisk radiowy Uzbrojenie</strong>: Wybiera tę ścieżkę jako cel nagrywania. Tylko jedna ścieżka może być uzbrojona w danym momencie; uzbrojenie nowej ścieżki automatycznie rozbraja wcześniej uzbrojoną ścieżkę.</li>
+<li><strong>Pole nazwy</strong>: Edytowalne pole tekstowe na nazwę ścieżki. Ta nazwa jest używana jako nazwa pliku audio (z nieprawidłowymi znakami systemu plików zastąpionymi podkreśleniami).</li>
+<li><strong>Przycisk Options</strong>: Otwiera dialog Konfiguracja ścieżki.</li>
+<li><strong>Ikona typu</strong>: Wyświetla ikonę głośnika dla ścieżek audio lub ikonę fortepianu dla ścieżek MIDI. Kliknięcie otwiera dialog Konfiguracja ścieżki.</li>
+<li><strong>Przycisk Usuń (x)</strong>: Usuwa ścieżkę z projektu.</li>
+</ul>
+<h3 id="automatyczne-uzbrajanie">Automatyczne uzbrajanie</h3>
+<p>Gdy projekt ma dokładnie jedną ścieżkę i ta ścieżka nie została jeszcze nagrana, jest automatycznie uzbrajana do nagrywania. Dotyczy to zarówno dodawania pierwszej ścieżki do nowego projektu, jak i otwierania istniejącego projektu z jedną pustą ścieżką.</p>
+<h3 id="wizualizacja-sciezki">Wizualizacja ścieżki</h3>
+<ul>
+<li><strong>Ścieżki audio</strong> wyświetlają wizualizację przebiegu fali nagranego dźwięku. Gdy nie nagrano żadnego dźwięku, w obszarze wyświetlany jest napis "No audio recorded".</li>
+<li><strong>Ścieżki MIDI</strong> wyświetlają wizualizację piano roll pokazującą nagrane nuty na siatce obejmującej zakres od A0 do C8. Nuty są kolorowane według velocity. Gdy nie nagrano żadnych danych MIDI, w obszarze wyświetlany jest napis "No MIDI data recorded".</li>
+</ul>
+<h2 id="nagrywanie">Nagrywanie</h2>
+<h3 id="nagrywanie-audio">Nagrywanie audio</h3>
+<ol>
+<li>Upewnij się, że katalog projektu jest ustawiony.</li>
+<li>Uzbrój docelową ścieżkę (zaznacz przycisk radiowy "Arm").</li>
+<li>Kliknij przycisk <strong>Record</strong> (czerwone kółko).</li>
+<li>Na ścieżce pojawi się 3-sekundowe odliczanie ("Get ready... 3", "2", "1"), a następnie rozpocznie się nagrywanie.</li>
+<li>Podczas nagrywania w obszarze przebiegu fali ścieżki wyświetlany jest miernik poziomu na żywo, pokazujący bieżącą amplitudę jako pasek gradientowy (zielony do żółtego do czerwonego) z etykietą "Recording".</li>
+<li>Kliknij przycisk <strong>Stop</strong>, aby zakończyć nagrywanie.</li>
+</ol>
+<p>Nagrany dźwięk jest zapisywany jako plik FLAC w katalogu projektu, nazwany po ścieżce.</p>
+<p>Podczas nagrywania i odtwarzania wszystkie interaktywne kontrolki (przyciski ścieżek, ustawienia itp.) są wyłączone, aby zapobiec przypadkowym zmianom.</p>
+<h4 id="nagrywanie-overdub">Nagrywanie overdub</h4>
+<p>Podczas nagrywania nowej ścieżki, gdy inne włączone ścieżki zawierają już dane audio lub MIDI, Musician's Canvas wykonuje nagrywanie overdub: istniejące ścieżki są miksowane i odtwarzane w czasie rzeczywistym podczas nagrywania nowej ścieżki. Pozwala to słyszeć wcześniej nagrane partie podczas nagrywania nowej.</p>
+<p>Miks istniejących ścieżek jest przygotowywany przed rozpoczęciem przechwytywania, dzięki czemu nagrywanie i odtwarzanie rozpoczynają się w przybliżeniu w tym samym momencie, utrzymując wszystkie ścieżki zsynchronizowane.</p>
+<h4 id="backendy-nagrywania">Backendy nagrywania</h4>
+<p>Musician's Canvas obsługuje dwa backendy przechwytywania dźwięku:</p>
+<ul>
+<li><strong>PortAudio</strong> (domyślny, gdy dostępny): Zapewnia niezawodne nagrywanie z niskim opóźnieniem i jest zalecanym backendem.</li>
+<li><strong>Qt Multimedia</strong>: Zapasowy backend wykorzystujący wbudowane przechwytywanie dźwięku Qt. Używany, gdy PortAudio nie jest dostępny lub gdy jest jawnie wybrany w Ustawieniach projektu.</li>
+</ul>
+<p>Backend nagrywania można skonfigurować osobno dla każdego projektu w <strong>Project &gt; Project Settings &gt; Audio</strong>.</p>
+<h4 id="czestotliwosc-probkowania-i-obsuga-urzadzen">Częstotliwość próbkowania i obsługa urządzeń</h4>
+<p>Musician's Canvas nagrywa z natywną częstotliwością próbkowania urządzenia wejściowego audio, a następnie automatycznie konwertuje do skonfigurowanej częstotliwości próbkowania projektu przy użyciu wysokiej jakości resamplingu. Oznacza to, że można ustawić dowolną częstotliwość próbkowania projektu (np. 44100 Hz lub 48000 Hz) niezależnie od natywnej częstotliwości urządzenia. Konwersja zachowuje wysokość dźwięku i czas trwania dokładnie.</p>
+<h4 id="wykrywanie-urzadzen-mono">Wykrywanie urządzeń mono</h4>
+<p>Niektóre urządzenia audio (np. mikrofony kamer internetowych USB) są fizycznie mono, ale są zgłaszane jako stereo przez system operacyjny. Musician's Canvas automatycznie to wykrywa i odpowiednio dostosowuje liczbę kanałów. Jeśli projekt jest skonfigurowany na stereo, sygnał mono jest duplikowany do obu kanałów.</p>
+<h3 id="nagrywanie-midi">Nagrywanie MIDI</h3>
+<ol>
+<li>Ustaw typ ścieżki na <strong>MIDI</strong> za pomocą przycisku Options.</li>
+<li>Upewnij się, że urządzenie wejściowe MIDI jest skonfigurowane w <strong>Settings &gt; Configuration &gt; MIDI</strong>.</li>
+<li>Uzbrój ścieżkę i kliknij Record.</li>
+<li>Graj nuty na kontrolerze MIDI.</li>
+<li>Kliknij Stop, aby zakończyć nagrywanie.</li>
+</ol>
+<p>Nuty MIDI są wyświetlane w wizualizacji piano roll na ścieżce.</p>
+<h2 id="odtwarzanie">Odtwarzanie</h2>
+<p>Kliknij przycisk <strong>Play</strong>, aby zmiksować i odtworzyć wszystkie włączone ścieżki. Podpowiedź przycisku zmienia się, wskazując, czy będzie odtwarzać, czy nagrywać, w zależności od tego, czy ścieżka jest uzbrojona. Wyłączone ścieżki (niezaznaczone) są pomijane podczas odtwarzania.</p>
+<p>Podczas odtwarzania ścieżki audio są dekodowane z plików FLAC, a ścieżki MIDI są renderowane do audio przy użyciu wbudowanego syntezatora FluidSynth. Wszystkie ścieżki są miksowane razem i odtwarzane przez urządzenie wyjściowe audio systemu.</p>
+<p>Kliknij przycisk <strong>Stop</strong>, aby zakończyć odtwarzanie w dowolnym momencie.</p>
+<h2 id="miksowanie-do-pliku">Miksowanie do pliku</h2>
+<p>Użyj <strong>Tools &gt; Mix tracks to file</strong> (Ctrl+M), aby wyeksportować wszystkie włączone ścieżki do pojedynczego pliku audio. Dialog pozwala wybrać ścieżkę wyjściową i format:</p>
+<ul>
+<li><strong>Plik wyjściowy</strong>: Przejdź, aby wybrać docelową ścieżkę pliku.</li>
+<li><strong>Format</strong>: Wybierz między FLAC (bezstratna kompresja, mniejsze pliki) lub WAV (nieskompresowany).</li>
+</ul>
+<p>Miks używa skonfigurowanej częstotliwości próbkowania projektu. Ścieżki MIDI są renderowane przy użyciu skonfigurowanego SoundFont.</p>
+<h2 id="ustawienia">Ustawienia</h2>
+<h3 id="ustawienia-globalne">Ustawienia globalne</h3>
+<p>Użyj <strong>Settings &gt; Configuration</strong> (Ctrl+,), aby ustawić globalne wartości domyślne, które mają zastosowanie do wszystkich projektów:</p>
+<p><img alt="Ustawienia ogólne" src="screenshots/MusiciansCanvas_3_GeneralSettings.png" /></p>
+<h4 id="karta-ogolne">Karta Ogólne</h4>
+<ul>
+<li><strong>Motyw</strong>: Wybierz między ciemnym a jasnym motywem.</li>
+</ul>
+<h4 id="karta-jezyk">Karta Język</h4>
+<ul>
+<li><strong>Język</strong>: Wybierz język wyświetlania aplikacji. Domyślnie jest to "System Default", który używa ustawień językowych systemu operacyjnego. Dostępne języki to angielski, Deutsch (niemiecki), Español (hiszpański), Français (francuski), japoński, Português (portugalski brazylijski), chiński (tradycyjny), chiński (uproszczony) i piracki. Interfejs aktualizuje się natychmiast po zmianie języka.</li>
+</ul>
+<h4 id="karta-midi">Karta MIDI</h4>
+<ul>
+<li><strong>Urządzenie wyjściowe MIDI</strong>: Wybierz wbudowany syntezator FluidSynth lub zewnętrzne urządzenie MIDI. Użyj przycisku <strong>Refresh</strong>, aby ponownie przeskanować dostępne urządzenia MIDI.</li>
+<li><strong>SoundFont</strong>: Przejdź do pliku <code>.sf2</code> SoundFont do syntezy MIDI. W systemie Linux systemowy SoundFont może zostać automatycznie wykryty, jeśli jest zainstalowany pakiet <code>fluid-soundfont-gm</code>. W systemach Windows i macOS należy ręcznie skonfigurować ścieżkę SoundFont.</li>
+</ul>
+<p><img alt="Ustawienia MIDI" src="screenshots/MusiciansCanvas_4_MIDISettings.png" /></p>
+<h4 id="karta-audio">Karta Audio</h4>
+<ul>
+<li><strong>Urządzenie wejściowe audio</strong>: Wybierz mikrofon lub urządzenie line-in do nagrywania.</li>
+<li><strong>Urządzenie wyjściowe audio</strong>: Wybierz głośnik lub słuchawki do odtwarzania.</li>
+</ul>
+<p><img alt="Ustawienia audio" src="screenshots/MusiciansCanvas_5_AudioSettings.png" /></p>
+<h3 id="ustawienia-projektu">Ustawienia projektu</h3>
+<p>Użyj <strong>Project &gt; Project Settings</strong> (Ctrl+P), aby nadpisać globalne wartości domyślne tylko dla bieżącego projektu. Jest to przydatne w przypadku projektów wymagających określonej częstotliwości próbkowania, SoundFont lub urządzenia audio. Ustawienia specyficzne dla projektu są zapisywane w pliku <code>project.json</code>.</p>
+<p><img alt="Ustawienia MIDI projektu" src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" /></p>
+<h4 id="karta-midi_1">Karta MIDI</h4>
+<ul>
+<li><strong>Urządzenie MIDI</strong>: Wybierz urządzenie MIDI dla tego projektu lub pozostaw domyślne, aby użyć ustawienia globalnego.</li>
+<li><strong>SoundFont</strong>: Wybierz plik SoundFont dla tego projektu.</li>
+<li><strong>Refresh</strong>: Ponownie przeskanuj dostępne urządzenia MIDI.</li>
+</ul>
+<h4 id="karta-audio_1">Karta Audio</h4>
+<ul>
+<li><strong>Urządzenie wejściowe audio</strong>: Wybierz urządzenie nagrywające dla tego projektu.</li>
+<li><strong>Backend przechwytywania nagrywania</strong> (gdy PortAudio jest dostępny):</li>
+<li><strong>PortAudio (native input)</strong>: Zalecany. Wykorzystuje tę samą bibliotekę audio co Audacity.</li>
+<li><strong>Qt Multimedia</strong>: Opcja zapasowa wykorzystująca wbudowane przechwytywanie audio Qt.</li>
+<li><strong>Urządzenie wejściowe PortAudio</strong>: Gdy używany jest backend PortAudio, wybierz konkretne urządzenie wejściowe PortAudio.</li>
+<li><strong>Urządzenie wyjściowe audio</strong>: Wybierz urządzenie odtwarzające dla tego projektu.</li>
+</ul>
+<h5 id="ustawienia-formatu-audio">Ustawienia formatu audio</h5>
+<ul>
+<li><strong>Częstotliwość próbkowania</strong>: Wybierz spośród standardowych częstotliwości (8000 Hz do 192000 Hz). Natywna częstotliwość urządzenia jest oznaczona "(native)". Częstotliwości wymagające resamplingu są oznaczone "(resampled)". Możesz wybrać dowolną częstotliwość niezależnie od możliwości urządzenia; Musician's Canvas automatycznie wykonuje resampling w razie potrzeby.</li>
+<li><strong>Kanały</strong>: Mono lub Stereo. Jeśli urządzenie obsługuje tylko mono, opcja Stereo jest wyłączona.</li>
+</ul>
+<p><img alt="Ustawienia audio projektu" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
+<h2 id="menu">Menu</h2>
+<h3 id="menu-plik">Menu Plik</h3>
+<table>
+<thead>
+<tr>
+<th>Element menu</th>
+<th>Skrót</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Save Project</td>
+<td>Ctrl+S</td>
+<td>Zapisz bieżący projekt na dysk</td>
+</tr>
+<tr>
+<td>Open Project</td>
+<td>Ctrl+O</td>
+<td>Otwórz istniejący plik projektu</td>
+</tr>
+<tr>
+<td>Close</td>
+<td>Ctrl+Q</td>
+<td>Zamknij aplikację</td>
+</tr>
+</tbody>
+</table>
+<h3 id="menu-projekt">Menu Projekt</h3>
+<table>
+<thead>
+<tr>
+<th>Element menu</th>
+<th>Skrót</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project Settings</td>
+<td>Ctrl+P</td>
+<td>Konfiguruj ustawienia specyficzne dla projektu</td>
+</tr>
+<tr>
+<td>Add Demo Data to Selected Track</td>
+<td></td>
+<td>Dodaj przykładowe nuty MIDI do demonstracji</td>
+</tr>
+</tbody>
+</table>
+<h3 id="menu-ustawienia">Menu Ustawienia</h3>
+<table>
+<thead>
+<tr>
+<th>Element menu</th>
+<th>Skrót</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Configuration</td>
+<td>Ctrl+,</td>
+<td>Otwórz globalne ustawienia aplikacji</td>
+</tr>
+</tbody>
+</table>
+<h3 id="menu-narzedzia">Menu Narzędzia</h3>
+<table>
+<thead>
+<tr>
+<th>Element menu</th>
+<th>Skrót</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mix tracks to file</td>
+<td>Ctrl+M</td>
+<td>Eksportuj wszystkie włączone ścieżki do pliku</td>
+</tr>
+<tr>
+<td>Virtual MIDI Keyboard</td>
+<td></td>
+<td>Uruchom aplikację towarzyszącą klawiatury</td>
+</tr>
+</tbody>
+</table>
+<h2 id="skroty-klawiaturowe">Skróty klawiaturowe</h2>
+<table>
+<thead>
+<tr>
+<th>Skrót</th>
+<th>Działanie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl+S</td>
+<td>Zapisz projekt</td>
+</tr>
+<tr>
+<td>Ctrl+O</td>
+<td>Otwórz projekt</td>
+</tr>
+<tr>
+<td>Ctrl+M</td>
+<td>Miksuj ścieżki do pliku</td>
+</tr>
+<tr>
+<td>Ctrl+P</td>
+<td>Ustawienia projektu</td>
+</tr>
+<tr>
+<td>Ctrl+,</td>
+<td>Ustawienia / Konfiguracja</td>
+</tr>
+<tr>
+<td>Ctrl+Q / Alt+F4</td>
+<td>Zamknij</td>
+</tr>
+</tbody>
+</table>
+<h2 id="virtual-midi-keyboard">Virtual MIDI Keyboard</h2>
+<p>Virtual MIDI Keyboard to aplikacja towarzysząca (<code>virtual_midi_keyboard</code>), która udostępnia klawiaturę ekranową do wysyłania nut MIDI. Można ją uruchomić z menu <strong>Tools &gt; Virtual MIDI Keyboard</strong> w głównej aplikacji lub uruchomić niezależnie.</p>
+<p><img alt="Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard1.png" /></p>
+<h3 id="funkcje">Funkcje</h3>
+<ul>
+<li>Klikaj klawisze na klawiaturze ekranowej, aby grać nuty</li>
+<li>Używaj klawiatury komputera jako klawiatury fortepianowej (patrz mapowanie klawiszy poniżej)</li>
+<li>Łącz się z zewnętrznymi urządzeniami wyjściowymi MIDI lub używaj wbudowanego syntezatora FluidSynth</li>
+<li>Łącz się z urządzeniem wejściowym MIDI, aby wyświetlać przychodzące nuty na klawiaturze</li>
+<li>Regulowana głośność syntezatora (master gain, 10%--200%)</li>
+<li>Wybór SoundFont dla wbudowanego syntezatora</li>
+<li>Wybór instrumentu/programu MIDI (General MIDI lub presety SoundFont)</li>
+<li>Pokrętło kontroli chorus/efekt</li>
+<li>Przesunięcie oktawy (-3 do +5)</li>
+<li>Kontrola głośności MIDI (CC#7, 0--127)</li>
+</ul>
+<h3 id="kontrolki-paska-narzedzi">Kontrolki paska narzędzi</h3>
+<ul>
+<li><strong>Volume</strong>: Głośność MIDI (CC#7), regulowana od 0 do 127 za pomocą pola liczbowego.</li>
+<li><strong>Octave</strong>: Przesuwaj oktawę klawiatury za pomocą przycisków <strong>&lt;</strong> i <strong>&gt;</strong> lub pola liczbowego. Zakres wynosi od -3 do +5.</li>
+<li><strong>Chorus/Effect</strong>: Pokrętło obrotowe i pole tekstowe (1--127) do ustawiania poziomu chorus/efektu (MIDI CC#93). Kliknij <strong>Apply</strong>, aby wysłać wartość.</li>
+<li><strong>Selektor instrumentów</strong>: Wybierz instrument MIDI. Gdy używany jest wbudowany syntezator FluidSynth, wyświetlane są presety SoundFont (Bank:Program Nazwa). Po podłączeniu do zewnętrznego urządzenia MIDI wyświetlana jest lista 128 instrumentów General MIDI.</li>
+</ul>
+<h3 id="granie-na-klawiaturze-komputera">Granie na klawiaturze komputera</h3>
+<p>Klawiatura komputera jest zmapowana na klawisze fortepianowe w dwóch oktawach:</p>
+<p><strong>Dolna oktawa (zaczynając od bieżącej oktawy):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Klawisz</th>
+<th>Nuta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z</td>
+<td>C</td>
+</tr>
+<tr>
+<td>S</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>X</td>
+<td>D</td>
+</tr>
+<tr>
+<td>D</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>C</td>
+<td>E</td>
+</tr>
+<tr>
+<td>V</td>
+<td>F</td>
+</tr>
+<tr>
+<td>G</td>
+<td>F#/Gb</td>
+</tr>
+<tr>
+<td>B</td>
+<td>G</td>
+</tr>
+<tr>
+<td>H</td>
+<td>G#/Ab</td>
+</tr>
+<tr>
+<td>N</td>
+<td>A</td>
+</tr>
+<tr>
+<td>J</td>
+<td>A#/Bb</td>
+</tr>
+<tr>
+<td>M</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Górna oktawa (jedna oktawa wyżej):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Klawisz</th>
+<th>Nuta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q</td>
+<td>C</td>
+</tr>
+<tr>
+<td>2</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>W</td>
+<td>D</td>
+</tr>
+<tr>
+<td>3</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>E</td>
+<td>E</td>
+</tr>
+<tr>
+<td>R</td>
+<td>F</td>
+</tr>
+<tr>
+<td>5</td>
+<td>F#/Gb</td>
+</tr>
+<tr>
+<td>T</td>
+<td>G</td>
+</tr>
+<tr>
+<td>6</td>
+<td>G#/Ab</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>A</td>
+</tr>
+<tr>
+<td>7</td>
+<td>A#/Bb</td>
+</tr>
+<tr>
+<td>U</td>
+<td>B</td>
+</tr>
+<tr>
+<td>I</td>
+<td>C (następna oktawa)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>O</td>
+<td>D</td>
+</tr>
+<tr>
+<td>0</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>P</td>
+<td>E</td>
+</tr>
+</tbody>
+</table>
+<p>Klawisze podświetlają się wizualnie po naciśnięciu (białe klawisze stają się jasnoniebieskie, czarne klawisze ciemnieją).</p>
+<h3 id="konfiguracja">Konfiguracja</h3>
+<p>Otwórz dialog konfiguracji (<strong>Settings &gt; Configuration</strong>, Ctrl+,), aby skonfigurować urządzenia MIDI i audio:</p>
+<p><img alt="Konfiguracja Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard2.png" /></p>
+<h4 id="karta-midi_2">Karta MIDI</h4>
+<ul>
+<li><strong>Urządzenie wyjściowe MIDI</strong>: Wybierz urządzenie zewnętrzne lub pozostaw puste dla wbudowanego syntezatora FluidSynth.</li>
+<li><strong>Urządzenie wejściowe MIDI</strong>: Wybierz kontroler do przekazywania nut na wyświetlacz klawiatury.</li>
+<li><strong>Głośność syntezatora (Master Gain)</strong>: Dostosuj poziom wyjściowy wbudowanego syntezatora (10%--200%).</li>
+<li><strong>SoundFont</strong>: Przejdź do pliku <code>.sf2</code> SoundFont dla wbudowanego syntezatora.</li>
+<li><strong>Refresh</strong>: Ponownie przeskanuj dostępne urządzenia MIDI.</li>
+</ul>
+<h4 id="karta-audio_2">Karta Audio</h4>
+<ul>
+<li><strong>Urządzenie wyjściowe audio</strong>: Wybierz urządzenie wyjściowe dla wbudowanego syntezatora.</li>
+</ul>
+<h4 id="karta-jezyk_1">Karta Język</h4>
+<ul>
+<li><strong>Język</strong>: Wybierz język wyświetlania. Dostępne są te same języki co w Musician's Canvas. Interfejs aktualizuje się natychmiast po zmianie języka.</li>
+</ul>
+<h3 id="skroty-virtual-midi-keyboard">Skróty Virtual MIDI Keyboard</h3>
+<table>
+<thead>
+<tr>
+<th>Skrót</th>
+<th>Działanie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl+,</td>
+<td>Dialog konfiguracji</td>
+</tr>
+<tr>
+<td>Ctrl+U</td>
+<td>Pomoc / Informacje o użyciu</td>
+</tr>
+<tr>
+<td>Ctrl+Q</td>
+<td>Zamknij</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rozwiazywanie-problemow">Rozwiązywanie problemów</h2>
+<h3 id="brak-wyjscia-audio">Brak wyjścia audio</h3>
+<ul>
+<li>Sprawdź, czy prawidłowe urządzenie wyjściowe audio jest wybrane w Settings &gt; Configuration &gt; Audio.</li>
+<li>W systemie Linux sprawdź, czy PipeWire lub PulseAudio działa i czy wyjście nie jest wyciszone. Użyj <code>amixer</code> lub ustawień dźwięku pulpitu, aby sprawdzić poziomy głośności.</li>
+<li>W systemie Windows upewnij się, że zainstalowany jest sterownik audio ASIO (np. <a href="https://asio4all.org/">ASIO4ALL</a> lub sterownik ASIO dostarczony przez producenta interfejsu audio). Musician's Canvas wymaga ASIO do audio o niskim opóźnieniu w systemie Windows.</li>
+</ul>
+<h3 id="sciezki-midi-sa-ciche">Ścieżki MIDI są ciche</h3>
+<ul>
+<li>Upewnij się, że SoundFont (plik <code>.sf2</code>) jest skonfigurowany w Settings &gt; Configuration &gt; MIDI.</li>
+<li>W systemie Linux systemowy SoundFont może zostać automatycznie wykryty, jeśli jest zainstalowany pakiet <code>fluid-soundfont-gm</code>.</li>
+<li>W systemach Windows i macOS należy ręcznie skonfigurować ścieżkę SoundFont.</li>
+</ul>
+<h3 id="nagranie-brzmi-znieksztacone-lub-ma-za-wysokosc-dzwieku">Nagranie brzmi zniekształcone lub ma złą wysokość dźwięku</h3>
+<ul>
+<li>Może się to zdarzyć, gdy natywna częstotliwość próbkowania urządzenia wejściowego audio różni się od skonfigurowanej częstotliwości projektu. Musician's Canvas obsługuje to automatycznie poprzez resampling, ale jeśli problemy się utrzymują, spróbuj ustawić częstotliwość próbkowania projektu na wartość odpowiadającą natywnej częstotliwości urządzenia.</li>
+<li>Mikrofony kamer internetowych USB często mają nietypowe natywne częstotliwości (np. 32000 Hz). Aplikacja wykrywa je automatycznie.</li>
+<li>Jeśli używasz backendu Qt Multimedia i masz problemy, spróbuj przełączyć się na backend PortAudio w Project Settings &gt; Audio.</li>
+</ul>
+<h3 id="virtual-midi-keyboard-nie-ma-dzwieku">Virtual MIDI Keyboard nie ma dźwięku</h3>
+<ul>
+<li>W systemie Linux z PipeWire upewnij się, że zainstalowany jest pakiet <code>libpipewire-0.3-dev</code> (wymagany do integracji PipeWire z syntezatorem FluidSynth).</li>
+<li>Sprawdź, czy SoundFont jest załadowany (patrz karta MIDI w dialogu konfiguracji).</li>
+<li>Sprawdź, czy urządzenie wyjściowe audio jest wybrane i czy głośność systemu nie jest wyciszona.</li>
+</ul>
+<h2 id="kompilacja-ze-zrode">Kompilacja ze źródeł</h2>
+<p>Zobacz <a href="../README.md">README</a>, aby uzyskać kompletne instrukcje kompilacji dla systemów Linux, macOS i Windows, w tym wszystkie wymagane zależności.</p>
+</body>
+</html>

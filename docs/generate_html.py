@@ -22,6 +22,15 @@ LANGUAGES = {
     '_zh-CN':('zh-CN', "Musician&#8217;s Canvas &#29992;&#25143;&#25163;&#20876;", True),
     '_ja':   ('ja', "Musician&#8217;s Canvas &#12518;&#12540;&#12470;&#12540;&#12510;&#12491;&#12517;&#12450;&#12523;", True),
     '_es':   ('es', "Manual de usuario de Musician&#8217;s Canvas", False),
+    '_da':   ('da', "Musician&#8217;s Canvas Brugermanual", False),
+    '_el':   ('el', "Musician&#8217;s Canvas &#917;&#947;&#967;&#949;&#953;&#961;&#943;&#948;&#953;&#959; &#935;&#961;&#942;&#963;&#964;&#951;", False),
+    '_ga':   ('ga', "Tr&#233;oirleabhar &#218;s&#225;ideora Musician&#8217;s Canvas", False),
+    '_nb':   ('nb', "Musician&#8217;s Canvas Brukermanual", False),
+    '_pl':   ('pl', "Podr&#281;cznik u&#380;ytkownika Musician&#8217;s Canvas", False),
+    '_ru':   ('ru', "Musician&#8217;s Canvas &#1056;&#1091;&#1082;&#1086;&#1074;&#1086;&#1076;&#1089;&#1090;&#1074;&#1086; &#1087;&#1086;&#1083;&#1100;&#1079;&#1086;&#1074;&#1072;&#1090;&#1077;&#1083;&#1103;", False),
+    '_fi':   ('fi', "Musician&#8217;s Canvas K&#228;ytt&#246;opas", False),
+    '_sv':   ('sv', "Musician&#8217;s Canvas Anv&#228;ndarmanual", False),
+    '_cy':   ('cy', "Llawlyfr Defnyddiwr Musician&#8217;s Canvas", False),
     '_pirate': ('en', "Musician&#8217;s Canvas &#8212; A Pirate&#8217;s Guide", False),
 }
 
@@ -30,7 +39,10 @@ ARG_TO_SUFFIX = {
     'en': '', 'de': '_de', 'pt-BR': '_pt-BR', 'pt-br': '_pt-BR',
     'fr': '_fr', 'zh-TW': '_zh-TW', 'zh-tw': '_zh-TW',
     'zh-CN': '_zh-CN', 'zh-cn': '_zh-CN', 'ja': '_ja',
-    'es': '_es', 'pirate': '_pirate',
+    'es': '_es',
+    'da': '_da', 'el': '_el', 'ga': '_ga', 'nb': '_nb',
+    'pl': '_pl', 'ru': '_ru', 'fi': '_fi', 'sv': '_sv', 'cy': '_cy',
+    'pirate': '_pirate',
 }
 
 script_dir = os.environ.get('SCRIPT_DIR', os.path.dirname(os.path.abspath(__file__)))
@@ -136,7 +148,12 @@ img {{ max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 
     # Table of contents header per language
     toc_headers = {
         'en': 'Table of Contents', 'de': 'Inhaltsverzeichnis',
-        'es': '&Iacute;ndice',
+        'es': '&Iacute;ndice', 'da': 'Indholdsfortegnelse',
+        'el': '&#928;&#943;&#957;&#945;&#954;&#945;&#962; &#928;&#949;&#961;&#953;&#949;&#967;&#959;&#956;&#941;&#957;&#969;&#957;',
+        'ga': 'Cl&aacute;r &Aacute;bhair', 'nb': 'Innholdsfortegnelse',
+        'pl': 'Spis tre&sacute;ci', 'ru': '&#1057;&#1086;&#1076;&#1077;&#1088;&#1078;&#1072;&#1085;&#1080;&#1077;',
+        'fi': 'Sis&auml;llysluettelo', 'sv': 'Inneh&aring;llsf&ouml;rteckning',
+        'cy': 'Tabl Cynnwys',
         'pt-BR': '&Iacute;ndice', 'fr': 'Table des mati&egrave;res',
         'zh-TW': '&#30446;&#37636;', 'zh-CN': '&#30446;&#24405;',
         'ja': '&#30446;&#27425;',

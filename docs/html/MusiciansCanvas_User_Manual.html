@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas User Manual</h1>
 <p>Multi-Track Music Recording Application &mdash; Version 0.1.0</p>
-<p>2026-04-04</p>
+<p>2026-04-05</p>
 </div>
 <div class="toc">
 <h2>Table of Contents</h2>
@@ -127,7 +127,7 @@ digital audio workstations (DAWs):</p>
 <li>Project-based settings with per-project overrides</li>
 <li>Mix to WAV or FLAC</li>
 <li>Dark and light themes</li>
-<li>Localized in multiple languages (English, German, Spanish, French, Japanese, Portuguese, Chinese, and Pirate)</li>
+<li>Localized in 18 languages including English, German, Spanish, French, Japanese, Portuguese, Chinese, Russian, Swedish, Finnish, Danish, Norwegian, Polish, Greek, Irish, Welsh, and Pirate</li>
 <li>Companion Virtual MIDI Keyboard application</li>
 </ul>
 <h2 id="getting-started">Getting Started</h2>
@@ -295,13 +295,20 @@ projects:</p>
 <h4 id="general-tab">General Tab</h4>
 <ul>
 <li><strong>Theme</strong>: Choose between Dark and Light themes.</li>
+<li><strong>Write recording debug log</strong>: When enabled, Musician's Canvas writes detailed
+  recording diagnostic information to a file called <code>recording_debug.txt</code> in the
+  project directory. This includes the capture backend, device name, sample rate,
+  channel count, and timing data. This is disabled by default and is primarily useful
+  for troubleshooting recording issues.</li>
 </ul>
 <h4 id="language-tab">Language Tab</h4>
 <ul>
 <li><strong>Language</strong>: Choose the display language for the application. The default is "System
   Default", which uses the operating system's language setting. Available languages are
   English, Deutsch (German), Español (Spanish), Français (French), Japanese, Português
-  (Brazilian Portuguese), Chinese (Traditional), Chinese (Simplified), and Pirate.
+  (Brazilian Portuguese), Chinese (Traditional), Chinese (Simplified), Dansk (Danish),
+  Ελληνικά (Greek), Gaeilge (Irish), Norsk (Norwegian), Polski (Polish),
+  Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh), and Pirate.
   The interface updates immediately when you change the language.</li>
 </ul>
 <h4 id="midi-tab">MIDI Tab</h4>

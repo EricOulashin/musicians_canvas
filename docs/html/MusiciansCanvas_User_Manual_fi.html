@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Musician&#8217;s Canvas K&#228;ytt&#246;opas</title>
+<style>
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px 40px;
+    color: #24292e; background-color: #fff;
+}
+h1 { border-bottom: 2px solid #0366d6; padding-bottom: 0.3em; color: #0366d6; }
+h2 { border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; margin-top: 2em; }
+h3 { color: #0366d6; margin-top: 1.5em; }
+h4 { color: #586069; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid #dfe2e5; padding: 8px 12px; text-align: left; }
+th { background-color: #f6f8fa; font-weight: 600; }
+tr:nth-child(even) { background-color: #f6f8fa; }
+code { background-color: #f6f8fa; padding: 0.2em 0.4em; border-radius: 3px; font-size: 0.9em;
+       font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; }
+pre { background-color: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+strong { color: #24292e; }
+a { color: #0366d6; text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6px; margin: 1em 0; }
+.toc { background-color: #f6f8fa; border: 1px solid #dfe2e5; border-radius: 6px;
+       padding: 15px 20px; margin: 1em 0 2em 0; }
+.toc h2 { margin-top: 0; border-bottom: none; font-size: 1.1em; }
+.toc ul { list-style: none; padding-left: 1.2em; }
+.toc > ul { padding-left: 0; }
+.toc li { margin: 0.3em 0; }
+.title-block { text-align: center; margin-bottom: 2em; padding-bottom: 1em;
+               border-bottom: 2px solid #0366d6; }
+@media print {
+    body { max-width: none; padding: 0; }
+    h1, h2, h3 { page-break-after: avoid; }
+    table, pre, img { page-break-inside: avoid; }
+    img { max-width: 80%; }
+}
+</style>
+</head>
+<body>
+<div class="title-block">
+<h1>Musician&#8217;s Canvas K&#228;ytt&#246;opas</h1>
+<p>Moniraitainen musiikin tallennussovellus &mdash; Version 0.1.0</p>
+<p>2026-04-05</p>
+</div>
+<div class="toc">
+<h2>Sis&auml;llysluettelo</h2>
+<div class="toc">
+<ul>
+<li><a href="#musicians-canvas-kayttoopas">Musician's Canvas Käyttöopas</a><ul>
+<li><a href="#johdanto">Johdanto</a></li>
+<li><a href="#aloittaminen">Aloittaminen</a><ul>
+<li><a href="#sovelluksen-kaynnistaminen">Sovelluksen käynnistäminen</a></li>
+<li><a href="#projektin-asettaminen">Projektin asettaminen</a></li>
+<li><a href="#projektien-tallentaminen-ja-avaaminen">Projektien tallentaminen ja avaaminen</a></li>
+</ul>
+</li>
+<li><a href="#raitojen-hallinta">Raitojen hallinta</a><ul>
+<li><a href="#raitojen-lisaaminen-ja-poistaminen">Raitojen lisääminen ja poistaminen</a></li>
+<li><a href="#raitatyypin-maarittaminen">Raitatyypin määrittäminen</a></li>
+<li><a href="#raidan-ohjaimet">Raidan ohjaimet</a></li>
+<li><a href="#automaattinen-tallennusvalmius">Automaattinen tallennusvalmius</a></li>
+<li><a href="#raidan-visualisointi">Raidan visualisointi</a></li>
+</ul>
+</li>
+<li><a href="#tallennus">Tallennus</a><ul>
+<li><a href="#aanen-tallennus">Äänen tallennus</a></li>
+<li><a href="#midi-tallennus">MIDI-tallennus</a></li>
+</ul>
+</li>
+<li><a href="#toisto">Toisto</a></li>
+<li><a href="#miksaus-tiedostoon">Miksaus tiedostoon</a></li>
+<li><a href="#asetukset">Asetukset</a><ul>
+<li><a href="#yleiset-asetukset">Yleiset asetukset</a></li>
+<li><a href="#projektiasetukset">Projektiasetukset</a></li>
+</ul>
+</li>
+<li><a href="#valikot">Valikot</a><ul>
+<li><a href="#file-valikko">File-valikko</a></li>
+<li><a href="#project-valikko">Project-valikko</a></li>
+<li><a href="#settings-valikko">Settings-valikko</a></li>
+<li><a href="#tools-valikko">Tools-valikko</a></li>
+</ul>
+</li>
+<li><a href="#pikanappaimet">Pikanäppäimet</a></li>
+<li><a href="#virtual-midi-keyboard">Virtual MIDI Keyboard</a><ul>
+<li><a href="#ominaisuudet">Ominaisuudet</a></li>
+<li><a href="#tyokalupalkin-ohjaimet">Työkalupalkin ohjaimet</a></li>
+<li><a href="#soittaminen-tietokoneen-nappaimistolla">Soittaminen tietokoneen näppäimistöllä</a></li>
+<li><a href="#maaritykset">Määritykset</a></li>
+<li><a href="#virtual-midi-keyboard-pikanappaimet">Virtual MIDI Keyboard -pikanäppäimet</a></li>
+</ul>
+</li>
+<li><a href="#vianmaaritys">Vianmääritys</a><ul>
+<li><a href="#ei-aanilahtoa">Ei äänilähtöä</a></li>
+<li><a href="#midi-raidat-ovat-aanettomia">MIDI-raidat ovat äänettömiä</a></li>
+<li><a href="#tallennus-kuulostaa-vaaristyneelta-tai-on-vaarassa-savelkorkeudessa">Tallennus kuulostaa vääristyneeltä tai on väärässä sävelkorkeudessa</a></li>
+<li><a href="#virtual-midi-keyboard-ei-tuota-aanta">Virtual MIDI Keyboard ei tuota ääntä</a></li>
+</ul>
+</li>
+<li><a href="#kaantaminen-lahdekoodista">Kääntäminen lähdekoodista</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+<h1 id="musicians-canvas-kayttoopas">Musician's Canvas Käyttöopas</h1>
+<h2 id="johdanto">Johdanto</h2>
+<p>Musician's Canvas on moniraitainen musiikin tallennussovellus pöytätietokoneille. Se tukee
+äänen tallennusta mikrofoneista ja linjasisääntuloista, MIDI-tallennusta koskettimistoista ja
+ohjaimista sekä kaikkien raitojen miksausta yhdeksi WAV- tai FLAC-tiedostoksi. Lisäsovellus
+Virtual MIDI Keyboard tarjoaa ohjelmistopianokoskettimiston MIDI-nuottien lähettämiseen.</p>
+<p>Musician's Canvas on suunniteltu helppokäyttöiseksi, ja se tarjoaa samalla digitaalisille
+äänityöasemille (DAW) tyypillisiä ominaisuuksia:</p>
+<ul>
+<li>Moniraitainen ääni- ja MIDI-tallennus</li>
+<li>Päälleäänitys olemassa olevien raitojen synkronoidulla toistolla</li>
+<li>Sisäänrakennettu FluidSynth MIDI-syntetisaattori SoundFont-tuella</li>
+<li>Korkealaatuinen näytteenottotaajuuden muunnos tallennukseen millä tahansa projektin näytteenottotaajuudella</li>
+<li>Automaattinen mono/stereo-laitetunnistus</li>
+<li>Projektikohtaiset asetukset projektikohtaisilla ohituksilla</li>
+<li>Miksaus WAV- tai FLAC-muotoon</li>
+<li>Tumma ja vaalea teema</li>
+<li>Lokalisoitu useille kielille (englanti, saksa, espanja, ranska, japani, portugali, kiina ja Pirate)</li>
+<li>Lisäsovellus Virtual MIDI Keyboard</li>
+</ul>
+<h2 id="aloittaminen">Aloittaminen</h2>
+<h3 id="sovelluksen-kaynnistaminen">Sovelluksen käynnistäminen</h3>
+<p>Suorita <code>musicians_canvas</code>-suoritustiedosto käännöshakemistosta tai asennuspaikasta:</p>
+<pre><code>./musicians_canvas
+</code></pre>
+<p>Ensimmäisellä käynnistyskerralla sovellus avautuu tyhjällä projektilla. Sinun on asetettava
+projektihakemisto ennen tallennusta.</p>
+<p>Käynnistettäessä sovellus käyttää tallennettua teemaa (tumma tai vaalea) ja, jos aiemmin käytetty
+projektihakemisto sisältää <code>project.json</code>-tiedoston, projekti ladataan automaattisesti.</p>
+<h3 id="projektin-asettaminen">Projektin asettaminen</h3>
+<ol>
+<li>
+<p><strong>Aseta projektihakemisto</strong>: Kirjoita tai selaa kansioon "Project Location"-kentässä ikkunan
+   yläosassa. Tänne tallenteet ja projektitiedosto tallennetaan.</p>
+</li>
+<li>
+<p><strong>Lisää raita</strong>: Napsauta <strong>+ Add Track</strong> -painiketta. Uusi raita ilmestyy oletusasetuksilla.
+   Jos se on projektin ainoa raita eikä sitä ole vielä tallennettu, se valmistellaan automaattisesti
+   tallennusta varten.</p>
+</li>
+<li>
+<p><strong>Nimeä raita</strong>: Kirjoita nimi tekstikenttään "Options"-painikkeen viereen. Tätä nimeä käytetään
+   tallennetun äänitiedoston tiedostonimenä.</p>
+</li>
+</ol>
+<p><img alt="Pääikkuna" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="projektien-tallentaminen-ja-avaaminen">Projektien tallentaminen ja avaaminen</h3>
+<ul>
+<li><strong>Tallenna</strong>: Käytä <strong>File &gt; Save Project</strong> (Ctrl+S) tallentaaksesi nykyisen projektin JSON-tiedostona
+  projektihakemistoon.</li>
+<li><strong>Avaa</strong>: Käytä <strong>File &gt; Open Project</strong> (Ctrl+O) ladataksesi aiemmin tallennetun projektin.</li>
+</ul>
+<p>Projektitiedosto (<code>project.json</code>) tallentaa raitojen nimet, tyypit, MIDI-nuotit, äänitiedostoviittaukset
+ja kaikki projektikohtaiset asetukset. Äänitiedostot tallennetaan samaan hakemistoon kuin <code>project.json</code>
+ja nimetään raitojensa mukaan (esim. <code>My_Track.flac</code>).</p>
+<p>Jos suljet sovelluksen tallentamattomien muutosten kanssa, vahvistusvalintaikkuna kysyy, haluatko
+tallentaa ennen poistumista.</p>
+<h2 id="raitojen-hallinta">Raitojen hallinta</h2>
+<h3 id="raitojen-lisaaminen-ja-poistaminen">Raitojen lisääminen ja poistaminen</h3>
+<ul>
+<li>Napsauta <strong>+ Add Track</strong> lisätäksesi uuden raidan sovitukseen.</li>
+<li>Napsauta <strong>x</strong>-painiketta raitarivin oikealla puolella poistaaksesi sen.</li>
+<li>Napsauta <strong>Clear Tracks</strong> (punainen painike työkalupalkissa) poistaaksesi kaikki raidat. Vahvistus-
+  valintaikkuna näytetään ennen toiminnon suorittamista.</li>
+</ul>
+<h3 id="raitatyypin-maarittaminen">Raitatyypin määrittäminen</h3>
+<p>Jokainen raita voidaan määrittää joko <strong>Audio</strong>-raidaksi (mikrofoni-/linjasisääntulotallennus) tai
+<strong>MIDI</strong>-raidaksi (koskettimisto-/ohjaintallennus).</p>
+<p>Raitatyypin muuttaminen:</p>
+<ul>
+<li>Napsauta raidan <strong>Options</strong>-painiketta, tai</li>
+<li>Napsauta <strong>raitatyypin kuvaketta</strong> ("Options"-painikkeen ja nimikentän välissä)</li>
+</ul>
+<p>Tämä avaa raidan asetusvalintaikkunan, jossa voit valita sisääntulon lähteen.</p>
+<p><img alt="Raidan asetukset" src="screenshots/MusiciansCanvas_2_TrackConfig.png" /></p>
+<h3 id="raidan-ohjaimet">Raidan ohjaimet</h3>
+<p>Jokainen raitarivi sisältää seuraavat ohjaimet:</p>
+<ul>
+<li><strong>Käyttöönottovalintaruutu</strong>: Vaihtaa, sisällytetäänkö raita toistoon ja miksaukseen.
+  Raidan poistaminen käytöstä poistaa automaattisesti myös tallennusvalmiuden, jos se oli asetettu.</li>
+<li><strong>Tallennusvalmiuspainike</strong>: Valitsee tämän raidan tallennuskohteeksi. Vain yksi raita voi olla
+  tallennusvalmiudessa kerrallaan; uuden raidan valmistelu poistaa automaattisesti aiemmin
+  valmistellun raidan.</li>
+<li><strong>Nimikenttä</strong>: Muokattava tekstikenttä raidan nimelle. Tätä nimeä käytetään äänitiedoston nimenä
+  (virheelliset tiedostojärjestelmän merkit korvataan alaviivoilla).</li>
+<li><strong>Options-painike</strong>: Avaa raidan asetusvalintaikkunan.</li>
+<li><strong>Tyyppikuvake</strong>: Näyttää kaiutinkuvakkeen ääniraidoille tai pianokuvakkeen MIDI-raidoille.
+  Napsautus avaa raidan asetusvalintaikkunan.</li>
+<li><strong>Poistopainike (x)</strong>: Poistaa raidan projektista.</li>
+</ul>
+<h3 id="automaattinen-tallennusvalmius">Automaattinen tallennusvalmius</h3>
+<p>Kun projektissa on tasan yksi raita eikä sitä ole vielä tallennettu, se valmistellaan automaattisesti
+tallennusta varten. Tämä pätee sekä lisättäessä ensimmäistä raitaa uuteen projektiin että avattaessa
+olemassa olevaa projektia, jossa on yksi tyhjä raita.</p>
+<h3 id="raidan-visualisointi">Raidan visualisointi</h3>
+<ul>
+<li><strong>Ääniraidat</strong> näyttävät tallennetun äänen aaltomuodon visualisoinnin. Kun ääntä ei ole tallennettu,
+  alueella näkyy "No audio recorded".</li>
+<li><strong>MIDI-raidat</strong> näyttävät pianorullavan visualisoinnin, joka näyttää tallennetut nuotit ruudukossa
+  A0:sta C8:aan. Nuotit on väritetty iskuvoimakkuuden mukaan. Kun MIDI-dataa ei ole tallennettu,
+  alueella näkyy "No MIDI data recorded".</li>
+</ul>
+<h2 id="tallennus">Tallennus</h2>
+<h3 id="aanen-tallennus">Äänen tallennus</h3>
+<ol>
+<li>Varmista, että projektihakemisto on asetettu.</li>
+<li>Valmistele kohderaita (valitse "Arm"-valintapainike).</li>
+<li>Napsauta <strong>Record</strong>-painiketta (punainen ympyrä).</li>
+<li>Raidalla näytetään 3 sekunnin lähtölaskenta ("Get ready... 3", "2", "1"), jonka jälkeen
+   tallennus alkaa.</li>
+<li>Tallennuksen aikana raidan aaltomuotoalueella näytetään reaaliaikainen tasomittari, joka näyttää
+   nykyisen amplitudin gradienttipalkkina (vihreästä keltaiseen ja punaiseen) "Recording"-tekstillä.</li>
+<li>Napsauta <strong>Stop</strong>-painiketta lopettaaksesi tallennuksen.</li>
+</ol>
+<p>Tallennettu ääni tallennetaan FLAC-tiedostona projektihakemistoon raidan nimellä.</p>
+<p>Tallennuksen ja toiston aikana kaikki interaktiiviset ohjaimet (raitapainikkeet, asetukset jne.)
+poistetaan käytöstä tahattomien muutosten estämiseksi.</p>
+<h4 id="paalleaanitys">Päälleäänitys</h4>
+<p>Kun tallennat uutta raitaa samalla kun muut käytössä olevat raidat sisältävät jo ääni- tai MIDI-dataa,
+Musician's Canvas suorittaa päälleäänityksen: olemassa olevat raidat miksataan yhteen ja toistetaan
+reaaliajassa uuden raidan tallennuksen aikana. Tämä mahdollistaa aiemmin tallennettujen osien kuuntelun
+uutta osaa tallennettaessa.</p>
+<p>Olemassa olevien raitojen miksaus valmistellaan ennen tallennuksen aloittamista, joten tallennus ja
+toisto alkavat suunnilleen samanaikaisesti pitäen kaikki raidat synkronoituina.</p>
+<h4 id="tallennustaustajarjestelmat">Tallennustaustajärjestelmät</h4>
+<p>Musician's Canvas tukee kahta äänen tallennuksen taustajärjestelmää:</p>
+<ul>
+<li><strong>PortAudio</strong> (oletus kun saatavilla): Tarjoaa luotettavan, matalan latenssin tallennuksen ja on
+  suositeltu taustajärjestelmä.</li>
+<li><strong>Qt Multimedia</strong>: Varatausjärjestelmä, joka käyttää Qt:n sisäänrakennettua äänen tallennusta.
+  Käytetään, kun PortAudio ei ole saatavilla tai kun se on nimenomaisesti valittu projektiasetuksissa.</li>
+</ul>
+<p>Tallennustaustajärjestelmä voidaan määrittää projektikohtaisesti kohdassa <strong>Project &gt; Project Settings &gt;
+Audio</strong>.</p>
+<h4 id="naytteenottotaajuus-ja-laitteiden-kasittely">Näytteenottotaajuus ja laitteiden käsittely</h4>
+<p>Musician's Canvas tallentaa äänsisääntulolaitteen omalla näytteenottotaajuudella ja muuntaa sitten
+automaattisesti projektin määritettyyn näytteenottotaajuuteen korkealaatuisella uudelleennäytteistämisellä.
+Tämä tarkoittaa, että voit asettaa minkä tahansa projektin näytteenottotaajuuden (esim. 44100 Hz tai
+48000 Hz) riippumatta laitteen omasta taajuudesta. Muunnos säilyttää sävelkorkeuden ja keston tarkasti.</p>
+<h4 id="monolaitteiden-tunnistus">Monolaitteiden tunnistus</h4>
+<p>Jotkin äänilaitteet (esim. USB-webkameramikrofonit) ovat fyysisesti mono, mutta käyttöjärjestelmä
+ilmoittaa ne stereona. Musician's Canvas tunnistaa tämän automaattisesti ja säätää kanavamäärän
+vastaavasti. Jos projekti on määritetty stereoksi, monosignaali kopioidaan molempiin kanaviin.</p>
+<h3 id="midi-tallennus">MIDI-tallennus</h3>
+<ol>
+<li>Aseta raitatyypiksi <strong>MIDI</strong> Options-painikkeella.</li>
+<li>Varmista, että MIDI-sisääntulolaite on määritetty kohdassa <strong>Settings &gt; Configuration &gt; MIDI</strong>.</li>
+<li>Valmistele raita ja napsauta Record.</li>
+<li>Soita nuotteja MIDI-ohjaimellasi.</li>
+<li>Napsauta Stop lopettaaksesi tallennuksen.</li>
+</ol>
+<p>MIDI-nuotit näytetään pianorullavisualisoinnissa raidalla.</p>
+<h2 id="toisto">Toisto</h2>
+<p>Napsauta <strong>Play</strong>-painiketta miksataksesi ja toistaaksesi kaikki käytössä olevat raidat. Painikkeen
+työkaluvihje muuttuu osoittamaan, toistetaanko vai tallennetaanko sen mukaan, onko raita
+tallennusvalmiudessa. Käytöstä poistetut raidat (valitsemattomat) jätetään toiston ulkopuolelle.</p>
+<p>Toiston aikana ääniraidat puretaan FLAC-tiedostoistaan ja MIDI-raidat renderöidään ääneksi
+sisäänrakennetulla FluidSynth-syntetisaattorilla. Kaikki raidat miksataan yhteen ja toistetaan
+järjestelmän äänilähtölaitteen kautta.</p>
+<p>Napsauta <strong>Stop</strong>-painiketta lopettaaksesi toiston milloin tahansa.</p>
+<h2 id="miksaus-tiedostoon">Miksaus tiedostoon</h2>
+<p>Käytä <strong>Tools &gt; Mix tracks to file</strong> (Ctrl+M) viedäksesi kaikki käytössä olevat raidat yhdeksi
+äänitiedostoksi. Valintaikkuna antaa sinun valita tulostuspolun ja muodon:</p>
+<ul>
+<li><strong>Tulostiedosto</strong>: Selaa valitaksesi kohdetiedoston polun.</li>
+<li><strong>Muoto</strong>: Valitse FLAC (häviötön pakkaus, pienemmät tiedostot) tai WAV (pakkaamaton).</li>
+</ul>
+<p>Miksaus käyttää projektin määritettyä näytteenottotaajuutta. MIDI-raidat renderöidään käyttäen
+määritettyä SoundFont-tiedostoa.</p>
+<h2 id="asetukset">Asetukset</h2>
+<h3 id="yleiset-asetukset">Yleiset asetukset</h3>
+<p>Käytä <strong>Settings &gt; Configuration</strong> (Ctrl+,) asettaaksesi yleiset oletusarvot, jotka koskevat kaikkia
+projekteja:</p>
+<p><img alt="Yleiset asetukset" src="screenshots/MusiciansCanvas_3_GeneralSettings.png" /></p>
+<h4 id="yleiset-valilehti">Yleiset-välilehti</h4>
+<ul>
+<li><strong>Teema</strong>: Valitse tumman ja vaalean teeman väliltä.</li>
+</ul>
+<h4 id="kieli-valilehti">Kieli-välilehti</h4>
+<ul>
+<li><strong>Kieli</strong>: Valitse sovelluksen näyttökieli. Oletus on "System Default", joka käyttää käyttöjärjestelmän
+  kieliasetusta. Saatavilla olevat kielet ovat englanti, Deutsch (saksa), Español (espanja),
+  Français (ranska), japani, Português (brasilianportugali), Chinese (perinteinen), Chinese (yksinkertaistettu)
+  ja Pirate.
+  Käyttöliittymä päivittyy välittömästi kieltä vaihdettaessa.</li>
+</ul>
+<h4 id="midi-valilehti">MIDI-välilehti</h4>
+<ul>
+<li><strong>MIDI-lähtölaite</strong>: Valitse sisäänrakennettu FluidSynth-syntetisaattori tai ulkoinen MIDI-laite.
+  Käytä <strong>Refresh</strong>-painiketta etsiäksesi saatavilla olevia MIDI-laitteita uudelleen.</li>
+<li><strong>SoundFont</strong>: Selaa <code>.sf2</code> SoundFont-tiedostoon MIDI-synteesiä varten. Linuxissa järjestelmän
+  SoundFont voidaan tunnistaa automaattisesti, jos <code>fluid-soundfont-gm</code>-paketti on asennettu.
+  Windowsissa ja macOS:ssä SoundFont-polku on määritettävä manuaalisesti.</li>
+</ul>
+<p><img alt="MIDI-asetukset" src="screenshots/MusiciansCanvas_4_MIDISettings.png" /></p>
+<h4 id="aani-valilehti">Ääni-välilehti</h4>
+<ul>
+<li><strong>Äänen sisääntulolaite</strong>: Valitse mikrofoni tai linjasisääntulo tallennusta varten.</li>
+<li><strong>Äänen lähtölaite</strong>: Valitse kaiutin tai kuulokkeet toistoa varten.</li>
+</ul>
+<p><img alt="Ääniasetukset" src="screenshots/MusiciansCanvas_5_AudioSettings.png" /></p>
+<h3 id="projektiasetukset">Projektiasetukset</h3>
+<p>Käytä <strong>Project &gt; Project Settings</strong> (Ctrl+P) ohittaaksesi yleiset oletusarvot vain nykyiselle
+projektille. Tämä on hyödyllistä projekteille, jotka tarvitsevat tietyn näytteenottotaajuuden,
+SoundFont-tiedoston tai äänilaitteen. Projektikohtaiset asetukset tallennetaan <code>project.json</code>-tiedostoon.</p>
+<p><img alt="Projektin MIDI-asetukset" src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" /></p>
+<h4 id="midi-valilehti_1">MIDI-välilehti</h4>
+<ul>
+<li><strong>MIDI-laite</strong>: Valitse MIDI-laite tälle projektille tai jätä oletusarvoon käyttääksesi yleistä asetusta.</li>
+<li><strong>SoundFont</strong>: Valitse SoundFont-tiedosto tälle projektille.</li>
+<li><strong>Refresh</strong>: Etsi saatavilla olevia MIDI-laitteita uudelleen.</li>
+</ul>
+<h4 id="aani-valilehti_1">Ääni-välilehti</h4>
+<ul>
+<li><strong>Äänen sisääntulolaite</strong>: Valitse tallennuslaite tälle projektille.</li>
+<li><strong>Tallennuksen taustajärjestelmä</strong> (kun PortAudio on saatavilla):</li>
+<li><strong>PortAudio (native input)</strong>: Suositeltu. Käyttää samaa äänikirjastoa kuin Audacity.</li>
+<li><strong>Qt Multimedia</strong>: Varavaihtoehto, joka käyttää Qt:n sisäänrakennettua äänen tallennusta.</li>
+<li><strong>PortAudio-sisääntulolaite</strong>: Kun käytetään PortAudio-taustajärjestelmää, valitse tietty
+  PortAudio-sisääntulolaite.</li>
+<li><strong>Äänen lähtölaite</strong>: Valitse toistolaite tälle projektille.</li>
+</ul>
+<h5 id="aanimuotoasetukset">Äänimuotoasetukset</h5>
+<ul>
+<li><strong>Näytteenottotaajuus</strong>: Valitse vakiotaajuuksista (8000 Hz - 192000 Hz). Laitteen oma taajuus on
+  merkitty "(native)". Taajuudet, jotka vaativat uudelleennäytteistämistä, on merkitty "(resampled)".
+  Voit valita minkä tahansa taajuuden laitteen kyvyistä riippumatta; Musician's Canvas suorittaa
+  uudelleennäytteistämisen automaattisesti tarvittaessa.</li>
+<li><strong>Kanavat</strong>: Mono tai stereo. Jos laite tukee vain monoa, stereovaihtoehto on poistettu käytöstä.</li>
+</ul>
+<p><img alt="Projektin ääniasetukset" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
+<h2 id="valikot">Valikot</h2>
+<h3 id="file-valikko">File-valikko</h3>
+<table>
+<thead>
+<tr>
+<th>Valikkokohta</th>
+<th>Pikanäppäin</th>
+<th>Kuvaus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Save Project</td>
+<td>Ctrl+S</td>
+<td>Tallenna nykyinen projekti levylle</td>
+</tr>
+<tr>
+<td>Open Project</td>
+<td>Ctrl+O</td>
+<td>Avaa olemassa oleva projektitiedosto</td>
+</tr>
+<tr>
+<td>Close</td>
+<td>Ctrl+Q</td>
+<td>Sulje sovellus</td>
+</tr>
+</tbody>
+</table>
+<h3 id="project-valikko">Project-valikko</h3>
+<table>
+<thead>
+<tr>
+<th>Valikkokohta</th>
+<th>Pikanäppäin</th>
+<th>Kuvaus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project Settings</td>
+<td>Ctrl+P</td>
+<td>Määritä projektikohtaiset asetukset</td>
+</tr>
+<tr>
+<td>Add Demo Data to Selected Track</td>
+<td></td>
+<td>Lisää esimerkki-MIDI-nuotteja esittelyä varten</td>
+</tr>
+</tbody>
+</table>
+<h3 id="settings-valikko">Settings-valikko</h3>
+<table>
+<thead>
+<tr>
+<th>Valikkokohta</th>
+<th>Pikanäppäin</th>
+<th>Kuvaus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Configuration</td>
+<td>Ctrl+,</td>
+<td>Avaa yleiset sovellusasetukset</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tools-valikko">Tools-valikko</h3>
+<table>
+<thead>
+<tr>
+<th>Valikkokohta</th>
+<th>Pikanäppäin</th>
+<th>Kuvaus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mix tracks to file</td>
+<td>Ctrl+M</td>
+<td>Vie kaikki käytössä olevat raidat tiedostoon</td>
+</tr>
+<tr>
+<td>Virtual MIDI Keyboard</td>
+<td></td>
+<td>Käynnistä lisäkoskettimistosovellus</td>
+</tr>
+</tbody>
+</table>
+<h2 id="pikanappaimet">Pikanäppäimet</h2>
+<table>
+<thead>
+<tr>
+<th>Pikanäppäin</th>
+<th>Toiminto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl+S</td>
+<td>Tallenna projekti</td>
+</tr>
+<tr>
+<td>Ctrl+O</td>
+<td>Avaa projekti</td>
+</tr>
+<tr>
+<td>Ctrl+M</td>
+<td>Miksaa raidat tiedostoon</td>
+</tr>
+<tr>
+<td>Ctrl+P</td>
+<td>Projektiasetukset</td>
+</tr>
+<tr>
+<td>Ctrl+,</td>
+<td>Asetukset / Määritykset</td>
+</tr>
+<tr>
+<td>Ctrl+Q / Alt+F4</td>
+<td>Sulje</td>
+</tr>
+</tbody>
+</table>
+<h2 id="virtual-midi-keyboard">Virtual MIDI Keyboard</h2>
+<p>Virtual MIDI Keyboard on lisäsovellus (<code>virtual_midi_keyboard</code>), joka tarjoaa näytöllä näkyvän
+pianokoskettimiston MIDI-nuottien lähettämiseen. Se voidaan käynnistää pääsovelluksen valikosta
+<strong>Tools &gt; Virtual MIDI Keyboard</strong> tai suorittaa itsenäisesti.</p>
+<p><img alt="Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard1.png" /></p>
+<h3 id="ominaisuudet">Ominaisuudet</h3>
+<ul>
+<li>Napsauta näyttöpianon koskettimia soittaaksesi nuotteja</li>
+<li>Käytä tietokoneen näppäimistöä pianokoskettimistona (katso näppäinkartta alla)</li>
+<li>Yhdistä ulkoisiin MIDI-lähtölaitteisiin tai käytä sisäänrakennettua FluidSynth-syntetisaattoria</li>
+<li>Yhdistä MIDI-sisääntulolaitteeseen näyttääksesi saapuvat nuotit koskettimistolla</li>
+<li>Säädettävä syntetisaattorin äänenvoimakkuus (pääsäätö, 10%--200%)</li>
+<li>SoundFont-valinta sisäänrakennetulle syntetisaattorille</li>
+<li>MIDI-instrumentin/ohjelman valinta (General MIDI tai SoundFont-esiasetukset)</li>
+<li>Kuoro/efekti-säädin</li>
+<li>Oktaavin siirto (-3 - +5)</li>
+<li>MIDI-äänenvoimakkuuden säätö (CC#7, 0--127)</li>
+</ul>
+<h3 id="tyokalupalkin-ohjaimet">Työkalupalkin ohjaimet</h3>
+<ul>
+<li><strong>Volume</strong>: MIDI-äänenvoimakkuus (CC#7), säädettävä 0-127 syöttökentällä.</li>
+<li><strong>Octave</strong>: Siirrä koskettimiston oktaavia <strong>&lt;</strong>- ja <strong>&gt;</strong>-painikkeilla tai syöttökentällä.
+  Alue on -3 - +5.</li>
+<li><strong>Chorus/Effect</strong>: Pyöritettävä säädin ja tekstikenttä (1--127) kuoro/efekti-tason asettamiseen
+  (MIDI CC#93). Napsauta <strong>Apply</strong> lähettääksesi arvon.</li>
+<li><strong>Instrumenttivalitsin</strong>: Valitse MIDI-instrumentti. Käytettäessä sisäänrakennettua
+  FluidSynth-syntetisaattoria näytetään SoundFont-esiasetukset (Pankki:Ohjelma Nimi). Ulkoiseen
+  MIDI-laitteeseen yhdistettäessä näytetään luettelo 128 General MIDI -instrumentista.</li>
+</ul>
+<h3 id="soittaminen-tietokoneen-nappaimistolla">Soittaminen tietokoneen näppäimistöllä</h3>
+<p>Tietokoneen näppäimistö on kartoitettu pianokoskettimiin kahden oktaavin yli:</p>
+<p><strong>Alempi oktaavi (alkaen nykyisestä oktaavista):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Näppäin</th>
+<th>Nuotti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z</td>
+<td>C</td>
+</tr>
+<tr>
+<td>S</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>X</td>
+<td>D</td>
+</tr>
+<tr>
+<td>D</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>C</td>
+<td>E</td>
+</tr>
+<tr>
+<td>V</td>
+<td>F</td>
+</tr>
+<tr>
+<td>G</td>
+<td>F#/Gb</td>
+</tr>
+<tr>
+<td>B</td>
+<td>G</td>
+</tr>
+<tr>
+<td>H</td>
+<td>G#/Ab</td>
+</tr>
+<tr>
+<td>N</td>
+<td>A</td>
+</tr>
+<tr>
+<td>J</td>
+<td>A#/Bb</td>
+</tr>
+<tr>
+<td>M</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ylempi oktaavi (yksi oktaavi korkeammalla):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Näppäin</th>
+<th>Nuotti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q</td>
+<td>C</td>
+</tr>
+<tr>
+<td>2</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>W</td>
+<td>D</td>
+</tr>
+<tr>
+<td>3</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>E</td>
+<td>E</td>
+</tr>
+<tr>
+<td>R</td>
+<td>F</td>
+</tr>
+<tr>
+<td>5</td>
+<td>F#/Gb</td>
+</tr>
+<tr>
+<td>T</td>
+<td>G</td>
+</tr>
+<tr>
+<td>6</td>
+<td>G#/Ab</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>A</td>
+</tr>
+<tr>
+<td>7</td>
+<td>A#/Bb</td>
+</tr>
+<tr>
+<td>U</td>
+<td>B</td>
+</tr>
+<tr>
+<td>I</td>
+<td>C (seuraava oktaavi)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>C#/Db</td>
+</tr>
+<tr>
+<td>O</td>
+<td>D</td>
+</tr>
+<tr>
+<td>0</td>
+<td>D#/Eb</td>
+</tr>
+<tr>
+<td>P</td>
+<td>E</td>
+</tr>
+</tbody>
+</table>
+<p>Koskettimet valaistuvat visuaalisesti painettaessa (valkoiset koskettimet muuttuvat vaaleansinisiksi,
+mustat tummenevat).</p>
+<h3 id="maaritykset">Määritykset</h3>
+<p>Avaa määritysvalintaikkuna (<strong>Settings &gt; Configuration</strong>, Ctrl+,) MIDI- ja äänilaitteiden
+määrittämiseksi:</p>
+<p><img alt="Virtual MIDI Keyboard -määritykset" src="screenshots/VMIDIKeyboard2.png" /></p>
+<h4 id="midi-valilehti_2">MIDI-välilehti</h4>
+<ul>
+<li><strong>MIDI-lähtölaite</strong>: Valitse ulkoinen laite tai jätä tyhjäksi sisäänrakennetun
+  FluidSynth-syntetisaattorin käyttämiseksi.</li>
+<li><strong>MIDI-sisääntulolaite</strong>: Valitse ohjain nuottien välittämiseksi koskettimistonäyttöön.</li>
+<li><strong>Syntetisaattorin äänenvoimakkuus (pääsäätö)</strong>: Säädä sisäänrakennetun syntetisaattorin
+  lähtötasoa (10%--200%).</li>
+<li><strong>SoundFont</strong>: Selaa <code>.sf2</code> SoundFont-tiedostoon sisäänrakennettua syntetisaattoria varten.</li>
+<li><strong>Refresh</strong>: Etsi saatavilla olevia MIDI-laitteita uudelleen.</li>
+</ul>
+<h4 id="aani-valilehti_2">Ääni-välilehti</h4>
+<ul>
+<li><strong>Äänen lähtölaite</strong>: Valitse sisäänrakennetun syntetisaattorin lähtölaite.</li>
+</ul>
+<h4 id="kieli-valilehti_1">Kieli-välilehti</h4>
+<ul>
+<li><strong>Kieli</strong>: Valitse näyttökieli. Samat kielet kuin Musician's Canvas -sovelluksessa ovat saatavilla.
+  Käyttöliittymä päivittyy välittömästi kieltä vaihdettaessa.</li>
+</ul>
+<h3 id="virtual-midi-keyboard-pikanappaimet">Virtual MIDI Keyboard -pikanäppäimet</h3>
+<table>
+<thead>
+<tr>
+<th>Pikanäppäin</th>
+<th>Toiminto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl+,</td>
+<td>Määritysvalintaikkuna</td>
+</tr>
+<tr>
+<td>Ctrl+U</td>
+<td>Ohje / Käyttötiedot</td>
+</tr>
+<tr>
+<td>Ctrl+Q</td>
+<td>Sulje</td>
+</tr>
+</tbody>
+</table>
+<h2 id="vianmaaritys">Vianmääritys</h2>
+<h3 id="ei-aanilahtoa">Ei äänilähtöä</h3>
+<ul>
+<li>Tarkista, että oikea äänen lähtölaite on valittu kohdassa Settings &gt; Configuration &gt; Audio.</li>
+<li>Linuxissa varmista, että PipeWire tai PulseAudio on käynnissä ja ettei lähtö ole mykistetty.
+  Käytä <code>amixer</code>-komentoa tai työpöytäsi ääniasetuksia äänenvoimakkuustasojen tarkistamiseen.</li>
+<li>Windowsissa varmista, että ASIO-ääniajuri on asennettu (esim.
+  <a href="https://asio4all.org/">ASIO4ALL</a> tai valmistajan toimittama ASIO-ajuri äänilaitteeseesi).
+  Musician's Canvas vaatii ASIO:n matalan latenssin äänentoistoon Windowsissa.</li>
+</ul>
+<h3 id="midi-raidat-ovat-aanettomia">MIDI-raidat ovat äänettömiä</h3>
+<ul>
+<li>Varmista, että SoundFont (<code>.sf2</code>-tiedosto) on määritetty kohdassa Settings &gt; Configuration &gt; MIDI.</li>
+<li>Linuxissa järjestelmän SoundFont voidaan tunnistaa automaattisesti, jos <code>fluid-soundfont-gm</code>-paketti
+  on asennettu.</li>
+<li>Windowsissa ja macOS:ssä SoundFont-polku on määritettävä manuaalisesti.</li>
+</ul>
+<h3 id="tallennus-kuulostaa-vaaristyneelta-tai-on-vaarassa-savelkorkeudessa">Tallennus kuulostaa vääristyneeltä tai on väärässä sävelkorkeudessa</h3>
+<ul>
+<li>Tämä voi tapahtua, kun äänen sisääntulolaitteen oma näytteenottotaajuus eroaa projektin määritetystä
+  taajuudesta. Musician's Canvas käsittelee tämän automaattisesti uudelleennäytteistämällä, mutta jos
+  ongelmat jatkuvat, kokeile asettaa projektin näytteenottotaajuus vastaamaan laitteen omaa taajuutta.</li>
+<li>USB-webkameramikrofoneilla on usein epätavallisia omia taajuuksia (esim. 32000 Hz). Sovellus
+  tunnistaa nämä automaattisesti.</li>
+<li>Jos käytät Qt Multimedia -taustajärjestelmää ja koet ongelmia, kokeile vaihtaa
+  PortAudio-taustajärjestelmään kohdassa Project Settings &gt; Audio.</li>
+</ul>
+<h3 id="virtual-midi-keyboard-ei-tuota-aanta">Virtual MIDI Keyboard ei tuota ääntä</h3>
+<ul>
+<li>Linuxissa PipeWire-ympäristössä varmista, että <code>libpipewire-0.3-dev</code>-paketti on asennettu (tarvitaan
+  PipeWire-integraatioon FluidSynth-syntetisaattorin kanssa).</li>
+<li>Tarkista, että SoundFont on ladattu (katso MIDI-välilehti määritysvalintaikkunassa).</li>
+<li>Varmista, että äänen lähtölaite on valittu ja järjestelmän äänenvoimakkuus ei ole mykistetty.</li>
+</ul>
+<h2 id="kaantaminen-lahdekoodista">Kääntäminen lähdekoodista</h2>
+<p>Täydelliset käännösohjeet Linuxille, macOS:lle ja Windowsille, mukaan lukien kaikki tarvittavat
+riippuvuudet, löytyvät <a href="../README.md">README</a>-tiedostosta.</p>
+</body>
+</html>

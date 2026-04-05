@@ -129,7 +129,7 @@ Por favor, instale um driver ASIO e reinicie o aplicativo:
     <message>
         <location filename="../src/mainwindow.cpp" line="181"/>
         <location filename="../src/mainwindow.cpp" line="277"/>
-        <location filename="../src/mainwindow.cpp" line="1412"/>
+        <location filename="../src/mainwindow.cpp" line="1416"/>
         <source>Clear Tracks</source>
         <translation>Limpar Faixas</translation>
     </message>
@@ -235,120 +235,120 @@ Por favor, selecione um diretório para armazenar seus arquivos gravados.</trans
         <translation>Qt Multimedia não está disponível. Compile com Qt6::Multimedia para suporte à gravação.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="981"/>
+        <location filename="../src/mainwindow.cpp" line="983"/>
         <source>PortAudio</source>
         <translation>PortAudio</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="982"/>
+        <location filename="../src/mainwindow.cpp" line="984"/>
         <source>Could not start PortAudio recording (%1). Falling back to Qt Multimedia.</source>
         <translation>Não foi possível iniciar a gravação PortAudio (%1). Usando Qt Multimedia como alternativa.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1135"/>
+        <location filename="../src/mainwindow.cpp" line="1139"/>
         <source>Save Project</source>
         <translation>Salvar Projeto</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1136"/>
+        <location filename="../src/mainwindow.cpp" line="1140"/>
         <source>Please choose a project directory before saving.</source>
         <translation>Por favor, escolha um diretório de projeto antes de salvar.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1210"/>
+        <location filename="../src/mainwindow.cpp" line="1214"/>
         <source>Save Failed</source>
         <translation>Falha ao Salvar</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1211"/>
+        <location filename="../src/mainwindow.cpp" line="1215"/>
         <source>Could not write project file:
 %1</source>
         <translation>Não foi possível gravar o arquivo de projeto:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1217"/>
+        <location filename="../src/mainwindow.cpp" line="1221"/>
         <source>Project Saved</source>
         <translation>Projeto Salvo</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1218"/>
+        <location filename="../src/mainwindow.cpp" line="1222"/>
         <source>Project saved to:
 %1</source>
         <translation>Projeto salvo em:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1227"/>
+        <location filename="../src/mainwindow.cpp" line="1231"/>
         <source>Open Project</source>
         <translation>Abrir Projeto</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1228"/>
+        <location filename="../src/mainwindow.cpp" line="1232"/>
         <source>Project files (*.json);;All files (*)</source>
         <translation>Arquivos de projeto (*.json);;Todos os arquivos (*)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1239"/>
-        <location filename="../src/mainwindow.cpp" line="1247"/>
+        <location filename="../src/mainwindow.cpp" line="1243"/>
+        <location filename="../src/mainwindow.cpp" line="1251"/>
         <source>Open Failed</source>
         <translation>Falha ao Abrir</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1240"/>
+        <location filename="../src/mainwindow.cpp" line="1244"/>
         <source>Could not read project file:
 %1</source>
         <translation>Não foi possível ler o arquivo de projeto:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1247"/>
+        <location filename="../src/mainwindow.cpp" line="1251"/>
         <source>Invalid project file format.</source>
         <translation>Formato de arquivo de projeto inválido.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1413"/>
+        <location filename="../src/mainwindow.cpp" line="1417"/>
         <source>Remove all %1 track(s) from the project?</source>
         <translation>Remover todas as %1 faixa(s) do projeto?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1431"/>
+        <location filename="../src/mainwindow.cpp" line="1435"/>
         <source>Unsaved Changes</source>
         <translation>Alterações Não Salvas</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1432"/>
+        <location filename="../src/mainwindow.cpp" line="1436"/>
         <source>The project has unsaved changes. Save before closing?</source>
         <translation>O projeto possui alterações não salvas. Salvar antes de fechar?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1485"/>
+        <location filename="../src/mainwindow.cpp" line="1489"/>
         <source>No Tracks</source>
         <translation>Sem Faixas</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1485"/>
+        <location filename="../src/mainwindow.cpp" line="1489"/>
         <source>Add a track first, then select it.</source>
         <translation>Adicione uma faixa primeiro e depois selecione-a.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1497"/>
-        <location filename="../src/mainwindow.cpp" line="1502"/>
+        <location filename="../src/mainwindow.cpp" line="1501"/>
+        <location filename="../src/mainwindow.cpp" line="1506"/>
         <source>Demo Data</source>
         <translation>Dados de Demonstração</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1498"/>
+        <location filename="../src/mainwindow.cpp" line="1502"/>
         <source>Demo MIDI notes added. Try Mix → Mix tracks to file to export.</source>
         <translation>Notas MIDI de demonstração adicionadas. Experimente Ferramentas → Mixar faixas para arquivo para exportar.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1503"/>
+        <location filename="../src/mainwindow.cpp" line="1507"/>
         <source>Switch the track to MIDI type (Options) to add demo notes.</source>
         <translation>Mude a faixa para o tipo MIDI (Opções) para adicionar notas de demonstração.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1511"/>
+        <location filename="../src/mainwindow.cpp" line="1515"/>
         <source>Track %1</source>
         <translation>Faixa %1</translation>
     </message>
@@ -605,145 +605,155 @@ Por favor, selecione um diretório para armazenar seus arquivos gravados.</trans
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="31"/>
+        <location filename="../src/settingsdialog.cpp" line="32"/>
         <source>Configuration</source>
         <translation>Configuração</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="45"/>
+        <location filename="../src/settingsdialog.cpp" line="46"/>
         <source>Apply</source>
         <translation>Aplicar</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="50"/>
+        <location filename="../src/settingsdialog.cpp" line="51"/>
         <source>Close</source>
         <translation>Fechar</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="84"/>
+        <location filename="../src/settingsdialog.cpp" line="85"/>
         <source>Here, you can configure general application settings.</source>
         <translation>Aqui, você pode configurar as definições gerais do aplicativo.</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="86"/>
+        <location filename="../src/settingsdialog.cpp" line="87"/>
         <source>Appearance</source>
         <translation>Aparência</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="88"/>
+        <location filename="../src/settingsdialog.cpp" line="89"/>
         <source>Theme:</source>
         <translation>Tema:</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="90"/>
+        <location filename="../src/settingsdialog.cpp" line="91"/>
         <source>Dark</source>
         <translation>Escuro</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="91"/>
+        <location filename="../src/settingsdialog.cpp" line="92"/>
         <source>Light</source>
         <translation>Claro</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="96"/>
+        <location filename="../src/settingsdialog.cpp" line="97"/>
+        <source>Diagnostics</source>
+        <translation>Diagnósticos</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="99"/>
+        <source>Write recording debug log</source>
+        <translation>Gravar log de depuração de gravação</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="104"/>
         <source>General</source>
         <translation>Geral</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="107"/>
+        <location filename="../src/settingsdialog.cpp" line="115"/>
         <source>Here, you can configure settings related to MIDI.</source>
         <translation>Aqui, você pode configurar as definições relacionadas a MIDI.</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="109"/>
+        <location filename="../src/settingsdialog.cpp" line="117"/>
         <source>MIDI Device</source>
         <translation>Dispositivo MIDI</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="115"/>
+        <location filename="../src/settingsdialog.cpp" line="123"/>
         <source>Refresh</source>
         <translation>Atualizar</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="121"/>
+        <location filename="../src/settingsdialog.cpp" line="129"/>
         <source>SoundFont (for MIDI synthesis)</source>
         <translation>SoundFont (para síntese MIDI)</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="124"/>
+        <location filename="../src/settingsdialog.cpp" line="132"/>
         <source>Path to .sf2 SoundFont file</source>
         <translation>Caminho para arquivo SoundFont .sf2</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="127"/>
+        <location filename="../src/settingsdialog.cpp" line="135"/>
         <source>Browse...</source>
         <translation>Procurar...</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="133"/>
+        <location filename="../src/settingsdialog.cpp" line="141"/>
         <source>MIDI</source>
         <translation>MIDI</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="144"/>
+        <location filename="../src/settingsdialog.cpp" line="152"/>
         <source>Here, you can configure audio settings for the application.</source>
         <translation>Aqui, você pode configurar as definições de áudio do aplicativo.</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="146"/>
+        <location filename="../src/settingsdialog.cpp" line="154"/>
         <source>Audio Input Device</source>
         <translation>Dispositivo de Entrada de Áudio</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="153"/>
+        <location filename="../src/settingsdialog.cpp" line="161"/>
         <source>Audio Output Device</source>
         <translation>Dispositivo de Saída de Áudio</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="161"/>
+        <location filename="../src/settingsdialog.cpp" line="169"/>
         <source>Audio</source>
         <translation>Áudio</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="172"/>
+        <location filename="../src/settingsdialog.cpp" line="180"/>
         <source>Choose the display language for the application.</source>
         <translation>Escolha o idioma de exibição do aplicativo.</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="174"/>
-        <location filename="../src/settingsdialog.cpp" line="192"/>
+        <location filename="../src/settingsdialog.cpp" line="182"/>
+        <location filename="../src/settingsdialog.cpp" line="209"/>
         <source>Language</source>
         <translation>Idioma</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="178"/>
+        <location filename="../src/settingsdialog.cpp" line="186"/>
         <source>System Default</source>
         <translation>Padrão do sistema</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="200"/>
+        <location filename="../src/settingsdialog.cpp" line="217"/>
         <source>Built-in FluidSynth synthesizer</source>
         <translation>Sintetizador FluidSynth integrado</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="221"/>
-        <location filename="../src/settingsdialog.cpp" line="227"/>
+        <location filename="../src/settingsdialog.cpp" line="238"/>
+        <location filename="../src/settingsdialog.cpp" line="244"/>
         <source>(Default)</source>
         <translation>(Padrão)</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="233"/>
-        <location filename="../src/settingsdialog.cpp" line="234"/>
+        <location filename="../src/settingsdialog.cpp" line="250"/>
+        <location filename="../src/settingsdialog.cpp" line="251"/>
         <source>(Default - install qt6-multimedia-dev for device list)</source>
         <translation>(Padrão - instale qt6-multimedia-dev para lista de dispositivos)</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="311"/>
+        <location filename="../src/settingsdialog.cpp" line="332"/>
         <source>Select SoundFont</source>
         <translation>Selecionar SoundFont</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="313"/>
+        <location filename="../src/settingsdialog.cpp" line="334"/>
         <source>SoundFont files (*.sf2 *.SF2);;All files (*)</source>
         <translation>Arquivos SoundFont (*.sf2 *.SF2);;Todos os arquivos (*)</translation>
     </message>

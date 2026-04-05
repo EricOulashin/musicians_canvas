@@ -16,17 +16,18 @@ env:
 jobs:
   # ── Linux and macOS ──────────────────────────────────────────────────
   build-unix:
-    name: Build (${{ matrix.os }})
+    name: Build (${{ matrix.artifact_os }})
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
         include:
           - os: ubuntu-latest
             artifact_os: Linux
           - os: macos-latest
-            artifact_os: macOS
+            artifact_os: macOS_AppleSilicon
+          - os: macos-13
+            artifact_os: macOS_Intel
 
     steps:
       - name: Checkout musicians_canvas
@@ -114,19 +115,18 @@ jobs:
           cp "${ROOT}/musicians_canvas/build/musicians_canvas" "${ARTIFACT_DIR}/"
           cp "${ROOT}/musicians_canvas/build/virtual_midi_keyboard" "${ARTIFACT_DIR}/"
 
-          # Copy compiled translation files (.qm)
+          # Copy compiled translation files (.qm) for localization
           BUILD_TR="${ROOT}/musicians_canvas/build/translations"
           if [ -d "${BUILD_TR}" ]; then
             mkdir -p "${ARTIFACT_DIR}/translations"
             cp "${BUILD_TR}"/*.qm "${ARTIFACT_DIR}/translations/" 2>/dev/null || true
           fi
 
-          # Copy generated user manual (HTML and PDF)
+          # Copy generated user manual (HTML and PDF) in all languages
           DOCS_DIR="${ROOT}/musicians_canvas/docs"
           if [ -d "${DOCS_DIR}/html" ]; then
             cp -r "${DOCS_DIR}/html" "${ARTIFACT_DIR}/docs/"
           fi
-          # Copy all PDF user manuals (English + translations)
           for pdf in "${DOCS_DIR}"/MusiciansCanvas_User_Manual*.pdf; do
             [ -f "$pdf" ] && cp "$pdf" "${ARTIFACT_DIR}/docs/" || true
           done
@@ -175,6 +175,7 @@ jobs:
             mingw-w64-x86_64-ninja
             mingw-w64-x86_64-qt6-base
             mingw-w64-x86_64-qt6-multimedia
+            mingw-w64-x86_64-qt6-tools
             mingw-w64-x86_64-fluidsynth
             mingw-w64-x86_64-flac
             mingw-w64-x86_64-portaudio
@@ -238,19 +239,18 @@ jobs:
           cp "${ROOT}/musicians_canvas/build/musicians_canvas.exe" "${ARTIFACT_DIR}/"
           cp "${ROOT}/musicians_canvas/build/virtual_midi_keyboard.exe" "${ARTIFACT_DIR}/"
 
-          # Copy compiled translation files (.qm)
+          # Copy compiled translation files (.qm) for localization
           BUILD_TR="${ROOT}/musicians_canvas/build/translations"
           if [ -d "${BUILD_TR}" ]; then
             mkdir -p "${ARTIFACT_DIR}/translations"
             cp "${BUILD_TR}"/*.qm "${ARTIFACT_DIR}/translations/" 2>/dev/null || true
           fi
 
-          # Copy generated user manual (HTML and PDF)
+          # Copy generated user manual (HTML and PDF) in all languages
           DOCS_DIR="${ROOT}/musicians_canvas/docs"
           if [ -d "${DOCS_DIR}/html" ]; then
             cp -r "${DOCS_DIR}/html" "${ARTIFACT_DIR}/docs/"
           fi
-          # Copy all PDF user manuals (English + translations)
           for pdf in "${DOCS_DIR}"/MusiciansCanvas_User_Manual*.pdf; do
             [ -f "$pdf" ] && cp "$pdf" "${ARTIFACT_DIR}/docs/" || true
           done

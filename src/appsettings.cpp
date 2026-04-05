@@ -31,6 +31,7 @@ void AppSettings::load()
     settings.beginGroup("");
     m_theme = settings.value("theme", "dark").toString();
     m_language = settings.value("language").toString();
+    m_recordingDebugLog = settings.value("recordingDebugLog", false).toBool();
     settings.endGroup();
     m_midiDeviceIndex = settings.value("MIDI/deviceIndex", 0).toInt();
     m_soundFontPath = settings.value("MIDI/soundFontPath").toString();
@@ -59,7 +60,9 @@ void AppSettings::save()
     out << "; GUI theme: dark or light\n";
     out << "theme=" << m_theme << "\n";
     out << "; Language (empty = system default)\n";
-    out << "language=" << m_language << "\n\n";
+    out << "language=" << m_language << "\n";
+    out << "; Write recording debug information to recording_debug.txt\n";
+    out << "recordingDebugLog=" << (m_recordingDebugLog ? "true" : "false") << "\n\n";
 
     out << "[MIDI]\n";
     out << "; Default MIDI input device index (-1 for no device)\n";

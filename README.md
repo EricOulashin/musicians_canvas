@@ -29,7 +29,7 @@ to make something better.
 - **Virtual MIDI keyboard**: A companion application for sending MIDI notes via a software piano keyboard, with a built-in FluidSynth synthesizer, adjustable master gain, computer keyboard-to-piano mapping, instrument/program selection, chorus/effect control, and octave shifting
 - **Configuration**: Select audio input device, MIDI device, and SoundFont file (global defaults and per-project overrides)
 - **Dark / light theme**: Configurable via Settings → Configuration
-- **Localization**: Both applications are localized in English, German, Spanish, French, Japanese, Portuguese (Brazil), Traditional Chinese, Simplified Chinese, and Pirate. The language defaults to the operating system setting and can be changed in **Settings → Configuration → Language**. Qt's standard i18n system (`QTranslator` / `.ts` / `.qm`) is used, and the UI updates immediately when the language is changed.
+- **Localization**: Both applications are localized in 18 languages: English, German, Spanish, French, Japanese, Portuguese (Brazil), Traditional Chinese, Simplified Chinese, Russian, Swedish, Finnish, Danish, Norwegian, Polish, Greek, Irish, Welsh, and Pirate. The language defaults to the operating system setting and can be changed in **Settings → Configuration → Language**. Qt's standard i18n system (`QTranslator` / `.ts` / `.qm`) is used, and the UI updates immediately when the language is changed.
 - **User manual**: HTML and PDF documentation generated from Markdown source, available in all supported languages (see [docs/](docs/))
 
 ## Screenshots

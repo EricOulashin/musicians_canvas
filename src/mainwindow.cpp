@@ -811,6 +811,7 @@ void MainWindow::finalizeRecordedAudio(const QByteArray& rawData, qint64 process
 
     const RecordingPostProcessResult rec = RecordingPostProcess::process(rp);
 
+    if (AppSettings::instance().recordingDebugLog())
     {
         QFile logFile(effectiveProjectPath() + QDir::separator()
                       + QStringLiteral("recording_debug.txt"));
@@ -952,9 +953,10 @@ void MainWindow::beginRecordingAfterCountdown()
             m_recordingChannelCount = m_portAudioRecorder->streamChannelCount();
             m_recordingSampleFormat = 2;  // Int16 (QAudioFormat::Int16)
 
-            const int logDev =
-                (paDev < 0) ? PortAudioRecorder::defaultInputDeviceIndex() : paDev;
+            if (AppSettings::instance().recordingDebugLog())
             {
+                const int logDev =
+                    (paDev < 0) ? PortAudioRecorder::defaultInputDeviceIndex() : paDev;
                 QFile logFile(projectDir + QDir::separator() + QStringLiteral("recording_debug.txt"));
                 if (logFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
                 {
@@ -1029,6 +1031,7 @@ void MainWindow::beginRecordingAfterCountdown()
     m_recordingSampleFormat = static_cast<int>(format.sampleFormat());
 
     // Diagnostic: log the recording format
+    if (AppSettings::instance().recordingDebugLog())
     {
         const QString projectDir = effectiveProjectPath();
         QFile logFile(projectDir + QDir::separator() + QStringLiteral("recording_debug.txt"));
@@ -1053,6 +1056,7 @@ void MainWindow::beginRecordingAfterCountdown()
     // (e.g. 2048) causes massive data loss on devices that use 32-bit
     // sample formats (Int32/Float32), because the tiny buffer cannot hold
     // enough frames and the audio callback drops ~75% of the data.
+    // Basically, DON'T DO THIS: m_audioSource->setBufferSize(AudioStartup::recommendedBufferBytes());
 
     m_audioSource->start(m_recordBuffer);
     m_recordingTimer.start();

@@ -80,7 +80,7 @@ set(SOURCES
 )
 
 # ── Translations (Qt Linguist) ────────────────────────────────────────
-set(MC_LANGS de es fr ja pt_BR zh_TW zh_CN pirate)
+set(MC_LANGS de es fr ja pt_BR zh_TW zh_CN da el ga nb pl ru fi sv cy pirate)
 
 set(MC_TS_FILES "")
 set(VK_TS_FILES "")
