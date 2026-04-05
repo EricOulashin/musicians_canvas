@@ -25,9 +25,7 @@ jobs:
           - os: ubuntu-latest
             artifact_os: Linux
           - os: macos-latest
-            artifact_os: macOS_AppleSilicon
-          - os: macos-13
-            artifact_os: macOS_Intel
+            artifact_os: macOS
 
     steps:
       - name: Checkout musicians_canvas
