@@ -14,6 +14,8 @@
 #endif
 
 class QScrollArea;
+class QToolBar;
+class QToolButton;
 class QWidget;
 class QVBoxLayout;
 class QPushButton;
@@ -58,8 +60,10 @@ private slots:
 
 private:
     void setupMenuBar();
+    void setupToolBar();
     void setupUi();
     void retranslateUi();
+    void updateToolBarState();
     void changeEvent(QEvent* event) override;
     void loadProjectFromFile(const QString& path);
     TrackData createNewTrack();
@@ -83,6 +87,11 @@ private:
                                const char* captureBackendLabel);
 #endif
 
+    QToolBar* m_toolBar = nullptr;
+    QToolButton* m_tbOpen = nullptr;
+    QToolButton* m_tbSave = nullptr;
+    QToolButton* m_tbProjectSettings = nullptr;
+    QToolButton* m_tbConfig = nullptr;
     QScrollArea* m_scrollArea = nullptr;
     QWidget* m_tracksContainer = nullptr;
     QVBoxLayout* m_tracksLayout = nullptr;

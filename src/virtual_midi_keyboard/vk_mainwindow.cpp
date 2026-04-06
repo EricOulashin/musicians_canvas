@@ -44,6 +44,7 @@ VkMainWindow::VkMainWindow(QWidget* parent)
     : QMainWindow(parent)
 {
     setWindowTitle(tr("Virtual MIDI Keyboard"));
+    setWindowIcon(QIcon(":/icons/MusiciansCanvas.ico"));
     setMinimumSize(400, 300);
     resize(1280, 430);
     setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint);

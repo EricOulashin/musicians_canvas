@@ -24,6 +24,9 @@
 #include <QMessageBox>
 #include <QApplication>
 #include <QEvent>
+#include <QStyle>
+#include <QToolBar>
+#include <QToolButton>
 #include <QCoreApplication>
 #include <QFrame>
 #include <QProcess>
@@ -135,14 +138,16 @@ static bool readWavAudioData(const QString& path, QByteArray& audioData,
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 {
     setWindowTitle(tr("Musician's Canvas"));
-    setMinimumSize(800, 500);
-    resize(900, 600);
+    setWindowIcon(QIcon(":/icons/MusiciansCanvas.ico"));
+    setMinimumSize(800, 540);
+    resize(900, 640);
 
     m_playIcon   = QIcon(":/images/play_button.png");
     m_recordIcon = QIcon(":/images/record_button.png");
     m_stopIcon   = QIcon(":/images/stop_button.png");
 
     setupMenuBar();
+    setupToolBar();
     setupUi();
 
     // Auto-load the last project if one exists in the stored project directory
@@ -179,6 +184,11 @@ void MainWindow::retranslateUi()
         m_addTrackButton->setText(tr("+ Add Track"));
     if (m_clearTracksButton)
         m_clearTracksButton->setText(tr("Clear Tracks"));
+    // Update toolbar button tooltips
+    if (m_tbOpen) m_tbOpen->setToolTip(tr("Open Project"));
+    if (m_tbSave) m_tbSave->setToolTip(tr("Save Project"));
+    if (m_tbProjectSettings) m_tbProjectSettings->setToolTip(tr("Project Settings"));
+    if (m_tbConfig) m_tbConfig->setToolTip(tr("Configuration"));
     updatePlayRecordButton();
     // Update track widgets
     for (auto* tw : m_trackWidgets)
@@ -222,6 +232,51 @@ void MainWindow::setupMenuBar()
     connect(vkAction, &QAction::triggered, this, &MainWindow::onVirtualMidiKeyboard);
 }
 
+void MainWindow::setupToolBar()
+{
+    m_toolBar = new QToolBar(this);
+    m_toolBar->setMovable(false);
+    m_toolBar->setIconSize(QSize(24, 24));
+    m_toolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+
+    m_tbOpen = new QToolButton();
+    m_tbOpen->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
+    m_tbOpen->setToolTip(tr("Open Project"));
+    connect(m_tbOpen, &QToolButton::clicked, this, &MainWindow::onOpenProject);
+    m_toolBar->addWidget(m_tbOpen);
+
+    m_tbSave = new QToolButton();
+    m_tbSave->setIcon(style()->standardIcon(QStyle::SP_DialogSaveButton));
+    m_tbSave->setToolTip(tr("Save Project"));
+    connect(m_tbSave, &QToolButton::clicked, this, &MainWindow::onSaveProject);
+    m_toolBar->addWidget(m_tbSave);
+
+    m_toolBar->addSeparator();
+
+    m_tbProjectSettings = new QToolButton();
+    m_tbProjectSettings->setIcon(style()->standardIcon(QStyle::SP_FileDialogDetailedView));
+    m_tbProjectSettings->setToolTip(tr("Project Settings"));
+    connect(m_tbProjectSettings, &QToolButton::clicked, this, &MainWindow::onProjectSettings);
+    m_toolBar->addWidget(m_tbProjectSettings);
+
+    m_tbConfig = new QToolButton();
+    m_tbConfig->setIcon(style()->standardIcon(QStyle::SP_ComputerIcon));
+    m_tbConfig->setToolTip(tr("Configuration"));
+    connect(m_tbConfig, &QToolButton::clicked, this, &MainWindow::onSettingsConfiguration);
+    m_toolBar->addWidget(m_tbConfig);
+
+    addToolBar(m_toolBar);
+    updateToolBarState();
+}
+
+void MainWindow::updateToolBarState()
+{
+    const bool hasProject = !m_projectLocationEdit
+                            || !m_projectLocationEdit->text().trimmed().isEmpty();
+    if (m_tbSave) m_tbSave->setEnabled(hasProject);
+    if (m_tbProjectSettings) m_tbProjectSettings->setEnabled(hasProject);
+}
+
 void MainWindow::setupUi()
 {
     auto* centralWidget = new QWidget(this);
@@ -247,6 +302,7 @@ void MainWindow::setupUi()
             moveProjectFiles(oldDir, newDir);
             AppSettings::instance().setProjectLocation(newDir);
             AppSettings::instance().save();
+            updateToolBarState();
         }
     });
     projectRow->addWidget(m_projectLocationEdit, 1);
@@ -268,8 +324,9 @@ void MainWindow::setupUi()
     updatePlayRecordButton();
     toolbarLayout->addWidget(m_playRecordButton);
 
-    m_addTrackButton = new QPushButton(tr("+ Add Track"));
+    m_addTrackButton = new QPushButton(QIcon(":/images/addTrack.png"), tr("+ Add Track"));
     m_addTrackButton->setObjectName("addTrackBtn");
+    m_addTrackButton->setIconSize(QSize(20, 20));
     m_addTrackButton->setFixedHeight(36);
     connect(m_addTrackButton, &QPushButton::clicked, this, &MainWindow::onAddTrack);
     toolbarLayout->addWidget(m_addTrackButton);
@@ -403,6 +460,7 @@ void MainWindow::onBrowseProjectLocation()
     m_projectLocationEdit->setText(dir);
     AppSettings::instance().setProjectLocation(dir);
     AppSettings::instance().save();
+    updateToolBarState();
 }
 
 void MainWindow::moveProjectFiles(const QString& oldDir, const QString& newDir)
@@ -1463,12 +1521,16 @@ void MainWindow::onSettingsConfiguration()
 
 void MainWindow::onVirtualMidiKeyboard()
 {
+    // virtual_midi_keyboard is always in the same directory as musicians_canvas:
+    // on Linux/macOS it sits alongside the executable (inside Contents/MacOS for
+    // a macOS .app bundle); on Windows it has a .exe extension.
 #ifdef _WIN32
     const QString exe = QStringLiteral("virtual_midi_keyboard.exe");
 #else
     const QString exe = QStringLiteral("virtual_midi_keyboard");
 #endif
-    const QString path = QCoreApplication::applicationDirPath() + QDir::separator() + exe;
+    const QString path = QCoreApplication::applicationDirPath()
+                         + QDir::separator() + exe;
     QProcess::startDetached(path, QStringList());
 }
 

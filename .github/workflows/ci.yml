@@ -106,18 +106,51 @@ jobs:
         shell: bash
         run: |
           ROOT="${GITHUB_WORKSPACE}"
+          BUILD="${ROOT}/musicians_canvas/build"
           ARTIFACT_DIR="${ROOT}/MusiciansCanvas_${{ matrix.artifact_os }}"
           mkdir -p "${ARTIFACT_DIR}/docs"
 
-          # Copy executables
-          cp "${ROOT}/musicians_canvas/build/musicians_canvas" "${ARTIFACT_DIR}/"
-          cp "${ROOT}/musicians_canvas/build/virtual_midi_keyboard" "${ARTIFACT_DIR}/"
+          if [ "${{ runner.os }}" = "macOS" ]; then
+            # macOS: single .app bundle (virtual_midi_keyboard is inside Contents/MacOS/)
+            APP="${ARTIFACT_DIR}/musicians_canvas.app"
+            cp -R "${BUILD}/musicians_canvas.app" "${ARTIFACT_DIR}/"
 
-          # Copy compiled translation files (.qm) for localization
-          BUILD_TR="${ROOT}/musicians_canvas/build/translations"
-          if [ -d "${BUILD_TR}" ]; then
-            mkdir -p "${ARTIFACT_DIR}/translations"
-            cp "${BUILD_TR}"/*.qm "${ARTIFACT_DIR}/translations/" 2>/dev/null || true
+            # Bundle shared libraries using macdeployqt
+            MACDEPLOYQT=""
+            command -v macdeployqt6 &>/dev/null && MACDEPLOYQT=macdeployqt6
+            [ -z "$MACDEPLOYQT" ] && command -v macdeployqt &>/dev/null && MACDEPLOYQT=macdeployqt
+            if [ -n "$MACDEPLOYQT" ]; then
+              "$MACDEPLOYQT" "${APP}" 2>/dev/null || true
+            else
+              # Fallback: copy Homebrew dylibs into the Frameworks dir
+              FRAMEWORKS="${APP}/Contents/Frameworks"
+              mkdir -p "${FRAMEWORKS}"
+              for exe in "${APP}/Contents/MacOS/musicians_canvas" "${APP}/Contents/MacOS/virtual_midi_keyboard"; do
+                [ -f "$exe" ] || continue
+                otool -L "$exe" 2>/dev/null | awk '/homebrew|opt/{print $1}' | while read -r lib; do
+                  [ -f "$lib" ] && cp -n "$lib" "${FRAMEWORKS}/" 2>/dev/null || true
+                done
+              done
+            fi
+
+            # Copy .qm translation files into the bundle
+            BUILD_TR="${BUILD}/translations"
+            if [ -d "${BUILD_TR}" ]; then
+              MACOS_TR="${APP}/Contents/MacOS/translations"
+              mkdir -p "${MACOS_TR}"
+              cp "${BUILD_TR}"/*.qm "${MACOS_TR}/" 2>/dev/null || true
+            fi
+          else
+            # Linux: copy plain executables
+            cp "${BUILD}/musicians_canvas" "${ARTIFACT_DIR}/"
+            cp "${BUILD}/virtual_midi_keyboard" "${ARTIFACT_DIR}/"
+
+            # Copy translation files
+            BUILD_TR="${BUILD}/translations"
+            if [ -d "${BUILD_TR}" ]; then
+              mkdir -p "${ARTIFACT_DIR}/translations"
+              cp "${BUILD_TR}"/*.qm "${ARTIFACT_DIR}/translations/" 2>/dev/null || true
+            fi
           fi
 
           # Copy generated user manual (HTML and PDF) in all languages
@@ -128,15 +161,6 @@ jobs:
           for pdf in "${DOCS_DIR}"/MusiciansCanvas_User_Manual*.pdf; do
             [ -f "$pdf" ] && cp "$pdf" "${ARTIFACT_DIR}/docs/" || true
           done
-
-          # On macOS, copy Homebrew dylibs the executables need
-          if [ "${{ runner.os }}" = "macOS" ]; then
-            for exe in "${ARTIFACT_DIR}/musicians_canvas" "${ARTIFACT_DIR}/virtual_midi_keyboard"; do
-              otool -L "$exe" | awk '/homebrew|opt/{print $1}' | while read -r lib; do
-                [ -f "$lib" ] && cp -n "$lib" "${ARTIFACT_DIR}/" 2>/dev/null || true
-              done
-            done
-          fi
 
       - name: Upload release artifact
         uses: actions/upload-artifact@v5

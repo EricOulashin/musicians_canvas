@@ -150,9 +150,22 @@ if(MC_QM_FILES OR VK_QM_FILES)
     add_custom_target(copy_translations ALL DEPENDS ${MC_QM_COPY_TARGETS})
 endif()
 
+# Windows .rc file for application icon
+if(WIN32)
+    list(APPEND SOURCES src/appicon.rc)
+endif()
+
 add_executable(musicians_canvas ${SOURCES} ${MC_TR_QRC} ${MC_QM_FILES})
 if(WIN32)
     set_target_properties(musicians_canvas PROPERTIES WIN32_EXECUTABLE TRUE)
+endif()
+if(APPLE)
+    set_target_properties(musicians_canvas PROPERTIES
+        MACOSX_BUNDLE TRUE
+        MACOSX_BUNDLE_BUNDLE_NAME "Musician's Canvas"
+        MACOSX_BUNDLE_GUI_IDENTIFIER "com.ericoulashin.musicianscanvas"
+        MACOSX_BUNDLE_ICON_FILE "MusiciansCanvas.icns"
+    )
 endif()
 
 find_package(PkgConfig QUIET)
@@ -222,10 +235,25 @@ set(VK_SOURCES
     src/virtual_midi_keyboard/vk_pianokeyboard.h
     src/virtual_midi_keyboard/vk_settings.cpp
     src/virtual_midi_keyboard/vk_settings.h
+    src/virtual_midi_keyboard/vk_resources.qrc
 )
+if(WIN32)
+    list(APPEND VK_SOURCES src/virtual_midi_keyboard/appicon.rc)
+endif()
 add_executable(virtual_midi_keyboard ${VK_SOURCES} ${VK_TR_QRC} ${VK_QM_FILES})
 if(WIN32)
     set_target_properties(virtual_midi_keyboard PROPERTIES WIN32_EXECUTABLE TRUE)
+endif()
+# On macOS, bundle virtual_midi_keyboard inside musicians_canvas.app so there
+# is a single .app the user can distribute.  The VK executable is NOT built as
+# its own MACOSX_BUNDLE; instead it is copied into the MC bundle post-build.
+if(APPLE)
+    add_custom_command(TARGET virtual_midi_keyboard POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+            "$<TARGET_FILE:virtual_midi_keyboard>"
+            "$<TARGET_BUNDLE_DIR:musicians_canvas>/Contents/MacOS/virtual_midi_keyboard"
+        COMMENT "Copying virtual_midi_keyboard into musicians_canvas.app bundle"
+    )
 endif()
 target_include_directories(virtual_midi_keyboard PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
