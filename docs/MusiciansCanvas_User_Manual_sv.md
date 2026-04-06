@@ -1,7 +1,7 @@
 ---
 title: "Musician's Canvas Användarmanual"
 subtitle: "Applikation för flerspårsinspelning av musik"
-version: "0.1.0"
+version: "0.1.1"
 date: "2026-04-03"
 author: "Eric Oulashin"
 lang: "sv"
@@ -58,6 +58,21 @@ har använts och innehåller en `project.json`-fil, laddas projektet automatiskt
    filnamn för den inspelade ljudfilen.
 
 ![Huvudfönster](../screenshots/MusiciansCanvas_1_MainWin.png)
+
+### Knapprad
+
+Direkt under menyraden finns ett verktygsfält med snabbåtkomstknappar:
+
+![Knapprad](../screenshots/ButtonBar.png)
+
+- **Open Project**: Samma som **File > Open Project** — öppnar ett tidigare sparat projekt.
+- **Save Project**: Samma som **File > Save Project** — sparar det aktuella projektet. Den
+  här knappen är bara aktiverad när en projektkatalog är angiven.
+- **Project Settings**: Samma som **Project > Project Settings** — öppnar dialogrutan för
+  projektinställningar. Den här knappen är bara aktiverad när en projektkatalog är angiven.
+- **Configuration**: Samma som **Settings > Configuration** — öppnar dialogrutan för globala
+  programinställningar.
+- **Metronome Settings**: Öppnar dialogrutan för metronominställningar (se avsnittet Metronom nedan).
 
 ### Spara och öppna projekt
 
@@ -184,6 +199,25 @@ Om projektet är konfigurerat för stereo dupliceras monosignalen till båda kan
 
 MIDI-noter visas i en pianorulle-visualisering på spåret.
 
+## Metronom
+
+Musician's Canvas innehåller en inbyggd metronom som kan användas under inspelning för att
+hjälpa till att hålla takten. Klicka på metronomknappen i knappraden (under menyraden) för att
+öppna dialogrutan för metronominställningar:
+
+![Metronominställningar](../screenshots/MetronomeSettings.png)
+
+Dialogrutan erbjuder:
+
+- **Enable metronome during recording**: När detta är markerat spelar metronomen ett
+  tickljud medan inspelning är aktiv. Ticket spelas genom systemljudet och **tas inte upp**
+  på det inspelade spåret.
+- **Beats per minute**: En numerisk inmatning för tempot, i slag per minut (BPM). Intervallet
+  är 20–300 BPM.
+
+När metronomen är aktiverad börjar den ticka när inspelningen faktiskt startar (efter att
+3-sekunders nedräkningen är klar) och stoppar när inspelningen avslutas.
+
 ## Uppspelning
 
 Klicka på knappen **Play** för att mixa och spela upp alla aktiverade spår. Knappens verktygstips ändras
@@ -219,6 +253,16 @@ alla projekt:
 
 - **Tema**: Välj mellan mörkt och ljust tema.
 
+#### Fliken Visning
+
+- **Färg på numerisk LED-display**: Välj den färg som används för den numeriska LED-tidsdisplayen
+  som visas i huvudfönstrets verktygsfält. De aktiva siffersegmenten ritas i den valda färgen, och
+  inaktiva segment ritas som en nedtonad version av samma färg. Tillgängliga färger är Light Red,
+  Dark Red, Light Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan och Dark
+  Cyan. Standardvärdet är Light Green.
+
+![Visningsinställningar](../screenshots/MusiciansCanvas_DisplaySettings.png)
+
 #### Fliken Språk
 
 - **Språk**: Välj visningsspråk för applikationen. Standardvärdet är "System Default", som använder
@@ -226,6 +270,8 @@ alla projekt:
   Français (franska), japanska, Português (brasiliansk portugisiska), Chinese (traditionell),
   Chinese (förenklad) och Pirate.
   Gränssnittet uppdateras omedelbart när du ändrar språk.
+
+![Språkinställningar](../screenshots/MusiciansCanvas_LanguageSettings.png)
 
 #### Fliken MIDI
 

@@ -32,325 +32,380 @@ Install an ASIO driver and then restart the application, ye scallywag:
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="137"/>
-        <location filename="../src/mainwindow.cpp" line="169"/>
+        <location filename="../src/mainwindow.cpp" line="182"/>
+        <location filename="../src/mainwindow.cpp" line="216"/>
         <source>Musician&apos;s Canvas</source>
         <translation>Musician&apos;s Canvas</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="192"/>
+        <location filename="../src/mainwindow.cpp" line="245"/>
         <source>&amp;File</source>
         <translation>&amp;File</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="193"/>
+        <location filename="../src/mainwindow.cpp" line="246"/>
         <source>&amp;Save Project</source>
         <translation>&amp;Stash Yer Project</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="196"/>
+        <location filename="../src/mainwindow.cpp" line="249"/>
         <source>&amp;Open Project...</source>
         <translation>&amp;Unearth a Project...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="200"/>
+        <location filename="../src/mainwindow.cpp" line="253"/>
         <source>&amp;Close</source>
         <translation>&amp;Abandon Ship</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="204"/>
+        <location filename="../src/mainwindow.cpp" line="257"/>
         <source>&amp;Project</source>
         <translation>&amp;Voyage</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="205"/>
+        <location filename="../src/mainwindow.cpp" line="258"/>
         <source>&amp;Project Settings</source>
         <translation>&amp;Voyage Settin&apos;s</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="209"/>
+        <location filename="../src/mainwindow.cpp" line="262"/>
         <source>Add Demo &amp;Data to Selected Track</source>
         <translation>Add Demo &amp;Data to Selected Shanty</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="212"/>
+        <location filename="../src/mainwindow.cpp" line="265"/>
         <source>&amp;Settings</source>
         <translation>&amp;Settin&apos;s</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="213"/>
+        <location filename="../src/mainwindow.cpp" line="266"/>
         <source>&amp;Configuration</source>
         <translation>&amp;Ship&apos;s Orders</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="217"/>
+        <location filename="../src/mainwindow.cpp" line="270"/>
         <source>&amp;Tools</source>
         <translation>&amp;Tools</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="218"/>
+        <location filename="../src/mainwindow.cpp" line="271"/>
         <source>&amp;Mix tracks to file...</source>
         <translation>&amp;Mix shanties to file...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="221"/>
+        <location filename="../src/mainwindow.cpp" line="274"/>
         <source>&amp;Virtual MIDI Keyboard</source>
         <translation>&amp;Virtual MIDI Harpsichord</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="175"/>
-        <location filename="../src/mainwindow.cpp" line="236"/>
+        <location filename="../src/mainwindow.cpp" line="222"/>
+        <location filename="../src/mainwindow.cpp" line="343"/>
         <source>Project location:</source>
         <translation>Voyage location:</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="239"/>
+        <location filename="../src/mainwindow.cpp" line="346"/>
         <source>Select a project directory...</source>
         <translation>Chart a course to yer project directory...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="177"/>
-        <location filename="../src/mainwindow.cpp" line="253"/>
+        <location filename="../src/mainwindow.cpp" line="224"/>
+        <location filename="../src/mainwindow.cpp" line="361"/>
         <source>Browse...</source>
         <translation>Seek...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="266"/>
-        <location filename="../src/mainwindow.cpp" line="517"/>
+        <location filename="../src/mainwindow.cpp" line="374"/>
+        <location filename="../src/mainwindow.cpp" line="633"/>
         <source>Play all tracks</source>
         <translation>Play all shanties</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="179"/>
-        <location filename="../src/mainwindow.cpp" line="271"/>
+        <location filename="../src/mainwindow.cpp" line="226"/>
+        <location filename="../src/mainwindow.cpp" line="379"/>
         <source>+ Add Track</source>
         <translation>+ Add Shanty</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="181"/>
-        <location filename="../src/mainwindow.cpp" line="277"/>
-        <location filename="../src/mainwindow.cpp" line="1416"/>
+        <location filename="../src/mainwindow.cpp" line="228"/>
+        <location filename="../src/mainwindow.cpp" line="386"/>
+        <location filename="../src/mainwindow.cpp" line="1580"/>
         <source>Clear Tracks</source>
         <translation>Scuttle All Shanties</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="381"/>
+        <location filename="../src/mainwindow.cpp" line="232"/>
+        <location filename="../src/mainwindow.cpp" line="301"/>
+        <source>Project Settings</source>
+        <translation>Voyage Settin&apos;s</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="233"/>
+        <location filename="../src/mainwindow.cpp" line="307"/>
+        <source>Configuration</source>
+        <translation>Ship&apos;s Orders</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="234"/>
+        <location filename="../src/mainwindow.cpp" line="316"/>
+        <source>Metronome Settings</source>
+        <translation>Sea Shanty Timer Settings</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="496"/>
         <source>Mix Complete</source>
         <translation>Mix Complete, Arr!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="382"/>
+        <location filename="../src/mainwindow.cpp" line="497"/>
         <source>Audio exported successfully to:
 %1</source>
         <translation>Yer audio treasure be stashed at:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="386"/>
+        <location filename="../src/mainwindow.cpp" line="501"/>
         <source>Mix Failed</source>
         <translation>Mix Be Scuttled!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="387"/>
+        <location filename="../src/mainwindow.cpp" line="502"/>
         <source>Could not export audio. Please check that you have at least one enabled track with content, and a SoundFont configured for MIDI tracks.</source>
         <translation>Could nay export yer audio, matey. Check that ye have at least one enabled shanty with content, and a SoundFont rigged fer MIDI shanties.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="397"/>
+        <location filename="../src/mainwindow.cpp" line="512"/>
         <source>Select Project Directory</source>
         <translation>Chart Yer Voyage Directory</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="505"/>
+        <location filename="../src/mainwindow.cpp" line="621"/>
         <source>Stop</source>
         <translation>Avast!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="511"/>
+        <location filename="../src/mainwindow.cpp" line="627"/>
         <source>Record armed track</source>
         <translation>Plunder the armed shanty</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="535"/>
-        <location filename="../src/mainwindow.cpp" line="545"/>
+        <location filename="../src/mainwindow.cpp" line="651"/>
+        <location filename="../src/mainwindow.cpp" line="661"/>
         <source>Playback Error</source>
         <translation>Shanty Playback Blunder</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="535"/>
+        <location filename="../src/mainwindow.cpp" line="651"/>
         <source>Could not create temporary file.</source>
         <translation>Could nay create a temporary file, blast it!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="546"/>
+        <location filename="../src/mainwindow.cpp" line="662"/>
         <source>Could not mix tracks for playback. Make sure tracks have content.</source>
         <translation>Could nay mix shanties fer playback, arr. Make sure yer shanties have content.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="571"/>
+        <location filename="../src/mainwindow.cpp" line="694"/>
         <source>Playback</source>
         <translation>Shanty Playback</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="572"/>
+        <location filename="../src/mainwindow.cpp" line="695"/>
         <source>Qt Multimedia is not available. Build with Qt6::Multimedia for playback support.</source>
         <translation>Qt Multimedia be nay available, matey. Build with Qt6::Multimedia fer playback support.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="585"/>
+        <location filename="../src/mainwindow.cpp" line="708"/>
         <source>Project Directory Required</source>
         <translation>Voyage Directory Be Required</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="586"/>
+        <location filename="../src/mainwindow.cpp" line="709"/>
         <source>You must choose a project directory before recording.
 Please select a directory to store your recorded files.</source>
         <translation>Ye must chart a voyage directory before plunderin&apos;, matey.
 Pick a port to stash yer recorded treasures.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="611"/>
+        <location filename="../src/mainwindow.cpp" line="734"/>
         <source>Recording Error</source>
         <translation>Plunderin&apos; Error</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="612"/>
+        <location filename="../src/mainwindow.cpp" line="735"/>
         <source>No audio input device found. Configure one in Settings.</source>
         <translation>No audio input device be found, ye scallywag. Rig one up in Settin&apos;s.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="623"/>
-        <location filename="../src/mainwindow.cpp" line="633"/>
+        <location filename="../src/mainwindow.cpp" line="753"/>
+        <location filename="../src/mainwindow.cpp" line="763"/>
         <source>Get ready...  %1</source>
         <translation>Ready the cannons...  %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="647"/>
+        <location filename="../src/mainwindow.cpp" line="777"/>
         <source>Recording</source>
         <translation>Plunderin&apos;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="648"/>
+        <location filename="../src/mainwindow.cpp" line="778"/>
         <source>Qt Multimedia is not available. Build with Qt6::Multimedia for recording support.</source>
         <translation>Qt Multimedia be nay available. Build with Qt6::Multimedia fer plunderin&apos; support.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="983"/>
+        <location filename="../src/mainwindow.cpp" line="1126"/>
         <source>PortAudio</source>
         <translation>PortAudio</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="984"/>
+        <location filename="../src/mainwindow.cpp" line="1127"/>
         <source>Could not start PortAudio recording (%1). Falling back to Qt Multimedia.</source>
         <translation>Could nay start PortAudio plunderin&apos; (%1). Fallin&apos; back to Qt Multimedia, arr.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1139"/>
+        <location filename="../src/mainwindow.cpp" line="231"/>
+        <location filename="../src/mainwindow.cpp" line="293"/>
+        <location filename="../src/mainwindow.cpp" line="1303"/>
         <source>Save Project</source>
         <translation>Stash Yer Project</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1140"/>
+        <location filename="../src/mainwindow.cpp" line="1304"/>
         <source>Please choose a project directory before saving.</source>
         <translation>Chart a voyage directory before stashin&apos; yer loot, matey.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1214"/>
+        <location filename="../src/mainwindow.cpp" line="1378"/>
         <source>Save Failed</source>
         <translation>Stashin&apos; Failed!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1215"/>
+        <location filename="../src/mainwindow.cpp" line="1379"/>
         <source>Could not write project file:
 %1</source>
         <translation>Could nay write the project file, arr:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1221"/>
+        <location filename="../src/mainwindow.cpp" line="1385"/>
         <source>Project Saved</source>
         <translation>Treasure Stashed!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1222"/>
+        <location filename="../src/mainwindow.cpp" line="1386"/>
         <source>Project saved to:
 %1</source>
         <translation>Yer project be stashed at:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1231"/>
+        <location filename="../src/mainwindow.cpp" line="230"/>
+        <location filename="../src/mainwindow.cpp" line="287"/>
+        <location filename="../src/mainwindow.cpp" line="1395"/>
         <source>Open Project</source>
         <translation>Unearth a Project</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1232"/>
+        <location filename="../src/mainwindow.cpp" line="1396"/>
         <source>Project files (*.json);;All files (*)</source>
         <translation>Project files (*.json);;All files (*)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1243"/>
-        <location filename="../src/mainwindow.cpp" line="1251"/>
+        <location filename="../src/mainwindow.cpp" line="1407"/>
+        <location filename="../src/mainwindow.cpp" line="1415"/>
         <source>Open Failed</source>
         <translation>Unearthin&apos; Failed!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1244"/>
+        <location filename="../src/mainwindow.cpp" line="1408"/>
         <source>Could not read project file:
 %1</source>
         <translation>Could nay read the project file, blast it:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1251"/>
+        <location filename="../src/mainwindow.cpp" line="1415"/>
         <source>Invalid project file format.</source>
         <translation>This project file be in a scurvy format, arr!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1417"/>
+        <location filename="../src/mainwindow.cpp" line="1581"/>
         <source>Remove all %1 track(s) from the project?</source>
         <translation>Toss all %1 shanty(s) overboard from the project?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1435"/>
+        <location filename="../src/mainwindow.cpp" line="1599"/>
         <source>Unsaved Changes</source>
         <translation>Unstashed Changes</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1436"/>
+        <location filename="../src/mainwindow.cpp" line="1600"/>
         <source>The project has unsaved changes. Save before closing?</source>
         <translation>Yer project has unstashed changes, matey. Stash &apos;em before abandonin&apos; ship?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1489"/>
+        <location filename="../src/mainwindow.cpp" line="1672"/>
         <source>No Tracks</source>
         <translation>No Shanties</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1489"/>
+        <location filename="../src/mainwindow.cpp" line="1672"/>
         <source>Add a track first, then select it.</source>
         <translation>Add a shanty first, then pick it, ye landlubber.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1501"/>
-        <location filename="../src/mainwindow.cpp" line="1506"/>
+        <location filename="../src/mainwindow.cpp" line="1684"/>
+        <location filename="../src/mainwindow.cpp" line="1689"/>
         <source>Demo Data</source>
         <translation>Demo Booty</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1502"/>
+        <location filename="../src/mainwindow.cpp" line="1685"/>
         <source>Demo MIDI notes added. Try Mix → Mix tracks to file to export.</source>
         <translation>Demo MIDI notes added, arr! Try Mix → Mix shanties to file to export yer booty.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1507"/>
+        <location filename="../src/mainwindow.cpp" line="1690"/>
         <source>Switch the track to MIDI type (Options) to add demo notes.</source>
         <translation>Switch the shanty to MIDI type (Options) to add demo notes, matey.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1515"/>
+        <location filename="../src/mainwindow.cpp" line="1698"/>
         <source>Track %1</source>
         <translation>Shanty %1</translation>
+    </message>
+</context>
+<context>
+    <name>MetronomeDialog</name>
+    <message>
+        <location filename="../src/metronomedialog.cpp" line="13"/>
+        <source>Metronome Settings</source>
+        <translation>Sea Shanty Timer Settings</translation>
+    </message>
+    <message>
+        <location filename="../src/metronomedialog.cpp" line="18"/>
+        <source>Metronome</source>
+        <translation>Sea Shanty Timer</translation>
+    </message>
+    <message>
+        <location filename="../src/metronomedialog.cpp" line="21"/>
+        <source>Enable metronome during recording</source>
+        <translation>Sound the beat while plunderin'</translation>
+    </message>
+    <message>
+        <location filename="../src/metronomedialog.cpp" line="25"/>
+        <source>Beats per minute:</source>
+        <translation>Beats o’ the drum per minute:</translation>
+    </message>
+    <message>
+        <location filename="../src/metronomedialog.cpp" line="38"/>
+        <source>OK</source>
+        <translation>Aye!</translation>
+    </message>
+    <message>
+        <location filename="../src/metronomedialog.cpp" line="41"/>
+        <source>Cancel</source>
+        <translation>Nay!</translation>
     </message>
 </context>
 <context>
@@ -610,150 +665,220 @@ Pick a port to stash yer recorded treasures.</translation>
         <translation>Ship&apos;s Orders</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="46"/>
+        <location filename="../src/settingsdialog.cpp" line="47"/>
         <source>Apply</source>
         <translation>Make It So</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="51"/>
+        <location filename="../src/settingsdialog.cpp" line="52"/>
         <source>Close</source>
         <translation>Batten the Hatch</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="85"/>
+        <location filename="../src/settingsdialog.cpp" line="86"/>
         <source>Here, you can configure general application settings.</source>
         <translation>Here, ye can rig up the general ship&apos;s settin&apos;s, matey.</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="87"/>
+        <location filename="../src/settingsdialog.cpp" line="88"/>
         <source>Appearance</source>
         <translation>Ship&apos;s Appearance</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="89"/>
+        <location filename="../src/settingsdialog.cpp" line="90"/>
         <source>Theme:</source>
         <translation>Ship&apos;s colors:</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="91"/>
+        <location filename="../src/settingsdialog.cpp" line="92"/>
         <source>Dark</source>
         <translation>Davy Jones&apos; Locker</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="92"/>
+        <location filename="../src/settingsdialog.cpp" line="93"/>
         <source>Light</source>
         <translation>Sunrise</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="97"/>
+        <location filename="../src/settingsdialog.cpp" line="98"/>
         <source>Diagnostics</source>
         <translation>Ship’s Diagnostics</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="99"/>
+        <location filename="../src/settingsdialog.cpp" line="100"/>
         <source>Write recording debug log</source>
         <translation>Scribble the plunderin’ debug log</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="104"/>
+        <location filename="../src/settingsdialog.cpp" line="105"/>
         <source>General</source>
         <translation>General</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="115"/>
+        <location filename="../src/settingsdialog.cpp" line="116"/>
+        <source>Configure the appearance of display elements.</source>
+        <translation>Set the look o’ yer display gadgets, matey.</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="118"/>
+        <source>Numeric Display</source>
+        <translation>Number Lantern</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="120"/>
+        <source>Numeric display LED color:</source>
+        <translation>Number lantern glow color:</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="123"/>
+        <source>Light Red</source>
+        <translation>Light Red</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="124"/>
+        <source>Dark Red</source>
+        <translation>Blood Red</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="125"/>
+        <source>Light Green</source>
+        <translation>Sea Foam</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="126"/>
+        <source>Dark Green</source>
+        <translation>Kelp Green</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="127"/>
+        <source>Light Blue</source>
+        <translation>Sky Blue</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="128"/>
+        <source>Dark Blue</source>
+        <translation>Deep Sea</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="129"/>
+        <source>Yellow</source>
+        <translation>Gold</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="130"/>
+        <source>Orange</source>
+        <translation>Sunset</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="131"/>
+        <source>Light Cyan</source>
+        <translation>Light Cyan</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="132"/>
+        <source>Dark Cyan</source>
+        <translation>Dark Cyan</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="137"/>
+        <source>Display</source>
+        <translation>Lanterns</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="148"/>
         <source>Here, you can configure settings related to MIDI.</source>
         <translation>Here, ye can rig up settin&apos;s related to MIDI, arr.</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="117"/>
+        <location filename="../src/settingsdialog.cpp" line="150"/>
         <source>MIDI Device</source>
         <translation>MIDI Device</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="123"/>
+        <location filename="../src/settingsdialog.cpp" line="156"/>
         <source>Refresh</source>
         <translation>Swab the Decks</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="129"/>
+        <location filename="../src/settingsdialog.cpp" line="162"/>
         <source>SoundFont (for MIDI synthesis)</source>
         <translation>SoundFont (fer MIDI conjurin&apos;)</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="132"/>
+        <location filename="../src/settingsdialog.cpp" line="165"/>
         <source>Path to .sf2 SoundFont file</source>
         <translation>Path to .sf2 SoundFont file</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="135"/>
+        <location filename="../src/settingsdialog.cpp" line="168"/>
         <source>Browse...</source>
         <translation>Seek...</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="141"/>
+        <location filename="../src/settingsdialog.cpp" line="174"/>
         <source>MIDI</source>
         <translation>MIDI</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="152"/>
+        <location filename="../src/settingsdialog.cpp" line="185"/>
         <source>Here, you can configure audio settings for the application.</source>
         <translation>Here, ye can rig up audio settin&apos;s fer the application, matey.</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="154"/>
+        <location filename="../src/settingsdialog.cpp" line="187"/>
         <source>Audio Input Device</source>
         <translation>Audio Input Device</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="161"/>
+        <location filename="../src/settingsdialog.cpp" line="194"/>
         <source>Audio Output Device</source>
         <translation>Audio Output Device</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="169"/>
+        <location filename="../src/settingsdialog.cpp" line="202"/>
         <source>Audio</source>
         <translation>Audio</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="180"/>
+        <location filename="../src/settingsdialog.cpp" line="213"/>
         <source>Choose the display language for the application.</source>
         <translation>Pick yer tongue fer this here application, matey.</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="182"/>
-        <location filename="../src/settingsdialog.cpp" line="209"/>
+        <location filename="../src/settingsdialog.cpp" line="215"/>
+        <location filename="../src/settingsdialog.cpp" line="242"/>
         <source>Language</source>
         <translation>Tongue</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="186"/>
+        <location filename="../src/settingsdialog.cpp" line="219"/>
         <source>System Default</source>
         <translation>Ship’s Default</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="217"/>
+        <location filename="../src/settingsdialog.cpp" line="250"/>
         <source>Built-in FluidSynth synthesizer</source>
         <translation>Built-in FluidSynth conjurer</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="238"/>
-        <location filename="../src/settingsdialog.cpp" line="244"/>
+        <location filename="../src/settingsdialog.cpp" line="271"/>
+        <location filename="../src/settingsdialog.cpp" line="277"/>
         <source>(Default)</source>
         <translation>(Ship&apos;s default)</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="250"/>
-        <location filename="../src/settingsdialog.cpp" line="251"/>
+        <location filename="../src/settingsdialog.cpp" line="283"/>
+        <location filename="../src/settingsdialog.cpp" line="284"/>
         <source>(Default - install qt6-multimedia-dev for device list)</source>
         <translation>(Ship&apos;s default - install qt6-multimedia-dev fer the device manifest)</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="332"/>
+        <location filename="../src/settingsdialog.cpp" line="372"/>
         <source>Select SoundFont</source>
         <translation>Pick Yer SoundFont</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="334"/>
+        <location filename="../src/settingsdialog.cpp" line="374"/>
         <source>SoundFont files (*.sf2 *.SF2);;All files (*)</source>
         <translation>SoundFont files (*.sf2 *.SF2);;All files (*)</translation>
     </message>

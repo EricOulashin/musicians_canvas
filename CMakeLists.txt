@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(musicians_canvas VERSION 0.1.0 LANGUAGES CXX)
+project(musicians_canvas VERSION 0.1.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -73,6 +73,10 @@ set(SOURCES
     src/appsettings.cpp
     src/mixdialog.cpp
     src/mixdialog.h
+    src/metronomedialog.cpp
+    src/metronomedialog.h
+    src/segmentdisplay.cpp
+    src/segmentdisplay.h
     src/audiostartup.cpp
     src/audiostartup.h
     src/resources.qrc

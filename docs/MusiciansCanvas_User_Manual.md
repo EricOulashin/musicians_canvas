@@ -1,7 +1,7 @@
 ---
 title: "Musician's Canvas User Manual"
 subtitle: "Multi-Track Music Recording Application"
-version: "0.1.0"
+version: "0.1.1"
 date: "2026-04-03"
 author: "Eric Oulashin"
 ---
@@ -61,6 +61,22 @@ automatically loaded.
    name is used as the filename for the recorded audio file.
 
 ![Main window](../screenshots/MusiciansCanvas_1_MainWin.png)
+
+### Button Bar
+
+Just below the menu bar there is a toolbar with quick-access buttons:
+
+![Button bar](../screenshots/ButtonBar.png)
+
+- **Open Project**: Same as **File > Open Project** — opens a previously saved project.
+- **Save Project**: Same as **File > Save Project** — saves the current project. This
+  button is only enabled when a project directory is set.
+- **Project Settings**: Same as **Project > Project Settings** — opens the project
+  settings dialog. This button is only enabled when a project directory is set.
+- **Configuration**: Same as **Settings > Configuration** — opens the global application
+  settings dialog.
+- **Metronome Settings**: Opens the metronome settings dialog (see the
+  [Metronome](#metronome) section below).
 
 ### Saving and Opening Projects
 
@@ -195,6 +211,25 @@ signal is duplicated to both channels.
 
 MIDI notes are displayed in a piano roll visualization on the track.
 
+## Metronome
+
+Musician's Canvas includes a built-in metronome that can be used during recording to
+help keep time. Click the metronome button on the button bar (below the menu bar) to
+open the metronome settings dialog:
+
+![Metronome settings](../screenshots/MetronomeSettings.png)
+
+The dialog provides:
+
+- **Enable metronome during recording**: When checked, the metronome plays a tick sound
+  while recording is active. The tick is played through the system audio and is **not**
+  captured into the recorded track.
+- **Beats per minute**: A numeric input for the tempo, in beats per minute (BPM). The
+  range is 20–300 BPM.
+
+When the metronome is enabled, it begins ticking once recording actually starts (after
+the 3-second countdown completes), and stops when recording ends.
+
 ## Playback
 
 Click the **Play** button to mix and play back all enabled tracks. The button tooltip
@@ -237,6 +272,16 @@ projects:
   channel count, and timing data. This is disabled by default and is primarily useful
   for troubleshooting recording issues.
 
+#### Display Tab
+
+- **Numeric display LED color**: Choose the color used for the numeric LED time display
+  shown on the main window toolbar. The active digit segments are drawn in the chosen
+  color, and inactive segments are drawn as a dim version of the same color. Available
+  colors are Light Red, Dark Red, Light Green, Dark Green, Light Blue, Dark Blue,
+  Yellow, Orange, Light Cyan, and Dark Cyan. The default is Light Green.
+
+![Display settings](../screenshots/MusiciansCanvas_DisplaySettings.png)
+
 #### Language Tab
 
 - **Language**: Choose the display language for the application. The default is "System
@@ -246,6 +291,8 @@ projects:
   Ελληνικά (Greek), Gaeilge (Irish), Norsk (Norwegian), Polski (Polish),
   Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh), and Pirate.
   The interface updates immediately when you change the language.
+
+![Language settings](../screenshots/MusiciansCanvas_LanguageSettings.png)
 
 #### MIDI Tab
 

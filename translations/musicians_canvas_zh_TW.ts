@@ -32,325 +32,380 @@ Please install an ASIO driver and then restart the application:
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="137"/>
-        <location filename="../src/mainwindow.cpp" line="169"/>
+        <location filename="../src/mainwindow.cpp" line="182"/>
+        <location filename="../src/mainwindow.cpp" line="216"/>
         <source>Musician&apos;s Canvas</source>
         <translation>Musician&apos;s Canvas</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="192"/>
+        <location filename="../src/mainwindow.cpp" line="245"/>
         <source>&amp;File</source>
         <translation>檔案(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="193"/>
+        <location filename="../src/mainwindow.cpp" line="246"/>
         <source>&amp;Save Project</source>
         <translation>儲存專案(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="196"/>
+        <location filename="../src/mainwindow.cpp" line="249"/>
         <source>&amp;Open Project...</source>
         <translation>開啟專案(&amp;O)...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="200"/>
+        <location filename="../src/mainwindow.cpp" line="253"/>
         <source>&amp;Close</source>
         <translation>關閉(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="204"/>
+        <location filename="../src/mainwindow.cpp" line="257"/>
         <source>&amp;Project</source>
         <translation>專案(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="205"/>
+        <location filename="../src/mainwindow.cpp" line="258"/>
         <source>&amp;Project Settings</source>
         <translation>專案設定(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="209"/>
+        <location filename="../src/mainwindow.cpp" line="262"/>
         <source>Add Demo &amp;Data to Selected Track</source>
         <translation>將示範資料加入選取的音軌(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="212"/>
+        <location filename="../src/mainwindow.cpp" line="265"/>
         <source>&amp;Settings</source>
         <translation>設定(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="213"/>
+        <location filename="../src/mainwindow.cpp" line="266"/>
         <source>&amp;Configuration</source>
         <translation>組態設定(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="217"/>
+        <location filename="../src/mainwindow.cpp" line="270"/>
         <source>&amp;Tools</source>
         <translation>工具(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="218"/>
+        <location filename="../src/mainwindow.cpp" line="271"/>
         <source>&amp;Mix tracks to file...</source>
         <translation>混音至檔案(&amp;M)...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="221"/>
+        <location filename="../src/mainwindow.cpp" line="274"/>
         <source>&amp;Virtual MIDI Keyboard</source>
         <translation>虛擬 MIDI 鍵盤(&amp;V)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="175"/>
-        <location filename="../src/mainwindow.cpp" line="236"/>
+        <location filename="../src/mainwindow.cpp" line="222"/>
+        <location filename="../src/mainwindow.cpp" line="343"/>
         <source>Project location:</source>
         <translation>專案位置：</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="239"/>
+        <location filename="../src/mainwindow.cpp" line="346"/>
         <source>Select a project directory...</source>
         <translation>選擇專案目錄...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="177"/>
-        <location filename="../src/mainwindow.cpp" line="253"/>
+        <location filename="../src/mainwindow.cpp" line="224"/>
+        <location filename="../src/mainwindow.cpp" line="361"/>
         <source>Browse...</source>
         <translation>瀏覽...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="266"/>
-        <location filename="../src/mainwindow.cpp" line="517"/>
+        <location filename="../src/mainwindow.cpp" line="374"/>
+        <location filename="../src/mainwindow.cpp" line="633"/>
         <source>Play all tracks</source>
         <translation>播放所有音軌</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="179"/>
-        <location filename="../src/mainwindow.cpp" line="271"/>
+        <location filename="../src/mainwindow.cpp" line="226"/>
+        <location filename="../src/mainwindow.cpp" line="379"/>
         <source>+ Add Track</source>
         <translation>+ 新增音軌</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="181"/>
-        <location filename="../src/mainwindow.cpp" line="277"/>
-        <location filename="../src/mainwindow.cpp" line="1416"/>
+        <location filename="../src/mainwindow.cpp" line="228"/>
+        <location filename="../src/mainwindow.cpp" line="386"/>
+        <location filename="../src/mainwindow.cpp" line="1580"/>
         <source>Clear Tracks</source>
         <translation>清除音軌</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="381"/>
+        <location filename="../src/mainwindow.cpp" line="232"/>
+        <location filename="../src/mainwindow.cpp" line="301"/>
+        <source>Project Settings</source>
+        <translation>專案設定</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="233"/>
+        <location filename="../src/mainwindow.cpp" line="307"/>
+        <source>Configuration</source>
+        <translation>組態設定</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="234"/>
+        <location filename="../src/mainwindow.cpp" line="316"/>
+        <source>Metronome Settings</source>
+        <translation>節拍器設定</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="496"/>
         <source>Mix Complete</source>
         <translation>混音完成</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="382"/>
+        <location filename="../src/mainwindow.cpp" line="497"/>
         <source>Audio exported successfully to:
 %1</source>
         <translation>音訊已成功匯出至：
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="386"/>
+        <location filename="../src/mainwindow.cpp" line="501"/>
         <source>Mix Failed</source>
         <translation>混音失敗</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="387"/>
+        <location filename="../src/mainwindow.cpp" line="502"/>
         <source>Could not export audio. Please check that you have at least one enabled track with content, and a SoundFont configured for MIDI tracks.</source>
         <translation>無法匯出音訊。請確認至少有一個已啟用且包含內容的音軌，並且 MIDI 音軌已設定 SoundFont。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="397"/>
+        <location filename="../src/mainwindow.cpp" line="512"/>
         <source>Select Project Directory</source>
         <translation>選擇專案目錄</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="505"/>
+        <location filename="../src/mainwindow.cpp" line="621"/>
         <source>Stop</source>
         <translation>停止</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="511"/>
+        <location filename="../src/mainwindow.cpp" line="627"/>
         <source>Record armed track</source>
         <translation>錄製已備錄的音軌</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="535"/>
-        <location filename="../src/mainwindow.cpp" line="545"/>
+        <location filename="../src/mainwindow.cpp" line="651"/>
+        <location filename="../src/mainwindow.cpp" line="661"/>
         <source>Playback Error</source>
         <translation>播放錯誤</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="535"/>
+        <location filename="../src/mainwindow.cpp" line="651"/>
         <source>Could not create temporary file.</source>
         <translation>無法建立暫存檔案。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="546"/>
+        <location filename="../src/mainwindow.cpp" line="662"/>
         <source>Could not mix tracks for playback. Make sure tracks have content.</source>
         <translation>無法混音進行播放。請確認音軌包含內容。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="571"/>
+        <location filename="../src/mainwindow.cpp" line="694"/>
         <source>Playback</source>
         <translation>播放</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="572"/>
+        <location filename="../src/mainwindow.cpp" line="695"/>
         <source>Qt Multimedia is not available. Build with Qt6::Multimedia for playback support.</source>
         <translation>Qt Multimedia 無法使用。請使用 Qt6::Multimedia 建置以支援播放功能。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="585"/>
+        <location filename="../src/mainwindow.cpp" line="708"/>
         <source>Project Directory Required</source>
         <translation>需要專案目錄</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="586"/>
+        <location filename="../src/mainwindow.cpp" line="709"/>
         <source>You must choose a project directory before recording.
 Please select a directory to store your recorded files.</source>
         <translation>錄音前必須選擇專案目錄。
 請選擇一個目錄來儲存您的錄音檔案。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="611"/>
+        <location filename="../src/mainwindow.cpp" line="734"/>
         <source>Recording Error</source>
         <translation>錄音錯誤</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="612"/>
+        <location filename="../src/mainwindow.cpp" line="735"/>
         <source>No audio input device found. Configure one in Settings.</source>
         <translation>找不到音訊輸入裝置。請在設定中設定一個裝置。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="623"/>
-        <location filename="../src/mainwindow.cpp" line="633"/>
+        <location filename="../src/mainwindow.cpp" line="753"/>
+        <location filename="../src/mainwindow.cpp" line="763"/>
         <source>Get ready...  %1</source>
         <translation>準備好...  %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="647"/>
+        <location filename="../src/mainwindow.cpp" line="777"/>
         <source>Recording</source>
         <translation>錄音</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="648"/>
+        <location filename="../src/mainwindow.cpp" line="778"/>
         <source>Qt Multimedia is not available. Build with Qt6::Multimedia for recording support.</source>
         <translation>Qt Multimedia 無法使用。請使用 Qt6::Multimedia 建置以支援錄音功能。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="983"/>
+        <location filename="../src/mainwindow.cpp" line="1126"/>
         <source>PortAudio</source>
         <translation>PortAudio</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="984"/>
+        <location filename="../src/mainwindow.cpp" line="1127"/>
         <source>Could not start PortAudio recording (%1). Falling back to Qt Multimedia.</source>
         <translation>無法啟動 PortAudio 錄音（%1）。將改用 Qt Multimedia。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1139"/>
+        <location filename="../src/mainwindow.cpp" line="231"/>
+        <location filename="../src/mainwindow.cpp" line="293"/>
+        <location filename="../src/mainwindow.cpp" line="1303"/>
         <source>Save Project</source>
         <translation>儲存專案</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1140"/>
+        <location filename="../src/mainwindow.cpp" line="1304"/>
         <source>Please choose a project directory before saving.</source>
         <translation>儲存前請先選擇專案目錄。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1214"/>
+        <location filename="../src/mainwindow.cpp" line="1378"/>
         <source>Save Failed</source>
         <translation>儲存失敗</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1215"/>
+        <location filename="../src/mainwindow.cpp" line="1379"/>
         <source>Could not write project file:
 %1</source>
         <translation>無法寫入專案檔案：
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1221"/>
+        <location filename="../src/mainwindow.cpp" line="1385"/>
         <source>Project Saved</source>
         <translation>專案已儲存</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1222"/>
+        <location filename="../src/mainwindow.cpp" line="1386"/>
         <source>Project saved to:
 %1</source>
         <translation>專案已儲存至：
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1231"/>
+        <location filename="../src/mainwindow.cpp" line="230"/>
+        <location filename="../src/mainwindow.cpp" line="287"/>
+        <location filename="../src/mainwindow.cpp" line="1395"/>
         <source>Open Project</source>
         <translation>開啟專案</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1232"/>
+        <location filename="../src/mainwindow.cpp" line="1396"/>
         <source>Project files (*.json);;All files (*)</source>
         <translation>專案檔案 (*.json);;所有檔案 (*)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1243"/>
-        <location filename="../src/mainwindow.cpp" line="1251"/>
+        <location filename="../src/mainwindow.cpp" line="1407"/>
+        <location filename="../src/mainwindow.cpp" line="1415"/>
         <source>Open Failed</source>
         <translation>開啟失敗</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1244"/>
+        <location filename="../src/mainwindow.cpp" line="1408"/>
         <source>Could not read project file:
 %1</source>
         <translation>無法讀取專案檔案：
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1251"/>
+        <location filename="../src/mainwindow.cpp" line="1415"/>
         <source>Invalid project file format.</source>
         <translation>無效的專案檔案格式。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1417"/>
+        <location filename="../src/mainwindow.cpp" line="1581"/>
         <source>Remove all %1 track(s) from the project?</source>
         <translation>要從專案中移除所有 %1 個音軌嗎？</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1435"/>
+        <location filename="../src/mainwindow.cpp" line="1599"/>
         <source>Unsaved Changes</source>
         <translation>未儲存的變更</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1436"/>
+        <location filename="../src/mainwindow.cpp" line="1600"/>
         <source>The project has unsaved changes. Save before closing?</source>
         <translation>專案有未儲存的變更。要在關閉前儲存嗎？</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1489"/>
+        <location filename="../src/mainwindow.cpp" line="1672"/>
         <source>No Tracks</source>
         <translation>沒有音軌</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1489"/>
+        <location filename="../src/mainwindow.cpp" line="1672"/>
         <source>Add a track first, then select it.</source>
         <translation>請先新增音軌，然後選取它。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1501"/>
-        <location filename="../src/mainwindow.cpp" line="1506"/>
+        <location filename="../src/mainwindow.cpp" line="1684"/>
+        <location filename="../src/mainwindow.cpp" line="1689"/>
         <source>Demo Data</source>
         <translation>示範資料</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1502"/>
+        <location filename="../src/mainwindow.cpp" line="1685"/>
         <source>Demo MIDI notes added. Try Mix → Mix tracks to file to export.</source>
         <translation>已加入示範 MIDI 音符。請嘗試「混音 → 混音至檔案」來匯出。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1507"/>
+        <location filename="../src/mainwindow.cpp" line="1690"/>
         <source>Switch the track to MIDI type (Options) to add demo notes.</source>
         <translation>將音軌切換為 MIDI 類型（選項）以加入示範音符。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1515"/>
+        <location filename="../src/mainwindow.cpp" line="1698"/>
         <source>Track %1</source>
         <translation>音軌 %1</translation>
+    </message>
+</context>
+<context>
+    <name>MetronomeDialog</name>
+    <message>
+        <location filename="../src/metronomedialog.cpp" line="13"/>
+        <source>Metronome Settings</source>
+        <translation>節拍器設定</translation>
+    </message>
+    <message>
+        <location filename="../src/metronomedialog.cpp" line="18"/>
+        <source>Metronome</source>
+        <translation>節拍器</translation>
+    </message>
+    <message>
+        <location filename="../src/metronomedialog.cpp" line="21"/>
+        <source>Enable metronome during recording</source>
+        <translation>錄音時啟用節拍器</translation>
+    </message>
+    <message>
+        <location filename="../src/metronomedialog.cpp" line="25"/>
+        <source>Beats per minute:</source>
+        <translation>每分鐘節拍數：</translation>
+    </message>
+    <message>
+        <location filename="../src/metronomedialog.cpp" line="38"/>
+        <source>OK</source>
+        <translation>確定</translation>
+    </message>
+    <message>
+        <location filename="../src/metronomedialog.cpp" line="41"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
     </message>
 </context>
 <context>
@@ -610,150 +665,220 @@ Please select a directory to store your recorded files.</source>
         <translation>組態設定</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="46"/>
+        <location filename="../src/settingsdialog.cpp" line="47"/>
         <source>Apply</source>
         <translation>套用</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="51"/>
+        <location filename="../src/settingsdialog.cpp" line="52"/>
         <source>Close</source>
         <translation>關閉</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="85"/>
+        <location filename="../src/settingsdialog.cpp" line="86"/>
         <source>Here, you can configure general application settings.</source>
         <translation>您可以在此設定一般應用程式設定。</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="87"/>
+        <location filename="../src/settingsdialog.cpp" line="88"/>
         <source>Appearance</source>
         <translation>外觀</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="89"/>
+        <location filename="../src/settingsdialog.cpp" line="90"/>
         <source>Theme:</source>
         <translation>佈景主題：</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="91"/>
+        <location filename="../src/settingsdialog.cpp" line="92"/>
         <source>Dark</source>
         <translation>深色</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="92"/>
+        <location filename="../src/settingsdialog.cpp" line="93"/>
         <source>Light</source>
         <translation>淺色</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="97"/>
+        <location filename="../src/settingsdialog.cpp" line="98"/>
         <source>Diagnostics</source>
         <translation>診斷</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="99"/>
+        <location filename="../src/settingsdialog.cpp" line="100"/>
         <source>Write recording debug log</source>
         <translation>寫入錄音除錯記錄</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="104"/>
+        <location filename="../src/settingsdialog.cpp" line="105"/>
         <source>General</source>
         <translation>一般</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="115"/>
+        <location filename="../src/settingsdialog.cpp" line="116"/>
+        <source>Configure the appearance of display elements.</source>
+        <translation>設定顯示元素的外觀。</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="118"/>
+        <source>Numeric Display</source>
+        <translation>數字顯示</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="120"/>
+        <source>Numeric display LED color:</source>
+        <translation>數字顯示 LED 顏色：</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="123"/>
+        <source>Light Red</source>
+        <translation>淺紅色</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="124"/>
+        <source>Dark Red</source>
+        <translation>深紅色</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="125"/>
+        <source>Light Green</source>
+        <translation>淺綠色</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="126"/>
+        <source>Dark Green</source>
+        <translation>深綠色</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="127"/>
+        <source>Light Blue</source>
+        <translation>淺藍色</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="128"/>
+        <source>Dark Blue</source>
+        <translation>深藍色</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="129"/>
+        <source>Yellow</source>
+        <translation>黃色</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="130"/>
+        <source>Orange</source>
+        <translation>橙色</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="131"/>
+        <source>Light Cyan</source>
+        <translation>淺青色</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="132"/>
+        <source>Dark Cyan</source>
+        <translation>深青色</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="137"/>
+        <source>Display</source>
+        <translation>顯示</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="148"/>
         <source>Here, you can configure settings related to MIDI.</source>
         <translation>您可以在此設定與 MIDI 相關的設定。</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="117"/>
+        <location filename="../src/settingsdialog.cpp" line="150"/>
         <source>MIDI Device</source>
         <translation>MIDI 裝置</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="123"/>
+        <location filename="../src/settingsdialog.cpp" line="156"/>
         <source>Refresh</source>
         <translation>重新整理</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="129"/>
+        <location filename="../src/settingsdialog.cpp" line="162"/>
         <source>SoundFont (for MIDI synthesis)</source>
         <translation>SoundFont（用於 MIDI 合成）</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="132"/>
+        <location filename="../src/settingsdialog.cpp" line="165"/>
         <source>Path to .sf2 SoundFont file</source>
         <translation>.sf2 SoundFont 檔案路徑</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="135"/>
+        <location filename="../src/settingsdialog.cpp" line="168"/>
         <source>Browse...</source>
         <translation>瀏覽...</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="141"/>
+        <location filename="../src/settingsdialog.cpp" line="174"/>
         <source>MIDI</source>
         <translation>MIDI</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="152"/>
+        <location filename="../src/settingsdialog.cpp" line="185"/>
         <source>Here, you can configure audio settings for the application.</source>
         <translation>您可以在此設定應用程式的音訊設定。</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="154"/>
+        <location filename="../src/settingsdialog.cpp" line="187"/>
         <source>Audio Input Device</source>
         <translation>音訊輸入裝置</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="161"/>
+        <location filename="../src/settingsdialog.cpp" line="194"/>
         <source>Audio Output Device</source>
         <translation>音訊輸出裝置</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="169"/>
+        <location filename="../src/settingsdialog.cpp" line="202"/>
         <source>Audio</source>
         <translation>音訊</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="180"/>
+        <location filename="../src/settingsdialog.cpp" line="213"/>
         <source>Choose the display language for the application.</source>
         <translation>選擇應用程式的顯示語言。</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="182"/>
-        <location filename="../src/settingsdialog.cpp" line="209"/>
+        <location filename="../src/settingsdialog.cpp" line="215"/>
+        <location filename="../src/settingsdialog.cpp" line="242"/>
         <source>Language</source>
         <translation>語言</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="186"/>
+        <location filename="../src/settingsdialog.cpp" line="219"/>
         <source>System Default</source>
         <translation>系統預設</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="217"/>
+        <location filename="../src/settingsdialog.cpp" line="250"/>
         <source>Built-in FluidSynth synthesizer</source>
         <translation>內建 FluidSynth 合成器</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="238"/>
-        <location filename="../src/settingsdialog.cpp" line="244"/>
+        <location filename="../src/settingsdialog.cpp" line="271"/>
+        <location filename="../src/settingsdialog.cpp" line="277"/>
         <source>(Default)</source>
         <translation>（預設）</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="250"/>
-        <location filename="../src/settingsdialog.cpp" line="251"/>
+        <location filename="../src/settingsdialog.cpp" line="283"/>
+        <location filename="../src/settingsdialog.cpp" line="284"/>
         <source>(Default - install qt6-multimedia-dev for device list)</source>
         <translation>（預設 - 安裝 qt6-multimedia-dev 以取得裝置清單）</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="332"/>
+        <location filename="../src/settingsdialog.cpp" line="372"/>
         <source>Select SoundFont</source>
         <translation>選擇 SoundFont</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="334"/>
+        <location filename="../src/settingsdialog.cpp" line="374"/>
         <source>SoundFont files (*.sf2 *.SF2);;All files (*)</source>
         <translation>SoundFont 檔案 (*.sf2 *.SF2);;所有檔案 (*)</translation>
     </message>

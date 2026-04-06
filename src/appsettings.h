@@ -83,6 +83,16 @@ public:
         m_language = lang;
     }
 
+    // Metronome settings
+    bool metronomeEnabled() const { return m_metronomeEnabled; }
+    void setMetronomeEnabled(bool enabled) { m_metronomeEnabled = enabled; }
+    int metronomeBpm() const { return m_metronomeBpm; }
+    void setMetronomeBpm(int bpm) { m_metronomeBpm = bpm; }
+
+    // Display settings
+    QString ledColor() const { return m_ledColor; }
+    void setLedColor(const QString& color) { m_ledColor = color; }
+
     // Project settings
     QString projectLocation() const
     {
@@ -102,6 +112,9 @@ private:
     AppSettings& operator=(const AppSettings&) = delete;
 
     bool m_recordingDebugLog = false;
+    bool m_metronomeEnabled = false;
+    int m_metronomeBpm = 120;
+    QString m_ledColor = "light_green";
     QString m_language;  // empty = system default
     QString m_theme = "dark";
     int m_midiDeviceIndex = 0;

@@ -36,6 +36,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     auto* layout = new QVBoxLayout(this);
     m_tabWidget = new QTabWidget();
     setupGeneralTab();
+    setupDisplayTab();
     setupMidiTab();
     setupAudioTab();
     setupLanguageTab();
@@ -102,6 +103,38 @@ void SettingsDialog::setupGeneralTab()
 
     layout->addStretch();
     m_tabWidget->addTab(widget, tr("General"));
+}
+
+void SettingsDialog::setupDisplayTab()
+{
+    auto* widget = new QWidget();
+    auto* layout = new QVBoxLayout(widget);
+
+    QIcon displayIcon = QIcon::fromTheme("video-display",
+        style()->standardIcon(QStyle::SP_DesktopIcon));
+    layout->addWidget(createTabHeader(displayIcon,
+        tr("Configure the appearance of display elements.")));
+
+    auto* ledGroup = new QGroupBox(tr("Numeric Display"));
+    auto* ledLayout = new QVBoxLayout(ledGroup);
+    ledLayout->addWidget(new QLabel(tr("Numeric display LED color:")));
+    m_ledColorCombo = new QComboBox();
+    m_ledColorCombo->setMinimumWidth(200);
+    m_ledColorCombo->addItem(tr("Light Red"), QStringLiteral("light_red"));
+    m_ledColorCombo->addItem(tr("Dark Red"), QStringLiteral("dark_red"));
+    m_ledColorCombo->addItem(tr("Light Green"), QStringLiteral("light_green"));
+    m_ledColorCombo->addItem(tr("Dark Green"), QStringLiteral("dark_green"));
+    m_ledColorCombo->addItem(tr("Light Blue"), QStringLiteral("light_blue"));
+    m_ledColorCombo->addItem(tr("Dark Blue"), QStringLiteral("dark_blue"));
+    m_ledColorCombo->addItem(tr("Yellow"), QStringLiteral("yellow"));
+    m_ledColorCombo->addItem(tr("Orange"), QStringLiteral("orange"));
+    m_ledColorCombo->addItem(tr("Light Cyan"), QStringLiteral("light_cyan"));
+    m_ledColorCombo->addItem(tr("Dark Cyan"), QStringLiteral("dark_cyan"));
+    ledLayout->addWidget(m_ledColorCombo);
+    layout->addWidget(ledGroup);
+
+    layout->addStretch();
+    m_tabWidget->addTab(widget, tr("Display"));
 }
 
 void SettingsDialog::setupMidiTab()
@@ -263,6 +296,11 @@ void SettingsDialog::loadSettings()
     }
     if (m_debugLogCheck)
         m_debugLogCheck->setChecked(settings.recordingDebugLog());
+    if (m_ledColorCombo)
+    {
+        int idx = m_ledColorCombo->findData(settings.ledColor());
+        if (idx >= 0) m_ledColorCombo->setCurrentIndex(idx);
+    }
     if (m_languageCombo)
     {
         int langIdx = m_languageCombo->findData(settings.language());
@@ -310,6 +348,8 @@ void SettingsDialog::saveSettings()
     }
     if (m_debugLogCheck)
         settings.setRecordingDebugLog(m_debugLogCheck->isChecked());
+    if (m_ledColorCombo)
+        settings.setLedColor(m_ledColorCombo->currentData().toString());
     if (m_languageCombo)
         settings.setLanguage(m_languageCombo->currentData().toString());
     settings.setMidiDeviceIndex(m_midiDeviceCombo->currentData().toInt());
@@ -349,5 +389,7 @@ void SettingsDialog::onApply()
     if (newLang != oldLang)
         loadAppTranslation(newLang);
 
-    accept();
+    // Signal the parent (MainWindow) that display settings may have changed
+    emit accepted();
+    done(QDialog::Accepted);
 }

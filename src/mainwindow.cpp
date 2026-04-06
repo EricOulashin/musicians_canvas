@@ -9,6 +9,8 @@
 #include "portaudiorecorder.h"
 #endif
 #include "mixdialog.h"
+#include "metronomedialog.h"
+#include "segmentdisplay.h"
 #include "appsettings.h"
 #include "audiostartup.h"
 #include <QScrollArea>
@@ -52,6 +54,46 @@
 #include <QMediaDevices>
 #include <QBuffer>
 #include <QUrl>
+#include <QAudioSink>
+#endif
+
+// Map LED color setting name to QColor
+static QColor ledColorFromName(const QString& name)
+{
+    if (name == "dark_red")    return QColor(180, 20, 20);
+    if (name == "light_green") return QColor(80, 255, 80);
+    if (name == "dark_green")  return QColor(20, 160, 20);
+    if (name == "light_blue")  return QColor(100, 140, 255);
+    if (name == "dark_blue")   return QColor(30, 60, 200);
+    if (name == "yellow")      return QColor(255, 255, 40);
+    if (name == "orange")      return QColor(255, 160, 20);
+    if (name == "light_cyan")  return QColor(80, 255, 255);
+    if (name == "dark_cyan")   return QColor(20, 180, 180);
+    // default: light_red
+    return QColor(255, 60, 60);
+}
+
+#ifdef QT_MULTIMEDIA_AVAILABLE
+// Generate a short metronome click sound (a short sine burst with exponential decay).
+// Returns raw Int16 PCM data at 44100 Hz mono.
+static QByteArray generateClickPcm()
+{
+    const int sampleRate = 44100;
+    const int durationMs = 30;
+    const int numSamples = sampleRate * durationMs / 1000;
+    const double freq = 1000.0;  // 1 kHz tick
+    QByteArray pcm;
+    pcm.resize(numSamples * 2);
+    auto* samples = reinterpret_cast<qint16*>(pcm.data());
+    for (int i = 0; i < numSamples; ++i)
+    {
+        double t = static_cast<double>(i) / sampleRate;
+        double envelope = std::exp(-t * 150.0);  // fast decay
+        double value = std::sin(2.0 * M_PI * freq * t) * envelope * 0.7;
+        samples[i] = static_cast<qint16>(value * 32767.0);
+    }
+    return pcm;
+}
 #endif
 
 // Returns a filesystem-safe version of a track name (strips chars invalid on all platforms)
@@ -189,6 +231,7 @@ void MainWindow::retranslateUi()
     if (m_tbSave) m_tbSave->setToolTip(tr("Save Project"));
     if (m_tbProjectSettings) m_tbProjectSettings->setToolTip(tr("Project Settings"));
     if (m_tbConfig) m_tbConfig->setToolTip(tr("Configuration"));
+    if (m_tbMetronome) m_tbMetronome->setToolTip(tr("Metronome Settings"));
     updatePlayRecordButton();
     // Update track widgets
     for (auto* tw : m_trackWidgets)
@@ -265,6 +308,15 @@ void MainWindow::setupToolBar()
     connect(m_tbConfig, &QToolButton::clicked, this, &MainWindow::onSettingsConfiguration);
     m_toolBar->addWidget(m_tbConfig);
 
+    m_toolBar->addSeparator();
+
+    m_tbMetronome = new QToolButton();
+    // Draw a simple metronome icon: use a timer/clock icon from Qt
+    m_tbMetronome->setIcon(style()->standardIcon(QStyle::SP_MediaSeekForward));
+    m_tbMetronome->setToolTip(tr("Metronome Settings"));
+    connect(m_tbMetronome, &QToolButton::clicked, this, &MainWindow::onMetronomeSettings);
+    m_toolBar->addWidget(m_tbMetronome);
+
     addToolBar(m_toolBar);
     updateToolBarState();
 }
@@ -340,7 +392,14 @@ void MainWindow::setupUi()
     connect(m_clearTracksButton, &QPushButton::clicked, this, &MainWindow::onClearTracks);
     toolbarLayout->addWidget(m_clearTracksButton);
 
+    // LED time display — sized to exactly fit HH:MM:SS.hh digits
+    m_timeDisplay = new SegmentDisplay();
+    m_timeDisplay->setActiveColor(ledColorFromName(AppSettings::instance().ledColor()));
+    m_timeDisplay->setFixedHeight(36);
+    m_timeDisplay->setFixedWidth(m_timeDisplay->sizeHint().width());
+    toolbarLayout->addWidget(m_timeDisplay);
     toolbarLayout->addStretch();
+
     mainLayout->addLayout(toolbarLayout);
 
     // Tracks scroll area
@@ -623,6 +682,13 @@ void MainWindow::startPlayback()
     m_player->play();
 
     m_isActive = true;
+    m_activeTimer.start();
+    if (!m_timeDisplayTimer)
+    {
+        m_timeDisplayTimer = new QTimer(this);
+        connect(m_timeDisplayTimer, &QTimer::timeout, this, &MainWindow::onTimeDisplayTick);
+    }
+    m_timeDisplayTimer->start(10);  // ~100 fps for smooth hundredths display
     for (auto* w : m_trackWidgets) w->setInteractiveControlsEnabled(false);
     updatePlayRecordButton();
 #else
@@ -672,7 +738,9 @@ void MainWindow::startRecording()
     }
 
     // Verify the input device can handle the project's configured sample rate.
-    // Disable controls and show countdown on the armed track
+    // Disable controls and show countdown on the armed track.
+    // The LED time display is NOT started here — it begins in
+    // beginRecordingAfterCountdown() once recording actually starts.
     m_isActive = true;
     for (auto* w : m_trackWidgets) w->setInteractiveControlsEnabled(false);
     updatePlayRecordButton();
@@ -921,6 +989,16 @@ void MainWindow::beginRecordingAfterCountdown()
     const QString projectDir = effectiveProjectPath();
     QDir().mkpath(projectDir);
 
+    // Start the LED time display now that the countdown is finished
+    // and actual recording is about to begin.
+    m_activeTimer.start();
+    if (!m_timeDisplayTimer)
+    {
+        m_timeDisplayTimer = new QTimer(this);
+        connect(m_timeDisplayTimer, &QTimer::timeout, this, &MainWindow::onTimeDisplayTick);
+    }
+    m_timeDisplayTimer->start(10);
+
     // Prepare overdub playback (mix existing tracks, pre-load media)
     // BEFORE starting capture, so no dead time is recorded while the
     // mix file is being written to disk.
@@ -1033,6 +1111,19 @@ void MainWindow::beginRecordingAfterCountdown()
             m_recordingTimer.start();
             startOverdubPlayback();
             startRecordingLevelMeter();
+
+            // Start metronome if enabled
+            if (AppSettings::instance().metronomeEnabled())
+            {
+                if (!m_metronomeTimer)
+                    m_metronomeTimer = new QTimer(this);
+                const int intervalMs = 60000 / qBound(20, AppSettings::instance().metronomeBpm(), 300);
+                connect(m_metronomeTimer, &QTimer::timeout, this, [this]()
+                {
+                    QApplication::beep();
+                });
+                m_metronomeTimer->start(intervalMs);
+            }
             return;
         }
 
@@ -1121,6 +1212,19 @@ void MainWindow::beginRecordingAfterCountdown()
 
     startOverdubPlayback();
     startRecordingLevelMeter();
+
+    // Start metronome if enabled
+    if (AppSettings::instance().metronomeEnabled())
+    {
+        if (!m_metronomeTimer)
+            m_metronomeTimer = new QTimer(this);
+        const int intervalMs = 60000 / qBound(20, AppSettings::instance().metronomeBpm(), 300);
+        connect(m_metronomeTimer, &QTimer::timeout, this, []()
+        {
+            QApplication::beep();
+        });
+        m_metronomeTimer->start(intervalMs);
+    }
 #endif
 }
 
@@ -1185,6 +1289,14 @@ void MainWindow::stopPlaybackOrRecording()
     }
 #endif
     m_isActive = false;
+    // Stop time display and metronome timers
+    if (m_timeDisplayTimer)
+        m_timeDisplayTimer->stop();
+    if (m_metronomeTimer)
+    {
+        m_metronomeTimer->stop();
+        m_metronomeTimer->disconnect();
+    }
     for (auto* w : m_trackWidgets) w->setInteractiveControlsEnabled(true);
     updatePlayRecordButton();  // reflects disarmed state after recording
 }
@@ -1517,6 +1629,9 @@ void MainWindow::onSettingsConfiguration()
 {
     SettingsDialog dlg(this);
     dlg.exec();
+    // Refresh LED display color in case it changed
+    if (m_timeDisplay)
+        m_timeDisplay->setActiveColor(ledColorFromName(AppSettings::instance().ledColor()));
 }
 
 void MainWindow::onVirtualMidiKeyboard()
@@ -1542,6 +1657,18 @@ void MainWindow::onProjectSettings()
         m_projectSettings = dlg.projectSettings();
         markDirty();
     }
+}
+
+void MainWindow::onMetronomeSettings()
+{
+    MetronomeDialog dlg(this);
+    dlg.exec();
+}
+
+void MainWindow::onTimeDisplayTick()
+{
+    if (m_isActive && m_timeDisplay)
+        m_timeDisplay->setTime(m_activeTimer.elapsed());
 }
 
 void MainWindow::onAddDemoData()

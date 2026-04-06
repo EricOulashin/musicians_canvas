@@ -1,7 +1,7 @@
 ---
 title: "Manual do Utilizador do Musician's Canvas"
 subtitle: "Aplicativo de Gravacao Musical Multi-Faixa"
-version: "0.1.0"
+version: "0.1.1"
 date: "2026-04-03"
 author: "Eric Oulashin"
 lang: "pt-BR"
@@ -63,6 +63,21 @@ carregado automaticamente.
    nome e usado como nome do arquivo de audio gravado.
 
 ![Janela principal](../screenshots/MusiciansCanvas_1_MainWin.png)
+
+### Barra de Botoes
+
+Logo abaixo da barra de menus ha uma barra de ferramentas com botoes de acesso rapido:
+
+![Barra de botoes](../screenshots/ButtonBar.png)
+
+- **Open Project**: O mesmo que **File > Open Project** — abre um projeto salvo anteriormente.
+- **Save Project**: O mesmo que **File > Save Project** — salva o projeto atual. Este botao
+  so e habilitado quando um diretorio de projeto esta definido.
+- **Project Settings**: O mesmo que **Project > Project Settings** — abre o dialogo de
+  configuracoes do projeto. Este botao so e habilitado quando um diretorio de projeto esta definido.
+- **Configuration**: O mesmo que **Settings > Configuration** — abre o dialogo de configuracoes
+  globais do aplicativo.
+- **Metronome Settings**: Abre o dialogo de configuracoes do metronomo (veja a secao Metronomo abaixo).
 
 ### Salvando e Abrindo Projetos
 
@@ -203,6 +218,25 @@ para estereo, o sinal mono e duplicado para ambos os canais.
 
 As notas MIDI sao exibidas em uma visualizacao de piano roll na faixa.
 
+## Metronomo
+
+Musician's Canvas inclui um metronomo integrado que pode ser usado durante a gravacao para
+ajudar a manter o tempo. Clique no botao do metronomo na barra de botoes (abaixo da barra
+de menus) para abrir o dialogo de configuracoes do metronomo:
+
+![Configuracoes do metronomo](../screenshots/MetronomeSettings.png)
+
+O dialogo oferece:
+
+- **Enable metronome during recording**: Quando marcado, o metronomo toca um som de tique
+  enquanto a gravacao esta ativa. O tique e reproduzido atraves do audio do sistema e **nao**
+  e capturado na faixa gravada.
+- **Beats per minute**: Uma entrada numerica para o andamento, em batidas por minuto (BPM).
+  O intervalo e de 20 a 300 BPM.
+
+Quando o metronomo esta habilitado, ele comeca a tiquetaquear assim que a gravacao realmente
+comeca (apos o termino da contagem regressiva de 3 segundos) e para quando a gravacao termina.
+
 ## Reproducao
 
 Clique no botao **Play** para mixar e reproduzir todas as faixas habilitadas. A dica do
@@ -247,6 +281,17 @@ todos os projetos:
   opcao esta desabilitada por padrao e e principalmente util para solucionar problemas de
   gravacao.
 
+#### Aba Display
+
+- **Cor do LED do visor numerico**: Escolha a cor usada no visor numerico LED de tempo
+  mostrado na barra de ferramentas da janela principal. Os segmentos ativos dos digitos
+  sao desenhados na cor escolhida, e os segmentos inativos sao desenhados como uma
+  versao esmaecida da mesma cor. As cores disponiveis sao Light Red, Dark Red, Light
+  Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan e Dark Cyan. O
+  padrao e Light Green.
+
+![Configuracoes de exibicao](../screenshots/MusiciansCanvas_DisplaySettings.png)
+
 #### Aba Language
 
 - **Idioma**: Escolha o idioma de exibicao do aplicativo. O padrao e "System Default",
@@ -256,6 +301,8 @@ todos os projetos:
   Ελληνικά (Greek), Gaeilge (Irish), Norsk (Norwegian), Polski (Polish), Русский
   (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh) e Pirate. A interface e
   atualizada imediatamente ao alterar o idioma.
+
+![Configuracoes de idioma](../screenshots/MusiciansCanvas_LanguageSettings.png)
 
 #### Aba MIDI
 

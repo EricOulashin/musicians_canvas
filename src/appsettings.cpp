@@ -32,6 +32,9 @@ void AppSettings::load()
     m_theme = settings.value("theme", "dark").toString();
     m_language = settings.value("language").toString();
     m_recordingDebugLog = settings.value("recordingDebugLog", false).toBool();
+    m_metronomeEnabled = settings.value("metronomeEnabled", false).toBool();
+    m_metronomeBpm = settings.value("metronomeBpm", 120).toInt();
+    m_ledColor = settings.value("ledColor", "light_green").toString();
     settings.endGroup();
     m_midiDeviceIndex = settings.value("MIDI/deviceIndex", 0).toInt();
     m_soundFontPath = settings.value("MIDI/soundFontPath").toString();
@@ -62,7 +65,14 @@ void AppSettings::save()
     out << "; Language (empty = system default)\n";
     out << "language=" << m_language << "\n";
     out << "; Write recording debug information to recording_debug.txt\n";
-    out << "recordingDebugLog=" << (m_recordingDebugLog ? "true" : "false") << "\n\n";
+    out << "recordingDebugLog=" << (m_recordingDebugLog ? "true" : "false") << "\n";
+    out << "; Enable metronome tick during recording\n";
+    out << "metronomeEnabled=" << (m_metronomeEnabled ? "true" : "false") << "\n";
+    out << "; Metronome beats per minute\n";
+    out << "metronomeBpm=" << m_metronomeBpm << "\n";
+    out << "; LED display color (light_red, dark_red, light_green, dark_green,\n";
+    out << ";   light_blue, dark_blue, yellow, orange, light_cyan, dark_cyan)\n";
+    out << "ledColor=" << m_ledColor << "\n\n";
 
     out << "[MIDI]\n";
     out << "; Default MIDI input device index (-1 for no device)\n";

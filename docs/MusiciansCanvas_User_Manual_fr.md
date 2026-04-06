@@ -1,7 +1,7 @@
 ---
 title: "Manuel d'utilisation de Musician's Canvas"
 subtitle: "Application d'enregistrement musical multipiste"
-version: "0.1.0"
+version: "0.1.1"
 date: "2026-04-03"
 author: "Eric Oulashin"
 lang: "fr"
@@ -64,6 +64,21 @@ le projet est automatiquement chargé.
    Ce nom est utilisé comme nom de fichier pour le fichier audio enregistré.
 
 ![Fenêtre principale](../screenshots/MusiciansCanvas_1_MainWin.png)
+
+### Barre de boutons
+
+Juste en dessous de la barre de menus se trouve une barre d'outils avec des boutons d'accès rapide :
+
+![Barre de boutons](../screenshots/ButtonBar.png)
+
+- **Open Project** : Identique à **File > Open Project** — ouvre un projet précédemment sauvegardé.
+- **Save Project** : Identique à **File > Save Project** — sauvegarde le projet en cours. Ce
+  bouton n'est activé que lorsqu'un répertoire de projet est défini.
+- **Project Settings** : Identique à **Project > Project Settings** — ouvre la boîte de dialogue
+  des paramètres du projet. Ce bouton n'est activé que lorsqu'un répertoire de projet est défini.
+- **Configuration** : Identique à **Settings > Configuration** — ouvre la boîte de dialogue des
+  paramètres globaux de l'application.
+- **Metronome Settings** : Ouvre la boîte de dialogue des paramètres du métronome (voir la section Métronome ci-dessous).
 
 ### Sauvegarde et ouverture de projets
 
@@ -212,6 +227,26 @@ le projet est configuré en stéréo, le signal mono est dupliqué sur les deux 
 
 Les notes MIDI sont affichées dans une visualisation en piano roll sur la piste.
 
+## Métronome
+
+Musician's Canvas inclut un métronome intégré qui peut être utilisé pendant l'enregistrement
+pour aider à garder le tempo. Cliquez sur le bouton du métronome dans la barre de boutons
+(sous la barre de menus) pour ouvrir la boîte de dialogue des paramètres du métronome :
+
+![Paramètres du métronome](../screenshots/MetronomeSettings.png)
+
+La boîte de dialogue fournit :
+
+- **Enable metronome during recording** : Lorsque cette option est cochée, le métronome joue
+  un son de tic pendant que l'enregistrement est actif. Le tic est joué via l'audio système et
+  **n'est pas** capturé dans la piste enregistrée.
+- **Beats per minute** : Une entrée numérique pour le tempo, en battements par minute (BPM).
+  La plage est de 20 à 300 BPM.
+
+Lorsque le métronome est activé, il commence à tictaquer une fois que l'enregistrement démarre
+réellement (après la fin du compte à rebours de 3 secondes) et s'arrête lorsque l'enregistrement
+se termine.
+
 ## Lecture
 
 Cliquez sur le bouton **Play** pour mixer et lire toutes les pistes activées. L'info-bulle
@@ -256,6 +291,18 @@ globales qui s'appliquent à tous les projets :
   de canaux et les données de chronométrage. Cette option est désactivée par défaut et est
   principalement utile pour le dépannage des problèmes d'enregistrement.
 
+#### Onglet Display
+
+- **Couleur de l'afficheur LED numérique** : Choisissez la couleur utilisée pour
+  l'afficheur LED numérique du temps dans la barre d'outils de la fenêtre principale.
+  Les segments actifs des chiffres sont dessinés dans la couleur choisie, et les
+  segments inactifs sont dessinés dans une version atténuée de la même couleur. Les
+  couleurs disponibles sont Light Red, Dark Red, Light Green, Dark Green, Light Blue,
+  Dark Blue, Yellow, Orange, Light Cyan et Dark Cyan. La valeur par défaut est Light
+  Green.
+
+![Paramètres d'affichage](../screenshots/MusiciansCanvas_DisplaySettings.png)
+
 #### Onglet Language
 
 - **Langue** : Choisissez la langue d'affichage de l'application. La valeur par défaut
@@ -265,6 +312,8 @@ globales qui s'appliquent à tous les projets :
   (Simplified), Dansk (Danish), Ελληνικά (Greek), Gaeilge (Irish), Norsk (Norwegian),
   Polski (Polish), Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh)
   et Pirate. L'interface se met à jour immédiatement lorsque vous changez la langue.
+
+![Paramètres de langue](../screenshots/MusiciansCanvas_LanguageSettings.png)
 
 #### Onglet MIDI
 

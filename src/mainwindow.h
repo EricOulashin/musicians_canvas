@@ -24,6 +24,7 @@ class QLabel;
 class QTimer;
 class TrackWidget;
 class SettingsDialog;
+class SegmentDisplay;
 
 #ifdef QT_MULTIMEDIA_AVAILABLE
 class QMediaPlayer;
@@ -57,6 +58,8 @@ private slots:
     void onTrackRemoveRequested(TrackWidget* widget);
     void onClearTracks();
     void onProjectSettings();
+    void onMetronomeSettings();
+    void onTimeDisplayTick();
 
 private:
     void setupMenuBar();
@@ -92,6 +95,11 @@ private:
     QToolButton* m_tbSave = nullptr;
     QToolButton* m_tbProjectSettings = nullptr;
     QToolButton* m_tbConfig = nullptr;
+    QToolButton* m_tbMetronome = nullptr;
+    SegmentDisplay* m_timeDisplay = nullptr;
+    QTimer* m_timeDisplayTimer = nullptr;
+    QElapsedTimer m_activeTimer;  // tracks elapsed time during play/record
+    QTimer* m_metronomeTimer = nullptr;
     QScrollArea* m_scrollArea = nullptr;
     QWidget* m_tracksContainer = nullptr;
     QVBoxLayout* m_tracksLayout = nullptr;

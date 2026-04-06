@@ -32,325 +32,380 @@ Please install an ASIO driver and then restart the application:
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="137"/>
-        <location filename="../src/mainwindow.cpp" line="169"/>
+        <location filename="../src/mainwindow.cpp" line="182"/>
+        <location filename="../src/mainwindow.cpp" line="216"/>
         <source>Musician&apos;s Canvas</source>
         <translation>Musician&apos;s Canvas</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="175"/>
-        <location filename="../src/mainwindow.cpp" line="236"/>
+        <location filename="../src/mainwindow.cpp" line="222"/>
+        <location filename="../src/mainwindow.cpp" line="343"/>
         <source>Project location:</source>
         <translation>Τοποθεσία έργου:</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="177"/>
-        <location filename="../src/mainwindow.cpp" line="253"/>
+        <location filename="../src/mainwindow.cpp" line="224"/>
+        <location filename="../src/mainwindow.cpp" line="361"/>
         <source>Browse...</source>
         <translation>Αναζήτηση...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="179"/>
-        <location filename="../src/mainwindow.cpp" line="271"/>
+        <location filename="../src/mainwindow.cpp" line="226"/>
+        <location filename="../src/mainwindow.cpp" line="379"/>
         <source>+ Add Track</source>
         <translation>+ Προσθήκη Κομματιού</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="181"/>
-        <location filename="../src/mainwindow.cpp" line="277"/>
-        <location filename="../src/mainwindow.cpp" line="1416"/>
+        <location filename="../src/mainwindow.cpp" line="228"/>
+        <location filename="../src/mainwindow.cpp" line="386"/>
+        <location filename="../src/mainwindow.cpp" line="1580"/>
         <source>Clear Tracks</source>
         <translation>Εκκαθάριση Κομματιών</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="192"/>
+        <location filename="../src/mainwindow.cpp" line="232"/>
+        <location filename="../src/mainwindow.cpp" line="301"/>
+        <source>Project Settings</source>
+        <translation>Ρυθμίσεις Έργου</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="233"/>
+        <location filename="../src/mainwindow.cpp" line="307"/>
+        <source>Configuration</source>
+        <translation>Διαμόρφωση</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="234"/>
+        <location filename="../src/mainwindow.cpp" line="316"/>
+        <source>Metronome Settings</source>
+        <translation>Ρυθμίσεις μετρονόμου</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="245"/>
         <source>&amp;File</source>
         <translation>&amp;Αρχείο</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="193"/>
+        <location filename="../src/mainwindow.cpp" line="246"/>
         <source>&amp;Save Project</source>
         <translation>Α&amp;ποθήκευση Έργου</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="196"/>
+        <location filename="../src/mainwindow.cpp" line="249"/>
         <source>&amp;Open Project...</source>
         <translation>&amp;Άνοιγμα Έργου...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="200"/>
+        <location filename="../src/mainwindow.cpp" line="253"/>
         <source>&amp;Close</source>
         <translation>&amp;Κλείσιμο</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="204"/>
+        <location filename="../src/mainwindow.cpp" line="257"/>
         <source>&amp;Project</source>
         <translation>&amp;Έργο</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="205"/>
+        <location filename="../src/mainwindow.cpp" line="258"/>
         <source>&amp;Project Settings</source>
         <translation>&amp;Ρυθμίσεις Έργου</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="209"/>
+        <location filename="../src/mainwindow.cpp" line="262"/>
         <source>Add Demo &amp;Data to Selected Track</source>
         <translation>Προσθήκη &amp;Δεδομένων Επίδειξης στο Επιλεγμένο Κομμάτι</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="212"/>
+        <location filename="../src/mainwindow.cpp" line="265"/>
         <source>&amp;Settings</source>
         <translation>&amp;Ρυθμίσεις</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="213"/>
+        <location filename="../src/mainwindow.cpp" line="266"/>
         <source>&amp;Configuration</source>
         <translation>&amp;Διαμόρφωση</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="217"/>
+        <location filename="../src/mainwindow.cpp" line="270"/>
         <source>&amp;Tools</source>
         <translation>&amp;Εργαλεία</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="218"/>
+        <location filename="../src/mainwindow.cpp" line="271"/>
         <source>&amp;Mix tracks to file...</source>
         <translation>&amp;Μίξη κομματιών σε αρχείο...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="221"/>
+        <location filename="../src/mainwindow.cpp" line="274"/>
         <source>&amp;Virtual MIDI Keyboard</source>
         <translation>Ε&amp;ικονικό Πληκτρολόγιο MIDI</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="239"/>
+        <location filename="../src/mainwindow.cpp" line="346"/>
         <source>Select a project directory...</source>
         <translation>Επιλέξτε κατάλογο έργου...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="266"/>
-        <location filename="../src/mainwindow.cpp" line="517"/>
+        <location filename="../src/mainwindow.cpp" line="374"/>
+        <location filename="../src/mainwindow.cpp" line="633"/>
         <source>Play all tracks</source>
         <translation>Αναπαραγωγή όλων των κομματιών</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="381"/>
+        <location filename="../src/mainwindow.cpp" line="496"/>
         <source>Mix Complete</source>
         <translation>Η Μίξη Ολοκληρώθηκε</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="382"/>
+        <location filename="../src/mainwindow.cpp" line="497"/>
         <source>Audio exported successfully to:
 %1</source>
         <translation>Ο ήχος εξήχθη επιτυχώς στο:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="386"/>
+        <location filename="../src/mainwindow.cpp" line="501"/>
         <source>Mix Failed</source>
         <translation>Η Μίξη Απέτυχε</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="387"/>
+        <location filename="../src/mainwindow.cpp" line="502"/>
         <source>Could not export audio. Please check that you have at least one enabled track with content, and a SoundFont configured for MIDI tracks.</source>
         <translation>Δεν ήταν δυνατή η εξαγωγή ήχου. Παρακαλώ ελέγξτε ότι έχετε τουλάχιστον ένα ενεργοποιημένο κομμάτι με περιεχόμενο και ένα SoundFont ρυθμισμένο για κομμάτια MIDI.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="397"/>
+        <location filename="../src/mainwindow.cpp" line="512"/>
         <source>Select Project Directory</source>
         <translation>Επιλογή Καταλόγου Έργου</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="505"/>
+        <location filename="../src/mainwindow.cpp" line="621"/>
         <source>Stop</source>
         <translation>Διακοπή</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="511"/>
+        <location filename="../src/mainwindow.cpp" line="627"/>
         <source>Record armed track</source>
         <translation>Εγγραφή οπλισμένου κομματιού</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="535"/>
-        <location filename="../src/mainwindow.cpp" line="545"/>
+        <location filename="../src/mainwindow.cpp" line="651"/>
+        <location filename="../src/mainwindow.cpp" line="661"/>
         <source>Playback Error</source>
         <translation>Σφάλμα Αναπαραγωγής</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="535"/>
+        <location filename="../src/mainwindow.cpp" line="651"/>
         <source>Could not create temporary file.</source>
         <translation>Δεν ήταν δυνατή η δημιουργία προσωρινού αρχείου.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="546"/>
+        <location filename="../src/mainwindow.cpp" line="662"/>
         <source>Could not mix tracks for playback. Make sure tracks have content.</source>
         <translation>Δεν ήταν δυνατή η μίξη κομματιών για αναπαραγωγή. Βεβαιωθείτε ότι τα κομμάτια έχουν περιεχόμενο.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="571"/>
+        <location filename="../src/mainwindow.cpp" line="694"/>
         <source>Playback</source>
         <translation>Αναπαραγωγή</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="572"/>
+        <location filename="../src/mainwindow.cpp" line="695"/>
         <source>Qt Multimedia is not available. Build with Qt6::Multimedia for playback support.</source>
         <translation>Το Qt Multimedia δεν είναι διαθέσιμο. Μεταγλωττίστε με Qt6::Multimedia για υποστήριξη αναπαραγωγής.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="585"/>
+        <location filename="../src/mainwindow.cpp" line="708"/>
         <source>Project Directory Required</source>
         <translation>Απαιτείται Κατάλογος Έργου</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="586"/>
+        <location filename="../src/mainwindow.cpp" line="709"/>
         <source>You must choose a project directory before recording.
 Please select a directory to store your recorded files.</source>
         <translation>Πρέπει να επιλέξετε κατάλογο έργου πριν την εγγραφή.
 Παρακαλώ επιλέξτε κατάλογο για την αποθήκευση των εγγεγραμμένων αρχείων σας.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="611"/>
+        <location filename="../src/mainwindow.cpp" line="734"/>
         <source>Recording Error</source>
         <translation>Σφάλμα Εγγραφής</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="612"/>
+        <location filename="../src/mainwindow.cpp" line="735"/>
         <source>No audio input device found. Configure one in Settings.</source>
         <translation>Δεν βρέθηκε συσκευή εισόδου ήχου. Ρυθμίστε μία στις Ρυθμίσεις.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="623"/>
-        <location filename="../src/mainwindow.cpp" line="633"/>
+        <location filename="../src/mainwindow.cpp" line="753"/>
+        <location filename="../src/mainwindow.cpp" line="763"/>
         <source>Get ready...  %1</source>
         <translation>Ετοιμαστείτε...  %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="647"/>
+        <location filename="../src/mainwindow.cpp" line="777"/>
         <source>Recording</source>
         <translation>Εγγραφή</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="648"/>
+        <location filename="../src/mainwindow.cpp" line="778"/>
         <source>Qt Multimedia is not available. Build with Qt6::Multimedia for recording support.</source>
         <translation>Το Qt Multimedia δεν είναι διαθέσιμο. Μεταγλωττίστε με Qt6::Multimedia για υποστήριξη εγγραφής.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="983"/>
+        <location filename="../src/mainwindow.cpp" line="1126"/>
         <source>PortAudio</source>
         <translation>PortAudio</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="984"/>
+        <location filename="../src/mainwindow.cpp" line="1127"/>
         <source>Could not start PortAudio recording (%1). Falling back to Qt Multimedia.</source>
         <translation>Δεν ήταν δυνατή η εκκίνηση εγγραφής PortAudio (%1). Εναλλακτική χρήση Qt Multimedia.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1139"/>
+        <location filename="../src/mainwindow.cpp" line="231"/>
+        <location filename="../src/mainwindow.cpp" line="293"/>
+        <location filename="../src/mainwindow.cpp" line="1303"/>
         <source>Save Project</source>
         <translation>Αποθήκευση Έργου</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1140"/>
+        <location filename="../src/mainwindow.cpp" line="1304"/>
         <source>Please choose a project directory before saving.</source>
         <translation>Παρακαλώ επιλέξτε κατάλογο έργου πριν την αποθήκευση.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1214"/>
+        <location filename="../src/mainwindow.cpp" line="1378"/>
         <source>Save Failed</source>
         <translation>Η Αποθήκευση Απέτυχε</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1215"/>
+        <location filename="../src/mainwindow.cpp" line="1379"/>
         <source>Could not write project file:
 %1</source>
         <translation>Δεν ήταν δυνατή η εγγραφή του αρχείου έργου:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1221"/>
+        <location filename="../src/mainwindow.cpp" line="1385"/>
         <source>Project Saved</source>
         <translation>Το Έργο Αποθηκεύτηκε</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1222"/>
+        <location filename="../src/mainwindow.cpp" line="1386"/>
         <source>Project saved to:
 %1</source>
         <translation>Το έργο αποθηκεύτηκε στο:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1231"/>
+        <location filename="../src/mainwindow.cpp" line="230"/>
+        <location filename="../src/mainwindow.cpp" line="287"/>
+        <location filename="../src/mainwindow.cpp" line="1395"/>
         <source>Open Project</source>
         <translation>Άνοιγμα Έργου</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1232"/>
+        <location filename="../src/mainwindow.cpp" line="1396"/>
         <source>Project files (*.json);;All files (*)</source>
         <translation>Αρχεία έργου (*.json);;Όλα τα αρχεία (*)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1243"/>
-        <location filename="../src/mainwindow.cpp" line="1251"/>
+        <location filename="../src/mainwindow.cpp" line="1407"/>
+        <location filename="../src/mainwindow.cpp" line="1415"/>
         <source>Open Failed</source>
         <translation>Το Άνοιγμα Απέτυχε</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1244"/>
+        <location filename="../src/mainwindow.cpp" line="1408"/>
         <source>Could not read project file:
 %1</source>
         <translation>Δεν ήταν δυνατή η ανάγνωση του αρχείου έργου:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1251"/>
+        <location filename="../src/mainwindow.cpp" line="1415"/>
         <source>Invalid project file format.</source>
         <translation>Μη έγκυρη μορφή αρχείου έργου.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1417"/>
+        <location filename="../src/mainwindow.cpp" line="1581"/>
         <source>Remove all %1 track(s) from the project?</source>
         <translation>Αφαίρεση όλων των %1 κομματιών από το έργο;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1435"/>
+        <location filename="../src/mainwindow.cpp" line="1599"/>
         <source>Unsaved Changes</source>
         <translation>Μη Αποθηκευμένες Αλλαγές</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1436"/>
+        <location filename="../src/mainwindow.cpp" line="1600"/>
         <source>The project has unsaved changes. Save before closing?</source>
         <translation>Το έργο έχει μη αποθηκευμένες αλλαγές. Αποθήκευση πριν το κλείσιμο;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1489"/>
+        <location filename="../src/mainwindow.cpp" line="1672"/>
         <source>No Tracks</source>
         <translation>Κανένα Κομμάτι</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1489"/>
+        <location filename="../src/mainwindow.cpp" line="1672"/>
         <source>Add a track first, then select it.</source>
         <translation>Προσθέστε πρώτα ένα κομμάτι και μετά επιλέξτε το.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1501"/>
-        <location filename="../src/mainwindow.cpp" line="1506"/>
+        <location filename="../src/mainwindow.cpp" line="1684"/>
+        <location filename="../src/mainwindow.cpp" line="1689"/>
         <source>Demo Data</source>
         <translation>Δεδομένα Επίδειξης</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1502"/>
+        <location filename="../src/mainwindow.cpp" line="1685"/>
         <source>Demo MIDI notes added. Try Mix → Mix tracks to file to export.</source>
         <translation>Προστέθηκαν νότες MIDI επίδειξης. Δοκιμάστε Μίξη → Μίξη κομματιών σε αρχείο για εξαγωγή.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1507"/>
+        <location filename="../src/mainwindow.cpp" line="1690"/>
         <source>Switch the track to MIDI type (Options) to add demo notes.</source>
         <translation>Αλλάξτε το κομμάτι σε τύπο MIDI (Επιλογές) για να προσθέσετε νότες επίδειξης.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1515"/>
+        <location filename="../src/mainwindow.cpp" line="1698"/>
         <source>Track %1</source>
         <translation>Κομμάτι %1</translation>
+    </message>
+</context>
+<context>
+    <name>MetronomeDialog</name>
+    <message>
+        <location filename="../src/metronomedialog.cpp" line="13"/>
+        <source>Metronome Settings</source>
+        <translation>Ρυθμίσεις μετρονόμου</translation>
+    </message>
+    <message>
+        <location filename="../src/metronomedialog.cpp" line="18"/>
+        <source>Metronome</source>
+        <translation>Μετρονόμος</translation>
+    </message>
+    <message>
+        <location filename="../src/metronomedialog.cpp" line="21"/>
+        <source>Enable metronome during recording</source>
+        <translation>Ενεργοποίηση μετρονόμου κατά την εγγραφή</translation>
+    </message>
+    <message>
+        <location filename="../src/metronomedialog.cpp" line="25"/>
+        <source>Beats per minute:</source>
+        <translation>Χτύποι ανά λεπτό:</translation>
+    </message>
+    <message>
+        <location filename="../src/metronomedialog.cpp" line="38"/>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <location filename="../src/metronomedialog.cpp" line="41"/>
+        <source>Cancel</source>
+        <translation>Ακύρωση</translation>
     </message>
 </context>
 <context>
@@ -610,150 +665,220 @@ Please select a directory to store your recorded files.</source>
         <translation>Διαμόρφωση</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="46"/>
+        <location filename="../src/settingsdialog.cpp" line="47"/>
         <source>Apply</source>
         <translation>Εφαρμογή</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="51"/>
+        <location filename="../src/settingsdialog.cpp" line="52"/>
         <source>Close</source>
         <translation>Κλείσιμο</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="85"/>
+        <location filename="../src/settingsdialog.cpp" line="86"/>
         <source>Here, you can configure general application settings.</source>
         <translation>Εδώ μπορείτε να ρυθμίσετε τις γενικές ρυθμίσεις της εφαρμογής.</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="87"/>
+        <location filename="../src/settingsdialog.cpp" line="88"/>
         <source>Appearance</source>
         <translation>Εμφάνιση</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="89"/>
+        <location filename="../src/settingsdialog.cpp" line="90"/>
         <source>Theme:</source>
         <translation>Θέμα:</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="91"/>
+        <location filename="../src/settingsdialog.cpp" line="92"/>
         <source>Dark</source>
         <translation>Σκοτεινό</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="92"/>
+        <location filename="../src/settingsdialog.cpp" line="93"/>
         <source>Light</source>
         <translation>Φωτεινό</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="97"/>
+        <location filename="../src/settingsdialog.cpp" line="98"/>
         <source>Diagnostics</source>
         <translation>Διαγνωστικά</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="99"/>
+        <location filename="../src/settingsdialog.cpp" line="100"/>
         <source>Write recording debug log</source>
         <translation>Εγγραφή αρχείου καταγραφής εντοπισμού σφαλμάτων εγγραφής</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="104"/>
+        <location filename="../src/settingsdialog.cpp" line="105"/>
         <source>General</source>
         <translation>Γενικά</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="115"/>
+        <location filename="../src/settingsdialog.cpp" line="116"/>
+        <source>Configure the appearance of display elements.</source>
+        <translation>Διαμορφώστε την εμφάνιση των στοιχείων οθόνης.</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="118"/>
+        <source>Numeric Display</source>
+        <translation>Αριθμητική οθόνη</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="120"/>
+        <source>Numeric display LED color:</source>
+        <translation>Χρώμα LED αριθμητικής οθόνης:</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="123"/>
+        <source>Light Red</source>
+        <translation>Ανοιχτό κόκκινο</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="124"/>
+        <source>Dark Red</source>
+        <translation>Σκούρο κόκκινο</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="125"/>
+        <source>Light Green</source>
+        <translation>Ανοιχτό πράσινο</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="126"/>
+        <source>Dark Green</source>
+        <translation>Σκούρο πράσινο</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="127"/>
+        <source>Light Blue</source>
+        <translation>Ανοιχτό μπλε</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="128"/>
+        <source>Dark Blue</source>
+        <translation>Σκούρο μπλε</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="129"/>
+        <source>Yellow</source>
+        <translation>Κίτρινο</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="130"/>
+        <source>Orange</source>
+        <translation>Πορτοκαλί</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="131"/>
+        <source>Light Cyan</source>
+        <translation>Ανοιχτό κυανό</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="132"/>
+        <source>Dark Cyan</source>
+        <translation>Σκούρο κυανό</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="137"/>
+        <source>Display</source>
+        <translation>Οθόνη</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="148"/>
         <source>Here, you can configure settings related to MIDI.</source>
         <translation>Εδώ μπορείτε να ρυθμίσετε τις ρυθμίσεις που σχετίζονται με το MIDI.</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="117"/>
+        <location filename="../src/settingsdialog.cpp" line="150"/>
         <source>MIDI Device</source>
         <translation>Συσκευή MIDI</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="123"/>
+        <location filename="../src/settingsdialog.cpp" line="156"/>
         <source>Refresh</source>
         <translation>Ανανέωση</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="129"/>
+        <location filename="../src/settingsdialog.cpp" line="162"/>
         <source>SoundFont (for MIDI synthesis)</source>
         <translation>SoundFont (για σύνθεση MIDI)</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="132"/>
+        <location filename="../src/settingsdialog.cpp" line="165"/>
         <source>Path to .sf2 SoundFont file</source>
         <translation>Διαδρομή αρχείου SoundFont .sf2</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="135"/>
+        <location filename="../src/settingsdialog.cpp" line="168"/>
         <source>Browse...</source>
         <translation>Αναζήτηση...</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="141"/>
+        <location filename="../src/settingsdialog.cpp" line="174"/>
         <source>MIDI</source>
         <translation>MIDI</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="152"/>
+        <location filename="../src/settingsdialog.cpp" line="185"/>
         <source>Here, you can configure audio settings for the application.</source>
         <translation>Εδώ μπορείτε να ρυθμίσετε τις ρυθμίσεις ήχου για την εφαρμογή.</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="154"/>
+        <location filename="../src/settingsdialog.cpp" line="187"/>
         <source>Audio Input Device</source>
         <translation>Συσκευή Εισόδου Ήχου</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="161"/>
+        <location filename="../src/settingsdialog.cpp" line="194"/>
         <source>Audio Output Device</source>
         <translation>Συσκευή Εξόδου Ήχου</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="169"/>
+        <location filename="../src/settingsdialog.cpp" line="202"/>
         <source>Audio</source>
         <translation>Ήχος</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="180"/>
+        <location filename="../src/settingsdialog.cpp" line="213"/>
         <source>Choose the display language for the application.</source>
         <translation>Επιλέξτε τη γλώσσα εμφάνισης της εφαρμογής.</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="182"/>
-        <location filename="../src/settingsdialog.cpp" line="209"/>
+        <location filename="../src/settingsdialog.cpp" line="215"/>
+        <location filename="../src/settingsdialog.cpp" line="242"/>
         <source>Language</source>
         <translation>Γλώσσα</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="186"/>
+        <location filename="../src/settingsdialog.cpp" line="219"/>
         <source>System Default</source>
         <translation>Προεπιλογή Συστήματος</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="217"/>
+        <location filename="../src/settingsdialog.cpp" line="250"/>
         <source>Built-in FluidSynth synthesizer</source>
         <translation>Ενσωματωμένος συνθετητής FluidSynth</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="238"/>
-        <location filename="../src/settingsdialog.cpp" line="244"/>
+        <location filename="../src/settingsdialog.cpp" line="271"/>
+        <location filename="../src/settingsdialog.cpp" line="277"/>
         <source>(Default)</source>
         <translation>(Προεπιλογή)</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="250"/>
-        <location filename="../src/settingsdialog.cpp" line="251"/>
+        <location filename="../src/settingsdialog.cpp" line="283"/>
+        <location filename="../src/settingsdialog.cpp" line="284"/>
         <source>(Default - install qt6-multimedia-dev for device list)</source>
         <translation>(Προεπιλογή - εγκαταστήστε qt6-multimedia-dev για λίστα συσκευών)</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="332"/>
+        <location filename="../src/settingsdialog.cpp" line="372"/>
         <source>Select SoundFont</source>
         <translation>Επιλογή SoundFont</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="334"/>
+        <location filename="../src/settingsdialog.cpp" line="374"/>
         <source>SoundFont files (*.sf2 *.SF2);;All files (*)</source>
         <translation>Αρχεία SoundFont (*.sf2 *.SF2);;Όλα τα αρχεία (*)</translation>
     </message>

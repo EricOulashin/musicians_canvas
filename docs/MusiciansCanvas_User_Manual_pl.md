@@ -1,7 +1,7 @@
 ---
 title: "Musician's Canvas Podręcznik Użytkownika"
 subtitle: "Wielościeżkowa aplikacja do nagrywania muzyki"
-version: "0.1.0"
+version: "0.1.1"
 date: "2026-04-03"
 author: "Eric Oulashin"
 lang: "pl"
@@ -49,6 +49,21 @@ Przy uruchomieniu aplikacja stosuje zapisany motyw (ciemny lub jasny), a jeśli 
 3. **Nazwij ścieżkę**: Wpisz nazwę w polu tekstowym obok przycisku "Options". Ta nazwa jest używana jako nazwa pliku nagrywanego pliku audio.
 
 ![Okno główne](../screenshots/MusiciansCanvas_1_MainWin.png)
+
+### Pasek przycisków
+
+Tuż pod paskiem menu znajduje się pasek narzędzi z przyciskami szybkiego dostępu:
+
+![Pasek przycisków](../screenshots/ButtonBar.png)
+
+- **Open Project**: To samo co **File > Open Project** — otwiera wcześniej zapisany projekt.
+- **Save Project**: To samo co **File > Save Project** — zapisuje bieżący projekt. Ten przycisk
+  jest włączony tylko wtedy, gdy ustawiony jest katalog projektu.
+- **Project Settings**: To samo co **Project > Project Settings** — otwiera okno dialogowe
+  ustawień projektu. Ten przycisk jest włączony tylko wtedy, gdy ustawiony jest katalog projektu.
+- **Configuration**: To samo co **Settings > Configuration** — otwiera okno dialogowe globalnych
+  ustawień aplikacji.
+- **Metronome Settings**: Otwiera okno dialogowe ustawień metronomu (zobacz sekcję Metronom poniżej).
 
 ### Zapisywanie i otwieranie projektów
 
@@ -148,6 +163,25 @@ Niektóre urządzenia audio (np. mikrofony kamer internetowych USB) są fizyczni
 
 Nuty MIDI są wyświetlane w wizualizacji piano roll na ścieżce.
 
+## Metronom
+
+Musician's Canvas zawiera wbudowany metronom, którego można używać podczas nagrywania, aby
+pomóc utrzymać rytm. Kliknij przycisk metronomu na pasku przycisków (pod paskiem menu), aby
+otworzyć okno dialogowe ustawień metronomu:
+
+![Ustawienia metronomu](../screenshots/MetronomeSettings.png)
+
+Okno dialogowe udostępnia:
+
+- **Enable metronome during recording**: Po zaznaczeniu metronom odtwarza dźwięk tykania,
+  gdy trwa nagrywanie. Tykanie jest odtwarzane przez dźwięk systemowy i **nie** jest
+  rejestrowane na nagrywanej ścieżce.
+- **Beats per minute**: Numeryczne wejście tempa, w uderzeniach na minutę (BPM). Zakres to
+  20–300 BPM.
+
+Gdy metronom jest włączony, zaczyna tykać, gdy nagrywanie faktycznie się rozpocznie (po
+zakończeniu 3-sekundowego odliczania), i zatrzymuje się po zakończeniu nagrywania.
+
 ## Odtwarzanie
 
 Kliknij przycisk **Play**, aby zmiksować i odtworzyć wszystkie włączone ścieżki. Podpowiedź przycisku zmienia się, wskazując, czy będzie odtwarzać, czy nagrywać, w zależności od tego, czy ścieżka jest uzbrojona. Wyłączone ścieżki (niezaznaczone) są pomijane podczas odtwarzania.
@@ -177,9 +211,17 @@ Użyj **Settings > Configuration** (Ctrl+,), aby ustawić globalne wartości dom
 
 - **Motyw**: Wybierz między ciemnym a jasnym motywem.
 
+#### Karta Wyświetlanie
+
+- **Kolor numerycznego wyświetlacza LED**: Wybierz kolor używany dla numerycznego wyświetlacza LED czasu pokazywanego na pasku narzędzi głównego okna. Aktywne segmenty cyfr są rysowane w wybranym kolorze, a nieaktywne segmenty są rysowane jako przyciemniona wersja tego samego koloru. Dostępne kolory to Light Red, Dark Red, Light Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan i Dark Cyan. Domyślny to Light Green.
+
+![Ustawienia wyświetlania](../screenshots/MusiciansCanvas_DisplaySettings.png)
+
 #### Karta Język
 
 - **Język**: Wybierz język wyświetlania aplikacji. Domyślnie jest to "System Default", który używa ustawień językowych systemu operacyjnego. Dostępne języki to angielski, Deutsch (niemiecki), Español (hiszpański), Français (francuski), japoński, Português (portugalski brazylijski), chiński (tradycyjny), chiński (uproszczony) i piracki. Interfejs aktualizuje się natychmiast po zmianie języka.
+
+![Ustawienia języka](../screenshots/MusiciansCanvas_LanguageSettings.png)
 
 #### Karta MIDI
 

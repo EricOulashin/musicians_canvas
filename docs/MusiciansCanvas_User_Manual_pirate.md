@@ -1,7 +1,7 @@
 ---
 title: "Musician's Canvas Captain's Log & User Manual"
 subtitle: "A Multi-Shanty Music Plunderin' Application fer Scallywags an' Sea Dogs Alike"
-version: "0.1.0"
+version: "0.1.1"
 date: "2026-04-03"
 author: "Cap'n Eric Oulashin"
 lang: "en-pirate"
@@ -49,6 +49,20 @@ On startup, the application applies the saved theme (dark or light) an', if a pr
 3. **Name the shanty**: Type a name in the text field next to the "Options" button. This name be used as the filename fer the recorded audio file, so choose wisely, ye scallywag!
 
 ![Main window](../screenshots/MusiciansCanvas_1_MainWin.png)
+
+### Button Bar (The Quick-Draw Belt)
+
+Just below the menu bar, ye'll find a row o' trusty buttons for quick plunderin':
+
+![Button bar](../screenshots/ButtonBar.png)
+
+- **Open Project**: Same as **File > Open Project** — hoists up a shanty ye stashed away earlier.
+- **Save Project**: Same as **File > Save Project** — buries the current shanty in yer chest.
+  This button be only lively when ye've marked a project directory on yer map.
+- **Project Settings**: Same as **Project > Project Settings** — opens the shanty settings
+  parchment. This button be only lively when ye've marked a project directory on yer map.
+- **Configuration**: Same as **Settings > Configuration** — opens the global ship's settings parchment.
+- **Metronome Settings**: Opens the metronome settings parchment (see the Metronome section below, matey).
 
 ### Savin' and Openin' Projects
 
@@ -148,6 +162,25 @@ Some audio devices (e.g., USB webcam microphones) be physically mono but are adv
 
 MIDI notes be displayed in a piano roll visualization on the shanty.
 
+## Metronome (The Ship's Drummer)
+
+Musician's Canvas carries a trusty built-in metronome, a steady drummer ye can call upon
+durin' recordin' to keep yer crew in time. Click the metronome button on the button bar
+(below the menu bar) to open the metronome settings parchment:
+
+![Metronome settings](../screenshots/MetronomeSettings.png)
+
+The parchment offers:
+
+- **Enable metronome during recording**: When ye check this box, the metronome beats a tick
+  while recordin' be underway. The tick sails out through the ship's speakers and be **not**
+  captured into the recorded shanty.
+- **Beats per minute**: A numeric input fer the tempo, in beats per minute (BPM). The range
+  be 20–300 BPM, matey.
+
+When the metronome be enabled, it starts tickin' once recordin' actually begins (after the
+3-second countdown be done) and stops when recordin' ends. Yarrr!
+
 ## Replayin' the Shanty (Playback)
 
 Click the **Play** button to mix an' replay all enabled shanties. The button tooltip changes to indicate whether it will play or record based on whether a shanty be armed. Disabled shanties (unchecked) be excluded from replayin' -- they stay below deck.
@@ -182,6 +215,17 @@ Use **Settings > Configuration** (Ctrl+,) to set global defaults that apply to a
   an' timin' data. This be disabled by default an' be primarily useful fer troubleshootin'
   plunderin' issues, savvy?
 
+#### Display Tab
+
+- **Numeric display LED color**: Choose the color o' the numeric LED time display that
+  glimmers on the main window toolbar, matey! The active digit segments be drawn in the
+  chosen color, an' the lazy inactive segments be drawn as a dim, ghostly version o' the
+  same hue. Available colors be Light Red, Dark Red, Light Green, Dark Green, Light Blue,
+  Dark Blue, Yellow, Orange, Light Cyan, an' Dark Cyan. The default be Light Green, bright
+  as a sea serpent's eye.
+
+![Display settin's](../screenshots/MusiciansCanvas_DisplaySettings.png)
+
 #### Language Tab
 
 - **Language**: Choose the display language fer the application, ye worldly pirate! The
@@ -191,6 +235,8 @@ Use **Settings > Configuration** (Ctrl+,) to set global defaults that apply to a
   (Danish), Ελληνικά (Greek), Gaeilge (Irish), Norsk (Norwegian), Polski (Polish),
   Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh), an' Pirate.
   The interface updates immediately when ye change the language -- no need to restart the ship!
+
+![Language settin's](../screenshots/MusiciansCanvas_LanguageSettings.png)
 
 #### MIDI Tab
 

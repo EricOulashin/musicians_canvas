@@ -1,7 +1,7 @@
 ---
 title: "Musician's Canvas Benutzerhandbuch"
 subtitle: "Mehrspurige Musikaufnahme-Anwendung"
-version: "0.1.0"
+version: "0.1.1"
 date: "2026-04-03"
 author: "Eric Oulashin"
 lang: "de"
@@ -63,6 +63,21 @@ das Projekt automatisch geladen.
    "Options" ein. Dieser Name wird als Dateiname für die aufgenommene Audiodatei verwendet.
 
 ![Hauptfenster](../screenshots/MusiciansCanvas_1_MainWin.png)
+
+### Schaltflächenleiste
+
+Direkt unter der Menüleiste befindet sich eine Werkzeugleiste mit Schnellzugriffs-Schaltflächen:
+
+![Schaltflächenleiste](../screenshots/ButtonBar.png)
+
+- **Open Project**: Entspricht **File > Open Project** — öffnet ein zuvor gespeichertes Projekt.
+- **Save Project**: Entspricht **File > Save Project** — speichert das aktuelle Projekt. Diese
+  Schaltfläche ist nur aktiviert, wenn ein Projektverzeichnis festgelegt ist.
+- **Project Settings**: Entspricht **Project > Project Settings** — öffnet den Dialog der
+  Projekteinstellungen. Diese Schaltfläche ist nur aktiviert, wenn ein Projektverzeichnis festgelegt ist.
+- **Configuration**: Entspricht **Settings > Configuration** — öffnet den Dialog der globalen
+  Anwendungseinstellungen.
+- **Metronome Settings**: Öffnet den Dialog der Metronom-Einstellungen (siehe den Abschnitt Metronom weiter unten).
 
 ### Projekte speichern und öffnen
 
@@ -206,6 +221,25 @@ Mono-Signal auf beide Kanäle dupliziert.
 
 MIDI-Noten werden in einer Piano-Roll-Visualisierung auf der Spur angezeigt.
 
+## Metronom
+
+Musician's Canvas enthält ein integriertes Metronom, das während der Aufnahme zum Halten
+des Takts verwendet werden kann. Klicken Sie auf die Metronom-Schaltfläche in der
+Schaltflächenleiste (unter der Menüleiste), um den Dialog der Metronom-Einstellungen zu öffnen:
+
+![Metronom-Einstellungen](../screenshots/MetronomeSettings.png)
+
+Der Dialog bietet:
+
+- **Enable metronome during recording**: Wenn aktiviert, spielt das Metronom während der
+  Aufnahme einen Tick-Ton ab. Der Tick wird über das Systemaudio wiedergegeben und **nicht**
+  in die aufgenommene Spur aufgenommen.
+- **Beats per minute**: Eine numerische Eingabe für das Tempo in Schlägen pro Minute (BPM).
+  Der Bereich ist 20–300 BPM.
+
+Wenn das Metronom aktiviert ist, beginnt es zu ticken, sobald die Aufnahme tatsächlich
+startet (nach Ablauf des 3-Sekunden-Countdowns), und stoppt, wenn die Aufnahme endet.
+
 ## Wiedergabe
 
 Klicken Sie auf die Schaltfläche **Play**, um alle aktivierten Spuren abzumischen und
@@ -250,6 +284,17 @@ die für alle Projekte gelten:
   Abtastrate, die Kanalanzahl und Zeitdaten. Diese Option ist standardmäßig deaktiviert
   und dient hauptsächlich zur Fehlerbehebung bei Aufnahmeproblemen.
 
+#### Registerkarte "Display"
+
+- **Farbe der numerischen LED-Anzeige**: Wählen Sie die Farbe für die numerische
+  LED-Zeitanzeige in der Symbolleiste des Hauptfensters. Die aktiven Ziffernsegmente
+  werden in der gewählten Farbe gezeichnet, inaktive Segmente als abgedunkelte
+  Version derselben Farbe. Verfügbare Farben sind Light Red, Dark Red, Light Green,
+  Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan und Dark Cyan. Die
+  Standardeinstellung ist Light Green.
+
+![Anzeigeeinstellungen](../screenshots/MusiciansCanvas_DisplaySettings.png)
+
 #### Registerkarte "Language"
 
 - **Sprache**: Wählen Sie die Anzeigesprache der Anwendung. Die Standardeinstellung ist
@@ -259,6 +304,8 @@ die für alle Projekte gelten:
   (Danish), Ελληνικά (Greek), Gaeilge (Irish), Norsk (Norwegian), Polski (Polish),
   Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh) und Pirate.
   Die Benutzeroberfläche wird sofort aktualisiert, wenn Sie die Sprache ändern.
+
+![Spracheinstellungen](../screenshots/MusiciansCanvas_LanguageSettings.png)
 
 #### Registerkarte "MIDI"
 

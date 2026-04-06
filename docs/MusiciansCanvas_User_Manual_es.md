@@ -1,7 +1,7 @@
 ---
 title: "Manual de Usuario de Musician's Canvas"
 subtitle: "Aplicación de Grabación Musical Multipista"
-version: "0.1.0"
+version: "0.1.1"
 date: "2026-04-03"
 author: "Eric Oulashin"
 lang: "es"
@@ -49,6 +49,21 @@ Al iniciar, la aplicación aplica el tema guardado (oscuro o claro) y, si un dir
 3. **Nombrar la pista**: Escriba un nombre en el campo de texto junto al botón "Options". Este nombre se utiliza como nombre del archivo de audio grabado.
 
 ![Ventana principal](../screenshots/MusiciansCanvas_1_MainWin.png)
+
+### Barra de botones
+
+Justo debajo de la barra de menús hay una barra de herramientas con botones de acceso rápido:
+
+![Barra de botones](../screenshots/ButtonBar.png)
+
+- **Open Project**: Igual que **File > Open Project** — abre un proyecto guardado previamente.
+- **Save Project**: Igual que **File > Save Project** — guarda el proyecto actual. Este
+  botón solo está habilitado cuando se ha establecido un directorio de proyecto.
+- **Project Settings**: Igual que **Project > Project Settings** — abre el diálogo de ajustes
+  del proyecto. Este botón solo está habilitado cuando se ha establecido un directorio de proyecto.
+- **Configuration**: Igual que **Settings > Configuration** — abre el diálogo de ajustes globales
+  de la aplicación.
+- **Metronome Settings**: Abre el diálogo de ajustes del metrónomo (vea la sección Metrónomo más abajo).
 
 ### Guardar y Abrir Proyectos
 
@@ -148,6 +163,26 @@ Algunos dispositivos de audio (por ejemplo, micrófonos de cámaras web USB) son
 
 Las notas MIDI se muestran en una visualización de piano roll en la pista.
 
+## Metrónomo
+
+Musician's Canvas incluye un metrónomo integrado que puede usarse durante la grabación para
+ayudar a mantener el tiempo. Haga clic en el botón del metrónomo en la barra de botones
+(debajo de la barra de menús) para abrir el diálogo de ajustes del metrónomo:
+
+![Ajustes del metrónomo](../screenshots/MetronomeSettings.png)
+
+El diálogo proporciona:
+
+- **Enable metronome during recording**: Cuando está marcado, el metrónomo reproduce un
+  sonido de tic mientras la grabación está activa. El tic se reproduce a través del audio del
+  sistema y **no** se captura en la pista grabada.
+- **Beats per minute**: Una entrada numérica para el tempo, en pulsos por minuto (BPM). El
+  rango es de 20 a 300 BPM.
+
+Cuando el metrónomo está habilitado, comienza a sonar una vez que la grabación realmente
+comienza (después de que termina la cuenta regresiva de 3 segundos) y se detiene cuando
+finaliza la grabación.
+
 ## Reproducción
 
 Haga clic en el botón **Play** para mezclar y reproducir todas las pistas habilitadas. El tooltip del botón cambia para indicar si reproducirá o grabará según si hay una pista armada. Las pistas deshabilitadas (desmarcadas) se excluyen de la reproducción.
@@ -183,6 +218,17 @@ Use **Settings > Configuration** (Ctrl+,) para establecer los valores predetermi
   temporización. Esta opción está deshabilitada por defecto y es principalmente útil para
   solucionar problemas de grabación.
 
+#### Pestaña Display
+
+- **Color del LED de visualización numérica**: Elija el color usado para la pantalla
+  numérica LED de tiempo mostrada en la barra de herramientas de la ventana principal.
+  Los segmentos activos de los dígitos se dibujan con el color elegido, y los segmentos
+  inactivos se dibujan como una versión atenuada del mismo color. Los colores
+  disponibles son Light Red, Dark Red, Light Green, Dark Green, Light Blue, Dark Blue,
+  Yellow, Orange, Light Cyan y Dark Cyan. El valor predeterminado es Light Green.
+
+![Configuración de pantalla](../screenshots/MusiciansCanvas_DisplaySettings.png)
+
 #### Pestaña Language
 
 - **Idioma**: Elija el idioma de la interfaz de la aplicación. El valor predeterminado es
@@ -192,6 +238,8 @@ Use **Settings > Configuration** (Ctrl+,) para establecer los valores predetermi
   Dansk (Danish), Ελληνικά (Greek), Gaeilge (Irish), Norsk (Norwegian), Polski (Polish),
   Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh) y Pirate. La
   interfaz se actualiza inmediatamente al cambiar el idioma.
+
+![Configuración de idioma](../screenshots/MusiciansCanvas_LanguageSettings.png)
 
 #### Pestaña MIDI
 

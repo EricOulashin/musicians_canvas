@@ -1,7 +1,7 @@
 ---
 title: "Lámhleabhar Úsáideora Musician's Canvas"
 subtitle: "Feidhmchlár Taifeadta Ceoil Il-Rian"
-version: "0.1.0"
+version: "0.1.1"
 date: "2026-04-03"
 author: "Eric Oulashin"
 lang: "ga"
@@ -49,6 +49,21 @@ Ar thosach, cuireann an feidhmchlár an téama sábháilte i bhfeidhm (dorcha n�
 3. **Ainmnigh an rian**: Clóscríobh ainm sa réimse téacs in aice leis an gcnaipe "Options". Úsáidtear an t-ainm seo mar ainm comhaid don chomhad fuaime taifeadta.
 
 ![Príomhfhuinneog](../screenshots/MusiciansCanvas_1_MainWin.png)
+
+### Barra Cnaipí
+
+Díreach faoin mbarra roghchláir tá barra uirlisí le cnaipí mear-rochtana:
+
+![Barra Cnaipí](../screenshots/ButtonBar.png)
+
+- **Open Project**: Mar an gcéanna le **File > Open Project** — osclaíonn tionscadal a sábháladh roimhe seo.
+- **Save Project**: Mar an gcéanna le **File > Save Project** — sábhálann an tionscadal reatha. Níl
+  an cnaipe seo cumasaithe ach amháin nuair a shocraítear eolaire tionscadail.
+- **Project Settings**: Mar an gcéanna le **Project > Project Settings** — osclaíonn an dialóg
+  socruithe tionscadail. Níl an cnaipe seo cumasaithe ach amháin nuair a shocraítear eolaire tionscadail.
+- **Configuration**: Mar an gcéanna le **Settings > Configuration** — osclaíonn dialóg
+  socruithe feidhmchláir domhanda.
+- **Metronome Settings**: Osclaíonn an dialóg socruithe méadranóim (féach an t-alt Méadranóm thíos).
 
 ### Tionscadail a Shábháil agus a Oscailt
 
@@ -148,6 +163,26 @@ Tá roinnt gléasanna fuaime (m.sh., micreafóin ceamara gréasáin USB) monafó
 
 Taispeántar nótaí MIDI in amharcléiriú piano roll ar an rian.
 
+## Méadranóm
+
+Tá méadranóm ionsuite ag Musician's Canvas is féidir a úsáid le linn taifeadta chun cabhrú
+leis an am a choinneáil. Cliceáil an cnaipe méadranóim ar an mbarra cnaipí (faoin mbarra
+roghchláir) chun an dialóg socruithe méadranóim a oscailt:
+
+![Socruithe méadranóim](../screenshots/MetronomeSettings.png)
+
+Soláthraíonn an dialóg:
+
+- **Enable metronome during recording**: Nuair atá sé ticeáilte, seinneann an méadranóm fuaim
+  tic agus taifeadadh ar siúl. Seinntear an tic trí fhuaim an chórais agus **ní** ghabhtar é
+  isteach sa rian taifeadta.
+- **Beats per minute**: Ionchur uimhriúil don luas, i mbuillí sa nóiméad (BPM). Is é an raon
+  20–300 BPM.
+
+Nuair atá an méadranóm cumasaithe, tosaíonn sé ag ticeáil nuair a thosaíonn an taifeadadh i
+ndáiríre (tar éis don chomhaireamh síos 3 soicind críochnú), agus stopann sé nuair a chríochnaíonn
+an taifeadadh.
+
 ## Athsheinm
 
 Cliceáil an cnaipe **Play** chun gach rian cumasaithe a mheascadh agus a athsheinm. Athraíonn leid uirlise an chnaipe chun a léiriú an seinnfidh sé nó an dtaifeadfaidh sé bunaithe ar an gcé acu an bhfuil rian armáilte. Ní chuirtear rianta díchumasaithe (gan tic) san áireamh san athsheinm.
@@ -177,9 +212,17 @@ Cliceáil an cnaipe **Stop** chun an athsheinm a chríochnú ag am ar bith.
 
 - **Téama**: Roghnaigh idir téamaí dorcha agus éadroma.
 
+#### Cluaisín Display
+
+- **Dath an taispeána LED uimhriúil**: Roghnaigh an dath a úsáidtear le haghaidh an taispeána ama LED uimhriúil atá le feiceáil ar bharra uirlisí na príomhfhuinneoige. Tarraingítear deighleáin ghníomhacha na ndigití sa dath roghnaithe, agus tarraingítear deighleáin neamhghníomhacha mar leagan lagaithe den dath céanna. Is iad na dathanna atá ar fáil ná Light Red, Dark Red, Light Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan agus Dark Cyan. Is é Light Green an réamhshocrú.
+
+![Socruithe taispeána](../screenshots/MusiciansCanvas_DisplaySettings.png)
+
 #### Cluaisín Language
 
 - **Teanga**: Roghnaigh teanga taispeána an fheidhmchláir. Is é "System Default" an réamhshocrú, a úsáideann socrú teanga an chórais oibriúcháin. Is iad na teangacha atá ar fáil ná Béarla, Deutsch (Gearmáinis), Español (Spáinnis), Français (Fraincis), Seapáinis, Português (Portaingéilis na Brasaíle), Sínis (Traidisiúnta), Sínis (Simplithe), agus Foghlaeireacht. Déantar an comhéadan a nuashonrú láithreach nuair a athraíonn tú an teanga.
+
+![Socruithe teanga](../screenshots/MusiciansCanvas_LanguageSettings.png)
 
 #### Cluaisín MIDI
 

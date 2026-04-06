@@ -1,7 +1,7 @@
 ---
 title: "Llawlyfr Defnyddiwr Musician's Canvas"
 subtitle: "Cymhwysiad Recordio Cerddoriaeth Aml-Drac"
-version: "0.1.0"
+version: "0.1.1"
 date: "2026-04-03"
 author: "Eric Oulashin"
 lang: "cy"
@@ -49,6 +49,21 @@ Ar gychwyn, mae'r cymhwysiad yn cymhwyso'r thema a gadwyd (tywyll neu olau) ac, 
 3. **Enwch y trac**: Teipiwch enw yn y maes testun wrth ymyl y botwm "Options". Defnyddir yr enw hwn fel enw ffeil ar gyfer y ffeil sain a recordiwyd.
 
 ![Prif ffenestr](../screenshots/MusiciansCanvas_1_MainWin.png)
+
+### Bar Botymau
+
+Yn union o dan y bar dewislen mae bar offer gyda botymau mynediad cyflym:
+
+![Bar Botymau](../screenshots/ButtonBar.png)
+
+- **Open Project**: Yr un peth â **File > Open Project** — mae'n agor prosiect a gadwyd yn flaenorol.
+- **Save Project**: Yr un peth â **File > Save Project** — mae'n cadw'r prosiect cyfredol.
+  Dim ond pan fo cyfeiriadur prosiect wedi'i osod y caiff y botwm hwn ei alluogi.
+- **Project Settings**: Yr un peth â **Project > Project Settings** — mae'n agor y ddeialog
+  gosodiadau prosiect. Dim ond pan fo cyfeiriadur prosiect wedi'i osod y caiff y botwm hwn ei alluogi.
+- **Configuration**: Yr un peth â **Settings > Configuration** — mae'n agor y ddeialog
+  gosodiadau byd-eang yr ap.
+- **Metronome Settings**: Mae'n agor y ddeialog gosodiadau metronom (gweler yr adran Metronom isod).
 
 ### Cadw ac Agor Prosiectau
 
@@ -148,6 +163,25 @@ Mae rhai dyfeisiau sain (e.e., meicroffonau gwe-gamera USB) yn ffisegol mono ond
 
 Dangosir nodau MIDI mewn delweddiad piano roll ar y trac.
 
+## Metronom
+
+Mae Musician's Canvas yn cynnwys metronom adeiledig y gellir ei ddefnyddio yn ystod recordio
+i helpu i gadw amser. Cliciwch ar fotwm y metronom ar y bar botymau (o dan y bar dewislen) i
+agor y ddeialog gosodiadau metronom:
+
+![Gosodiadau metronom](../screenshots/MetronomeSettings.png)
+
+Mae'r ddeialog yn darparu:
+
+- **Enable metronome during recording**: Pan fydd wedi'i dicio, mae'r metronom yn chwarae
+  sain tic tra bo recordio'n weithredol. Mae'r tic yn cael ei chwarae trwy sain y system
+  ac **nid** yw'n cael ei ddal i mewn i'r trac a recordiwyd.
+- **Beats per minute**: Mewnbwn rhifol ar gyfer y tempo, mewn curiadau y funud (BPM). Yr
+  ystod yw 20–300 BPM.
+
+Pan fydd y metronom wedi'i alluogi, mae'n dechrau ticio unwaith y bydd y recordio'n dechrau
+go iawn (ar ôl i'r cyfrif tuag at i lawr 3 eiliad gwblhau), ac yn stopio pan ddaw'r recordio i ben.
+
 ## Chwarae'n Ôl
 
 Cliciwch y botwm **Play** i gymysgu a chwarae'n ôl yr holl draciau galluogedig. Mae tooltip y botwm yn newid i ddangos a fydd yn chwarae neu'n recordio yn seiliedig ar p'un a yw trac wedi'i arfogi. Mae traciau analluogedig (heb eu ticio) yn cael eu heithrio o chwarae'n ôl.
@@ -177,9 +211,17 @@ Defnyddiwch **Settings > Configuration** (Ctrl+,) i osod rhagosodiadau byd-eang 
 
 - **Thema**: Dewiswch rhwng themâu tywyll a golau.
 
+#### Tab Display
+
+- **Lliw'r arddangosfa LED rhifol**: Dewiswch y lliw a ddefnyddir ar gyfer yr arddangosfa amser LED rhifol a ddangosir ar far offer y brif ffenestr. Mae segmentau gweithredol y digidau'n cael eu tynnu yn y lliw a ddewiswyd, ac mae segmentau anweithredol yn cael eu tynnu fel fersiwn bŵl o'r un lliw. Y lliwiau sydd ar gael yw Light Red, Dark Red, Light Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan a Dark Cyan. Y rhagosodiad yw Light Green.
+
+![Gosodiadau arddangos](../screenshots/MusiciansCanvas_DisplaySettings.png)
+
 #### Tab Language
 
 - **Iaith**: Dewiswch iaith arddangos y cymhwysiad. Y rhagosodiad yw "System Default", sy'n defnyddio gosodiad iaith y system weithredu. Yr ieithoedd sydd ar gael yw Saesneg, Deutsch (Almaeneg), Español (Sbaeneg), Français (Ffrangeg), Siapanëeg, Português (Portiwgaleg Brasil), Tsieinëeg (Traddodiadol), Tsieinëeg (Symledig), a Môr-ladron. Mae'r rhyngwyneb yn diweddaru ar unwaith pan fyddwch yn newid yr iaith.
+
+![Gosodiadau iaith](../screenshots/MusiciansCanvas_LanguageSettings.png)
 
 #### Tab MIDI
 

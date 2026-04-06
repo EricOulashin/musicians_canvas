@@ -1,7 +1,7 @@
 ---
 title: "Musician's Canvas Käyttöopas"
 subtitle: "Moniraitainen musiikin tallennussovellus"
-version: "0.1.0"
+version: "0.1.1"
 date: "2026-04-03"
 author: "Eric Oulashin"
 lang: "fi"
@@ -59,6 +59,21 @@ projektihakemisto sisältää `project.json`-tiedoston, projekti ladataan automa
    tallennetun äänitiedoston tiedostonimenä.
 
 ![Pääikkuna](../screenshots/MusiciansCanvas_1_MainWin.png)
+
+### Painikepalkki
+
+Aivan valikkopalkin alapuolella on työkalupalkki pikakäyttöpainikkeineen:
+
+![Painikepalkki](../screenshots/ButtonBar.png)
+
+- **Open Project**: Sama kuin **File > Open Project** — avaa aiemmin tallennetun projektin.
+- **Save Project**: Sama kuin **File > Save Project** — tallentaa nykyisen projektin. Tämä
+  painike on käytössä vain, kun projektihakemisto on asetettu.
+- **Project Settings**: Sama kuin **Project > Project Settings** — avaa projektin asetukset
+  -valintaikkunan. Tämä painike on käytössä vain, kun projektihakemisto on asetettu.
+- **Configuration**: Sama kuin **Settings > Configuration** — avaa sovelluksen yleisten
+  asetusten valintaikkunan.
+- **Metronome Settings**: Avaa metronomin asetusten valintaikkunan (katso Metronomi-osio alla).
 
 ### Projektien tallentaminen ja avaaminen
 
@@ -189,6 +204,25 @@ vastaavasti. Jos projekti on määritetty stereoksi, monosignaali kopioidaan mol
 
 MIDI-nuotit näytetään pianorullavisualisoinnissa raidalla.
 
+## Metronomi
+
+Musician's Canvas sisältää sisäänrakennetun metronomin, jota voidaan käyttää tallennuksen
+aikana pitämään tahtia yllä. Napsauta metronomipainiketta painikepalkissa (valikkopalkin
+alapuolella) avataksesi metronomin asetusten valintaikkunan:
+
+![Metronomin asetukset](../screenshots/MetronomeSettings.png)
+
+Valintaikkuna tarjoaa:
+
+- **Enable metronome during recording**: Kun valittu, metronomi toistaa tikityksen, kun
+  tallennus on käynnissä. Tikitys toistetaan järjestelmän äänen kautta, eikä sitä **tallenneta**
+  tallennettavalle raidalle.
+- **Beats per minute**: Numeerinen syöte tempolle, lyönteinä minuutissa (BPM). Alue on
+  20–300 BPM.
+
+Kun metronomi on käytössä, se alkaa tikittää, kun tallennus varsinaisesti alkaa (3 sekunnin
+lähtölaskennan päätyttyä) ja pysähtyy, kun tallennus loppuu.
+
 ## Toisto
 
 Napsauta **Play**-painiketta miksataksesi ja toistaaksesi kaikki käytössä olevat raidat. Painikkeen
@@ -225,6 +259,16 @@ projekteja:
 
 - **Teema**: Valitse tumman ja vaalean teeman väliltä.
 
+#### Näyttö-välilehti
+
+- **Numeronäytön LED-väri**: Valitse väri, jota käytetään pääikkunan työkalurivillä näkyvässä
+  numeerisessa LED-aikanäytössä. Aktiiviset numerosegmentit piirretään valitulla värillä, ja
+  passiiviset segmentit piirretään saman värin himmennettynä versiona. Saatavilla olevat värit
+  ovat Light Red, Dark Red, Light Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange,
+  Light Cyan ja Dark Cyan. Oletusarvo on Light Green.
+
+![Näyttöasetukset](../screenshots/MusiciansCanvas_DisplaySettings.png)
+
 #### Kieli-välilehti
 
 - **Kieli**: Valitse sovelluksen näyttökieli. Oletus on "System Default", joka käyttää käyttöjärjestelmän
@@ -232,6 +276,8 @@ projekteja:
   Français (ranska), japani, Português (brasilianportugali), Chinese (perinteinen), Chinese (yksinkertaistettu)
   ja Pirate.
   Käyttöliittymä päivittyy välittömästi kieltä vaihdettaessa.
+
+![Kieliasetukset](../screenshots/MusiciansCanvas_LanguageSettings.png)
 
 #### MIDI-välilehti
 
