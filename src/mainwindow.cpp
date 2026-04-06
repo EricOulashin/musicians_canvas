@@ -61,16 +61,16 @@
 static QColor ledColorFromName(const QString& name)
 {
     if (name == "dark_red")    return QColor(180, 20, 20);
-    if (name == "light_green") return QColor(80, 255, 80);
-    if (name == "dark_green")  return QColor(20, 160, 20);
-    if (name == "light_blue")  return QColor(100, 140, 255);
-    if (name == "dark_blue")   return QColor(30, 60, 200);
-    if (name == "yellow")      return QColor(255, 255, 40);
-    if (name == "orange")      return QColor(255, 160, 20);
-    if (name == "light_cyan")  return QColor(80, 255, 255);
-    if (name == "dark_cyan")   return QColor(20, 180, 180);
+    else if (name == "light_green") return QColor(80, 255, 80);
+    else if (name == "dark_green")  return QColor(20, 160, 20);
+    else if (name == "light_blue")  return QColor(100, 140, 255);
+    else if (name == "dark_blue")   return QColor(30, 60, 200);
+    else if (name == "yellow")      return QColor(255, 255, 40);
+    else if (name == "orange")      return QColor(255, 160, 20);
+    else if (name == "light_cyan")  return QColor(80, 255, 255);
+    else if (name == "dark_cyan")   return QColor(20, 180, 180);
     // default: light_red
-    return QColor(255, 60, 60);
+    else return QColor(255, 60, 60);
 }
 
 #ifdef QT_MULTIMEDIA_AVAILABLE
