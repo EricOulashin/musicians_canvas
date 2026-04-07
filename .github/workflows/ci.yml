@@ -203,6 +203,7 @@ jobs:
             mingw-w64-x86_64-portaudio
             mingw-w64-x86_64-pkg-config
             mingw-w64-x86_64-python-pip
+            mingw-w64-x86_64-ntldd-git
 
       # RtMidi: the MSYS2 package is in the ucrt repo, not mingw64.
       # Try installing; if unavailable, build will use find_library fallback.
@@ -289,18 +290,98 @@ jobs:
               "${ARTIFACT_DIR}/virtual_midi_keyboard.exe" || true
           fi
 
-          # Also copy runtime DLLs that windeployqt may miss (FluidSynth, RtMidi, FLAC, etc.)
-          for dll in libfluidsynth*.dll librtmidi*.dll libFLAC*.dll libportaudio*.dll \
-                     libglib-2.0-0.dll libgthread-2.0-0.dll libintl-8.dll libiconv-2.dll \
+          # ─── Recursive transitive-dependency discovery via ntldd ───
+          # ntldd is the MinGW equivalent of ldd.  `-R` walks the entire
+          # transitive dependency tree of a PE binary and prints every DLL
+          # the loader will need.  By running it on each .exe in the artifact
+          # dir AND on every DLL we just copied (windeployqt's output, etc.),
+          # we discover everything: FluidSynth + libsndfile + codec deps,
+          # GLib, ICU, OpenMP, Qt transitive deps, and so on.
+          #
+          # We keep iterating until no new DLLs get added — that handles the
+          # case where a freshly-copied DLL itself drags in deps that ntldd
+          # didn't see in earlier passes.
+          collect_deps_pass() {
+            local added=0
+            local target
+            shopt -s nullglob
+            for target in "${ARTIFACT_DIR}"/*.exe "${ARTIFACT_DIR}"/*.dll; do
+              ntldd -R "${target}" 2>/dev/null \
+                | awk '/=>/ {print $3}' \
+                | grep -i "/mingw64/" \
+                | sort -u \
+                | while read -r dep; do
+                    [ -f "${dep}" ] || continue
+                    name=$(basename "${dep}")
+                    if [ ! -f "${ARTIFACT_DIR}/${name}" ]; then
+                      cp "${dep}" "${ARTIFACT_DIR}/"
+                      echo "  + ${name}"
+                      added=1
+                    fi
+                  done
+            done
+            shopt -u nullglob
+            return ${added}
+          }
+
+          if command -v ntldd &>/dev/null; then
+            echo "Discovering transitive DLL dependencies with ntldd..."
+            for pass in 1 2 3 4 5; do
+              echo "Pass ${pass}:"
+              before=$(ls -1 "${ARTIFACT_DIR}"/*.dll 2>/dev/null | wc -l)
+              collect_deps_pass || true
+              after=$(ls -1 "${ARTIFACT_DIR}"/*.dll 2>/dev/null | wc -l)
+              if [ "${before}" = "${after}" ]; then
+                echo "  (no new DLLs — done)"
+                break
+              fi
+            done
+          else
+            echo "::warning::ntldd not available — falling back to hand-curated DLL list"
+          fi
+
+          # ─── Fallback / belt-and-braces explicit DLL list ───
+          # Even with ntldd, keep a known-good list as a safety net in case
+          # ntldd is unavailable or misses something on a future MSYS2 update.
+          shopt -s nullglob
+          for dll in "${MINGW_BIN}"/libfluidsynth*.dll \
+                     "${MINGW_BIN}"/librtmidi*.dll \
+                     "${MINGW_BIN}"/libFLAC*.dll \
+                     "${MINGW_BIN}"/libportaudio*.dll \
+                     "${MINGW_BIN}"/libicuin*.dll \
+                     "${MINGW_BIN}"/libicuuc*.dll \
+                     "${MINGW_BIN}"/libicudt*.dll \
+                     "${MINGW_BIN}"/libpcre2-*.dll \
+                     "${MINGW_BIN}"/libssp*.dll; do
+            name=$(basename "${dll}")
+            [ -f "${ARTIFACT_DIR}/${name}" ] || cp "${dll}" "${ARTIFACT_DIR}/" 2>/dev/null || true
+          done
+          shopt -u nullglob
+          for dll in libglib-2.0-0.dll libgthread-2.0-0.dll libgobject-2.0-0.dll \
+                     libgmodule-2.0-0.dll libintl-8.dll libiconv-2.dll libffi-8.dll \
+                     libgomp-1.dll \
                      libsndfile-1.dll libvorbis-0.dll libvorbisenc-2.dll libogg-0.dll \
                      libopus-0.dll libmpg123-0.dll libmp3lame-0.dll \
                      libgcc_s_seh-1.dll libstdc++-6.dll libwinpthread-1.dll \
-                     libpcre2-8-0.dll libharfbuzz-0.dll libpng16-16.dll zlib1.dll \
-                     libfreetype-6.dll libbz2-1.dll libbrotlidec.dll libbrotlicommon.dll \
-                     libdouble-conversion.dll libicuin*.dll libicuuc*.dll libicudt*.dll \
-                     libzstd.dll libmd4c.dll; do
-            [ -f "${MINGW_BIN}/${dll}" ] && cp -n "${MINGW_BIN}/${dll}" "${ARTIFACT_DIR}/" 2>/dev/null || true
+                     libharfbuzz-0.dll libpng16-16.dll zlib1.dll libjpeg-8.dll \
+                     libfreetype-6.dll libbz2-1.dll libbrotlidec.dll libbrotlienc.dll \
+                     libbrotlicommon.dll libdouble-conversion.dll libzstd.dll \
+                     libmd4c.dll libgraphite2.dll; do
+            if [ -f "${MINGW_BIN}/${dll}" ] && [ ! -f "${ARTIFACT_DIR}/${dll}" ]; then
+              cp "${MINGW_BIN}/${dll}" "${ARTIFACT_DIR}/" 2>/dev/null || true
+            fi
           done
+
+          # Sanity check: warn loudly if any known-required third-party DLL
+          # is still missing from the artifact dir.
+          for required in libFLAC libfluidsynth-3 libportaudio librtmidi \
+                          libsndfile libglib libgomp libgcc_s libstdc; do
+            if ! ls "${ARTIFACT_DIR}/${required}"*.dll 1>/dev/null 2>&1; then
+              echo "::warning::Required DLL ${required}*.dll not found in artifact"
+            fi
+          done
+
+          echo "Total DLL count in artifact: $(ls -1 "${ARTIFACT_DIR}"/*.dll 2>/dev/null | wc -l)"
 
       - name: Upload release artifact (zip / portable)
         uses: actions/upload-artifact@v5
