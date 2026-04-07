@@ -312,7 +312,10 @@ jobs:
       - name: Install WiX Toolset
         shell: pwsh
         run: |
-          dotnet tool install --global wix
+          # Pin to WiX v5: WiX v6+ requires accepting an Open Source
+          # Maintenance Fee (OSMF) EULA which is awkward in CI.  WiX v5 is
+          # freely usable and produces compatible MSI output.
+          dotnet tool install --global wix --version 5.0.2
           # Make sure the tools dir is on PATH for subsequent steps
           "$env:USERPROFILE\.dotnet\tools" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
