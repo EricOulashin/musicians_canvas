@@ -42,8 +42,20 @@ ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 PrivilegesRequired=admin
 OutputBaseFilename={#OutputBaseName}
-Compression=lzma2/max
+; Maximum compression: LZMA2 with the ultra64 preset (the highest preset Inno
+; Setup offers).  Combined with solid compression, a large dictionary, the
+; binary-tree match finder, the maximum number of fast bytes, and a separate
+; compression process, this minimises the resulting installer size as much as
+; Inno Setup allows.  Compression takes longer at build time but the install
+; experience is unchanged.
+Compression=lzma2/ultra64
 SolidCompression=yes
+LZMAUseSeparateProcess=yes
+LZMADictionarySize=1048576
+LZMANumFastBytes=273
+LZMAMatchFinder=BT
+LZMAAlgorithm=1
+LZMANumBlockThreads=2
 WizardStyle=modern
 UninstallDisplayName={#AppName} {#AppVersion}
 UninstallDisplayIcon={app}\{#AppExeName}
@@ -53,7 +65,7 @@ SetupIconFile={#StagingDir}\..\musicians_canvas\src\icons\MusiciansCanvas.ico
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
-Name: "desktopicon"; Description: "Create a &desktop shortcut"; GroupDescription: "Additional shortcuts:"; Flags: unchecked
+Name: "desktopicon"; Description: "Create &desktop shortcuts (Musician's Canvas and Virtual MIDI Keyboard)"; GroupDescription: "Additional shortcuts:"; Flags: unchecked
 
 [Files]
 ; Recursively include EVERYTHING from the staging directory.  This picks up
@@ -65,8 +77,9 @@ Source: "{#StagingDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 Name: "{group}\Musician's Canvas"; Filename: "{app}\{#AppExeName}"; WorkingDir: "{app}"; Comment: "Multi-track music recording"
 Name: "{group}\Virtual MIDI Keyboard"; Filename: "{app}\{#VkExeName}"; WorkingDir: "{app}"; Comment: "On-screen virtual MIDI keyboard"
 
-; Optional desktop shortcut for the main app
+; Optional desktop shortcuts for both applications
 Name: "{commondesktop}\Musician's Canvas"; Filename: "{app}\{#AppExeName}"; WorkingDir: "{app}"; Tasks: desktopicon
+Name: "{commondesktop}\Virtual MIDI Keyboard"; Filename: "{app}\{#VkExeName}"; WorkingDir: "{app}"; Tasks: desktopicon
 
 ; Uninstall shortcut in the Start Menu group
 Name: "{group}\Uninstall {#AppName}"; Filename: "{uninstallexe}"
