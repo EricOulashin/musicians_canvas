@@ -1,38 +1,35 @@
-# Windows Installer (WiX)
+# Windows Installer (Inno Setup)
 
-This directory contains the [WiX Toolset v4](https://wixtoolset.org/) source for the
-Musician's Canvas Windows installer (`.msi`).
+This directory contains the [Inno Setup](https://jrsoftware.org/isinfo.php) source for
+the Musician's Canvas Windows installer (`.exe`).
 
 ## What it builds
 
-A Windows Installer package that:
+A Windows setup executable that:
 
 - Installs to `C:\Program Files\Musicians_Canvas`
 - Includes `musicians_canvas.exe`, `virtual_midi_keyboard.exe`, all required DLLs,
   Qt translation files (`.qm`), and the user manual in HTML and PDF for every
   supported language
 - Creates a Start Menu program group **Musician's Canvas** with shortcuts to both
-  executables, plus a **Docs** subfolder containing shortcuts to every PDF and HTML
-  user manual
+  executables, an uninstall shortcut, and a **Docs** subfolder containing shortcuts
+  to every PDF and HTML user manual
+- Optionally creates a desktop shortcut (off by default; user can opt in during setup)
 - Registers an entry in **Settings → Apps → Installed apps** (Add/Remove Programs)
   so the application can be uninstalled normally
 
 ## Building locally
 
-You need the .NET SDK and the WiX command-line tool:
+Install [Inno Setup 6](https://jrsoftware.org/isdl.php) (or via Chocolatey:
+`choco install innosetup -y`), then stage the files (a built `Windows` artifact
+directory works) and run:
 
 ```cmd
-dotnet tool install --global wix
-```
-
-Stage the files (a built `Windows` artifact directory works) and then run:
-
-```cmd
-wix build windows_installer\musicians_canvas.wxs ^
-    -arch x64 ^
-    -d StagingDir=path\to\staging ^
-    -d Version=0.1.1.0 ^
-    -o MusiciansCanvas_011_Windows.msi
+iscc /Qp ^
+    "/DStagingDir=path\to\staging" ^
+    "/DAppVersion=0.1.1" ^
+    "/DOutputBaseName=MusiciansCanvas_011_Windows_Setup" ^
+    windows_installer\musicians_canvas.iss
 ```
 
 `StagingDir` must contain the same layout as the Windows zip artifact:
@@ -41,15 +38,18 @@ and `docs\` (with `html\` and PDF files).
 
 ## Building in CI
 
-The GitHub Actions workflow (`.github/workflows/ci.yml`) builds the MSI automatically
-on every Windows build. It uploads the MSI as a separate artifact alongside the
-existing zip artifact (which remains the portable distribution).
+The GitHub Actions workflow (`.github/workflows/ci.yml`) builds the installer
+automatically on every Windows build. It installs Inno Setup via Chocolatey and
+uploads the resulting `.exe` as a separate artifact alongside the existing zip
+artifact (which remains the portable distribution).
 
-## Why WiX (not Visual Studio Installer Projects)?
+## Why Inno Setup?
 
-- WiX is open source and produces the same MSI format used by all standard Windows
-  installers.
-- It works headlessly from a CLI, so it builds cleanly in CI without needing the
-  Visual Studio IDE installed.
-- Visual Studio Installer Projects only work inside the Visual Studio IDE and are
-  not buildable on a headless CI runner.
+- Free, simple licensing — no EULA prompts or version-pinning hurdles
+- Concise script syntax (`.iss`) compared to MSI/WiX XML
+- Produces a single self-contained `.exe` setup wizard, which is the most familiar
+  installer experience for end users on Windows
+- First-class support in CI: pre-installed compiler (`iscc.exe`) is available via
+  Chocolatey on standard `windows-latest` GitHub runners
+- All required features (Program Files install dir, Start Menu group with subfolder,
+  uninstaller entry, recursive file harvesting) are built-in and trivially expressed

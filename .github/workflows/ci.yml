@@ -309,40 +309,45 @@ jobs:
           path: MusiciansCanvas_Windows/
           retention-days: 90
 
-      - name: Install WiX Toolset
+      - name: Install Inno Setup
         shell: pwsh
         run: |
-          # Pin to WiX v5: WiX v6+ requires accepting an Open Source
-          # Maintenance Fee (OSMF) EULA which is awkward in CI.  WiX v5 is
-          # freely usable and produces compatible MSI output.
-          dotnet tool install --global wix --version 5.0.2
-          # Make sure the tools dir is on PATH for subsequent steps
-          "$env:USERPROFILE\.dotnet\tools" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          choco install innosetup -y --no-progress
 
-      - name: Build Windows installer (MSI)
+      - name: Build Windows installer (Inno Setup)
         shell: pwsh
         run: |
           $stagingDir = "${env:GITHUB_WORKSPACE}\MusiciansCanvas_Windows"
-          $msiName    = "MusiciansCanvas_${{ steps.version.outputs.ver }}_Windows.msi"
-          $msiPath    = "${env:GITHUB_WORKSPACE}\$msiName"
-          # WiX wants a 4-part version number (Major.Minor.Build.Revision)
-          $wixVersion = "${{ steps.version.outputs.verdot }}.0"
-          Write-Host "Building MSI: $msiPath (version $wixVersion)"
-          wix build `
-            "${env:GITHUB_WORKSPACE}\musicians_canvas\windows_installer\musicians_canvas.wxs" `
-            -arch x64 `
-            -d "StagingDir=$stagingDir" `
-            -d "Version=$wixVersion" `
-            -o "$msiPath"
-          if (-not (Test-Path "$msiPath")) {
-            Write-Error "MSI was not produced at $msiPath"
+          $outBaseName = "MusiciansCanvas_${{ steps.version.outputs.ver }}_Windows"
+          $outDir     = "${env:GITHUB_WORKSPACE}"
+          $appVersion = "${{ steps.version.outputs.verdot }}"
+          $iss        = "${env:GITHUB_WORKSPACE}\musicians_canvas\windows_installer\musicians_canvas.iss"
+          Write-Host "Building installer: $outDir\$outBaseName.exe (version $appVersion)"
+          $iscc = "C:\Program Files (x86)\Inno Setup 6\iscc.exe"
+          if (-not (Test-Path $iscc)) {
+            $iscc = "C:\Program Files\Inno Setup 6\iscc.exe"
+          }
+          & $iscc `
+            "/Qp" `
+            "/DStagingDir=$stagingDir" `
+            "/DAppVersion=$appVersion" `
+            "/DOutputBaseName=$outBaseName" `
+            "/O$outDir" `
+            $iss
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "Inno Setup compiler exited with code $LASTEXITCODE"
             exit 1
           }
-          Write-Host "MSI built successfully: $((Get-Item $msiPath).Length) bytes"
+          $exePath = "$outDir\$outBaseName.exe"
+          if (-not (Test-Path $exePath)) {
+            Write-Error "Installer was not produced at $exePath"
+            exit 1
+          }
+          Write-Host "Installer built successfully: $((Get-Item $exePath).Length) bytes"
 
-      - name: Upload Windows installer (MSI)
+      - name: Upload Windows installer (.exe)
         uses: actions/upload-artifact@v5
         with:
           name: MusiciansCanvas_${{ steps.version.outputs.ver }}_Windows_Installer
-          path: MusiciansCanvas_${{ steps.version.outputs.ver }}_Windows.msi
+          path: MusiciansCanvas_${{ steps.version.outputs.ver }}_Windows.exe
           retention-days: 90
