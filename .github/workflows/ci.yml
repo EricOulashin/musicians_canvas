@@ -234,8 +234,10 @@ jobs:
         id: version
         shell: bash
         run: |
-          ver=$(grep 'project(musicians_canvas VERSION' "${GITHUB_WORKSPACE}/musicians_canvas/CMakeLists.txt" | sed -E 's/.*VERSION ([0-9.]+).*/\1/' | tr -d '.')
+          verdot=$(grep 'project(musicians_canvas VERSION' "${GITHUB_WORKSPACE}/musicians_canvas/CMakeLists.txt" | sed -E 's/.*VERSION ([0-9.]+).*/\1/')
+          ver=$(echo "$verdot" | tr -d '.')
           echo "ver=$ver" >> "$GITHUB_OUTPUT"
+          echo "verdot=$verdot" >> "$GITHUB_OUTPUT"
 
       - name: Test
         shell: msys2 {0}
@@ -300,9 +302,44 @@ jobs:
             [ -f "${MINGW_BIN}/${dll}" ] && cp -n "${MINGW_BIN}/${dll}" "${ARTIFACT_DIR}/" 2>/dev/null || true
           done
 
-      - name: Upload release artifact
+      - name: Upload release artifact (zip / portable)
         uses: actions/upload-artifact@v5
         with:
           name: MusiciansCanvas_${{ steps.version.outputs.ver }}_Windows
           path: MusiciansCanvas_Windows/
+          retention-days: 90
+
+      - name: Install WiX Toolset
+        shell: pwsh
+        run: |
+          dotnet tool install --global wix
+          # Make sure the tools dir is on PATH for subsequent steps
+          "$env:USERPROFILE\.dotnet\tools" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+      - name: Build Windows installer (MSI)
+        shell: pwsh
+        run: |
+          $stagingDir = "${env:GITHUB_WORKSPACE}\MusiciansCanvas_Windows"
+          $msiName    = "MusiciansCanvas_${{ steps.version.outputs.ver }}_Windows.msi"
+          $msiPath    = "${env:GITHUB_WORKSPACE}\$msiName"
+          # WiX wants a 4-part version number (Major.Minor.Build.Revision)
+          $wixVersion = "${{ steps.version.outputs.verdot }}.0"
+          Write-Host "Building MSI: $msiPath (version $wixVersion)"
+          wix build `
+            "${env:GITHUB_WORKSPACE}\musicians_canvas\windows_installer\musicians_canvas.wxs" `
+            -arch x64 `
+            -d "StagingDir=$stagingDir" `
+            -d "Version=$wixVersion" `
+            -o "$msiPath"
+          if (-not (Test-Path "$msiPath")) {
+            Write-Error "MSI was not produced at $msiPath"
+            exit 1
+          }
+          Write-Host "MSI built successfully: $((Get-Item $msiPath).Length) bytes"
+
+      - name: Upload Windows installer (MSI)
+        uses: actions/upload-artifact@v5
+        with:
+          name: MusiciansCanvas_${{ steps.version.outputs.ver }}_Windows_Installer
+          path: MusiciansCanvas_${{ steps.version.outputs.ver }}_Windows.msi
           retention-days: 90
