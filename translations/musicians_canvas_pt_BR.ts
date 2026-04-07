@@ -99,200 +99,210 @@ Por favor, instale um driver ASIO e reinicie o aplicativo:
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="222"/>
-        <location filename="../src/mainwindow.cpp" line="343"/>
+        <location filename="../src/mainwindow.cpp" line="346"/>
         <source>Project location:</source>
         <translation>Local do projeto:</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="346"/>
+        <location filename="../src/mainwindow.cpp" line="349"/>
         <source>Select a project directory...</source>
         <translation>Selecione um diretório de projeto...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="224"/>
-        <location filename="../src/mainwindow.cpp" line="361"/>
+        <location filename="../src/mainwindow.cpp" line="364"/>
         <source>Browse...</source>
         <translation>Procurar...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="374"/>
-        <location filename="../src/mainwindow.cpp" line="633"/>
+        <location filename="../src/mainwindow.cpp" line="377"/>
+        <location filename="../src/mainwindow.cpp" line="637"/>
         <source>Play all tracks</source>
         <translation>Reproduzir todas as faixas</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="226"/>
-        <location filename="../src/mainwindow.cpp" line="379"/>
+        <location filename="../src/mainwindow.cpp" line="382"/>
         <source>+ Add Track</source>
         <translation>+ Adicionar Faixa</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="228"/>
-        <location filename="../src/mainwindow.cpp" line="386"/>
-        <location filename="../src/mainwindow.cpp" line="1580"/>
+        <location filename="../src/mainwindow.cpp" line="389"/>
+        <location filename="../src/mainwindow.cpp" line="1589"/>
         <source>Clear Tracks</source>
         <translation>Limpar Faixas</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="232"/>
-        <location filename="../src/mainwindow.cpp" line="301"/>
+        <location filename="../src/mainwindow.cpp" line="305"/>
         <source>Project Settings</source>
         <translation>Configurações do Projeto</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="233"/>
-        <location filename="../src/mainwindow.cpp" line="307"/>
+        <location filename="../src/mainwindow.cpp" line="311"/>
         <source>Configuration</source>
         <translation>Configuração</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="234"/>
-        <location filename="../src/mainwindow.cpp" line="316"/>
+        <location filename="../src/mainwindow.cpp" line="319"/>
         <source>Metronome Settings</source>
         <translation>Configurações do metrônomo</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="496"/>
+        <location filename="../src/mainwindow.cpp" line="277"/>
+        <source>&amp;Help</source>
+        <translation>A&amp;juda</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="278"/>
+        <source>&amp;About</source>
+        <translation>&amp;Sobre</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="500"/>
         <source>Mix Complete</source>
         <translation>Mixagem Concluída</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="497"/>
+        <location filename="../src/mainwindow.cpp" line="501"/>
         <source>Audio exported successfully to:
 %1</source>
         <translation>Áudio exportado com sucesso para:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="501"/>
+        <location filename="../src/mainwindow.cpp" line="505"/>
         <source>Mix Failed</source>
         <translation>Falha na Mixagem</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="502"/>
+        <location filename="../src/mainwindow.cpp" line="506"/>
         <source>Could not export audio. Please check that you have at least one enabled track with content, and a SoundFont configured for MIDI tracks.</source>
         <translation>Não foi possível exportar o áudio. Verifique se você tem pelo menos uma faixa habilitada com conteúdo e um SoundFont configurado para faixas MIDI.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="512"/>
+        <location filename="../src/mainwindow.cpp" line="516"/>
         <source>Select Project Directory</source>
         <translation>Selecionar Diretório do Projeto</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="621"/>
+        <location filename="../src/mainwindow.cpp" line="625"/>
         <source>Stop</source>
         <translation>Parar</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="627"/>
+        <location filename="../src/mainwindow.cpp" line="631"/>
         <source>Record armed track</source>
         <translation>Gravar faixa armada</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="651"/>
-        <location filename="../src/mainwindow.cpp" line="661"/>
+        <location filename="../src/mainwindow.cpp" line="655"/>
+        <location filename="../src/mainwindow.cpp" line="665"/>
         <source>Playback Error</source>
         <translation>Erro de Reprodução</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="651"/>
+        <location filename="../src/mainwindow.cpp" line="655"/>
         <source>Could not create temporary file.</source>
         <translation>Não foi possível criar arquivo temporário.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="662"/>
+        <location filename="../src/mainwindow.cpp" line="666"/>
         <source>Could not mix tracks for playback. Make sure tracks have content.</source>
         <translation>Não foi possível mixar as faixas para reprodução. Certifique-se de que as faixas possuem conteúdo.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="694"/>
+        <location filename="../src/mainwindow.cpp" line="698"/>
         <source>Playback</source>
         <translation>Reprodução</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="695"/>
+        <location filename="../src/mainwindow.cpp" line="699"/>
         <source>Qt Multimedia is not available. Build with Qt6::Multimedia for playback support.</source>
         <translation>Qt Multimedia não está disponível. Compile com Qt6::Multimedia para suporte à reprodução.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="708"/>
+        <location filename="../src/mainwindow.cpp" line="712"/>
         <source>Project Directory Required</source>
         <translation>Diretório do Projeto Necessário</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="709"/>
+        <location filename="../src/mainwindow.cpp" line="713"/>
         <source>You must choose a project directory before recording.
 Please select a directory to store your recorded files.</source>
         <translation>Você deve escolher um diretório de projeto antes de gravar.
 Por favor, selecione um diretório para armazenar seus arquivos gravados.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="734"/>
+        <location filename="../src/mainwindow.cpp" line="738"/>
         <source>Recording Error</source>
         <translation>Erro de Gravação</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="735"/>
+        <location filename="../src/mainwindow.cpp" line="739"/>
         <source>No audio input device found. Configure one in Settings.</source>
         <translation>Nenhum dispositivo de entrada de áudio encontrado. Configure um em Configurações.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="753"/>
-        <location filename="../src/mainwindow.cpp" line="763"/>
+        <location filename="../src/mainwindow.cpp" line="752"/>
+        <location filename="../src/mainwindow.cpp" line="762"/>
         <source>Get ready...  %1</source>
         <translation>Prepare-se...  %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="777"/>
+        <location filename="../src/mainwindow.cpp" line="776"/>
         <source>Recording</source>
         <translation>Gravação</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="778"/>
+        <location filename="../src/mainwindow.cpp" line="777"/>
         <source>Qt Multimedia is not available. Build with Qt6::Multimedia for recording support.</source>
         <translation>Qt Multimedia não está disponível. Compile com Qt6::Multimedia para suporte à gravação.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1126"/>
+        <location filename="../src/mainwindow.cpp" line="1135"/>
         <source>PortAudio</source>
         <translation>PortAudio</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1127"/>
+        <location filename="../src/mainwindow.cpp" line="1136"/>
         <source>Could not start PortAudio recording (%1). Falling back to Qt Multimedia.</source>
         <translation>Não foi possível iniciar a gravação PortAudio (%1). Usando Qt Multimedia como alternativa.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="231"/>
-        <location filename="../src/mainwindow.cpp" line="293"/>
-        <location filename="../src/mainwindow.cpp" line="1303"/>
+        <location filename="../src/mainwindow.cpp" line="297"/>
+        <location filename="../src/mainwindow.cpp" line="1312"/>
         <source>Save Project</source>
         <translation>Salvar Projeto</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1304"/>
+        <location filename="../src/mainwindow.cpp" line="1313"/>
         <source>Please choose a project directory before saving.</source>
         <translation>Por favor, escolha um diretório de projeto antes de salvar.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1378"/>
+        <location filename="../src/mainwindow.cpp" line="1387"/>
         <source>Save Failed</source>
         <translation>Falha ao Salvar</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1379"/>
+        <location filename="../src/mainwindow.cpp" line="1388"/>
         <source>Could not write project file:
 %1</source>
         <translation>Não foi possível gravar o arquivo de projeto:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1385"/>
+        <location filename="../src/mainwindow.cpp" line="1394"/>
         <source>Project Saved</source>
         <translation>Projeto Salvo</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1386"/>
+        <location filename="../src/mainwindow.cpp" line="1395"/>
         <source>Project saved to:
 %1</source>
         <translation>Projeto salvo em:
@@ -300,77 +310,87 @@ Por favor, selecione um diretório para armazenar seus arquivos gravados.</trans
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="230"/>
-        <location filename="../src/mainwindow.cpp" line="287"/>
-        <location filename="../src/mainwindow.cpp" line="1395"/>
+        <location filename="../src/mainwindow.cpp" line="291"/>
+        <location filename="../src/mainwindow.cpp" line="1404"/>
         <source>Open Project</source>
         <translation>Abrir Projeto</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1396"/>
+        <location filename="../src/mainwindow.cpp" line="1405"/>
         <source>Project files (*.json);;All files (*)</source>
         <translation>Arquivos de projeto (*.json);;Todos os arquivos (*)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1407"/>
-        <location filename="../src/mainwindow.cpp" line="1415"/>
+        <location filename="../src/mainwindow.cpp" line="1416"/>
+        <location filename="../src/mainwindow.cpp" line="1424"/>
         <source>Open Failed</source>
         <translation>Falha ao Abrir</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1408"/>
+        <location filename="../src/mainwindow.cpp" line="1417"/>
         <source>Could not read project file:
 %1</source>
         <translation>Não foi possível ler o arquivo de projeto:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1415"/>
+        <location filename="../src/mainwindow.cpp" line="1424"/>
         <source>Invalid project file format.</source>
         <translation>Formato de arquivo de projeto inválido.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1581"/>
+        <location filename="../src/mainwindow.cpp" line="1590"/>
         <source>Remove all %1 track(s) from the project?</source>
         <translation>Remover todas as %1 faixa(s) do projeto?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1599"/>
+        <location filename="../src/mainwindow.cpp" line="1608"/>
         <source>Unsaved Changes</source>
         <translation>Alterações Não Salvas</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1600"/>
+        <location filename="../src/mainwindow.cpp" line="1609"/>
         <source>The project has unsaved changes. Save before closing?</source>
         <translation>O projeto possui alterações não salvas. Salvar antes de fechar?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1672"/>
+        <location filename="../src/mainwindow.cpp" line="1676"/>
+        <source>&lt;h3&gt;Musician&apos;s Canvas %1&lt;/h3&gt;&lt;p&gt;A multi-track music recording application for desktop PCs, supporting audio and MIDI tracks, an integrated FluidSynth synthesizer, overdub recording, a built-in metronome, and high-quality sample-rate conversion.&lt;/p&gt;&lt;p&gt;Written in C++ with Qt6.&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; Eric Oulashin&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;</source>
+        <translation>&lt;h3&gt;Musician&apos;s Canvas %1&lt;/h3&gt;&lt;p&gt;Um aplicativo de gravação musical multitrack para computadores de mesa, com suporte para faixas de áudio e MIDI, sintetizador FluidSynth integrado, gravação por sobreposição, metrônomo embutido e conversão de taxa de amostragem de alta qualidade.&lt;/p&gt;&lt;p&gt;Escrito em C++ com Qt6.&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; Eric Oulashin&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1687"/>
+        <source>About Musician&apos;s Canvas</source>
+        <translation>Sobre o Musician&apos;s Canvas</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1700"/>
         <source>No Tracks</source>
         <translation>Sem Faixas</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1672"/>
+        <location filename="../src/mainwindow.cpp" line="1700"/>
         <source>Add a track first, then select it.</source>
         <translation>Adicione uma faixa primeiro e depois selecione-a.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1684"/>
-        <location filename="../src/mainwindow.cpp" line="1689"/>
+        <location filename="../src/mainwindow.cpp" line="1712"/>
+        <location filename="../src/mainwindow.cpp" line="1717"/>
         <source>Demo Data</source>
         <translation>Dados de Demonstração</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1685"/>
+        <location filename="../src/mainwindow.cpp" line="1713"/>
         <source>Demo MIDI notes added. Try Mix → Mix tracks to file to export.</source>
         <translation>Notas MIDI de demonstração adicionadas. Experimente Ferramentas → Mixar faixas para arquivo para exportar.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1690"/>
+        <location filename="../src/mainwindow.cpp" line="1718"/>
         <source>Switch the track to MIDI type (Options) to add demo notes.</source>
         <translation>Mude a faixa para o tipo MIDI (Opções) para adicionar notas de demonstração.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1698"/>
+        <location filename="../src/mainwindow.cpp" line="1726"/>
         <source>Track %1</source>
         <translation>Faixa %1</translation>
     </message>

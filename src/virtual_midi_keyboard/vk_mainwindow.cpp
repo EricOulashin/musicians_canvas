@@ -20,6 +20,8 @@
 #include <QApplication>
 #include <QKeyEvent>
 #include <QEvent>
+#include <QMessageBox>
+#include <QIcon>
 
 void VkMainWindow::changeEvent(QEvent* event)
 {
@@ -79,6 +81,8 @@ void VkMainWindow::setupMenuBar()
     connect(configAction, &QAction::triggered, this, &VkMainWindow::onConfiguration);
 
     auto* helpMenu = menuBar->addMenu(tr("&Help"));
+    auto* aboutAction = helpMenu->addAction(tr("&About"));
+    connect(aboutAction, &QAction::triggered, this, &VkMainWindow::onAbout);
     auto* helpAction = helpMenu->addAction(tr("&Using this application"));
     helpAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_U));
     connect(helpAction, &QAction::triggered, this, &VkMainWindow::onHelp);
@@ -234,6 +238,26 @@ void VkMainWindow::onHelp()
 {
     VkHelpDialog dlg(this);
     dlg.exec();
+}
+
+void VkMainWindow::onAbout()
+{
+#ifndef APP_VERSION
+#define APP_VERSION "0.0.0"
+#endif
+    const QString text = tr(
+        "<h3>Virtual MIDI Keyboard %1</h3>"
+        "<p>An on-screen virtual MIDI keyboard with a built-in FluidSynth "
+        "software synthesizer. Play notes with the mouse or computer "
+        "keyboard, send MIDI to external devices, or forward incoming MIDI "
+        "from a connected controller.</p>"
+        "<p>Companion application to Musician's Canvas. Written in C++ "
+        "with Qt6.</p>"
+        "<p>Copyright &copy; Eric Oulashin</p>"
+        "<p><a href=\"%2\">%2</a></p>"
+    ).arg(QStringLiteral(APP_VERSION),
+          QStringLiteral("https://github.com/EricOulashin/musicians_canvas"));
+    QMessageBox::about(this, tr("About Virtual MIDI Keyboard"), text);
 }
 
 void VkMainWindow::onOctaveChanged(int value)

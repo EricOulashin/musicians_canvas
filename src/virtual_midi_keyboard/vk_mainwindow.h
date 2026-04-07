@@ -29,6 +29,7 @@ private slots:
     void onClose();
     void onConfiguration();
     void onHelp();
+    void onAbout();
     void onOctaveChanged(int value);
     void onOctaveUp();
     void onOctaveDown();

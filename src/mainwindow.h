@@ -60,6 +60,7 @@ private slots:
     void onProjectSettings();
     void onMetronomeSettings();
     void onTimeDisplayTick();
+    void onAbout();
 
 private:
     void setupMenuBar();

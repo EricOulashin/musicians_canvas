@@ -39,44 +39,44 @@ Vennligst installer en ASIO-driver og start deretter applikasjonen på nytt:
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="222"/>
-        <location filename="../src/mainwindow.cpp" line="343"/>
+        <location filename="../src/mainwindow.cpp" line="346"/>
         <source>Project location:</source>
         <translation>Prosjektplassering:</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="224"/>
-        <location filename="../src/mainwindow.cpp" line="361"/>
+        <location filename="../src/mainwindow.cpp" line="364"/>
         <source>Browse...</source>
         <translation>Bla gjennom...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="226"/>
-        <location filename="../src/mainwindow.cpp" line="379"/>
+        <location filename="../src/mainwindow.cpp" line="382"/>
         <source>+ Add Track</source>
         <translation>+ Legg til spor</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="228"/>
-        <location filename="../src/mainwindow.cpp" line="386"/>
-        <location filename="../src/mainwindow.cpp" line="1580"/>
+        <location filename="../src/mainwindow.cpp" line="389"/>
+        <location filename="../src/mainwindow.cpp" line="1589"/>
         <source>Clear Tracks</source>
         <translation>Fjern spor</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="232"/>
-        <location filename="../src/mainwindow.cpp" line="301"/>
+        <location filename="../src/mainwindow.cpp" line="305"/>
         <source>Project Settings</source>
         <translation>Prosjektinnstillinger</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="233"/>
-        <location filename="../src/mainwindow.cpp" line="307"/>
+        <location filename="../src/mainwindow.cpp" line="311"/>
         <source>Configuration</source>
         <translation>Konfigurasjon</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="234"/>
-        <location filename="../src/mainwindow.cpp" line="316"/>
+        <location filename="../src/mainwindow.cpp" line="319"/>
         <source>Metronome Settings</source>
         <translation>Metronominnstillinger</translation>
     </message>
@@ -141,158 +141,168 @@ Vennligst installer en ASIO-driver og start deretter applikasjonen på nytt:
         <translation>&amp;Virtuelt MIDI-keyboard</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="346"/>
+        <location filename="../src/mainwindow.cpp" line="277"/>
+        <source>&amp;Help</source>
+        <translation>&amp;Hjelp</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="278"/>
+        <source>&amp;About</source>
+        <translation>&amp;Om</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="349"/>
         <source>Select a project directory...</source>
         <translation>Velg en prosjektmappe...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="374"/>
-        <location filename="../src/mainwindow.cpp" line="633"/>
+        <location filename="../src/mainwindow.cpp" line="377"/>
+        <location filename="../src/mainwindow.cpp" line="637"/>
         <source>Play all tracks</source>
         <translation>Spill av alle spor</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="496"/>
+        <location filename="../src/mainwindow.cpp" line="500"/>
         <source>Mix Complete</source>
         <translation>Miksing fullført</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="497"/>
+        <location filename="../src/mainwindow.cpp" line="501"/>
         <source>Audio exported successfully to:
 %1</source>
         <translation>Lyd eksportert til:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="501"/>
+        <location filename="../src/mainwindow.cpp" line="505"/>
         <source>Mix Failed</source>
         <translation>Miksing mislyktes</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="502"/>
+        <location filename="../src/mainwindow.cpp" line="506"/>
         <source>Could not export audio. Please check that you have at least one enabled track with content, and a SoundFont configured for MIDI tracks.</source>
         <translation>Kunne ikke eksportere lyd. Vennligst kontroller at du har minst ett aktivert spor med innhold, og en SoundFont konfigurert for MIDI-spor.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="512"/>
+        <location filename="../src/mainwindow.cpp" line="516"/>
         <source>Select Project Directory</source>
         <translation>Velg prosjektmappe</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="621"/>
+        <location filename="../src/mainwindow.cpp" line="625"/>
         <source>Stop</source>
         <translation>Stopp</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="627"/>
+        <location filename="../src/mainwindow.cpp" line="631"/>
         <source>Record armed track</source>
         <translation>Ta opp klargjort spor</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="651"/>
-        <location filename="../src/mainwindow.cpp" line="661"/>
+        <location filename="../src/mainwindow.cpp" line="655"/>
+        <location filename="../src/mainwindow.cpp" line="665"/>
         <source>Playback Error</source>
         <translation>Avspillingsfeil</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="651"/>
+        <location filename="../src/mainwindow.cpp" line="655"/>
         <source>Could not create temporary file.</source>
         <translation>Kunne ikke opprette midlertidig fil.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="662"/>
+        <location filename="../src/mainwindow.cpp" line="666"/>
         <source>Could not mix tracks for playback. Make sure tracks have content.</source>
         <translation>Kunne ikke mikse spor for avspilling. Sørg for at sporene har innhold.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="694"/>
+        <location filename="../src/mainwindow.cpp" line="698"/>
         <source>Playback</source>
         <translation>Avspilling</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="695"/>
+        <location filename="../src/mainwindow.cpp" line="699"/>
         <source>Qt Multimedia is not available. Build with Qt6::Multimedia for playback support.</source>
         <translation>Qt Multimedia er ikke tilgjengelig. Bygg med Qt6::Multimedia for avspillingsstøtte.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="708"/>
+        <location filename="../src/mainwindow.cpp" line="712"/>
         <source>Project Directory Required</source>
         <translation>Prosjektmappe påkrevd</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="709"/>
+        <location filename="../src/mainwindow.cpp" line="713"/>
         <source>You must choose a project directory before recording.
 Please select a directory to store your recorded files.</source>
         <translation>Du må velge en prosjektmappe før opptak.
 Vennligst velg en mappe for å lagre de innspilte filene dine.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="734"/>
+        <location filename="../src/mainwindow.cpp" line="738"/>
         <source>Recording Error</source>
         <translation>Opptaksfeil</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="735"/>
+        <location filename="../src/mainwindow.cpp" line="739"/>
         <source>No audio input device found. Configure one in Settings.</source>
         <translation>Ingen lydinndataenhet funnet. Konfigurer en under Innstillinger.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="753"/>
-        <location filename="../src/mainwindow.cpp" line="763"/>
+        <location filename="../src/mainwindow.cpp" line="752"/>
+        <location filename="../src/mainwindow.cpp" line="762"/>
         <source>Get ready...  %1</source>
         <translation>Gjør deg klar...  %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="777"/>
+        <location filename="../src/mainwindow.cpp" line="776"/>
         <source>Recording</source>
         <translation>Opptak</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="778"/>
+        <location filename="../src/mainwindow.cpp" line="777"/>
         <source>Qt Multimedia is not available. Build with Qt6::Multimedia for recording support.</source>
         <translation>Qt Multimedia er ikke tilgjengelig. Bygg med Qt6::Multimedia for opptaksstøtte.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1126"/>
+        <location filename="../src/mainwindow.cpp" line="1135"/>
         <source>PortAudio</source>
         <translation>PortAudio</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1127"/>
+        <location filename="../src/mainwindow.cpp" line="1136"/>
         <source>Could not start PortAudio recording (%1). Falling back to Qt Multimedia.</source>
         <translation>Kunne ikke starte PortAudio-opptak (%1). Faller tilbake til Qt Multimedia.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="231"/>
-        <location filename="../src/mainwindow.cpp" line="293"/>
-        <location filename="../src/mainwindow.cpp" line="1303"/>
+        <location filename="../src/mainwindow.cpp" line="297"/>
+        <location filename="../src/mainwindow.cpp" line="1312"/>
         <source>Save Project</source>
         <translation>Lagre prosjekt</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1304"/>
+        <location filename="../src/mainwindow.cpp" line="1313"/>
         <source>Please choose a project directory before saving.</source>
         <translation>Vennligst velg en prosjektmappe før du lagrer.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1378"/>
+        <location filename="../src/mainwindow.cpp" line="1387"/>
         <source>Save Failed</source>
         <translation>Lagring mislyktes</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1379"/>
+        <location filename="../src/mainwindow.cpp" line="1388"/>
         <source>Could not write project file:
 %1</source>
         <translation>Kunne ikke skrive prosjektfil:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1385"/>
+        <location filename="../src/mainwindow.cpp" line="1394"/>
         <source>Project Saved</source>
         <translation>Prosjekt lagret</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1386"/>
+        <location filename="../src/mainwindow.cpp" line="1395"/>
         <source>Project saved to:
 %1</source>
         <translation>Prosjekt lagret til:
@@ -300,77 +310,87 @@ Vennligst velg en mappe for å lagre de innspilte filene dine.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="230"/>
-        <location filename="../src/mainwindow.cpp" line="287"/>
-        <location filename="../src/mainwindow.cpp" line="1395"/>
+        <location filename="../src/mainwindow.cpp" line="291"/>
+        <location filename="../src/mainwindow.cpp" line="1404"/>
         <source>Open Project</source>
         <translation>Åpne prosjekt</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1396"/>
+        <location filename="../src/mainwindow.cpp" line="1405"/>
         <source>Project files (*.json);;All files (*)</source>
         <translation>Prosjektfiler (*.json);;Alle filer (*)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1407"/>
-        <location filename="../src/mainwindow.cpp" line="1415"/>
+        <location filename="../src/mainwindow.cpp" line="1416"/>
+        <location filename="../src/mainwindow.cpp" line="1424"/>
         <source>Open Failed</source>
         <translation>Åpning mislyktes</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1408"/>
+        <location filename="../src/mainwindow.cpp" line="1417"/>
         <source>Could not read project file:
 %1</source>
         <translation>Kunne ikke lese prosjektfil:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1415"/>
+        <location filename="../src/mainwindow.cpp" line="1424"/>
         <source>Invalid project file format.</source>
         <translation>Ugyldig prosjektfilformat.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1581"/>
+        <location filename="../src/mainwindow.cpp" line="1590"/>
         <source>Remove all %1 track(s) from the project?</source>
         <translation>Fjerne alle %1 spor fra prosjektet?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1599"/>
+        <location filename="../src/mainwindow.cpp" line="1608"/>
         <source>Unsaved Changes</source>
         <translation>Ulagrede endringer</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1600"/>
+        <location filename="../src/mainwindow.cpp" line="1609"/>
         <source>The project has unsaved changes. Save before closing?</source>
         <translation>Prosjektet har ulagrede endringer. Lagre før lukking?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1672"/>
+        <location filename="../src/mainwindow.cpp" line="1676"/>
+        <source>&lt;h3&gt;Musician&apos;s Canvas %1&lt;/h3&gt;&lt;p&gt;A multi-track music recording application for desktop PCs, supporting audio and MIDI tracks, an integrated FluidSynth synthesizer, overdub recording, a built-in metronome, and high-quality sample-rate conversion.&lt;/p&gt;&lt;p&gt;Written in C++ with Qt6.&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; Eric Oulashin&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;</source>
+        <translation>&lt;h3&gt;Musician&apos;s Canvas %1&lt;/h3&gt;&lt;p&gt;Et flerspors musikkopptaksprogram for stasjonære PC-er, med støtte for lyd- og MIDI-spor, integrert FluidSynth-synthesizer, overdub-opptak, innebygd metronom og samplingsfrekvenskonvertering av høy kvalitet.&lt;/p&gt;&lt;p&gt;Skrevet i C++ med Qt6.&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; Eric Oulashin&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1687"/>
+        <source>About Musician&apos;s Canvas</source>
+        <translation>Om Musician&apos;s Canvas</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1700"/>
         <source>No Tracks</source>
         <translation>Ingen spor</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1672"/>
+        <location filename="../src/mainwindow.cpp" line="1700"/>
         <source>Add a track first, then select it.</source>
         <translation>Legg til et spor først, og velg det deretter.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1684"/>
-        <location filename="../src/mainwindow.cpp" line="1689"/>
+        <location filename="../src/mainwindow.cpp" line="1712"/>
+        <location filename="../src/mainwindow.cpp" line="1717"/>
         <source>Demo Data</source>
         <translation>Demodata</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1685"/>
+        <location filename="../src/mainwindow.cpp" line="1713"/>
         <source>Demo MIDI notes added. Try Mix → Mix tracks to file to export.</source>
         <translation>Demo-MIDI-noter lagt til. Prøv Miks → Miks spor til fil for å eksportere.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1690"/>
+        <location filename="../src/mainwindow.cpp" line="1718"/>
         <source>Switch the track to MIDI type (Options) to add demo notes.</source>
         <translation>Bytt sporet til MIDI-type (Innstillinger) for å legge til demonoter.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1698"/>
+        <location filename="../src/mainwindow.cpp" line="1726"/>
         <source>Track %1</source>
         <translation>Spor %1</translation>
     </message>

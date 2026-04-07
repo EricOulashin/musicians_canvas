@@ -273,6 +273,10 @@ void MainWindow::setupMenuBar()
     connect(mixAction, &QAction::triggered, this, &MainWindow::onMix);
     auto* vkAction = toolsMenu->addAction(tr("&Virtual MIDI Keyboard"));
     connect(vkAction, &QAction::triggered, this, &MainWindow::onVirtualMidiKeyboard);
+
+    auto* helpMenu = menuBar->addMenu(tr("&Help"));
+    auto* aboutAction = helpMenu->addAction(tr("&About"));
+    connect(aboutAction, &QAction::triggered, this, &MainWindow::onAbout);
 }
 
 void MainWindow::setupToolBar()
@@ -311,8 +315,7 @@ void MainWindow::setupToolBar()
     m_toolBar->addSeparator();
 
     m_tbMetronome = new QToolButton();
-    // Draw a simple metronome icon: use a timer/clock icon from Qt
-    m_tbMetronome->setIcon(style()->standardIcon(QStyle::SP_MediaSeekForward));
+    m_tbMetronome->setIcon(QIcon(QStringLiteral(":/images/metronome.png")));
     m_tbMetronome->setToolTip(tr("Metronome Settings"));
     connect(m_tbMetronome, &QToolButton::clicked, this, &MainWindow::onMetronomeSettings);
     m_toolBar->addWidget(m_tbMetronome);
@@ -1663,6 +1666,25 @@ void MainWindow::onMetronomeSettings()
 {
     MetronomeDialog dlg(this);
     dlg.exec();
+}
+
+void MainWindow::onAbout()
+{
+#ifndef APP_VERSION
+#define APP_VERSION "0.0.0"
+#endif
+    const QString text = tr(
+        "<h3>Musician's Canvas %1</h3>"
+        "<p>A multi-track music recording application for desktop PCs, "
+        "supporting audio and MIDI tracks, an integrated FluidSynth "
+        "synthesizer, overdub recording, a built-in metronome, and "
+        "high-quality sample-rate conversion.</p>"
+        "<p>Written in C++ with Qt6.</p>"
+        "<p>Copyright &copy; Eric Oulashin</p>"
+        "<p><a href=\"%2\">%2</a></p>"
+    ).arg(QStringLiteral(APP_VERSION),
+          QStringLiteral("https://github.com/EricOulashin/musicians_canvas"));
+    QMessageBox::about(this, tr("About Musician's Canvas"), text);
 }
 
 void MainWindow::onTimeDisplayTick()

@@ -90,7 +90,7 @@
     </message>
     <message>
         <location filename="../src/virtual_midi_keyboard/vk_configdialog.cpp" line="168"/>
-        <location filename="../src/virtual_midi_keyboard/vk_configdialog.cpp" line="186"/>
+        <location filename="../src/virtual_midi_keyboard/vk_configdialog.cpp" line="195"/>
         <source>Language</source>
         <translation>語言</translation>
     </message>
@@ -100,28 +100,28 @@
         <translation>系統預設</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_configdialog.cpp" line="200"/>
+        <location filename="../src/virtual_midi_keyboard/vk_configdialog.cpp" line="209"/>
         <source>Built-in Software Synthesizer</source>
         <translation>內建軟體合成器</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_configdialog.cpp" line="216"/>
+        <location filename="../src/virtual_midi_keyboard/vk_configdialog.cpp" line="225"/>
         <source>(None)</source>
         <translation>（無）</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_configdialog.cpp" line="232"/>
-        <location filename="../src/virtual_midi_keyboard/vk_configdialog.cpp" line="237"/>
+        <location filename="../src/virtual_midi_keyboard/vk_configdialog.cpp" line="241"/>
+        <location filename="../src/virtual_midi_keyboard/vk_configdialog.cpp" line="246"/>
         <source>(Default)</source>
         <translation>（預設）</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_configdialog.cpp" line="305"/>
+        <location filename="../src/virtual_midi_keyboard/vk_configdialog.cpp" line="314"/>
         <source>Select SoundFont</source>
         <translation>選擇 SoundFont</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_configdialog.cpp" line="306"/>
+        <location filename="../src/virtual_midi_keyboard/vk_configdialog.cpp" line="315"/>
         <source>SoundFont (*.sf2 *.SF2);;All files (*)</source>
         <translation>SoundFont (*.sf2 *.SF2);;所有檔案 (*)</translation>
     </message>
@@ -147,88 +147,103 @@
 <context>
     <name>VkMainWindow</name>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="33"/>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="46"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="35"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="48"/>
         <source>Virtual MIDI Keyboard</source>
         <translation>虛擬 MIDI 鍵盤</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="70"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="73"/>
         <source>&amp;File</source>
         <translation>檔案(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="71"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="74"/>
         <source>&amp;Close</source>
         <translation>關閉(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="75"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="78"/>
         <source>&amp;Settings</source>
         <translation>設定(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="76"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="79"/>
         <source>&amp;Configuration</source>
         <translation>組態設定(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="80"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="83"/>
         <source>&amp;Help</source>
         <translation>說明(&amp;H)</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="81"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="84"/>
+        <source>&amp;About</source>
+        <translation>關於(&amp;A)</translation>
+    </message>
+    <message>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="86"/>
         <source>&amp;Using this application</source>
         <translation>使用此應用程式(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="36"/>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="104"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="38"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="109"/>
         <source>Volume</source>
         <translation>音量</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="108"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="113"/>
         <source>&lt;</source>
         <translation>&lt;</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="118"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="123"/>
         <source>&gt;</source>
         <translation>&gt;</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="37"/>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="132"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="39"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="137"/>
         <source>Octave</source>
         <translation>八度</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="38"/>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="171"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="40"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="176"/>
         <source>Chorus</source>
         <translation>合唱</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="39"/>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="173"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="41"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="178"/>
         <source>Apply</source>
         <translation>套用</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="40"/>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="183"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="42"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="188"/>
         <source>Virtual MIDI sound:</source>
         <translation>虛擬 MIDI 音色：</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="344"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="248"/>
+        <source>&lt;h3&gt;Virtual MIDI Keyboard %1&lt;/h3&gt;&lt;p&gt;An on-screen virtual MIDI keyboard with a built-in FluidSynth software synthesizer. Play notes with the mouse or computer keyboard, send MIDI to external devices, or forward incoming MIDI from a connected controller.&lt;/p&gt;&lt;p&gt;Companion application to Musician&apos;s Canvas. Written in C++ with Qt6.&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; Eric Oulashin&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;</source>
+        <translation>&lt;h3&gt;Virtual MIDI Keyboard %1&lt;/h3&gt;&lt;p&gt;內建 FluidSynth 軟體合成器的螢幕虛擬 MIDI 鍵盤。您可使用滑鼠或電腦鍵盤彈奏音符，將 MIDI 傳送至外部裝置，或轉發來自連接控制器的 MIDI 訊息。&lt;/p&gt;&lt;p&gt;Musician&apos;s Canvas 的伴隨應用程式。使用 C++ 與 Qt6 編寫。&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; Eric Oulashin&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="260"/>
+        <source>About Virtual MIDI Keyboard</source>
+        <translation>關於 Virtual MIDI Keyboard</translation>
+    </message>
+    <message>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="369"/>
         <source>(No SoundFont — configure one in Settings)</source>
         <translation>（沒有 SoundFont — 請在設定中設定一個）</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="374"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="399"/>
         <source>Audio driver failed to initialise. Check that PulseAudio or PipeWire is running.</source>
         <translation>音訊驅動程式初始化失敗。請確認 PulseAudio 或 PipeWire 正在執行。</translation>
     </message>

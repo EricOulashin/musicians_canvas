@@ -5,6 +5,7 @@
         <file>images/record_button.png</file>
         <file>images/stop_button.png</file>
         <file>images/addTrack.png</file>
+        <file>images/metronome.png</file>
         <file>icons/MusiciansCanvas.ico</file>
     </qresource>
 </RCC>
