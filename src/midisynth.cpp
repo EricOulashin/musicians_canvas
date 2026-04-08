@@ -5,8 +5,38 @@
 #include <QFile>
 #include <QDataStream>
 #include <QByteArray>
+#include <QDebug>
 #include <algorithm>
 #include <cstring>
+
+// Common system SoundFont paths to try when neither the project nor the
+// app default SoundFont is configured (or is unreadable).  Mirrors the
+// list used by virtual_midi_keyboard's vk_midiio.cpp.
+static QString findSystemSoundFont()
+{
+    static const char* const s_sfPaths[] = {
+        // Debian/Ubuntu
+        "/usr/share/sounds/sf2/default-GM.sf2",
+        "/usr/share/sounds/sf2/default.sf2",
+        "/usr/share/sounds/sf2/FluidR3_GM.sf2",
+        "/usr/share/sounds/sf2/TimGM6mb.sf2",
+        // Fedora/RHEL
+        "/usr/share/soundfonts/default.sf2",
+        "/usr/share/soundfonts/FluidR3_GM.sf2",
+        // Arch Linux
+        "/usr/share/soundfonts/freepats-general-midi.sf2",
+        // Windows (MSYS2 default install)
+        "C:/msys64/mingw64/share/soundfonts/FluidR3_GM.sf2",
+        "C:/Program Files/Musicians_Canvas/FluidR3_GM.sf2",
+        nullptr
+    };
+    for (int i = 0; s_sfPaths[i] != nullptr; ++i)
+    {
+        if (QFile::exists(QString::fromUtf8(s_sfPaths[i])))
+            return QString::fromUtf8(s_sfPaths[i]);
+    }
+    return {};
+}
 
 using std::make_shared;
 using std::shared_ptr;
@@ -90,21 +120,45 @@ bool MidiSynth::renderMidiToWav(const QVector<MidiNote>& notes, double lengthSec
     if (maxTime < 0.01) maxTime = 1.0;
 
     fluid_settings_t* settings = new_fluid_settings();
-    fluid_settings_setint(settings, "synth.sample-rate", sampleRate);
+    fluid_settings_setnum(settings, "synth.sample-rate", static_cast<double>(sampleRate));
     fluid_settings_setint(settings, "synth.lock-memory", 0);
+    // Raise the master gain from FluidSynth's conservative default of 0.2.
+    // Without this, rendered MIDI is much quieter than the audio tracks it
+    // is mixed with, making it sound like the MIDI track is missing.
+    fluid_settings_setnum(settings, "synth.gain", 0.8);
 
     fluid_synth_t* synth = new_fluid_synth(settings);
-    // Use project-specific SoundFont if provided; fall back to app default
-    QString sfPath = soundFontPath.isEmpty() ? AppSettings::instance().soundFontPath()
-                                             : soundFontPath;
-    if (!sfPath.isEmpty())
+
+    // Resolve which SoundFont to load, in priority order:
+    //   1. The project-specific SoundFont passed in
+    //   2. The application default from AppSettings
+    //   3. A system-installed SoundFont (Debian/Ubuntu/Fedora/Arch/Windows)
+    //
+    // If a configured path exists but fails to load, fall through to the
+    // next option instead of giving up.  Even if all attempts fail we still
+    // produce a valid (silent) output WAV so the MIDI track is preserved
+    // in the timeline of the final mix; the previous behaviour was to
+    // return false, which made mixTracksToFile silently DROP the entire
+    // MIDI track from the mix.
+    auto tryLoadSf = [synth](const QString& path) -> bool {
+        if (path.isEmpty()) return false;
+        if (!QFile::exists(path)) return false;
+        return fluid_synth_sfload(synth, path.toUtf8().constData(), 1) != FLUID_FAILED;
+    };
+
+    bool sfLoaded = false;
+    if (!soundFontPath.isEmpty())
+        sfLoaded = tryLoadSf(soundFontPath);
+    if (!sfLoaded)
+        sfLoaded = tryLoadSf(AppSettings::instance().soundFontPath());
+    if (!sfLoaded)
+        sfLoaded = tryLoadSf(findSystemSoundFont());
+    if (!sfLoaded)
     {
-        if (fluid_synth_sfload(synth, sfPath.toUtf8().constData(), 1) == FLUID_FAILED)
-        {
-            delete_fluid_synth(synth);
-            delete_fluid_settings(settings);
-            return false;
-        }
+        // No SoundFont available — render silence so the MIDI track still
+        // appears at the right place in the mix timeline.
+        qWarning("MidiSynth::renderMidiToWav: no SoundFont could be loaded; "
+                 "MIDI track will render as silence");
     }
 
     const int blockSize = 64;
@@ -123,13 +177,14 @@ bool MidiSynth::renderMidiToWav(const QVector<MidiNote>& notes, double lengthSec
         double time;
         int note;
         int vel;
+        int channel;
         bool on;
     };
     QVector<NoteEvent> events;
     for (const auto& n : sortedNotes)
     {
-        events.append({n.startTime, n.note, n.velocity, true});
-        events.append({n.startTime + n.duration, n.note, 0, false});
+        events.append({n.startTime,             n.note, n.velocity, n.channel, true});
+        events.append({n.startTime + n.duration, n.note, 0,         n.channel, false});
     }
     std::sort(events.begin(), events.end(), [](const NoteEvent& a, const NoteEvent& b)
     {
@@ -147,13 +202,20 @@ bool MidiSynth::renderMidiToWav(const QVector<MidiNote>& notes, double lengthSec
         while (eventIdx < events.size() && events[eventIdx].time <= blockEndTime)
         {
             const auto& e = events[eventIdx];
+            // Render each note on its captured channel.  This is essential
+            // for drum tracks: notes recorded on MIDI channel 10 (= channel
+            // index 9) must be played back on channel 9 so FluidSynth uses
+            // the percussion bank.  Notes recorded on melodic channels are
+            // played on those channels with the bank/program last selected
+            // for them (defaults to bank 0 / program 0 = Acoustic Grand).
+            const int ch = (e.channel >= 0 && e.channel <= 15) ? e.channel : 0;
             if (e.on)
             {
-                fluid_synth_noteon(synth, 0, e.note, e.vel);
+                fluid_synth_noteon(synth, ch, e.note, e.vel);
             }
             else
             {
-                fluid_synth_noteoff(synth, 0, e.note);
+                fluid_synth_noteoff(synth, ch, e.note);
             }
             eventIdx++;
         }
@@ -190,7 +252,7 @@ bool MidiSynth::renderMidiFileToWav(const QString& midiPath, const QString& outp
     fluid_settings_t* settings = new_fluid_settings();
     fluid_settings_setstr(settings, "audio.file.name", outputPath.toUtf8().constData());
     fluid_settings_setstr(settings, "player.timing-source", "sample");
-    fluid_settings_setint(settings, "synth.sample-rate", sampleRate);
+    fluid_settings_setnum(settings, "synth.sample-rate", static_cast<double>(sampleRate));
     fluid_settings_setint(settings, "synth.lock-memory", 0);
 
     fluid_synth_t* synth = new_fluid_synth(settings);

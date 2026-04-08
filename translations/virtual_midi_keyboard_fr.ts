@@ -147,103 +147,127 @@
 <context>
     <name>VkMainWindow</name>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="35"/>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="48"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="36"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="55"/>
         <source>Virtual MIDI Keyboard</source>
         <translation>Clavier MIDI virtuel</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="73"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="43"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="236"/>
+        <source>MIDI Ch</source>
+        <translation>Canal MIDI</translation>
+    </message>
+    <message>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="45"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="202"/>
+        <source>MIDI channel (10 is the General MIDI drum channel)</source>
+        <translation>Canal MIDI (10 est le canal de batterie General MIDI)</translation>
+    </message>
+    <message>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="46"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="209"/>
+        <source>Drums</source>
+        <translation>Batterie</translation>
+    </message>
+    <message>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="48"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="212"/>
+        <source>Switch to MIDI channel 10 (General MIDI drum channel) while ticked</source>
+        <translation>Passer au canal MIDI 10 (canal de batterie General MIDI) lorsque coché</translation>
+    </message>
+    <message>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="83"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="74"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="84"/>
         <source>&amp;Close</source>
         <translation>&amp;Fermer</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="78"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="88"/>
         <source>&amp;Settings</source>
         <translation>&amp;Réglages</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="79"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="89"/>
         <source>&amp;Configuration</source>
         <translation>&amp;Configuration</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="83"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="93"/>
         <source>&amp;Help</source>
         <translation>&amp;Aide</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="84"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="94"/>
         <source>&amp;About</source>
         <translation>&amp;À propos</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="86"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="96"/>
         <source>&amp;Using this application</source>
         <translation>&amp;Utilisation de cette application</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="38"/>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="109"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="39"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="119"/>
         <source>Volume</source>
         <translation>Volume</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="113"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="123"/>
         <source>&lt;</source>
         <translation>&lt;</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="123"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="133"/>
         <source>&gt;</source>
         <translation>&gt;</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="39"/>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="137"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="40"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="147"/>
         <source>Octave</source>
         <translation>Octave</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="40"/>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="176"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="41"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="186"/>
         <source>Chorus</source>
         <translation>Chorus</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="41"/>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="178"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="42"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="188"/>
         <source>Apply</source>
         <translation>Appliquer</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="42"/>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="188"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="49"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="244"/>
         <source>Virtual MIDI sound:</source>
         <translation>Son MIDI virtuel :</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="248"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="304"/>
         <source>&lt;h3&gt;Virtual MIDI Keyboard %1&lt;/h3&gt;&lt;p&gt;An on-screen virtual MIDI keyboard with a built-in FluidSynth software synthesizer. Play notes with the mouse or computer keyboard, send MIDI to external devices, or forward incoming MIDI from a connected controller.&lt;/p&gt;&lt;p&gt;Companion application to Musician&apos;s Canvas. Written in C++ with Qt6.&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; Eric Oulashin&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;</source>
         <translation>&lt;h3&gt;Virtual MIDI Keyboard %1&lt;/h3&gt;&lt;p&gt;Un clavier MIDI virtuel à l&apos;écran avec un synthétiseur logiciel FluidSynth intégré. Jouez des notes avec la souris ou le clavier de l&apos;ordinateur, envoyez du MIDI à des appareils externes ou transférez le MIDI entrant depuis un contrôleur connecté.&lt;/p&gt;&lt;p&gt;Application complémentaire de Musician&apos;s Canvas. Écrit en C++ avec Qt6.&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; Eric Oulashin&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="260"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="316"/>
         <source>About Virtual MIDI Keyboard</source>
         <translation>À propos de Virtual MIDI Keyboard</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="369"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="449"/>
         <source>(No SoundFont — configure one in Settings)</source>
         <translation>(Aucun SoundFont — configurez-en un dans les Réglages)</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="399"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="479"/>
         <source>Audio driver failed to initialise. Check that PulseAudio or PipeWire is running.</source>
         <translation>Échec de l&apos;initialisation du pilote audio. Vérifiez que PulseAudio ou PipeWire est en cours d&apos;exécution.</translation>
     </message>

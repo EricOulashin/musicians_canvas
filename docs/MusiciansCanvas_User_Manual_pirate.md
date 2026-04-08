@@ -368,6 +368,8 @@ The Virtual MIDI Keyboard be a companion vessel (`virtual_midi_keyboard`) that p
 - **Volume**: MIDI volume (CC#7), adjustable from 0 to 127 via the spin box. Crank it up, ye sea dog!
 - **Octave**: Shift the keyboard octave using the **<** and **>** buttons or the spin box. Range be -3 to +5.
 - **Chorus/Effect**: A rotary knob an' text field (1--127) to set the chorus/effect level (MIDI CC#93). Click **Apply** to send the value across the wire.
+- **MIDI Channel**: A numeric input (1--16) to pick which o' the sixteen MIDI channels yer notes, program changes, an' control changes be dispatched upon, matey. The default be channel 1. The chosen channel takes effect the moment ye change it. Pickin' a SoundFont preset while a particular channel be selected applies that bank/program to that very channel, so ye can play different sounds on different channels -- a whole crew o' instruments at yer command!
+- **Drum Plunder**: A checkbox perched just above the MIDI channel selector. When unticked (the default), the MIDI channel be whatever ye chose yerself. When ticked, the MIDI channel be automatically hoisted to channel 10 — the General MIDI standard drum channel — so anythin' ye play booms out as percussion, like a barrel o' cannons on the deck. Unticking the box restores the channel ye had selected afore the Drum Plunder was unleashed.
 - **Instrument selector**: Choose a MIDI instrument. When using the built-in FluidSynth synthesizer, this shows SoundFont presets (Bank:Program Name). When connected to an external MIDI device, this lists the 128 General MIDI instruments.
 
 ### Playin' with the Computer Keyboard

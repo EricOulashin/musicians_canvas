@@ -28,6 +28,19 @@ void MidiVisualizationWidget::clear()
     update();
 }
 
+void MidiVisualizationWidget::setStatusText(const QString& text, const QColor& color)
+{
+    m_statusText = text;
+    m_statusColor = color;
+    update();
+}
+
+void MidiVisualizationWidget::clearStatusText()
+{
+    m_statusText.clear();
+    update();
+}
+
 void MidiVisualizationWidget::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event);
@@ -87,5 +100,17 @@ void MidiVisualizationWidget::paintEvent(QPaintEvent* event)
         painter.fillRect(x, y, w, qMax(2, (int)noteHeight), col);
         painter.setPen(noteColor);
         painter.drawRect(x, y, w, qMax(2, (int)noteHeight));
+    }
+
+    // Draw a status text overlay (used for the recording countdown
+    // and "Recording" indicator on MIDI tracks)
+    if (!m_statusText.isEmpty())
+    {
+        painter.setPen(m_statusColor.isValid() ? m_statusColor : QColor(220, 160, 30));
+        QFont f = painter.font();
+        f.setPointSize(f.pointSize() + 2);
+        f.setBold(true);
+        painter.setFont(f);
+        painter.drawText(rect(), Qt::AlignCenter, m_statusText);
     }
 }

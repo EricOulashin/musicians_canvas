@@ -11,6 +11,9 @@ struct ProjectSettings
     // MIDI
     int     midiDeviceIndex  = -1;   // -1 = use app default
     QString soundFontPath;           // empty = use app default
+    // MIDI INPUT port name (matched against RtMidiIn::getPortName).
+    // Empty = no MIDI input — MIDI tracks cannot be recorded until set.
+    QString midiInputPortName;
 
     // Audio
     QByteArray audioInputDeviceId;   // empty = use app default (Qt Multimedia device id)

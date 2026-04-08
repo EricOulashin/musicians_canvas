@@ -147,103 +147,127 @@
 <context>
     <name>VkMainWindow</name>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="35"/>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="48"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="36"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="55"/>
         <source>Virtual MIDI Keyboard</source>
         <translation>Méarchlár Fíorúil MIDI</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="38"/>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="109"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="39"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="119"/>
         <source>Volume</source>
         <translation>Airde</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="39"/>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="137"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="40"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="147"/>
         <source>Octave</source>
         <translation>Ochtach</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="40"/>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="176"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="41"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="186"/>
         <source>Chorus</source>
         <translation>Cór</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="41"/>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="178"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="42"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="188"/>
         <source>Apply</source>
         <translation>Cuir i bhFeidhm</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="42"/>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="188"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="43"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="236"/>
+        <source>MIDI Ch</source>
+        <translation>Cain MIDI</translation>
+    </message>
+    <message>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="45"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="202"/>
+        <source>MIDI channel (10 is the General MIDI drum channel)</source>
+        <translation>Cainéal MIDI (is é 10 cainéal druma General MIDI)</translation>
+    </message>
+    <message>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="46"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="209"/>
+        <source>Drums</source>
+        <translation>Drumaí</translation>
+    </message>
+    <message>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="48"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="212"/>
+        <source>Switch to MIDI channel 10 (General MIDI drum channel) while ticked</source>
+        <translation>Athraigh go cainéal MIDI 10 (cainéal druma General MIDI) agus é ticeáilte</translation>
+    </message>
+    <message>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="49"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="244"/>
         <source>Virtual MIDI sound:</source>
         <translation>Fuaim fhíorúil MIDI:</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="73"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="83"/>
         <source>&amp;File</source>
         <translation>&amp;Comhad</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="74"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="84"/>
         <source>&amp;Close</source>
         <translation>&amp;Dún</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="78"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="88"/>
         <source>&amp;Settings</source>
         <translation>&amp;Socruithe</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="79"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="89"/>
         <source>&amp;Configuration</source>
         <translation>&amp;Cumraíocht</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="83"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="93"/>
         <source>&amp;Help</source>
         <translation>&amp;Cabhair</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="84"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="94"/>
         <source>&amp;About</source>
         <translation>&amp;Maidir leis</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="86"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="96"/>
         <source>&amp;Using this application</source>
         <translation>Ag &amp;úsáid an fheidhmchláir seo</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="113"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="123"/>
         <source>&lt;</source>
         <translation>&lt;</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="123"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="133"/>
         <source>&gt;</source>
         <translation>&gt;</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="248"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="304"/>
         <source>&lt;h3&gt;Virtual MIDI Keyboard %1&lt;/h3&gt;&lt;p&gt;An on-screen virtual MIDI keyboard with a built-in FluidSynth software synthesizer. Play notes with the mouse or computer keyboard, send MIDI to external devices, or forward incoming MIDI from a connected controller.&lt;/p&gt;&lt;p&gt;Companion application to Musician&apos;s Canvas. Written in C++ with Qt6.&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; Eric Oulashin&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;</source>
         <translation>&lt;h3&gt;Virtual MIDI Keyboard %1&lt;/h3&gt;&lt;p&gt;Méarchlár MIDI fíorúil ar an scáileán le sintéiseoir bogearraí FluidSynth ionsuite. Seinn nótaí leis an luch nó leis an méarchlár ríomhaire, seol MIDI chuig gléasanna seachtracha, nó cuir MIDI isteach ar aghaidh ó rialtán nasctha.&lt;/p&gt;&lt;p&gt;Feidhmchlár comhpháirteach le Musician&apos;s Canvas. Scríofa i C++ le Qt6.&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; Eric Oulashin&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="260"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="316"/>
         <source>About Virtual MIDI Keyboard</source>
         <translation>Maidir le Virtual MIDI Keyboard</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="369"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="449"/>
         <source>(No SoundFont — configure one in Settings)</source>
         <translation>(Gan SoundFont — cumraigh ceann sna Socruithe)</translation>
     </message>
     <message>
-        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="399"/>
+        <location filename="../src/virtual_midi_keyboard/vk_mainwindow.cpp" line="479"/>
         <source>Audio driver failed to initialise. Check that PulseAudio or PipeWire is running.</source>
         <translation>Theip ar thúsú an tiománaí fuaime. Seiceáil go bhfuil PulseAudio nó PipeWire ag rith.</translation>
     </message>

@@ -356,6 +356,8 @@ Is feidhmchlár comhpháirteach é Virtual MIDI Keyboard (`virtual_midi_keyboard
 - **Volume**: Toirt MIDI (CC#7), inchóirithe ó 0 go 127 tríd an mbosca snáthaide.
 - **Octave**: Aistrigh ochtáif an mhéarchláir ag úsáid na gcnaipí **<** agus **>** nó an bhosca snáthaide. Raon -3 go +5.
 - **Chorus/Effect**: Cnaipe rothlach agus réimse téacs (1--127) chun leibhéal chorus/éifeachta a shocrú (MIDI CC#93). Cliceáil **Apply** chun an luach a sheoladh.
+- **Cainéal MIDI**: Roghnaíonn ionchur uimhriúil (1--16) an cainéal MIDI ar a seoltar nótaí, athruithe cláir agus athruithe rialaithe. Is é an cainéal 1 an réamhshocrú. Tagann an cainéal roghnaithe i bhfeidhm láithreach nuair a athraítear é. Má roghnaítear réamhshocrú SoundFont agus cainéal áirithe roghnaithe, cuirtear an bank/program sin i bhfeidhm ar an gcainéal sin, ionas gur féidir leat fuaimeanna difriúla a sheinm ar chainéil dhifriúla.
+- **Drumaí**: Bosca ticeála atá díreach os cionn an roghnóra cainéil MIDI. Nuair nach bhfuil sé ticeáilte (an réamhshocrú), is é an cainéal MIDI an cainéal a roghnaigh an t-úsáideoir. Nuair atá sé ticeáilte, athraítear an cainéal MIDI go huathoibríoch go cainéal 10 — cainéal druma caighdeánach General MIDI — ionas go bhfuaimneoidh gach a seinntear mar chnaguirlisí. Má bhaintear an tic den bhosca, cuirtear ar ais an cainéal a bhí roghnaithe sular cumasaíodh Drumaí.
 - **Roghnóir ionstraime**: Roghnaigh ionstraim MIDI. Nuair a úsáidtear an sintéiseoir FluidSynth ionsuite, taispeánann sé seo réamhshocruithe SoundFont (Bank:Program Name). Nuair atá sé ceangailte le gléas MIDI seachtrach, liostáítear na 128 ionstraim General MIDI.
 
 ### Ag Seinm le Méarchlár an Ríomhaire

@@ -413,6 +413,16 @@ ett pianoklaviatur på skärmen för att skicka MIDI-noter. Den kan startas frå
   Intervallet är -3 till +5.
 - **Chorus/Effect**: En vridbar ratt och textfält (1--127) för att ställa in kör/effekt-nivån
   (MIDI CC#93). Klicka på **Apply** för att skicka värdet.
+- **MIDI-kanal**: Ett numeriskt inmatningsfält (1--16) väljer MIDI-kanalen som
+  noter, programbyten och control changes skickas på. Standard är kanal 1. Den
+  valda kanalen träder i kraft omedelbart efter ändringen. Att välja ett
+  SoundFont-preset medan en viss kanal är vald tillämpar det bank/program på den
+  kanalen, så att du kan spela olika ljud på olika kanaler.
+- **Trummor**: En kryssruta precis ovanför MIDI-kanalväljaren. När den inte är
+  ikryssad (standard) är MIDI-kanalen den som användaren har valt. När den är
+  ikryssad växlas MIDI-kanalen automatiskt till kanal 10 — General MIDI-
+  standardens trumkanal — så att allt som spelas låter som slagverk. Att avmarkera
+  rutan återställer den kanal som var vald innan Trummor aktiverades.
 - **Instrumentväljare**: Välj ett MIDI-instrument. Vid användning av den inbyggda synthesizern FluidSynth
   visas SoundFont-förval (Bank:Program Namn). Vid anslutning till en extern MIDI-enhet listas de 128
   General MIDI-instrumenten.

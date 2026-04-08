@@ -38,6 +38,11 @@ public:
     void sendControlChange(int controller, int value);
     void selectPreset(int bank, int program);
 
+    // MIDI channel (0-15, displayed as 1-16 in the UI).  Defaults to 9
+    // (MIDI channel 10), the General MIDI standard drum channel.
+    void setMidiChannel(int channel);
+    [[nodiscard]] int  midiChannel() const { return m_channel; }
+
     [[nodiscard]] bool isOutputOpen() const
     {
         return m_outputOpen;
@@ -60,6 +65,9 @@ private:
     class Impl;
     std::shared_ptr<Impl> m_impl;
     bool m_outputOpen = false;
+    int  m_channel    = 0;  // 0-based; channel 0 = MIDI channel 1
+    int  m_lastBank   = 0;
+    int  m_lastProgram = 0;
 };
 
 #endif // VK_MIDIIO_H

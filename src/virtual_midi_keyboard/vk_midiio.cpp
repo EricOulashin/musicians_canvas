@@ -448,22 +448,46 @@ QList<VkMidiIo::SoundPreset> VkMidiIo::getPresets() const
     return presets;
 }
 
-void VkMidiIo::selectPreset(int bank, int program)
+void VkMidiIo::setMidiChannel(int channel)
 {
+    if (channel < 0)  channel = 0;
+    if (channel > 15) channel = 15;
+    m_channel = channel;
+
+    // Re-apply the most recently selected preset on the new channel so the
+    // user immediately hears the right sound on the channel they just picked.
+    // This also fixes the case where switching to MIDI channel 10 (drums)
+    // should make the keyboard play percussion regardless of the previously
+    // selected bank/program.
     if (m_impl->fluidSynth)
     {
-        fluid_synth_bank_select(m_impl->fluidSynth, 0,
+        fluid_synth_bank_select(m_impl->fluidSynth,
+                                m_channel,
+                                static_cast<unsigned int>(m_lastBank));
+        fluid_synth_program_change(m_impl->fluidSynth, m_channel, m_lastProgram);
+    }
+}
+
+void VkMidiIo::selectPreset(int bank, int program)
+{
+    m_lastBank    = bank;
+    m_lastProgram = program;
+    if (m_impl->fluidSynth)
+    {
+        fluid_synth_bank_select(m_impl->fluidSynth, m_channel,
                                 static_cast<unsigned int>(bank));
-        fluid_synth_program_change(m_impl->fluidSynth, 0, program);
+        fluid_synth_program_change(m_impl->fluidSynth, m_channel, program);
     }
     else if (m_impl->midiOut)
     {
+        const unsigned char ccStatus = static_cast<unsigned char>(0xB0 | (m_channel & 0x0F));
+        const unsigned char pcStatus = static_cast<unsigned char>(0xC0 | (m_channel & 0x0F));
         std::vector<unsigned char> msg;
-        msg = { 0xB0, 0x00, static_cast<unsigned char>((bank >> 7) & 0x7F) };
+        msg = { ccStatus, 0x00, static_cast<unsigned char>((bank >> 7) & 0x7F) };
         m_impl->midiOut->sendMessage(&msg);
-        msg = { 0xB0, 0x20, static_cast<unsigned char>(bank & 0x7F) };
+        msg = { ccStatus, 0x20, static_cast<unsigned char>(bank & 0x7F) };
         m_impl->midiOut->sendMessage(&msg);
-        msg = { 0xC0, static_cast<unsigned char>(program & 0x7F) };
+        msg = { pcStatus, static_cast<unsigned char>(program & 0x7F) };
         m_impl->midiOut->sendMessage(&msg);
     }
 }
@@ -473,7 +497,7 @@ void VkMidiIo::sendNoteOn(int note, int velocity)
     if (m_impl->midiOut)
     {
         std::vector<unsigned char> msg = {
-            0x90,
+            static_cast<unsigned char>(0x90 | (m_channel & 0x0F)),
             static_cast<unsigned char>(note     & 0x7F),
             static_cast<unsigned char>(velocity & 0x7F)
         };
@@ -481,7 +505,7 @@ void VkMidiIo::sendNoteOn(int note, int velocity)
     }
     else if (m_impl->fluidSynth)
     {
-        fluid_synth_noteon(m_impl->fluidSynth, 0, note, velocity);
+        fluid_synth_noteon(m_impl->fluidSynth, m_channel, note, velocity);
     }
 }
 
@@ -490,7 +514,7 @@ void VkMidiIo::sendNoteOff(int note)
     if (m_impl->midiOut)
     {
         std::vector<unsigned char> msg = {
-            0x80,
+            static_cast<unsigned char>(0x80 | (m_channel & 0x0F)),
             static_cast<unsigned char>(note & 0x7F),
             0
         };
@@ -498,23 +522,24 @@ void VkMidiIo::sendNoteOff(int note)
     }
     else if (m_impl->fluidSynth)
     {
-        fluid_synth_noteoff(m_impl->fluidSynth, 0, note);
+        fluid_synth_noteoff(m_impl->fluidSynth, m_channel, note);
     }
 }
 
 void VkMidiIo::sendProgramChange(int program)
 {
+    m_lastProgram = program;
     if (m_impl->midiOut)
     {
         std::vector<unsigned char> msg = {
-            0xC0,
+            static_cast<unsigned char>(0xC0 | (m_channel & 0x0F)),
             static_cast<unsigned char>(program & 0x7F)
         };
         m_impl->midiOut->sendMessage(&msg);
     }
     else if (m_impl->fluidSynth)
     {
-        fluid_synth_program_change(m_impl->fluidSynth, 0, program);
+        fluid_synth_program_change(m_impl->fluidSynth, m_channel, program);
     }
 }
 
@@ -523,7 +548,7 @@ void VkMidiIo::sendControlChange(int controller, int value)
     if (m_impl->midiOut)
     {
         std::vector<unsigned char> msg = {
-            0xB0,
+            static_cast<unsigned char>(0xB0 | (m_channel & 0x0F)),
             static_cast<unsigned char>(controller & 0x7F),
             static_cast<unsigned char>(value      & 0x7F)
         };
@@ -531,6 +556,6 @@ void VkMidiIo::sendControlChange(int controller, int value)
     }
     else if (m_impl->fluidSynth)
     {
-        fluid_synth_cc(m_impl->fluidSynth, 0, controller, value);
+        fluid_synth_cc(m_impl->fluidSynth, m_channel, controller, value);
     }
 }

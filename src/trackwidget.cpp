@@ -215,12 +215,25 @@ void TrackWidget::clearRecordingLevel()
 
 void TrackWidget::setRecordingStatus(const QString& status)
 {
-    if (m_waveformWidget) m_waveformWidget->setStatusText(status, QColor(220, 160, 30));
+    // Write the status to whichever visualization widget is currently shown.
+    // Audio tracks display the waveform; MIDI tracks display the piano roll.
+    // Without this branch, the countdown text was being set on the hidden
+    // waveform widget for MIDI tracks and never appeared on screen.
+    const QColor color(220, 160, 30);
+    if (m_data.type == TrackType::MIDI)
+    {
+        if (m_midiWidget) m_midiWidget->setStatusText(status, color);
+    }
+    else
+    {
+        if (m_waveformWidget) m_waveformWidget->setStatusText(status, color);
+    }
 }
 
 void TrackWidget::clearRecordingStatus()
 {
     if (m_waveformWidget) m_waveformWidget->clearStatusText();
+    if (m_midiWidget)     m_midiWidget->clearStatusText();
 }
 
 void TrackWidget::retranslateUi()

@@ -43,6 +43,7 @@ private:
 
     QTabWidget*   m_tabWidget          = nullptr;
     QComboBox*    m_midiDeviceCombo    = nullptr;
+    QComboBox*    m_midiInputCombo     = nullptr;
     QLineEdit*    m_soundFontEdit      = nullptr;
     QComboBox*    m_audioInputCombo    = nullptr;
     QComboBox*    m_audioOutputCombo   = nullptr;

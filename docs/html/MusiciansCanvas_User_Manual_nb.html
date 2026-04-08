@@ -482,6 +482,8 @@ hjelpe deg å holde takten. Klikk på metronomknappen på knapperaden (under men
 <li><strong>Volume</strong>: MIDI-volum (CC#7), justerbart fra 0 til 127 via spinnboksen.</li>
 <li><strong>Octave</strong>: Skift tastaturets oktav ved hjelp av knappene <strong>&lt;</strong> og <strong>&gt;</strong> eller spinnboksen. Området er -3 til +5.</li>
 <li><strong>Chorus/Effect</strong>: En dreieknapp og et tekstfelt (1--127) for å stille inn chorus/effektnivået (MIDI CC#93). Klikk på <strong>Apply</strong> for å sende verdien.</li>
+<li><strong>MIDI-kanal</strong>: Et numerisk inntastingsfelt (1--16) velger MIDI-kanalen som noter, programendringer og kontrollendringer sendes på. Standard er kanal 1. Den valgte kanalen trer i kraft umiddelbart etter endring. Hvis du velger et SoundFont-preset mens en bestemt kanal er valgt, brukes den bank/program på den kanalen, slik at du kan spille forskjellige lyder på forskjellige kanaler.</li>
+<li><strong>Trommer</strong>: En avmerkingsboks rett over MIDI-kanalvelgeren. Når den ikke er merket av (standard), er MIDI-kanalen den brukeren har valgt. Når den er merket av, byttes MIDI-kanalen automatisk til kanal 10 — General MIDIs standard trommekanal — slik at alt som spilles, høres ut som perkusjon. Når boksen fjernes, gjenopprettes kanalen som var valgt før Trommer ble aktivert.</li>
 <li><strong>Instrumentvelger</strong>: Velg et MIDI-instrument. Når den innebygde FluidSynth-synthesizeren brukes, viser den SoundFont-presets (Bank:Program Navn). Når den er koblet til en ekstern MIDI-enhet, viser den de 128 General MIDI-instrumentene.</li>
 </ul>
 <h3 id="spille-med-datamaskinens-tastatur">Spille med datamaskinens tastatur</h3>

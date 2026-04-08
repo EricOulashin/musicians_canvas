@@ -436,6 +436,16 @@ provides an on-screen piano keyboard for sending MIDI notes. It can be launched 
   box. Range is -3 to +5.
 - **Chorus/Effect**: A rotary knob and text field (1--127) to set the chorus/effect
   level (MIDI CC#93). Click **Apply** to send the value.
+- **MIDI Channel**: A numeric input (1--16) selects the MIDI channel that notes,
+  program changes, and control changes are sent on. The default is channel 1. The
+  selected channel takes effect immediately when changed. Picking a SoundFont
+  preset while a particular channel is selected applies that bank/program to that
+  channel, so you can play different sounds on different channels.
+- **Drums**: A checkbox just above the MIDI channel selector. When unticked
+  (the default), the MIDI channel is whatever the user has chosen. When ticked,
+  the MIDI channel is automatically switched to channel 10 — the General MIDI
+  standard drum channel — so anything played sounds as percussion. Unticking
+  the box restores the channel that was selected before Drums was enabled.
 - **Instrument selector**: Choose a MIDI instrument. When using the built-in FluidSynth
   synthesizer, this shows SoundFont presets (Bank:Program Name). When connected to an
   external MIDI device, this lists the 128 General MIDI instruments.

@@ -17,6 +17,12 @@ struct MidiNote
     int velocity;
     double startTime;  // in seconds
     double duration;  // in seconds
+    // 0-based MIDI channel (0..15).  Channel 9 is the General MIDI standard
+    // drum channel — notes captured from a drum controller arrive on this
+    // channel and must be rendered there for the percussion bank to be
+    // selected.  Default 0 (= MIDI channel 1) for legacy data that was
+    // recorded before the channel field existed.
+    int channel = 0;
 };
 
 struct TrackData

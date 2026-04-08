@@ -1,6 +1,7 @@
 #include "segmentdisplay.h"
 #include <QPainter>
 #include <QPainterPath>
+#include <QTimer>
 #include <cmath>
 
 // Segment map for digits 0-9.
@@ -47,6 +48,23 @@ void SegmentDisplay::reset()
 {
     m_millis = 0;
     update();
+}
+
+void SegmentDisplay::flash()
+{
+    m_flashing = true;
+    update();
+    if (!m_flashTimer)
+    {
+        m_flashTimer = new QTimer(this);
+        m_flashTimer->setSingleShot(true);
+        connect(m_flashTimer, &QTimer::timeout, this, [this]()
+        {
+            m_flashing = false;
+            update();
+        });
+    }
+    m_flashTimer->start(80);  // 80 ms flash, short enough to not blur into the next beat
 }
 
 void SegmentDisplay::setActiveColor(const QColor& color)
@@ -162,7 +180,20 @@ void SegmentDisplay::paintEvent(QPaintEvent*)
     painter.setRenderHint(QPainter::Antialiasing);
 
     // Dark background
-    painter.fillRect(rect(), QColor(20, 20, 20));
+    // Background — slightly tinted while a metronome flash is active.
+    if (m_flashing)
+    {
+        // Tint the background with a dim version of the LED color so the
+        // flash is unmistakable but doesn't drown out the digits.
+        QColor bg = m_activeColor;
+        bg.setAlpha(70);
+        painter.fillRect(rect(), QColor(20, 20, 20));
+        painter.fillRect(rect(), bg);
+    }
+    else
+    {
+        painter.fillRect(rect(), QColor(20, 20, 20));
+    }
 
     // Parse time
     const qint64 totalHundredths = m_millis / 10;

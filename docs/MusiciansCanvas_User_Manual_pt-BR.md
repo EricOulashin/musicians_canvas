@@ -456,6 +456,18 @@ independentemente.
   numerica. O intervalo e de -3 a +5.
 - **Chorus/Effect**: Um botao rotativo e campo de texto (1--127) para definir o nivel de
   chorus/efeito (MIDI CC#93). Clique em **Apply** para enviar o valor.
+- **Canal MIDI**: Uma entrada numérica (1--16) seleciona o canal MIDI pelo qual as
+  notas, as mudancas de programa e as mudancas de controle sao enviadas. O padrao e
+  o canal 1. O canal selecionado passa a valer imediatamente apos ser alterado.
+  Escolher um preset do SoundFont enquanto um determinado canal esta selecionado
+  aplica esse bank/program a esse canal, para que voce possa tocar sons diferentes
+  em canais diferentes.
+- **Bateria**: Uma caixa de selecao logo acima do seletor de canal MIDI. Quando
+  desmarcada (padrao), o canal MIDI e aquele que o usuario escolheu. Quando
+  marcada, o canal MIDI e automaticamente alternado para o canal 10 — o canal de
+  bateria padrao do General MIDI — para que tudo o que for tocado soe como
+  percussao. Desmarcar a caixa restaura o canal que estava selecionado antes de a
+  Bateria ser ativada.
 - **Seletor de instrumento**: Escolha um instrumento MIDI. Ao usar o sintetizador
   FluidSynth integrado, isso mostra os presets do SoundFont (Bank:Program Name). Quando
   conectado a um dispositivo MIDI externo, lista os 128 instrumentos General MIDI.

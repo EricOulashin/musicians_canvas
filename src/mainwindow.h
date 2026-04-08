@@ -13,6 +13,8 @@
 #include "portaudiorecorder.h"
 #endif
 
+class MidiRecorder;
+
 class QScrollArea;
 class QToolBar;
 class QToolButton;
@@ -95,6 +97,14 @@ private:
     void dropEvent(QDropEvent* event) override;
     bool addAudioFileAsTrack(const QString& sourcePath);
 
+    // Start the metronome QTimer if metronome is enabled in app settings.
+    // The timer fires QApplication::beep() at the configured BPM, but only
+    // when it is safe to do so — currently that means MIDI recording (no
+    // microphone active) or when no audio capture is in progress.  During
+    // audio recording the tick is silenced because the microphone would
+    // capture the beep and bake it into the recorded track.
+    void startMetronomeIfEnabled();
+
 #ifdef QT_MULTIMEDIA_AVAILABLE
     void prepareOverdubPlayback();
     void startOverdubPlayback();
@@ -157,6 +167,10 @@ private:
     std::unique_ptr<PortAudioRecorder> m_portAudioRecorder;
     bool m_recordingUsesPortAudio = false;
 #endif
+
+    // MIDI recording state (active only while a MIDI track is being recorded).
+    std::unique_ptr<MidiRecorder> m_midiRecorder;
+    bool m_recordingMidi = false;
 };
 
 #endif // MAINWINDOW_H

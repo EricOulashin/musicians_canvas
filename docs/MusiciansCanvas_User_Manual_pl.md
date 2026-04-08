@@ -354,6 +354,8 @@ Virtual MIDI Keyboard to aplikacja towarzysząca (`virtual_midi_keyboard`), któ
 - **Volume**: Głośność MIDI (CC#7), regulowana od 0 do 127 za pomocą pola liczbowego.
 - **Octave**: Przesuwaj oktawę klawiatury za pomocą przycisków **<** i **>** lub pola liczbowego. Zakres wynosi od -3 do +5.
 - **Chorus/Effect**: Pokrętło obrotowe i pole tekstowe (1--127) do ustawiania poziomu chorus/efektu (MIDI CC#93). Kliknij **Apply**, aby wysłać wartość.
+- **Kanał MIDI**: Pole numeryczne (1--16) wybiera kanał MIDI, na którym wysyłane są nuty, zmiany programu i zmiany kontroli. Domyślnie jest to kanał 1. Wybrany kanał zaczyna obowiązywać natychmiast po zmianie. Wybranie presetu SoundFont, gdy wybrany jest określony kanał, przypisuje ten bank/program do tego kanału, dzięki czemu możesz grać różne dźwięki na różnych kanałach.
+- **Perkusja**: Pole wyboru znajdujące się tuż nad selektorem kanału MIDI. Gdy nie jest zaznaczone (domyślnie), kanał MIDI jest taki, jaki wybrał użytkownik. Gdy jest zaznaczone, kanał MIDI jest automatycznie przełączany na kanał 10 — standardowy kanał perkusji General MIDI — dzięki czemu wszystko, co jest grane, brzmi jak perkusja. Odznaczenie pola przywraca kanał wybrany przed włączeniem Perkusji.
 - **Selektor instrumentów**: Wybierz instrument MIDI. Gdy używany jest wbudowany syntezator FluidSynth, wyświetlane są presety SoundFont (Bank:Program Nazwa). Po podłączeniu do zewnętrznego urządzenia MIDI wyświetlana jest lista 128 instrumentów General MIDI.
 
 ### Granie na klawiaturze komputera

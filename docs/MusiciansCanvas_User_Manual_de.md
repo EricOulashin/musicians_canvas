@@ -459,6 +459,18 @@ ausgeführt werden.
   dem Drehfeld. Der Bereich ist -3 bis +5.
 - **Chorus/Effect**: Ein Drehregler und Textfeld (1--127) zum Einstellen des Chorus-/Effekt-
   Pegels (MIDI CC#93). Klicken Sie auf **Apply**, um den Wert zu senden.
+- **MIDI-Kanal**: Ein numerisches Eingabefeld (1--16) wählt den MIDI-Kanal aus, auf dem
+  Noten, Programmwechsel und Control Changes gesendet werden. Der Standard ist Kanal 1.
+  Der ausgewählte Kanal wird sofort nach dem Ändern wirksam. Wenn ein SoundFont-Preset
+  ausgewählt wird, während ein bestimmter Kanal aktiv ist, wird dieses bank/program
+  diesem Kanal zugewiesen, sodass Sie verschiedene Klänge auf verschiedenen Kanälen
+  spielen können.
+- **Schlagzeug**: Ein Kontrollkästchen direkt über der MIDI-Kanal-Auswahl. Wenn nicht
+  aktiviert (Standard), ist der MIDI-Kanal derjenige, den der Benutzer gewählt hat.
+  Wenn aktiviert, wird der MIDI-Kanal automatisch auf Kanal 10 umgeschaltet — den
+  Standard-Schlagzeugkanal von General MIDI —, sodass alles Gespielte als Perkussion
+  klingt. Beim Deaktivieren des Kontrollkästchens wird der zuvor gewählte Kanal
+  wiederhergestellt.
 - **Instrumentenauswahl**: Wählen Sie ein MIDI-Instrument. Bei Verwendung des integrierten
   FluidSynth-Synthesizers werden SoundFont-Presets angezeigt (Bank:Programm Name). Bei
   Verbindung mit einem externen MIDI-Gerät werden die 128 General-MIDI-Instrumente

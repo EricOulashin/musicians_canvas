@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 
+class QCheckBox;
 class QEvent;
 class QKeyEvent;
 class QLabel;
@@ -35,6 +36,8 @@ private slots:
     void onOctaveDown();
     void onChorusChanged(int value);
     void onChorusApply();
+    void onMidiChannelChanged(int channel);  // 1-based UI value
+    void onDrumsToggled(bool checked);
     void onNoteOn(int note);
     void onNoteOff(int note);
     void onMidiNoteOn(int note, int velocity);
@@ -61,10 +64,15 @@ private:
     QLabel* m_volumeLabel = nullptr;
     QLabel* m_octaveLabel = nullptr;
     QLabel* m_chorusLabel = nullptr;
+    QLabel* m_channelLabel = nullptr;
     QLabel* m_soundLabel = nullptr;
     QPushButton* m_chorusApplyBtn = nullptr;
+    QSpinBox* m_channelSpin = nullptr;
+    QCheckBox* m_drumsCheck = nullptr;
+    QLabel* m_drumsLabel = nullptr;  // not used directly; checkbox carries the label
     int m_chorusValue = 64;
     int m_octave = 0;
+    int m_channelBeforeDrums = 1;  // saved 1-based channel to restore when Drums is unticked
 };
 
 #endif // VK_MAINWINDOW_H

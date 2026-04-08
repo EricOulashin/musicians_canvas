@@ -603,6 +603,18 @@ indépendamment.</p>
   boîte de sélection. La plage va de -3 à +5.</li>
 <li><strong>Chorus/Effect</strong> : Un bouton rotatif et un champ texte (1--127) pour définir le niveau
   de chorus/effet (MIDI CC#93). Cliquez sur <strong>Apply</strong> pour envoyer la valeur.</li>
+<li><strong>Canal MIDI</strong> : Une zone de saisie numérique (1--16) sélectionne le canal MIDI sur
+  lequel les notes, les changements de programme et les changements de contrôle sont
+  envoyés. La valeur par défaut est le canal 1. Le canal sélectionné prend effet
+  immédiatement lors du changement. Choisir un preset SoundFont alors qu'un canal
+  particulier est sélectionné applique ce bank/program à ce canal, ce qui vous permet
+  de jouer des sons différents sur des canaux différents.</li>
+<li><strong>Batterie</strong> : Une case à cocher située juste au-dessus du sélecteur de canal MIDI.
+  Lorsqu'elle n'est pas cochée (valeur par défaut), le canal MIDI est celui que
+  l'utilisateur a choisi. Lorsqu'elle est cochée, le canal MIDI est automatiquement
+  basculé sur le canal 10 — le canal de batterie standard de General MIDI — pour que
+  tout ce qui est joué sonne comme des percussions. Décocher la case restaure le canal
+  qui était sélectionné avant l'activation de Batterie.</li>
 <li><strong>Sélecteur d'instrument</strong> : Choisissez un instrument MIDI. Lors de l'utilisation du
   synthétiseur FluidSynth intégré, cela affiche les presets du SoundFont
   (Banque:Programme Nom). Lorsqu'il est connecté à un périphérique MIDI externe, cela

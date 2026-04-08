@@ -371,6 +371,8 @@ Virtual MIDI Keyboard es una aplicación complementaria (`virtual_midi_keyboard`
 - **Volume**: Volumen MIDI (CC#7), ajustable de 0 a 127 mediante el cuadro numérico.
 - **Octave**: Cambie la octava del teclado usando los botones **<** y **>** o el cuadro numérico. El rango es de -3 a +5.
 - **Chorus/Effect**: Una perilla rotativa y un campo de texto (1--127) para establecer el nivel de coro/efecto (MIDI CC#93). Haga clic en **Apply** para enviar el valor.
+- **Canal MIDI**: Una entrada numérica (1--16) selecciona el canal MIDI por el que se envían las notas, los cambios de programa y los cambios de control. El valor predeterminado es el canal 1. El canal seleccionado entra en vigor inmediatamente al cambiarlo. Al elegir un preset de SoundFont mientras hay un canal determinado seleccionado, se aplica ese bank/program a ese canal, de modo que puede tocar sonidos diferentes en canales diferentes.
+- **Batería**: Una casilla de verificación situada justo encima del selector de canal MIDI. Cuando no está marcada (opción predeterminada), el canal MIDI es el que el usuario haya elegido. Cuando está marcada, el canal MIDI se cambia automáticamente al canal 10 — el canal de batería estándar de General MIDI — de modo que lo que se toque suene como percusión. Al desmarcar la casilla se restaura el canal que estaba seleccionado antes de activar Batería.
 - **Selector de instrumento**: Elija un instrumento MIDI. Al usar el sintetizador FluidSynth integrado, muestra los presets del SoundFont (Bank:Program Name). Al conectarse a un dispositivo MIDI externo, lista los 128 instrumentos General MIDI.
 
 ### Tocar con el Teclado de la Computadora

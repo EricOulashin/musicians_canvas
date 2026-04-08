@@ -485,6 +485,8 @@ zakończeniu 3-sekundowego odliczania), i zatrzymuje się po zakończeniu nagryw
 <li><strong>Volume</strong>: Głośność MIDI (CC#7), regulowana od 0 do 127 za pomocą pola liczbowego.</li>
 <li><strong>Octave</strong>: Przesuwaj oktawę klawiatury za pomocą przycisków <strong>&lt;</strong> i <strong>&gt;</strong> lub pola liczbowego. Zakres wynosi od -3 do +5.</li>
 <li><strong>Chorus/Effect</strong>: Pokrętło obrotowe i pole tekstowe (1--127) do ustawiania poziomu chorus/efektu (MIDI CC#93). Kliknij <strong>Apply</strong>, aby wysłać wartość.</li>
+<li><strong>Kanał MIDI</strong>: Pole numeryczne (1--16) wybiera kanał MIDI, na którym wysyłane są nuty, zmiany programu i zmiany kontroli. Domyślnie jest to kanał 1. Wybrany kanał zaczyna obowiązywać natychmiast po zmianie. Wybranie presetu SoundFont, gdy wybrany jest określony kanał, przypisuje ten bank/program do tego kanału, dzięki czemu możesz grać różne dźwięki na różnych kanałach.</li>
+<li><strong>Perkusja</strong>: Pole wyboru znajdujące się tuż nad selektorem kanału MIDI. Gdy nie jest zaznaczone (domyślnie), kanał MIDI jest taki, jaki wybrał użytkownik. Gdy jest zaznaczone, kanał MIDI jest automatycznie przełączany na kanał 10 — standardowy kanał perkusji General MIDI — dzięki czemu wszystko, co jest grane, brzmi jak perkusja. Odznaczenie pola przywraca kanał wybrany przed włączeniem Perkusji.</li>
 <li><strong>Selektor instrumentów</strong>: Wybierz instrument MIDI. Gdy używany jest wbudowany syntezator FluidSynth, wyświetlane są presety SoundFont (Bank:Program Nazwa). Po podłączeniu do zewnętrznego urządzenia MIDI wyświetlana jest lista 128 instrumentów General MIDI.</li>
 </ul>
 <h3 id="granie-na-klawiaturze-komputera">Granie na klawiaturze komputera</h3>

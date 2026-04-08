@@ -480,6 +480,8 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><strong>Volume</strong>：MIDI 音量（CC#7），可透過微調方塊從 0 調整到 127。</li>
 <li><strong>Octave</strong>：使用 <strong>&lt;</strong> 和 <strong>&gt;</strong> 按鈕或微調方塊來移動鍵盤八度。範圍為 -3 至 +5。</li>
 <li><strong>Chorus/Effect</strong>：旋轉旋鈕和文字欄位（1--127），用於設定合唱/效果等級（MIDI CC#93）。點選 <strong>Apply</strong> 傳送該值。</li>
+<li><strong>MIDI 通道</strong>：數字輸入欄位（1--16）用於選擇傳送音符、音色切換和控制變化的 MIDI 通道。預設為通道 1。變更後所選的通道會立即生效。當某個通道被選取時挑選 SoundFont 預設音色，會將該 bank/program 套用到該通道，因此您可以在不同通道上演奏不同的聲音。</li>
+<li><strong>鼓組</strong>：位於 MIDI 通道選擇器正上方的核取方塊。未勾選時（預設），MIDI 通道為使用者所選的通道。勾選後，MIDI 通道會自動切換到通道 10 — General MIDI 標準的鼓組通道 — 因此所演奏的任何內容都會以打擊樂器的方式發聲。取消勾選則會還原為啟用鼓組之前所選的通道。</li>
 <li><strong>樂器選擇器</strong>：選擇 MIDI 樂器。使用內建 FluidSynth 合成器時，會顯示 SoundFont 預設音色（Bank:Program Name）。連接至外部 MIDI 裝置時，會列出 128 種 General MIDI 樂器。</li>
 </ul>
 <h3 id="_31">使用電腦鍵盤演奏</h3>

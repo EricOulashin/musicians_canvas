@@ -421,6 +421,17 @@ pianokoskettimiston MIDI-nuottien lähettämiseen. Se voidaan käynnistää pä�
   Alue on -3 - +5.
 - **Chorus/Effect**: Pyöritettävä säädin ja tekstikenttä (1--127) kuoro/efekti-tason asettamiseen
   (MIDI CC#93). Napsauta **Apply** lähettääksesi arvon.
+- **MIDI-kanava**: Numeerinen syöttökenttä (1--16) valitsee MIDI-kanavan, jolla
+  nuotit, ohjelmanvaihdot ja control changet lähetetään. Oletus on kanava 1.
+  Valittu kanava tulee voimaan heti muutoksen jälkeen. Kun valitaan SoundFont-
+  esiasetus tietyn kanavan ollessa valittuna, kyseinen bank/program otetaan
+  käyttöön sillä kanavalla, joten voit soittaa eri ääniä eri kanavilla.
+- **Rummut**: Valintaruutu aivan MIDI-kanavan valitsimen yläpuolella. Kun se ei
+  ole valittuna (oletus), MIDI-kanava on se, jonka käyttäjä on valinnut. Kun se
+  on valittuna, MIDI-kanava vaihdetaan automaattisesti kanavalle 10 — General
+  MIDI -standardin rumpukanavalle — jolloin kaikki soitettu kuulostaa
+  lyömäsoittimilta. Valinnan poistaminen palauttaa kanavan, joka oli valittuna
+  ennen Rummut-valinnan käyttöönottoa.
 - **Instrumenttivalitsin**: Valitse MIDI-instrumentti. Käytettäessä sisäänrakennettua
   FluidSynth-syntetisaattoria näytetään SoundFont-esiasetukset (Pankki:Ohjelma Nimi). Ulkoiseen
   MIDI-laitteeseen yhdistettäessä näytetään luettelo 128 General MIDI -instrumentista.

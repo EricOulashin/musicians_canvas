@@ -63,6 +63,8 @@ ProjectSettings ProjectSettingsDialog::projectSettings() const
 {
     ProjectSettings s;
     s.midiDeviceIndex     = m_midiDeviceCombo->currentData().toInt();
+    if (m_midiInputCombo)
+        s.midiInputPortName = m_midiInputCombo->currentData().toString();
     s.soundFontPath       = m_soundFontEdit->text().trimmed();
     s.audioInputDeviceId  = m_audioInputCombo->currentData().toByteArray();
     s.audioOutputDeviceId = m_audioOutputCombo->currentData().toByteArray();
@@ -83,17 +85,25 @@ void ProjectSettingsDialog::setupMidiTab()
     auto* widget = new QWidget();
     auto* layout = new QVBoxLayout(widget);
 
-    auto* midiGroup = new QGroupBox(tr("MIDI Device"));
+    auto* midiGroup = new QGroupBox(tr("MIDI Output Device"));
     auto* midiLayout = new QVBoxLayout(midiGroup);
     m_midiDeviceCombo = new QComboBox();
     m_midiDeviceCombo->setMinimumWidth(300);
     midiLayout->addWidget(m_midiDeviceCombo);
+    layout->addWidget(midiGroup);
+
+    // MIDI input device — used to record MIDI tracks
+    auto* midiInGroup = new QGroupBox(tr("MIDI Input Device (for recording MIDI tracks)"));
+    auto* midiInLayout = new QVBoxLayout(midiInGroup);
+    m_midiInputCombo = new QComboBox();
+    m_midiInputCombo->setMinimumWidth(300);
+    midiInLayout->addWidget(m_midiInputCombo);
+    layout->addWidget(midiInGroup);
 
     auto* refreshBtn = new QPushButton(tr("Refresh"));
     connect(refreshBtn, &QPushButton::clicked,
             this, &ProjectSettingsDialog::refreshDevices);
-    midiLayout->addWidget(refreshBtn);
-    layout->addWidget(midiGroup);
+    layout->addWidget(refreshBtn);
 
     auto* sfGroup = new QGroupBox(tr("SoundFont (for MIDI synthesis)"));
     auto* sfLayout = new QHBoxLayout(sfGroup);
@@ -218,6 +228,28 @@ void ProjectSettingsDialog::refreshDevices()
         // External MIDI output not available; FluidSynth entry above still works
     }
 
+    // MIDI input devices — listed by stable port name (matched the same way
+    // VkMidiIo matches them).  Empty string = no MIDI input configured.
+    if (m_midiInputCombo)
+    {
+        m_midiInputCombo->clear();
+        m_midiInputCombo->addItem(tr("(None)"), QString());
+        try
+        {
+            RtMidiIn midiIn;
+            const unsigned int n = midiIn.getPortCount();
+            for (unsigned int i = 0; i < n; ++i)
+            {
+                const QString name = QString::fromStdString(midiIn.getPortName(i));
+                m_midiInputCombo->addItem(name, name);
+            }
+        }
+        catch (...)
+        {
+            // No MIDI input available; the (None) entry above is still valid
+        }
+    }
+
     m_audioInputCombo->clear();
     m_audioOutputCombo->clear();
 #ifdef QT_MULTIMEDIA_AVAILABLE
@@ -250,6 +282,18 @@ void ProjectSettingsDialog::loadSettings(const ProjectSettings& settings)
         {
             m_midiDeviceCombo->setCurrentIndex(i);
             break;
+        }
+    }
+
+    if (m_midiInputCombo)
+    {
+        for (int i = 0; i < m_midiInputCombo->count(); ++i)
+        {
+            if (m_midiInputCombo->itemData(i).toString() == settings.midiInputPortName)
+            {
+                m_midiInputCombo->setCurrentIndex(i);
+                break;
+            }
         }
     }
 

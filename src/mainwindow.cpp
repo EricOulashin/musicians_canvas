@@ -11,6 +11,8 @@
 #include "mixdialog.h"
 #include "audioformats.h"
 #include "metronomedialog.h"
+#include "midirecorder.h"
+#include "midifile.h"
 #include "segmentdisplay.h"
 #include "appsettings.h"
 #include "audiostartup.h"
@@ -916,34 +918,54 @@ void MainWindow::startRecording()
             return;  // User cancelled the directory chooser
     }
 
-    // Use the device selected in project settings, or system default
-    QAudioDevice inputDevice;
-    if (!m_projectSettings.audioInputDeviceId.isEmpty())
+    // Branch on track type: MIDI tracks capture from the configured MIDI
+    // input port; audio tracks capture from the configured audio input device.
+    const bool isMidiTrack = (armed->trackData().type == TrackType::MIDI);
+
+    if (isMidiTrack)
     {
-        const auto inputs = QMediaDevices::audioInputs();
-        for (const auto& dev : inputs)
+        // For MIDI tracks, we need an RtMidiIn port name.  If none is
+        // configured in the project settings, prompt the user.
+        if (m_projectSettings.midiInputPortName.isEmpty())
         {
-            if (dev.id() == m_projectSettings.audioInputDeviceId)
-            {
-                inputDevice = dev;
-                break;
-            }
+            QMessageBox::warning(this, tr("Recording Error"),
+                tr("No MIDI input device is configured for this project. "
+                   "Open Project Settings and choose a MIDI input device "
+                   "before recording a MIDI track."));
+            return;
         }
     }
-    if (inputDevice.isNull())
-        inputDevice = QMediaDevices::defaultAudioInput();
-    if (inputDevice.isNull())
+    else
     {
-        QMessageBox::warning(this, tr("Recording Error"),
-            tr("No audio input device found. Configure one in Settings."));
-        return;
+        // Audio track: verify an audio input device is available
+        QAudioDevice inputDevice;
+        if (!m_projectSettings.audioInputDeviceId.isEmpty())
+        {
+            const auto inputs = QMediaDevices::audioInputs();
+            for (const auto& dev : inputs)
+            {
+                if (dev.id() == m_projectSettings.audioInputDeviceId)
+                {
+                    inputDevice = dev;
+                    break;
+                }
+            }
+        }
+        if (inputDevice.isNull())
+            inputDevice = QMediaDevices::defaultAudioInput();
+        if (inputDevice.isNull())
+        {
+            QMessageBox::warning(this, tr("Recording Error"),
+                tr("No audio input device found. Configure one in Settings."));
+            return;
+        }
     }
 
-    // Verify the input device can handle the project's configured sample rate.
-    // Disable controls and show countdown on the armed track.
-    // The LED time display is NOT started here — it begins in
-    // beginRecordingAfterCountdown() once recording actually starts.
-    m_isActive = true;
+    // Disable controls and show countdown on the armed track.  The LED time
+    // display is NOT started here — it begins in beginRecordingAfterCountdown()
+    // once recording actually starts.
+    m_isActive       = true;
+    m_recordingMidi  = isMidiTrack;
     for (auto* w : m_trackWidgets) w->setInteractiveControlsEnabled(false);
     updatePlayRecordButton();
 
@@ -1201,6 +1223,37 @@ void MainWindow::beginRecordingAfterCountdown()
     }
     m_timeDisplayTimer->start(10);
 
+    // ── MIDI recording branch ────────────────────────────────────────
+    if (m_recordingMidi)
+    {
+        // Show overdub playback alongside MIDI capture, just like audio
+        // recording does, so the user can hear existing tracks while
+        // playing notes on their MIDI controller.
+        prepareOverdubPlayback();
+
+        m_midiRecorder = std::make_unique<MidiRecorder>();
+        QString err;
+        if (!m_midiRecorder->start(m_projectSettings.midiInputPortName, &err))
+        {
+            QMessageBox::warning(this, tr("Recording Error"),
+                tr("Could not open MIDI input port \"%1\":\n%2")
+                    .arg(m_projectSettings.midiInputPortName, err));
+            m_midiRecorder.reset();
+            stopPlaybackOrRecording();
+            return;
+        }
+
+        if (TrackWidget* armed = armedTrack())
+            armed->setRecordingStatus(tr("\u25CF Recording"));
+
+        startOverdubPlayback();
+
+        // Metronome — for MIDI recording the audible tick is safe (no mic)
+        startMetronomeIfEnabled();
+        return;
+    }
+
+    // ── Audio recording branch (existing path) ───────────────────────
     // Prepare overdub playback (mix existing tracks, pre-load media)
     // BEFORE starting capture, so no dead time is recorded while the
     // mix file is being written to disk.
@@ -1314,18 +1367,9 @@ void MainWindow::beginRecordingAfterCountdown()
             startOverdubPlayback();
             startRecordingLevelMeter();
 
-            // Start metronome if enabled
-            if (AppSettings::instance().metronomeEnabled())
-            {
-                if (!m_metronomeTimer)
-                    m_metronomeTimer = new QTimer(this);
-                const int intervalMs = 60000 / qBound(20, AppSettings::instance().metronomeBpm(), 300);
-                connect(m_metronomeTimer, &QTimer::timeout, this, [this]()
-                {
-                    QApplication::beep();
-                });
-                m_metronomeTimer->start(intervalMs);
-            }
+            // Metronome — silenced automatically while audio capture is
+            // active so the tick can't bleed into the recording.
+            startMetronomeIfEnabled();
             return;
         }
 
@@ -1415,18 +1459,9 @@ void MainWindow::beginRecordingAfterCountdown()
     startOverdubPlayback();
     startRecordingLevelMeter();
 
-    // Start metronome if enabled
-    if (AppSettings::instance().metronomeEnabled())
-    {
-        if (!m_metronomeTimer)
-            m_metronomeTimer = new QTimer(this);
-        const int intervalMs = 60000 / qBound(20, AppSettings::instance().metronomeBpm(), 300);
-        connect(m_metronomeTimer, &QTimer::timeout, this, []()
-        {
-            QApplication::beep();
-        });
-        m_metronomeTimer->start(intervalMs);
-    }
+    // Metronome — silenced automatically while audio capture is active
+    // so the tick can't bleed into the recording.
+    startMetronomeIfEnabled();
 #endif
 }
 
@@ -1453,6 +1488,29 @@ void MainWindow::stopPlaybackOrRecording()
 
     if (m_player != nullptr && m_player->playbackState() != QMediaPlayer::StoppedState)
         m_player->stop();
+
+    // ── MIDI recording stop ─────────────────────────────────────────
+    if (m_recordingMidi)
+    {
+        if (m_midiRecorder)
+        {
+            double lengthSec = 0.0;
+            const QVector<MidiNote> notes = m_midiRecorder->stop(&lengthSec);
+            m_midiRecorder.reset();
+
+            if (TrackWidget* armed = armedTrack())
+            {
+                TrackData data = armed->trackData();
+                data.type          = TrackType::MIDI;
+                data.midiNotes     = notes;
+                data.lengthSeconds = lengthSec;
+                armed->setTrackData(data);
+                armed->setArmed(false);
+                markDirty();
+            }
+        }
+        m_recordingMidi = false;
+    }
 
 #if defined(HAVE_PORTAUDIO)
     if (m_recordingUsesPortAudio && m_portAudioRecorder != nullptr)
@@ -1551,23 +1609,44 @@ void MainWindow::onSaveProject()
         }
         else
         {
-            QJsonArray notesArray;
-            for (const MidiNote& n : d.midiNotes)
+            // MIDI tracks: save the notes to a Standard MIDI File
+            // (<sanitized_name>.mid) in the project directory and reference
+            // it from the project JSON via the "midiFile" property.  The
+            // inline midiNotes array is no longer written; older projects
+            // that still have it inline are still readable on load.
+            const QString midiBase = sanitizedTrackFilename(d.name);
+            const QString midiFileName = midiBase + QStringLiteral(".mid");
+            const QString midiFullPath =
+                m_projectLocationEdit->text().trimmed()
+                + QDir::separator() + midiFileName;
+            if (MidiFile::write(midiFullPath, d.midiNotes, d.lengthSeconds))
             {
-                QJsonObject no;
-                no[QStringLiteral("note")]      = n.note;
-                no[QStringLiteral("velocity")]  = n.velocity;
-                no[QStringLiteral("startTime")] = n.startTime;
-                no[QStringLiteral("duration")]  = n.duration;
-                notesArray.append(no);
+                obj[QStringLiteral("midiFile")] = midiFileName;
             }
-            obj[QStringLiteral("midiNotes")] = notesArray;
+            else
+            {
+                qWarning() << "Failed to write MIDI file" << midiFullPath
+                           << "- falling back to inline midiNotes for track" << d.id;
+                QJsonArray notesArray;
+                for (const MidiNote& n : d.midiNotes)
+                {
+                    QJsonObject no;
+                    no[QStringLiteral("note")]      = n.note;
+                    no[QStringLiteral("velocity")]  = n.velocity;
+                    no[QStringLiteral("channel")]   = n.channel;
+                    no[QStringLiteral("startTime")] = n.startTime;
+                    no[QStringLiteral("duration")]  = n.duration;
+                    notesArray.append(no);
+                }
+                obj[QStringLiteral("midiNotes")] = notesArray;
+            }
         }
         tracksArray.append(obj);
     }
 
     QJsonObject psObj;
     psObj[QStringLiteral("midiDeviceIndex")]     = m_projectSettings.midiDeviceIndex;
+    psObj[QStringLiteral("midiInputPortName")]   = m_projectSettings.midiInputPortName;
     psObj[QStringLiteral("soundFontPath")]       = m_projectSettings.soundFontPath;
     psObj[QStringLiteral("audioInputDeviceId")]  =
         QString::fromLatin1(m_projectSettings.audioInputDeviceId.toHex());
@@ -1680,7 +1759,30 @@ void MainWindow::loadProjectFromFile(const QString& path)
         }
         else
         {
-            const QJsonArray notesArray = obj[QStringLiteral("midiNotes")].toArray();
+            // Prefer external .mid file if referenced; fall back to inline midiNotes.
+            const QString midiFileName = obj[QStringLiteral("midiFile")].toString();
+            bool loadedFromFile = false;
+            if (!midiFileName.isEmpty())
+            {
+                const QString midiPath = projectDir + QDir::separator() + midiFileName;
+                double fileLen = 0.0;
+                QVector<MidiNote> notes = MidiFile::read(midiPath, &fileLen);
+                if (!notes.isEmpty())
+                {
+                    d.midiNotes = notes;
+                    if (fileLen > d.lengthSeconds)
+                        d.lengthSeconds = fileLen;
+                    loadedFromFile = true;
+                }
+                else
+                {
+                    qWarning() << "Failed to read MIDI file" << midiPath
+                               << "- falling back to inline midiNotes if present";
+                }
+            }
+            const QJsonArray notesArray = loadedFromFile
+                ? QJsonArray()
+                : obj[QStringLiteral("midiNotes")].toArray();
             for (const QJsonValue& nv : notesArray)
             {
                 if (!nv.isObject())
@@ -1689,6 +1791,10 @@ void MainWindow::loadProjectFromFile(const QString& path)
                 MidiNote n;
                 n.note      = no[QStringLiteral("note")].toInt();
                 n.velocity  = no[QStringLiteral("velocity")].toInt();
+                // Channel is optional for backwards compatibility with
+                // projects saved before per-note channel was tracked.
+                // Default to 0 (= MIDI channel 1) when missing.
+                n.channel   = no[QStringLiteral("channel")].toInt(0);
                 n.startTime = no[QStringLiteral("startTime")].toDouble();
                 n.duration  = no[QStringLiteral("duration")].toDouble();
                 d.midiNotes.append(n);
@@ -1717,8 +1823,9 @@ void MainWindow::loadProjectFromFile(const QString& path)
     const QJsonObject ps = doc.object()[QStringLiteral("projectSettings")].toObject();
     if (!ps.isEmpty())
     {
-        m_projectSettings.midiDeviceIndex = ps[QStringLiteral("midiDeviceIndex")].toInt(-1);
-        m_projectSettings.soundFontPath   = ps[QStringLiteral("soundFontPath")].toString();
+        m_projectSettings.midiDeviceIndex   = ps[QStringLiteral("midiDeviceIndex")].toInt(-1);
+        m_projectSettings.midiInputPortName = ps[QStringLiteral("midiInputPortName")].toString();
+        m_projectSettings.soundFontPath     = ps[QStringLiteral("soundFontPath")].toString();
         m_projectSettings.audioInputDeviceId =
             QByteArray::fromHex(ps[QStringLiteral("audioInputDeviceId")].toString().toLatin1());
         m_projectSettings.audioOutputDeviceId =
@@ -1867,6 +1974,33 @@ void MainWindow::onMetronomeSettings()
 {
     MetronomeDialog dlg(this);
     dlg.exec();
+}
+
+void MainWindow::startMetronomeIfEnabled()
+{
+    if (!AppSettings::instance().metronomeEnabled())
+        return;
+    // The metronome is intentionally VISUAL ONLY — no audible click is ever
+    // produced.  Any audible click (whether QApplication::beep(), a system
+    // bell, or a generated tone played through QAudioSink) goes through the
+    // user's speakers, where the recording microphone can pick it up and
+    // bake it into the recorded audio.  Once that happens the metronome
+    // tick is permanently embedded in the FLAC file and shows up in every
+    // mix-to-file operation that includes that track.  We side-step the
+    // entire problem by never producing any sound.
+    //
+    // The visual indicator briefly tints the LED time display on each beat
+    // (handled by SegmentDisplay::flash()), giving the user a tempo cue
+    // while keeping the audio path completely silent.
+    if (!m_metronomeTimer)
+        m_metronomeTimer = new QTimer(this);
+    const int intervalMs = 60000 / qBound(20, AppSettings::instance().metronomeBpm(), 300);
+    connect(m_metronomeTimer, &QTimer::timeout, this, [this]()
+    {
+        if (m_timeDisplay)
+            m_timeDisplay->flash();
+    });
+    m_metronomeTimer->start(intervalMs);
 }
 
 void MainWindow::onAbout()

@@ -351,6 +351,8 @@ Virtual MIDI Keyboard er en følgeapplikasjon (`virtual_midi_keyboard`) som gir 
 - **Volume**: MIDI-volum (CC#7), justerbart fra 0 til 127 via spinnboksen.
 - **Octave**: Skift tastaturets oktav ved hjelp av knappene **<** og **>** eller spinnboksen. Området er -3 til +5.
 - **Chorus/Effect**: En dreieknapp og et tekstfelt (1--127) for å stille inn chorus/effektnivået (MIDI CC#93). Klikk på **Apply** for å sende verdien.
+- **MIDI-kanal**: Et numerisk inntastingsfelt (1--16) velger MIDI-kanalen som noter, programendringer og kontrollendringer sendes på. Standard er kanal 1. Den valgte kanalen trer i kraft umiddelbart etter endring. Hvis du velger et SoundFont-preset mens en bestemt kanal er valgt, brukes den bank/program på den kanalen, slik at du kan spille forskjellige lyder på forskjellige kanaler.
+- **Trommer**: En avmerkingsboks rett over MIDI-kanalvelgeren. Når den ikke er merket av (standard), er MIDI-kanalen den brukeren har valgt. Når den er merket av, byttes MIDI-kanalen automatisk til kanal 10 — General MIDIs standard trommekanal — slik at alt som spilles, høres ut som perkusjon. Når boksen fjernes, gjenopprettes kanalen som var valgt før Trommer ble aktivert.
 - **Instrumentvelger**: Velg et MIDI-instrument. Når den innebygde FluidSynth-synthesizeren brukes, viser den SoundFont-presets (Bank:Program Navn). Når den er koblet til en ekstern MIDI-enhet, viser den de 128 General MIDI-instrumentene.
 
 ### Spille med datamaskinens tastatur

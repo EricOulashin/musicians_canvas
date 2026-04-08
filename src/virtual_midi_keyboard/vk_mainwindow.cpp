@@ -13,6 +13,7 @@
 #include <QSpinBox>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QCheckBox>
 #include <QLabel>
 #include <QComboBox>
 #include <QScrollArea>
@@ -39,6 +40,12 @@ void VkMainWindow::retranslateUi()
     if (m_octaveLabel) m_octaveLabel->setText(tr("Octave"));
     if (m_chorusLabel) m_chorusLabel->setText(tr("Chorus"));
     if (m_chorusApplyBtn) m_chorusApplyBtn->setText(tr("Apply"));
+    if (m_channelLabel) m_channelLabel->setText(tr("MIDI Ch"));
+    if (m_channelSpin) m_channelSpin->setToolTip(
+        tr("MIDI channel (10 is the General MIDI drum channel)"));
+    if (m_drumsCheck) m_drumsCheck->setText(tr("Drums"));
+    if (m_drumsCheck) m_drumsCheck->setToolTip(
+        tr("Switch to MIDI channel 10 (General MIDI drum channel) while ticked"));
     if (m_soundLabel) m_soundLabel->setText(tr("Virtual MIDI sound:"));
 }
 
@@ -63,6 +70,9 @@ VkMainWindow::VkMainWindow(QWidget* parent)
     setupToolbar(mainLayout);
     setupPiano(mainLayout);
     applyMidiOutput();
+    // Apply the default MIDI channel (the spin box defaults to 10 = drums)
+    if (m_channelSpin)
+        m_midiIo->setMidiChannel(m_channelSpin->value() - 1);
     m_piano->setFocus();
 }
 
@@ -181,6 +191,52 @@ void VkMainWindow::setupToolbar(QVBoxLayout* mainLayout)
     chorusCol->addWidget(m_chorusApplyBtn);
     toolbarLayout->addLayout(chorusCol);
 
+    // ── MIDI channel selector ──────────────────────────────────────
+    // 1-based in the UI (1 = MIDI channel 1, 16 = MIDI channel 16).
+    // Default to channel 1.
+    m_channelSpin = new QSpinBox();
+    m_channelSpin->setRange(1, 16);
+    m_channelSpin->setValue(1);
+    m_channelSpin->setFixedWidth(50);
+    m_channelSpin->setFocusPolicy(Qt::ClickFocus);
+    m_channelSpin->setToolTip(tr("MIDI channel (10 is the General MIDI drum channel)"));
+    connect(m_channelSpin, QOverload<int>::of(&QSpinBox::valueChanged),
+            this, &VkMainWindow::onMidiChannelChanged);
+
+    // Drums checkbox: when toggled on, switches the MIDI channel to 10
+    // (the General MIDI standard drum channel) and remembers the previously
+    // selected channel so it can be restored when the checkbox is unticked.
+    m_drumsCheck = new QCheckBox(tr("Drums"));
+    m_drumsCheck->setFocusPolicy(Qt::NoFocus);
+    m_drumsCheck->setToolTip(
+        tr("Switch to MIDI channel 10 (General MIDI drum channel) while ticked"));
+    connect(m_drumsCheck, &QCheckBox::toggled, this, &VkMainWindow::onDrumsToggled);
+
+    auto* channelCol = new QVBoxLayout();
+    channelCol->setSpacing(1);
+    channelCol->setContentsMargins(0, 0, 0, 0);
+    // Place the spin box inside a fixed-height row that matches the chorus
+    // knob row's height (56 px), with the spin box vertically centred.  This
+    // makes the spin box line up with the chorus number display, which is
+    // also vertically centred alongside the 56 px knob in the column to the
+    // left.  Without this wrapper the spin box sits at the top of its
+    // column and ends up well above the chorus number display.  The Drums
+    // checkbox sits inside the same wrapper row, just above the spin box.
+    auto* channelTopRow = new QVBoxLayout();
+    channelTopRow->setSpacing(2);
+    channelTopRow->setContentsMargins(0, 0, 0, 0);
+    channelTopRow->addStretch();
+    channelTopRow->addWidget(m_drumsCheck, 0, Qt::AlignHCenter);
+    channelTopRow->addWidget(m_channelSpin, 0, Qt::AlignHCenter);
+    channelTopRow->addStretch();
+    auto* channelTopWidget = new QWidget();
+    channelTopWidget->setLayout(channelTopRow);
+    channelTopWidget->setFixedHeight(56);
+    channelCol->addWidget(channelTopWidget);
+    m_channelLabel = new QLabel(tr("MIDI Ch"));
+    channelCol->addWidget(m_channelLabel);
+    toolbarLayout->addLayout(channelCol);
+
     m_soundGroup = new QWidget();
     auto* soundLayout = new QVBoxLayout(m_soundGroup);
     soundLayout->setSpacing(1);
@@ -291,6 +347,30 @@ void VkMainWindow::onChorusApply()
             m_chorusValue = v;
             m_midiIo->sendControlChange(93, v);
         }
+    }
+}
+
+void VkMainWindow::onMidiChannelChanged(int channel)
+{
+    // The spin box is 1-based (1..16); MIDI channels are 0-based internally.
+    if (m_midiIo)
+        m_midiIo->setMidiChannel(channel - 1);
+}
+
+void VkMainWindow::onDrumsToggled(bool checked)
+{
+    if (!m_channelSpin) return;
+    if (checked)
+    {
+        // Remember the channel the user was on so we can restore it when
+        // the checkbox is unticked, then jump to MIDI channel 10 (drums).
+        m_channelBeforeDrums = m_channelSpin->value();
+        m_channelSpin->setValue(10);
+    }
+    else
+    {
+        // Restore whatever channel was selected before Drums was enabled.
+        m_channelSpin->setValue(m_channelBeforeDrums);
     }
 }
 

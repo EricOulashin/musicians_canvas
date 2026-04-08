@@ -61,6 +61,10 @@ set(SOURCES
     src/projectsettingsdialog.cpp
     src/projectsettingsdialog.h
     src/audioformats.h
+    src/midirecorder.cpp
+    src/midirecorder.h
+    src/midifile.cpp
+    src/midifile.h
     src/waveformwidget.cpp
     src/waveformwidget.h
     src/midivisualizationwidget.cpp
