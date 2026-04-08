@@ -45,8 +45,8 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <body>
 <div class="title-block">
 <h1>Musician&#8217;s Canvas &#12518;&#12540;&#12470;&#12540;&#12510;&#12491;&#12517;&#12450;&#12523;</h1>
-<p>マルチトラック音楽録音アプリケーション &mdash; Version 0.1.0</p>
-<p>2026-04-05</p>
+<p>マルチトラック音楽録音アプリケーション &mdash; Version 0.1.1</p>
+<p>2026-04-08</p>
 </div>
 <div class="toc">
 <h2>&#30446;&#27425;</h2>
@@ -57,53 +57,56 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#_2">使い方</a><ul>
 <li><a href="#_3">アプリケーションの起動</a></li>
 <li><a href="#_4">プロジェクトのセットアップ</a></li>
-<li><a href="#_5">プロジェクトの保存と読み込み</a></li>
+<li><a href="#_5">ボタンバー</a></li>
+<li><a href="#_6">プロジェクトの保存と読み込み</a></li>
 </ul>
 </li>
-<li><a href="#_6">トラック管理</a><ul>
-<li><a href="#_7">トラックの追加と削除</a></li>
-<li><a href="#_8">トラックタイプの設定</a></li>
-<li><a href="#_9">トラックコントロール</a></li>
-<li><a href="#_10">自動アーム</a></li>
-<li><a href="#_11">トラックの表示</a></li>
+<li><a href="#_7">トラック管理</a><ul>
+<li><a href="#_8">トラックの追加と削除</a></li>
+<li><a href="#_9">ドラッグ＆ドロップでトラックを追加</a></li>
+<li><a href="#_10">トラックタイプの設定</a></li>
+<li><a href="#_11">トラックコントロール</a></li>
+<li><a href="#_12">自動アーム</a></li>
+<li><a href="#_13">トラックの表示</a></li>
 </ul>
 </li>
-<li><a href="#_12">録音</a><ul>
-<li><a href="#_13">オーディオ録音</a></li>
+<li><a href="#_14">録音</a><ul>
+<li><a href="#_15">オーディオ録音</a></li>
 <li><a href="#midi">MIDI録音</a></li>
 </ul>
 </li>
-<li><a href="#_18">再生</a></li>
-<li><a href="#_19">ファイルへのミックス</a></li>
-<li><a href="#_20">設定</a><ul>
-<li><a href="#_21">グローバル設定</a></li>
-<li><a href="#_22">プロジェクト設定</a></li>
+<li><a href="#_20">メトロノーム</a></li>
+<li><a href="#_21">再生</a></li>
+<li><a href="#_22">ファイルへのミックス</a></li>
+<li><a href="#_23">設定</a><ul>
+<li><a href="#_24">グローバル設定</a></li>
+<li><a href="#_25">プロジェクト設定</a></li>
 </ul>
 </li>
-<li><a href="#_24">メニュー</a><ul>
+<li><a href="#_27">メニュー</a><ul>
 <li><a href="#file">Fileメニュー</a></li>
 <li><a href="#project">Projectメニュー</a></li>
 <li><a href="#settings">Settingsメニュー</a></li>
 <li><a href="#tools">Toolsメニュー</a></li>
 </ul>
 </li>
-<li><a href="#_25">キーボードショートカット</a></li>
+<li><a href="#_28">キーボードショートカット</a></li>
 <li><a href="#virtual-midi-keyboard">Virtual MIDI Keyboard</a><ul>
-<li><a href="#_26">機能</a></li>
-<li><a href="#_27">ツールバーコントロール</a></li>
-<li><a href="#_28">コンピューターキーボードでの演奏</a></li>
-<li><a href="#_29">設定</a></li>
+<li><a href="#_29">機能</a></li>
+<li><a href="#_30">ツールバーコントロール</a></li>
+<li><a href="#_31">コンピューターキーボードでの演奏</a></li>
+<li><a href="#_32">設定</a></li>
 <li><a href="#virtual-midi-keyboard_1">Virtual MIDI Keyboardショートカット</a></li>
 </ul>
 </li>
-<li><a href="#_30">トラブルシューティング</a><ul>
-<li><a href="#_31">オーディオ出力がない</a></li>
+<li><a href="#_33">トラブルシューティング</a><ul>
+<li><a href="#_34">オーディオ出力がない</a></li>
 <li><a href="#midi_4">MIDIトラックの音が出ない</a></li>
-<li><a href="#_32">録音が歪んでいるまたはピッチがおかしい</a></li>
+<li><a href="#_35">録音が歪んでいるまたはピッチがおかしい</a></li>
 <li><a href="#virtual-midi-keyboard_2">Virtual MIDI Keyboardの音が出ない</a></li>
 </ul>
 </li>
-<li><a href="#_33">ソースからのビルド</a></li>
+<li><a href="#_36">ソースからのビルド</a></li>
 </ul>
 </li>
 </ul>
@@ -146,21 +149,53 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </li>
 </ol>
 <p><img alt="メインウィンドウ" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
-<h3 id="_5">プロジェクトの保存と読み込み</h3>
+<h3 id="_5">ボタンバー</h3>
+<p>メニューバーのすぐ下に、クイックアクセスボタンを備えたツールバーがあります：</p>
+<p><img alt="ボタンバー" src="screenshots/ButtonBar.png" /></p>
+<ul>
+<li><strong>Open Project</strong>: <strong>File &gt; Open Project</strong> と同じ — 以前に保存したプロジェクトを開きます。</li>
+<li><strong>Save Project</strong>: <strong>File &gt; Save Project</strong> と同じ — 現在のプロジェクトを保存します。このボタンは、プロジェクトディレクトリが設定されている場合にのみ有効になります。</li>
+<li><strong>Project Settings</strong>: <strong>Project &gt; Project Settings</strong> と同じ — プロジェクト設定ダイアログを開きます。このボタンは、プロジェクトディレクトリが設定されている場合にのみ有効になります。</li>
+<li><strong>Configuration</strong>: <strong>Settings &gt; Configuration</strong> と同じ — グローバルアプリケーション設定ダイアログを開きます。</li>
+<li><strong>Metronome Settings</strong>: メトロノーム設定ダイアログを開きます（下記のメトロノームセクションを参照）。</li>
+</ul>
+<h3 id="_6">プロジェクトの保存と読み込み</h3>
 <ul>
 <li><strong>保存</strong>: <strong>File &gt; Save Project</strong> (Ctrl+S) を使用して、現在のプロジェクトをプロジェクトディレクトリにJSONファイルとして保存します。</li>
 <li><strong>読み込み</strong>: <strong>File &gt; Open Project</strong> (Ctrl+O) を使用して、以前保存したプロジェクトを読み込みます。</li>
 </ul>
 <p>プロジェクトファイル（<code>project.json</code>）には、トラック名、タイプ、MIDIノート、オーディオファイル参照、およびすべてのプロジェクト固有の設定が保存されます。オーディオファイルは<code>project.json</code>と同じディレクトリに保存され、トラック名にちなんで命名されます（例：<code>My_Track.flac</code>）。</p>
 <p>未保存の変更がある状態でアプリケーションを閉じると、終了前に保存するかどうかを確認するダイアログが表示されます。</p>
-<h2 id="_6">トラック管理</h2>
-<h3 id="_7">トラックの追加と削除</h3>
+<h2 id="_7">トラック管理</h2>
+<h3 id="_8">トラックの追加と削除</h3>
 <ul>
 <li><strong>+ Add Track</strong>をクリックして、アレンジメントに新しいトラックを追加します。</li>
 <li>トラック行の右側にある<strong>x</strong>ボタンをクリックして、トラックを削除します。</li>
 <li><strong>Clear Tracks</strong>（ツールバーの赤いボタン）をクリックして、すべてのトラックを削除します。実行前に確認ダイアログが表示されます。</li>
 </ul>
-<h3 id="_8">トラックタイプの設定</h3>
+<h3 id="_9">ドラッグ＆ドロップでトラックを追加</h3>
+<p>プロジェクトが開いている間、ファイルマネージャー（Windows エクスプローラー、
+macOS Finder、Linux のファイルマネージャーなど）から 1 つ以上のサポートされた
+オーディオファイルを Musician's Canvas のウィンドウに直接ドラッグして、新しい
+オーディオトラックとして追加できます。</p>
+<ul>
+<li><strong>対応フォーマット：</strong> <code>.wav</code> および <code>.flac</code>。他のフォーマットのファイルは
+  自動的にスキップされ、最後にどのファイルがスキップされたかを示すダイアログ
+  が表示されます。</li>
+<li><strong>ファイルのコピー：</strong> ドロップされたファイルがまだプロジェクトディレクトリ
+  内にない場合は、自動的にそこへコピーされます。同じ名前のファイルが既に
+  プロジェクトディレクトリ内に存在する場合は、置き換えるかどうか尋ねられます。</li>
+<li><strong>トラック名：</strong> ファイルのベース名（拡張子なし）が新しいトラックの名前として
+  使用されます。たとえば、<code>Bass Line.wav</code> をドロップすると「Bass Line」という
+  名前のオーディオトラックが作成されます。</li>
+<li><strong>複数ファイルの一括ドロップ：</strong> 複数のファイルをまとめてドラッグできます。
+  1 回のドロップで、サポートされた各ファイルがそれぞれのトラックになります。</li>
+<li><strong>ドロップが拒否される場合：</strong> ドロップはプロジェクトが開いていて、かつ
+  Musician's Canvas が再生または録音中で<strong>ない</strong>場合にのみ受け付けられます。
+  さらにトラックをドラッグで追加したい場合は、先に再生または録音を停止して
+  ください。</li>
+</ul>
+<h3 id="_10">トラックタイプの設定</h3>
 <p>各トラックは<strong>Audio</strong>（マイク/ライン入力録音用）または<strong>MIDI</strong>（キーボード/コントローラー録音用）のいずれかに設定できます。</p>
 <p>トラックタイプを変更するには：</p>
 <ul>
@@ -169,7 +204,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </ul>
 <p>これによりトラック設定ダイアログが開き、入力ソースを選択できます。</p>
 <p><img alt="トラック設定" src="screenshots/MusiciansCanvas_2_TrackConfig.png" /></p>
-<h3 id="_9">トラックコントロール</h3>
+<h3 id="_11">トラックコントロール</h3>
 <p>各トラック行には以下のコントロールがあります：</p>
 <ul>
 <li><strong>有効チェックボックス</strong>: トラックを再生およびミキシングに含めるかどうかを切り替えます。トラックを無効にすると、アーム状態であった場合は自動的にアーム解除されます。</li>
@@ -179,15 +214,15 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><strong>タイプアイコン</strong>: オーディオトラックにはスピーカーアイコン、MIDIトラックにはピアノアイコンが表示されます。クリックするとトラック設定ダイアログが開きます。</li>
 <li><strong>削除ボタン (x)</strong>: プロジェクトからトラックを削除します。</li>
 </ul>
-<h3 id="_10">自動アーム</h3>
+<h3 id="_12">自動アーム</h3>
 <p>プロジェクトにトラックが1つだけあり、そのトラックがまだ録音されていない場合、自動的に録音待機状態（アーム）になります。これは、新しいプロジェクトに最初のトラックを追加した場合と、単一の空トラックを持つ既存プロジェクトを開いた場合の両方に適用されます。</p>
-<h3 id="_11">トラックの表示</h3>
+<h3 id="_13">トラックの表示</h3>
 <ul>
 <li><strong>オーディオトラック</strong>は、録音されたオーディオの波形を表示します。オーディオが録音されていない場合、エリアには「No audio recorded」と表示されます。</li>
 <li><strong>MIDIトラック</strong>は、A0からC8にわたるグリッド上に録音されたノートを表示するピアノロールビジュアライゼーションを表示します。ノートはベロシティに応じて色分けされます。MIDIデータが録音されていない場合、エリアには「No MIDI data recorded」と表示されます。</li>
 </ul>
-<h2 id="_12">録音</h2>
-<h3 id="_13">オーディオ録音</h3>
+<h2 id="_14">録音</h2>
+<h3 id="_15">オーディオ録音</h3>
 <ol>
 <li>プロジェクトディレクトリが設定されていることを確認します。</li>
 <li>対象トラックをアームします（「Arm」ラジオボタンをチェック）。</li>
@@ -198,19 +233,19 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </ol>
 <p>録音されたオーディオは、トラック名にちなんだFLACファイルとしてプロジェクトディレクトリに保存されます。</p>
 <p>録音中および再生中は、誤操作を防ぐためにすべてのインタラクティブコントロール（トラックボタン、設定など）が無効になります。</p>
-<h4 id="_14">オーバーダブ録音</h4>
+<h4 id="_16">オーバーダブ録音</h4>
 <p>他の有効なトラックにすでにオーディオまたはMIDIデータが含まれている状態で新しいトラックを録音する場合、Musician's Canvasはオーバーダブ録音を実行します。既存のトラックがミックスされ、新しいトラックの録音中にリアルタイムで再生されます。これにより、新しいパートを録音しながら以前に録音したパートを聴くことができます。</p>
 <p>既存トラックのミックスはキャプチャ開始前に準備されるため、録音と再生はほぼ同時に開始され、すべてのトラックが同期されます。</p>
-<h4 id="_15">録音バックエンド</h4>
+<h4 id="_17">録音バックエンド</h4>
 <p>Musician's Canvasは2つのオーディオキャプチャバックエンドをサポートしています：</p>
 <ul>
 <li><strong>PortAudio</strong>（利用可能な場合のデフォルト）：信頼性の高い低レイテンシー録音を提供し、推奨バックエンドです。</li>
 <li><strong>Qt Multimedia</strong>：Qtの内蔵オーディオキャプチャを使用するフォールバックバックエンドです。PortAudioが利用できない場合、またはProject Settingsで明示的に選択された場合に使用されます。</li>
 </ul>
 <p>録音バックエンドは、<strong>Project &gt; Project Settings &gt; Audio</strong>でプロジェクトごとに設定できます。</p>
-<h4 id="_16">サンプルレートとデバイスの処理</h4>
+<h4 id="_18">サンプルレートとデバイスの処理</h4>
 <p>Musician's Canvasは、オーディオ入力デバイスのネイティブサンプルレートで録音し、高品質リサンプリングを使用してプロジェクトの設定サンプルレートに自動変換します。これにより、デバイスのネイティブレートに関係なく、任意のプロジェクトサンプルレート（例：44100 Hzまたは48000 Hz）を設定できます。変換ではピッチとデュレーションが正確に保持されます。</p>
-<h4 id="_17">モノラルデバイスの検出</h4>
+<h4 id="_19">モノラルデバイスの検出</h4>
 <p>一部のオーディオデバイス（例：USBウェブカメラマイク）は物理的にモノラルですが、オペレーティングシステムによってステレオとして認識されます。Musician's Canvasはこれを自動的に検出し、チャンネル数を適切に調整します。プロジェクトがステレオに設定されている場合、モノラル信号は両チャンネルに複製されます。</p>
 <h3 id="midi">MIDI録音</h3>
 <ol>
@@ -221,19 +256,28 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>Stopをクリックして録音を終了します。</li>
 </ol>
 <p>MIDIノートはトラック上のピアノロールビジュアライゼーションに表示されます。</p>
-<h2 id="_18">再生</h2>
+<h2 id="_20">メトロノーム</h2>
+<p>Musician's Canvasには、録音中にテンポを保つのに役立つ内蔵メトロノームが含まれています。メニューバーの下にあるボタンバーのメトロノームボタンをクリックすると、メトロノーム設定ダイアログが開きます：</p>
+<p><img alt="メトロノーム設定" src="screenshots/MetronomeSettings.png" /></p>
+<p>ダイアログには次の項目があります：</p>
+<ul>
+<li><strong>Enable metronome during recording</strong>: チェックを入れると、録音中にメトロノームがティック音を鳴らします。ティックはシステムオーディオを通じて再生され、録音されたトラックには<strong>キャプチャされません</strong>。</li>
+<li><strong>Beats per minute</strong>: テンポを1分あたりのビート数（BPM）で指定する数値入力です。範囲は20〜300 BPMです。</li>
+</ul>
+<p>メトロノームが有効な場合、録音が実際に開始されると（3秒のカウントダウンが完了した後）にティックが始まり、録音が終了すると停止します。</p>
+<h2 id="_21">再生</h2>
 <p><strong>Play</strong>ボタンをクリックすると、すべての有効なトラックがミックスされて再生されます。ボタンのツールチップは、トラックがアームされているかどうかに基づいて、再生か録音かを示すように変化します。無効なトラック（チェック解除）は再生から除外されます。</p>
 <p>再生中、オーディオトラックはFLACファイルからデコードされ、MIDIトラックは内蔵のFluidSynthシンセサイザーを使用してオーディオにレンダリングされます。すべてのトラックがミックスされ、システムのオーディオ出力デバイスを通じて再生されます。</p>
 <p><strong>Stop</strong>ボタンをクリックすると、いつでも再生を終了できます。</p>
-<h2 id="_19">ファイルへのミックス</h2>
+<h2 id="_22">ファイルへのミックス</h2>
 <p><strong>Tools &gt; Mix tracks to file</strong> (Ctrl+M) を使用して、すべての有効なトラックを単一のオーディオファイルにエクスポートします。ダイアログで出力パスとフォーマットを選択できます：</p>
 <ul>
 <li><strong>出力ファイル</strong>: 出力先のファイルパスを参照して選択します。</li>
 <li><strong>フォーマット</strong>: FLAC（ロスレス圧縮、小さいファイルサイズ）またはWAV（非圧縮）から選択します。</li>
 </ul>
 <p>ミックスにはプロジェクトの設定サンプルレートが使用されます。MIDIトラックは設定されたSoundFontを使用してレンダリングされます。</p>
-<h2 id="_20">設定</h2>
-<h3 id="_21">グローバル設定</h3>
+<h2 id="_23">設定</h2>
+<h3 id="_24">グローバル設定</h3>
 <p><strong>Settings &gt; Configuration</strong> (Ctrl+,) を使用して、すべてのプロジェクトに適用されるグローバルデフォルトを設定します：</p>
 <p><img alt="一般設定" src="screenshots/MusiciansCanvas_3_GeneralSettings.png" /></p>
 <h4 id="general">Generalタブ</h4>
@@ -245,6 +289,15 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
   データが含まれます。この設定はデフォルトで無効であり、主に録音の問題をトラブル
   シューティングする際に役立ちます。</li>
 </ul>
+<h4 id="display">Displayタブ</h4>
+<ul>
+<li><strong>数値表示LEDの色</strong>: メインウィンドウのツールバーに表示される数値LED時刻表示に使用
+  する色を選択します。アクティブな桁のセグメントは選択された色で描画され、非アクティブ
+  なセグメントは同じ色の暗いバージョンで描画されます。利用可能な色は Light Red、Dark
+  Red、Light Green、Dark Green、Light Blue、Dark Blue、Yellow、Orange、Light Cyan、
+  Dark Cyan です。デフォルトは Light Green です。</li>
+</ul>
+<p><img alt="ディスプレイ設定" src="screenshots/MusiciansCanvas_DisplaySettings.png" /></p>
 <h4 id="language">Languageタブ</h4>
 <ul>
 <li><strong>言語</strong>: アプリケーションの表示言語を選択します。デフォルトは「System Default」で、
@@ -255,6 +308,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
   (Finnish)、Svenska (Swedish)、Cymraeg (Welsh)、Pirate です。言語を変更すると、
   インターフェースは即座に更新されます。</li>
 </ul>
+<p><img alt="言語設定" src="screenshots/MusiciansCanvas_LanguageSettings.png" /></p>
 <h4 id="midi_1">MIDIタブ</h4>
 <ul>
 <li><strong>MIDI Output Device</strong>: 内蔵FluidSynthシンセサイザーまたは外部MIDIデバイスを選択します。利用可能なMIDIデバイスを再スキャンするには<strong>Refresh</strong>ボタンを使用します。</li>
@@ -267,7 +321,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><strong>Audio Output Device</strong>: 再生用のスピーカーまたはヘッドフォンデバイスを選択します。</li>
 </ul>
 <p><img alt="オーディオ設定" src="screenshots/MusiciansCanvas_5_AudioSettings.png" /></p>
-<h3 id="_22">プロジェクト設定</h3>
+<h3 id="_25">プロジェクト設定</h3>
 <p><strong>Project &gt; Project Settings</strong> (Ctrl+P) を使用して、現在のプロジェクトのみのグローバルデフォルトをオーバーライドします。特定のサンプルレート、SoundFont、またはオーディオデバイスが必要なプロジェクトに便利です。プロジェクト固有の設定は<code>project.json</code>ファイル内に保存されます。</p>
 <p><img alt="プロジェクトMIDI設定" src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" /></p>
 <h4 id="midi_2">MIDIタブ</h4>
@@ -285,13 +339,13 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><strong>PortAudio Input Device</strong>: PortAudioバックエンド使用時に、特定のPortAudio入力デバイスを選択します。</li>
 <li><strong>Audio Output Device</strong>: このプロジェクト用の再生デバイスを選択します。</li>
 </ul>
-<h5 id="_23">オーディオフォーマット設定</h5>
+<h5 id="_26">オーディオフォーマット設定</h5>
 <ul>
 <li><strong>Sample rate</strong>: 標準レート（8000 Hzから192000 Hz）から選択します。デバイスのネイティブレートには「(native)」とラベル表示されます。リサンプリングが必要なレートには「(resampled)」とラベル表示されます。デバイスの機能に関係なく任意のレートを選択できます。Musician's Canvasは必要に応じて自動的にリサンプリングを行います。</li>
 <li><strong>Channels</strong>: モノラルまたはステレオ。デバイスがモノラルのみをサポートしている場合、ステレオオプションは無効になります。</li>
 </ul>
 <p><img alt="プロジェクトオーディオ設定" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
-<h2 id="_24">メニュー</h2>
+<h2 id="_27">メニュー</h2>
 <h3 id="file">Fileメニュー</h3>
 <table>
 <thead>
@@ -380,7 +434,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </tr>
 </tbody>
 </table>
-<h2 id="_25">キーボードショートカット</h2>
+<h2 id="_28">キーボードショートカット</h2>
 <table>
 <thead>
 <tr>
@@ -418,7 +472,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <h2 id="virtual-midi-keyboard">Virtual MIDI Keyboard</h2>
 <p>Virtual MIDI Keyboardは、MIDIノートを送信するための画面上のピアノキーボードを提供するコンパニオンアプリケーション（<code>virtual_midi_keyboard</code>）です。メインアプリケーションの<strong>Tools &gt; Virtual MIDI Keyboard</strong>メニューから起動するか、独立して実行できます。</p>
 <p><img alt="Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard1.png" /></p>
-<h3 id="_26">機能</h3>
+<h3 id="_29">機能</h3>
 <ul>
 <li>画面上のピアノのキーをクリックしてノートを演奏</li>
 <li>コンピューターキーボードをピアノキーボードとして使用（以下のキーマッピングを参照）</li>
@@ -431,14 +485,14 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>オクターブシフト（-3から+5）</li>
 <li>MIDIボリュームコントロール（CC#7、0--127）</li>
 </ul>
-<h3 id="_27">ツールバーコントロール</h3>
+<h3 id="_30">ツールバーコントロール</h3>
 <ul>
 <li><strong>Volume</strong>: MIDIボリューム（CC#7）、スピンボックスで0から127まで調整可能です。</li>
 <li><strong>Octave</strong>: <strong>&lt;</strong>および<strong>&gt;</strong>ボタンまたはスピンボックスを使用して、キーボードのオクターブをシフトします。範囲は-3から+5です。</li>
 <li><strong>Chorus/Effect</strong>: コーラス/エフェクトレベル（MIDI CC#93）を設定するためのロータリーノブとテキストフィールド（1--127）です。<strong>Apply</strong>をクリックして値を送信します。</li>
 <li><strong>インストゥルメントセレクター</strong>: MIDIインストゥルメントを選択します。内蔵FluidSynthシンセサイザー使用時はSoundFontプリセット（Bank:Program Name）が表示されます。外部MIDIデバイスに接続している場合は、128種類のGeneral MIDIインストゥルメントが一覧表示されます。</li>
 </ul>
-<h3 id="_28">コンピューターキーボードでの演奏</h3>
+<h3 id="_31">コンピューターキーボードでの演奏</h3>
 <p>コンピューターキーボードは2オクターブにわたってピアノキーにマッピングされています：</p>
 <p><strong>下のオクターブ（現在のオクターブから開始）：</strong></p>
 <table>
@@ -579,7 +633,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </tbody>
 </table>
 <p>キーを押すと視覚的にハイライトされます（白鍵は水色に、黒鍵は暗くなります）。</p>
-<h3 id="_29">設定</h3>
+<h3 id="_32">設定</h3>
 <p>設定ダイアログ（<strong>Settings &gt; Configuration</strong>、Ctrl+,）を開いて、MIDIおよびオーディオデバイスをセットアップします：</p>
 <p><img alt="Virtual MIDI Keyboard設定" src="screenshots/VMIDIKeyboard2.png" /></p>
 <h4 id="midi_3">MIDIタブ</h4>
@@ -622,8 +676,8 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </tr>
 </tbody>
 </table>
-<h2 id="_30">トラブルシューティング</h2>
-<h3 id="_31">オーディオ出力がない</h3>
+<h2 id="_33">トラブルシューティング</h2>
+<h3 id="_34">オーディオ出力がない</h3>
 <ul>
 <li>Settings &gt; Configuration &gt; Audioで正しいオーディオ出力デバイスが選択されていることを確認してください。</li>
 <li>Linuxでは、PipeWireまたはPulseAudioが実行中で、出力がミュートされていないことを確認してください。<code>amixer</code>またはデスクトップのサウンド設定を使用して音量レベルを確認してください。</li>
@@ -635,7 +689,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>Linuxでは、<code>fluid-soundfont-gm</code>パッケージがインストールされている場合、システムSoundFontが自動検出されることがあります。</li>
 <li>WindowsとmacOSでは、SoundFontパスを手動で設定する必要があります。</li>
 </ul>
-<h3 id="_32">録音が歪んでいるまたはピッチがおかしい</h3>
+<h3 id="_35">録音が歪んでいるまたはピッチがおかしい</h3>
 <ul>
 <li>これは、オーディオ入力デバイスのネイティブサンプルレートがプロジェクトの設定レートと異なる場合に発生することがあります。Musician's Canvasはリサンプリングによって自動的にこれを処理しますが、問題が解決しない場合は、プロジェクトのサンプルレートをデバイスのネイティブレートに合わせてみてください。</li>
 <li>USBウェブカメラマイクは、異常なネイティブレート（例：32000 Hz）を持つことがよくあります。アプリケーションはこれらを自動的に検出します。</li>
@@ -647,7 +701,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>SoundFontが読み込まれていることを確認してください（設定ダイアログのMIDIタブを参照）。</li>
 <li>オーディオ出力デバイスが選択されていて、システムの音量がミュートされていないことを確認してください。</li>
 </ul>
-<h2 id="_33">ソースからのビルド</h2>
+<h2 id="_36">ソースからのビルド</h2>
 <p>Linux、macOS、Windowsの完全なビルド手順（必要な依存関係すべてを含む）については、<a href="../README.md">README</a>を参照してください。</p>
 </body>
 </html>

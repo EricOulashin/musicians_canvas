@@ -45,8 +45,8 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <body>
 <div class="title-block">
 <h1>Manual do Usu&aacute;rio do Musician&#8217;s Canvas</h1>
-<p>Aplicativo de Gravacao Musical Multi-Faixa &mdash; Version 0.1.0</p>
-<p>2026-04-05</p>
+<p>Aplicativo de Gravacao Musical Multi-Faixa &mdash; Version 0.1.1</p>
+<p>2026-04-08</p>
 </div>
 <div class="toc">
 <h2>&Iacute;ndice</h2>
@@ -57,11 +57,13 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#primeiros-passos">Primeiros Passos</a><ul>
 <li><a href="#iniciando-o-aplicativo">Iniciando o Aplicativo</a></li>
 <li><a href="#configurando-um-projeto">Configurando um Projeto</a></li>
+<li><a href="#barra-de-botoes">Barra de Botoes</a></li>
 <li><a href="#salvando-e-abrindo-projetos">Salvando e Abrindo Projetos</a></li>
 </ul>
 </li>
 <li><a href="#gerenciamento-de-faixas">Gerenciamento de Faixas</a><ul>
 <li><a href="#adicionando-e-removendo-faixas">Adicionando e Removendo Faixas</a></li>
+<li><a href="#adicionando-faixas-por-arrastar-e-soltar">Adicionando Faixas por Arrastar e Soltar</a></li>
 <li><a href="#configurando-o-tipo-de-faixa">Configurando o Tipo de Faixa</a></li>
 <li><a href="#controles-de-faixa">Controles de Faixa</a></li>
 <li><a href="#auto-armamento">Auto-Armamento</a></li>
@@ -73,6 +75,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#gravacao-midi">Gravacao MIDI</a></li>
 </ul>
 </li>
+<li><a href="#metronomo">Metronomo</a></li>
 <li><a href="#reproducao">Reproducao</a></li>
 <li><a href="#mixagem-para-arquivo">Mixagem para Arquivo</a></li>
 <li><a href="#configuracoes">Configuracoes</a><ul>
@@ -160,6 +163,19 @@ carregado automaticamente.</p>
 </li>
 </ol>
 <p><img alt="Janela principal" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="barra-de-botoes">Barra de Botoes</h3>
+<p>Logo abaixo da barra de menus ha uma barra de ferramentas com botoes de acesso rapido:</p>
+<p><img alt="Barra de botoes" src="screenshots/ButtonBar.png" /></p>
+<ul>
+<li><strong>Open Project</strong>: O mesmo que <strong>File &gt; Open Project</strong> — abre um projeto salvo anteriormente.</li>
+<li><strong>Save Project</strong>: O mesmo que <strong>File &gt; Save Project</strong> — salva o projeto atual. Este botao
+  so e habilitado quando um diretorio de projeto esta definido.</li>
+<li><strong>Project Settings</strong>: O mesmo que <strong>Project &gt; Project Settings</strong> — abre o dialogo de
+  configuracoes do projeto. Este botao so e habilitado quando um diretorio de projeto esta definido.</li>
+<li><strong>Configuration</strong>: O mesmo que <strong>Settings &gt; Configuration</strong> — abre o dialogo de configuracoes
+  globais do aplicativo.</li>
+<li><strong>Metronome Settings</strong>: Abre o dialogo de configuracoes do metronomo (veja a secao Metronomo abaixo).</li>
+</ul>
 <h3 id="salvando-e-abrindo-projetos">Salvando e Abrindo Projetos</h3>
 <ul>
 <li><strong>Salvar</strong>: Use <strong>File &gt; Save Project</strong> (Ctrl+S) para salvar o projeto atual como um
@@ -180,6 +196,28 @@ se deseja salvar antes de sair.</p>
 <li>Clique no botao <strong>x</strong> no lado direito da linha da faixa para remove-la.</li>
 <li>Clique em <strong>Clear Tracks</strong> (o botao vermelho na barra de ferramentas) para remover
   todas as faixas. Um dialogo de confirmacao e exibido antes de prosseguir.</li>
+</ul>
+<h3 id="adicionando-faixas-por-arrastar-e-soltar">Adicionando Faixas por Arrastar e Soltar</h3>
+<p>Enquanto um projeto estiver aberto, você pode arrastar um ou mais arquivos de
+áudio suportados do seu gerenciador de arquivos (Windows Explorer, Finder do
+macOS, gerenciador de arquivos do Linux, etc.) diretamente para a janela do
+Musician's Canvas para adicioná-los como novas faixas de áudio.</p>
+<ul>
+<li><strong>Formatos suportados:</strong> <code>.wav</code> e <code>.flac</code>. Arquivos em qualquer outro formato
+  são ignorados silenciosamente, e um diálogo no final lista quais arquivos
+  foram ignorados.</li>
+<li><strong>Cópia de arquivos:</strong> Se o arquivo solto ainda não estiver no diretório do
+  projeto, ele é copiado para lá automaticamente. Se já existir um arquivo com
+  o mesmo nome no diretório do projeto, será perguntado se deseja substituí-lo.</li>
+<li><strong>Nome da faixa:</strong> O nome base do arquivo (sem a extensão) é usado como nome
+  da nova faixa. Por exemplo, soltar <code>Bass Line.wav</code> cria uma faixa de áudio
+  chamada "Bass Line".</li>
+<li><strong>Vários arquivos de uma vez:</strong> Vários arquivos podem ser arrastados juntos;
+  cada arquivo suportado se torna sua própria faixa em uma única operação.</li>
+<li><strong>Quando o soltar é recusado:</strong> As operações de soltar só são aceitas
+  enquanto um projeto estiver aberto e o Musician's Canvas <strong>não</strong> estiver
+  reproduzindo nem gravando. Pare a reprodução ou gravação primeiro se quiser
+  arrastar faixas adicionais.</li>
 </ul>
 <h3 id="configurando-o-tipo-de-faixa">Configurando o Tipo de Faixa</h3>
 <p>Cada faixa pode ser configurada como <strong>Audio</strong> (para gravacao de microfone/entrada de
@@ -276,6 +314,21 @@ para estereo, o sinal mono e duplicado para ambos os canais.</p>
 <li>Clique em Stop para encerrar a gravacao.</li>
 </ol>
 <p>As notas MIDI sao exibidas em uma visualizacao de piano roll na faixa.</p>
+<h2 id="metronomo">Metronomo</h2>
+<p>Musician's Canvas inclui um metronomo integrado que pode ser usado durante a gravacao para
+ajudar a manter o tempo. Clique no botao do metronomo na barra de botoes (abaixo da barra
+de menus) para abrir o dialogo de configuracoes do metronomo:</p>
+<p><img alt="Configuracoes do metronomo" src="screenshots/MetronomeSettings.png" /></p>
+<p>O dialogo oferece:</p>
+<ul>
+<li><strong>Enable metronome during recording</strong>: Quando marcado, o metronomo toca um som de tique
+  enquanto a gravacao esta ativa. O tique e reproduzido atraves do audio do sistema e <strong>nao</strong>
+  e capturado na faixa gravada.</li>
+<li><strong>Beats per minute</strong>: Uma entrada numerica para o andamento, em batidas por minuto (BPM).
+  O intervalo e de 20 a 300 BPM.</li>
+</ul>
+<p>Quando o metronomo esta habilitado, ele comeca a tiquetaquear assim que a gravacao realmente
+comeca (apos o termino da contagem regressiva de 3 segundos) e para quando a gravacao termina.</p>
 <h2 id="reproducao">Reproducao</h2>
 <p>Clique no botao <strong>Play</strong> para mixar e reproduzir todas as faixas habilitadas. A dica do
 botao muda para indicar se ele ira reproduzir ou gravar, dependendo de haver uma faixa
@@ -310,6 +363,16 @@ todos os projetos:</p>
   opcao esta desabilitada por padrao e e principalmente util para solucionar problemas de
   gravacao.</li>
 </ul>
+<h4 id="aba-display">Aba Display</h4>
+<ul>
+<li><strong>Cor do LED do visor numerico</strong>: Escolha a cor usada no visor numerico LED de tempo
+  mostrado na barra de ferramentas da janela principal. Os segmentos ativos dos digitos
+  sao desenhados na cor escolhida, e os segmentos inativos sao desenhados como uma
+  versao esmaecida da mesma cor. As cores disponiveis sao Light Red, Dark Red, Light
+  Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan e Dark Cyan. O
+  padrao e Light Green.</li>
+</ul>
+<p><img alt="Configuracoes de exibicao" src="screenshots/MusiciansCanvas_DisplaySettings.png" /></p>
 <h4 id="aba-language">Aba Language</h4>
 <ul>
 <li><strong>Idioma</strong>: Escolha o idioma de exibicao do aplicativo. O padrao e "System Default",
@@ -320,6 +383,7 @@ todos os projetos:</p>
   (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh) e Pirate. A interface e
   atualizada imediatamente ao alterar o idioma.</li>
 </ul>
+<p><img alt="Configuracoes de idioma" src="screenshots/MusiciansCanvas_LanguageSettings.png" /></p>
 <h4 id="aba-midi">Aba MIDI</h4>
 <ul>
 <li><strong>MIDI Output Device</strong>: Selecione o sintetizador FluidSynth integrado ou um dispositivo

@@ -45,8 +45,8 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <body>
 <div class="title-block">
 <h1>Musician&#8217;s Canvas Brugermanual</h1>
-<p>Multispors musikoptagelsesapplikation &mdash; Version 0.1.0</p>
-<p>2026-04-05</p>
+<p>Multispors musikoptagelsesapplikation &mdash; Version 0.1.1</p>
+<p>2026-04-08</p>
 </div>
 <div class="toc">
 <h2>Indholdsfortegnelse</h2>
@@ -57,11 +57,13 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#kom-godt-i-gang">Kom godt i gang</a><ul>
 <li><a href="#start-af-applikationen">Start af applikationen</a></li>
 <li><a href="#opstning-af-et-projekt">Opsætning af et projekt</a></li>
+<li><a href="#knaplinje">Knaplinje</a></li>
 <li><a href="#gem-og-abn-projekter">Gem og åbn projekter</a></li>
 </ul>
 </li>
 <li><a href="#sporhandtering">Sporhåndtering</a><ul>
 <li><a href="#tilfjelse-og-fjernelse-af-spor">Tilføjelse og fjernelse af spor</a></li>
+<li><a href="#tilfjelse-af-spor-ved-trk-og-slip">Tilføjelse af spor ved træk og slip</a></li>
 <li><a href="#konfiguration-af-sportype">Konfiguration af sportype</a></li>
 <li><a href="#sporkontroller">Sporkontroller</a></li>
 <li><a href="#automatisk-armering">Automatisk armering</a></li>
@@ -73,6 +75,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#midi-optagelse">MIDI-optagelse</a></li>
 </ul>
 </li>
+<li><a href="#metronom">Metronom</a></li>
 <li><a href="#afspilning">Afspilning</a></li>
 <li><a href="#miksning-til-en-fil">Miksning til en fil</a></li>
 <li><a href="#indstillinger">Indstillinger</a><ul>
@@ -146,6 +149,19 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </li>
 </ol>
 <p><img alt="Hovedvindue" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="knaplinje">Knaplinje</h3>
+<p>Lige under menulinjen er der en værktøjslinje med hurtigadgangsknapper:</p>
+<p><img alt="Knaplinje" src="screenshots/ButtonBar.png" /></p>
+<ul>
+<li><strong>Open Project</strong>: Samme som <strong>File &gt; Open Project</strong> — åbner et tidligere gemt projekt.</li>
+<li><strong>Save Project</strong>: Samme som <strong>File &gt; Save Project</strong> — gemmer det aktuelle projekt. Denne
+  knap er kun aktiveret, når en projektmappe er angivet.</li>
+<li><strong>Project Settings</strong>: Samme som <strong>Project &gt; Project Settings</strong> — åbner dialogen
+  projektindstillinger. Denne knap er kun aktiveret, når en projektmappe er angivet.</li>
+<li><strong>Configuration</strong>: Samme som <strong>Settings &gt; Configuration</strong> — åbner dialogen med globale
+  applikationsindstillinger.</li>
+<li><strong>Metronome Settings</strong>: Åbner dialogen med metronomindstillinger (se afsnittet Metronom nedenfor).</li>
+</ul>
 <h3 id="gem-og-abn-projekter">Gem og åbn projekter</h3>
 <ul>
 <li><strong>Gem</strong>: Brug <strong>File &gt; Save Project</strong> (Ctrl+S) til at gemme det aktuelle projekt som en JSON-fil i projektmappen.</li>
@@ -159,6 +175,27 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>Klik på <strong>+ Add Track</strong> for at tilføje et nyt spor til arrangementet.</li>
 <li>Klik på <strong>x</strong>-knappen i højre side af en sporrække for at fjerne det.</li>
 <li>Klik på <strong>Clear Tracks</strong> (den røde knap i værktøjslinjen) for at fjerne alle spor. En bekræftelsesdialog vises, før handlingen udføres.</li>
+</ul>
+<h3 id="tilfjelse-af-spor-ved-trk-og-slip">Tilføjelse af spor ved træk og slip</h3>
+<p>Mens et projekt er åbent, kan du trække en eller flere understøttede lydfiler
+fra din filhåndtering (Windows Stifinder, macOS Finder, Linux-filhåndtering
+osv.) direkte til Musician's Canvas-vinduet for at tilføje dem som nye
+lydspor.</p>
+<ul>
+<li><strong>Understøttede formater:</strong> <code>.wav</code> og <code>.flac</code>. Filer i ethvert andet format
+  springes stille over, og en dialog til sidst viser, hvilke filer der blev
+  sprunget over.</li>
+<li><strong>Filkopiering:</strong> Hvis den slupne fil ikke allerede er i projektmappen,
+  kopieres den automatisk dertil. Hvis der allerede findes en fil med samme
+  navn i projektmappen, bliver du spurgt, om den skal erstattes.</li>
+<li><strong>Spornavn:</strong> Filens basisnavn (uden filtypenavn) bruges som navn på det
+  nye spor. For eksempel opretter det at slippe <code>Bass Line.wav</code> et lydspor
+  med navnet "Bass Line".</li>
+<li><strong>Flere filer på én gang:</strong> Flere filer kan trækkes sammen; hver
+  understøttet fil bliver sit eget spor i en enkelt handling.</li>
+<li><strong>Når slip afvises:</strong> Slip accepteres kun, mens et projekt er åbent, og
+  Musician's Canvas <strong>ikke</strong> aktuelt afspiller eller optager. Stop afspilning
+  eller optagelse først, hvis du vil trække flere spor ind.</li>
 </ul>
 <h3 id="konfiguration-af-sportype">Konfiguration af sportype</h3>
 <p>Hvert spor kan konfigureres som enten <strong>Audio</strong> (til mikrofon/line-in-optagelse) eller <strong>MIDI</strong> (til keyboard/controller-optagelse).</p>
@@ -221,6 +258,21 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>Klik på Stop for at afslutte optagelsen.</li>
 </ol>
 <p>MIDI-noter vises i en pianorulle-visualisering på sporet.</p>
+<h2 id="metronom">Metronom</h2>
+<p>Musician's Canvas indeholder en indbygget metronom, der kan bruges under optagelse til at
+hjælpe med at holde takten. Klik på metronomknappen på knaplinjen (under menulinjen) for at
+åbne dialogen med metronomindstillinger:</p>
+<p><img alt="Metronomindstillinger" src="screenshots/MetronomeSettings.png" /></p>
+<p>Dialogen indeholder:</p>
+<ul>
+<li><strong>Enable metronome during recording</strong>: Når dette er afkrydset, afspiller metronomen en
+  tikkelyd, mens optagelsen er aktiv. Tikket afspilles gennem systemlyden og <strong>optages ikke</strong>
+  på det optagede spor.</li>
+<li><strong>Beats per minute</strong>: Et numerisk input til tempoet, i slag pr. minut (BPM). Området er
+  20–300 BPM.</li>
+</ul>
+<p>Når metronomen er aktiveret, begynder den at tikke, når optagelsen faktisk starter (efter
+at 3-sekunders nedtællingen er gennemført), og stopper, når optagelsen slutter.</p>
 <h2 id="afspilning">Afspilning</h2>
 <p>Klik på knappen <strong>Play</strong> for at mikse og afspille alle aktiverede spor. Knappens værktøjstip ændres for at angive, om den vil afspille eller optage, baseret på om et spor er armeret. Deaktiverede spor (ikke afkrydset) udelukkes fra afspilningen.</p>
 <p>Under afspilning dekodes lydspor fra deres FLAC-filer, og MIDI-spor renderes til lyd ved hjælp af den indbyggede FluidSynth-synthesizer. Alle spor mikses sammen og afspilles gennem systemets lydoutputenhed.</p>
@@ -240,10 +292,16 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <ul>
 <li><strong>Tema</strong>: Vælg mellem mørkt og lyst tema.</li>
 </ul>
+<h4 id="fanen-visning">Fanen Visning</h4>
+<ul>
+<li><strong>Farve på numerisk LED-display</strong>: Vælg den farve, der bruges til det numeriske LED-tidsdisplay, som vises på værktøjslinjen i hovedvinduet. De aktive cifres segmenter tegnes i den valgte farve, og inaktive segmenter tegnes som en dæmpet version af samme farve. Tilgængelige farver er Light Red, Dark Red, Light Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan og Dark Cyan. Standard er Light Green.</li>
+</ul>
+<p><img alt="Visningsindstillinger" src="screenshots/MusiciansCanvas_DisplaySettings.png" /></p>
 <h4 id="fanen-sprog">Fanen Sprog</h4>
 <ul>
 <li><strong>Sprog</strong>: Vælg visningssproget for applikationen. Standard er "System Default", som bruger operativsystemets sprogindstilling. Tilgængelige sprog er engelsk, Deutsch (tysk), Español (spansk), Français (fransk), japansk, Português (brasiliansk portugisisk), kinesisk (traditionelt), kinesisk (forenklet) og pirat. Grænsefladen opdateres med det samme, når du ændrer sproget.</li>
 </ul>
+<p><img alt="Sprogindstillinger" src="screenshots/MusiciansCanvas_LanguageSettings.png" /></p>
 <h4 id="fanen-midi">Fanen MIDI</h4>
 <ul>
 <li><strong>MIDI-outputenhed</strong>: Vælg den indbyggede FluidSynth-synthesizer eller en ekstern MIDI-enhed. Brug knappen <strong>Refresh</strong> til at scanne efter tilgængelige MIDI-enheder igen.</li>

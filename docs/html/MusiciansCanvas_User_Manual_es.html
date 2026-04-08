@@ -45,8 +45,8 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <body>
 <div class="title-block">
 <h1>Manual de usuario de Musician&#8217;s Canvas</h1>
-<p>Aplicación de Grabación Musical Multipista &mdash; Version 0.1.0</p>
-<p>2026-04-05</p>
+<p>Aplicación de Grabación Musical Multipista &mdash; Version 0.1.1</p>
+<p>2026-04-08</p>
 </div>
 <div class="toc">
 <h2>&Iacute;ndice</h2>
@@ -57,11 +57,13 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#primeros-pasos">Primeros Pasos</a><ul>
 <li><a href="#iniciar-la-aplicacion">Iniciar la Aplicación</a></li>
 <li><a href="#configurar-un-proyecto">Configurar un Proyecto</a></li>
+<li><a href="#barra-de-botones">Barra de botones</a></li>
 <li><a href="#guardar-y-abrir-proyectos">Guardar y Abrir Proyectos</a></li>
 </ul>
 </li>
 <li><a href="#gestion-de-pistas">Gestión de Pistas</a><ul>
 <li><a href="#agregar-y-eliminar-pistas">Agregar y Eliminar Pistas</a></li>
+<li><a href="#agregar-pistas-arrastrando-y-soltando">Agregar Pistas Arrastrando y Soltando</a></li>
 <li><a href="#configurar-el-tipo-de-pista">Configurar el Tipo de Pista</a></li>
 <li><a href="#controles-de-pista">Controles de Pista</a></li>
 <li><a href="#armado-automatico">Armado Automático</a></li>
@@ -73,6 +75,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#grabacion-midi">Grabación MIDI</a></li>
 </ul>
 </li>
+<li><a href="#metronomo">Metrónomo</a></li>
 <li><a href="#reproduccion">Reproducción</a></li>
 <li><a href="#mezcla-a-archivo">Mezcla a Archivo</a></li>
 <li><a href="#ajustes">Ajustes</a><ul>
@@ -146,6 +149,19 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </li>
 </ol>
 <p><img alt="Ventana principal" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="barra-de-botones">Barra de botones</h3>
+<p>Justo debajo de la barra de menús hay una barra de herramientas con botones de acceso rápido:</p>
+<p><img alt="Barra de botones" src="screenshots/ButtonBar.png" /></p>
+<ul>
+<li><strong>Open Project</strong>: Igual que <strong>File &gt; Open Project</strong> — abre un proyecto guardado previamente.</li>
+<li><strong>Save Project</strong>: Igual que <strong>File &gt; Save Project</strong> — guarda el proyecto actual. Este
+  botón solo está habilitado cuando se ha establecido un directorio de proyecto.</li>
+<li><strong>Project Settings</strong>: Igual que <strong>Project &gt; Project Settings</strong> — abre el diálogo de ajustes
+  del proyecto. Este botón solo está habilitado cuando se ha establecido un directorio de proyecto.</li>
+<li><strong>Configuration</strong>: Igual que <strong>Settings &gt; Configuration</strong> — abre el diálogo de ajustes globales
+  de la aplicación.</li>
+<li><strong>Metronome Settings</strong>: Abre el diálogo de ajustes del metrónomo (vea la sección Metrónomo más abajo).</li>
+</ul>
 <h3 id="guardar-y-abrir-proyectos">Guardar y Abrir Proyectos</h3>
 <ul>
 <li><strong>Guardar</strong>: Use <strong>File &gt; Save Project</strong> (Ctrl+S) para guardar el proyecto actual como un archivo JSON en el directorio del proyecto.</li>
@@ -159,6 +175,28 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>Haga clic en <strong>+ Add Track</strong> para agregar una nueva pista al arreglo.</li>
 <li>Haga clic en el botón <strong>x</strong> en el lado derecho de una fila de pista para eliminarla.</li>
 <li>Haga clic en <strong>Clear Tracks</strong> (el botón rojo en la barra de herramientas) para eliminar todas las pistas. Se muestra un diálogo de confirmación antes de proceder.</li>
+</ul>
+<h3 id="agregar-pistas-arrastrando-y-soltando">Agregar Pistas Arrastrando y Soltando</h3>
+<p>Mientras un proyecto está abierto, puede arrastrar uno o más archivos de audio
+compatibles desde su administrador de archivos (Explorador de Windows, Finder
+de macOS, administrador de archivos de Linux, etc.) directamente a la ventana
+de Musician's Canvas para agregarlos como nuevas pistas de audio.</p>
+<ul>
+<li><strong>Formatos compatibles:</strong> <code>.wav</code> y <code>.flac</code>. Los archivos en cualquier otro
+  formato se omiten silenciosamente, y al final un diálogo enumera qué
+  archivos se omitieron.</li>
+<li><strong>Copia de archivos:</strong> Si el archivo soltado aún no está en el directorio del
+  proyecto, se copia allí automáticamente. Si ya existe un archivo con el mismo
+  nombre en el directorio del proyecto, se le preguntará si desea reemplazarlo.</li>
+<li><strong>Nombre de la pista:</strong> El nombre base del archivo (sin la extensión) se usa
+  como nombre de la nueva pista. Por ejemplo, soltar <code>Bass Line.wav</code> crea una
+  pista de audio llamada "Bass Line".</li>
+<li><strong>Varios archivos a la vez:</strong> Se pueden arrastrar varios archivos juntos;
+  cada archivo compatible se convierte en su propia pista en un solo gesto.</li>
+<li><strong>Cuando se rechaza el soltado:</strong> Los arrastres solo se aceptan mientras un
+  proyecto está abierto y Musician's Canvas <strong>no</strong> está reproduciendo ni
+  grabando. Detenga la reproducción o la grabación primero si desea arrastrar
+  pistas adicionales.</li>
 </ul>
 <h3 id="configurar-el-tipo-de-pista">Configurar el Tipo de Pista</h3>
 <p>Cada pista puede configurarse como <strong>Audio</strong> (para grabación desde micrófono/entrada de línea) o <strong>MIDI</strong> (para grabación desde teclado/controlador).</p>
@@ -221,6 +259,22 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>Haga clic en Stop para finalizar la grabación.</li>
 </ol>
 <p>Las notas MIDI se muestran en una visualización de piano roll en la pista.</p>
+<h2 id="metronomo">Metrónomo</h2>
+<p>Musician's Canvas incluye un metrónomo integrado que puede usarse durante la grabación para
+ayudar a mantener el tiempo. Haga clic en el botón del metrónomo en la barra de botones
+(debajo de la barra de menús) para abrir el diálogo de ajustes del metrónomo:</p>
+<p><img alt="Ajustes del metrónomo" src="screenshots/MetronomeSettings.png" /></p>
+<p>El diálogo proporciona:</p>
+<ul>
+<li><strong>Enable metronome during recording</strong>: Cuando está marcado, el metrónomo reproduce un
+  sonido de tic mientras la grabación está activa. El tic se reproduce a través del audio del
+  sistema y <strong>no</strong> se captura en la pista grabada.</li>
+<li><strong>Beats per minute</strong>: Una entrada numérica para el tempo, en pulsos por minuto (BPM). El
+  rango es de 20 a 300 BPM.</li>
+</ul>
+<p>Cuando el metrónomo está habilitado, comienza a sonar una vez que la grabación realmente
+comienza (después de que termina la cuenta regresiva de 3 segundos) y se detiene cuando
+finaliza la grabación.</p>
 <h2 id="reproduccion">Reproducción</h2>
 <p>Haga clic en el botón <strong>Play</strong> para mezclar y reproducir todas las pistas habilitadas. El tooltip del botón cambia para indicar si reproducirá o grabará según si hay una pista armada. Las pistas deshabilitadas (desmarcadas) se excluyen de la reproducción.</p>
 <p>Durante la reproducción, las pistas de audio se decodifican desde sus archivos FLAC y las pistas MIDI se renderizan a audio utilizando el sintetizador FluidSynth integrado. Todas las pistas se mezclan y se reproducen a través del dispositivo de salida de audio del sistema.</p>
@@ -246,6 +300,16 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
   temporización. Esta opción está deshabilitada por defecto y es principalmente útil para
   solucionar problemas de grabación.</li>
 </ul>
+<h4 id="pestana-display">Pestaña Display</h4>
+<ul>
+<li><strong>Color del LED de visualización numérica</strong>: Elija el color usado para la pantalla
+  numérica LED de tiempo mostrada en la barra de herramientas de la ventana principal.
+  Los segmentos activos de los dígitos se dibujan con el color elegido, y los segmentos
+  inactivos se dibujan como una versión atenuada del mismo color. Los colores
+  disponibles son Light Red, Dark Red, Light Green, Dark Green, Light Blue, Dark Blue,
+  Yellow, Orange, Light Cyan y Dark Cyan. El valor predeterminado es Light Green.</li>
+</ul>
+<p><img alt="Configuración de pantalla" src="screenshots/MusiciansCanvas_DisplaySettings.png" /></p>
 <h4 id="pestana-language">Pestaña Language</h4>
 <ul>
 <li><strong>Idioma</strong>: Elija el idioma de la interfaz de la aplicación. El valor predeterminado es
@@ -256,6 +320,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
   Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh) y Pirate. La
   interfaz se actualiza inmediatamente al cambiar el idioma.</li>
 </ul>
+<p><img alt="Configuración de idioma" src="screenshots/MusiciansCanvas_LanguageSettings.png" /></p>
 <h4 id="pestana-midi">Pestaña MIDI</h4>
 <ul>
 <li><strong>Dispositivo de Salida MIDI</strong>: Seleccione el sintetizador FluidSynth integrado o un dispositivo MIDI externo. Use el botón <strong>Refresh</strong> para volver a buscar dispositivos MIDI disponibles.</li>

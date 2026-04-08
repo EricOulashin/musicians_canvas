@@ -97,6 +97,28 @@ tallentaa ennen poistumista.
 - Napsauta **Clear Tracks** (punainen painike työkalupalkissa) poistaaksesi kaikki raidat. Vahvistus-
   valintaikkuna näytetään ennen toiminnon suorittamista.
 
+### Raitojen lisääminen vetämällä ja pudottamalla
+
+Kun projekti on auki, voit vetää yhden tai useamman tuetun äänitiedoston
+tiedostonhallinnasta (Windowsin Resurssienhallinta, macOS Finder, Linuxin
+tiedostonhallinta jne.) suoraan Musician's Canvas -ikkunaan lisätäksesi ne
+uusiksi ääniraidoiksi.
+
+- **Tuetut muodot:** `.wav` ja `.flac`. Muissa muodoissa olevat tiedostot
+  ohitetaan hiljaisesti, ja lopuksi valintaikkuna luettelee, mitkä tiedostot
+  ohitettiin.
+- **Tiedostojen kopiointi:** Jos pudotettu tiedosto ei ole jo projektin
+  hakemistossa, se kopioidaan sinne automaattisesti. Jos samanniminen tiedosto
+  on jo projektin hakemistossa, sinulta kysytään, haluatko korvata sen.
+- **Raidan nimi:** Tiedoston perusnimeä (ilman tunnistetta) käytetään uuden
+  raidan nimenä. Esimerkiksi `Bass Line.wav`:n pudottaminen luo ääniraidan
+  nimeltä "Bass Line".
+- **Useita tiedostoja kerralla:** Useita tiedostoja voi vetää yhdessä; kukin
+  tuettu tiedosto muodostaa oman raitansa yhdellä pudotuksella.
+- **Kun pudotus hylätään:** Pudotukset hyväksytään vain, kun projekti on auki
+  eikä Musician's Canvas **ole** parhaillaan toistamassa tai tallentamassa.
+  Pysäytä toisto tai tallennus ensin, jos haluat vetää lisäraitoja.
+
 ### Raitatyypin määrittäminen
 
 Jokainen raita voidaan määrittää joko **Audio**-raidaksi (mikrofoni-/linjasisääntulotallennus) tai

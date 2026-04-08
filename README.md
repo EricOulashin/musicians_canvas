@@ -17,6 +17,7 @@ to make something better.
 - **Track arming**: Check "Arm" on a track to select it as the recording target; only one track can be armed at a time. A single unrecorded track is automatically armed for convenience
 - **Recording countdown**: A 3-second visual countdown before recording begins, giving the performer time to prepare
 - **Overdub recording**: When recording a new track while existing tracks are enabled, the existing tracks are mixed and played back in real time so you can hear them while recording. Playback and capture are synchronized to keep all tracks aligned
+- **Drag-and-drop import**: While a project is open, drag one or more supported audio files (currently `.wav` and `.flac`) from the file manager onto the main window to add them as new audio tracks. Files outside the project directory are copied in automatically; the file's base name becomes the new track name. The list of supported formats is centralised in `src/audioformats.h` so additional formats (e.g. `.mp3`, `.ogg`, `.aiff`) can be added in one place.
 - **Visual feedback**: Audio waveform display for audio tracks (with live level meter during recording), MIDI piano roll for MIDI tracks
 - **Built-in MIDI synthesizer**: Renders MIDI tracks to audio using FluidSynth with a configurable SoundFont
 - **Mix to single audio file**: Export all enabled tracks to a single mixed WAV or FLAC file using the [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp) library

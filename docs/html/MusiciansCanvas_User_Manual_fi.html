@@ -45,8 +45,8 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <body>
 <div class="title-block">
 <h1>Musician&#8217;s Canvas K&#228;ytt&#246;opas</h1>
-<p>Moniraitainen musiikin tallennussovellus &mdash; Version 0.1.0</p>
-<p>2026-04-05</p>
+<p>Moniraitainen musiikin tallennussovellus &mdash; Version 0.1.1</p>
+<p>2026-04-08</p>
 </div>
 <div class="toc">
 <h2>Sis&auml;llysluettelo</h2>
@@ -57,11 +57,13 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#aloittaminen">Aloittaminen</a><ul>
 <li><a href="#sovelluksen-kaynnistaminen">Sovelluksen käynnistäminen</a></li>
 <li><a href="#projektin-asettaminen">Projektin asettaminen</a></li>
+<li><a href="#painikepalkki">Painikepalkki</a></li>
 <li><a href="#projektien-tallentaminen-ja-avaaminen">Projektien tallentaminen ja avaaminen</a></li>
 </ul>
 </li>
 <li><a href="#raitojen-hallinta">Raitojen hallinta</a><ul>
 <li><a href="#raitojen-lisaaminen-ja-poistaminen">Raitojen lisääminen ja poistaminen</a></li>
+<li><a href="#raitojen-lisaaminen-vetamalla-ja-pudottamalla">Raitojen lisääminen vetämällä ja pudottamalla</a></li>
 <li><a href="#raitatyypin-maarittaminen">Raitatyypin määrittäminen</a></li>
 <li><a href="#raidan-ohjaimet">Raidan ohjaimet</a></li>
 <li><a href="#automaattinen-tallennusvalmius">Automaattinen tallennusvalmius</a></li>
@@ -73,6 +75,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#midi-tallennus">MIDI-tallennus</a></li>
 </ul>
 </li>
+<li><a href="#metronomi">Metronomi</a></li>
 <li><a href="#toisto">Toisto</a></li>
 <li><a href="#miksaus-tiedostoon">Miksaus tiedostoon</a></li>
 <li><a href="#asetukset">Asetukset</a><ul>
@@ -156,6 +159,19 @@ projektihakemisto sisältää <code>project.json</code>-tiedoston, projekti lada
 </li>
 </ol>
 <p><img alt="Pääikkuna" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="painikepalkki">Painikepalkki</h3>
+<p>Aivan valikkopalkin alapuolella on työkalupalkki pikakäyttöpainikkeineen:</p>
+<p><img alt="Painikepalkki" src="screenshots/ButtonBar.png" /></p>
+<ul>
+<li><strong>Open Project</strong>: Sama kuin <strong>File &gt; Open Project</strong> — avaa aiemmin tallennetun projektin.</li>
+<li><strong>Save Project</strong>: Sama kuin <strong>File &gt; Save Project</strong> — tallentaa nykyisen projektin. Tämä
+  painike on käytössä vain, kun projektihakemisto on asetettu.</li>
+<li><strong>Project Settings</strong>: Sama kuin <strong>Project &gt; Project Settings</strong> — avaa projektin asetukset
+  -valintaikkunan. Tämä painike on käytössä vain, kun projektihakemisto on asetettu.</li>
+<li><strong>Configuration</strong>: Sama kuin <strong>Settings &gt; Configuration</strong> — avaa sovelluksen yleisten
+  asetusten valintaikkunan.</li>
+<li><strong>Metronome Settings</strong>: Avaa metronomin asetusten valintaikkunan (katso Metronomi-osio alla).</li>
+</ul>
 <h3 id="projektien-tallentaminen-ja-avaaminen">Projektien tallentaminen ja avaaminen</h3>
 <ul>
 <li><strong>Tallenna</strong>: Käytä <strong>File &gt; Save Project</strong> (Ctrl+S) tallentaaksesi nykyisen projektin JSON-tiedostona
@@ -174,6 +190,27 @@ tallentaa ennen poistumista.</p>
 <li>Napsauta <strong>x</strong>-painiketta raitarivin oikealla puolella poistaaksesi sen.</li>
 <li>Napsauta <strong>Clear Tracks</strong> (punainen painike työkalupalkissa) poistaaksesi kaikki raidat. Vahvistus-
   valintaikkuna näytetään ennen toiminnon suorittamista.</li>
+</ul>
+<h3 id="raitojen-lisaaminen-vetamalla-ja-pudottamalla">Raitojen lisääminen vetämällä ja pudottamalla</h3>
+<p>Kun projekti on auki, voit vetää yhden tai useamman tuetun äänitiedoston
+tiedostonhallinnasta (Windowsin Resurssienhallinta, macOS Finder, Linuxin
+tiedostonhallinta jne.) suoraan Musician's Canvas -ikkunaan lisätäksesi ne
+uusiksi ääniraidoiksi.</p>
+<ul>
+<li><strong>Tuetut muodot:</strong> <code>.wav</code> ja <code>.flac</code>. Muissa muodoissa olevat tiedostot
+  ohitetaan hiljaisesti, ja lopuksi valintaikkuna luettelee, mitkä tiedostot
+  ohitettiin.</li>
+<li><strong>Tiedostojen kopiointi:</strong> Jos pudotettu tiedosto ei ole jo projektin
+  hakemistossa, se kopioidaan sinne automaattisesti. Jos samanniminen tiedosto
+  on jo projektin hakemistossa, sinulta kysytään, haluatko korvata sen.</li>
+<li><strong>Raidan nimi:</strong> Tiedoston perusnimeä (ilman tunnistetta) käytetään uuden
+  raidan nimenä. Esimerkiksi <code>Bass Line.wav</code>:n pudottaminen luo ääniraidan
+  nimeltä "Bass Line".</li>
+<li><strong>Useita tiedostoja kerralla:</strong> Useita tiedostoja voi vetää yhdessä; kukin
+  tuettu tiedosto muodostaa oman raitansa yhdellä pudotuksella.</li>
+<li><strong>Kun pudotus hylätään:</strong> Pudotukset hyväksytään vain, kun projekti on auki
+  eikä Musician's Canvas <strong>ole</strong> parhaillaan toistamassa tai tallentamassa.
+  Pysäytä toisto tai tallennus ensin, jos haluat vetää lisäraitoja.</li>
 </ul>
 <h3 id="raitatyypin-maarittaminen">Raitatyypin määrittäminen</h3>
 <p>Jokainen raita voidaan määrittää joko <strong>Audio</strong>-raidaksi (mikrofoni-/linjasisääntulotallennus) tai
@@ -262,6 +299,21 @@ vastaavasti. Jos projekti on määritetty stereoksi, monosignaali kopioidaan mol
 <li>Napsauta Stop lopettaaksesi tallennuksen.</li>
 </ol>
 <p>MIDI-nuotit näytetään pianorullavisualisoinnissa raidalla.</p>
+<h2 id="metronomi">Metronomi</h2>
+<p>Musician's Canvas sisältää sisäänrakennetun metronomin, jota voidaan käyttää tallennuksen
+aikana pitämään tahtia yllä. Napsauta metronomipainiketta painikepalkissa (valikkopalkin
+alapuolella) avataksesi metronomin asetusten valintaikkunan:</p>
+<p><img alt="Metronomin asetukset" src="screenshots/MetronomeSettings.png" /></p>
+<p>Valintaikkuna tarjoaa:</p>
+<ul>
+<li><strong>Enable metronome during recording</strong>: Kun valittu, metronomi toistaa tikityksen, kun
+  tallennus on käynnissä. Tikitys toistetaan järjestelmän äänen kautta, eikä sitä <strong>tallenneta</strong>
+  tallennettavalle raidalle.</li>
+<li><strong>Beats per minute</strong>: Numeerinen syöte tempolle, lyönteinä minuutissa (BPM). Alue on
+  20–300 BPM.</li>
+</ul>
+<p>Kun metronomi on käytössä, se alkaa tikittää, kun tallennus varsinaisesti alkaa (3 sekunnin
+lähtölaskennan päätyttyä) ja pysähtyy, kun tallennus loppuu.</p>
 <h2 id="toisto">Toisto</h2>
 <p>Napsauta <strong>Play</strong>-painiketta miksataksesi ja toistaaksesi kaikki käytössä olevat raidat. Painikkeen
 työkaluvihje muuttuu osoittamaan, toistetaanko vai tallennetaanko sen mukaan, onko raita
@@ -288,6 +340,15 @@ projekteja:</p>
 <ul>
 <li><strong>Teema</strong>: Valitse tumman ja vaalean teeman väliltä.</li>
 </ul>
+<h4 id="naytto-valilehti">Näyttö-välilehti</h4>
+<ul>
+<li><strong>Numeronäytön LED-väri</strong>: Valitse väri, jota käytetään pääikkunan työkalurivillä näkyvässä
+  numeerisessa LED-aikanäytössä. Aktiiviset numerosegmentit piirretään valitulla värillä, ja
+  passiiviset segmentit piirretään saman värin himmennettynä versiona. Saatavilla olevat värit
+  ovat Light Red, Dark Red, Light Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange,
+  Light Cyan ja Dark Cyan. Oletusarvo on Light Green.</li>
+</ul>
+<p><img alt="Näyttöasetukset" src="screenshots/MusiciansCanvas_DisplaySettings.png" /></p>
 <h4 id="kieli-valilehti">Kieli-välilehti</h4>
 <ul>
 <li><strong>Kieli</strong>: Valitse sovelluksen näyttökieli. Oletus on "System Default", joka käyttää käyttöjärjestelmän
@@ -296,6 +357,7 @@ projekteja:</p>
   ja Pirate.
   Käyttöliittymä päivittyy välittömästi kieltä vaihdettaessa.</li>
 </ul>
+<p><img alt="Kieliasetukset" src="screenshots/MusiciansCanvas_LanguageSettings.png" /></p>
 <h4 id="midi-valilehti">MIDI-välilehti</h4>
 <ul>
 <li><strong>MIDI-lähtölaite</strong>: Valitse sisäänrakennettu FluidSynth-syntetisaattori tai ulkoinen MIDI-laite.

@@ -103,6 +103,29 @@ se deseja salvar antes de sair.
 - Clique em **Clear Tracks** (o botao vermelho na barra de ferramentas) para remover
   todas as faixas. Um dialogo de confirmacao e exibido antes de prosseguir.
 
+### Adicionando Faixas por Arrastar e Soltar
+
+Enquanto um projeto estiver aberto, você pode arrastar um ou mais arquivos de
+áudio suportados do seu gerenciador de arquivos (Windows Explorer, Finder do
+macOS, gerenciador de arquivos do Linux, etc.) diretamente para a janela do
+Musician's Canvas para adicioná-los como novas faixas de áudio.
+
+- **Formatos suportados:** `.wav` e `.flac`. Arquivos em qualquer outro formato
+  são ignorados silenciosamente, e um diálogo no final lista quais arquivos
+  foram ignorados.
+- **Cópia de arquivos:** Se o arquivo solto ainda não estiver no diretório do
+  projeto, ele é copiado para lá automaticamente. Se já existir um arquivo com
+  o mesmo nome no diretório do projeto, será perguntado se deseja substituí-lo.
+- **Nome da faixa:** O nome base do arquivo (sem a extensão) é usado como nome
+  da nova faixa. Por exemplo, soltar `Bass Line.wav` cria uma faixa de áudio
+  chamada "Bass Line".
+- **Vários arquivos de uma vez:** Vários arquivos podem ser arrastados juntos;
+  cada arquivo suportado se torna sua própria faixa em uma única operação.
+- **Quando o soltar é recusado:** As operações de soltar só são aceitas
+  enquanto um projeto estiver aberto e o Musician's Canvas **não** estiver
+  reproduzindo nem gravando. Pare a reprodução ou gravação primeiro se quiser
+  arrastar faixas adicionais.
+
 ### Configurando o Tipo de Faixa
 
 Cada faixa pode ser configurada como **Audio** (para gravacao de microfone/entrada de

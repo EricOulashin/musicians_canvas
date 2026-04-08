@@ -82,6 +82,27 @@ Hvis du lukker applikasjonen med ulagrede endringer, spør en bekreftelsesdialog
 - Klikk på **x**-knappen på høyre side av en sporrad for å fjerne det.
 - Klikk på **Clear Tracks** (den røde knappen i verktøylinjen) for å fjerne alle spor. En bekreftelsesdialog vises før handlingen utføres.
 
+### Legge til spor ved dra og slipp
+
+Mens et prosjekt er åpent, kan du dra én eller flere støttede lydfiler fra
+filutforskeren din (Windows Utforsker, macOS Finder, Linux-filbehandler osv.)
+direkte til Musician's Canvas-vinduet for å legge dem til som nye lydspor.
+
+- **Støttede formater:** `.wav` og `.flac`. Filer i andre formater hoppes
+  stille over, og en dialog på slutten viser hvilke filer som ble hoppet
+  over.
+- **Filkopiering:** Hvis den slupne filen ikke allerede er i prosjektmappen,
+  kopieres den dit automatisk. Hvis en fil med samme navn allerede finnes i
+  prosjektmappen, blir du spurt om du vil erstatte den.
+- **Spornavn:** Filens basisnavn (uten filendelsen) brukes som navn på det
+  nye sporet. For eksempel oppretter det å slippe `Bass Line.wav` et lydspor
+  med navnet "Bass Line".
+- **Flere filer samtidig:** Flere filer kan dras samtidig; hver støttede fil
+  blir sitt eget spor i ett enkelt slipp.
+- **Når slipp avvises:** Slipp godtas bare mens et prosjekt er åpent og
+  Musician's Canvas **ikke** spiller av eller spiller inn. Stopp avspilling
+  eller innspilling først hvis du vil dra inn flere spor.
+
 ### Konfigurere sportype
 
 Hvert spor kan konfigureres som enten **Audio** (for mikrofon/line-in-opptak) eller **MIDI** (for keyboard/kontroller-opptak).

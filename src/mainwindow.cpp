@@ -9,6 +9,7 @@
 #include "portaudiorecorder.h"
 #endif
 #include "mixdialog.h"
+#include "audioformats.h"
 #include "metronomedialog.h"
 #include "segmentdisplay.h"
 #include "appsettings.h"
@@ -29,6 +30,12 @@
 #include <QStyle>
 #include <QToolBar>
 #include <QToolButton>
+#include <QDragEnterEvent>
+#include <QDragMoveEvent>
+#include <QDropEvent>
+#include <QMimeData>
+#include <QUrl>
+#include <QFileInfo>
 #include <QCoreApplication>
 #include <QFrame>
 #include <QProcess>
@@ -177,6 +184,20 @@ static bool readWavAudioData(const QString& path, QByteArray& audioData,
     return foundFmt && foundData;
 }
 
+// Single dispatch point for loading any supported audio file format.  When
+// adding a new format, register its extension in src/audioformats.h and add
+// a new branch here that calls the appropriate decoder.
+static bool loadAudioFile(const QString& path, QByteArray& audioData,
+                          int& sampleRate, int& channelCount)
+{
+    const QString ext = QStringLiteral(".") + QFileInfo(path).suffix().toLower();
+    if (ext == QStringLiteral(".flac"))
+        return AudioUtils::readFlacAudioData(path, audioData, sampleRate, channelCount);
+    if (ext == QStringLiteral(".wav"))
+        return readWavAudioData(path, audioData, sampleRate, channelCount);
+    return false;
+}
+
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 {
     setWindowTitle(tr("Musician's Canvas"));
@@ -191,6 +212,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
     setupMenuBar();
     setupToolBar();
     setupUi();
+
+    // Accept drag-and-drop of supported audio files onto the main window
+    setAcceptDrops(true);
 
     // Auto-load the last project if one exists in the stored project directory
     const QString lastDir = AppSettings::instance().projectLocation();
@@ -447,6 +471,182 @@ void MainWindow::onAddTrack()
     updatePlayRecordButton();
 }
 
+// ─── Drag-and-drop of audio files ─────────────────────────────────────────
+//
+// While a project is open, the user may drag one or more supported audio
+// files (currently .wav and .flac — see src/audioformats.h for the central
+// list) onto the main window.  Each accepted file is copied into the project
+// directory if it isn't already there, and a new audio track is created with
+// the file's base name as the track name and the file's audio data preloaded.
+
+static bool mimeHasSupportedAudioFile(const QMimeData* mime)
+{
+    if (!mime || !mime->hasUrls())
+        return false;
+    for (const QUrl& url : mime->urls())
+    {
+        if (!url.isLocalFile())
+            continue;
+        if (AudioFormats::isSupported(url.toLocalFile()))
+            return true;
+    }
+    return false;
+}
+
+void MainWindow::dragEnterEvent(QDragEnterEvent* event)
+{
+    // Only accept drops while a project is open AND at least one of the
+    // dragged files is a supported audio format.
+    if (!m_projectLocationEdit
+        || m_projectLocationEdit->text().trimmed().isEmpty()
+        || m_isActive)
+    {
+        event->ignore();
+        return;
+    }
+    if (mimeHasSupportedAudioFile(event->mimeData()))
+        event->acceptProposedAction();
+    else
+        event->ignore();
+}
+
+void MainWindow::dragMoveEvent(QDragMoveEvent* event)
+{
+    if (mimeHasSupportedAudioFile(event->mimeData())
+        && m_projectLocationEdit
+        && !m_projectLocationEdit->text().trimmed().isEmpty()
+        && !m_isActive)
+    {
+        event->acceptProposedAction();
+    }
+    else
+    {
+        event->ignore();
+    }
+}
+
+void MainWindow::dropEvent(QDropEvent* event)
+{
+    const QMimeData* mime = event->mimeData();
+    if (!mime || !mime->hasUrls())
+    {
+        event->ignore();
+        return;
+    }
+
+    bool addedAny = false;
+    QStringList skipped;
+    for (const QUrl& url : mime->urls())
+    {
+        if (!url.isLocalFile())
+            continue;
+        const QString path = url.toLocalFile();
+        if (!AudioFormats::isSupported(path))
+        {
+            skipped.append(QFileInfo(path).fileName());
+            continue;
+        }
+        if (addAudioFileAsTrack(path))
+            addedAny = true;
+    }
+
+    if (addedAny)
+        event->acceptProposedAction();
+    else
+        event->ignore();
+
+    if (!skipped.isEmpty())
+    {
+        QMessageBox::information(this,
+            tr("Unsupported file type"),
+            tr("The following file(s) were skipped because they are not in a "
+               "supported audio format:\n%1\n\nSupported formats: %2")
+                .arg(skipped.join(QStringLiteral("\n")),
+                     AudioFormats::extensions().join(QStringLiteral(", "))));
+    }
+}
+
+bool MainWindow::addAudioFileAsTrack(const QString& sourcePath)
+{
+    if (!AudioFormats::isSupported(sourcePath))
+        return false;
+
+    const QString projectDir = m_projectLocationEdit
+        ? m_projectLocationEdit->text().trimmed()
+        : QString();
+    if (projectDir.isEmpty())
+        return false;
+
+    const QFileInfo srcInfo(sourcePath);
+    if (!srcInfo.exists() || !srcInfo.isFile())
+        return false;
+
+    // Use the file's base name (without extension) as the track name.
+    const QString trackName = srcInfo.completeBaseName();
+    const QString destFileName = sanitizedTrackFilename(trackName)
+                                 + QStringLiteral(".")
+                                 + srcInfo.suffix().toLower();
+    const QString destPath = projectDir + QDir::separator() + destFileName;
+
+    // Copy the file into the project dir if it isn't already there.
+    if (QFileInfo(srcInfo.absoluteFilePath()) != QFileInfo(destPath))
+    {
+        QDir().mkpath(projectDir);
+        if (QFile::exists(destPath))
+        {
+            const auto answer = QMessageBox::question(
+                this,
+                tr("File already exists"),
+                tr("A file named \"%1\" already exists in the project "
+                   "directory. Replace it?").arg(destFileName),
+                QMessageBox::Yes | QMessageBox::No,
+                QMessageBox::No);
+            if (answer != QMessageBox::Yes)
+                return false;
+            QFile::remove(destPath);
+        }
+        if (!QFile::copy(sourcePath, destPath))
+        {
+            QMessageBox::warning(this,
+                tr("Copy failed"),
+                tr("Could not copy %1 into the project directory.").arg(srcInfo.fileName()));
+            return false;
+        }
+    }
+
+    // Build the new track and try to load the audio data so the waveform
+    // shows up immediately.  If decoding fails the track is still created
+    // (the file is in place; the user can investigate).
+    TrackData data = createNewTrack();
+    data.name = trackName;
+    data.type = TrackType::Audio;
+    int sr = data.sampleRate;
+    int ch = data.channelCount;
+    if (loadAudioFile(destPath, data.audioData, sr, ch))
+    {
+        data.sampleRate   = sr;
+        data.channelCount = ch;
+    }
+
+    auto* widget = new TrackWidget(data, this);
+    connect(widget, &TrackWidget::configurationRequested, this, &MainWindow::onTrackConfigRequested);
+    connect(widget, &TrackWidget::armChanged, this, &MainWindow::onArmChanged);
+    connect(widget, &TrackWidget::dataChanged, this, [this](TrackWidget*)
+    {
+        markDirty();
+        updatePlayRecordButton();
+    });
+    connect(widget, &TrackWidget::nameChanged, this, &MainWindow::onTrackNameChanged);
+    connect(widget, &TrackWidget::removeRequested, this, &MainWindow::onTrackRemoveRequested);
+    m_trackWidgets.append(widget);
+    m_tracksLayout->insertWidget(m_tracksLayout->count() - 1, widget);
+    widget->updateVisualization();
+
+    markDirty();
+    updatePlayRecordButton();
+    return true;
+}
+
 void MainWindow::onArmChanged(TrackWidget* armed, bool isArmed)
 {
     if (isArmed)
@@ -531,8 +731,7 @@ void MainWindow::moveProjectFiles(const QString& oldDir, const QString& newDir)
     QDir src(oldDir);
     if (!src.exists()) return;
     QDir().mkpath(newDir);
-    const QStringList filters = {QStringLiteral("*.wav"), QStringLiteral("*.flac")};
-    const QStringList entries = src.entryList(filters, QDir::Files);
+    const QStringList entries = src.entryList(AudioFormats::nameFilters(), QDir::Files);
     for (const QString& filename : entries)
     {
         const QString srcPath = oldDir + QDir::separator() + filename;
@@ -1333,14 +1532,20 @@ void MainWindow::onSaveProject()
 
         if (d.type == TrackType::Audio)
         {
-            // Reference whichever audio file exists (FLAC preferred for new recordings,
-            // WAV retained for projects recorded before the FLAC switch).
+            // Reference whichever supported audio file exists.  The central
+            // AudioFormats::all() list is checked in order, so the preferred
+            // format (currently .flac) wins when more than one exists; older
+            // projects with .wav still resolve correctly.
             const QString baseName = sanitizedTrackFilename(d.name);
-            QString audioExt = QStringLiteral(".flac");
-            if (!QFile::exists(projectDir + QDir::separator() + baseName + QStringLiteral(".flac"))
-                && QFile::exists(projectDir + QDir::separator() + baseName + QStringLiteral(".wav")))
+            QString audioExt = QString::fromLatin1(AudioFormats::all().first().extension);
+            for (const auto& fmt : AudioFormats::all())
             {
-                audioExt = QStringLiteral(".wav");
+                const QString candidate = baseName + QString::fromLatin1(fmt.extension);
+                if (QFile::exists(projectDir + QDir::separator() + candidate))
+                {
+                    audioExt = QString::fromLatin1(fmt.extension);
+                    break;
+                }
             }
             obj[QStringLiteral("audioFile")] = baseName + audioExt;
         }
@@ -1466,12 +1671,7 @@ void MainWindow::loadProjectFromFile(const QString& path)
                 const QString audioPath = projectDir + QDir::separator() + audioFile;
                 int fileSampleRate   = d.sampleRate;
                 int fileChannelCount = d.channelCount;
-                bool loaded = false;
-                if (audioFile.endsWith(QStringLiteral(".flac"), Qt::CaseInsensitive))
-                    loaded = AudioUtils::readFlacAudioData(audioPath, d.audioData, fileSampleRate, fileChannelCount);
-                else
-                    loaded = readWavAudioData(audioPath, d.audioData, fileSampleRate, fileChannelCount);
-                if (loaded)
+                if (loadAudioFile(audioPath, d.audioData, fileSampleRate, fileChannelCount))
                 {
                     d.sampleRate   = fileSampleRate;
                     d.channelCount = fileChannelCount;
@@ -1562,8 +1762,9 @@ void MainWindow::onTrackNameChanged(TrackWidget* /*widget*/,
     {
         const QString oldBase = projectDir + QDir::separator() + sanitizedTrackFilename(oldName);
         const QString newBase = projectDir + QDir::separator() + sanitizedTrackFilename(newName);
-        for (const QString& ext : {QStringLiteral(".flac"), QStringLiteral(".wav")})
+        for (const auto& fmt : AudioFormats::all())
         {
+            const QString ext = QString::fromLatin1(fmt.extension);
             const QString oldPath = oldBase + ext;
             const QString newPath = newBase + ext;
             if (oldPath != newPath && QFile::exists(oldPath))

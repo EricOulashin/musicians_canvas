@@ -82,6 +82,29 @@ Si cierra la aplicación con cambios sin guardar, un diálogo de confirmación l
 - Haga clic en el botón **x** en el lado derecho de una fila de pista para eliminarla.
 - Haga clic en **Clear Tracks** (el botón rojo en la barra de herramientas) para eliminar todas las pistas. Se muestra un diálogo de confirmación antes de proceder.
 
+### Agregar Pistas Arrastrando y Soltando
+
+Mientras un proyecto está abierto, puede arrastrar uno o más archivos de audio
+compatibles desde su administrador de archivos (Explorador de Windows, Finder
+de macOS, administrador de archivos de Linux, etc.) directamente a la ventana
+de Musician's Canvas para agregarlos como nuevas pistas de audio.
+
+- **Formatos compatibles:** `.wav` y `.flac`. Los archivos en cualquier otro
+  formato se omiten silenciosamente, y al final un diálogo enumera qué
+  archivos se omitieron.
+- **Copia de archivos:** Si el archivo soltado aún no está en el directorio del
+  proyecto, se copia allí automáticamente. Si ya existe un archivo con el mismo
+  nombre en el directorio del proyecto, se le preguntará si desea reemplazarlo.
+- **Nombre de la pista:** El nombre base del archivo (sin la extensión) se usa
+  como nombre de la nueva pista. Por ejemplo, soltar `Bass Line.wav` crea una
+  pista de audio llamada "Bass Line".
+- **Varios archivos a la vez:** Se pueden arrastrar varios archivos juntos;
+  cada archivo compatible se convierte en su propia pista en un solo gesto.
+- **Cuando se rechaza el soltado:** Los arrastres solo se aceptan mientras un
+  proyecto está abierto y Musician's Canvas **no** está reproduciendo ni
+  grabando. Detenga la reproducción o la grabación primero si desea arrastrar
+  pistas adicionales.
+
 ### Configurar el Tipo de Pista
 
 Cada pista puede configurarse como **Audio** (para grabación desde micrófono/entrada de línea) o **MIDI** (para grabación desde teclado/controlador).

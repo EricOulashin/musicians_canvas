@@ -82,6 +82,30 @@ Jeśli zamkniesz aplikację z niezapisanymi zmianami, dialog potwierdzenia zapyt
 - Kliknij przycisk **x** po prawej stronie wiersza ścieżki, aby ją usunąć.
 - Kliknij **Clear Tracks** (czerwony przycisk na pasku narzędzi), aby usunąć wszystkie ścieżki. Przed wykonaniem wyświetlany jest dialog potwierdzenia.
 
+### Dodawanie ścieżek metodą przeciągnij i upuść
+
+Gdy projekt jest otwarty, możesz przeciągnąć jeden lub więcej obsługiwanych
+plików audio z menedżera plików (Eksplorator Windows, Finder macOS, menedżer
+plików Linux itp.) bezpośrednio na okno Musician's Canvas, aby dodać je jako
+nowe ścieżki audio.
+
+- **Obsługiwane formaty:** `.wav` i `.flac`. Pliki w dowolnym innym formacie
+  są po cichu pomijane, a na końcu okno dialogowe wyświetla listę pominiętych
+  plików.
+- **Kopiowanie plików:** Jeśli upuszczony plik nie znajduje się jeszcze w
+  katalogu projektu, jest do niego automatycznie kopiowany. Jeśli w katalogu
+  projektu istnieje już plik o tej samej nazwie, zostaniesz zapytany, czy go
+  zastąpić.
+- **Nazwa ścieżki:** Podstawowa nazwa pliku (bez rozszerzenia) jest używana
+  jako nazwa nowej ścieżki. Na przykład upuszczenie `Bass Line.wav` tworzy
+  ścieżkę audio o nazwie "Bass Line".
+- **Wiele plików naraz:** Można jednocześnie przeciągać kilka plików; każdy
+  obsługiwany plik staje się własną ścieżką w ramach jednego upuszczenia.
+- **Gdy upuszczenie zostaje odrzucone:** Upuszczenia są akceptowane tylko
+  wtedy, gdy projekt jest otwarty, a Musician's Canvas **nie** odtwarza ani
+  nie nagrywa w danej chwili. Najpierw zatrzymaj odtwarzanie lub nagrywanie,
+  jeśli chcesz przeciągnąć dodatkowe ścieżki.
+
 ### Konfiguracja typu ścieżki
 
 Każda ścieżka może być skonfigurowana jako **Audio** (do nagrywania z mikrofonu/line-in) lub **MIDI** (do nagrywania z klawiatury/kontrolera).

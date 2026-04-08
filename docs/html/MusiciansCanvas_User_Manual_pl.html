@@ -45,8 +45,8 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <body>
 <div class="title-block">
 <h1>Podr&#281;cznik u&#380;ytkownika Musician&#8217;s Canvas</h1>
-<p>Wielościeżkowa aplikacja do nagrywania muzyki &mdash; Version 0.1.0</p>
-<p>2026-04-05</p>
+<p>Wielościeżkowa aplikacja do nagrywania muzyki &mdash; Version 0.1.1</p>
+<p>2026-04-08</p>
 </div>
 <div class="toc">
 <h2>Spis tre&sacute;ci</h2>
@@ -57,11 +57,13 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#pierwsze-kroki">Pierwsze kroki</a><ul>
 <li><a href="#uruchamianie-aplikacji">Uruchamianie aplikacji</a></li>
 <li><a href="#konfiguracja-projektu">Konfiguracja projektu</a></li>
+<li><a href="#pasek-przyciskow">Pasek przycisków</a></li>
 <li><a href="#zapisywanie-i-otwieranie-projektow">Zapisywanie i otwieranie projektów</a></li>
 </ul>
 </li>
 <li><a href="#zarzadzanie-sciezkami">Zarządzanie ścieżkami</a><ul>
 <li><a href="#dodawanie-i-usuwanie-sciezek">Dodawanie i usuwanie ścieżek</a></li>
+<li><a href="#dodawanie-sciezek-metoda-przeciagnij-i-upusc">Dodawanie ścieżek metodą przeciągnij i upuść</a></li>
 <li><a href="#konfiguracja-typu-sciezki">Konfiguracja typu ścieżki</a></li>
 <li><a href="#kontrolki-sciezki">Kontrolki ścieżki</a></li>
 <li><a href="#automatyczne-uzbrajanie">Automatyczne uzbrajanie</a></li>
@@ -73,6 +75,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#nagrywanie-midi">Nagrywanie MIDI</a></li>
 </ul>
 </li>
+<li><a href="#metronom">Metronom</a></li>
 <li><a href="#odtwarzanie">Odtwarzanie</a></li>
 <li><a href="#miksowanie-do-pliku">Miksowanie do pliku</a></li>
 <li><a href="#ustawienia">Ustawienia</a><ul>
@@ -146,6 +149,19 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </li>
 </ol>
 <p><img alt="Okno główne" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="pasek-przyciskow">Pasek przycisków</h3>
+<p>Tuż pod paskiem menu znajduje się pasek narzędzi z przyciskami szybkiego dostępu:</p>
+<p><img alt="Pasek przycisków" src="screenshots/ButtonBar.png" /></p>
+<ul>
+<li><strong>Open Project</strong>: To samo co <strong>File &gt; Open Project</strong> — otwiera wcześniej zapisany projekt.</li>
+<li><strong>Save Project</strong>: To samo co <strong>File &gt; Save Project</strong> — zapisuje bieżący projekt. Ten przycisk
+  jest włączony tylko wtedy, gdy ustawiony jest katalog projektu.</li>
+<li><strong>Project Settings</strong>: To samo co <strong>Project &gt; Project Settings</strong> — otwiera okno dialogowe
+  ustawień projektu. Ten przycisk jest włączony tylko wtedy, gdy ustawiony jest katalog projektu.</li>
+<li><strong>Configuration</strong>: To samo co <strong>Settings &gt; Configuration</strong> — otwiera okno dialogowe globalnych
+  ustawień aplikacji.</li>
+<li><strong>Metronome Settings</strong>: Otwiera okno dialogowe ustawień metronomu (zobacz sekcję Metronom poniżej).</li>
+</ul>
 <h3 id="zapisywanie-i-otwieranie-projektow">Zapisywanie i otwieranie projektów</h3>
 <ul>
 <li><strong>Zapisz</strong>: Użyj <strong>File &gt; Save Project</strong> (Ctrl+S), aby zapisać bieżący projekt jako plik JSON w katalogu projektu.</li>
@@ -159,6 +175,29 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>Kliknij <strong>+ Add Track</strong>, aby dodać nową ścieżkę do aranżacji.</li>
 <li>Kliknij przycisk <strong>x</strong> po prawej stronie wiersza ścieżki, aby ją usunąć.</li>
 <li>Kliknij <strong>Clear Tracks</strong> (czerwony przycisk na pasku narzędzi), aby usunąć wszystkie ścieżki. Przed wykonaniem wyświetlany jest dialog potwierdzenia.</li>
+</ul>
+<h3 id="dodawanie-sciezek-metoda-przeciagnij-i-upusc">Dodawanie ścieżek metodą przeciągnij i upuść</h3>
+<p>Gdy projekt jest otwarty, możesz przeciągnąć jeden lub więcej obsługiwanych
+plików audio z menedżera plików (Eksplorator Windows, Finder macOS, menedżer
+plików Linux itp.) bezpośrednio na okno Musician's Canvas, aby dodać je jako
+nowe ścieżki audio.</p>
+<ul>
+<li><strong>Obsługiwane formaty:</strong> <code>.wav</code> i <code>.flac</code>. Pliki w dowolnym innym formacie
+  są po cichu pomijane, a na końcu okno dialogowe wyświetla listę pominiętych
+  plików.</li>
+<li><strong>Kopiowanie plików:</strong> Jeśli upuszczony plik nie znajduje się jeszcze w
+  katalogu projektu, jest do niego automatycznie kopiowany. Jeśli w katalogu
+  projektu istnieje już plik o tej samej nazwie, zostaniesz zapytany, czy go
+  zastąpić.</li>
+<li><strong>Nazwa ścieżki:</strong> Podstawowa nazwa pliku (bez rozszerzenia) jest używana
+  jako nazwa nowej ścieżki. Na przykład upuszczenie <code>Bass Line.wav</code> tworzy
+  ścieżkę audio o nazwie "Bass Line".</li>
+<li><strong>Wiele plików naraz:</strong> Można jednocześnie przeciągać kilka plików; każdy
+  obsługiwany plik staje się własną ścieżką w ramach jednego upuszczenia.</li>
+<li><strong>Gdy upuszczenie zostaje odrzucone:</strong> Upuszczenia są akceptowane tylko
+  wtedy, gdy projekt jest otwarty, a Musician's Canvas <strong>nie</strong> odtwarza ani
+  nie nagrywa w danej chwili. Najpierw zatrzymaj odtwarzanie lub nagrywanie,
+  jeśli chcesz przeciągnąć dodatkowe ścieżki.</li>
 </ul>
 <h3 id="konfiguracja-typu-sciezki">Konfiguracja typu ścieżki</h3>
 <p>Każda ścieżka może być skonfigurowana jako <strong>Audio</strong> (do nagrywania z mikrofonu/line-in) lub <strong>MIDI</strong> (do nagrywania z klawiatury/kontrolera).</p>
@@ -221,6 +260,21 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>Kliknij Stop, aby zakończyć nagrywanie.</li>
 </ol>
 <p>Nuty MIDI są wyświetlane w wizualizacji piano roll na ścieżce.</p>
+<h2 id="metronom">Metronom</h2>
+<p>Musician's Canvas zawiera wbudowany metronom, którego można używać podczas nagrywania, aby
+pomóc utrzymać rytm. Kliknij przycisk metronomu na pasku przycisków (pod paskiem menu), aby
+otworzyć okno dialogowe ustawień metronomu:</p>
+<p><img alt="Ustawienia metronomu" src="screenshots/MetronomeSettings.png" /></p>
+<p>Okno dialogowe udostępnia:</p>
+<ul>
+<li><strong>Enable metronome during recording</strong>: Po zaznaczeniu metronom odtwarza dźwięk tykania,
+  gdy trwa nagrywanie. Tykanie jest odtwarzane przez dźwięk systemowy i <strong>nie</strong> jest
+  rejestrowane na nagrywanej ścieżce.</li>
+<li><strong>Beats per minute</strong>: Numeryczne wejście tempa, w uderzeniach na minutę (BPM). Zakres to
+  20–300 BPM.</li>
+</ul>
+<p>Gdy metronom jest włączony, zaczyna tykać, gdy nagrywanie faktycznie się rozpocznie (po
+zakończeniu 3-sekundowego odliczania), i zatrzymuje się po zakończeniu nagrywania.</p>
 <h2 id="odtwarzanie">Odtwarzanie</h2>
 <p>Kliknij przycisk <strong>Play</strong>, aby zmiksować i odtworzyć wszystkie włączone ścieżki. Podpowiedź przycisku zmienia się, wskazując, czy będzie odtwarzać, czy nagrywać, w zależności od tego, czy ścieżka jest uzbrojona. Wyłączone ścieżki (niezaznaczone) są pomijane podczas odtwarzania.</p>
 <p>Podczas odtwarzania ścieżki audio są dekodowane z plików FLAC, a ścieżki MIDI są renderowane do audio przy użyciu wbudowanego syntezatora FluidSynth. Wszystkie ścieżki są miksowane razem i odtwarzane przez urządzenie wyjściowe audio systemu.</p>
@@ -240,10 +294,16 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <ul>
 <li><strong>Motyw</strong>: Wybierz między ciemnym a jasnym motywem.</li>
 </ul>
+<h4 id="karta-wyswietlanie">Karta Wyświetlanie</h4>
+<ul>
+<li><strong>Kolor numerycznego wyświetlacza LED</strong>: Wybierz kolor używany dla numerycznego wyświetlacza LED czasu pokazywanego na pasku narzędzi głównego okna. Aktywne segmenty cyfr są rysowane w wybranym kolorze, a nieaktywne segmenty są rysowane jako przyciemniona wersja tego samego koloru. Dostępne kolory to Light Red, Dark Red, Light Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan i Dark Cyan. Domyślny to Light Green.</li>
+</ul>
+<p><img alt="Ustawienia wyświetlania" src="screenshots/MusiciansCanvas_DisplaySettings.png" /></p>
 <h4 id="karta-jezyk">Karta Język</h4>
 <ul>
 <li><strong>Język</strong>: Wybierz język wyświetlania aplikacji. Domyślnie jest to "System Default", który używa ustawień językowych systemu operacyjnego. Dostępne języki to angielski, Deutsch (niemiecki), Español (hiszpański), Français (francuski), japoński, Português (portugalski brazylijski), chiński (tradycyjny), chiński (uproszczony) i piracki. Interfejs aktualizuje się natychmiast po zmianie języka.</li>
 </ul>
+<p><img alt="Ustawienia języka" src="screenshots/MusiciansCanvas_LanguageSettings.png" /></p>
 <h4 id="karta-midi">Karta MIDI</h4>
 <ul>
 <li><strong>Urządzenie wyjściowe MIDI</strong>: Wybierz wbudowany syntezator FluidSynth lub zewnętrzne urządzenie MIDI. Użyj przycisku <strong>Refresh</strong>, aby ponownie przeskanować dostępne urządzenia MIDI.</li>

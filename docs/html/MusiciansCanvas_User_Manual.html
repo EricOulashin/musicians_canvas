@@ -45,8 +45,8 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <body>
 <div class="title-block">
 <h1>Musician&#8217;s Canvas User Manual</h1>
-<p>Multi-Track Music Recording Application &mdash; Version 0.1.0</p>
-<p>2026-04-05</p>
+<p>Multi-Track Music Recording Application &mdash; Version 0.1.1</p>
+<p>2026-04-08</p>
 </div>
 <div class="toc">
 <h2>Table of Contents</h2>
@@ -57,11 +57,13 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#getting-started">Getting Started</a><ul>
 <li><a href="#launching-the-application">Launching the Application</a></li>
 <li><a href="#setting-up-a-project">Setting Up a Project</a></li>
+<li><a href="#button-bar">Button Bar</a></li>
 <li><a href="#saving-and-opening-projects">Saving and Opening Projects</a></li>
 </ul>
 </li>
 <li><a href="#track-management">Track Management</a><ul>
 <li><a href="#adding-and-removing-tracks">Adding and Removing Tracks</a></li>
+<li><a href="#adding-tracks-by-drag-and-drop">Adding Tracks by Drag and Drop</a></li>
 <li><a href="#configuring-track-type">Configuring Track Type</a></li>
 <li><a href="#track-controls">Track Controls</a></li>
 <li><a href="#auto-arming">Auto-Arming</a></li>
@@ -73,6 +75,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#midi-recording">MIDI Recording</a></li>
 </ul>
 </li>
+<li><a href="#metronome">Metronome</a></li>
 <li><a href="#playback">Playback</a></li>
 <li><a href="#mixing-to-a-file">Mixing to a File</a></li>
 <li><a href="#settings">Settings</a><ul>
@@ -159,6 +162,20 @@ automatically loaded.</p>
 </li>
 </ol>
 <p><img alt="Main window" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="button-bar">Button Bar</h3>
+<p>Just below the menu bar there is a toolbar with quick-access buttons:</p>
+<p><img alt="Button bar" src="screenshots/ButtonBar.png" /></p>
+<ul>
+<li><strong>Open Project</strong>: Same as <strong>File &gt; Open Project</strong> — opens a previously saved project.</li>
+<li><strong>Save Project</strong>: Same as <strong>File &gt; Save Project</strong> — saves the current project. This
+  button is only enabled when a project directory is set.</li>
+<li><strong>Project Settings</strong>: Same as <strong>Project &gt; Project Settings</strong> — opens the project
+  settings dialog. This button is only enabled when a project directory is set.</li>
+<li><strong>Configuration</strong>: Same as <strong>Settings &gt; Configuration</strong> — opens the global application
+  settings dialog.</li>
+<li><strong>Metronome Settings</strong>: Opens the metronome settings dialog (see the
+  <a href="#metronome">Metronome</a> section below).</li>
+</ul>
 <h3 id="saving-and-opening-projects">Saving and Opening Projects</h3>
 <ul>
 <li><strong>Save</strong>: Use <strong>File &gt; Save Project</strong> (Ctrl+S) to save the current project as a JSON
@@ -177,6 +194,25 @@ to save before exiting.</p>
 <li>Click the <strong>x</strong> button on the right side of a track row to remove it.</li>
 <li>Click <strong>Clear Tracks</strong> (the red button in the toolbar) to remove all tracks. A
   confirmation dialog is shown before proceeding.</li>
+</ul>
+<h3 id="adding-tracks-by-drag-and-drop">Adding Tracks by Drag and Drop</h3>
+<p>While a project is open, you can drag one or more supported audio files from your
+file manager (Windows Explorer, macOS Finder, Linux file manager, etc.) directly
+onto the Musician's Canvas window to add them as new audio tracks.</p>
+<ul>
+<li><strong>Supported formats:</strong> <code>.wav</code> and <code>.flac</code>. Files in any other format are
+  silently skipped, and a dialog at the end lists which files were skipped.</li>
+<li><strong>File copying:</strong> If the dropped file is not already in the project directory,
+  it is copied there automatically. If a file with the same name already exists
+  in the project directory, you are asked whether to replace it.</li>
+<li><strong>Track name:</strong> The file's base name (without the extension) is used as the
+  new track name. For example, dropping <code>Bass Line.wav</code> creates an audio track
+  named "Bass Line".</li>
+<li><strong>Multiple files at once:</strong> Several files may be dragged together; each
+  supported file becomes its own track in a single drop.</li>
+<li><strong>When the drop is rejected:</strong> Drops are only accepted while a project is
+  open and Musician's Canvas is <strong>not</strong> currently playing or recording. Stop
+  playback or recording first if you want to drag in additional tracks.</li>
 </ul>
 <h3 id="configuring-track-type">Configuring Track Type</h3>
 <p>Each track can be configured as either <strong>Audio</strong> (for microphone/line-in recording) or
@@ -269,6 +305,21 @@ signal is duplicated to both channels.</p>
 <li>Click Stop to end recording.</li>
 </ol>
 <p>MIDI notes are displayed in a piano roll visualization on the track.</p>
+<h2 id="metronome">Metronome</h2>
+<p>Musician's Canvas includes a built-in metronome that can be used during recording to
+help keep time. Click the metronome button on the button bar (below the menu bar) to
+open the metronome settings dialog:</p>
+<p><img alt="Metronome settings" src="screenshots/MetronomeSettings.png" /></p>
+<p>The dialog provides:</p>
+<ul>
+<li><strong>Enable metronome during recording</strong>: When checked, the metronome plays a tick sound
+  while recording is active. The tick is played through the system audio and is <strong>not</strong>
+  captured into the recorded track.</li>
+<li><strong>Beats per minute</strong>: A numeric input for the tempo, in beats per minute (BPM). The
+  range is 20–300 BPM.</li>
+</ul>
+<p>When the metronome is enabled, it begins ticking once recording actually starts (after
+the 3-second countdown completes), and stops when recording ends.</p>
 <h2 id="playback">Playback</h2>
 <p>Click the <strong>Play</strong> button to mix and play back all enabled tracks. The button tooltip
 changes to indicate whether it will play or record based on whether a track is armed.
@@ -301,6 +352,15 @@ projects:</p>
   channel count, and timing data. This is disabled by default and is primarily useful
   for troubleshooting recording issues.</li>
 </ul>
+<h4 id="display-tab">Display Tab</h4>
+<ul>
+<li><strong>Numeric display LED color</strong>: Choose the color used for the numeric LED time display
+  shown on the main window toolbar. The active digit segments are drawn in the chosen
+  color, and inactive segments are drawn as a dim version of the same color. Available
+  colors are Light Red, Dark Red, Light Green, Dark Green, Light Blue, Dark Blue,
+  Yellow, Orange, Light Cyan, and Dark Cyan. The default is Light Green.</li>
+</ul>
+<p><img alt="Display settings" src="screenshots/MusiciansCanvas_DisplaySettings.png" /></p>
 <h4 id="language-tab">Language Tab</h4>
 <ul>
 <li><strong>Language</strong>: Choose the display language for the application. The default is "System
@@ -311,6 +371,7 @@ projects:</p>
   Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh), and Pirate.
   The interface updates immediately when you change the language.</li>
 </ul>
+<p><img alt="Language settings" src="screenshots/MusiciansCanvas_LanguageSettings.png" /></p>
 <h4 id="midi-tab">MIDI Tab</h4>
 <ul>
 <li><strong>MIDI Output Device</strong>: Select the built-in FluidSynth synthesizer or an external

@@ -45,8 +45,8 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <body>
 <div class="title-block">
 <h1>Musician&#8217;s Canvas &#8212; A Pirate&#8217;s Guide</h1>
-<p>A Multi-Shanty Music Plunderin' Application fer Scallywags an' Sea Dogs Alike &mdash; Version 0.1.0</p>
-<p>2026-04-05</p>
+<p>A Multi-Shanty Music Plunderin' Application fer Scallywags an' Sea Dogs Alike &mdash; Version 0.1.1</p>
+<p>2026-04-08</p>
 </div>
 <div class="toc">
 <h2>Table of Contents</h2>
@@ -57,11 +57,13 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#gettin-started">Gettin' Started</a><ul>
 <li><a href="#launchin-the-ship">Launchin' the Ship</a></li>
 <li><a href="#settin-up-a-project">Settin' Up a Project</a></li>
+<li><a href="#button-bar-the-quick-draw-belt">Button Bar (The Quick-Draw Belt)</a></li>
 <li><a href="#savin-and-openin-projects">Savin' and Openin' Projects</a></li>
 </ul>
 </li>
 <li><a href="#shanty-management">Shanty Management</a><ul>
 <li><a href="#addin-an-removin-shanties">Addin' an' Removin' Shanties</a></li>
+<li><a href="#haulin-shanties-aboard-by-drag-an-drop">Haulin' Shanties Aboard by Drag an' Drop</a></li>
 <li><a href="#configurin-shanty-type">Configurin' Shanty Type</a></li>
 <li><a href="#shanty-controls">Shanty Controls</a></li>
 <li><a href="#auto-armin">Auto-Armin'</a></li>
@@ -73,6 +75,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#midi-plunderin">MIDI Plunderin'</a></li>
 </ul>
 </li>
+<li><a href="#metronome-the-ships-drummer">Metronome (The Ship's Drummer)</a></li>
 <li><a href="#replayin-the-shanty-playback">Replayin' the Shanty (Playback)</a></li>
 <li><a href="#mixin-to-a-file">Mixin' to a File</a></li>
 <li><a href="#settings">Settings</a><ul>
@@ -146,6 +149,18 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </li>
 </ol>
 <p><img alt="Main window" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="button-bar-the-quick-draw-belt">Button Bar (The Quick-Draw Belt)</h3>
+<p>Just below the menu bar, ye'll find a row o' trusty buttons for quick plunderin':</p>
+<p><img alt="Button bar" src="screenshots/ButtonBar.png" /></p>
+<ul>
+<li><strong>Open Project</strong>: Same as <strong>File &gt; Open Project</strong> — hoists up a shanty ye stashed away earlier.</li>
+<li><strong>Save Project</strong>: Same as <strong>File &gt; Save Project</strong> — buries the current shanty in yer chest.
+  This button be only lively when ye've marked a project directory on yer map.</li>
+<li><strong>Project Settings</strong>: Same as <strong>Project &gt; Project Settings</strong> — opens the shanty settings
+  parchment. This button be only lively when ye've marked a project directory on yer map.</li>
+<li><strong>Configuration</strong>: Same as <strong>Settings &gt; Configuration</strong> — opens the global ship's settings parchment.</li>
+<li><strong>Metronome Settings</strong>: Opens the metronome settings parchment (see the Metronome section below, matey).</li>
+</ul>
 <h3 id="savin-and-openin-projects">Savin' and Openin' Projects</h3>
 <ul>
 <li><strong>Save</strong>: Use <strong>File &gt; Save Project</strong> (Ctrl+S) to save yer current project as a JSON file in the project directory. Don't forget to save, lest ye lose yer treasure!</li>
@@ -159,6 +174,28 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>Click <strong>+ Add Track</strong> to add a new shanty to the arrangement.</li>
 <li>Click the <strong>x</strong> button on the starboard side of a shanty row to remove it -- walk the plank, shanty!</li>
 <li>Click <strong>Clear Tracks</strong> (the red button in the toolbar) to scuttle all shanties. A confirmation dialog be shown before proceedin', so ye don't accidentally sink yer own fleet.</li>
+</ul>
+<h3 id="haulin-shanties-aboard-by-drag-an-drop">Haulin' Shanties Aboard by Drag an' Drop</h3>
+<p>While ye have a project open, ye can drag one or more seaworthy audio files from
+yer file manager (Windows Explorer, macOS Finder, Linux file manager, or whate'er
+chart ye use) directly onto the Musician's Canvas windo' to haul 'em aboard as
+fresh audio shanties.</p>
+<ul>
+<li><strong>Seaworthy formats:</strong> <code>.wav</code> and <code>.flac</code>. Files in any other format be quietly
+  tossed overboard, an' a dialog at the end lists which files were cast off.</li>
+<li><strong>Copyin' the booty:</strong> If the dropped file ain't already stashed in the
+  project's hold, it be copied there automatic-like. If a file with the same
+  name already be in the hold, ye'll be asked whether to replace the old one --
+  no accidental keelhaulin' of yer treasures.</li>
+<li><strong>Shanty name:</strong> The file's base name (without the extension) be used as the
+  new shanty name. Fer example, droppin' <code>Bass Line.wav</code> creates an audio shanty
+  christened "Bass Line".</li>
+<li><strong>Many files in one haul:</strong> Several files can be dragged together; each
+  seaworthy file becomes its own shanty in a single drop, savin' ye the trouble
+  o' hoistin' 'em one at a time.</li>
+<li><strong>When the drop be refused:</strong> Drops only be accepted while a project be open
+  an' Musician's Canvas be <strong>not</strong> currently playin' or plunderin'. Belay the
+  playback or recordin' first if ye wish to drag more shanties aboard.</li>
 </ul>
 <h3 id="configurin-shanty-type">Configurin' Shanty Type</h3>
 <p>Each shanty can be configured as either <strong>Audio</strong> (fer microphone/line-in plunderin') or <strong>MIDI</strong> (fer keyboard/controller plunderin').</p>
@@ -221,6 +258,21 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>Click Stop to end plunderin'.</li>
 </ol>
 <p>MIDI notes be displayed in a piano roll visualization on the shanty.</p>
+<h2 id="metronome-the-ships-drummer">Metronome (The Ship's Drummer)</h2>
+<p>Musician's Canvas carries a trusty built-in metronome, a steady drummer ye can call upon
+durin' recordin' to keep yer crew in time. Click the metronome button on the button bar
+(below the menu bar) to open the metronome settings parchment:</p>
+<p><img alt="Metronome settings" src="screenshots/MetronomeSettings.png" /></p>
+<p>The parchment offers:</p>
+<ul>
+<li><strong>Enable metronome during recording</strong>: When ye check this box, the metronome beats a tick
+  while recordin' be underway. The tick sails out through the ship's speakers and be <strong>not</strong>
+  captured into the recorded shanty.</li>
+<li><strong>Beats per minute</strong>: A numeric input fer the tempo, in beats per minute (BPM). The range
+  be 20–300 BPM, matey.</li>
+</ul>
+<p>When the metronome be enabled, it starts tickin' once recordin' actually begins (after the
+3-second countdown be done) and stops when recordin' ends. Yarrr!</p>
 <h2 id="replayin-the-shanty-playback">Replayin' the Shanty (Playback)</h2>
 <p>Click the <strong>Play</strong> button to mix an' replay all enabled shanties. The button tooltip changes to indicate whether it will play or record based on whether a shanty be armed. Disabled shanties (unchecked) be excluded from replayin' -- they stay below deck.</p>
 <p>Durin' replayin', audio shanties be decoded from their FLAC files an' MIDI shanties be rendered to audio using the built-in FluidSynth synthesizer. All shanties be mixed together an' played through the system's audio output device. 'Tis a grand sound, if ye do say so yerself!</p>
@@ -245,6 +297,16 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
   an' timin' data. This be disabled by default an' be primarily useful fer troubleshootin'
   plunderin' issues, savvy?</li>
 </ul>
+<h4 id="display-tab">Display Tab</h4>
+<ul>
+<li><strong>Numeric display LED color</strong>: Choose the color o' the numeric LED time display that
+  glimmers on the main window toolbar, matey! The active digit segments be drawn in the
+  chosen color, an' the lazy inactive segments be drawn as a dim, ghostly version o' the
+  same hue. Available colors be Light Red, Dark Red, Light Green, Dark Green, Light Blue,
+  Dark Blue, Yellow, Orange, Light Cyan, an' Dark Cyan. The default be Light Green, bright
+  as a sea serpent's eye.</li>
+</ul>
+<p><img alt="Display settin's" src="screenshots/MusiciansCanvas_DisplaySettings.png" /></p>
 <h4 id="language-tab">Language Tab</h4>
 <ul>
 <li><strong>Language</strong>: Choose the display language fer the application, ye worldly pirate! The
@@ -255,6 +317,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
   Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh), an' Pirate.
   The interface updates immediately when ye change the language -- no need to restart the ship!</li>
 </ul>
+<p><img alt="Language settin's" src="screenshots/MusiciansCanvas_LanguageSettings.png" /></p>
 <h4 id="midi-tab">MIDI Tab</h4>
 <ul>
 <li><strong>MIDI Output Device</strong>: Select the built-in FluidSynth synthesizer or an external MIDI device. Use the <strong>Refresh</strong> button to rescan fer available MIDI devices on the horizon.</li>

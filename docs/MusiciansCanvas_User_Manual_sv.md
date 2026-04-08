@@ -96,6 +96,27 @@ spara innan du avslutar.
 - Klicka på **Clear Tracks** (den röda knappen i verktygsfältet) för att ta bort alla spår. En
   bekräftelsedialog visas innan åtgärden utförs.
 
+### Lägga till spår genom dra och släpp
+
+När ett projekt är öppet kan du dra en eller flera filer med stödda ljudformat
+från din filhanterare (Windows Utforskaren, macOS Finder, Linux-filhanterare
+osv.) direkt till Musician's Canvas-fönstret för att lägga till dem som nya
+ljudspår.
+
+- **Stödda format:** `.wav` och `.flac`. Filer i andra format hoppas över
+  tyst, och en dialogruta i slutet listar vilka filer som hoppades över.
+- **Filkopiering:** Om den släppta filen inte redan finns i projektmappen
+  kopieras den dit automatiskt. Om en fil med samma namn redan finns i
+  projektmappen blir du tillfrågad om du vill ersätta den.
+- **Spårnamn:** Filens basnamn (utan filändelsen) används som namn på det
+  nya spåret. Att släppa `Bass Line.wav` skapar till exempel ett ljudspår
+  som heter "Bass Line".
+- **Flera filer samtidigt:** Flera filer kan dras tillsammans; varje fil med
+  stött format blir sitt eget spår vid ett enda släpp.
+- **När släppet avvisas:** Släpp godtas endast när ett projekt är öppet och
+  Musician's Canvas **inte** spelar upp eller spelar in för tillfället.
+  Stoppa uppspelningen eller inspelningen först om du vill dra in fler spår.
+
 ### Konfigurera spårtyp
 
 Varje spår kan konfigureras som antingen **Audio** (för mikrofon-/linjeinspelning) eller

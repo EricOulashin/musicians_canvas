@@ -104,6 +104,31 @@ Bestätigungsdialog, ob Sie vor dem Beenden speichern möchten.
 - Klicken Sie auf **Clear Tracks** (die rote Schaltfläche in der Werkzeugleiste), um alle
   Spuren zu entfernen. Vor dem Fortfahren wird ein Bestätigungsdialog angezeigt.
 
+### Spuren per Drag-and-Drop hinzufügen
+
+Während ein Projekt geöffnet ist, können Sie eine oder mehrere unterstützte
+Audiodateien aus Ihrem Dateimanager (Windows Explorer, macOS Finder, Linux-
+Dateimanager usw.) direkt auf das Musician's Canvas-Fenster ziehen, um sie
+als neue Audiospuren hinzuzufügen.
+
+- **Unterstützte Formate:** `.wav` und `.flac`. Dateien in anderen Formaten
+  werden stillschweigend übersprungen, und am Ende zeigt ein Dialog an,
+  welche Dateien übersprungen wurden.
+- **Dateikopieren:** Wenn sich die abgelegte Datei noch nicht im Projektordner
+  befindet, wird sie automatisch dorthin kopiert. Wenn bereits eine Datei mit
+  demselben Namen im Projektordner vorhanden ist, werden Sie gefragt, ob sie
+  ersetzt werden soll.
+- **Spurname:** Der Basisname der Datei (ohne Erweiterung) wird als Name der
+  neuen Spur verwendet. Das Ablegen von `Bass Line.wav` erstellt beispielsweise
+  eine Audiospur mit dem Namen "Bass Line".
+- **Mehrere Dateien gleichzeitig:** Mehrere Dateien können zusammen gezogen
+  werden; jede unterstützte Datei wird in einem einzigen Ablegevorgang zu
+  ihrer eigenen Spur.
+- **Wenn das Ablegen abgelehnt wird:** Drops werden nur akzeptiert, während ein
+  Projekt geöffnet ist und Musician's Canvas **nicht** gerade wiedergibt oder
+  aufnimmt. Stoppen Sie zuerst die Wiedergabe oder Aufnahme, wenn Sie weitere
+  Spuren hineinziehen möchten.
+
 ### Spurtyp konfigurieren
 
 Jede Spur kann entweder als **Audio** (für Mikrofon-/Line-In-Aufnahme) oder **MIDI** (für

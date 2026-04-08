@@ -82,6 +82,28 @@ Hvis du lukker applikationen med ikke-gemte ændringer, spørger en bekræftelse
 - Klik på **x**-knappen i højre side af en sporrække for at fjerne det.
 - Klik på **Clear Tracks** (den røde knap i værktøjslinjen) for at fjerne alle spor. En bekræftelsesdialog vises, før handlingen udføres.
 
+### Tilføjelse af spor ved træk og slip
+
+Mens et projekt er åbent, kan du trække en eller flere understøttede lydfiler
+fra din filhåndtering (Windows Stifinder, macOS Finder, Linux-filhåndtering
+osv.) direkte til Musician's Canvas-vinduet for at tilføje dem som nye
+lydspor.
+
+- **Understøttede formater:** `.wav` og `.flac`. Filer i ethvert andet format
+  springes stille over, og en dialog til sidst viser, hvilke filer der blev
+  sprunget over.
+- **Filkopiering:** Hvis den slupne fil ikke allerede er i projektmappen,
+  kopieres den automatisk dertil. Hvis der allerede findes en fil med samme
+  navn i projektmappen, bliver du spurgt, om den skal erstattes.
+- **Spornavn:** Filens basisnavn (uden filtypenavn) bruges som navn på det
+  nye spor. For eksempel opretter det at slippe `Bass Line.wav` et lydspor
+  med navnet "Bass Line".
+- **Flere filer på én gang:** Flere filer kan trækkes sammen; hver
+  understøttet fil bliver sit eget spor i en enkelt handling.
+- **Når slip afvises:** Slip accepteres kun, mens et projekt er åbent, og
+  Musician's Canvas **ikke** aktuelt afspiller eller optager. Stop afspilning
+  eller optagelse først, hvis du vil trække flere spor ind.
+
 ### Konfiguration af sportype
 
 Hvert spor kan konfigureres som enten **Audio** (til mikrofon/line-in-optagelse) eller **MIDI** (til keyboard/controller-optagelse).

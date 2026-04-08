@@ -45,8 +45,8 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <body>
 <div class="title-block">
 <h1>Manuel d&#8217;utilisation de Musician&#8217;s Canvas</h1>
-<p>Application d'enregistrement musical multipiste &mdash; Version 0.1.0</p>
-<p>2026-04-05</p>
+<p>Application d'enregistrement musical multipiste &mdash; Version 0.1.1</p>
+<p>2026-04-08</p>
 </div>
 <div class="toc">
 <h2>Table des mati&egrave;res</h2>
@@ -57,11 +57,13 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#premiers-pas">Premiers pas</a><ul>
 <li><a href="#lancement-de-lapplication">Lancement de l'application</a></li>
 <li><a href="#configuration-dun-projet">Configuration d'un projet</a></li>
+<li><a href="#barre-de-boutons">Barre de boutons</a></li>
 <li><a href="#sauvegarde-et-ouverture-de-projets">Sauvegarde et ouverture de projets</a></li>
 </ul>
 </li>
 <li><a href="#gestion-des-pistes">Gestion des pistes</a><ul>
 <li><a href="#ajout-et-suppression-de-pistes">Ajout et suppression de pistes</a></li>
+<li><a href="#ajout-de-pistes-par-glisser-deposer">Ajout de pistes par glisser-déposer</a></li>
 <li><a href="#configuration-du-type-de-piste">Configuration du type de piste</a></li>
 <li><a href="#controles-des-pistes">Contrôles des pistes</a></li>
 <li><a href="#armement-automatique">Armement automatique</a></li>
@@ -73,6 +75,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#enregistrement-midi">Enregistrement MIDI</a></li>
 </ul>
 </li>
+<li><a href="#metronome">Métronome</a></li>
 <li><a href="#lecture">Lecture</a></li>
 <li><a href="#mixage-vers-un-fichier">Mixage vers un fichier</a></li>
 <li><a href="#parametres">Paramètres</a><ul>
@@ -161,6 +164,19 @@ le projet est automatiquement chargé.</p>
 </li>
 </ol>
 <p><img alt="Fenêtre principale" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="barre-de-boutons">Barre de boutons</h3>
+<p>Juste en dessous de la barre de menus se trouve une barre d'outils avec des boutons d'accès rapide :</p>
+<p><img alt="Barre de boutons" src="screenshots/ButtonBar.png" /></p>
+<ul>
+<li><strong>Open Project</strong> : Identique à <strong>File &gt; Open Project</strong> — ouvre un projet précédemment sauvegardé.</li>
+<li><strong>Save Project</strong> : Identique à <strong>File &gt; Save Project</strong> — sauvegarde le projet en cours. Ce
+  bouton n'est activé que lorsqu'un répertoire de projet est défini.</li>
+<li><strong>Project Settings</strong> : Identique à <strong>Project &gt; Project Settings</strong> — ouvre la boîte de dialogue
+  des paramètres du projet. Ce bouton n'est activé que lorsqu'un répertoire de projet est défini.</li>
+<li><strong>Configuration</strong> : Identique à <strong>Settings &gt; Configuration</strong> — ouvre la boîte de dialogue des
+  paramètres globaux de l'application.</li>
+<li><strong>Metronome Settings</strong> : Ouvre la boîte de dialogue des paramètres du métronome (voir la section Métronome ci-dessous).</li>
+</ul>
 <h3 id="sauvegarde-et-ouverture-de-projets">Sauvegarde et ouverture de projets</h3>
 <ul>
 <li><strong>Sauvegarder</strong> : Utilisez <strong>File &gt; Save Project</strong> (Ctrl+S) pour sauvegarder le projet
@@ -181,6 +197,30 @@ dialogue de confirmation vous demande si vous souhaitez sauvegarder avant de qui
 <li>Cliquez sur le bouton <strong>x</strong> à droite d'une ligne de piste pour la supprimer.</li>
 <li>Cliquez sur <strong>Clear Tracks</strong> (le bouton rouge dans la barre d'outils) pour supprimer
   toutes les pistes. Une boîte de dialogue de confirmation s'affiche avant de procéder.</li>
+</ul>
+<h3 id="ajout-de-pistes-par-glisser-deposer">Ajout de pistes par glisser-déposer</h3>
+<p>Lorsqu'un projet est ouvert, vous pouvez faire glisser un ou plusieurs fichiers
+audio pris en charge depuis votre gestionnaire de fichiers (Explorateur Windows,
+Finder macOS, gestionnaire de fichiers Linux, etc.) directement sur la fenêtre
+de Musician's Canvas pour les ajouter en tant que nouvelles pistes audio.</p>
+<ul>
+<li><strong>Formats pris en charge :</strong> <code>.wav</code> et <code>.flac</code>. Les fichiers dans tout autre
+  format sont ignorés silencieusement, et une boîte de dialogue à la fin
+  répertorie les fichiers qui ont été ignorés.</li>
+<li><strong>Copie de fichiers :</strong> Si le fichier déposé ne se trouve pas déjà dans le
+  répertoire du projet, il y est copié automatiquement. Si un fichier portant
+  le même nom existe déjà dans le répertoire du projet, il vous est demandé si
+  vous souhaitez le remplacer.</li>
+<li><strong>Nom de la piste :</strong> Le nom de base du fichier (sans l'extension) est utilisé
+  comme nom de la nouvelle piste. Par exemple, déposer <code>Bass Line.wav</code> crée une
+  piste audio nommée « Bass Line ».</li>
+<li><strong>Plusieurs fichiers à la fois :</strong> Plusieurs fichiers peuvent être glissés
+  ensemble ; chaque fichier pris en charge devient sa propre piste en un seul
+  dépôt.</li>
+<li><strong>Lorsque le dépôt est refusé :</strong> Les dépôts ne sont acceptés que lorsqu'un
+  projet est ouvert et que Musician's Canvas n'est <strong>pas</strong> en cours de lecture
+  ou d'enregistrement. Arrêtez d'abord la lecture ou l'enregistrement si vous
+  souhaitez glisser d'autres pistes.</li>
 </ul>
 <h3 id="configuration-du-type-de-piste">Configuration du type de piste</h3>
 <p>Chaque piste peut être configurée en tant que <strong>Audio</strong> (pour l'enregistrement depuis un
@@ -285,6 +325,22 @@ le projet est configuré en stéréo, le signal mono est dupliqué sur les deux 
 <li>Cliquez sur Stop pour arrêter l'enregistrement.</li>
 </ol>
 <p>Les notes MIDI sont affichées dans une visualisation en piano roll sur la piste.</p>
+<h2 id="metronome">Métronome</h2>
+<p>Musician's Canvas inclut un métronome intégré qui peut être utilisé pendant l'enregistrement
+pour aider à garder le tempo. Cliquez sur le bouton du métronome dans la barre de boutons
+(sous la barre de menus) pour ouvrir la boîte de dialogue des paramètres du métronome :</p>
+<p><img alt="Paramètres du métronome" src="screenshots/MetronomeSettings.png" /></p>
+<p>La boîte de dialogue fournit :</p>
+<ul>
+<li><strong>Enable metronome during recording</strong> : Lorsque cette option est cochée, le métronome joue
+  un son de tic pendant que l'enregistrement est actif. Le tic est joué via l'audio système et
+  <strong>n'est pas</strong> capturé dans la piste enregistrée.</li>
+<li><strong>Beats per minute</strong> : Une entrée numérique pour le tempo, en battements par minute (BPM).
+  La plage est de 20 à 300 BPM.</li>
+</ul>
+<p>Lorsque le métronome est activé, il commence à tictaquer une fois que l'enregistrement démarre
+réellement (après la fin du compte à rebours de 3 secondes) et s'arrête lorsque l'enregistrement
+se termine.</p>
 <h2 id="lecture">Lecture</h2>
 <p>Cliquez sur le bouton <strong>Play</strong> pour mixer et lire toutes les pistes activées. L'info-bulle
 du bouton change pour indiquer s'il va lire ou enregistrer selon qu'une piste est armée
@@ -319,6 +375,17 @@ globales qui s'appliquent à tous les projets :</p>
   de canaux et les données de chronométrage. Cette option est désactivée par défaut et est
   principalement utile pour le dépannage des problèmes d'enregistrement.</li>
 </ul>
+<h4 id="onglet-display">Onglet Display</h4>
+<ul>
+<li><strong>Couleur de l'afficheur LED numérique</strong> : Choisissez la couleur utilisée pour
+  l'afficheur LED numérique du temps dans la barre d'outils de la fenêtre principale.
+  Les segments actifs des chiffres sont dessinés dans la couleur choisie, et les
+  segments inactifs sont dessinés dans une version atténuée de la même couleur. Les
+  couleurs disponibles sont Light Red, Dark Red, Light Green, Dark Green, Light Blue,
+  Dark Blue, Yellow, Orange, Light Cyan et Dark Cyan. La valeur par défaut est Light
+  Green.</li>
+</ul>
+<p><img alt="Paramètres d'affichage" src="screenshots/MusiciansCanvas_DisplaySettings.png" /></p>
 <h4 id="onglet-language">Onglet Language</h4>
 <ul>
 <li><strong>Langue</strong> : Choisissez la langue d'affichage de l'application. La valeur par défaut
@@ -329,6 +396,7 @@ globales qui s'appliquent à tous les projets :</p>
   Polski (Polish), Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh)
   et Pirate. L'interface se met à jour immédiatement lorsque vous changez la langue.</li>
 </ul>
+<p><img alt="Paramètres de langue" src="screenshots/MusiciansCanvas_LanguageSettings.png" /></p>
 <h4 id="onglet-midi">Onglet MIDI</h4>
 <ul>
 <li><strong>Périphérique de sortie MIDI</strong> : Sélectionnez le synthétiseur FluidSynth intégré ou

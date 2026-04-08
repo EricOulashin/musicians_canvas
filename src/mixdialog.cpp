@@ -1,4 +1,5 @@
 #include "mixdialog.h"
+#include "audioformats.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -49,13 +50,13 @@ void MixDialog::onBrowse()
     const QString startDir = m_defaultDir.isEmpty() ? QDir::homePath() : m_defaultDir;
     QString path = QFileDialog::getSaveFileName(
         this, tr("Choose output file"), startDir,
-        tr("FLAC files (*.flac);;WAV files (*.wav)"));
+        AudioFormats::fileDialogFilter());
     if (path.isEmpty()) return;
 
-    // Ensure a recognised extension is present
-    if (!path.endsWith(".wav", Qt::CaseInsensitive) &&
-        !path.endsWith(".flac", Qt::CaseInsensitive))
-        path += ".flac";
+    // Ensure a recognised audio extension is present; default to the first
+    // entry in the central audio-formats list (currently .flac).
+    if (!AudioFormats::isSupported(path))
+        path += QString::fromLatin1(AudioFormats::all().first().extension);
 
     m_filenameEdit->setText(path);
 }

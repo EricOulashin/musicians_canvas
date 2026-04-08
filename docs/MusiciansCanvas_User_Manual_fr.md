@@ -104,6 +104,31 @@ dialogue de confirmation vous demande si vous souhaitez sauvegarder avant de qui
 - Cliquez sur **Clear Tracks** (le bouton rouge dans la barre d'outils) pour supprimer
   toutes les pistes. Une boîte de dialogue de confirmation s'affiche avant de procéder.
 
+### Ajout de pistes par glisser-déposer
+
+Lorsqu'un projet est ouvert, vous pouvez faire glisser un ou plusieurs fichiers
+audio pris en charge depuis votre gestionnaire de fichiers (Explorateur Windows,
+Finder macOS, gestionnaire de fichiers Linux, etc.) directement sur la fenêtre
+de Musician's Canvas pour les ajouter en tant que nouvelles pistes audio.
+
+- **Formats pris en charge :** `.wav` et `.flac`. Les fichiers dans tout autre
+  format sont ignorés silencieusement, et une boîte de dialogue à la fin
+  répertorie les fichiers qui ont été ignorés.
+- **Copie de fichiers :** Si le fichier déposé ne se trouve pas déjà dans le
+  répertoire du projet, il y est copié automatiquement. Si un fichier portant
+  le même nom existe déjà dans le répertoire du projet, il vous est demandé si
+  vous souhaitez le remplacer.
+- **Nom de la piste :** Le nom de base du fichier (sans l'extension) est utilisé
+  comme nom de la nouvelle piste. Par exemple, déposer `Bass Line.wav` crée une
+  piste audio nommée « Bass Line ».
+- **Plusieurs fichiers à la fois :** Plusieurs fichiers peuvent être glissés
+  ensemble ; chaque fichier pris en charge devient sa propre piste en un seul
+  dépôt.
+- **Lorsque le dépôt est refusé :** Les dépôts ne sont acceptés que lorsqu'un
+  projet est ouvert et que Musician's Canvas n'est **pas** en cours de lecture
+  ou d'enregistrement. Arrêtez d'abord la lecture ou l'enregistrement si vous
+  souhaitez glisser d'autres pistes.
+
 ### Configuration du type de piste
 
 Chaque piste peut être configurée en tant que **Audio** (pour l'enregistrement depuis un

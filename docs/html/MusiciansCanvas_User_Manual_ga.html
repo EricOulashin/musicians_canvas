@@ -45,8 +45,8 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <body>
 <div class="title-block">
 <h1>Tr&#233;oirleabhar &#218;s&#225;ideora Musician&#8217;s Canvas</h1>
-<p>Feidhmchlár Taifeadta Ceoil Il-Rian &mdash; Version 0.1.0</p>
-<p>2026-04-05</p>
+<p>Feidhmchlár Taifeadta Ceoil Il-Rian &mdash; Version 0.1.1</p>
+<p>2026-04-08</p>
 </div>
 <div class="toc">
 <h2>Cl&aacute;r &Aacute;bhair</h2>
@@ -57,11 +57,13 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#ag-tosu">Ag Tosú</a><ul>
 <li><a href="#ag-seoladh-an-fheidhmchlair">Ag Seoladh an Fheidhmchláir</a></li>
 <li><a href="#tionscadal-a-shocru">Tionscadal a Shocrú</a></li>
+<li><a href="#barra-cnaipi">Barra Cnaipí</a></li>
 <li><a href="#tionscadail-a-shabhail-agus-a-oscailt">Tionscadail a Shábháil agus a Oscailt</a></li>
 </ul>
 </li>
 <li><a href="#bainistiocht-rianta">Bainistíocht Rianta</a><ul>
 <li><a href="#rianta-a-chur-leis-agus-a-bhaint">Rianta a Chur Leis agus a Bhaint</a></li>
+<li><a href="#rianta-a-chur-leis-tri-tharraingt-agus-scaoileadh">Rianta a Chur Leis trí Tharraingt agus Scaoileadh</a></li>
 <li><a href="#cineal-rian-a-chumru">Cineál Rian a Chumrú</a></li>
 <li><a href="#rialuithe-rian">Rialuithe Rian</a></li>
 <li><a href="#uath-armail">Uath-Armáil</a></li>
@@ -73,6 +75,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#taifeadadh-midi">Taifeadadh MIDI</a></li>
 </ul>
 </li>
+<li><a href="#meadranom">Méadranóm</a></li>
 <li><a href="#athsheinm">Athsheinm</a></li>
 <li><a href="#meascadh-go-comhad">Meascadh go Comhad</a></li>
 <li><a href="#socruithe">Socruithe</a><ul>
@@ -146,6 +149,19 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </li>
 </ol>
 <p><img alt="Príomhfhuinneog" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="barra-cnaipi">Barra Cnaipí</h3>
+<p>Díreach faoin mbarra roghchláir tá barra uirlisí le cnaipí mear-rochtana:</p>
+<p><img alt="Barra Cnaipí" src="screenshots/ButtonBar.png" /></p>
+<ul>
+<li><strong>Open Project</strong>: Mar an gcéanna le <strong>File &gt; Open Project</strong> — osclaíonn tionscadal a sábháladh roimhe seo.</li>
+<li><strong>Save Project</strong>: Mar an gcéanna le <strong>File &gt; Save Project</strong> — sábhálann an tionscadal reatha. Níl
+  an cnaipe seo cumasaithe ach amháin nuair a shocraítear eolaire tionscadail.</li>
+<li><strong>Project Settings</strong>: Mar an gcéanna le <strong>Project &gt; Project Settings</strong> — osclaíonn an dialóg
+  socruithe tionscadail. Níl an cnaipe seo cumasaithe ach amháin nuair a shocraítear eolaire tionscadail.</li>
+<li><strong>Configuration</strong>: Mar an gcéanna le <strong>Settings &gt; Configuration</strong> — osclaíonn dialóg
+  socruithe feidhmchláir domhanda.</li>
+<li><strong>Metronome Settings</strong>: Osclaíonn an dialóg socruithe méadranóim (féach an t-alt Méadranóm thíos).</li>
+</ul>
 <h3 id="tionscadail-a-shabhail-agus-a-oscailt">Tionscadail a Shábháil agus a Oscailt</h3>
 <ul>
 <li><strong>Sábháil</strong>: Úsáid <strong>File &gt; Save Project</strong> (Ctrl+S) chun an tionscadal reatha a shábháil mar chomhad JSON sa chomhadlann tionscadail.</li>
@@ -159,6 +175,30 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>Cliceáil <strong>+ Add Track</strong> chun rian nua a chur leis an socrú.</li>
 <li>Cliceáil an cnaipe <strong>x</strong> ar thaobh na láimhe deise de ró rian chun é a bhaint.</li>
 <li>Cliceáil <strong>Clear Tracks</strong> (an cnaipe dearg sa bharra uirlisí) chun gach rian a bhaint. Taispeántar dialóg deimhniúcháin sula dtéitear ar aghaidh.</li>
+</ul>
+<h3 id="rianta-a-chur-leis-tri-tharraingt-agus-scaoileadh">Rianta a Chur Leis trí Tharraingt agus Scaoileadh</h3>
+<p>Nuair atá tionscadal ar oscailt, is féidir leat comhad fuaime tacaithe amháin
+nó níos mó a tharraingt ó do bhainisteoir comhad (Windows Explorer, macOS
+Finder, bainisteoir comhad Linux, srl.) go díreach ar fhuinneog Musician's
+Canvas chun iad a chur leis mar rianta fuaime nua.</p>
+<ul>
+<li><strong>Formáidí tacaithe:</strong> <code>.wav</code> agus <code>.flac</code>. Déantar comhaid in aon fhormáid
+  eile a scipeáil go ciúin, agus liostaíonn dialóg ag an deireadh cé na comhaid
+  a scipeáladh.</li>
+<li><strong>Cóipeáil comhad:</strong> Mura bhfuil an comhad scaoilte i gcomhadlann an
+  tionscadail cheana féin, déantar é a chóipeáil ansin go huathoibríoch. Má
+  tá comhad leis an ainm céanna i gcomhadlann an tionscadail cheana, fiafraítear
+  díot an dteastaíonn uait é a athsholáthar.</li>
+<li><strong>Ainm an riain:</strong> Úsáidtear bunainm an chomhaid (gan an iarmhír) mar ainm
+  an riain nua. Mar shampla, cruthaíonn scaoileadh <code>Bass Line.wav</code> rian fuaime
+  darb ainm "Bass Line".</li>
+<li><strong>Iliomad comhad ag an am céanna:</strong> Is féidir roinnt comhad a tharraingt le
+  chéile; déantar rian dá chuid féin as gach comhad tacaithe in aon scaoileadh
+  amháin.</li>
+<li><strong>Nuair a dhiúltaítear scaoileadh:</strong> Ní ghlactar le scaoiltí ach amháin nuair
+  atá tionscadal ar oscailt agus nuair <strong>nach</strong> bhfuil Musician's Canvas ag
+  seinm nó ag taifeadadh faoi láthair. Stop an seinm nó an taifeadadh ar dtús
+  más mian leat rianta breise a tharraingt isteach.</li>
 </ul>
 <h3 id="cineal-rian-a-chumru">Cineál Rian a Chumrú</h3>
 <p>Is féidir gach rian a chumrú mar <strong>Audio</strong> (le haghaidh taifeadta micreafóin/line-in) nó <strong>MIDI</strong> (le haghaidh taifeadta méarchláir/rialtóra).</p>
@@ -221,6 +261,22 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>Cliceáil Stop chun an taifeadadh a chríochnú.</li>
 </ol>
 <p>Taispeántar nótaí MIDI in amharcléiriú piano roll ar an rian.</p>
+<h2 id="meadranom">Méadranóm</h2>
+<p>Tá méadranóm ionsuite ag Musician's Canvas is féidir a úsáid le linn taifeadta chun cabhrú
+leis an am a choinneáil. Cliceáil an cnaipe méadranóim ar an mbarra cnaipí (faoin mbarra
+roghchláir) chun an dialóg socruithe méadranóim a oscailt:</p>
+<p><img alt="Socruithe méadranóim" src="screenshots/MetronomeSettings.png" /></p>
+<p>Soláthraíonn an dialóg:</p>
+<ul>
+<li><strong>Enable metronome during recording</strong>: Nuair atá sé ticeáilte, seinneann an méadranóm fuaim
+  tic agus taifeadadh ar siúl. Seinntear an tic trí fhuaim an chórais agus <strong>ní</strong> ghabhtar é
+  isteach sa rian taifeadta.</li>
+<li><strong>Beats per minute</strong>: Ionchur uimhriúil don luas, i mbuillí sa nóiméad (BPM). Is é an raon
+  20–300 BPM.</li>
+</ul>
+<p>Nuair atá an méadranóm cumasaithe, tosaíonn sé ag ticeáil nuair a thosaíonn an taifeadadh i
+ndáiríre (tar éis don chomhaireamh síos 3 soicind críochnú), agus stopann sé nuair a chríochnaíonn
+an taifeadadh.</p>
 <h2 id="athsheinm">Athsheinm</h2>
 <p>Cliceáil an cnaipe <strong>Play</strong> chun gach rian cumasaithe a mheascadh agus a athsheinm. Athraíonn leid uirlise an chnaipe chun a léiriú an seinnfidh sé nó an dtaifeadfaidh sé bunaithe ar an gcé acu an bhfuil rian armáilte. Ní chuirtear rianta díchumasaithe (gan tic) san áireamh san athsheinm.</p>
 <p>Le linn athsheinm, díchódaítear rianta fuaime óna gcomhaid FLAC agus rindreáiltear rianta MIDI go fuaim ag úsáid an tsintéiseora FluidSynth ionsuite. Measctar gach rian le chéile agus seinntar iad trí ghléas aschuir fuaime an chórais.</p>
@@ -240,10 +296,16 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <ul>
 <li><strong>Téama</strong>: Roghnaigh idir téamaí dorcha agus éadroma.</li>
 </ul>
+<h4 id="cluaisin-display">Cluaisín Display</h4>
+<ul>
+<li><strong>Dath an taispeána LED uimhriúil</strong>: Roghnaigh an dath a úsáidtear le haghaidh an taispeána ama LED uimhriúil atá le feiceáil ar bharra uirlisí na príomhfhuinneoige. Tarraingítear deighleáin ghníomhacha na ndigití sa dath roghnaithe, agus tarraingítear deighleáin neamhghníomhacha mar leagan lagaithe den dath céanna. Is iad na dathanna atá ar fáil ná Light Red, Dark Red, Light Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan agus Dark Cyan. Is é Light Green an réamhshocrú.</li>
+</ul>
+<p><img alt="Socruithe taispeána" src="screenshots/MusiciansCanvas_DisplaySettings.png" /></p>
 <h4 id="cluaisin-language">Cluaisín Language</h4>
 <ul>
 <li><strong>Teanga</strong>: Roghnaigh teanga taispeána an fheidhmchláir. Is é "System Default" an réamhshocrú, a úsáideann socrú teanga an chórais oibriúcháin. Is iad na teangacha atá ar fáil ná Béarla, Deutsch (Gearmáinis), Español (Spáinnis), Français (Fraincis), Seapáinis, Português (Portaingéilis na Brasaíle), Sínis (Traidisiúnta), Sínis (Simplithe), agus Foghlaeireacht. Déantar an comhéadan a nuashonrú láithreach nuair a athraíonn tú an teanga.</li>
 </ul>
+<p><img alt="Socruithe teanga" src="screenshots/MusiciansCanvas_LanguageSettings.png" /></p>
 <h4 id="cluaisin-midi">Cluaisín MIDI</h4>
 <ul>
 <li><strong>Gléas Aschuir MIDI</strong>: Roghnaigh an sintéiseoir FluidSynth ionsuite nó gléas MIDI seachtrach. Úsáid an cnaipe <strong>Refresh</strong> chun athscanadh a dhéanamh le haghaidh gléasanna MIDI atá ar fáil.</li>

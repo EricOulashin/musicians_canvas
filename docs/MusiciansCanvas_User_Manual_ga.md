@@ -82,6 +82,31 @@ Má dhúnann tú an feidhmchlár le hathruithe neamhshábháilte, iarrann dialó
 - Cliceáil an cnaipe **x** ar thaobh na láimhe deise de ró rian chun é a bhaint.
 - Cliceáil **Clear Tracks** (an cnaipe dearg sa bharra uirlisí) chun gach rian a bhaint. Taispeántar dialóg deimhniúcháin sula dtéitear ar aghaidh.
 
+### Rianta a Chur Leis trí Tharraingt agus Scaoileadh
+
+Nuair atá tionscadal ar oscailt, is féidir leat comhad fuaime tacaithe amháin
+nó níos mó a tharraingt ó do bhainisteoir comhad (Windows Explorer, macOS
+Finder, bainisteoir comhad Linux, srl.) go díreach ar fhuinneog Musician's
+Canvas chun iad a chur leis mar rianta fuaime nua.
+
+- **Formáidí tacaithe:** `.wav` agus `.flac`. Déantar comhaid in aon fhormáid
+  eile a scipeáil go ciúin, agus liostaíonn dialóg ag an deireadh cé na comhaid
+  a scipeáladh.
+- **Cóipeáil comhad:** Mura bhfuil an comhad scaoilte i gcomhadlann an
+  tionscadail cheana féin, déantar é a chóipeáil ansin go huathoibríoch. Má
+  tá comhad leis an ainm céanna i gcomhadlann an tionscadail cheana, fiafraítear
+  díot an dteastaíonn uait é a athsholáthar.
+- **Ainm an riain:** Úsáidtear bunainm an chomhaid (gan an iarmhír) mar ainm
+  an riain nua. Mar shampla, cruthaíonn scaoileadh `Bass Line.wav` rian fuaime
+  darb ainm "Bass Line".
+- **Iliomad comhad ag an am céanna:** Is féidir roinnt comhad a tharraingt le
+  chéile; déantar rian dá chuid féin as gach comhad tacaithe in aon scaoileadh
+  amháin.
+- **Nuair a dhiúltaítear scaoileadh:** Ní ghlactar le scaoiltí ach amháin nuair
+  atá tionscadal ar oscailt agus nuair **nach** bhfuil Musician's Canvas ag
+  seinm nó ag taifeadadh faoi láthair. Stop an seinm nó an taifeadadh ar dtús
+  más mian leat rianta breise a tharraingt isteach.
+
 ### Cineál Rian a Chumrú
 
 Is féidir gach rian a chumrú mar **Audio** (le haghaidh taifeadta micreafóin/line-in) nó **MIDI** (le haghaidh taifeadta méarchláir/rialtóra).

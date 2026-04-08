@@ -81,6 +81,29 @@ If ye close the application with unsaved changes, a confirmation dialog asks whe
 - Click the **x** button on the starboard side of a shanty row to remove it -- walk the plank, shanty!
 - Click **Clear Tracks** (the red button in the toolbar) to scuttle all shanties. A confirmation dialog be shown before proceedin', so ye don't accidentally sink yer own fleet.
 
+### Haulin' Shanties Aboard by Drag an' Drop
+
+While ye have a project open, ye can drag one or more seaworthy audio files from
+yer file manager (Windows Explorer, macOS Finder, Linux file manager, or whate'er
+chart ye use) directly onto the Musician's Canvas windo' to haul 'em aboard as
+fresh audio shanties.
+
+- **Seaworthy formats:** `.wav` and `.flac`. Files in any other format be quietly
+  tossed overboard, an' a dialog at the end lists which files were cast off.
+- **Copyin' the booty:** If the dropped file ain't already stashed in the
+  project's hold, it be copied there automatic-like. If a file with the same
+  name already be in the hold, ye'll be asked whether to replace the old one --
+  no accidental keelhaulin' of yer treasures.
+- **Shanty name:** The file's base name (without the extension) be used as the
+  new shanty name. Fer example, droppin' `Bass Line.wav` creates an audio shanty
+  christened "Bass Line".
+- **Many files in one haul:** Several files can be dragged together; each
+  seaworthy file becomes its own shanty in a single drop, savin' ye the trouble
+  o' hoistin' 'em one at a time.
+- **When the drop be refused:** Drops only be accepted while a project be open
+  an' Musician's Canvas be **not** currently playin' or plunderin'. Belay the
+  playback or recordin' first if ye wish to drag more shanties aboard.
+
 ### Configurin' Shanty Type
 
 Each shanty can be configured as either **Audio** (fer microphone/line-in plunderin') or **MIDI** (fer keyboard/controller plunderin').

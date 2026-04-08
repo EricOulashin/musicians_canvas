@@ -45,8 +45,8 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <body>
 <div class="title-block">
 <h1>Musician&#8217;s Canvas Benutzerhandbuch</h1>
-<p>Mehrspurige Musikaufnahme-Anwendung &mdash; Version 0.1.0</p>
-<p>2026-04-05</p>
+<p>Mehrspurige Musikaufnahme-Anwendung &mdash; Version 0.1.1</p>
+<p>2026-04-08</p>
 </div>
 <div class="toc">
 <h2>Inhaltsverzeichnis</h2>
@@ -57,11 +57,13 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#erste-schritte">Erste Schritte</a><ul>
 <li><a href="#starten-der-anwendung">Starten der Anwendung</a></li>
 <li><a href="#ein-projekt-einrichten">Ein Projekt einrichten</a></li>
+<li><a href="#schaltflachenleiste">Schaltflächenleiste</a></li>
 <li><a href="#projekte-speichern-und-offnen">Projekte speichern und öffnen</a></li>
 </ul>
 </li>
 <li><a href="#spurverwaltung">Spurverwaltung</a><ul>
 <li><a href="#spuren-hinzufugen-und-entfernen">Spuren hinzufügen und entfernen</a></li>
+<li><a href="#spuren-per-drag-and-drop-hinzufugen">Spuren per Drag-and-Drop hinzufügen</a></li>
 <li><a href="#spurtyp-konfigurieren">Spurtyp konfigurieren</a></li>
 <li><a href="#spursteuerungen">Spursteuerungen</a></li>
 <li><a href="#automatisches-scharfschalten">Automatisches Scharfschalten</a></li>
@@ -73,6 +75,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#midi-aufnahme">MIDI-Aufnahme</a></li>
 </ul>
 </li>
+<li><a href="#metronom">Metronom</a></li>
 <li><a href="#wiedergabe">Wiedergabe</a></li>
 <li><a href="#in-eine-datei-abmischen">In eine Datei abmischen</a></li>
 <li><a href="#einstellungen">Einstellungen</a><ul>
@@ -160,6 +163,19 @@ das Projekt automatisch geladen.</p>
 </li>
 </ol>
 <p><img alt="Hauptfenster" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="schaltflachenleiste">Schaltflächenleiste</h3>
+<p>Direkt unter der Menüleiste befindet sich eine Werkzeugleiste mit Schnellzugriffs-Schaltflächen:</p>
+<p><img alt="Schaltflächenleiste" src="screenshots/ButtonBar.png" /></p>
+<ul>
+<li><strong>Open Project</strong>: Entspricht <strong>File &gt; Open Project</strong> — öffnet ein zuvor gespeichertes Projekt.</li>
+<li><strong>Save Project</strong>: Entspricht <strong>File &gt; Save Project</strong> — speichert das aktuelle Projekt. Diese
+  Schaltfläche ist nur aktiviert, wenn ein Projektverzeichnis festgelegt ist.</li>
+<li><strong>Project Settings</strong>: Entspricht <strong>Project &gt; Project Settings</strong> — öffnet den Dialog der
+  Projekteinstellungen. Diese Schaltfläche ist nur aktiviert, wenn ein Projektverzeichnis festgelegt ist.</li>
+<li><strong>Configuration</strong>: Entspricht <strong>Settings &gt; Configuration</strong> — öffnet den Dialog der globalen
+  Anwendungseinstellungen.</li>
+<li><strong>Metronome Settings</strong>: Öffnet den Dialog der Metronom-Einstellungen (siehe den Abschnitt Metronom weiter unten).</li>
+</ul>
 <h3 id="projekte-speichern-und-offnen">Projekte speichern und öffnen</h3>
 <ul>
 <li><strong>Speichern</strong>: Verwenden Sie <strong>File &gt; Save Project</strong> (Ctrl+S), um das aktuelle Projekt als
@@ -181,6 +197,30 @@ Bestätigungsdialog, ob Sie vor dem Beenden speichern möchten.</p>
   entfernen.</li>
 <li>Klicken Sie auf <strong>Clear Tracks</strong> (die rote Schaltfläche in der Werkzeugleiste), um alle
   Spuren zu entfernen. Vor dem Fortfahren wird ein Bestätigungsdialog angezeigt.</li>
+</ul>
+<h3 id="spuren-per-drag-and-drop-hinzufugen">Spuren per Drag-and-Drop hinzufügen</h3>
+<p>Während ein Projekt geöffnet ist, können Sie eine oder mehrere unterstützte
+Audiodateien aus Ihrem Dateimanager (Windows Explorer, macOS Finder, Linux-
+Dateimanager usw.) direkt auf das Musician's Canvas-Fenster ziehen, um sie
+als neue Audiospuren hinzuzufügen.</p>
+<ul>
+<li><strong>Unterstützte Formate:</strong> <code>.wav</code> und <code>.flac</code>. Dateien in anderen Formaten
+  werden stillschweigend übersprungen, und am Ende zeigt ein Dialog an,
+  welche Dateien übersprungen wurden.</li>
+<li><strong>Dateikopieren:</strong> Wenn sich die abgelegte Datei noch nicht im Projektordner
+  befindet, wird sie automatisch dorthin kopiert. Wenn bereits eine Datei mit
+  demselben Namen im Projektordner vorhanden ist, werden Sie gefragt, ob sie
+  ersetzt werden soll.</li>
+<li><strong>Spurname:</strong> Der Basisname der Datei (ohne Erweiterung) wird als Name der
+  neuen Spur verwendet. Das Ablegen von <code>Bass Line.wav</code> erstellt beispielsweise
+  eine Audiospur mit dem Namen "Bass Line".</li>
+<li><strong>Mehrere Dateien gleichzeitig:</strong> Mehrere Dateien können zusammen gezogen
+  werden; jede unterstützte Datei wird in einem einzigen Ablegevorgang zu
+  ihrer eigenen Spur.</li>
+<li><strong>Wenn das Ablegen abgelehnt wird:</strong> Drops werden nur akzeptiert, während ein
+  Projekt geöffnet ist und Musician's Canvas <strong>nicht</strong> gerade wiedergibt oder
+  aufnimmt. Stoppen Sie zuerst die Wiedergabe oder Aufnahme, wenn Sie weitere
+  Spuren hineinziehen möchten.</li>
 </ul>
 <h3 id="spurtyp-konfigurieren">Spurtyp konfigurieren</h3>
 <p>Jede Spur kann entweder als <strong>Audio</strong> (für Mikrofon-/Line-In-Aufnahme) oder <strong>MIDI</strong> (für
@@ -279,6 +319,21 @@ Mono-Signal auf beide Kanäle dupliziert.</p>
 <li>Klicken Sie auf Stop, um die Aufnahme zu beenden.</li>
 </ol>
 <p>MIDI-Noten werden in einer Piano-Roll-Visualisierung auf der Spur angezeigt.</p>
+<h2 id="metronom">Metronom</h2>
+<p>Musician's Canvas enthält ein integriertes Metronom, das während der Aufnahme zum Halten
+des Takts verwendet werden kann. Klicken Sie auf die Metronom-Schaltfläche in der
+Schaltflächenleiste (unter der Menüleiste), um den Dialog der Metronom-Einstellungen zu öffnen:</p>
+<p><img alt="Metronom-Einstellungen" src="screenshots/MetronomeSettings.png" /></p>
+<p>Der Dialog bietet:</p>
+<ul>
+<li><strong>Enable metronome during recording</strong>: Wenn aktiviert, spielt das Metronom während der
+  Aufnahme einen Tick-Ton ab. Der Tick wird über das Systemaudio wiedergegeben und <strong>nicht</strong>
+  in die aufgenommene Spur aufgenommen.</li>
+<li><strong>Beats per minute</strong>: Eine numerische Eingabe für das Tempo in Schlägen pro Minute (BPM).
+  Der Bereich ist 20–300 BPM.</li>
+</ul>
+<p>Wenn das Metronom aktiviert ist, beginnt es zu ticken, sobald die Aufnahme tatsächlich
+startet (nach Ablauf des 3-Sekunden-Countdowns), und stoppt, wenn die Aufnahme endet.</p>
 <h2 id="wiedergabe">Wiedergabe</h2>
 <p>Klicken Sie auf die Schaltfläche <strong>Play</strong>, um alle aktivierten Spuren abzumischen und
 wiederzugeben. Der Tooltip der Schaltfläche zeigt an, ob sie abspielen oder aufnehmen wird,
@@ -313,6 +368,16 @@ die für alle Projekte gelten:</p>
   Abtastrate, die Kanalanzahl und Zeitdaten. Diese Option ist standardmäßig deaktiviert
   und dient hauptsächlich zur Fehlerbehebung bei Aufnahmeproblemen.</li>
 </ul>
+<h4 id="registerkarte-display">Registerkarte "Display"</h4>
+<ul>
+<li><strong>Farbe der numerischen LED-Anzeige</strong>: Wählen Sie die Farbe für die numerische
+  LED-Zeitanzeige in der Symbolleiste des Hauptfensters. Die aktiven Ziffernsegmente
+  werden in der gewählten Farbe gezeichnet, inaktive Segmente als abgedunkelte
+  Version derselben Farbe. Verfügbare Farben sind Light Red, Dark Red, Light Green,
+  Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan und Dark Cyan. Die
+  Standardeinstellung ist Light Green.</li>
+</ul>
+<p><img alt="Anzeigeeinstellungen" src="screenshots/MusiciansCanvas_DisplaySettings.png" /></p>
 <h4 id="registerkarte-language">Registerkarte "Language"</h4>
 <ul>
 <li><strong>Sprache</strong>: Wählen Sie die Anzeigesprache der Anwendung. Die Standardeinstellung ist
@@ -323,6 +388,7 @@ die für alle Projekte gelten:</p>
   Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh) und Pirate.
   Die Benutzeroberfläche wird sofort aktualisiert, wenn Sie die Sprache ändern.</li>
 </ul>
+<p><img alt="Spracheinstellungen" src="screenshots/MusiciansCanvas_LanguageSettings.png" /></p>
 <h4 id="registerkarte-midi">Registerkarte "MIDI"</h4>
 <ul>
 <li><strong>MIDI Output Device</strong>: Wählen Sie den integrierten FluidSynth-Synthesizer oder ein

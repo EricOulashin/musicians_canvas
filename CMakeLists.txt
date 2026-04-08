@@ -60,6 +60,7 @@ set(SOURCES
     src/projectsettings.h
     src/projectsettingsdialog.cpp
     src/projectsettingsdialog.h
+    src/audioformats.h
     src/waveformwidget.cpp
     src/waveformwidget.h
     src/midivisualizationwidget.cpp

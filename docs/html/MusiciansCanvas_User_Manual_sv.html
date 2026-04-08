@@ -45,8 +45,8 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <body>
 <div class="title-block">
 <h1>Musician&#8217;s Canvas Anv&#228;ndarmanual</h1>
-<p>Applikation för flerspårsinspelning av musik &mdash; Version 0.1.0</p>
-<p>2026-04-05</p>
+<p>Applikation för flerspårsinspelning av musik &mdash; Version 0.1.1</p>
+<p>2026-04-08</p>
 </div>
 <div class="toc">
 <h2>Inneh&aring;llsf&ouml;rteckning</h2>
@@ -57,11 +57,13 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#komma-igang">Komma igång</a><ul>
 <li><a href="#starta-applikationen">Starta applikationen</a></li>
 <li><a href="#konfigurera-ett-projekt">Konfigurera ett projekt</a></li>
+<li><a href="#knapprad">Knapprad</a></li>
 <li><a href="#spara-och-oppna-projekt">Spara och öppna projekt</a></li>
 </ul>
 </li>
 <li><a href="#sparhantering">Spårhantering</a><ul>
 <li><a href="#lagga-till-och-ta-bort-spar">Lägga till och ta bort spår</a></li>
+<li><a href="#lagga-till-spar-genom-dra-och-slapp">Lägga till spår genom dra och släpp</a></li>
 <li><a href="#konfigurera-spartyp">Konfigurera spårtyp</a></li>
 <li><a href="#sparkontroller">Spårkontroller</a></li>
 <li><a href="#automatisk-forberedelse">Automatisk förberedelse</a></li>
@@ -73,6 +75,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#midi-inspelning">MIDI-inspelning</a></li>
 </ul>
 </li>
+<li><a href="#metronom">Metronom</a></li>
 <li><a href="#uppspelning">Uppspelning</a></li>
 <li><a href="#mixa-till-en-fil">Mixa till en fil</a></li>
 <li><a href="#installningar">Inställningar</a><ul>
@@ -155,6 +158,19 @@ har använts och innehåller en <code>project.json</code>-fil, laddas projektet 
 </li>
 </ol>
 <p><img alt="Huvudfönster" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="knapprad">Knapprad</h3>
+<p>Direkt under menyraden finns ett verktygsfält med snabbåtkomstknappar:</p>
+<p><img alt="Knapprad" src="screenshots/ButtonBar.png" /></p>
+<ul>
+<li><strong>Open Project</strong>: Samma som <strong>File &gt; Open Project</strong> — öppnar ett tidigare sparat projekt.</li>
+<li><strong>Save Project</strong>: Samma som <strong>File &gt; Save Project</strong> — sparar det aktuella projektet. Den
+  här knappen är bara aktiverad när en projektkatalog är angiven.</li>
+<li><strong>Project Settings</strong>: Samma som <strong>Project &gt; Project Settings</strong> — öppnar dialogrutan för
+  projektinställningar. Den här knappen är bara aktiverad när en projektkatalog är angiven.</li>
+<li><strong>Configuration</strong>: Samma som <strong>Settings &gt; Configuration</strong> — öppnar dialogrutan för globala
+  programinställningar.</li>
+<li><strong>Metronome Settings</strong>: Öppnar dialogrutan för metronominställningar (se avsnittet Metronom nedan).</li>
+</ul>
 <h3 id="spara-och-oppna-projekt">Spara och öppna projekt</h3>
 <ul>
 <li><strong>Spara</strong>: Använd <strong>File &gt; Save Project</strong> (Ctrl+S) för att spara det aktuella projektet som en JSON-fil
@@ -173,6 +189,26 @@ spara innan du avslutar.</p>
 <li>Klicka på knappen <strong>x</strong> på höger sida av en spårrad för att ta bort det.</li>
 <li>Klicka på <strong>Clear Tracks</strong> (den röda knappen i verktygsfältet) för att ta bort alla spår. En
   bekräftelsedialog visas innan åtgärden utförs.</li>
+</ul>
+<h3 id="lagga-till-spar-genom-dra-och-slapp">Lägga till spår genom dra och släpp</h3>
+<p>När ett projekt är öppet kan du dra en eller flera filer med stödda ljudformat
+från din filhanterare (Windows Utforskaren, macOS Finder, Linux-filhanterare
+osv.) direkt till Musician's Canvas-fönstret för att lägga till dem som nya
+ljudspår.</p>
+<ul>
+<li><strong>Stödda format:</strong> <code>.wav</code> och <code>.flac</code>. Filer i andra format hoppas över
+  tyst, och en dialogruta i slutet listar vilka filer som hoppades över.</li>
+<li><strong>Filkopiering:</strong> Om den släppta filen inte redan finns i projektmappen
+  kopieras den dit automatiskt. Om en fil med samma namn redan finns i
+  projektmappen blir du tillfrågad om du vill ersätta den.</li>
+<li><strong>Spårnamn:</strong> Filens basnamn (utan filändelsen) används som namn på det
+  nya spåret. Att släppa <code>Bass Line.wav</code> skapar till exempel ett ljudspår
+  som heter "Bass Line".</li>
+<li><strong>Flera filer samtidigt:</strong> Flera filer kan dras tillsammans; varje fil med
+  stött format blir sitt eget spår vid ett enda släpp.</li>
+<li><strong>När släppet avvisas:</strong> Släpp godtas endast när ett projekt är öppet och
+  Musician's Canvas <strong>inte</strong> spelar upp eller spelar in för tillfället.
+  Stoppa uppspelningen eller inspelningen först om du vill dra in fler spår.</li>
 </ul>
 <h3 id="konfigurera-spartyp">Konfigurera spårtyp</h3>
 <p>Varje spår kan konfigureras som antingen <strong>Audio</strong> (för mikrofon-/linjeinspelning) eller
@@ -257,6 +293,21 @@ Om projektet är konfigurerat för stereo dupliceras monosignalen till båda kan
 <li>Klicka på Stop för att avsluta inspelningen.</li>
 </ol>
 <p>MIDI-noter visas i en pianorulle-visualisering på spåret.</p>
+<h2 id="metronom">Metronom</h2>
+<p>Musician's Canvas innehåller en inbyggd metronom som kan användas under inspelning för att
+hjälpa till att hålla takten. Klicka på metronomknappen i knappraden (under menyraden) för att
+öppna dialogrutan för metronominställningar:</p>
+<p><img alt="Metronominställningar" src="screenshots/MetronomeSettings.png" /></p>
+<p>Dialogrutan erbjuder:</p>
+<ul>
+<li><strong>Enable metronome during recording</strong>: När detta är markerat spelar metronomen ett
+  tickljud medan inspelning är aktiv. Ticket spelas genom systemljudet och <strong>tas inte upp</strong>
+  på det inspelade spåret.</li>
+<li><strong>Beats per minute</strong>: En numerisk inmatning för tempot, i slag per minut (BPM). Intervallet
+  är 20–300 BPM.</li>
+</ul>
+<p>När metronomen är aktiverad börjar den ticka när inspelningen faktiskt startar (efter att
+3-sekunders nedräkningen är klar) och stoppar när inspelningen avslutas.</p>
 <h2 id="uppspelning">Uppspelning</h2>
 <p>Klicka på knappen <strong>Play</strong> för att mixa och spela upp alla aktiverade spår. Knappens verktygstips ändras
 för att indikera om den kommer att spela upp eller spela in beroende på om ett spår är förberett.
@@ -282,6 +333,15 @@ alla projekt:</p>
 <ul>
 <li><strong>Tema</strong>: Välj mellan mörkt och ljust tema.</li>
 </ul>
+<h4 id="fliken-visning">Fliken Visning</h4>
+<ul>
+<li><strong>Färg på numerisk LED-display</strong>: Välj den färg som används för den numeriska LED-tidsdisplayen
+  som visas i huvudfönstrets verktygsfält. De aktiva siffersegmenten ritas i den valda färgen, och
+  inaktiva segment ritas som en nedtonad version av samma färg. Tillgängliga färger är Light Red,
+  Dark Red, Light Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan och Dark
+  Cyan. Standardvärdet är Light Green.</li>
+</ul>
+<p><img alt="Visningsinställningar" src="screenshots/MusiciansCanvas_DisplaySettings.png" /></p>
 <h4 id="fliken-sprak">Fliken Språk</h4>
 <ul>
 <li><strong>Språk</strong>: Välj visningsspråk för applikationen. Standardvärdet är "System Default", som använder
@@ -290,6 +350,7 @@ alla projekt:</p>
   Chinese (förenklad) och Pirate.
   Gränssnittet uppdateras omedelbart när du ändrar språk.</li>
 </ul>
+<p><img alt="Språkinställningar" src="screenshots/MusiciansCanvas_LanguageSettings.png" /></p>
 <h4 id="fliken-midi">Fliken MIDI</h4>
 <ul>
 <li><strong>MIDI-utmatningsenhet</strong>: Välj den inbyggda synthesizern FluidSynth eller en extern MIDI-enhet.

@@ -82,6 +82,29 @@ Os byddwch yn cau'r cymhwysiad gyda newidiadau heb eu cadw, mae deialog gadarnha
 - Cliciwch y botwm **x** ar ochr dde rhes trac i'w ddileu.
 - Cliciwch **Clear Tracks** (y botwm coch yn y bar offer) i ddileu'r holl draciau. Dangosir deialog gadarnhau cyn bwrw ymlaen.
 
+### Ychwanegu Traciau trwy Lusgo a Gollwng
+
+Tra bod prosiect ar agor, gallwch lusgo un neu fwy o ffeiliau sain a gefnogir
+o'ch rheolwr ffeiliau (Windows Explorer, macOS Finder, rheolwr ffeiliau Linux,
+ac ati) yn uniongyrchol i ffenestr Musician's Canvas i'w hychwanegu fel traciau
+sain newydd.
+
+- **Fformatau a gefnogir:** `.wav` a `.flac`. Caiff ffeiliau mewn unrhyw
+  fformat arall eu hepgor yn dawel, ac mae deialog ar y diwedd yn rhestru pa
+  ffeiliau a hepgorwyd.
+- **Copïo ffeiliau:** Os nad yw'r ffeil a ollyngwyd eisoes yng nghyfeiriadur y
+  prosiect, caiff ei chopïo yno yn awtomatig. Os oes ffeil â'r un enw eisoes
+  yng nghyfeiriadur y prosiect, gofynnir i chi a ydych am ei disodli.
+- **Enw'r trac:** Defnyddir enw sylfaen y ffeil (heb yr estyniad) fel enw'r
+  trac newydd. Er enghraifft, mae gollwng `Bass Line.wav` yn creu trac sain
+  o'r enw "Bass Line".
+- **Sawl ffeil ar unwaith:** Gellir llusgo sawl ffeil gyda'i gilydd; mae pob
+  ffeil a gefnogir yn dod yn drac ei hun mewn un gollyngiad.
+- **Pan wrthodir y gollyngiad:** Dim ond pan fydd prosiect ar agor a phan
+  fydd Musician's Canvas **heb** fod yn chwarae nac yn recordio ar hyn o
+  bryd y derbynnir gollyngiadau. Stopiwch y chwarae neu'r recordio yn gyntaf
+  os ydych am lusgo traciau ychwanegol i mewn.
+
 ### Ffurfweddu Math Trac
 
 Gellir ffurfweddu pob trac fel **Audio** (ar gyfer recordio meicroffon/line-in) neu **MIDI** (ar gyfer recordio bysellfwrdd/rheolydd).

@@ -22,6 +22,9 @@ class QPushButton;
 class QLineEdit;
 class QLabel;
 class QTimer;
+class QDragEnterEvent;
+class QDragMoveEvent;
+class QDropEvent;
 class TrackWidget;
 class SettingsDialog;
 class SegmentDisplay;
@@ -82,6 +85,15 @@ private:
     void moveProjectFiles(const QString& oldDir, const QString& newDir);
     void markDirty();
     void closeEvent(QCloseEvent* event) override;
+
+    // Drag-and-drop: accept supported audio files dropped onto the window
+    // when a project is open.  Each dropped file is copied into the project
+    // directory (if not already there) and added as a new audio track named
+    // after the file's base name.
+    void dragEnterEvent(QDragEnterEvent* event) override;
+    void dragMoveEvent(QDragMoveEvent* event) override;
+    void dropEvent(QDropEvent* event) override;
+    bool addAudioFileAsTrack(const QString& sourcePath);
 
 #ifdef QT_MULTIMEDIA_AVAILABLE
     void prepareOverdubPlayback();

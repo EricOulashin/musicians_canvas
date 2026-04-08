@@ -45,8 +45,8 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <body>
 <div class="title-block">
 <h1>Llawlyfr Defnyddiwr Musician&#8217;s Canvas</h1>
-<p>Cymhwysiad Recordio Cerddoriaeth Aml-Drac &mdash; Version 0.1.0</p>
-<p>2026-04-05</p>
+<p>Cymhwysiad Recordio Cerddoriaeth Aml-Drac &mdash; Version 0.1.1</p>
+<p>2026-04-08</p>
 </div>
 <div class="toc">
 <h2>Tabl Cynnwys</h2>
@@ -57,11 +57,13 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#dechrau-arni">Dechrau Arni</a><ul>
 <li><a href="#lansior-cymhwysiad">Lansio'r Cymhwysiad</a></li>
 <li><a href="#sefydlu-prosiect">Sefydlu Prosiect</a></li>
+<li><a href="#bar-botymau">Bar Botymau</a></li>
 <li><a href="#cadw-ac-agor-prosiectau">Cadw ac Agor Prosiectau</a></li>
 </ul>
 </li>
 <li><a href="#rheoli-traciau">Rheoli Traciau</a><ul>
 <li><a href="#ychwanegu-a-dileu-traciau">Ychwanegu a Dileu Traciau</a></li>
+<li><a href="#ychwanegu-traciau-trwy-lusgo-a-gollwng">Ychwanegu Traciau trwy Lusgo a Gollwng</a></li>
 <li><a href="#ffurfweddu-math-trac">Ffurfweddu Math Trac</a></li>
 <li><a href="#rheolaethau-trac">Rheolaethau Trac</a></li>
 <li><a href="#awtomatig-arfogi">Awtomatig-Arfogi</a></li>
@@ -73,6 +75,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#recordio-midi">Recordio MIDI</a></li>
 </ul>
 </li>
+<li><a href="#metronom">Metronom</a></li>
 <li><a href="#chwaraen-ol">Chwarae'n Ôl</a></li>
 <li><a href="#cymysgu-i-ffeil">Cymysgu i Ffeil</a></li>
 <li><a href="#gosodiadau">Gosodiadau</a><ul>
@@ -146,6 +149,19 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </li>
 </ol>
 <p><img alt="Prif ffenestr" src="screenshots/MusiciansCanvas_1_MainWin.png" /></p>
+<h3 id="bar-botymau">Bar Botymau</h3>
+<p>Yn union o dan y bar dewislen mae bar offer gyda botymau mynediad cyflym:</p>
+<p><img alt="Bar Botymau" src="screenshots/ButtonBar.png" /></p>
+<ul>
+<li><strong>Open Project</strong>: Yr un peth â <strong>File &gt; Open Project</strong> — mae'n agor prosiect a gadwyd yn flaenorol.</li>
+<li><strong>Save Project</strong>: Yr un peth â <strong>File &gt; Save Project</strong> — mae'n cadw'r prosiect cyfredol.
+  Dim ond pan fo cyfeiriadur prosiect wedi'i osod y caiff y botwm hwn ei alluogi.</li>
+<li><strong>Project Settings</strong>: Yr un peth â <strong>Project &gt; Project Settings</strong> — mae'n agor y ddeialog
+  gosodiadau prosiect. Dim ond pan fo cyfeiriadur prosiect wedi'i osod y caiff y botwm hwn ei alluogi.</li>
+<li><strong>Configuration</strong>: Yr un peth â <strong>Settings &gt; Configuration</strong> — mae'n agor y ddeialog
+  gosodiadau byd-eang yr ap.</li>
+<li><strong>Metronome Settings</strong>: Mae'n agor y ddeialog gosodiadau metronom (gweler yr adran Metronom isod).</li>
+</ul>
 <h3 id="cadw-ac-agor-prosiectau">Cadw ac Agor Prosiectau</h3>
 <ul>
 <li><strong>Cadw</strong>: Defnyddiwch <strong>File &gt; Save Project</strong> (Ctrl+S) i gadw'r prosiect cyfredol fel ffeil JSON yn y cyfeiriadur prosiect.</li>
@@ -159,6 +175,28 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>Cliciwch <strong>+ Add Track</strong> i ychwanegu trac newydd at y trefniant.</li>
 <li>Cliciwch y botwm <strong>x</strong> ar ochr dde rhes trac i'w ddileu.</li>
 <li>Cliciwch <strong>Clear Tracks</strong> (y botwm coch yn y bar offer) i ddileu'r holl draciau. Dangosir deialog gadarnhau cyn bwrw ymlaen.</li>
+</ul>
+<h3 id="ychwanegu-traciau-trwy-lusgo-a-gollwng">Ychwanegu Traciau trwy Lusgo a Gollwng</h3>
+<p>Tra bod prosiect ar agor, gallwch lusgo un neu fwy o ffeiliau sain a gefnogir
+o'ch rheolwr ffeiliau (Windows Explorer, macOS Finder, rheolwr ffeiliau Linux,
+ac ati) yn uniongyrchol i ffenestr Musician's Canvas i'w hychwanegu fel traciau
+sain newydd.</p>
+<ul>
+<li><strong>Fformatau a gefnogir:</strong> <code>.wav</code> a <code>.flac</code>. Caiff ffeiliau mewn unrhyw
+  fformat arall eu hepgor yn dawel, ac mae deialog ar y diwedd yn rhestru pa
+  ffeiliau a hepgorwyd.</li>
+<li><strong>Copïo ffeiliau:</strong> Os nad yw'r ffeil a ollyngwyd eisoes yng nghyfeiriadur y
+  prosiect, caiff ei chopïo yno yn awtomatig. Os oes ffeil â'r un enw eisoes
+  yng nghyfeiriadur y prosiect, gofynnir i chi a ydych am ei disodli.</li>
+<li><strong>Enw'r trac:</strong> Defnyddir enw sylfaen y ffeil (heb yr estyniad) fel enw'r
+  trac newydd. Er enghraifft, mae gollwng <code>Bass Line.wav</code> yn creu trac sain
+  o'r enw "Bass Line".</li>
+<li><strong>Sawl ffeil ar unwaith:</strong> Gellir llusgo sawl ffeil gyda'i gilydd; mae pob
+  ffeil a gefnogir yn dod yn drac ei hun mewn un gollyngiad.</li>
+<li><strong>Pan wrthodir y gollyngiad:</strong> Dim ond pan fydd prosiect ar agor a phan
+  fydd Musician's Canvas <strong>heb</strong> fod yn chwarae nac yn recordio ar hyn o
+  bryd y derbynnir gollyngiadau. Stopiwch y chwarae neu'r recordio yn gyntaf
+  os ydych am lusgo traciau ychwanegol i mewn.</li>
 </ul>
 <h3 id="ffurfweddu-math-trac">Ffurfweddu Math Trac</h3>
 <p>Gellir ffurfweddu pob trac fel <strong>Audio</strong> (ar gyfer recordio meicroffon/line-in) neu <strong>MIDI</strong> (ar gyfer recordio bysellfwrdd/rheolydd).</p>
@@ -221,6 +259,21 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>Cliciwch Stop i orffen recordio.</li>
 </ol>
 <p>Dangosir nodau MIDI mewn delweddiad piano roll ar y trac.</p>
+<h2 id="metronom">Metronom</h2>
+<p>Mae Musician's Canvas yn cynnwys metronom adeiledig y gellir ei ddefnyddio yn ystod recordio
+i helpu i gadw amser. Cliciwch ar fotwm y metronom ar y bar botymau (o dan y bar dewislen) i
+agor y ddeialog gosodiadau metronom:</p>
+<p><img alt="Gosodiadau metronom" src="screenshots/MetronomeSettings.png" /></p>
+<p>Mae'r ddeialog yn darparu:</p>
+<ul>
+<li><strong>Enable metronome during recording</strong>: Pan fydd wedi'i dicio, mae'r metronom yn chwarae
+  sain tic tra bo recordio'n weithredol. Mae'r tic yn cael ei chwarae trwy sain y system
+  ac <strong>nid</strong> yw'n cael ei ddal i mewn i'r trac a recordiwyd.</li>
+<li><strong>Beats per minute</strong>: Mewnbwn rhifol ar gyfer y tempo, mewn curiadau y funud (BPM). Yr
+  ystod yw 20–300 BPM.</li>
+</ul>
+<p>Pan fydd y metronom wedi'i alluogi, mae'n dechrau ticio unwaith y bydd y recordio'n dechrau
+go iawn (ar ôl i'r cyfrif tuag at i lawr 3 eiliad gwblhau), ac yn stopio pan ddaw'r recordio i ben.</p>
 <h2 id="chwaraen-ol">Chwarae'n Ôl</h2>
 <p>Cliciwch y botwm <strong>Play</strong> i gymysgu a chwarae'n ôl yr holl draciau galluogedig. Mae tooltip y botwm yn newid i ddangos a fydd yn chwarae neu'n recordio yn seiliedig ar p'un a yw trac wedi'i arfogi. Mae traciau analluogedig (heb eu ticio) yn cael eu heithrio o chwarae'n ôl.</p>
 <p>Yn ystod chwarae'n ôl, mae traciau sain yn cael eu datgodio o'u ffeiliau FLAC ac mae traciau MIDI yn cael eu rendro i sain gan ddefnyddio'r synth FluidSynth adeiledig. Mae'r holl draciau yn cael eu cymysgu gyda'i gilydd a'u chwarae trwy ddyfais allbwn sain y system.</p>
@@ -240,10 +293,16 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <ul>
 <li><strong>Thema</strong>: Dewiswch rhwng themâu tywyll a golau.</li>
 </ul>
+<h4 id="tab-display">Tab Display</h4>
+<ul>
+<li><strong>Lliw'r arddangosfa LED rhifol</strong>: Dewiswch y lliw a ddefnyddir ar gyfer yr arddangosfa amser LED rhifol a ddangosir ar far offer y brif ffenestr. Mae segmentau gweithredol y digidau'n cael eu tynnu yn y lliw a ddewiswyd, ac mae segmentau anweithredol yn cael eu tynnu fel fersiwn bŵl o'r un lliw. Y lliwiau sydd ar gael yw Light Red, Dark Red, Light Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan a Dark Cyan. Y rhagosodiad yw Light Green.</li>
+</ul>
+<p><img alt="Gosodiadau arddangos" src="screenshots/MusiciansCanvas_DisplaySettings.png" /></p>
 <h4 id="tab-language">Tab Language</h4>
 <ul>
 <li><strong>Iaith</strong>: Dewiswch iaith arddangos y cymhwysiad. Y rhagosodiad yw "System Default", sy'n defnyddio gosodiad iaith y system weithredu. Yr ieithoedd sydd ar gael yw Saesneg, Deutsch (Almaeneg), Español (Sbaeneg), Français (Ffrangeg), Siapanëeg, Português (Portiwgaleg Brasil), Tsieinëeg (Traddodiadol), Tsieinëeg (Symledig), a Môr-ladron. Mae'r rhyngwyneb yn diweddaru ar unwaith pan fyddwch yn newid yr iaith.</li>
 </ul>
+<p><img alt="Gosodiadau iaith" src="screenshots/MusiciansCanvas_LanguageSettings.png" /></p>
 <h4 id="tab-midi">Tab MIDI</h4>
 <ul>
 <li><strong>Dyfais Allbwn MIDI</strong>: Dewiswch y synth FluidSynth adeiledig neu ddyfais MIDI allanol. Defnyddiwch y botwm <strong>Refresh</strong> i ailsganio am ddyfeisiau MIDI sydd ar gael.</li>

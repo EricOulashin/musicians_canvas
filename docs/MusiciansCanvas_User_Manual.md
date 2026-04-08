@@ -100,6 +100,26 @@ to save before exiting.
 - Click **Clear Tracks** (the red button in the toolbar) to remove all tracks. A
   confirmation dialog is shown before proceeding.
 
+### Adding Tracks by Drag and Drop
+
+While a project is open, you can drag one or more supported audio files from your
+file manager (Windows Explorer, macOS Finder, Linux file manager, etc.) directly
+onto the Musician's Canvas window to add them as new audio tracks.
+
+- **Supported formats:** `.wav` and `.flac`. Files in any other format are
+  silently skipped, and a dialog at the end lists which files were skipped.
+- **File copying:** If the dropped file is not already in the project directory,
+  it is copied there automatically. If a file with the same name already exists
+  in the project directory, you are asked whether to replace it.
+- **Track name:** The file's base name (without the extension) is used as the
+  new track name. For example, dropping `Bass Line.wav` creates an audio track
+  named "Bass Line".
+- **Multiple files at once:** Several files may be dragged together; each
+  supported file becomes its own track in a single drop.
+- **When the drop is rejected:** Drops are only accepted while a project is
+  open and Musician's Canvas is **not** currently playing or recording. Stop
+  playback or recording first if you want to drag in additional tracks.
+
 ### Configuring Track Type
 
 Each track can be configured as either **Audio** (for microphone/line-in recording) or
