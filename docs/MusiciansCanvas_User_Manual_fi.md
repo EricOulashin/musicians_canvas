@@ -516,6 +516,59 @@ määrittämiseksi:
 | Ctrl+U      | Ohje / Käyttötiedot      |
 | Ctrl+Q      | Sulje                    |
 
+## Usein kysytyt kysymykset (FAQ)
+
+### Miten tallennan MIDI-raidan?
+
+1. Aseta **projektikansio** (tallennus vaatii sen).
+2. Lisää tai valitse raita ja avaa **Options** (tai napsauta raidantyyppikuvaketta).
+3. Aseta tyypiksi **MIDI** ja sulje valintaikkuna.
+4. Kohdassa **Settings > Configuration > MIDI** valitse **MIDI-sisääntulo** (laiteportti tai virtuaalikaapeli) ja **SoundFont** (`.sf2`) myöhempää toistoa varten.
+5. **Aseuta (Arm)** kyseinen raita (vain yksi voi olla aseutettuna kerrallaan).
+6. Napsauta **Record**, odota lähtölaskenta, soita ohjaimella ja sitten **Stop**.
+
+Nuotit näkyvät pianorullassa. **File > Save Project** kirjoittaa `.mid`-tiedoston ja `project.json`-tiedoston projektikansioon.
+
+### Miksi MIDI-raitani on äänetön toistossa?
+
+Toisto käyttää **FluidSynthiä** asetusten **SoundFontilla**. Tarkista **Settings > Configuration > MIDI** (tai **Project > Project Settings**, jos projektikohtaisia ohituksia): kelvollinen `.sf2`-polku tarvitaan. Linuxissa järjestelmän SoundFont voi löytyä automaattisesti; Windowsissa ja macOSissa tiedosto valitaan usein käsin.
+
+### Miten Virtual MIDI Keyboard liittyy Musician's Canvasiin?
+
+Ne ovat **erillisiä ohjelmia**. Käynnistä Virtual MIDI Keyboard valikosta **Tools > Virtual MIDI Keyboard** (tai erikseen). Jotta näppäimistö **ohjautuisi** Musician's Canvasiin MIDI-tallennuksen aikana, käyttöjärjestelmän on reititettävä näppäimistön **MIDI-ulostulo** Musician's Canvasin käyttämään **sisääntuloon** — usein virtuaalisella MIDI-kaapelilla tai yhteensopivilla porteilla molemmissa sovelluksissa. Automaattista kytkentää ei ole.
+
+### Mitä eroa on Configurationilla ja Project Settingsillä?
+
+**Settings > Configuration** määrittää **globaalit oletukset** (teema, kieli, MIDI/äänilaitteet, SoundFont jne.). **Project > Project Settings** korvaa osan niistä **vain nykyiselle projektille** ja tallentuu `project.json`-tiedostoon. Jos kenttä jää projektin oletukseen, käytetään Configurationin globaalia arvoa.
+
+### Miksi raahaa ja pudota ei lisää äänitiedostoja?
+
+Tiedostot hyväksytään vain, kun **projektikansio on asetettu** eikä Musician's Canvas **toista tai tallenna**. Tuetut muodot: **`.wav`** ja **`.flac`**; muut päätteet ohitetaan ja listataan ikkunassa. Jokaisesta tiedostosta tulee uusi **ääni**raita, jonka nimi on tiedoston perusnimi.
+
+### Minne tallenteet tallentuvat?
+
+Ääni tallennetaan **projektikansioon** nimellä **`<raidan_nimi>.flac`** (merkit kuten `/ \ : * ? " < > |` korvataan alaviivalla). Projektitiedosto on **`project.json`** samassa kansiossa. MIDI-raidat tallentuvat **`<raidan_nimi>.mid`** projektin tallennuksessa (nuotit myös `project.json`-tiedostossa).
+
+### Mikä tiedostonimi MIDI-renderöinnissä miksausta varten?
+
+**Miksauksessa** tai **toistossa** MIDI renderöidään ensin väliaikaiseen WAV-tiedostoon. Jos projektin polku tunnetaan, Musician's Canvas kirjoittaa myös **FLAC-välimuistin** projektikansioon: **`<puhdistettu_raidan_nimi>.flac`** (samat säännöt kuin muilla raidatiedostoilla). Nimi perustuu **raidan nimeen**, ei sisäiseen tunnisteeseen.
+
+### Voinko tallentaa kahta raitaa yhtä aikaa?
+
+Et. Vain **yksi** raita voi olla **aseutettuna** kerrallaan; se saa seuraavan tallenteen. Rakenna kappale **yksi raita kerrallaan** (**overdub** toistaa olemassa olevat raidat uutta tallennettaessa).
+
+### Tallentaako metronomi raidalle?
+
+Ei. Kun metronomi on päällä, se kuuluu **järjestelmän äänen** kautta vain sinulle. Sitä **ei sekoiteta** tallennustiedostoon.
+
+### Miksi Musician's Canvas vaatii ASIO:n Windowsissa?
+
+Windowsissa pääohjelma olettaa **ASIO**-ajurin luotettavaan matalan viiveen ääneen. Asenna **ASIO4ALL** tai valmistajan ajuri, jos tulee virheitä.
+
+### Missä Virtual MIDI Keyboard on macOS:llä?
+
+**`.app`-paketissa** Virtual MIDI Keyboard -ohjelmatiedosto **kopioidaan** `Musician's Canvas.app`-sovelluksen sisään (**Contents/MacOS/**), jotta yksi sovelluskansio riittää jakelussa. Käynnistä silti valikosta **Tools > Virtual MIDI Keyboard**.
+
 ## Vianmääritys
 
 ### Ei äänilähtöä

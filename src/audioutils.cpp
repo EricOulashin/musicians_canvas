@@ -2,6 +2,7 @@
 #include "midisynth.h"
 #include <QFile>
 #include <QDir>
+#include <QRegularExpression>
 #include <QTemporaryFile>
 #include <algorithm>
 #include <cmath>
@@ -16,6 +17,14 @@
 #include "AudioFileTools.h"
 #include "AudioFileInfo.h"
 #include "FLACFileInfo.h"
+
+QString AudioUtils::sanitizedTrackFilesystemName(const QString& trackName)
+{
+    QString result = trackName.trimmed();
+    static const QRegularExpression invalid(QStringLiteral("[/\\\\:*?\"<>|\\r\\n]"));
+    result.replace(invalid, QStringLiteral("_"));
+    return result;
+}
 
 static void writeWavHeader(QFile& file, quint32 sampleRate, quint32 numSamples)
 {
@@ -499,8 +508,11 @@ bool AudioUtils::mixTracksToFile(const QVector<TrackData>& tracks,
                 if (!projectPath.isEmpty())
                 {
                     QDir().mkpath(projectPath);
-                    const QString flacPath = projectPath + QDir::separator() +
-                                             QStringLiteral("track_%1_midi.flac").arg(track.id);
+                    QString baseName = sanitizedTrackFilesystemName(track.name);
+                    if (baseName.isEmpty())
+                        baseName = QStringLiteral("track_%1").arg(track.id);
+                    const QString flacPath =
+                        projectPath + QDir::separator() + baseName + QStringLiteral(".flac");
                     auto wavAudio = EOUtils::createAudioFileObjForExistingFile(
                         tmpWavPath.toStdString().c_str());
                     if (wavAudio && wavAudio->open(EOUtils::AUDIO_FILE_READ))

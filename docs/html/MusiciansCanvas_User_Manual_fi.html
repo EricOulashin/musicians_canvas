@@ -99,6 +99,20 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#virtual-midi-keyboard-pikanappaimet">Virtual MIDI Keyboard -pikanäppäimet</a></li>
 </ul>
 </li>
+<li><a href="#usein-kysytyt-kysymykset-faq">Usein kysytyt kysymykset (FAQ)</a><ul>
+<li><a href="#miten-tallennan-midi-raidan">Miten tallennan MIDI-raidan?</a></li>
+<li><a href="#miksi-midi-raitani-on-aaneton-toistossa">Miksi MIDI-raitani on äänetön toistossa?</a></li>
+<li><a href="#miten-virtual-midi-keyboard-liittyy-musicians-canvasiin">Miten Virtual MIDI Keyboard liittyy Musician's Canvasiin?</a></li>
+<li><a href="#mita-eroa-on-configurationilla-ja-project-settingsilla">Mitä eroa on Configurationilla ja Project Settingsillä?</a></li>
+<li><a href="#miksi-raahaa-ja-pudota-ei-lisaa-aanitiedostoja">Miksi raahaa ja pudota ei lisää äänitiedostoja?</a></li>
+<li><a href="#minne-tallenteet-tallentuvat">Minne tallenteet tallentuvat?</a></li>
+<li><a href="#mika-tiedostonimi-midi-renderoinnissa-miksausta-varten">Mikä tiedostonimi MIDI-renderöinnissä miksausta varten?</a></li>
+<li><a href="#voinko-tallentaa-kahta-raitaa-yhta-aikaa">Voinko tallentaa kahta raitaa yhtä aikaa?</a></li>
+<li><a href="#tallentaako-metronomi-raidalle">Tallentaako metronomi raidalle?</a></li>
+<li><a href="#miksi-musicians-canvas-vaatii-asion-windowsissa">Miksi Musician's Canvas vaatii ASIO:n Windowsissa?</a></li>
+<li><a href="#missa-virtual-midi-keyboard-on-macoslla">Missä Virtual MIDI Keyboard on macOS:llä?</a></li>
+</ul>
+</li>
 <li><a href="#vianmaaritys">Vianmääritys</a><ul>
 <li><a href="#ei-aanilahtoa">Ei äänilähtöä</a></li>
 <li><a href="#midi-raidat-ovat-aanettomia">MIDI-raidat ovat äänettömiä</a></li>
@@ -755,6 +769,37 @@ määrittämiseksi:</p>
 </tr>
 </tbody>
 </table>
+<h2 id="usein-kysytyt-kysymykset-faq">Usein kysytyt kysymykset (FAQ)</h2>
+<h3 id="miten-tallennan-midi-raidan">Miten tallennan MIDI-raidan?</h3>
+<ol>
+<li>Aseta <strong>projektikansio</strong> (tallennus vaatii sen).</li>
+<li>Lisää tai valitse raita ja avaa <strong>Options</strong> (tai napsauta raidantyyppikuvaketta).</li>
+<li>Aseta tyypiksi <strong>MIDI</strong> ja sulje valintaikkuna.</li>
+<li>Kohdassa <strong>Settings &gt; Configuration &gt; MIDI</strong> valitse <strong>MIDI-sisääntulo</strong> (laiteportti tai virtuaalikaapeli) ja <strong>SoundFont</strong> (<code>.sf2</code>) myöhempää toistoa varten.</li>
+<li><strong>Aseuta (Arm)</strong> kyseinen raita (vain yksi voi olla aseutettuna kerrallaan).</li>
+<li>Napsauta <strong>Record</strong>, odota lähtölaskenta, soita ohjaimella ja sitten <strong>Stop</strong>.</li>
+</ol>
+<p>Nuotit näkyvät pianorullassa. <strong>File &gt; Save Project</strong> kirjoittaa <code>.mid</code>-tiedoston ja <code>project.json</code>-tiedoston projektikansioon.</p>
+<h3 id="miksi-midi-raitani-on-aaneton-toistossa">Miksi MIDI-raitani on äänetön toistossa?</h3>
+<p>Toisto käyttää <strong>FluidSynthiä</strong> asetusten <strong>SoundFontilla</strong>. Tarkista <strong>Settings &gt; Configuration &gt; MIDI</strong> (tai <strong>Project &gt; Project Settings</strong>, jos projektikohtaisia ohituksia): kelvollinen <code>.sf2</code>-polku tarvitaan. Linuxissa järjestelmän SoundFont voi löytyä automaattisesti; Windowsissa ja macOSissa tiedosto valitaan usein käsin.</p>
+<h3 id="miten-virtual-midi-keyboard-liittyy-musicians-canvasiin">Miten Virtual MIDI Keyboard liittyy Musician's Canvasiin?</h3>
+<p>Ne ovat <strong>erillisiä ohjelmia</strong>. Käynnistä Virtual MIDI Keyboard valikosta <strong>Tools &gt; Virtual MIDI Keyboard</strong> (tai erikseen). Jotta näppäimistö <strong>ohjautuisi</strong> Musician's Canvasiin MIDI-tallennuksen aikana, käyttöjärjestelmän on reititettävä näppäimistön <strong>MIDI-ulostulo</strong> Musician's Canvasin käyttämään <strong>sisääntuloon</strong> — usein virtuaalisella MIDI-kaapelilla tai yhteensopivilla porteilla molemmissa sovelluksissa. Automaattista kytkentää ei ole.</p>
+<h3 id="mita-eroa-on-configurationilla-ja-project-settingsilla">Mitä eroa on Configurationilla ja Project Settingsillä?</h3>
+<p><strong>Settings &gt; Configuration</strong> määrittää <strong>globaalit oletukset</strong> (teema, kieli, MIDI/äänilaitteet, SoundFont jne.). <strong>Project &gt; Project Settings</strong> korvaa osan niistä <strong>vain nykyiselle projektille</strong> ja tallentuu <code>project.json</code>-tiedostoon. Jos kenttä jää projektin oletukseen, käytetään Configurationin globaalia arvoa.</p>
+<h3 id="miksi-raahaa-ja-pudota-ei-lisaa-aanitiedostoja">Miksi raahaa ja pudota ei lisää äänitiedostoja?</h3>
+<p>Tiedostot hyväksytään vain, kun <strong>projektikansio on asetettu</strong> eikä Musician's Canvas <strong>toista tai tallenna</strong>. Tuetut muodot: <strong><code>.wav</code></strong> ja <strong><code>.flac</code></strong>; muut päätteet ohitetaan ja listataan ikkunassa. Jokaisesta tiedostosta tulee uusi <strong>ääni</strong>raita, jonka nimi on tiedoston perusnimi.</p>
+<h3 id="minne-tallenteet-tallentuvat">Minne tallenteet tallentuvat?</h3>
+<p>Ääni tallennetaan <strong>projektikansioon</strong> nimellä <strong><code>&lt;raidan_nimi&gt;.flac</code></strong> (merkit kuten <code>/ \ : * ? " &lt; &gt; |</code> korvataan alaviivalla). Projektitiedosto on <strong><code>project.json</code></strong> samassa kansiossa. MIDI-raidat tallentuvat <strong><code>&lt;raidan_nimi&gt;.mid</code></strong> projektin tallennuksessa (nuotit myös <code>project.json</code>-tiedostossa).</p>
+<h3 id="mika-tiedostonimi-midi-renderoinnissa-miksausta-varten">Mikä tiedostonimi MIDI-renderöinnissä miksausta varten?</h3>
+<p><strong>Miksauksessa</strong> tai <strong>toistossa</strong> MIDI renderöidään ensin väliaikaiseen WAV-tiedostoon. Jos projektin polku tunnetaan, Musician's Canvas kirjoittaa myös <strong>FLAC-välimuistin</strong> projektikansioon: <strong><code>&lt;puhdistettu_raidan_nimi&gt;.flac</code></strong> (samat säännöt kuin muilla raidatiedostoilla). Nimi perustuu <strong>raidan nimeen</strong>, ei sisäiseen tunnisteeseen.</p>
+<h3 id="voinko-tallentaa-kahta-raitaa-yhta-aikaa">Voinko tallentaa kahta raitaa yhtä aikaa?</h3>
+<p>Et. Vain <strong>yksi</strong> raita voi olla <strong>aseutettuna</strong> kerrallaan; se saa seuraavan tallenteen. Rakenna kappale <strong>yksi raita kerrallaan</strong> (<strong>overdub</strong> toistaa olemassa olevat raidat uutta tallennettaessa).</p>
+<h3 id="tallentaako-metronomi-raidalle">Tallentaako metronomi raidalle?</h3>
+<p>Ei. Kun metronomi on päällä, se kuuluu <strong>järjestelmän äänen</strong> kautta vain sinulle. Sitä <strong>ei sekoiteta</strong> tallennustiedostoon.</p>
+<h3 id="miksi-musicians-canvas-vaatii-asion-windowsissa">Miksi Musician's Canvas vaatii ASIO:n Windowsissa?</h3>
+<p>Windowsissa pääohjelma olettaa <strong>ASIO</strong>-ajurin luotettavaan matalan viiveen ääneen. Asenna <strong>ASIO4ALL</strong> tai valmistajan ajuri, jos tulee virheitä.</p>
+<h3 id="missa-virtual-midi-keyboard-on-macoslla">Missä Virtual MIDI Keyboard on macOS:llä?</h3>
+<p><strong><code>.app</code>-paketissa</strong> Virtual MIDI Keyboard -ohjelmatiedosto <strong>kopioidaan</strong> <code>Musician's Canvas.app</code>-sovelluksen sisään (<strong>Contents/MacOS/</strong>), jotta yksi sovelluskansio riittää jakelussa. Käynnistä silti valikosta <strong>Tools &gt; Virtual MIDI Keyboard</strong>.</p>
 <h2 id="vianmaaritys">Vianmääritys</h2>
 <h3 id="ei-aanilahtoa">Ei äänilähtöä</h3>
 <ul>

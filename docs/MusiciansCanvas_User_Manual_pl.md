@@ -433,6 +433,59 @@ Otwórz dialog konfiguracji (**Settings > Configuration**, Ctrl+,), aby skonfigu
 | Ctrl+U   | Pomoc / Informacje o użyciu     |
 | Ctrl+Q   | Zamknij                         |
 
+## FAQ (Często zadawane pytania)
+
+### Jak nagrać ścieżkę MIDI?
+
+1. Ustaw **katalog projektu** (wymagany do zapisu).
+2. Dodaj lub wybierz ścieżkę i otwórz **Options** (lub kliknij ikonę typu ścieżki).
+3. Ustaw typ **MIDI** i zamknij okno.
+4. W **Settings > Configuration > MIDI** wybierz **wejście MIDI** (port sprzętowy lub wirtualny kabel) oraz **SoundFont** (`.sf2`) do późniejszego odtwarzania.
+5. **Uzbrój (Arm)** tę ścieżkę (tylko jedna może być uzbrojona naraz).
+6. Kliknij **Record**, poczekaj na odliczanie, graj na kontrolerze, potem **Stop**.
+
+Nuty widać w piano roll. **File > Save Project** zapisuje plik `.mid` oraz `project.json` w folderze projektu.
+
+### Dlaczego moja ścieżka MIDI jest bez dźwięku przy odtwarzaniu?
+
+Odtwarzanie używa **FluidSynth** z **SoundFont** z ustawień. Sprawdź **Settings > Configuration > MIDI** (lub **Project > Project Settings** przy nadpisaniach projektu): potrzebna jest poprawna ścieżka `.sf2`. W Linuksie systemowy SoundFont bywa wykrywany automatycznie; w Windows i macOS zwykle trzeba wskazać plik ręcznie.
+
+### Jak Virtual MIDI Keyboard łączy się z Musician's Canvas?
+
+To **dwa osobne programy**. Uruchom Virtual MIDI Keyboard z **Tools > Virtual MIDI Keyboard** (lub samodzielnie). Aby klawiatura na ekranie **trafiała** do Musician's Canvas podczas nagrywania MIDI, system musi skierować **wyjście MIDI** klawiatury na **wejście** używane przez Musician's Canvas — często przez wirtualny kabel MIDI lub zgodne porty w obu aplikacjach. Nie łączą się automatycznie.
+
+### Czym różnią się Configuration i Project Settings?
+
+**Settings > Configuration** ustawia **globalne domyślne** (motyw, język, urządzenia MIDI/audio, SoundFont itd.). **Project > Project Settings** nadpisuje część tego **tylko dla bieżącego projektu** i zapisuje się w `project.json`. Jeśli pole pozostaje przy domyślnym ustawieniu projektu, obowiązuje wartość globalna z Configuration.
+
+### Dlaczego przeciąganie plików nie dodaje audio?
+
+Pliki są przyjmowane tylko przy ustawionym **katalogu projektu** i gdy Musician's Canvas **nie** odtwarza ani **nie** nagrywa. Obsługiwane są **`.wav`** i **`.flac`**; inne rozszerzenia są pomijane i wymienione w oknie. Każdy plik staje się nową ścieżką **audio** o nazwie z podstawowej nazwy pliku.
+
+### Gdzie zapisywane są nagrania?
+
+Audio trafia do **katalogu projektu** jako **`<nazwa_ścieżki>.flac`** (znaki takie jak `/ \ : * ? " < > |` zamieniane są na podkreślenie). Plik projektu to **`project.json`** w tym samym folderze. Ścieżki MIDI zapisują się jako **`<nazwa_ścieżki>.mid`** przy zapisie projektu (nuty także w `project.json`).
+
+### Jak nazywa się plik po wyrenderowaniu MIDI do miksu?
+
+Przy **miksowaniu** lub **odtwarzaniu** MIDI jest najpierw renderowane do tymczasowego WAV. Jeśli znana jest ścieżka projektu, Musician's Canvas zapisuje też **pamięć podręczną FLAC** w folderze projektu: **`<oczyszczona_nazwa_ścieżki>.flac`** (te same zasady co dla innych plików ścieżek). Nazwa wynika z **nazwy ścieżki**, nie z wewnętrznego ID.
+
+### Czy mogę nagrywać dwie ścieżki naraz?
+
+Nie. Tylko **jedna** ścieżka może być **uzbrojona**; ona dostaje następne nagranie. Buduj utwór, nagrywając **kolejno** (**overdub** odtwarza istniejące ścieżki podczas nowej).
+
+### Czy metronom trafia na nagranie?
+
+Nie. Po włączeniu metronom brzmi przez **audio systemowe** tylko dla Ciebie. **Nie** jest miksowany do pliku nagrania.
+
+### Dlaczego Musician's Canvas wymaga ASIO w Windows?
+
+W Windows główna aplikacja oczekuje sterownika **ASIO** dla stabilnego audio z niskim opóźnieniem. Przy błędach zainstaluj **ASIO4ALL** lub sterownik producenta interfejsu.
+
+### Gdzie na macOS jest Virtual MIDI Keyboard?
+
+W **pakiecie `.app`** plik wykonywalny Virtual MIDI Keyboard jest **kopiowany do środka** `Musician's Canvas.app` (**Contents/MacOS/**), aby dystrybuować jeden folder aplikacji. Nadal uruchomisz go z **Tools > Virtual MIDI Keyboard**.
+
 ## Rozwiązywanie problemów
 
 ### Brak wyjścia audio

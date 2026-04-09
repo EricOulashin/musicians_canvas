@@ -8,6 +8,9 @@
 class AudioUtils
 {
 public:
+    /// Filesystem-safe base name for a track (same rules as project audio/MIDI files).
+    [[nodiscard]] static QString sanitizedTrackFilesystemName(const QString& trackName);
+
     // Legacy WAV-only mix (uses internal mixer)
     [[nodiscard]] static bool mixTracksToWav(const QVector<TrackData>& tracks,
                               const QString& outputPath,
@@ -15,6 +18,7 @@ public:
                               const QString& soundFontPath = QString());
 
     // Mix to WAV or FLAC using audio_mixer_cpp; renders MIDI tracks to FLAC in projectPath
+    // (<sanitized_track_name>.flac).
     [[nodiscard]] static bool mixTracksToFile(const QVector<TrackData>& tracks,
                                const QString& outputPath,
                                const QString& projectPath,

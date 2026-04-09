@@ -571,6 +571,59 @@ configurer les périphériques MIDI et audio :
 | Ctrl+U    | Aide / Informations d'utilisation |
 | Ctrl+Q    | Fermer                          |
 
+## FAQ (Foire aux questions)
+
+### Comment enregistrer une piste MIDI ?
+
+1. Définissez un **répertoire de projet** (obligatoire pour enregistrer).
+2. Ajoutez ou sélectionnez une piste et ouvrez **Options** (ou cliquez sur l’icône de type de piste).
+3. Réglez le type de piste sur **MIDI**, puis fermez la boîte de dialogue.
+4. Dans **Settings > Configuration > MIDI**, choisissez l’**entrée MIDI** (port matériel ou câble virtuel) et un **SoundFont** (`.sf2`) pour la lecture ultérieure.
+5. **Armez** cette piste (une seule piste peut être armée à la fois).
+6. Cliquez sur **Record**, attendez le décompte, jouez sur le contrôleur, puis **Stop**.
+
+Les notes s’affichent dans le piano roll. **File > Save Project** écrit un fichier `.mid` (et `project.json`) dans le dossier du projet.
+
+### Pourquoi ma piste MIDI est-elle silencieuse à la lecture ?
+
+La lecture utilise **FluidSynth** avec le **SoundFont** défini dans les réglages. Vérifiez **Settings > Configuration > MIDI** (ou **Project > Project Settings** si vous surchargez par projet) : un chemin `.sf2` valide doit être défini. Sous Linux, un SoundFont système peut être détecté automatiquement ; sous Windows et macOS, il faut en général choisir manuellement un fichier SoundFont.
+
+### Quel est le lien entre Virtual MIDI Keyboard et Musician's Canvas ?
+
+Ce sont **deux applications distinctes**. Lancez Virtual MIDI Keyboard via **Tools > Virtual MIDI Keyboard** (ou seul). Pour envoyer les notes du clavier à l’écran **vers** Musician's Canvas pendant l’enregistrement d’une piste MIDI, le système doit router la **sortie MIDI** du clavier vers une **entrée** utilisée par Musician's Canvas — souvent via un câble MIDI virtuel ou des ports cohérents dans les deux apps. Elles ne se connectent pas automatiquement.
+
+### Quelle est la différence entre Configuration et Project Settings ?
+
+**Settings > Configuration** définit les **valeurs par défaut globales** (thème, langue, périphériques MIDI/audio, SoundFont, etc.) dans les paramètres de l’application. **Project > Project Settings** remplace certaines valeurs **pour le projet courant uniquement** et est enregistré dans `project.json`. Si un champ reste au défaut projet, la valeur globale de Configuration s’applique.
+
+### Pourquoi le glisser-déposer n’ajoute-t-il pas de fichiers audio ?
+
+Le dépôt n’est accepté que si un **répertoire de projet est défini** et que Musician's Canvas **ne lit ni n’enregistre** pas. Les types pris en charge sont **`.wav`** et **`.flac`** ; les autres extensions sont ignorées et listées dans une boîte de dialogue. Chaque fichier devient une nouvelle piste **audio** nommée d’après le nom de fichier sans extension.
+
+### Où sont stockés mes enregistrements ?
+
+Les enregistrements audio sont dans le **répertoire du projet** sous **`<nom_de_piste>.flac`** (caractères tels que `/ \ : * ? " < > |` sont remplacés par des tirets bas). Le fichier projet est **`project.json`** dans le même dossier. Les pistes MIDI sont enregistrées en **`<nom_de_piste>.mid`** lorsque vous sauvegardez le projet (en plus des notes dans `project.json`).
+
+### Quel nom de fichier pour le rendu MIDI lors du mixage ?
+
+Lors du **mixage** ou de la **lecture**, le MIDI est d’abord rendu en WAV temporaire en interne. Si le chemin du projet est connu, Musician's Canvas écrit aussi un **FLAC de cache** dans le dossier du projet : **`<nom_de_piste_assaini>.flac`** (même règle d’assainissement que les autres fichiers de piste). Le nom suit le **nom de piste**, pas un identifiant interne.
+
+### Puis-je enregistrer deux pistes en même temps ?
+
+Non. Une seule piste peut être **armée** à la fois ; elle reçoit l’enregistrement suivant. Vous construisez le morceau en enregistrant **l’une après l’autre** (l’**overdub** lit les pistes existantes pendant une nouvelle prise).
+
+### Le métronome est-il enregistré sur la piste ?
+
+Non. S’il est activé, le métronome passe par l’**audio système** pour vous guider. Il **n’est pas** inclus dans le fichier enregistré.
+
+### Pourquoi Musician's Canvas exige-t-il ASIO sous Windows ?
+
+Sous Windows, l’application principale attend un pilote **ASIO** pour une latence faible et fiable. Installez par exemple **ASIO4ALL** ou le pilote du fabricant de votre interface en cas d’erreur au démarrage ou audio.
+
+### Sous macOS, où se trouve Virtual MIDI Keyboard ?
+
+Dans le **bundle `.app`**, l’exécutable Virtual MIDI Keyboard est **copié dans** `Musician's Canvas.app` (**Contents/MacOS/**) pour ne distribuer qu’un seul dossier d’application. Vous pouvez toujours le lancer via **Tools > Virtual MIDI Keyboard**.
+
 ## Dépannage
 
 ### Pas de sortie audio

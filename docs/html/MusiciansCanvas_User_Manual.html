@@ -99,6 +99,20 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#virtual-midi-keyboard-shortcuts">Virtual MIDI Keyboard Shortcuts</a></li>
 </ul>
 </li>
+<li><a href="#faq-frequently-asked-questions">FAQ (Frequently Asked Questions)</a><ul>
+<li><a href="#how-do-i-record-a-midi-track">How do I record a MIDI track?</a></li>
+<li><a href="#why-is-my-midi-track-silent-when-i-play-it-back">Why is my MIDI track silent when I play it back?</a></li>
+<li><a href="#how-does-virtual-midi-keyboard-relate-to-musicians-canvas">How does Virtual MIDI Keyboard relate to Musician's Canvas?</a></li>
+<li><a href="#what-is-the-difference-between-configuration-and-project-settings">What is the difference between Configuration and Project Settings?</a></li>
+<li><a href="#why-wont-drag-and-drop-add-audio-files">Why won’t drag-and-drop add audio files?</a></li>
+<li><a href="#where-are-my-recordings-stored">Where are my recordings stored?</a></li>
+<li><a href="#what-file-name-is-used-when-a-midi-track-is-rendered-for-mixing">What file name is used when a MIDI track is rendered for mixing?</a></li>
+<li><a href="#can-i-record-two-tracks-at-once">Can I record two tracks at once?</a></li>
+<li><a href="#is-the-metronome-recorded-into-my-track">Is the metronome recorded into my track?</a></li>
+<li><a href="#why-does-musicians-canvas-say-i-need-asio-on-windows">Why does Musician's Canvas say I need ASIO on Windows?</a></li>
+<li><a href="#on-macos-where-is-virtual-midi-keyboard-installed">On macOS, where is Virtual MIDI Keyboard installed?</a></li>
+</ul>
+</li>
 <li><a href="#troubleshooting">Troubleshooting</a><ul>
 <li><a href="#no-audio-output">No Audio Output</a></li>
 <li><a href="#midi-tracks-are-silent">MIDI Tracks Are Silent</a></li>
@@ -769,6 +783,37 @@ audio devices:</p>
 </tr>
 </tbody>
 </table>
+<h2 id="faq-frequently-asked-questions">FAQ (Frequently Asked Questions)</h2>
+<h3 id="how-do-i-record-a-midi-track">How do I record a MIDI track?</h3>
+<ol>
+<li>Set a <strong>project directory</strong> (required for saving).</li>
+<li>Add or select a track and open <strong>Options</strong> (or click the track type icon).</li>
+<li>Set the track type to <strong>MIDI</strong>, then close the dialog.</li>
+<li>In <strong>Settings &gt; Configuration &gt; MIDI</strong>, choose your <strong>MIDI input</strong> (hardware port or virtual cable) and a <strong>SoundFont</strong> (<code>.sf2</code>) for playback later.</li>
+<li><strong>Arm</strong> that track (only one track can be armed at a time).</li>
+<li>Click <strong>Record</strong>, wait for the countdown, play your controller, then click <strong>Stop</strong>.</li>
+</ol>
+<p>Notes are shown in the piano roll. Use <strong>File &gt; Save Project</strong> so a <code>.mid</code> file (and <code>project.json</code>) is written in the project folder.</p>
+<h3 id="why-is-my-midi-track-silent-when-i-play-it-back">Why is my MIDI track silent when I play it back?</h3>
+<p>Playback uses the <strong>built-in FluidSynth</strong> synthesizer with the <strong>SoundFont</strong> from your settings. Check <strong>Settings &gt; Configuration &gt; MIDI</strong> (or <strong>Project &gt; Project Settings</strong> if you override per project): a valid <code>.sf2</code> path must be set. On Linux a system SoundFont may be found automatically; on Windows and macOS you usually need to browse to a SoundFont file manually.</p>
+<h3 id="how-does-virtual-midi-keyboard-relate-to-musicians-canvas">How does Virtual MIDI Keyboard relate to Musician's Canvas?</h3>
+<p>They are <strong>separate programs</strong>. Launch Virtual MIDI Keyboard from <strong>Tools &gt; Virtual MIDI Keyboard</strong> (or run it on its own). To send notes from the on-screen keyboard <strong>into</strong> Musician's Canvas while recording a MIDI track, your operating system must route the keyboard’s <strong>MIDI output</strong> to an input port that Musician's Canvas is using—often via a virtual MIDI cable (e.g. loopback driver) or by selecting matching ports in both apps. The apps do not auto-connect to each other.</p>
+<h3 id="what-is-the-difference-between-configuration-and-project-settings">What is the difference between Configuration and Project Settings?</h3>
+<p><strong>Settings &gt; Configuration</strong> sets <strong>global defaults</strong> (theme, language, default MIDI/audio devices, SoundFont, etc.) stored in the application’s own settings. <strong>Project &gt; Project Settings</strong> overrides some of those choices <strong>for the current project only</strong> and is stored inside <code>project.json</code>. If a field is left at the project default, the global Configuration value is used.</p>
+<h3 id="why-wont-drag-and-drop-add-audio-files">Why won’t drag-and-drop add audio files?</h3>
+<p>Dropping files is only accepted when a <strong>project directory is set</strong>, and Musician's Canvas is <strong>not</strong> playing or recording. Supported types are <strong><code>.wav</code></strong> and <strong><code>.flac</code></strong>; other extensions are skipped and listed in a dialog. Each dropped file becomes a new <strong>audio</strong> track named from the file’s base name.</p>
+<h3 id="where-are-my-recordings-stored">Where are my recordings stored?</h3>
+<p>Audio recordings are saved in the <strong>project directory</strong> as <strong><code>&lt;track_name&gt;.flac</code></strong> (with characters like <code>/ \ : * ? " &lt; &gt; |</code> turned into underscores). The project file is <strong><code>project.json</code></strong> in the same folder. MIDI tracks are saved as <strong><code>&lt;track_name&gt;.mid</code></strong> when you save the project (alongside note data in <code>project.json</code>).</p>
+<h3 id="what-file-name-is-used-when-a-midi-track-is-rendered-for-mixing">What file name is used when a MIDI track is rendered for mixing?</h3>
+<p>When you <strong>mix</strong> or <strong>play back</strong>, MIDI is synthesized to a temporary WAV internally. If the project path is known, Musician's Canvas also writes a <strong>cached FLAC</strong> in the project folder named <strong><code>&lt;sanitized_track_name&gt;.flac</code></strong> (same sanitization as other track files). This helps reuse renders; the important rule is that it matches the <strong>track name</strong>, not an internal ID.</p>
+<h3 id="can-i-record-two-tracks-at-once">Can I record two tracks at once?</h3>
+<p>No. Only <strong>one</strong> track can be <strong>armed</strong> at a time; that track receives the next recording. You can build a song by recording tracks one after another (<strong>overdub</strong> plays existing tracks while you record a new one).</p>
+<h3 id="is-the-metronome-recorded-into-my-track">Is the metronome recorded into my track?</h3>
+<p>No. When enabled, the metronome plays through <strong>system audio</strong> for your timing only. It is <strong>not</strong> mixed into the recorded file.</p>
+<h3 id="why-does-musicians-canvas-say-i-need-asio-on-windows">Why does Musician's Canvas say I need ASIO on Windows?</h3>
+<p>On Windows the main application expects an <strong>ASIO</strong> driver for reliable low-latency audio. Install a driver such as <strong>ASIO4ALL</strong> or one from your interface manufacturer if you see startup or audio errors.</p>
+<h3 id="on-macos-where-is-virtual-midi-keyboard-installed">On macOS, where is Virtual MIDI Keyboard installed?</h3>
+<p>When you use the <strong><code>.app</code> bundle</strong>, the Virtual MIDI Keyboard executable is <strong>copied inside</strong> <code>Musician's Canvas.app</code> (under <strong>Contents/MacOS/</strong>) so you can distribute a single app folder. You can still run it from <strong>Tools &gt; Virtual MIDI Keyboard</strong> in the menu.</p>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <h3 id="no-audio-output">No Audio Output</h3>
 <ul>

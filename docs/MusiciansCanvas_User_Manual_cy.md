@@ -432,6 +432,59 @@ Agorwch y ddeialog Ffurfweddiad (**Settings > Configuration**, Ctrl+,) i sefydlu
 | Ctrl+U     | Cymorth / Gwybodaeth defnydd |
 | Ctrl+Q     | Cau                          |
 
+## Cwestiynau a Ofynnir yn Aml (FAQ)
+
+### Sut ydw i'n recordio trac MIDI?
+
+1. Gosodwch **cyfeiriadur y prosiect** (angen ar gyfer cadw).
+2. Ychwanegwch neu ddewiswch drac ac agorwch **Options** (neu cliciwch ar eicon y math o drac).
+3. Gosodwch y math i **MIDI** a chau'r dialog.
+4. O dan **Settings > Configuration > MIDI**, dewiswch **mewnbwn MIDI** (porth caledwedd neu gebl ffug) a **SoundFont** (`.sf2`) ar gyfer chwarae'n ddiweddarach.
+5. **Arfogi (Arm)** y trac hwnnw (dim ond un trac yn gallu bod wedi'i arfogi ar y tro).
+6. Cliciwch **Record**, aros am y cyfrif i lawr, chwarae ar y rheolwr, yna **Stop**.
+
+Mae'r nodau'n ymddangos yn y piano roll. Mae **File > Save Project** yn ysgrifennu ffeil `.mid` a `project.json` yn ffolder y prosiect.
+
+### Pam mae fy nhraws MIDI'n dawel wrth chwarae?
+
+Mae chwarae'n defnyddio **FluidSynth** gyda **SoundFont** y gosodiadau. Gwiriwch **Settings > Configuration > MIDI** (neu **Project > Project Settings** os oes diystyriadau prosiect): rhaid bod llwybr dilys `.sf2`. Ar Linux efallai y caiff SoundFont y system ei ganfod yn awtomatig; ar Windows a macOS yn aml mae angen dewis y ffeil â llaw.
+
+### Sut mae Virtual MIDI Keyboard yn gysylltiedig â Musician's Canvas?
+
+Maen nhw'n **ddwy raglen ar wahân**. Lansiwch Virtual MIDI Keyboard o **Tools > Virtual MIDI Keyboard** (neu ar ei ben ei hun). I nodau'r bysellfwrdd ar y sgrin **gyrraedd** i Musician's Canvas wrth recordio MIDI, rhaid i'r OS lwybro **allbwn MIDI** y bysellfwrdd i **fewnbwn** mae Musician's Canvas yn ei ddefnyddio — yn aml trwy gebl MIDI ffug neu borthladdoedd cyfatebol yn y ddwy ap. Nid ydyn nhw'n cysylltu'n awtomatig.
+
+### Beth yw'r gwahaniaeth rhwng Configuration a Project Settings?
+
+Mae **Settings > Configuration** yn gosod **rhagosodiadau cyffredinol** (thema, iaith, dyfeisiau MIDI/sain, SoundFont, ac ati). Mae **Project > Project Settings** yn diystyru rhai **ar gyfer y prosiect cyfredol yn unig** ac yn cael ei gadw yn `project.json`. Os yw maes yn aros ar rhagosodiad y prosiect, mae gwerth cyffredinol o Configuration yn berthnasol.
+
+### Pam nad yw llusgo a gollwng yn ychwanegu ffeiliau sain?
+
+Dim ond pan fo **cyfeiriadur prosiect** wedi'i osod ac nad yw Musician's Canvas **yn chwarae na'n recordio** y derbynnir ffeiliau. Mae **`.wav`** a **`.flac`** yn cael eu cefnogi; caiff estyniadau eraill eu hepgor a'u rhestru mewn dialog. Mae pob ffeil yn drac **sain** newydd â'r enw o enw'r ffeil heb yr estyniad.
+
+### Ble mae fy nghofnodion yn cael eu cadw?
+
+Mae sain yn cael ei chadw yn **ffolder y prosiect** fel **`<enw'r_trac>.flac`** (mae nodau fel `/ \ : * ? " < > |` yn cael eu disodli gan danlinell). Mae ffeil y prosiect yn **`project.json`** yn yr un ffolder. Caiff traciau MIDI eu cadw fel **`<enw'r_trac>.mid`** pan fyddwch yn cadw'r prosiect (gyda nodau yn `project.json` hefyd).
+
+### Pa enw ffeil a ddefnyddir pan rendrir MIDI ar gyfer cymysgu?
+
+Wrth **gymysgu** neu **chwarae**, caiff MIDI ei rendro i WAV dros dro yn fewnol yn gyntaf. Os yw llwybr y prosiect yn hysbys, mae Musician's Canvas hefyd yn ysgrifennu **FLAC storfa** yn ffolder y prosiect: **`<enw_trac_glan>.flac`** (yr un rheolau â ffeiliau trac eraill). Mae'r enw'n seiliedig ar **enw'r trac**, nid ID mewnol.
+
+### A allaf recordio dau drac ar yr un pryd?
+
+Na. Dim ond **un** trac yn gallu bod wedi'i **arfogi** ar y tro; mae'n derbyn y recordiad nesaf. Adeiladwch y darn trwy recordio **un ar ôl y llall** (mae **overdub** yn chwarae traciau presennol wrth recordiad newydd).
+
+### A yw'r metronom yn cael ei recordio ar y trac?
+
+Na. Pan fo wedi'i alluogi, caiff y metronom ei chwarae trwy **sain y system** fel cyfeiriad i chi yn unig. **Nid yw'n cael ei gymysgu** i mewn i'r ffeil recordio.
+
+### Pam mae Musician's Canvas yn gofyn am ASIO ar Windows?
+
+Ar Windows mae'r brif raglen yn disgwyl gyrrwr **ASIO** ar gyfer sain dibynadwy o oedi isel. Gosodwch **ASIO4ALL** neu yrrwr y gwneuthurwr os yw gwallau'n digwydd.
+
+### Ble mae Virtual MIDI Keyboard ar macOS?
+
+Yn y **becyn `.app`**, caiff y gweithredadwy Virtual MIDI Keyboard ei **gopïo i mewn i** `Musician's Canvas.app` (**Contents/MacOS/**) fel bod modd dosbarthu un ffolder ap. Agorwch ef o hyd o **Tools > Virtual MIDI Keyboard**.
+
 ## Datrys Problemau
 
 ### Dim Allbwn Sain

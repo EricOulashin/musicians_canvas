@@ -435,6 +435,59 @@ Oscail an dialóg Cumraíochta (**Settings > Configuration**, Ctrl+,) chun gléa
 | Ctrl+U     | Cabhair / Eolas úsáide       |
 | Ctrl+Q     | Dún                          |
 
+## Ceisteanna coitianta (FAQ)
+
+### Conas a thaifeadaim rian MIDI?
+
+1. Socraigh **eolaire an tionscadail** (riachtanach le sábháil).
+2. Cuir rian leis nó roghnaigh é agus oscail **Options** (nó cliceáil ar dhealbh an chineál rian).
+3. Socraigh an cineál go **MIDI** agus dún an dialóg.
+4. Faoi **Settings > Configuration > MIDI**, roghnaigh **ionchur MIDI** (port crua-earraí nó cábla fíorúil) agus **SoundFont** (`.sf2`) le haghaidh athsheinm níos déanaí.
+5. **Arm** an rian sin (ní féidir ach rian amháin a bheith armáilte ag an am céanna).
+6. Cliceáil **Record**, fan go dtí go mbeidh an comhaireamh síos críochnaithe, seinm ar an rialaitheoir, ansin **Stop**.
+
+Taispeántar na nótaí sa rolla pianó. Scríobhann **File > Save Project** comhad `.mid` agus `project.json` san eolaire tionscadail.
+
+### Cén fáth a bhfuil mo rian MIDI balbh ag athsheinm?
+
+Úsáideann athsheinm **FluidSynth** le **SoundFont** na socruithe. Seiceáil **Settings > Configuration > MIDI** (nó **Project > Project Settings** má tá sárú tionscadail ann): ní mór cosán bailí `.sf2` a bheith ann. Ar Linux d’fhéadfadh SoundFont an chórais a bheith aimsithe go huathoibríoch; ar Windows agus macOS is minic gur gá an comhad a roghnú de láimh.
+
+### Conas a bhaineann Virtual MIDI Keyboard le Musician's Canvas?
+
+Is **dhá fheidhmchlár ar leith** iad. Tosaigh Virtual MIDI Keyboard ó **Tools > Virtual MIDI Keyboard** (nó ina aonar). Chun go sroichfidh méarchlár an scáileáin **isteach** i Musician's Canvas agus MIDI á thaifeadadh, ní mór don OS **aschur MIDI** an mhéarchláir a threorú go **ionchur** a úsáideann Musician's Canvas — go minic trí chábla MIDI fíorúil nó poirt comhoiriúnacha sna dhá fheidhmchlár. Ní nascann siad go huathoibríoch.
+
+### Cad é an difríocht idir Configuration agus Project Settings?
+
+Socraíonn **Settings > Configuration** **tosaíochtaí domhanda** (téama, teanga, gléasanna MIDI/fuaime, SoundFont, srl.). Cuireann **Project > Project Settings** cuid díobh **i gceist don tionscadal reatha amháin** agus sábháiltear i `project.json` é. Má fhanann réimse ag an tosaíocht tionscadail, baineann luach domhanda ó Configuration.
+
+### Cén fáth nach n-oibríonn tarraing agus scaoil le comhaid fuaime?
+
+Ní ghlactar le comhaid ach amháin nuair atá **eolaire an tionscadail** socraithe agus nach bhfuil Musician's Canvas **ag seinm ná ag taifeadadh**. Tacaítear le **`.wav`** agus **`.flac`**; scipeáiltear aon iarmhír eile agus liostaítear iad i ndialóg. Is rian **fuaime** nua é gach comhad, ainmnithe ó bhonn ainm an chomhaid.
+
+### Cá háit a sábháiltear mo thaifeadtaí?
+
+Sábháiltear an fhuaim san **eolaire tionscadail** mar **`<ainm_an_rian>.flac`** (athraítear carachtair cosúil le `/ \ : * ? " < > |` go fostríoc). Is é **`project.json`** comhad an tionscadail san eolaire céanna. Sábháiltear ianta MIDI mar **`<ainm_an_rian>.mid`** nuair a shábhálann tú an tionscadal (in éineacht le nótaí i `project.json`).
+
+### Cén t-ainm comhaid a úsáidtear nuair a dhéantar MIDI a rindreáil le haghaidh meascthá?
+
+Le linn **measctháin** nó **athsheinm**, rindreáiltear MIDI go WAV sealadach inmheánach ar dtús. Má tá cosán an tionscadail ar eolas, scríobhann Musician's Canvas **FLAC taisce** san eolaire tionscadail freisin: **`<ainm_rian_glanta>.flac`** (na rialacha céanna le comhaid rian eile). Tá an t-ainm bunaithe ar **ainm an rian**, ní ar ID inmheánach.
+
+### An féidir liom dhá rian a thaifeadadh ag an am céanna?
+
+Ní féidir. Ní féidir ach **rian amháin** a bheith **armáilte** ag an am céanna; faigheann sé an chéad taifead eile. Tóg an píosa trí thaifeadadh **ceann i ndiaidh a chéile** (seinneann **overdub** na rianta atá ann cheana le linn taifeadta nua).
+
+### An dtéann an méadranóm isteach sa taifeadadh?
+
+Ní théann. Nuair atá sé cumasaithe, seinntear an méadranóm trí **fhuaim an chórais** mar threoir duit amháin. **Ní mheascann** sé isteach sa chomhad taifeadta.
+
+### Cén fáth a n-éilíonn Musician's Canvas ASIO ar Windows?
+
+Ar Windows táthar ag súil le tiománaí **ASIO** le haghaidh fuaime iontaofa íseal-aga. Suiteáil **ASIO4ALL** nó tiománaí an mhonaróra má thagann earráidí chun cinn.
+
+### Cá bhfuil Virtual MIDI Keyboard ar macOS?
+
+Sa **phacáiste `.app`**, cóipeáiltear inneachar inrite Virtual MIDI Keyboard **isteach i** `Musician's Canvas.app` (**Contents/MacOS/**) ionas gur féidir fillteán feidhmchláir amháin a dháileadh. Tosaigh fós é ó **Tools > Virtual MIDI Keyboard**.
+
 ## Fabhtcheartú
 
 ### Gan Aschur Fuaime

@@ -99,14 +99,28 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#virtual-midi-keyboard_1">Virtual MIDI Keyboard 快捷鍵</a></li>
 </ul>
 </li>
-<li><a href="#_33">疑難排解</a><ul>
-<li><a href="#_34">沒有音訊輸出</a></li>
-<li><a href="#midi_4">MIDI 音軌沒有聲音</a></li>
-<li><a href="#_35">錄音聽起來失真或音高不正確</a></li>
+<li><a href="#faq">常見問題（FAQ）</a><ul>
+<li><a href="#midi_4">如何錄製 MIDI 音軌？</a></li>
+<li><a href="#midi_5">為什麼播放時 MIDI 音軌沒聲音？</a></li>
+<li><a href="#virtual-midi-keyboard-musicians-canvas">Virtual MIDI Keyboard 與 Musician's Canvas 的關係？</a></li>
+<li><a href="#configuration-project-settings">Configuration 與 Project Settings 有何不同？</a></li>
+<li><a href="#_33">為什麼拖放無法加入音訊檔？</a></li>
+<li><a href="#_34">錄音存在哪裡？</a></li>
+<li><a href="#midi_6">混音時 MIDI 渲染的檔名是什麼？</a></li>
+<li><a href="#_35">可以同時錄兩軌嗎？</a></li>
+<li><a href="#_36">節拍器會錄進音軌嗎？</a></li>
+<li><a href="#windows-asio">Windows 為何要求 ASIO？</a></li>
+<li><a href="#macos-virtual-midi-keyboard">在 macOS 上 Virtual MIDI Keyboard 在哪？</a></li>
+</ul>
+</li>
+<li><a href="#_37">疑難排解</a><ul>
+<li><a href="#_38">沒有音訊輸出</a></li>
+<li><a href="#midi_7">MIDI 音軌沒有聲音</a></li>
+<li><a href="#_39">錄音聽起來失真或音高不正確</a></li>
 <li><a href="#virtual-midi-keyboard_2">Virtual MIDI Keyboard 沒有音訊</a></li>
 </ul>
 </li>
-<li><a href="#_36">從原始碼建置</a></li>
+<li><a href="#_40">從原始碼建置</a></li>
 </ul>
 </li>
 </ul>
@@ -668,20 +682,51 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </tr>
 </tbody>
 </table>
-<h2 id="_33">疑難排解</h2>
-<h3 id="_34">沒有音訊輸出</h3>
+<h2 id="faq">常見問題（FAQ）</h2>
+<h3 id="midi_4">如何錄製 MIDI 音軌？</h3>
+<ol>
+<li>設定<strong>專案目錄</strong>（儲存時必填）。</li>
+<li>新增或選取音軌，開啟 <strong>Options</strong>（或點選音軌類型圖示）。</li>
+<li>將音軌類型設為 <strong>MIDI</strong>，關閉對話框。</li>
+<li>在 <strong>Settings &gt; Configuration &gt; MIDI</strong> 選擇 <strong>MIDI 輸入</strong>（硬體連接埠或虛擬連線）以及稍後播放用的 <strong>SoundFont</strong>（<code>.sf2</code>）。</li>
+<li><strong>武裝（Arm）</strong>該音軌（同一時間只能武裝一軌）。</li>
+<li>按 <strong>Record</strong>，倒數後在控制器上演奏，再按 <strong>Stop</strong>。</li>
+</ol>
+<p>音符顯示在鋼琴捲簾。<strong>File &gt; Save Project</strong> 會在專案資料夾寫入 <code>.mid</code> 與 <code>project.json</code>。</p>
+<h3 id="midi_5">為什麼播放時 MIDI 音軌沒聲音？</h3>
+<p>播放使用設定中的 <strong>SoundFont</strong> 經 <strong>FluidSynth</strong> 發聲。請檢查 <strong>Settings &gt; Configuration &gt; MIDI</strong>（若依專案覆寫則看 <strong>Project &gt; Project Settings</strong>）：必須有有效的 <code>.sf2</code> 路徑。Linux 有時會自動找到系統 SoundFont；Windows 與 macOS 通常需手動選擇 SoundFont。</p>
+<h3 id="virtual-midi-keyboard-musicians-canvas">Virtual MIDI Keyboard 與 Musician's Canvas 的關係？</h3>
+<p>它們是<strong>兩個獨立程式</strong>。從 <strong>Tools &gt; Virtual MIDI Keyboard</strong> 啟動（亦可單獨執行）。若要在錄製 MIDI 時讓螢幕鍵盤<strong>送入</strong> Musician's Canvas，作業系統必須把鍵盤的 <strong>MIDI 輸出</strong>路由到 Musician's Canvas 使用的<strong>輸入</strong>（例如虛擬 MIDI 線或在兩邊選一致連接埠）。不會自動連線。</p>
+<h3 id="configuration-project-settings">Configuration 與 Project Settings 有何不同？</h3>
+<p><strong>Settings &gt; Configuration</strong> 設定應用程式的<strong>全域預設值</strong>（主題、語言、MIDI/音訊裝置、SoundFont 等）。<strong>Project &gt; Project Settings</strong> 只<strong>針對目前專案</strong>覆寫部分設定，並存在 <code>project.json</code>。欄位若維持專案預設，則使用 Configuration 的全域值。</p>
+<h3 id="_33">為什麼拖放無法加入音訊檔？</h3>
+<p>僅在已設定<strong>專案目錄</strong>，且 Musician's Canvas <strong>未在播放或錄製</strong>時才接受拖放。支援 <strong><code>.wav</code></strong> 與 <strong><code>.flac</code></strong>；其他副檔名會略過並在對話框列出。每個檔案成為新<strong>音訊</strong>音軌，名稱取自檔名（不含副檔名）。</p>
+<h3 id="_34">錄音存在哪裡？</h3>
+<p>音訊存在<strong>專案目錄</strong>，檔名為 <strong><code>&lt;音軌名稱&gt;.flac</code></strong>（<code>/ \ : * ? " &lt; &gt; |</code> 等字元會改成底線）。專案檔為同資料夾的 <strong><code>project.json</code></strong>。儲存專案時，MIDI 音軌還會寫出 <strong><code>&lt;音軌名稱&gt;.mid</code></strong>（音符亦在 <code>project.json</code>）。</p>
+<h3 id="midi_6">混音時 MIDI 渲染的檔名是什麼？</h3>
+<p><strong>混音</strong>或<strong>播放</strong>時，MIDI 會先在內部渲染成暫存 WAV。若知道專案路徑，Musician's Canvas 也會在專案資料夾寫入快取用 <strong><code>&lt;清理後的音軌名稱&gt;.flac</code></strong>（與其他音軌檔案相同的檔名規則）。名稱依<strong>音軌名稱</strong>，不是內部 ID。</p>
+<h3 id="_35">可以同時錄兩軌嗎？</h3>
+<p>不行。同一時間只能 <strong>Arm</strong> <strong>一</strong>軌，下一筆錄音只進該軌。請<strong>一軌一軌</strong>疊錄（<strong>overdub</strong> 會在錄新軌時播放既有軌）。</p>
+<h3 id="_36">節拍器會錄進音軌嗎？</h3>
+<p>不會。啟用時節拍器只從<strong>系統音訊</strong>播放給您聽，<strong>不會</strong>混進錄音檔。</p>
+<h3 id="windows-asio">Windows 為何要求 ASIO？</h3>
+<p>在 Windows 上，主程式預期使用 <strong>ASIO</strong> 驅動以取得可靠、低延遲音訊。若出現啟動或音訊錯誤，請安裝 <strong>ASIO4ALL</strong> 或介面廠商提供的驅動。</p>
+<h3 id="macos-virtual-midi-keyboard">在 macOS 上 Virtual MIDI Keyboard 在哪？</h3>
+<p>在 <strong><code>.app</code> 套件</strong>中，Virtual MIDI Keyboard 執行檔會<strong>複製到</strong> <code>Musician's Canvas.app</code> 內（<strong>Contents/MacOS/</strong>），方便只散佈一個應用程式資料夾。仍可由選單 <strong>Tools &gt; Virtual MIDI Keyboard</strong> 啟動。</p>
+<h2 id="_37">疑難排解</h2>
+<h3 id="_38">沒有音訊輸出</h3>
 <ul>
 <li>檢查 Settings &gt; Configuration &gt; Audio 中是否選擇了正確的音訊輸出裝置。</li>
 <li>在 Linux 上，確認 PipeWire 或 PulseAudio 正在執行，且輸出未被靜音。使用 <code>amixer</code> 或您桌面的音效設定來檢查音量。</li>
 <li>在 Windows 上，確保已安裝 ASIO 音訊驅動程式（例如 <a href="https://asio4all.org/">ASIO4ALL</a> 或音訊介面製造商提供的 ASIO 驅動程式）。Musician's Canvas 在 Windows 上需要 ASIO 才能實現低延遲音訊。</li>
 </ul>
-<h3 id="midi_4">MIDI 音軌沒有聲音</h3>
+<h3 id="midi_7">MIDI 音軌沒有聲音</h3>
 <ul>
 <li>確保在 Settings &gt; Configuration &gt; MIDI 中已設定 SoundFont（<code>.sf2</code> 檔案）。</li>
 <li>在 Linux 上，如果已安裝 <code>fluid-soundfont-gm</code> 套件，系統可能會自動偵測 SoundFont。</li>
 <li>在 Windows 和 macOS 上，您需要手動設定 SoundFont 路徑。</li>
 </ul>
-<h3 id="_35">錄音聽起來失真或音高不正確</h3>
+<h3 id="_39">錄音聽起來失真或音高不正確</h3>
 <ul>
 <li>當音訊輸入裝置的原生取樣率與專案設定的取樣率不同時，可能會發生此問題。Musician's Canvas 會透過重新取樣自動處理此問題，但如果問題持續存在，請嘗試將專案取樣率設定為與裝置的原生取樣率相符。</li>
 <li>USB 網路攝影機麥克風通常具有不常見的原生取樣率（例如 32000 Hz）。應用程式會自動偵測這些情況。</li>
@@ -693,7 +738,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>檢查是否已載入 SoundFont（請參閱 Configuration 對話框中的 MIDI 分頁）。</li>
 <li>確認已選擇音訊輸出裝置且系統音量未被靜音。</li>
 </ul>
-<h2 id="_36">從原始碼建置</h2>
+<h2 id="_40">從原始碼建置</h2>
 <p>請參閱 <a href="../README.md">README</a> 以取得 Linux、macOS 和 Windows 的完整建置說明，包括所有必要的相依套件。</p>
 </body>
 </html>

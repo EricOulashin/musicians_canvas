@@ -559,6 +559,59 @@ Audiogeräte einzurichten:
 | Ctrl+U        | Hilfe / Nutzungsinformationen  |
 | Ctrl+Q        | Schließen                     |
 
+## FAQ (Häufig gestellte Fragen)
+
+### Wie nehme ich eine MIDI-Spur auf?
+
+1. Legen Sie ein **Projektverzeichnis** fest (erforderlich zum Speichern).
+2. Fügen Sie eine Spur hinzu oder wählen Sie sie und öffnen Sie **Options** (oder klicken Sie auf das Spurtypsymbol).
+3. Stellen Sie den Spurtyp auf **MIDI** und schließen Sie den Dialog.
+4. Unter **Settings > Configuration > MIDI** wählen Sie den **MIDI-Eingang** (Hardware-Port oder virtuelles Kabel) und einen **SoundFont** (`.sf2`) für die spätere Wiedergabe.
+5. **Armen** Sie diese Spur (nur eine Spur kann gleichzeitig armed sein).
+6. Klicken Sie auf **Record**, warten Sie den Countdown ab, spielen Sie auf dem Controller, dann **Stop**.
+
+Die Noten erscheinen in der Piano-Roll-Ansicht. **File > Save Project** schreibt eine `.mid`-Datei (und `project.json`) in den Projektordner.
+
+### Warum ist meine MIDI-Spur bei der Wiedergabe stumm?
+
+Die Wiedergabe nutzt **FluidSynth** mit dem **SoundFont** aus Ihren Einstellungen. Prüfen Sie **Settings > Configuration > MIDI** (oder **Project > Project Settings** bei Projekt-Overrides): ein gültiger `.sf2`-Pfad muss gesetzt sein. Unter Linux wird ein System-SoundFont oft automatisch gefunden; unter Windows und macOS müssen Sie meist manuell eine SoundFont-Datei wählen.
+
+### Wie hängt Virtual MIDI Keyboard mit Musician's Canvas zusammen?
+
+Es sind **zwei getrennte Programme**. Starten Sie Virtual MIDI Keyboard über **Tools > Virtual MIDI Keyboard** (oder eigenständig). Damit die Bildschirmtastatur **in** Musician's Canvas auf einer MIDI-Spur aufgenommen wird, muss das Betriebssystem den **MIDI-Ausgang** der Tastatur zu einem **Eingangsport** routen, den Musician's Canvas nutzt—z. B. über ein virtuelles MIDI-Kabel oder passende Portwahl in beiden Apps. Die Programme verbinden sich nicht automatisch.
+
+### Was ist der Unterschied zwischen Configuration und Project Settings?
+
+**Settings > Configuration** legt **globale Standardwerte** (Theme, Sprache, MIDI/Audio, SoundFont usw.) in den Programmeinstellungen fest. **Project > Project Settings** überschreibt einige Werte **nur für das aktuelle Projekt** und wird in `project.json` gespeichert. Steht ein Feld auf dem Projekt-Default, gilt der globale Wert aus der Configuration.
+
+### Warum funktioniert Drag-and-Drop für Audiodateien nicht?
+
+Dateien werden nur akzeptiert, wenn ein **Projektverzeichnis gesetzt** ist und **weder Wiedergabe noch Aufnahme** läuft. Unterstützt werden **`.wav`** und **`.flac`**; andere Endungen werden übersprungen und in einem Dialog aufgelistet. Jede Datei wird eine neue **Audio**-Spur mit Namen aus dem Dateinamen (ohne Erweiterung).
+
+### Wo werden meine Aufnahmen gespeichert?
+
+Audioaufnahmen liegen im **Projektverzeichnis** als **`<Spurname>.flac`** (Zeichen wie `/ \ : * ? " < > |` werden zu Unterstrichen). Die Projektdatei ist **`project.json`** im gleichen Ordner. MIDI-Spuren werden beim Speichern als **`<Spurname>.mid`** abgelegt (zusätzlich zu den Noten in `project.json`).
+
+### Welcher Dateiname wird verwendet, wenn eine MIDI-Spur fürs Mischen gerendert wird?
+
+Beim **Mischen** oder **Abspielen** wird MIDI intern zunächst in ein temporäres WAV gerendert. Ist der Projektpfad bekannt, schreibt Musician's Canvas zusätzlich einen **FLAC-Cache** im Projektordner: **`<bereinigter_Spurname>.flac`** (gleiche Bereinigung wie bei anderen Spurdateien). Der Name folgt dem **Spurnamen**, nicht einer internen ID.
+
+### Kann ich zwei Spuren gleichzeitig aufnehmen?
+
+Nein. Nur **eine** Spur kann **armed** sein; sie erhält die nächste Aufnahme. Sie bauen ein Stück, indem Sie nacheinander aufnehmen (**Overdub** spielt bestehende Spuren während einer neuen Aufnahme ab).
+
+### Wird das Metronom in die Aufnahme gemischt?
+
+Nein. Das Metronom läuft über die **Systemwiedergabe** nur für Sie. Es landet **nicht** in der Aufnahmedatei.
+
+### Warum verlangt Musician's Canvas unter Windows ASIO?
+
+Unter Windows erwartet die Hauptanwendung einen **ASIO**-Treiber für zuverlässige niedrige Latenz. Installieren Sie z. B. **ASIO4ALL** oder einen Herstellertreiber, wenn Start- oder Audiofehler auftreten.
+
+### Wo liegt Virtual MIDI Keyboard unter macOS?
+
+Im **`.app`-Bundle** wird die Virtual-MIDI-Keyboard-Programmdatei **in** `Musician's Canvas.app` kopiert (**Contents/MacOS/**), damit ein einzelner App-Ordner verteilt werden kann. Start weiterhin über **Tools > Virtual MIDI Keyboard**.
+
 ## Fehlerbehebung
 
 ### Keine Audioausgabe

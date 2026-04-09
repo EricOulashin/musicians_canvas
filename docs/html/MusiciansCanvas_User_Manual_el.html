@@ -99,14 +99,28 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#virtual-midi-keyboard_1">Συντομεύσεις Virtual MIDI Keyboard</a></li>
 </ul>
 </li>
-<li><a href="#_31">Αντιμετώπιση Προβλημάτων</a><ul>
-<li><a href="#_32">Δεν Υπάρχει Έξοδος Ήχου</a></li>
-<li><a href="#midi_4">Τα Κανάλια MIDI Είναι Σιωπηλά</a></li>
-<li><a href="#_33">Η Εγγραφή Ακούγεται Παραμορφωμένη ή Έχει Λάθος Τονικότητα</a></li>
+<li><a href="#faq">Συχνές ερωτήσεις (FAQ)</a><ul>
+<li><a href="#midi_4">Πώς ηχογραφώ ένα κανάλι MIDI;</a></li>
+<li><a href="#midi_5">Γιατί το κανάλι MIDI είναι σιωπηλό κατά την αναπαραγωγή;</a></li>
+<li><a href="#virtual-midi-keyboard-musicians-canvas">Πώς σχετίζεται το Virtual MIDI Keyboard με το Musician's Canvas;</a></li>
+<li><a href="#configuration-project-settings">Ποια η διαφορά Configuration και Project Settings;</a></li>
+<li><a href="#-">Γιατί η μεταφορά-και-απόθεση δεν προσθέτει αρχεία ήχου;</a></li>
+<li><a href="#_31">Πού αποθηκεύονται οι ηχογραφήσεις;</a></li>
+<li><a href="#midi_6">Ποιο όνομα αρχείου χρησιμοποιείται όταν το MIDI αποδίδεται για μίξη;</a></li>
+<li><a href="#_32">Μπορώ να ηχογραφήσω δύο κανάλια ταυτόχρονα;</a></li>
+<li><a href="#_33">Καταγράφεται το μετρονόμο στο κανάλι;</a></li>
+<li><a href="#musicians-canvas-asio-windows">Γιατί το Musician's Canvas απαιτεί ASIO στα Windows;</a></li>
+<li><a href="#virtual-midi-keyboard-macos">Πού βρίσκεται το Virtual MIDI Keyboard στο macOS;</a></li>
+</ul>
+</li>
+<li><a href="#_34">Αντιμετώπιση Προβλημάτων</a><ul>
+<li><a href="#_35">Δεν Υπάρχει Έξοδος Ήχου</a></li>
+<li><a href="#midi_7">Τα Κανάλια MIDI Είναι Σιωπηλά</a></li>
+<li><a href="#_36">Η Εγγραφή Ακούγεται Παραμορφωμένη ή Έχει Λάθος Τονικότητα</a></li>
 <li><a href="#virtual-midi-keyboard_2">Το Virtual MIDI Keyboard Δεν Έχει Ήχο</a></li>
 </ul>
 </li>
-<li><a href="#_34">Κατασκευή από τον Πηγαίο Κώδικα</a></li>
+<li><a href="#_37">Κατασκευή από τον Πηγαίο Κώδικα</a></li>
 </ul>
 </li>
 </ul>
@@ -672,20 +686,51 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </tr>
 </tbody>
 </table>
-<h2 id="_31">Αντιμετώπιση Προβλημάτων</h2>
-<h3 id="_32">Δεν Υπάρχει Έξοδος Ήχου</h3>
+<h2 id="faq">Συχνές ερωτήσεις (FAQ)</h2>
+<h3 id="midi_4">Πώς ηχογραφώ ένα κανάλι MIDI;</h3>
+<ol>
+<li>Ορίστε <strong>κατάλογο έργου</strong> (απαιτείται για αποθήκευση).</li>
+<li>Προσθέστε ή επιλέξτε κανάλι και ανοίξτε <strong>Options</strong> (ή κάντε κλικ στο εικονίδιο τύπου καναλιού).</li>
+<li>Ορίστε τύπο <strong>MIDI</strong> και κλείστε το παράθυρο.</li>
+<li>Στο <strong>Settings &gt; Configuration &gt; MIDI</strong> επιλέξτε <strong>εισόδο MIDI</strong> (θύρα υλικού ή εικονικό καλώδιο) και <strong>SoundFont</strong> (<code>.sf2</code>) για μεταγενέστερη αναπαραγωγή.</li>
+<li><strong>Οπλίστε (Arm)</strong> αυτό το κανάλι (μόνο ένα μπορεί να είναι οπλισμένο κάθε φορά).</li>
+<li>Κάντε κλικ <strong>Record</strong>, περιμένετε την αντίστροφη μέτρηση, παίξτε στον ελεγκτή, μετά <strong>Stop</strong>.</li>
+</ol>
+<p>Οι νότες εμφανίζονται στο piano roll. Το <strong>File &gt; Save Project</strong> γράφει αρχείο <code>.mid</code> και <code>project.json</code> στον φάκελο του έργου.</p>
+<h3 id="midi_5">Γιατί το κανάλι MIDI είναι σιωπηλό κατά την αναπαραγωγή;</h3>
+<p>Η αναπαραγωγή χρησιμοποιεί <strong>FluidSynth</strong> με <strong>SoundFont</strong> από τις ρυθμίσεις. Ελέγξτε <strong>Settings &gt; Configuration &gt; MIDI</strong> (ή <strong>Project &gt; Project Settings</strong> για παρακάμψεις ανά έργο): απαιτείται έγκυρη διαδρομή <code>.sf2</code>. Στο Linux ένα σύστημα SoundFont μπορεί να εντοπιστεί αυτόματα· σε Windows και macOS συνήθως επιλέγετε χειροκίνητα το αρχείο.</p>
+<h3 id="virtual-midi-keyboard-musicians-canvas">Πώς σχετίζεται το Virtual MIDI Keyboard με το Musician's Canvas;</h3>
+<p>Είναι <strong>δύο ξεχωριστά προγράμματα</strong>. Ξεκινήστε το Virtual MIDI Keyboard από <strong>Tools &gt; Virtual MIDI Keyboard</strong> (ή μόνο του). Για να φτάσουν οι νότες από το πληκτρολόγιο οθόνης <strong>στο</strong> Musician's Canvas κατά την εγγραφή MIDI, το λειτουργικό πρέπει να δρομολογήσει την <strong>έξοδο MIDI</strong> του πληκτρολογίου σε <strong>είσοδο</strong> που χρησιμοποιεί το Musician's Canvas — συχνά με εικονικό καλώδιο MIDI ή ταιριασμένες θύρες και στις δύο εφαρμογές. Δεν συνδέονται αυτόματα.</p>
+<h3 id="configuration-project-settings">Ποια η διαφορά Configuration και Project Settings;</h3>
+<p>Το <strong>Settings &gt; Configuration</strong> ορίζει <strong>καθολικές προεπιλογές</strong> (θέμα, γλώσσα, συσκευές MIDI/ήχου, SoundFont κ.λπ.). Το <strong>Project &gt; Project Settings</strong> αντικαθιστά μέρη <strong>μόνο για το τρέχον έργο</strong> και αποθηκεύεται στο <code>project.json</code>. Αν ένα πεδίο παραμένει στην προεπιλογή έργου, ισχύει η καθολική τιμή από το Configuration.</p>
+<h3 id="-">Γιατί η μεταφορά-και-απόθεση δεν προσθέτει αρχεία ήχου;</h3>
+<p>Τα αρχεία γίνονται δεκτά μόνο όταν έχει οριστεί <strong>κατάλογος έργου</strong> και το Musician's Canvas <strong>δεν</strong> αναπαράγει ούτε ηχογραφεί. Υποστηριζόμενοι τύποι: <strong><code>.wav</code></strong> και <strong><code>.flac</code></strong>· άλλες καταλήξεις παραλείπονται και εμφανίζονται σε διάλογο. Κάθε αρχείο γίνεται νέο κανάλι <strong>ήχου</strong> με όνομα από το βασικό όνομα αρχείου.</p>
+<h3 id="_31">Πού αποθηκεύονται οι ηχογραφήσεις;</h3>
+<p>Ο ήχος αποθηκεύεται στον <strong>κατάλογο έργου</strong> ως <strong><code>&lt;όνομα_καναλιού&gt;.flac</code></strong> (χαρακτήρες όπως <code>/ \ : * ? " &lt; &gt; |</code> αντικαθίστανται με κάτω παύλα). Το αρχείο έργου είναι <strong><code>project.json</code></strong> στον ίδιο φάκελο. Τα κανάλια MIDI αποθηκεύονται ως <strong><code>&lt;όνομα_καναλιού&gt;.mid</code></strong> όταν αποθηκεύετε το έργο (μαζί με νότες στο <code>project.json</code>).</p>
+<h3 id="midi_6">Ποιο όνομα αρχείου χρησιμοποιείται όταν το MIDI αποδίδεται για μίξη;</h3>
+<p>Κατά τη <strong>μίξη</strong> ή <strong>αναπαραγωγή</strong> το MIDI αποδίδεται πρώτα σε προσωρινό WAV εσωτερικά. Αν είναι γνωστή η διαδρομή έργου, το Musician's Canvas γράφει και <strong>FLAC προσωρινής αποθήκευσης</strong> στον φάκελο έργου: <strong><code>&lt;καθαρισμένο_όνομα_καναλιού&gt;.flac</code></strong> (ίδιοι κανόνες με άλλα αρχεία καναλιών). Το όνομα βασίζεται στο <strong>όνομα καναλιού</strong>, όχι σε εσωτερικό ID.</p>
+<h3 id="_32">Μπορώ να ηχογραφήσω δύο κανάλια ταυτόχρονα;</h3>
+<p>Όχι. Μόνο <strong>ένα</strong> κανάλι μπορεί να είναι <strong>οπλισμένο</strong> κάθε φορά· αυτό λαμβάνει την επόμενη ηχογράφηση. Χτίστε το κομμάτι ηχογραφώντας <strong>ένα-ένα</strong> (το <strong>overdub</strong> αναπαράγει υπάρχοντα κανάλια κατά νέα λήψη).</p>
+<h3 id="_33">Καταγράφεται το μετρονόμο στο κανάλι;</h3>
+<p>Όχι. Όταν είναι ενεργό, το μετρονόμο ακούγεται μέσω <strong>συστήματος ήχου</strong> μόνο ως αναφορά για εσάς. <strong>Δεν</strong> μιξάρεται στο αρχείο ηχογράφησης.</p>
+<h3 id="musicians-canvas-asio-windows">Γιατί το Musician's Canvas απαιτεί ASIO στα Windows;</h3>
+<p>Στα Windows η κύρια εφαρμογή αναμένει οδηγό <strong>ASIO</strong> για αξιόπιστο ήχο χαμηλής καθυστέρησης. Εγκαταστήστε <strong>ASIO4ALL</strong> ή οδηγό κατασκευαστή σε περίπτωση σφαλμάτων.</p>
+<h3 id="virtual-midi-keyboard-macos">Πού βρίσκεται το Virtual MIDI Keyboard στο macOS;</h3>
+<p>Στο <strong>πακέτο <code>.app</code></strong>, το εκτελέσιμο Virtual MIDI Keyboard <strong>αντιγράφεται μέσα</strong> στο <code>Musician's Canvas.app</code> (<strong>Contents/MacOS/</strong>) ώστε να διανέμεται ένας φάκελος εφαρμογής. Εξακολουθείτε να το ανοίγετε από <strong>Tools &gt; Virtual MIDI Keyboard</strong>.</p>
+<h2 id="_34">Αντιμετώπιση Προβλημάτων</h2>
+<h3 id="_35">Δεν Υπάρχει Έξοδος Ήχου</h3>
 <ul>
 <li>Ελέγξτε ότι η σωστή συσκευή εξόδου ήχου είναι επιλεγμένη στο Settings &gt; Configuration &gt; Audio.</li>
 <li>Σε Linux, επαληθεύστε ότι το PipeWire ή το PulseAudio λειτουργεί και ότι η έξοδος δεν είναι σε σίγαση. Χρησιμοποιήστε <code>amixer</code> ή τις ρυθμίσεις ήχου της επιφάνειας εργασίας σας για έλεγχο των επιπέδων έντασης.</li>
 <li>Σε Windows, βεβαιωθείτε ότι είναι εγκατεστημένος ένας οδηγός ήχου ASIO (π.χ., <a href="https://asio4all.org/">ASIO4ALL</a> ή ένας οδηγός ASIO του κατασκευαστή για τη διεπαφή ήχου σας). Το Musician's Canvas απαιτεί ASIO για ήχο χαμηλής καθυστέρησης σε Windows.</li>
 </ul>
-<h3 id="midi_4">Τα Κανάλια MIDI Είναι Σιωπηλά</h3>
+<h3 id="midi_7">Τα Κανάλια MIDI Είναι Σιωπηλά</h3>
 <ul>
 <li>Βεβαιωθείτε ότι ένα SoundFont (αρχείο <code>.sf2</code>) είναι ρυθμισμένο στο Settings &gt; Configuration &gt; MIDI.</li>
 <li>Σε Linux, ένα SoundFont συστήματος μπορεί να ανιχνευθεί αυτόματα αν είναι εγκατεστημένο το πακέτο <code>fluid-soundfont-gm</code>.</li>
 <li>Σε Windows και macOS, πρέπει να ρυθμίσετε τη διαδρομή SoundFont χειροκίνητα.</li>
 </ul>
-<h3 id="_33">Η Εγγραφή Ακούγεται Παραμορφωμένη ή Έχει Λάθος Τονικότητα</h3>
+<h3 id="_36">Η Εγγραφή Ακούγεται Παραμορφωμένη ή Έχει Λάθος Τονικότητα</h3>
 <ul>
 <li>Αυτό μπορεί να συμβεί όταν ο εγγενής ρυθμός δειγματοληψίας της συσκευής εισόδου ήχου διαφέρει από τον ρυθμό που έχει ρυθμιστεί στο έργο. Το Musician's Canvas χειρίζεται αυτόματα αυτό μέσω επαναδειγματοληψίας, αλλά αν τα προβλήματα επιμένουν, δοκιμάστε να ρυθμίσετε τον ρυθμό δειγματοληψίας του έργου ώστε να ταιριάζει με τον εγγενή ρυθμό της συσκευής.</li>
 <li>Τα μικρόφωνα USB webcam συχνά έχουν ασυνήθιστους εγγενείς ρυθμούς (π.χ., 32000 Hz). Η εφαρμογή τους ανιχνεύει αυτόματα.</li>
@@ -697,7 +742,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>Ελέγξτε ότι ένα SoundFont είναι φορτωμένο (δείτε την καρτέλα MIDI στο παράθυρο διαμόρφωσης).</li>
 <li>Επαληθεύστε ότι η συσκευή εξόδου ήχου είναι επιλεγμένη και η ένταση του συστήματος δεν είναι σε σίγαση.</li>
 </ul>
-<h2 id="_34">Κατασκευή από τον Πηγαίο Κώδικα</h2>
+<h2 id="_37">Κατασκευή από τον Πηγαίο Κώδικα</h2>
 <p>Δείτε το <a href="../README.md">README</a> για πλήρεις οδηγίες κατασκευής για Linux, macOS και Windows, συμπεριλαμβανομένων όλων των απαιτούμενων εξαρτήσεων.</p>
 </body>
 </html>

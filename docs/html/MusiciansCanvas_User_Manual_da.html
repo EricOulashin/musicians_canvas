@@ -99,6 +99,20 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#virtual-midi-keyboard-genveje">Virtual MIDI Keyboard genveje</a></li>
 </ul>
 </li>
+<li><a href="#ofte-stillede-sprgsmal-faq">Ofte stillede spørgsmål (FAQ)</a><ul>
+<li><a href="#hvordan-optager-jeg-et-midi-spor">Hvordan optager jeg et MIDI-spor?</a></li>
+<li><a href="#hvorfor-er-mit-midi-spor-lydlst-ved-afspilning">Hvorfor er mit MIDI-spor lydløst ved afspilning?</a></li>
+<li><a href="#hvordan-hnger-virtual-midi-keyboard-sammen-med-musicians-canvas">Hvordan hænger Virtual MIDI Keyboard sammen med Musician's Canvas?</a></li>
+<li><a href="#hvad-er-forskellen-pa-configuration-og-project-settings">Hvad er forskellen på Configuration og Project Settings?</a></li>
+<li><a href="#hvorfor-virker-trk-og-slip-ikke-med-lydfiler">Hvorfor virker træk-og-slip ikke med lydfiler?</a></li>
+<li><a href="#hvor-gemmes-mine-optagelser">Hvor gemmes mine optagelser?</a></li>
+<li><a href="#hvilket-filnavn-bruges-nar-midi-gengives-til-mix">Hvilket filnavn bruges, når MIDI gengives til mix?</a></li>
+<li><a href="#kan-jeg-optage-to-spor-samtidig">Kan jeg optage to spor samtidig?</a></li>
+<li><a href="#optages-metronomen-pa-sporet">Optages metronomen på sporet?</a></li>
+<li><a href="#hvorfor-krver-musicians-canvas-asio-pa-windows">Hvorfor kræver Musician's Canvas ASIO på Windows?</a></li>
+<li><a href="#hvor-er-virtual-midi-keyboard-pa-macos">Hvor er Virtual MIDI Keyboard på macOS?</a></li>
+</ul>
+</li>
 <li><a href="#fejlfinding">Fejlfinding</a><ul>
 <li><a href="#ingen-lydoutput">Ingen lydoutput</a></li>
 <li><a href="#midi-spor-er-tavse">MIDI-spor er tavse</a></li>
@@ -670,6 +684,37 @@ at 3-sekunders nedtællingen er gennemført), og stopper, når optagelsen slutte
 </tr>
 </tbody>
 </table>
+<h2 id="ofte-stillede-sprgsmal-faq">Ofte stillede spørgsmål (FAQ)</h2>
+<h3 id="hvordan-optager-jeg-et-midi-spor">Hvordan optager jeg et MIDI-spor?</h3>
+<ol>
+<li>Angiv en <strong>projektmappe</strong> (påkrævet for at gemme).</li>
+<li>Tilføj eller vælg et spor, og åbn <strong>Options</strong> (eller klik på sporticikonet).</li>
+<li>Sæt typen til <strong>MIDI</strong>, og luk dialogen.</li>
+<li>Under <strong>Settings &gt; Configuration &gt; MIDI</strong> vælger du <strong>MIDI-indgang</strong> (hardwareport eller virtuel ledning) og et <strong>SoundFont</strong> (<code>.sf2</code>) til senere afspilning.</li>
+<li><strong>Arm</strong> det spor (kun ét spor kan være armeret ad gangen).</li>
+<li>Klik på <strong>Record</strong>, vent på nedtælling, spil på controlleren, og derefter <strong>Stop</strong>.</li>
+</ol>
+<p>Noderne vises i piano roll. <strong>File &gt; Save Project</strong> skriver en <code>.mid</code>-fil og <code>project.json</code> i projektmappen.</p>
+<h3 id="hvorfor-er-mit-midi-spor-lydlst-ved-afspilning">Hvorfor er mit MIDI-spor lydløst ved afspilning?</h3>
+<p>Afspilning bruger <strong>FluidSynth</strong> med <strong>SoundFont</strong> fra indstillingerne. Tjek <strong>Settings &gt; Configuration &gt; MIDI</strong> (eller <strong>Project &gt; Project Settings</strong> ved projektspecifikke overskrivninger): der skal være en gyldig <code>.sf2</code>-sti. Under Linux kan et system-SoundFont findes automatisk; under Windows og macOS skal du ofte vælge filen manuelt.</p>
+<h3 id="hvordan-hnger-virtual-midi-keyboard-sammen-med-musicians-canvas">Hvordan hænger Virtual MIDI Keyboard sammen med Musician's Canvas?</h3>
+<p>Det er <strong>to separate programmer</strong>. Start Virtual MIDI Keyboard fra <strong>Tools &gt; Virtual MIDI Keyboard</strong> (eller alene). For at skærmtastaturet skal <strong>nå ind i</strong> Musician's Canvas under MIDI-optagelse, skal operativsystemet dirigere tastaturets <strong>MIDI-udgang</strong> til en <strong>indgang</strong>, som Musician's Canvas bruger — ofte via virtuel MIDI-kabel eller matchende porte i begge apps. De forbinder ikke automatisk.</p>
+<h3 id="hvad-er-forskellen-pa-configuration-og-project-settings">Hvad er forskellen på Configuration og Project Settings?</h3>
+<p><strong>Settings &gt; Configuration</strong> angiver <strong>globale standarder</strong> (tema, sprog, MIDI/lydenheder, SoundFont m.m.). <strong>Project &gt; Project Settings</strong> tilsidesætter dele <strong>kun for det aktuelle projekt</strong> og gemmes i <code>project.json</code>. Hvis et felt står på projektstandard, bruges den globale værdi fra Configuration.</p>
+<h3 id="hvorfor-virker-trk-og-slip-ikke-med-lydfiler">Hvorfor virker træk-og-slip ikke med lydfiler?</h3>
+<p>Filer accepteres kun, når en <strong>projektmappe er angivet</strong>, og Musician's Canvas <strong>ikke</strong> afspiller eller optager. Understøttede typer er <strong><code>.wav</code></strong> og <strong><code>.flac</code></strong>; andre filendelser springes over og vises i en dialog. Hver fil bliver et nyt <strong>lyd</strong>spor med navn fra filnavnet uden endelse.</p>
+<h3 id="hvor-gemmes-mine-optagelser">Hvor gemmes mine optagelser?</h3>
+<p>Lyd gemmes i <strong>projektmappen</strong> som <strong><code>&lt;spornavn&gt;.flac</code></strong> (tegn som <code>/ \ : * ? " &lt; &gt; |</code> erstattes med understregning). Projektfilen er <strong><code>project.json</code></strong> i samme mappe. MIDI-spor gemmes som <strong><code>&lt;spornavn&gt;.mid</code></strong> når du gemmer projektet (sammen med noder i <code>project.json</code>).</p>
+<h3 id="hvilket-filnavn-bruges-nar-midi-gengives-til-mix">Hvilket filnavn bruges, når MIDI gengives til mix?</h3>
+<p>Ved <strong>mix</strong> eller <strong>afspilning</strong> gengives MIDI først til en midlertidig WAV internt. Hvis projektstien er kendt, skriver Musician's Canvas også en <strong>FLAC-cache</strong> i projektmappen: <strong><code>&lt;renset_spornavn&gt;.flac</code></strong> (samme regler som andre sporfiler). Navnet følger <strong>spornavnet</strong>, ikke et internt ID.</p>
+<h3 id="kan-jeg-optage-to-spor-samtidig">Kan jeg optage to spor samtidig?</h3>
+<p>Nej. Kun <strong>ét</strong> spor kan være <strong>armeret</strong> ad gangen; det får næste optagelse. Byg nummeret ved at optage <strong>ét ad gangen</strong> (<strong>overdub</strong> afspiller eksisterende spor under ny optagelse).</p>
+<h3 id="optages-metronomen-pa-sporet">Optages metronomen på sporet?</h3>
+<p>Nej. Når den er slået til, afspilles metronomen via <strong>systemlyd</strong> kun som reference for dig. Den <strong>blandes ikke</strong> ind i optagelsesfilen.</p>
+<h3 id="hvorfor-krver-musicians-canvas-asio-pa-windows">Hvorfor kræver Musician's Canvas ASIO på Windows?</h3>
+<p>På Windows forventer hovedprogrammet en <strong>ASIO</strong>-driver til pålidelig lav-latens-lyd. Installer <strong>ASIO4ALL</strong> eller producentens driver ved fejl.</p>
+<h3 id="hvor-er-virtual-midi-keyboard-pa-macos">Hvor er Virtual MIDI Keyboard på macOS?</h3>
+<p>I <strong><code>.app</code>-pakken</strong> kopieres Virtual MIDI Keyboard-eksekverbar fil <strong>ind i</strong> <code>Musician's Canvas.app</code> (<strong>Contents/MacOS/</strong>), så én appmappe kan distribueres. Start den stadig via <strong>Tools &gt; Virtual MIDI Keyboard</strong>.</p>
 <h2 id="fejlfinding">Fejlfinding</h2>
 <h3 id="ingen-lydoutput">Ingen lydoutput</h3>
 <ul>

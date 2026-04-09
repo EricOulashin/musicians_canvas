@@ -99,6 +99,20 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#skroty-virtual-midi-keyboard">Skróty Virtual MIDI Keyboard</a></li>
 </ul>
 </li>
+<li><a href="#faq-czesto-zadawane-pytania">FAQ (Często zadawane pytania)</a><ul>
+<li><a href="#jak-nagrac-sciezke-midi">Jak nagrać ścieżkę MIDI?</a></li>
+<li><a href="#dlaczego-moja-sciezka-midi-jest-bez-dzwieku-przy-odtwarzaniu">Dlaczego moja ścieżka MIDI jest bez dźwięku przy odtwarzaniu?</a></li>
+<li><a href="#jak-virtual-midi-keyboard-aczy-sie-z-musicians-canvas">Jak Virtual MIDI Keyboard łączy się z Musician's Canvas?</a></li>
+<li><a href="#czym-roznia-sie-configuration-i-project-settings">Czym różnią się Configuration i Project Settings?</a></li>
+<li><a href="#dlaczego-przeciaganie-plikow-nie-dodaje-audio">Dlaczego przeciąganie plików nie dodaje audio?</a></li>
+<li><a href="#gdzie-zapisywane-sa-nagrania">Gdzie zapisywane są nagrania?</a></li>
+<li><a href="#jak-nazywa-sie-plik-po-wyrenderowaniu-midi-do-miksu">Jak nazywa się plik po wyrenderowaniu MIDI do miksu?</a></li>
+<li><a href="#czy-moge-nagrywac-dwie-sciezki-naraz">Czy mogę nagrywać dwie ścieżki naraz?</a></li>
+<li><a href="#czy-metronom-trafia-na-nagranie">Czy metronom trafia na nagranie?</a></li>
+<li><a href="#dlaczego-musicians-canvas-wymaga-asio-w-windows">Dlaczego Musician's Canvas wymaga ASIO w Windows?</a></li>
+<li><a href="#gdzie-na-macos-jest-virtual-midi-keyboard">Gdzie na macOS jest Virtual MIDI Keyboard?</a></li>
+</ul>
+</li>
 <li><a href="#rozwiazywanie-problemow">Rozwiązywanie problemów</a><ul>
 <li><a href="#brak-wyjscia-audio">Brak wyjścia audio</a></li>
 <li><a href="#sciezki-midi-sa-ciche">Ścieżki MIDI są ciche</a></li>
@@ -672,6 +686,37 @@ zakończeniu 3-sekundowego odliczania), i zatrzymuje się po zakończeniu nagryw
 </tr>
 </tbody>
 </table>
+<h2 id="faq-czesto-zadawane-pytania">FAQ (Często zadawane pytania)</h2>
+<h3 id="jak-nagrac-sciezke-midi">Jak nagrać ścieżkę MIDI?</h3>
+<ol>
+<li>Ustaw <strong>katalog projektu</strong> (wymagany do zapisu).</li>
+<li>Dodaj lub wybierz ścieżkę i otwórz <strong>Options</strong> (lub kliknij ikonę typu ścieżki).</li>
+<li>Ustaw typ <strong>MIDI</strong> i zamknij okno.</li>
+<li>W <strong>Settings &gt; Configuration &gt; MIDI</strong> wybierz <strong>wejście MIDI</strong> (port sprzętowy lub wirtualny kabel) oraz <strong>SoundFont</strong> (<code>.sf2</code>) do późniejszego odtwarzania.</li>
+<li><strong>Uzbrój (Arm)</strong> tę ścieżkę (tylko jedna może być uzbrojona naraz).</li>
+<li>Kliknij <strong>Record</strong>, poczekaj na odliczanie, graj na kontrolerze, potem <strong>Stop</strong>.</li>
+</ol>
+<p>Nuty widać w piano roll. <strong>File &gt; Save Project</strong> zapisuje plik <code>.mid</code> oraz <code>project.json</code> w folderze projektu.</p>
+<h3 id="dlaczego-moja-sciezka-midi-jest-bez-dzwieku-przy-odtwarzaniu">Dlaczego moja ścieżka MIDI jest bez dźwięku przy odtwarzaniu?</h3>
+<p>Odtwarzanie używa <strong>FluidSynth</strong> z <strong>SoundFont</strong> z ustawień. Sprawdź <strong>Settings &gt; Configuration &gt; MIDI</strong> (lub <strong>Project &gt; Project Settings</strong> przy nadpisaniach projektu): potrzebna jest poprawna ścieżka <code>.sf2</code>. W Linuksie systemowy SoundFont bywa wykrywany automatycznie; w Windows i macOS zwykle trzeba wskazać plik ręcznie.</p>
+<h3 id="jak-virtual-midi-keyboard-aczy-sie-z-musicians-canvas">Jak Virtual MIDI Keyboard łączy się z Musician's Canvas?</h3>
+<p>To <strong>dwa osobne programy</strong>. Uruchom Virtual MIDI Keyboard z <strong>Tools &gt; Virtual MIDI Keyboard</strong> (lub samodzielnie). Aby klawiatura na ekranie <strong>trafiała</strong> do Musician's Canvas podczas nagrywania MIDI, system musi skierować <strong>wyjście MIDI</strong> klawiatury na <strong>wejście</strong> używane przez Musician's Canvas — często przez wirtualny kabel MIDI lub zgodne porty w obu aplikacjach. Nie łączą się automatycznie.</p>
+<h3 id="czym-roznia-sie-configuration-i-project-settings">Czym różnią się Configuration i Project Settings?</h3>
+<p><strong>Settings &gt; Configuration</strong> ustawia <strong>globalne domyślne</strong> (motyw, język, urządzenia MIDI/audio, SoundFont itd.). <strong>Project &gt; Project Settings</strong> nadpisuje część tego <strong>tylko dla bieżącego projektu</strong> i zapisuje się w <code>project.json</code>. Jeśli pole pozostaje przy domyślnym ustawieniu projektu, obowiązuje wartość globalna z Configuration.</p>
+<h3 id="dlaczego-przeciaganie-plikow-nie-dodaje-audio">Dlaczego przeciąganie plików nie dodaje audio?</h3>
+<p>Pliki są przyjmowane tylko przy ustawionym <strong>katalogu projektu</strong> i gdy Musician's Canvas <strong>nie</strong> odtwarza ani <strong>nie</strong> nagrywa. Obsługiwane są <strong><code>.wav</code></strong> i <strong><code>.flac</code></strong>; inne rozszerzenia są pomijane i wymienione w oknie. Każdy plik staje się nową ścieżką <strong>audio</strong> o nazwie z podstawowej nazwy pliku.</p>
+<h3 id="gdzie-zapisywane-sa-nagrania">Gdzie zapisywane są nagrania?</h3>
+<p>Audio trafia do <strong>katalogu projektu</strong> jako <strong><code>&lt;nazwa_ścieżki&gt;.flac</code></strong> (znaki takie jak <code>/ \ : * ? " &lt; &gt; |</code> zamieniane są na podkreślenie). Plik projektu to <strong><code>project.json</code></strong> w tym samym folderze. Ścieżki MIDI zapisują się jako <strong><code>&lt;nazwa_ścieżki&gt;.mid</code></strong> przy zapisie projektu (nuty także w <code>project.json</code>).</p>
+<h3 id="jak-nazywa-sie-plik-po-wyrenderowaniu-midi-do-miksu">Jak nazywa się plik po wyrenderowaniu MIDI do miksu?</h3>
+<p>Przy <strong>miksowaniu</strong> lub <strong>odtwarzaniu</strong> MIDI jest najpierw renderowane do tymczasowego WAV. Jeśli znana jest ścieżka projektu, Musician's Canvas zapisuje też <strong>pamięć podręczną FLAC</strong> w folderze projektu: <strong><code>&lt;oczyszczona_nazwa_ścieżki&gt;.flac</code></strong> (te same zasady co dla innych plików ścieżek). Nazwa wynika z <strong>nazwy ścieżki</strong>, nie z wewnętrznego ID.</p>
+<h3 id="czy-moge-nagrywac-dwie-sciezki-naraz">Czy mogę nagrywać dwie ścieżki naraz?</h3>
+<p>Nie. Tylko <strong>jedna</strong> ścieżka może być <strong>uzbrojona</strong>; ona dostaje następne nagranie. Buduj utwór, nagrywając <strong>kolejno</strong> (<strong>overdub</strong> odtwarza istniejące ścieżki podczas nowej).</p>
+<h3 id="czy-metronom-trafia-na-nagranie">Czy metronom trafia na nagranie?</h3>
+<p>Nie. Po włączeniu metronom brzmi przez <strong>audio systemowe</strong> tylko dla Ciebie. <strong>Nie</strong> jest miksowany do pliku nagrania.</p>
+<h3 id="dlaczego-musicians-canvas-wymaga-asio-w-windows">Dlaczego Musician's Canvas wymaga ASIO w Windows?</h3>
+<p>W Windows główna aplikacja oczekuje sterownika <strong>ASIO</strong> dla stabilnego audio z niskim opóźnieniem. Przy błędach zainstaluj <strong>ASIO4ALL</strong> lub sterownik producenta interfejsu.</p>
+<h3 id="gdzie-na-macos-jest-virtual-midi-keyboard">Gdzie na macOS jest Virtual MIDI Keyboard?</h3>
+<p>W <strong>pakiecie <code>.app</code></strong> plik wykonywalny Virtual MIDI Keyboard jest <strong>kopiowany do środka</strong> <code>Musician's Canvas.app</code> (<strong>Contents/MacOS/</strong>), aby dystrybuować jeden folder aplikacji. Nadal uruchomisz go z <strong>Tools &gt; Virtual MIDI Keyboard</strong>.</p>
 <h2 id="rozwiazywanie-problemow">Rozwiązywanie problemów</h2>
 <h3 id="brak-wyjscia-audio">Brak wyjścia audio</h3>
 <ul>

@@ -99,6 +99,20 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#llwybrau-byr-virtual-midi-keyboard">Llwybrau Byr Virtual MIDI Keyboard</a></li>
 </ul>
 </li>
+<li><a href="#cwestiynau-a-ofynnir-yn-aml-faq">Cwestiynau a Ofynnir yn Aml (FAQ)</a><ul>
+<li><a href="#sut-ydw-in-recordio-trac-midi">Sut ydw i'n recordio trac MIDI?</a></li>
+<li><a href="#pam-mae-fy-nhraws-midin-dawel-wrth-chwarae">Pam mae fy nhraws MIDI'n dawel wrth chwarae?</a></li>
+<li><a href="#sut-mae-virtual-midi-keyboard-yn-gysylltiedig-a-musicians-canvas">Sut mae Virtual MIDI Keyboard yn gysylltiedig â Musician's Canvas?</a></li>
+<li><a href="#beth-ywr-gwahaniaeth-rhwng-configuration-a-project-settings">Beth yw'r gwahaniaeth rhwng Configuration a Project Settings?</a></li>
+<li><a href="#pam-nad-yw-llusgo-a-gollwng-yn-ychwanegu-ffeiliau-sain">Pam nad yw llusgo a gollwng yn ychwanegu ffeiliau sain?</a></li>
+<li><a href="#ble-mae-fy-nghofnodion-yn-cael-eu-cadw">Ble mae fy nghofnodion yn cael eu cadw?</a></li>
+<li><a href="#pa-enw-ffeil-a-ddefnyddir-pan-rendrir-midi-ar-gyfer-cymysgu">Pa enw ffeil a ddefnyddir pan rendrir MIDI ar gyfer cymysgu?</a></li>
+<li><a href="#a-allaf-recordio-dau-drac-ar-yr-un-pryd">A allaf recordio dau drac ar yr un pryd?</a></li>
+<li><a href="#a-ywr-metronom-yn-cael-ei-recordio-ar-y-trac">A yw'r metronom yn cael ei recordio ar y trac?</a></li>
+<li><a href="#pam-mae-musicians-canvas-yn-gofyn-am-asio-ar-windows">Pam mae Musician's Canvas yn gofyn am ASIO ar Windows?</a></li>
+<li><a href="#ble-mae-virtual-midi-keyboard-ar-macos">Ble mae Virtual MIDI Keyboard ar macOS?</a></li>
+</ul>
+</li>
 <li><a href="#datrys-problemau">Datrys Problemau</a><ul>
 <li><a href="#dim-allbwn-sain">Dim Allbwn Sain</a></li>
 <li><a href="#mae-traciau-midi-yn-dawel">Mae Traciau MIDI yn Dawel</a></li>
@@ -671,6 +685,37 @@ go iawn (ar ôl i'r cyfrif tuag at i lawr 3 eiliad gwblhau), ac yn stopio pan dd
 </tr>
 </tbody>
 </table>
+<h2 id="cwestiynau-a-ofynnir-yn-aml-faq">Cwestiynau a Ofynnir yn Aml (FAQ)</h2>
+<h3 id="sut-ydw-in-recordio-trac-midi">Sut ydw i'n recordio trac MIDI?</h3>
+<ol>
+<li>Gosodwch <strong>cyfeiriadur y prosiect</strong> (angen ar gyfer cadw).</li>
+<li>Ychwanegwch neu ddewiswch drac ac agorwch <strong>Options</strong> (neu cliciwch ar eicon y math o drac).</li>
+<li>Gosodwch y math i <strong>MIDI</strong> a chau'r dialog.</li>
+<li>O dan <strong>Settings &gt; Configuration &gt; MIDI</strong>, dewiswch <strong>mewnbwn MIDI</strong> (porth caledwedd neu gebl ffug) a <strong>SoundFont</strong> (<code>.sf2</code>) ar gyfer chwarae'n ddiweddarach.</li>
+<li><strong>Arfogi (Arm)</strong> y trac hwnnw (dim ond un trac yn gallu bod wedi'i arfogi ar y tro).</li>
+<li>Cliciwch <strong>Record</strong>, aros am y cyfrif i lawr, chwarae ar y rheolwr, yna <strong>Stop</strong>.</li>
+</ol>
+<p>Mae'r nodau'n ymddangos yn y piano roll. Mae <strong>File &gt; Save Project</strong> yn ysgrifennu ffeil <code>.mid</code> a <code>project.json</code> yn ffolder y prosiect.</p>
+<h3 id="pam-mae-fy-nhraws-midin-dawel-wrth-chwarae">Pam mae fy nhraws MIDI'n dawel wrth chwarae?</h3>
+<p>Mae chwarae'n defnyddio <strong>FluidSynth</strong> gyda <strong>SoundFont</strong> y gosodiadau. Gwiriwch <strong>Settings &gt; Configuration &gt; MIDI</strong> (neu <strong>Project &gt; Project Settings</strong> os oes diystyriadau prosiect): rhaid bod llwybr dilys <code>.sf2</code>. Ar Linux efallai y caiff SoundFont y system ei ganfod yn awtomatig; ar Windows a macOS yn aml mae angen dewis y ffeil â llaw.</p>
+<h3 id="sut-mae-virtual-midi-keyboard-yn-gysylltiedig-a-musicians-canvas">Sut mae Virtual MIDI Keyboard yn gysylltiedig â Musician's Canvas?</h3>
+<p>Maen nhw'n <strong>ddwy raglen ar wahân</strong>. Lansiwch Virtual MIDI Keyboard o <strong>Tools &gt; Virtual MIDI Keyboard</strong> (neu ar ei ben ei hun). I nodau'r bysellfwrdd ar y sgrin <strong>gyrraedd</strong> i Musician's Canvas wrth recordio MIDI, rhaid i'r OS lwybro <strong>allbwn MIDI</strong> y bysellfwrdd i <strong>fewnbwn</strong> mae Musician's Canvas yn ei ddefnyddio — yn aml trwy gebl MIDI ffug neu borthladdoedd cyfatebol yn y ddwy ap. Nid ydyn nhw'n cysylltu'n awtomatig.</p>
+<h3 id="beth-ywr-gwahaniaeth-rhwng-configuration-a-project-settings">Beth yw'r gwahaniaeth rhwng Configuration a Project Settings?</h3>
+<p>Mae <strong>Settings &gt; Configuration</strong> yn gosod <strong>rhagosodiadau cyffredinol</strong> (thema, iaith, dyfeisiau MIDI/sain, SoundFont, ac ati). Mae <strong>Project &gt; Project Settings</strong> yn diystyru rhai <strong>ar gyfer y prosiect cyfredol yn unig</strong> ac yn cael ei gadw yn <code>project.json</code>. Os yw maes yn aros ar rhagosodiad y prosiect, mae gwerth cyffredinol o Configuration yn berthnasol.</p>
+<h3 id="pam-nad-yw-llusgo-a-gollwng-yn-ychwanegu-ffeiliau-sain">Pam nad yw llusgo a gollwng yn ychwanegu ffeiliau sain?</h3>
+<p>Dim ond pan fo <strong>cyfeiriadur prosiect</strong> wedi'i osod ac nad yw Musician's Canvas <strong>yn chwarae na'n recordio</strong> y derbynnir ffeiliau. Mae <strong><code>.wav</code></strong> a <strong><code>.flac</code></strong> yn cael eu cefnogi; caiff estyniadau eraill eu hepgor a'u rhestru mewn dialog. Mae pob ffeil yn drac <strong>sain</strong> newydd â'r enw o enw'r ffeil heb yr estyniad.</p>
+<h3 id="ble-mae-fy-nghofnodion-yn-cael-eu-cadw">Ble mae fy nghofnodion yn cael eu cadw?</h3>
+<p>Mae sain yn cael ei chadw yn <strong>ffolder y prosiect</strong> fel <strong><code>&lt;enw'r_trac&gt;.flac</code></strong> (mae nodau fel <code>/ \ : * ? " &lt; &gt; |</code> yn cael eu disodli gan danlinell). Mae ffeil y prosiect yn <strong><code>project.json</code></strong> yn yr un ffolder. Caiff traciau MIDI eu cadw fel <strong><code>&lt;enw'r_trac&gt;.mid</code></strong> pan fyddwch yn cadw'r prosiect (gyda nodau yn <code>project.json</code> hefyd).</p>
+<h3 id="pa-enw-ffeil-a-ddefnyddir-pan-rendrir-midi-ar-gyfer-cymysgu">Pa enw ffeil a ddefnyddir pan rendrir MIDI ar gyfer cymysgu?</h3>
+<p>Wrth <strong>gymysgu</strong> neu <strong>chwarae</strong>, caiff MIDI ei rendro i WAV dros dro yn fewnol yn gyntaf. Os yw llwybr y prosiect yn hysbys, mae Musician's Canvas hefyd yn ysgrifennu <strong>FLAC storfa</strong> yn ffolder y prosiect: <strong><code>&lt;enw_trac_glan&gt;.flac</code></strong> (yr un rheolau â ffeiliau trac eraill). Mae'r enw'n seiliedig ar <strong>enw'r trac</strong>, nid ID mewnol.</p>
+<h3 id="a-allaf-recordio-dau-drac-ar-yr-un-pryd">A allaf recordio dau drac ar yr un pryd?</h3>
+<p>Na. Dim ond <strong>un</strong> trac yn gallu bod wedi'i <strong>arfogi</strong> ar y tro; mae'n derbyn y recordiad nesaf. Adeiladwch y darn trwy recordio <strong>un ar ôl y llall</strong> (mae <strong>overdub</strong> yn chwarae traciau presennol wrth recordiad newydd).</p>
+<h3 id="a-ywr-metronom-yn-cael-ei-recordio-ar-y-trac">A yw'r metronom yn cael ei recordio ar y trac?</h3>
+<p>Na. Pan fo wedi'i alluogi, caiff y metronom ei chwarae trwy <strong>sain y system</strong> fel cyfeiriad i chi yn unig. <strong>Nid yw'n cael ei gymysgu</strong> i mewn i'r ffeil recordio.</p>
+<h3 id="pam-mae-musicians-canvas-yn-gofyn-am-asio-ar-windows">Pam mae Musician's Canvas yn gofyn am ASIO ar Windows?</h3>
+<p>Ar Windows mae'r brif raglen yn disgwyl gyrrwr <strong>ASIO</strong> ar gyfer sain dibynadwy o oedi isel. Gosodwch <strong>ASIO4ALL</strong> neu yrrwr y gwneuthurwr os yw gwallau'n digwydd.</p>
+<h3 id="ble-mae-virtual-midi-keyboard-ar-macos">Ble mae Virtual MIDI Keyboard ar macOS?</h3>
+<p>Yn y <strong>becyn <code>.app</code></strong>, caiff y gweithredadwy Virtual MIDI Keyboard ei <strong>gopïo i mewn i</strong> <code>Musician's Canvas.app</code> (<strong>Contents/MacOS/</strong>) fel bod modd dosbarthu un ffolder ap. Agorwch ef o hyd o <strong>Tools &gt; Virtual MIDI Keyboard</strong>.</p>
 <h2 id="datrys-problemau">Datrys Problemau</h2>
 <h3 id="dim-allbwn-sain">Dim Allbwn Sain</h3>
 <ul>

@@ -99,6 +99,20 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#virtual-midi-keyboard-tastenkurzel">Virtual MIDI Keyboard Tastenkürzel</a></li>
 </ul>
 </li>
+<li><a href="#faq-haufig-gestellte-fragen">FAQ (Häufig gestellte Fragen)</a><ul>
+<li><a href="#wie-nehme-ich-eine-midi-spur-auf">Wie nehme ich eine MIDI-Spur auf?</a></li>
+<li><a href="#warum-ist-meine-midi-spur-bei-der-wiedergabe-stumm">Warum ist meine MIDI-Spur bei der Wiedergabe stumm?</a></li>
+<li><a href="#wie-hangt-virtual-midi-keyboard-mit-musicians-canvas-zusammen">Wie hängt Virtual MIDI Keyboard mit Musician's Canvas zusammen?</a></li>
+<li><a href="#was-ist-der-unterschied-zwischen-configuration-und-project-settings">Was ist der Unterschied zwischen Configuration und Project Settings?</a></li>
+<li><a href="#warum-funktioniert-drag-and-drop-fur-audiodateien-nicht">Warum funktioniert Drag-and-Drop für Audiodateien nicht?</a></li>
+<li><a href="#wo-werden-meine-aufnahmen-gespeichert">Wo werden meine Aufnahmen gespeichert?</a></li>
+<li><a href="#welcher-dateiname-wird-verwendet-wenn-eine-midi-spur-furs-mischen-gerendert-wird">Welcher Dateiname wird verwendet, wenn eine MIDI-Spur fürs Mischen gerendert wird?</a></li>
+<li><a href="#kann-ich-zwei-spuren-gleichzeitig-aufnehmen">Kann ich zwei Spuren gleichzeitig aufnehmen?</a></li>
+<li><a href="#wird-das-metronom-in-die-aufnahme-gemischt">Wird das Metronom in die Aufnahme gemischt?</a></li>
+<li><a href="#warum-verlangt-musicians-canvas-unter-windows-asio">Warum verlangt Musician's Canvas unter Windows ASIO?</a></li>
+<li><a href="#wo-liegt-virtual-midi-keyboard-unter-macos">Wo liegt Virtual MIDI Keyboard unter macOS?</a></li>
+</ul>
+</li>
 <li><a href="#fehlerbehebung">Fehlerbehebung</a><ul>
 <li><a href="#keine-audioausgabe">Keine Audioausgabe</a></li>
 <li><a href="#midi-spuren-sind-stumm">MIDI-Spuren sind stumm</a></li>
@@ -798,6 +812,37 @@ Audiogeräte einzurichten:</p>
 </tr>
 </tbody>
 </table>
+<h2 id="faq-haufig-gestellte-fragen">FAQ (Häufig gestellte Fragen)</h2>
+<h3 id="wie-nehme-ich-eine-midi-spur-auf">Wie nehme ich eine MIDI-Spur auf?</h3>
+<ol>
+<li>Legen Sie ein <strong>Projektverzeichnis</strong> fest (erforderlich zum Speichern).</li>
+<li>Fügen Sie eine Spur hinzu oder wählen Sie sie und öffnen Sie <strong>Options</strong> (oder klicken Sie auf das Spurtypsymbol).</li>
+<li>Stellen Sie den Spurtyp auf <strong>MIDI</strong> und schließen Sie den Dialog.</li>
+<li>Unter <strong>Settings &gt; Configuration &gt; MIDI</strong> wählen Sie den <strong>MIDI-Eingang</strong> (Hardware-Port oder virtuelles Kabel) und einen <strong>SoundFont</strong> (<code>.sf2</code>) für die spätere Wiedergabe.</li>
+<li><strong>Armen</strong> Sie diese Spur (nur eine Spur kann gleichzeitig armed sein).</li>
+<li>Klicken Sie auf <strong>Record</strong>, warten Sie den Countdown ab, spielen Sie auf dem Controller, dann <strong>Stop</strong>.</li>
+</ol>
+<p>Die Noten erscheinen in der Piano-Roll-Ansicht. <strong>File &gt; Save Project</strong> schreibt eine <code>.mid</code>-Datei (und <code>project.json</code>) in den Projektordner.</p>
+<h3 id="warum-ist-meine-midi-spur-bei-der-wiedergabe-stumm">Warum ist meine MIDI-Spur bei der Wiedergabe stumm?</h3>
+<p>Die Wiedergabe nutzt <strong>FluidSynth</strong> mit dem <strong>SoundFont</strong> aus Ihren Einstellungen. Prüfen Sie <strong>Settings &gt; Configuration &gt; MIDI</strong> (oder <strong>Project &gt; Project Settings</strong> bei Projekt-Overrides): ein gültiger <code>.sf2</code>-Pfad muss gesetzt sein. Unter Linux wird ein System-SoundFont oft automatisch gefunden; unter Windows und macOS müssen Sie meist manuell eine SoundFont-Datei wählen.</p>
+<h3 id="wie-hangt-virtual-midi-keyboard-mit-musicians-canvas-zusammen">Wie hängt Virtual MIDI Keyboard mit Musician's Canvas zusammen?</h3>
+<p>Es sind <strong>zwei getrennte Programme</strong>. Starten Sie Virtual MIDI Keyboard über <strong>Tools &gt; Virtual MIDI Keyboard</strong> (oder eigenständig). Damit die Bildschirmtastatur <strong>in</strong> Musician's Canvas auf einer MIDI-Spur aufgenommen wird, muss das Betriebssystem den <strong>MIDI-Ausgang</strong> der Tastatur zu einem <strong>Eingangsport</strong> routen, den Musician's Canvas nutzt—z. B. über ein virtuelles MIDI-Kabel oder passende Portwahl in beiden Apps. Die Programme verbinden sich nicht automatisch.</p>
+<h3 id="was-ist-der-unterschied-zwischen-configuration-und-project-settings">Was ist der Unterschied zwischen Configuration und Project Settings?</h3>
+<p><strong>Settings &gt; Configuration</strong> legt <strong>globale Standardwerte</strong> (Theme, Sprache, MIDI/Audio, SoundFont usw.) in den Programmeinstellungen fest. <strong>Project &gt; Project Settings</strong> überschreibt einige Werte <strong>nur für das aktuelle Projekt</strong> und wird in <code>project.json</code> gespeichert. Steht ein Feld auf dem Projekt-Default, gilt der globale Wert aus der Configuration.</p>
+<h3 id="warum-funktioniert-drag-and-drop-fur-audiodateien-nicht">Warum funktioniert Drag-and-Drop für Audiodateien nicht?</h3>
+<p>Dateien werden nur akzeptiert, wenn ein <strong>Projektverzeichnis gesetzt</strong> ist und <strong>weder Wiedergabe noch Aufnahme</strong> läuft. Unterstützt werden <strong><code>.wav</code></strong> und <strong><code>.flac</code></strong>; andere Endungen werden übersprungen und in einem Dialog aufgelistet. Jede Datei wird eine neue <strong>Audio</strong>-Spur mit Namen aus dem Dateinamen (ohne Erweiterung).</p>
+<h3 id="wo-werden-meine-aufnahmen-gespeichert">Wo werden meine Aufnahmen gespeichert?</h3>
+<p>Audioaufnahmen liegen im <strong>Projektverzeichnis</strong> als <strong><code>&lt;Spurname&gt;.flac</code></strong> (Zeichen wie <code>/ \ : * ? " &lt; &gt; |</code> werden zu Unterstrichen). Die Projektdatei ist <strong><code>project.json</code></strong> im gleichen Ordner. MIDI-Spuren werden beim Speichern als <strong><code>&lt;Spurname&gt;.mid</code></strong> abgelegt (zusätzlich zu den Noten in <code>project.json</code>).</p>
+<h3 id="welcher-dateiname-wird-verwendet-wenn-eine-midi-spur-furs-mischen-gerendert-wird">Welcher Dateiname wird verwendet, wenn eine MIDI-Spur fürs Mischen gerendert wird?</h3>
+<p>Beim <strong>Mischen</strong> oder <strong>Abspielen</strong> wird MIDI intern zunächst in ein temporäres WAV gerendert. Ist der Projektpfad bekannt, schreibt Musician's Canvas zusätzlich einen <strong>FLAC-Cache</strong> im Projektordner: <strong><code>&lt;bereinigter_Spurname&gt;.flac</code></strong> (gleiche Bereinigung wie bei anderen Spurdateien). Der Name folgt dem <strong>Spurnamen</strong>, nicht einer internen ID.</p>
+<h3 id="kann-ich-zwei-spuren-gleichzeitig-aufnehmen">Kann ich zwei Spuren gleichzeitig aufnehmen?</h3>
+<p>Nein. Nur <strong>eine</strong> Spur kann <strong>armed</strong> sein; sie erhält die nächste Aufnahme. Sie bauen ein Stück, indem Sie nacheinander aufnehmen (<strong>Overdub</strong> spielt bestehende Spuren während einer neuen Aufnahme ab).</p>
+<h3 id="wird-das-metronom-in-die-aufnahme-gemischt">Wird das Metronom in die Aufnahme gemischt?</h3>
+<p>Nein. Das Metronom läuft über die <strong>Systemwiedergabe</strong> nur für Sie. Es landet <strong>nicht</strong> in der Aufnahmedatei.</p>
+<h3 id="warum-verlangt-musicians-canvas-unter-windows-asio">Warum verlangt Musician's Canvas unter Windows ASIO?</h3>
+<p>Unter Windows erwartet die Hauptanwendung einen <strong>ASIO</strong>-Treiber für zuverlässige niedrige Latenz. Installieren Sie z. B. <strong>ASIO4ALL</strong> oder einen Herstellertreiber, wenn Start- oder Audiofehler auftreten.</p>
+<h3 id="wo-liegt-virtual-midi-keyboard-unter-macos">Wo liegt Virtual MIDI Keyboard unter macOS?</h3>
+<p>Im <strong><code>.app</code>-Bundle</strong> wird die Virtual-MIDI-Keyboard-Programmdatei <strong>in</strong> <code>Musician's Canvas.app</code> kopiert (<strong>Contents/MacOS/</strong>), damit ein einzelner App-Ordner verteilt werden kann. Start weiterhin über <strong>Tools &gt; Virtual MIDI Keyboard</strong>.</p>
 <h2 id="fehlerbehebung">Fehlerbehebung</h2>
 <h3 id="keine-audioausgabe">Keine Audioausgabe</h3>
 <ul>

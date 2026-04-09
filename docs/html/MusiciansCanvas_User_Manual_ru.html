@@ -99,14 +99,28 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#virtual-midi-keyboard_1">Сочетания клавиш Virtual MIDI Keyboard</a></li>
 </ul>
 </li>
-<li><a href="#_40">Устранение неполадок</a><ul>
-<li><a href="#_41">Нет звукового вывода</a></li>
-<li><a href="#midi-">MIDI-дорожки не воспроизводят звук</a></li>
-<li><a href="#_42">Запись звучит искажённо или с неправильной высотой тона</a></li>
+<li><a href="#faq">Часто задаваемые вопросы (FAQ)</a><ul>
+<li><a href="#midi-">Как записать MIDI-дорожку?</a></li>
+<li><a href="#midi-_1">Почему MIDI-дорожка беззвучна при воспроизведении?</a></li>
+<li><a href="#virtual-midi-keyboard-musicians-canvas">Как Virtual MIDI Keyboard связан с Musician's Canvas?</a></li>
+<li><a href="#configuration-project-settings">Чем отличаются Configuration и Project Settings?</a></li>
+<li><a href="#_40">Почему перетаскивание файлов не добавляет аудио?</a></li>
+<li><a href="#_41">Где хранятся записи?</a></li>
+<li><a href="#midi_4">Какое имя файла при рендере MIDI для сведения?</a></li>
+<li><a href="#_42">Можно ли записывать две дорожки одновременно?</a></li>
+<li><a href="#_43">Попадает ли метроном в запись?</a></li>
+<li><a href="#windows-asio">Почему на Windows требуется ASIO?</a></li>
+<li><a href="#macos-virtual-midi-keyboard">Где на macOS находится Virtual MIDI Keyboard?</a></li>
+</ul>
+</li>
+<li><a href="#_44">Устранение неполадок</a><ul>
+<li><a href="#_45">Нет звукового вывода</a></li>
+<li><a href="#midi-_2">MIDI-дорожки не воспроизводят звук</a></li>
+<li><a href="#_46">Запись звучит искажённо или с неправильной высотой тона</a></li>
 <li><a href="#virtual-midi-keyboard_2">Virtual MIDI Keyboard не воспроизводит звук</a></li>
 </ul>
 </li>
-<li><a href="#_43">Сборка из исходного кода</a></li>
+<li><a href="#_47">Сборка из исходного кода</a></li>
 </ul>
 </li>
 </ul>
@@ -753,8 +767,39 @@ SoundFont или аудиоустройства. Настройки проект
 </tr>
 </tbody>
 </table>
-<h2 id="_40">Устранение неполадок</h2>
-<h3 id="_41">Нет звукового вывода</h3>
+<h2 id="faq">Часто задаваемые вопросы (FAQ)</h2>
+<h3 id="midi-">Как записать MIDI-дорожку?</h3>
+<ol>
+<li>Укажите <strong>каталог проекта</strong> (нужен для сохранения).</li>
+<li>Добавьте или выберите дорожку и откройте <strong>Options</strong> (или щёлкните значок типа дорожки).</li>
+<li>Установите тип <strong>MIDI</strong> и закройте диалог.</li>
+<li>В <strong>Settings &gt; Configuration &gt; MIDI</strong> выберите <strong>MIDI-вход</strong> (аппаратный порт или виртуальный кабель) и <strong>SoundFont</strong> (<code>.sf2</code>) для последующего воспроизведения.</li>
+<li><strong>Вооружите (Arm)</strong> эту дорожку (одновременно может быть вооружена только одна).</li>
+<li>Нажмите <strong>Record</strong>, дождитесь обратного отсчёта, играйте на контроллере, затем <strong>Stop</strong>.</li>
+</ol>
+<p>Ноты отображаются в рояльной раскладке. <strong>File &gt; Save Project</strong> записывает файл <code>.mid</code> и <code>project.json</code> в папку проекта.</p>
+<h3 id="midi-_1">Почему MIDI-дорожка беззвучна при воспроизведении?</h3>
+<p>Воспроизведение идёт через <strong>FluidSynth</strong> с <strong>SoundFont</strong> из настроек. Проверьте <strong>Settings &gt; Configuration &gt; MIDI</strong> (или <strong>Project &gt; Project Settings</strong>, если есть переопределения проекта): должен быть указан корректный путь к <code>.sf2</code>. В Linux системный SoundFont может находиться автоматически; в Windows и macOS обычно нужно выбрать файл вручную.</p>
+<h3 id="virtual-midi-keyboard-musicians-canvas">Как Virtual MIDI Keyboard связан с Musician's Canvas?</h3>
+<p>Это <strong>два отдельных приложения</strong>. Запускайте Virtual MIDI Keyboard через <strong>Tools &gt; Virtual MIDI Keyboard</strong> (или отдельно). Чтобы экранная клавиатура <strong>попадала</strong> в Musician's Canvas при записи MIDI, ОС должна направить <strong>MIDI-выход</strong> клавиатуры на <strong>вход</strong>, который использует Musician's Canvas — часто через виртуальный MIDI-кабель или согласованные порты в обоих программах. Автоподключения нет.</p>
+<h3 id="configuration-project-settings">Чем отличаются Configuration и Project Settings?</h3>
+<p><strong>Settings &gt; Configuration</strong> задаёт <strong>глобальные значения по умолчанию</strong> (тема, язык, MIDI/аудиоустройства, SoundFont и т. д.). <strong>Project &gt; Project Settings</strong> переопределяет часть параметров <strong>только для текущего проекта</strong> и сохраняется в <code>project.json</code>. Если поле оставлено на проектном умолчании, используется глобальное значение из Configuration.</p>
+<h3 id="_40">Почему перетаскивание файлов не добавляет аудио?</h3>
+<p>Файлы принимаются только при заданном <strong>каталоге проекта</strong> и когда Musician's Canvas <strong>не</strong> воспроизводит и <strong>не</strong> записывает. Поддерживаются <strong><code>.wav</code></strong> и <strong><code>.flac</code></strong>; остальные расширения пропускаются и показываются в диалоге. Каждый файл становится новой <strong>аудио</strong>дорожкой с именем из базового имени файла.</p>
+<h3 id="_41">Где хранятся записи?</h3>
+<p>Аудио сохраняется в <strong>каталоге проекта</strong> как <strong><code>&lt;имя_дорожки&gt;.flac</code></strong> (символы вроде <code>/ \ : * ? " &lt; &gt; |</code> заменяются на подчёркивание). Файл проекта — <strong><code>project.json</code></strong> в той же папке. MIDI-дорожки при сохранении проекта записываются как <strong><code>&lt;имя_дорожки&gt;.mid</code></strong> (ноты также в <code>project.json</code>).</p>
+<h3 id="midi_4">Какое имя файла при рендере MIDI для сведения?</h3>
+<p>При <strong>сведении</strong> или <strong>воспроизведении</strong> MIDI сначала рендерится во временный WAV. Если известен путь проекта, Musician's Canvas также записывает <strong>кэширующий FLAC</strong> в папку проекта: <strong><code>&lt;очищенное_имя_дорожки&gt;.flac</code></strong> (те же правила очистки, что и у других файлов дорожек). Имя берётся от <strong>названия дорожки</strong>, а не от внутреннего ID.</p>
+<h3 id="_42">Можно ли записывать две дорожки одновременно?</h3>
+<p>Нет. <strong>Вооружена</strong> может быть только <strong>одна</strong> дорожка; на неё идёт следующая запись. Собирайте проект, записывая <strong>по очереди</strong> (<strong>overdub</strong> воспроизводит существующие дорожки при новой записи).</p>
+<h3 id="_43">Попадает ли метроном в запись?</h3>
+<p>Нет. При включении метроном звучит через <strong>системный вывод</strong> только для вас. В файл записи он <strong>не</strong> микшируется.</p>
+<h3 id="windows-asio">Почему на Windows требуется ASIO?</h3>
+<p>В Windows основное приложение рассчитывает на драйвер <strong>ASIO</strong> для стабильного аудио с низкой задержкой. При ошибках установите <strong>ASIO4ALL</strong> или драйвер производителя интерфейса.</p>
+<h3 id="macos-virtual-midi-keyboard">Где на macOS находится Virtual MIDI Keyboard?</h3>
+<p>В <strong>пакете <code>.app</code></strong> исполняемый файл Virtual MIDI Keyboard <strong>копируется внутрь</strong> <code>Musician's Canvas.app</code> (<strong>Contents/MacOS/</strong>), чтобы распространять один каталог приложения. Запуск по-прежнему через <strong>Tools &gt; Virtual MIDI Keyboard</strong>.</p>
+<h2 id="_44">Устранение неполадок</h2>
+<h3 id="_45">Нет звукового вывода</h3>
 <ul>
 <li>Проверьте, что правильное устройство вывода аудио выбрано в Settings &gt; Configuration &gt; Audio.</li>
 <li>В Linux убедитесь, что PipeWire или PulseAudio запущены и вывод не заглушён. Используйте <code>amixer</code>
@@ -763,14 +808,14 @@ SoundFont или аудиоустройства. Настройки проект
   <a href="https://asio4all.org/">ASIO4ALL</a> или драйвер ASIO от производителя вашего аудиоинтерфейса).
   Musician's Canvas требует ASIO для работы с низкой задержкой в Windows.</li>
 </ul>
-<h3 id="midi-">MIDI-дорожки не воспроизводят звук</h3>
+<h3 id="midi-_2">MIDI-дорожки не воспроизводят звук</h3>
 <ul>
 <li>Убедитесь, что файл SoundFont (<code>.sf2</code>) настроен в Settings &gt; Configuration &gt; MIDI.</li>
 <li>В Linux системный SoundFont может быть обнаружен автоматически, если установлен пакет
   <code>fluid-soundfont-gm</code>.</li>
 <li>В Windows и macOS путь к SoundFont необходимо настроить вручную.</li>
 </ul>
-<h3 id="_42">Запись звучит искажённо или с неправильной высотой тона</h3>
+<h3 id="_46">Запись звучит искажённо или с неправильной высотой тона</h3>
 <ul>
 <li>Это может произойти, когда собственная частота дискретизации устройства ввода звука отличается от
   настроенной частоты проекта. Musician's Canvas автоматически обрабатывает это с помощью передискретизации,
@@ -788,7 +833,7 @@ SoundFont или аудиоустройства. Настройки проект
 <li>Проверьте, что SoundFont загружен (см. вкладку MIDI в диалоге конфигурации).</li>
 <li>Убедитесь, что устройство вывода аудио выбрано и системная громкость не заглушена.</li>
 </ul>
-<h2 id="_43">Сборка из исходного кода</h2>
+<h2 id="_47">Сборка из исходного кода</h2>
 <p>Полные инструкции по сборке для Linux, macOS и Windows, включая все необходимые зависимости,
 см. в <a href="../README.md">README</a>.</p>
 </body>

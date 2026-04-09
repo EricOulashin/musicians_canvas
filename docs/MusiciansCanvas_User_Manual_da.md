@@ -431,6 +431,59 @@ Taster lyser visuelt op, når de trykkes ned (hvide tangenter bliver lyseblå, s
 | Ctrl+U   | Hjælp / Brugsinformation    |
 | Ctrl+Q   | Luk                         |
 
+## Ofte stillede spørgsmål (FAQ)
+
+### Hvordan optager jeg et MIDI-spor?
+
+1. Angiv en **projektmappe** (påkrævet for at gemme).
+2. Tilføj eller vælg et spor, og åbn **Options** (eller klik på sporticikonet).
+3. Sæt typen til **MIDI**, og luk dialogen.
+4. Under **Settings > Configuration > MIDI** vælger du **MIDI-indgang** (hardwareport eller virtuel ledning) og et **SoundFont** (`.sf2`) til senere afspilning.
+5. **Arm** det spor (kun ét spor kan være armeret ad gangen).
+6. Klik på **Record**, vent på nedtælling, spil på controlleren, og derefter **Stop**.
+
+Noderne vises i piano roll. **File > Save Project** skriver en `.mid`-fil og `project.json` i projektmappen.
+
+### Hvorfor er mit MIDI-spor lydløst ved afspilning?
+
+Afspilning bruger **FluidSynth** med **SoundFont** fra indstillingerne. Tjek **Settings > Configuration > MIDI** (eller **Project > Project Settings** ved projektspecifikke overskrivninger): der skal være en gyldig `.sf2`-sti. Under Linux kan et system-SoundFont findes automatisk; under Windows og macOS skal du ofte vælge filen manuelt.
+
+### Hvordan hænger Virtual MIDI Keyboard sammen med Musician's Canvas?
+
+Det er **to separate programmer**. Start Virtual MIDI Keyboard fra **Tools > Virtual MIDI Keyboard** (eller alene). For at skærmtastaturet skal **nå ind i** Musician's Canvas under MIDI-optagelse, skal operativsystemet dirigere tastaturets **MIDI-udgang** til en **indgang**, som Musician's Canvas bruger — ofte via virtuel MIDI-kabel eller matchende porte i begge apps. De forbinder ikke automatisk.
+
+### Hvad er forskellen på Configuration og Project Settings?
+
+**Settings > Configuration** angiver **globale standarder** (tema, sprog, MIDI/lydenheder, SoundFont m.m.). **Project > Project Settings** tilsidesætter dele **kun for det aktuelle projekt** og gemmes i `project.json`. Hvis et felt står på projektstandard, bruges den globale værdi fra Configuration.
+
+### Hvorfor virker træk-og-slip ikke med lydfiler?
+
+Filer accepteres kun, når en **projektmappe er angivet**, og Musician's Canvas **ikke** afspiller eller optager. Understøttede typer er **`.wav`** og **`.flac`**; andre filendelser springes over og vises i en dialog. Hver fil bliver et nyt **lyd**spor med navn fra filnavnet uden endelse.
+
+### Hvor gemmes mine optagelser?
+
+Lyd gemmes i **projektmappen** som **`<spornavn>.flac`** (tegn som `/ \ : * ? " < > |` erstattes med understregning). Projektfilen er **`project.json`** i samme mappe. MIDI-spor gemmes som **`<spornavn>.mid`** når du gemmer projektet (sammen med noder i `project.json`).
+
+### Hvilket filnavn bruges, når MIDI gengives til mix?
+
+Ved **mix** eller **afspilning** gengives MIDI først til en midlertidig WAV internt. Hvis projektstien er kendt, skriver Musician's Canvas også en **FLAC-cache** i projektmappen: **`<renset_spornavn>.flac`** (samme regler som andre sporfiler). Navnet følger **spornavnet**, ikke et internt ID.
+
+### Kan jeg optage to spor samtidig?
+
+Nej. Kun **ét** spor kan være **armeret** ad gangen; det får næste optagelse. Byg nummeret ved at optage **ét ad gangen** (**overdub** afspiller eksisterende spor under ny optagelse).
+
+### Optages metronomen på sporet?
+
+Nej. Når den er slået til, afspilles metronomen via **systemlyd** kun som reference for dig. Den **blandes ikke** ind i optagelsesfilen.
+
+### Hvorfor kræver Musician's Canvas ASIO på Windows?
+
+På Windows forventer hovedprogrammet en **ASIO**-driver til pålidelig lav-latens-lyd. Installer **ASIO4ALL** eller producentens driver ved fejl.
+
+### Hvor er Virtual MIDI Keyboard på macOS?
+
+I **`.app`-pakken** kopieres Virtual MIDI Keyboard-eksekverbar fil **ind i** `Musician's Canvas.app` (**Contents/MacOS/**), så én appmappe kan distribueres. Start den stadig via **Tools > Virtual MIDI Keyboard**.
+
 ## Fejlfinding
 
 ### Ingen lydoutput

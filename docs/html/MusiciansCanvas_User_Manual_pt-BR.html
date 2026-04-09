@@ -99,6 +99,20 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#atalhos-do-virtual-midi-keyboard">Atalhos do Virtual MIDI Keyboard</a></li>
 </ul>
 </li>
+<li><a href="#faq-perguntas-frequentes">FAQ (Perguntas frequentes)</a><ul>
+<li><a href="#como-gravo-uma-faixa-midi">Como gravo uma faixa MIDI?</a></li>
+<li><a href="#por-que-minha-faixa-midi-fica-muda-na-reproducao">Por que minha faixa MIDI fica muda na reproducao?</a></li>
+<li><a href="#qual-a-relacao-entre-virtual-midi-keyboard-e-musicians-canvas">Qual a relacao entre Virtual MIDI Keyboard e Musician's Canvas?</a></li>
+<li><a href="#qual-a-diferenca-entre-configuration-e-project-settings">Qual a diferenca entre Configuration e Project Settings?</a></li>
+<li><a href="#por-que-arrastar-e-soltar-nao-adiciona-audio">Por que arrastar e soltar nao adiciona audio?</a></li>
+<li><a href="#onde-ficam-minhas-gravacoes">Onde ficam minhas gravacoes?</a></li>
+<li><a href="#qual-nome-de-arquivo-ao-renderizar-midi-para-mixagem">Qual nome de arquivo ao renderizar MIDI para mixagem?</a></li>
+<li><a href="#posso-gravar-duas-faixas-ao-mesmo-tempo">Posso gravar duas faixas ao mesmo tempo?</a></li>
+<li><a href="#o-metronomo-entra-na-gravacao">O metronomo entra na gravacao?</a></li>
+<li><a href="#por-que-o-musicians-canvas-pede-asio-no-windows">Por que o Musician's Canvas pede ASIO no Windows?</a></li>
+<li><a href="#no-macos-onde-fica-o-virtual-midi-keyboard">No macOS, onde fica o Virtual MIDI Keyboard?</a></li>
+</ul>
+</li>
 <li><a href="#solucao-de-problemas">Solucao de Problemas</a><ul>
 <li><a href="#sem-saida-de-audio">Sem Saida de Audio</a></li>
 <li><a href="#faixas-midi-estao-silenciosas">Faixas MIDI Estao Silenciosas</a></li>
@@ -792,6 +806,37 @@ dispositivos MIDI e audio:</p>
 </tr>
 </tbody>
 </table>
+<h2 id="faq-perguntas-frequentes">FAQ (Perguntas frequentes)</h2>
+<h3 id="como-gravo-uma-faixa-midi">Como gravo uma faixa MIDI?</h3>
+<ol>
+<li>Defina um <strong>diretorio de projeto</strong> (obrigatorio para salvar).</li>
+<li>Adicione ou selecione uma faixa e abra <strong>Options</strong> (ou clique no icone do tipo de faixa).</li>
+<li>Defina o tipo como <strong>MIDI</strong> e feche o dialogo.</li>
+<li>Em <strong>Settings &gt; Configuration &gt; MIDI</strong>, escolha a <strong>entrada MIDI</strong> (porta fisica ou cabo virtual) e um <strong>SoundFont</strong> (<code>.sf2</code>) para reproducao posterior.</li>
+<li><strong>Arme</strong> essa faixa (so uma faixa pode estar armada por vez).</li>
+<li>Clique em <strong>Record</strong>, aguarde a contagem regressiva, toque no controlador e depois <strong>Stop</strong>.</li>
+</ol>
+<p>As notas aparecem no piano roll. <strong>File &gt; Save Project</strong> grava um arquivo <code>.mid</code> (e <code>project.json</code>) na pasta do projeto.</p>
+<h3 id="por-que-minha-faixa-midi-fica-muda-na-reproducao">Por que minha faixa MIDI fica muda na reproducao?</h3>
+<p>A reproducao usa <strong>FluidSynth</strong> com o <strong>SoundFont</strong> das configuracoes. Verifique <strong>Settings &gt; Configuration &gt; MIDI</strong> (ou <strong>Project &gt; Project Settings</strong> se houver sobrescritas por projeto): e preciso um caminho <code>.sf2</code> valido. No Linux um SoundFont do sistema pode ser detectado; no Windows e macOS normalmente e necessario escolher o arquivo manualmente.</p>
+<h3 id="qual-a-relacao-entre-virtual-midi-keyboard-e-musicians-canvas">Qual a relacao entre Virtual MIDI Keyboard e Musician's Canvas?</h3>
+<p>Sao <strong>programas separados</strong>. Inicie o Virtual MIDI Keyboard em <strong>Tools &gt; Virtual MIDI Keyboard</strong> (ou sozinho). Para enviar notas do teclado na tela <strong>para</strong> o Musician's Canvas ao gravar MIDI, o sistema precisa encaminhar a <strong>saida MIDI</strong> do teclado para uma <strong>entrada</strong> usada pelo Musician's Canvas — muitas vezes com cabo MIDI virtual ou portas coerentes nos dois apps. Nao ha conexao automatica.</p>
+<h3 id="qual-a-diferenca-entre-configuration-e-project-settings">Qual a diferenca entre Configuration e Project Settings?</h3>
+<p><strong>Settings &gt; Configuration</strong> define os <strong>padroes globais</strong> (tema, idioma, dispositivos MIDI/audio, SoundFont etc.). <strong>Project &gt; Project Settings</strong> substitui parte disso <strong>somente para o projeto atual</strong> e fica em <code>project.json</code>. Se um campo permanece no padrao do projeto, vale o valor global da Configuration.</p>
+<h3 id="por-que-arrastar-e-soltar-nao-adiciona-audio">Por que arrastar e soltar nao adiciona audio?</h3>
+<p>So e aceito com <strong>diretorio de projeto</strong> definido e sem <strong>reproducao ou gravacao</strong> em andamento. Formatos suportados: <strong><code>.wav</code></strong> e <strong><code>.flac</code></strong>; outros sao ignorados e listados em um dialogo. Cada arquivo vira uma nova faixa <strong>audio</strong> com o nome base do arquivo.</p>
+<h3 id="onde-ficam-minhas-gravacoes">Onde ficam minhas gravacoes?</h3>
+<p>O audio e salvo no <strong>diretorio do projeto</strong> como <strong><code>&lt;nome_da_faixa&gt;.flac</code></strong> (caracteres como <code>/ \ : * ? " &lt; &gt; |</code> viram sublinhado). O arquivo de projeto e <strong><code>project.json</code></strong> na mesma pasta. Faixas MIDI viram <strong><code>&lt;nome_da_faixa&gt;.mid</code></strong> ao salvar o projeto (alem das notas em <code>project.json</code>).</p>
+<h3 id="qual-nome-de-arquivo-ao-renderizar-midi-para-mixagem">Qual nome de arquivo ao renderizar MIDI para mixagem?</h3>
+<p>Na <strong>mixagem</strong> ou <strong>reproducao</strong>, o MIDI e primeiro renderizado para um WAV temporario. Se o caminho do projeto for conhecido, o Musician's Canvas tambem grava um <strong>FLAC em cache</strong> na pasta do projeto: <strong><code>&lt;nome_sanitizado_da_faixa&gt;.flac</code></strong> (mesmas regras das outras faixas). O nome segue o <strong>nome da faixa</strong>, nao um ID interno.</p>
+<h3 id="posso-gravar-duas-faixas-ao-mesmo-tempo">Posso gravar duas faixas ao mesmo tempo?</h3>
+<p>Nao. So <strong>uma</strong> faixa pode estar <strong>armada</strong> por vez; ela recebe a proxima gravacao. Monte a musica gravando <strong>uma depois da outra</strong> (<strong>overdub</strong> toca as faixas existentes enquanto voce grava uma nova).</p>
+<h3 id="o-metronomo-entra-na-gravacao">O metronomo entra na gravacao?</h3>
+<p>Nao. Quando ativado, o metronomo sai pelo <strong>audio do sistema</strong> apenas como referencia. <strong>Nao</strong> e misturado ao arquivo gravado.</p>
+<h3 id="por-que-o-musicians-canvas-pede-asio-no-windows">Por que o Musician's Canvas pede ASIO no Windows?</h3>
+<p>No Windows o aplicativo principal espera um driver <strong>ASIO</strong> para audio confiavel e de baixa latencia. Instale <strong>ASIO4ALL</strong> ou o driver do fabricante da interface se aparecerem erros.</p>
+<h3 id="no-macos-onde-fica-o-virtual-midi-keyboard">No macOS, onde fica o Virtual MIDI Keyboard?</h3>
+<p>No <strong>bundle <code>.app</code></strong>, o executavel do Virtual MIDI Keyboard e <strong>copiado para dentro de</strong> <code>Musician's Canvas.app</code> (<strong>Contents/MacOS/</strong>) para distribuir uma unica pasta de app. Continue abrindo por <strong>Tools &gt; Virtual MIDI Keyboard</strong>.</p>
 <h2 id="solucao-de-problemas">Solucao de Problemas</h2>
 <h3 id="sem-saida-de-audio">Sem Saida de Audio</h3>
 <ul>

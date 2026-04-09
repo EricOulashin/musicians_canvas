@@ -99,6 +99,20 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#atajos-de-virtual-midi-keyboard">Atajos de Virtual MIDI Keyboard</a></li>
 </ul>
 </li>
+<li><a href="#faq-preguntas-frecuentes">FAQ (Preguntas frecuentes)</a><ul>
+<li><a href="#como-grabo-una-pista-midi">¿Cómo grabo una pista MIDI?</a></li>
+<li><a href="#por-que-mi-pista-midi-no-suena-al-reproducir">¿Por qué mi pista MIDI no suena al reproducir?</a></li>
+<li><a href="#como-se-relaciona-virtual-midi-keyboard-con-musicians-canvas">¿Cómo se relaciona Virtual MIDI Keyboard con Musician's Canvas?</a></li>
+<li><a href="#que-diferencia-hay-entre-configuration-y-project-settings">¿Qué diferencia hay entre Configuration y Project Settings?</a></li>
+<li><a href="#por-que-no-funciona-arrastrar-y-soltar-archivos-de-audio">¿Por qué no funciona arrastrar y soltar archivos de audio?</a></li>
+<li><a href="#donde-se-guardan-mis-grabaciones">¿Dónde se guardan mis grabaciones?</a></li>
+<li><a href="#que-nombre-de-archivo-se-usa-al-renderizar-midi-para-mezclar">¿Qué nombre de archivo se usa al renderizar MIDI para mezclar?</a></li>
+<li><a href="#puedo-grabar-dos-pistas-a-la-vez">¿Puedo grabar dos pistas a la vez?</a></li>
+<li><a href="#se-graba-el-metronomo-en-la-pista">¿Se graba el metrónomo en la pista?</a></li>
+<li><a href="#por-que-musicians-canvas-pide-asio-en-windows">¿Por qué Musician's Canvas pide ASIO en Windows?</a></li>
+<li><a href="#en-macos-donde-esta-virtual-midi-keyboard">En macOS, ¿dónde está Virtual MIDI Keyboard?</a></li>
+</ul>
+</li>
 <li><a href="#solucion-de-problemas">Solución de Problemas</a><ul>
 <li><a href="#sin-salida-de-audio">Sin Salida de Audio</a></li>
 <li><a href="#las-pistas-midi-no-producen-sonido">Las Pistas MIDI No Producen Sonido</a></li>
@@ -690,6 +704,37 @@ finaliza la grabación.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="faq-preguntas-frecuentes">FAQ (Preguntas frecuentes)</h2>
+<h3 id="como-grabo-una-pista-midi">¿Cómo grabo una pista MIDI?</h3>
+<ol>
+<li>Establezca un <strong>directorio de proyecto</strong> (necesario para guardar).</li>
+<li>Añada o seleccione una pista y abra <strong>Options</strong> (o haga clic en el icono de tipo de pista).</li>
+<li>Configure el tipo de pista como <strong>MIDI</strong> y cierre el cuadro de diálogo.</li>
+<li>En <strong>Settings &gt; Configuration &gt; MIDI</strong>, elija la <strong>entrada MIDI</strong> (puerto físico o cable virtual) y un <strong>SoundFont</strong> (<code>.sf2</code>) para la reproducción posterior.</li>
+<li><strong>Arme</strong> esa pista (solo una pista puede estar armada a la vez).</li>
+<li>Pulse <strong>Record</strong>, espere la cuenta atrás, toque el controlador y luego <strong>Stop</strong>.</li>
+</ol>
+<p>Las notas aparecen en el piano roll. <strong>File &gt; Save Project</strong> escribe un archivo <code>.mid</code> (y <code>project.json</code>) en la carpeta del proyecto.</p>
+<h3 id="por-que-mi-pista-midi-no-suena-al-reproducir">¿Por qué mi pista MIDI no suena al reproducir?</h3>
+<p>La reproducción usa <strong>FluidSynth</strong> con el <strong>SoundFont</strong> de la configuración. Revise <strong>Settings &gt; Configuration &gt; MIDI</strong> (o <strong>Project &gt; Project Settings</strong> si hay anulaciones por proyecto): debe haber una ruta <code>.sf2</code> válida. En Linux a veces se detecta un SoundFont del sistema; en Windows y macOS suele ser necesario elegir manualmente un archivo SoundFont.</p>
+<h3 id="como-se-relaciona-virtual-midi-keyboard-con-musicians-canvas">¿Cómo se relaciona Virtual MIDI Keyboard con Musician's Canvas?</h3>
+<p>Son <strong>programas independientes</strong>. Inicie Virtual MIDI Keyboard desde <strong>Tools &gt; Virtual MIDI Keyboard</strong> (o por separado). Para que el teclado en pantalla <strong>entre</strong> en Musician's Canvas mientras graba una pista MIDI, el sistema debe enrutar la <strong>salida MIDI</strong> del teclado a una <strong>entrada</strong> que use Musician's Canvas — a menudo con un cable MIDI virtual o eligiendo puertos coherentes en ambas aplicaciones. No se conectan solas.</p>
+<h3 id="que-diferencia-hay-entre-configuration-y-project-settings">¿Qué diferencia hay entre Configuration y Project Settings?</h3>
+<p><strong>Settings &gt; Configuration</strong> define los <strong>valores predeterminados globales</strong> (tema, idioma, dispositivos MIDI/audio, SoundFont, etc.) de la aplicación. <strong>Project &gt; Project Settings</strong> sobrescribe parte de eso <strong>solo para el proyecto actual</strong> y se guarda en <code>project.json</code>. Si un campo queda en el predeterminado del proyecto, se usa el valor global de Configuration.</p>
+<h3 id="por-que-no-funciona-arrastrar-y-soltar-archivos-de-audio">¿Por qué no funciona arrastrar y soltar archivos de audio?</h3>
+<p>Solo se aceptan archivos si hay <strong>directorio de proyecto</strong> y Musician's Canvas <strong>no</strong> está reproduciendo ni grabando. Los formatos admitidos son <strong><code>.wav</code></strong> y <strong><code>.flac</code></strong>; otros se omiten y se listan en un diálogo. Cada archivo crea una nueva pista <strong>audio</strong> con el nombre del archivo sin extensión.</p>
+<h3 id="donde-se-guardan-mis-grabaciones">¿Dónde se guardan mis grabaciones?</h3>
+<p>El audio se guarda en el <strong>directorio del proyecto</strong> como <strong><code>&lt;nombre_pista&gt;.flac</code></strong> (caracteres como <code>/ \ : * ? " &lt; &gt; |</code> se sustituyen por guiones bajos). El archivo de proyecto es <strong><code>project.json</code></strong> en la misma carpeta. Las pistas MIDI se guardan como <strong><code>&lt;nombre_pista&gt;.mid</code></strong> al guardar el proyecto (junto con las notas en <code>project.json</code>).</p>
+<h3 id="que-nombre-de-archivo-se-usa-al-renderizar-midi-para-mezclar">¿Qué nombre de archivo se usa al renderizar MIDI para mezclar?</h3>
+<p>Al <strong>mezclar</strong> o <strong>reproducir</strong>, el MIDI se renderiza primero a un WAV temporal. Si se conoce la ruta del proyecto, Musician's Canvas también escribe un <strong>FLAC en caché</strong> en la carpeta del proyecto: <strong><code>&lt;nombre_pista_sanitizado&gt;.flac</code></strong> (misma regla de saneamiento que otros archivos de pista). El nombre sigue el <strong>nombre de pista</strong>, no un ID interno.</p>
+<h3 id="puedo-grabar-dos-pistas-a-la-vez">¿Puedo grabar dos pistas a la vez?</h3>
+<p>No. Solo <strong>una</strong> pista puede estar <strong>armada</strong>; recibe la siguiente grabación. Compone grabando <strong>una tras otra</strong> (el <strong>overdub</strong> reproduce las pistas existentes mientras graba una nueva).</p>
+<h3 id="se-graba-el-metronomo-en-la-pista">¿Se graba el metrónomo en la pista?</h3>
+<p>No. Si está activado, el metrónomo suena por el <strong>audio del sistema</strong> solo como referencia. <strong>No</strong> se mezcla en el archivo grabado.</p>
+<h3 id="por-que-musicians-canvas-pide-asio-en-windows">¿Por qué Musician's Canvas pide ASIO en Windows?</h3>
+<p>En Windows la aplicación principal espera un controlador <strong>ASIO</strong> para audio fiable y de baja latencia. Instale <strong>ASIO4ALL</strong> o el controlador del fabricante de su interfaz si aparecen errores.</p>
+<h3 id="en-macos-donde-esta-virtual-midi-keyboard">En macOS, ¿dónde está Virtual MIDI Keyboard?</h3>
+<p>En el <strong>bundle <code>.app</code></strong>, el ejecutable de Virtual MIDI Keyboard se <strong>copia dentro de</strong> <code>Musician's Canvas.app</code> (<strong>Contents/MacOS/</strong>) para poder distribuir una sola carpeta de aplicación. Sígalo abriendo <strong>Tools &gt; Virtual MIDI Keyboard</strong>.</p>
 <h2 id="solucion-de-problemas">Solución de Problemas</h2>
 <h3 id="sin-salida-de-audio">Sin Salida de Audio</h3>
 <ul>

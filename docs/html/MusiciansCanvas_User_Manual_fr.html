@@ -99,6 +99,20 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#raccourcis-de-virtual-midi-keyboard">Raccourcis de Virtual MIDI Keyboard</a></li>
 </ul>
 </li>
+<li><a href="#faq-foire-aux-questions">FAQ (Foire aux questions)</a><ul>
+<li><a href="#comment-enregistrer-une-piste-midi">Comment enregistrer une piste MIDI ?</a></li>
+<li><a href="#pourquoi-ma-piste-midi-est-elle-silencieuse-a-la-lecture">Pourquoi ma piste MIDI est-elle silencieuse à la lecture ?</a></li>
+<li><a href="#quel-est-le-lien-entre-virtual-midi-keyboard-et-musicians-canvas">Quel est le lien entre Virtual MIDI Keyboard et Musician's Canvas ?</a></li>
+<li><a href="#quelle-est-la-difference-entre-configuration-et-project-settings">Quelle est la différence entre Configuration et Project Settings ?</a></li>
+<li><a href="#pourquoi-le-glisser-deposer-najoute-t-il-pas-de-fichiers-audio">Pourquoi le glisser-déposer n’ajoute-t-il pas de fichiers audio ?</a></li>
+<li><a href="#ou-sont-stockes-mes-enregistrements">Où sont stockés mes enregistrements ?</a></li>
+<li><a href="#quel-nom-de-fichier-pour-le-rendu-midi-lors-du-mixage">Quel nom de fichier pour le rendu MIDI lors du mixage ?</a></li>
+<li><a href="#puis-je-enregistrer-deux-pistes-en-meme-temps">Puis-je enregistrer deux pistes en même temps ?</a></li>
+<li><a href="#le-metronome-est-il-enregistre-sur-la-piste">Le métronome est-il enregistré sur la piste ?</a></li>
+<li><a href="#pourquoi-musicians-canvas-exige-t-il-asio-sous-windows">Pourquoi Musician's Canvas exige-t-il ASIO sous Windows ?</a></li>
+<li><a href="#sous-macos-ou-se-trouve-virtual-midi-keyboard">Sous macOS, où se trouve Virtual MIDI Keyboard ?</a></li>
+</ul>
+</li>
 <li><a href="#depannage">Dépannage</a><ul>
 <li><a href="#pas-de-sortie-audio">Pas de sortie audio</a></li>
 <li><a href="#les-pistes-midi-sont-silencieuses">Les pistes MIDI sont silencieuses</a></li>
@@ -810,6 +824,37 @@ configurer les périphériques MIDI et audio :</p>
 </tr>
 </tbody>
 </table>
+<h2 id="faq-foire-aux-questions">FAQ (Foire aux questions)</h2>
+<h3 id="comment-enregistrer-une-piste-midi">Comment enregistrer une piste MIDI ?</h3>
+<ol>
+<li>Définissez un <strong>répertoire de projet</strong> (obligatoire pour enregistrer).</li>
+<li>Ajoutez ou sélectionnez une piste et ouvrez <strong>Options</strong> (ou cliquez sur l’icône de type de piste).</li>
+<li>Réglez le type de piste sur <strong>MIDI</strong>, puis fermez la boîte de dialogue.</li>
+<li>Dans <strong>Settings &gt; Configuration &gt; MIDI</strong>, choisissez l’<strong>entrée MIDI</strong> (port matériel ou câble virtuel) et un <strong>SoundFont</strong> (<code>.sf2</code>) pour la lecture ultérieure.</li>
+<li><strong>Armez</strong> cette piste (une seule piste peut être armée à la fois).</li>
+<li>Cliquez sur <strong>Record</strong>, attendez le décompte, jouez sur le contrôleur, puis <strong>Stop</strong>.</li>
+</ol>
+<p>Les notes s’affichent dans le piano roll. <strong>File &gt; Save Project</strong> écrit un fichier <code>.mid</code> (et <code>project.json</code>) dans le dossier du projet.</p>
+<h3 id="pourquoi-ma-piste-midi-est-elle-silencieuse-a-la-lecture">Pourquoi ma piste MIDI est-elle silencieuse à la lecture ?</h3>
+<p>La lecture utilise <strong>FluidSynth</strong> avec le <strong>SoundFont</strong> défini dans les réglages. Vérifiez <strong>Settings &gt; Configuration &gt; MIDI</strong> (ou <strong>Project &gt; Project Settings</strong> si vous surchargez par projet) : un chemin <code>.sf2</code> valide doit être défini. Sous Linux, un SoundFont système peut être détecté automatiquement ; sous Windows et macOS, il faut en général choisir manuellement un fichier SoundFont.</p>
+<h3 id="quel-est-le-lien-entre-virtual-midi-keyboard-et-musicians-canvas">Quel est le lien entre Virtual MIDI Keyboard et Musician's Canvas ?</h3>
+<p>Ce sont <strong>deux applications distinctes</strong>. Lancez Virtual MIDI Keyboard via <strong>Tools &gt; Virtual MIDI Keyboard</strong> (ou seul). Pour envoyer les notes du clavier à l’écran <strong>vers</strong> Musician's Canvas pendant l’enregistrement d’une piste MIDI, le système doit router la <strong>sortie MIDI</strong> du clavier vers une <strong>entrée</strong> utilisée par Musician's Canvas — souvent via un câble MIDI virtuel ou des ports cohérents dans les deux apps. Elles ne se connectent pas automatiquement.</p>
+<h3 id="quelle-est-la-difference-entre-configuration-et-project-settings">Quelle est la différence entre Configuration et Project Settings ?</h3>
+<p><strong>Settings &gt; Configuration</strong> définit les <strong>valeurs par défaut globales</strong> (thème, langue, périphériques MIDI/audio, SoundFont, etc.) dans les paramètres de l’application. <strong>Project &gt; Project Settings</strong> remplace certaines valeurs <strong>pour le projet courant uniquement</strong> et est enregistré dans <code>project.json</code>. Si un champ reste au défaut projet, la valeur globale de Configuration s’applique.</p>
+<h3 id="pourquoi-le-glisser-deposer-najoute-t-il-pas-de-fichiers-audio">Pourquoi le glisser-déposer n’ajoute-t-il pas de fichiers audio ?</h3>
+<p>Le dépôt n’est accepté que si un <strong>répertoire de projet est défini</strong> et que Musician's Canvas <strong>ne lit ni n’enregistre</strong> pas. Les types pris en charge sont <strong><code>.wav</code></strong> et <strong><code>.flac</code></strong> ; les autres extensions sont ignorées et listées dans une boîte de dialogue. Chaque fichier devient une nouvelle piste <strong>audio</strong> nommée d’après le nom de fichier sans extension.</p>
+<h3 id="ou-sont-stockes-mes-enregistrements">Où sont stockés mes enregistrements ?</h3>
+<p>Les enregistrements audio sont dans le <strong>répertoire du projet</strong> sous <strong><code>&lt;nom_de_piste&gt;.flac</code></strong> (caractères tels que <code>/ \ : * ? " &lt; &gt; |</code> sont remplacés par des tirets bas). Le fichier projet est <strong><code>project.json</code></strong> dans le même dossier. Les pistes MIDI sont enregistrées en <strong><code>&lt;nom_de_piste&gt;.mid</code></strong> lorsque vous sauvegardez le projet (en plus des notes dans <code>project.json</code>).</p>
+<h3 id="quel-nom-de-fichier-pour-le-rendu-midi-lors-du-mixage">Quel nom de fichier pour le rendu MIDI lors du mixage ?</h3>
+<p>Lors du <strong>mixage</strong> ou de la <strong>lecture</strong>, le MIDI est d’abord rendu en WAV temporaire en interne. Si le chemin du projet est connu, Musician's Canvas écrit aussi un <strong>FLAC de cache</strong> dans le dossier du projet : <strong><code>&lt;nom_de_piste_assaini&gt;.flac</code></strong> (même règle d’assainissement que les autres fichiers de piste). Le nom suit le <strong>nom de piste</strong>, pas un identifiant interne.</p>
+<h3 id="puis-je-enregistrer-deux-pistes-en-meme-temps">Puis-je enregistrer deux pistes en même temps ?</h3>
+<p>Non. Une seule piste peut être <strong>armée</strong> à la fois ; elle reçoit l’enregistrement suivant. Vous construisez le morceau en enregistrant <strong>l’une après l’autre</strong> (l’<strong>overdub</strong> lit les pistes existantes pendant une nouvelle prise).</p>
+<h3 id="le-metronome-est-il-enregistre-sur-la-piste">Le métronome est-il enregistré sur la piste ?</h3>
+<p>Non. S’il est activé, le métronome passe par l’<strong>audio système</strong> pour vous guider. Il <strong>n’est pas</strong> inclus dans le fichier enregistré.</p>
+<h3 id="pourquoi-musicians-canvas-exige-t-il-asio-sous-windows">Pourquoi Musician's Canvas exige-t-il ASIO sous Windows ?</h3>
+<p>Sous Windows, l’application principale attend un pilote <strong>ASIO</strong> pour une latence faible et fiable. Installez par exemple <strong>ASIO4ALL</strong> ou le pilote du fabricant de votre interface en cas d’erreur au démarrage ou audio.</p>
+<h3 id="sous-macos-ou-se-trouve-virtual-midi-keyboard">Sous macOS, où se trouve Virtual MIDI Keyboard ?</h3>
+<p>Dans le <strong>bundle <code>.app</code></strong>, l’exécutable Virtual MIDI Keyboard est <strong>copié dans</strong> <code>Musician's Canvas.app</code> (<strong>Contents/MacOS/</strong>) pour ne distribuer qu’un seul dossier d’application. Vous pouvez toujours le lancer via <strong>Tools &gt; Virtual MIDI Keyboard</strong>.</p>
 <h2 id="depannage">Dépannage</h2>
 <h3 id="pas-de-sortie-audio">Pas de sortie audio</h3>
 <ul>

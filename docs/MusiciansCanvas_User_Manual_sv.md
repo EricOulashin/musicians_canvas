@@ -505,6 +505,59 @@ ljudenheter:
 | Ctrl+U   | Hjälp / Användningsinfo  |
 | Ctrl+Q   | Stäng                    |
 
+## Vanliga frågor (FAQ)
+
+### Hur spelar jag in ett MIDI-spår?
+
+1. Ange en **projektkatalog** (krävs för att spara).
+2. Lägg till eller välj ett spår och öppna **Options** (eller klicka på spårtypikonen).
+3. Ställ in typen **MIDI** och stäng dialogrutan.
+4. Under **Settings > Configuration > MIDI**, välj **MIDI-ingång** (hårdvaruport eller virtuell kablage) och ett **SoundFont** (`.sf2`) för senare uppspelning.
+5. **Arma** det spåret (endast ett spår kan vara armat åt gången).
+6. Klicka på **Record**, vänta på nedräkningen, spela på kontrollern och sedan **Stop**.
+
+Noterna visas i piano roll. **File > Save Project** skriver en `.mid`-fil och `project.json` i projektmappen.
+
+### Varför är mitt MIDI-spår tyst vid uppspelning?
+
+Uppspelning använder **FluidSynth** med **SoundFont** från inställningarna. Kontrollera **Settings > Configuration > MIDI** (eller **Project > Project Settings** vid projektöverskridningar): en giltig `.sf2`-sökväg måste anges. Under Linux kan ett system-SoundFont hittas automatiskt; under Windows och macOS måste du oftast välja filen manuellt.
+
+### Hur hänger Virtual MIDI Keyboard ihop med Musician's Canvas?
+
+Det är **två separata program**. Starta Virtual MIDI Keyboard från **Tools > Virtual MIDI Keyboard** (eller fristående). För att skärmtangentbordet ska **nå** Musician's Canvas under MIDI-inspelning måste operativsystemet dirigera tangentbordets **MIDI-utgång** till en **ingång** som Musician's Canvas använder — ofta via virtuell MIDI-kabel eller matchande portar i båda apparna. De kopplar inte ihop sig automatiskt.
+
+### Vad skiljer Configuration från Project Settings?
+
+**Settings > Configuration** anger **globala standardvärden** (tema, språk, MIDI/ljudenheter, SoundFont m.m.). **Project > Project Settings** åsidosätter vissa värden **endast för det aktuella projektet** och sparas i `project.json`. Om ett fält lämnas på projektstandard gäller det globala värdet från Configuration.
+
+### Varför fungerar inte dra-och-släpp för ljudfiler?
+
+Filer accepteras bara när en **projektkatalog är angiven** och Musician's Canvas **inte** spelar eller spelar in. Format som stöds är **`.wav`** och **`.flac`**; andra filändelser hoppas över och listas i en dialogruta. Varje fil blir ett nytt **ljud**spår med namn från filnamnet utan ändelse.
+
+### Var sparas mina inspelningar?
+
+Ljud sparas i **projektkatalogen** som **`<spårnamn>.flac`** (tecken som `/ \ : * ? " < > |` ersätts med understreck). Projektfilen är **`project.json`** i samma mapp. MIDI-spår sparas som **`<spårnamn>.mid`** när du sparar projektet (tillsammans med noter i `project.json`).
+
+### Vilket filnamn används när MIDI renderas för mixning?
+
+Vid **mixning** eller **uppspelning** renderas MIDI först till en temporär WAV internt. Om projektsökvägen är känd skriver Musician's Canvas också en **FLAC-cache** i projektmappen: **`<sanerat_spårnamn>.flac`** (samma saneringsregler som för andra spårfiler). Namnet följer **spårnamnet**, inte ett internt ID.
+
+### Kan jag spela in två spår samtidigt?
+
+Nej. Endast **ett** spår kan vara **armat** åt gången; det får nästa inspelning. Bygg låten genom att spela in **ett i taget** (**overdub** spelar befintliga spår medan du spelar in ett nytt).
+
+### Spelas metronomen in på spåret?
+
+Nej. När den är på spelas metronomen via **systemljud** bara som referens för dig. Den **blandas inte** in i inspelningsfilen.
+
+### Varför kräver Musician's Canvas ASIO på Windows?
+
+På Windows förväntar sig huvudprogrammet en **ASIO**-drivrutin för pålitligt ljud med låg latens. Installera **ASIO4ALL** eller tillverkarens drivrutin vid fel.
+
+### Var finns Virtual MIDI Keyboard på macOS?
+
+I **`.app`-paketet** kopieras Virtual MIDI Keyboard-exekverbar fil **in i** `Musician's Canvas.app` (**Contents/MacOS/**) så att en appmapp kan distribueras. Starta den fortfarande via **Tools > Virtual MIDI Keyboard**.
+
 ## Felsökning
 
 ### Inget ljudutmatning

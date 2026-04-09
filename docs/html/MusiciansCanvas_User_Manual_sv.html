@@ -99,6 +99,20 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#kortkommandon-for-virtual-midi-keyboard">Kortkommandon för Virtual MIDI Keyboard</a></li>
 </ul>
 </li>
+<li><a href="#vanliga-fragor-faq">Vanliga frågor (FAQ)</a><ul>
+<li><a href="#hur-spelar-jag-in-ett-midi-spar">Hur spelar jag in ett MIDI-spår?</a></li>
+<li><a href="#varfor-ar-mitt-midi-spar-tyst-vid-uppspelning">Varför är mitt MIDI-spår tyst vid uppspelning?</a></li>
+<li><a href="#hur-hanger-virtual-midi-keyboard-ihop-med-musicians-canvas">Hur hänger Virtual MIDI Keyboard ihop med Musician's Canvas?</a></li>
+<li><a href="#vad-skiljer-configuration-fran-project-settings">Vad skiljer Configuration från Project Settings?</a></li>
+<li><a href="#varfor-fungerar-inte-dra-och-slapp-for-ljudfiler">Varför fungerar inte dra-och-släpp för ljudfiler?</a></li>
+<li><a href="#var-sparas-mina-inspelningar">Var sparas mina inspelningar?</a></li>
+<li><a href="#vilket-filnamn-anvands-nar-midi-renderas-for-mixning">Vilket filnamn används när MIDI renderas för mixning?</a></li>
+<li><a href="#kan-jag-spela-in-tva-spar-samtidigt">Kan jag spela in två spår samtidigt?</a></li>
+<li><a href="#spelas-metronomen-in-pa-sparet">Spelas metronomen in på spåret?</a></li>
+<li><a href="#varfor-kraver-musicians-canvas-asio-pa-windows">Varför kräver Musician's Canvas ASIO på Windows?</a></li>
+<li><a href="#var-finns-virtual-midi-keyboard-pa-macos">Var finns Virtual MIDI Keyboard på macOS?</a></li>
+</ul>
+</li>
 <li><a href="#felsokning">Felsökning</a><ul>
 <li><a href="#inget-ljudutmatning">Inget ljudutmatning</a></li>
 <li><a href="#midi-spar-ar-tysta">MIDI-spår är tysta</a></li>
@@ -744,6 +758,37 @@ ljudenheter:</p>
 </tr>
 </tbody>
 </table>
+<h2 id="vanliga-fragor-faq">Vanliga frågor (FAQ)</h2>
+<h3 id="hur-spelar-jag-in-ett-midi-spar">Hur spelar jag in ett MIDI-spår?</h3>
+<ol>
+<li>Ange en <strong>projektkatalog</strong> (krävs för att spara).</li>
+<li>Lägg till eller välj ett spår och öppna <strong>Options</strong> (eller klicka på spårtypikonen).</li>
+<li>Ställ in typen <strong>MIDI</strong> och stäng dialogrutan.</li>
+<li>Under <strong>Settings &gt; Configuration &gt; MIDI</strong>, välj <strong>MIDI-ingång</strong> (hårdvaruport eller virtuell kablage) och ett <strong>SoundFont</strong> (<code>.sf2</code>) för senare uppspelning.</li>
+<li><strong>Arma</strong> det spåret (endast ett spår kan vara armat åt gången).</li>
+<li>Klicka på <strong>Record</strong>, vänta på nedräkningen, spela på kontrollern och sedan <strong>Stop</strong>.</li>
+</ol>
+<p>Noterna visas i piano roll. <strong>File &gt; Save Project</strong> skriver en <code>.mid</code>-fil och <code>project.json</code> i projektmappen.</p>
+<h3 id="varfor-ar-mitt-midi-spar-tyst-vid-uppspelning">Varför är mitt MIDI-spår tyst vid uppspelning?</h3>
+<p>Uppspelning använder <strong>FluidSynth</strong> med <strong>SoundFont</strong> från inställningarna. Kontrollera <strong>Settings &gt; Configuration &gt; MIDI</strong> (eller <strong>Project &gt; Project Settings</strong> vid projektöverskridningar): en giltig <code>.sf2</code>-sökväg måste anges. Under Linux kan ett system-SoundFont hittas automatiskt; under Windows och macOS måste du oftast välja filen manuellt.</p>
+<h3 id="hur-hanger-virtual-midi-keyboard-ihop-med-musicians-canvas">Hur hänger Virtual MIDI Keyboard ihop med Musician's Canvas?</h3>
+<p>Det är <strong>två separata program</strong>. Starta Virtual MIDI Keyboard från <strong>Tools &gt; Virtual MIDI Keyboard</strong> (eller fristående). För att skärmtangentbordet ska <strong>nå</strong> Musician's Canvas under MIDI-inspelning måste operativsystemet dirigera tangentbordets <strong>MIDI-utgång</strong> till en <strong>ingång</strong> som Musician's Canvas använder — ofta via virtuell MIDI-kabel eller matchande portar i båda apparna. De kopplar inte ihop sig automatiskt.</p>
+<h3 id="vad-skiljer-configuration-fran-project-settings">Vad skiljer Configuration från Project Settings?</h3>
+<p><strong>Settings &gt; Configuration</strong> anger <strong>globala standardvärden</strong> (tema, språk, MIDI/ljudenheter, SoundFont m.m.). <strong>Project &gt; Project Settings</strong> åsidosätter vissa värden <strong>endast för det aktuella projektet</strong> och sparas i <code>project.json</code>. Om ett fält lämnas på projektstandard gäller det globala värdet från Configuration.</p>
+<h3 id="varfor-fungerar-inte-dra-och-slapp-for-ljudfiler">Varför fungerar inte dra-och-släpp för ljudfiler?</h3>
+<p>Filer accepteras bara när en <strong>projektkatalog är angiven</strong> och Musician's Canvas <strong>inte</strong> spelar eller spelar in. Format som stöds är <strong><code>.wav</code></strong> och <strong><code>.flac</code></strong>; andra filändelser hoppas över och listas i en dialogruta. Varje fil blir ett nytt <strong>ljud</strong>spår med namn från filnamnet utan ändelse.</p>
+<h3 id="var-sparas-mina-inspelningar">Var sparas mina inspelningar?</h3>
+<p>Ljud sparas i <strong>projektkatalogen</strong> som <strong><code>&lt;spårnamn&gt;.flac</code></strong> (tecken som <code>/ \ : * ? " &lt; &gt; |</code> ersätts med understreck). Projektfilen är <strong><code>project.json</code></strong> i samma mapp. MIDI-spår sparas som <strong><code>&lt;spårnamn&gt;.mid</code></strong> när du sparar projektet (tillsammans med noter i <code>project.json</code>).</p>
+<h3 id="vilket-filnamn-anvands-nar-midi-renderas-for-mixning">Vilket filnamn används när MIDI renderas för mixning?</h3>
+<p>Vid <strong>mixning</strong> eller <strong>uppspelning</strong> renderas MIDI först till en temporär WAV internt. Om projektsökvägen är känd skriver Musician's Canvas också en <strong>FLAC-cache</strong> i projektmappen: <strong><code>&lt;sanerat_spårnamn&gt;.flac</code></strong> (samma saneringsregler som för andra spårfiler). Namnet följer <strong>spårnamnet</strong>, inte ett internt ID.</p>
+<h3 id="kan-jag-spela-in-tva-spar-samtidigt">Kan jag spela in två spår samtidigt?</h3>
+<p>Nej. Endast <strong>ett</strong> spår kan vara <strong>armat</strong> åt gången; det får nästa inspelning. Bygg låten genom att spela in <strong>ett i taget</strong> (<strong>overdub</strong> spelar befintliga spår medan du spelar in ett nytt).</p>
+<h3 id="spelas-metronomen-in-pa-sparet">Spelas metronomen in på spåret?</h3>
+<p>Nej. När den är på spelas metronomen via <strong>systemljud</strong> bara som referens för dig. Den <strong>blandas inte</strong> in i inspelningsfilen.</p>
+<h3 id="varfor-kraver-musicians-canvas-asio-pa-windows">Varför kräver Musician's Canvas ASIO på Windows?</h3>
+<p>På Windows förväntar sig huvudprogrammet en <strong>ASIO</strong>-drivrutin för pålitligt ljud med låg latens. Installera <strong>ASIO4ALL</strong> eller tillverkarens drivrutin vid fel.</p>
+<h3 id="var-finns-virtual-midi-keyboard-pa-macos">Var finns Virtual MIDI Keyboard på macOS?</h3>
+<p>I <strong><code>.app</code>-paketet</strong> kopieras Virtual MIDI Keyboard-exekverbar fil <strong>in i</strong> <code>Musician's Canvas.app</code> (<strong>Contents/MacOS/</strong>) så att en appmapp kan distribueras. Starta den fortfarande via <strong>Tools &gt; Virtual MIDI Keyboard</strong>.</p>
 <h2 id="felsokning">Felsökning</h2>
 <h3 id="inget-ljudutmatning">Inget ljudutmatning</h3>
 <ul>

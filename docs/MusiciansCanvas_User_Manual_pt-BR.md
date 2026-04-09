@@ -553,6 +553,59 @@ dispositivos MIDI e audio:
 | Ctrl+U   | Ajuda / Informacoes de uso  |
 | Ctrl+Q   | Fechar                      |
 
+## FAQ (Perguntas frequentes)
+
+### Como gravo uma faixa MIDI?
+
+1. Defina um **diretorio de projeto** (obrigatorio para salvar).
+2. Adicione ou selecione uma faixa e abra **Options** (ou clique no icone do tipo de faixa).
+3. Defina o tipo como **MIDI** e feche o dialogo.
+4. Em **Settings > Configuration > MIDI**, escolha a **entrada MIDI** (porta fisica ou cabo virtual) e um **SoundFont** (`.sf2`) para reproducao posterior.
+5. **Arme** essa faixa (so uma faixa pode estar armada por vez).
+6. Clique em **Record**, aguarde a contagem regressiva, toque no controlador e depois **Stop**.
+
+As notas aparecem no piano roll. **File > Save Project** grava um arquivo `.mid` (e `project.json`) na pasta do projeto.
+
+### Por que minha faixa MIDI fica muda na reproducao?
+
+A reproducao usa **FluidSynth** com o **SoundFont** das configuracoes. Verifique **Settings > Configuration > MIDI** (ou **Project > Project Settings** se houver sobrescritas por projeto): e preciso um caminho `.sf2` valido. No Linux um SoundFont do sistema pode ser detectado; no Windows e macOS normalmente e necessario escolher o arquivo manualmente.
+
+### Qual a relacao entre Virtual MIDI Keyboard e Musician's Canvas?
+
+Sao **programas separados**. Inicie o Virtual MIDI Keyboard em **Tools > Virtual MIDI Keyboard** (ou sozinho). Para enviar notas do teclado na tela **para** o Musician's Canvas ao gravar MIDI, o sistema precisa encaminhar a **saida MIDI** do teclado para uma **entrada** usada pelo Musician's Canvas — muitas vezes com cabo MIDI virtual ou portas coerentes nos dois apps. Nao ha conexao automatica.
+
+### Qual a diferenca entre Configuration e Project Settings?
+
+**Settings > Configuration** define os **padroes globais** (tema, idioma, dispositivos MIDI/audio, SoundFont etc.). **Project > Project Settings** substitui parte disso **somente para o projeto atual** e fica em `project.json`. Se um campo permanece no padrao do projeto, vale o valor global da Configuration.
+
+### Por que arrastar e soltar nao adiciona audio?
+
+So e aceito com **diretorio de projeto** definido e sem **reproducao ou gravacao** em andamento. Formatos suportados: **`.wav`** e **`.flac`**; outros sao ignorados e listados em um dialogo. Cada arquivo vira uma nova faixa **audio** com o nome base do arquivo.
+
+### Onde ficam minhas gravacoes?
+
+O audio e salvo no **diretorio do projeto** como **`<nome_da_faixa>.flac`** (caracteres como `/ \ : * ? " < > |` viram sublinhado). O arquivo de projeto e **`project.json`** na mesma pasta. Faixas MIDI viram **`<nome_da_faixa>.mid`** ao salvar o projeto (alem das notas em `project.json`).
+
+### Qual nome de arquivo ao renderizar MIDI para mixagem?
+
+Na **mixagem** ou **reproducao**, o MIDI e primeiro renderizado para um WAV temporario. Se o caminho do projeto for conhecido, o Musician's Canvas tambem grava um **FLAC em cache** na pasta do projeto: **`<nome_sanitizado_da_faixa>.flac`** (mesmas regras das outras faixas). O nome segue o **nome da faixa**, nao um ID interno.
+
+### Posso gravar duas faixas ao mesmo tempo?
+
+Nao. So **uma** faixa pode estar **armada** por vez; ela recebe a proxima gravacao. Monte a musica gravando **uma depois da outra** (**overdub** toca as faixas existentes enquanto voce grava uma nova).
+
+### O metronomo entra na gravacao?
+
+Nao. Quando ativado, o metronomo sai pelo **audio do sistema** apenas como referencia. **Nao** e misturado ao arquivo gravado.
+
+### Por que o Musician's Canvas pede ASIO no Windows?
+
+No Windows o aplicativo principal espera um driver **ASIO** para audio confiavel e de baixa latencia. Instale **ASIO4ALL** ou o driver do fabricante da interface se aparecerem erros.
+
+### No macOS, onde fica o Virtual MIDI Keyboard?
+
+No **bundle `.app`**, o executavel do Virtual MIDI Keyboard e **copiado para dentro de** `Musician's Canvas.app` (**Contents/MacOS/**) para distribuir uma unica pasta de app. Continue abrindo por **Tools > Virtual MIDI Keyboard**.
+
 ## Solucao de Problemas
 
 ### Sem Saida de Audio

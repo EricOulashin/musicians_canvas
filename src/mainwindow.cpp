@@ -105,15 +105,6 @@ static QByteArray generateClickPcm()
 }
 #endif
 
-// Returns a filesystem-safe version of a track name (strips chars invalid on all platforms)
-static QString sanitizedTrackFilename(const QString& name)
-{
-    QString result = name.trimmed();
-    static const QRegularExpression invalid(QStringLiteral("[/\\\\:*?\"<>|\\r\\n]"));
-    result.replace(invalid, QStringLiteral("_"));
-    return result;
-}
-
 // Parses a WAV file's RIFF/WAVE header by scanning chunks, populates audioData,
 // sampleRate, and channelCount from the file's own header (more robust than seek(44)).
 // Returns true on success.
@@ -585,7 +576,7 @@ bool MainWindow::addAudioFileAsTrack(const QString& sourcePath)
 
     // Use the file's base name (without extension) as the track name.
     const QString trackName = srcInfo.completeBaseName();
-    const QString destFileName = sanitizedTrackFilename(trackName)
+    const QString destFileName = AudioUtils::sanitizedTrackFilesystemName(trackName)
                                  + QStringLiteral(".")
                                  + srcInfo.suffix().toLower();
     const QString destPath = projectDir + QDir::separator() + destFileName;
@@ -1198,7 +1189,7 @@ void MainWindow::finalizeRecordedAudio(const QByteArray& rawData, qint64 process
     armed->setArmed(false);
 
     const QString flacPath = effectiveProjectPath() + QDir::separator() +
-                             sanitizedTrackFilename(data.name) + ".flac";
+                             AudioUtils::sanitizedTrackFilesystemName(data.name) + ".flac";
     static_cast<void>(
         AudioUtils::writeAudioDataToFlac(rec.int16Pcm,
                                          rec.sampleRate,
@@ -1594,7 +1585,7 @@ void MainWindow::onSaveProject()
             // AudioFormats::all() list is checked in order, so the preferred
             // format (currently .flac) wins when more than one exists; older
             // projects with .wav still resolve correctly.
-            const QString baseName = sanitizedTrackFilename(d.name);
+            const QString baseName = AudioUtils::sanitizedTrackFilesystemName(d.name);
             QString audioExt = QString::fromLatin1(AudioFormats::all().first().extension);
             for (const auto& fmt : AudioFormats::all())
             {
@@ -1614,7 +1605,7 @@ void MainWindow::onSaveProject()
             // it from the project JSON via the "midiFile" property.  The
             // inline midiNotes array is no longer written; older projects
             // that still have it inline are still readable on load.
-            const QString midiBase = sanitizedTrackFilename(d.name);
+            const QString midiBase = AudioUtils::sanitizedTrackFilesystemName(d.name);
             const QString midiFileName = midiBase + QStringLiteral(".mid");
             const QString midiFullPath =
                 m_projectLocationEdit->text().trimmed()
@@ -1867,8 +1858,10 @@ void MainWindow::onTrackNameChanged(TrackWidget* /*widget*/,
     const QString projectDir = m_projectLocationEdit->text().trimmed();
     if (!projectDir.isEmpty())
     {
-        const QString oldBase = projectDir + QDir::separator() + sanitizedTrackFilename(oldName);
-        const QString newBase = projectDir + QDir::separator() + sanitizedTrackFilename(newName);
+        const QString oldBase =
+            projectDir + QDir::separator() + AudioUtils::sanitizedTrackFilesystemName(oldName);
+        const QString newBase =
+            projectDir + QDir::separator() + AudioUtils::sanitizedTrackFilesystemName(newName);
         for (const auto& fmt : AudioFormats::all())
         {
             const QString ext = QString::fromLatin1(fmt.extension);

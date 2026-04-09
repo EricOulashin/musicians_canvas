@@ -448,6 +448,59 @@ Open the Configuration dialog (**Settings > Configuration**, Ctrl+,) to set up M
 | Ctrl+U   | Help / Usage info            |
 | Ctrl+Q   | Close (abandon this vessel)  |
 
+## FAQ (Questions Sailed Often)
+
+### How do I record a MIDI shanty — er, *track*?
+
+1. Set yer **project directory** (ye can't stash booty without a hold).
+2. Add or pick a track and open **Options** (or click the track-type icon, savvy?).
+3. Set the type to **MIDI** and batten the dialog.
+4. Under **Settings > Configuration > MIDI**, pick yer **MIDI input** (hardware port or a virtual cable across the bilge) and a **SoundFont** (`.sf2`) fer playin' back later.
+5. **Arm** that track (only one may be armed at a time — no double powder charges).
+6. Click **Record**, endure the countdown, play yer controller, then **Stop**.
+
+Notes show in the piano roll. **File > Save Project** writes a `.mid` and `project.json` into the project folder.
+
+### Why be me MIDI track silent on playback?
+
+Playback uses **FluidSynth** with the **SoundFont** from settings. Eye **Settings > Configuration > MIDI** (or **Project > Project Settings** if ye overrode per voyage): a proper `.swab` — beg pardon, `.sf2` — path be required. On Linux a system SoundFont may be found without map; on Windows and macOS ye often pick the file by hand.
+
+### How be Virtual MIDI Keyboard tied to Musician's Canvas?
+
+They be **two separate vessels**. Launch Virtual MIDI Keyboard from **Tools > Virtual MIDI Keyboard** (or sail solo). To pipe the on-screen keys **into** Musician's Canvas while recordin' MIDI, the OS must route the keyboard's **MIDI out** to an **in** that Musician's Canvas listens on — often a virtual MIDI cable or matched ports in both apps. They don't board each other automatic-like.
+
+### What differ Configuration from Project Settings?
+
+**Settings > Configuration** sets **global defaults** (theme, tongue, MIDI/audio gear, SoundFont, and such). **Project > Project Settings** overrides fer **this project only** and lives in `project.json`. If a field stays at project default, the global Configuration value holds the wheel.
+
+### Why won't drag-and-drop take me audio files?
+
+Files be accepted only with a **project directory** set and when Musician's Canvas **ain't** playin' nor recordin'. **`.wav`** and **`.flac`** be welcome; other extensions walk the plank and get listed in a dialog. Each file becomes a new **audio** track named from the file's stem.
+
+### Where be me recordings stowed?
+
+Audio goes in the **project directory** as **`<track_name>.flac`** (characters like `/ \ : * ? " < > |` be replaced with underscores). The voyage log be **`project.json`** in the same folder. MIDI tracks save as **`<track_name>.mid`** when ye save the project (notes also in `project.json`).
+
+### What filename when MIDI be rendered fer mixin'?
+
+On **mix** or **playback**, MIDI be rendered to a temporary WAV below decks first. If the project path be known, Musician's Canvas also writes a **cache FLAC** in the project folder: **`<sanitized_track_name>.flac`** (same rules as other track booty). The name follows the **track name**, not a secret hold number.
+
+### Can I record two tracks at once?
+
+Nay. Only **one** track can be **armed** at a time; it gets the next recording. Build yer chart **one layer at a time** (**overdub** plays existin' tracks while ye lay down a new one).
+
+### Does the metronome get pressed into the recording?
+
+Nay. When enabled, the metronome ticks through **system audio** fer yer ears only. It **ain't mixed** into the captured file.
+
+### Why does Musician's Canvas demand ASIO on Windows?
+
+On Windows the main app expects an **ASIO** driver fer steady low-latency sound. Install **ASIO4ALL** or a maker's driver if ye hit errors.
+
+### Where be Virtual MIDI Keyboard on macOS?
+
+In the **`.app` bundle**, the Virtual MIDI Keyboard executable be **copied inside** `Musician's Canvas.app` (**Contents/MacOS/**) so one app folder can be handed ashore. Still launch it from **Tools > Virtual MIDI Keyboard**.
+
 ## Troubleshootin' (When Ye Hit Rough Seas)
 
 ### No Audio Output
