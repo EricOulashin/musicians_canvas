@@ -141,7 +141,7 @@ bool MidiRecorder::start(const QString& portName, QString* errorMsg)
         {
             QMutexLocker lock(&m_impl->mutex);
             m_impl->notes.clear();
-            for (int i = 0; i < 128; ++i)
+            for (int i = 0; i < 16 * 128; ++i)
             {
                 m_impl->activeNoteStart[i] = -1.0;
                 m_impl->activeVelocity[i]  = 0;

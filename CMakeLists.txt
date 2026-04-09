@@ -259,6 +259,8 @@ endif()
 # is a single .app the user can distribute.  The VK executable is NOT built as
 # its own MACOSX_BUNDLE; instead it is copied into the MC bundle post-build.
 if(APPLE)
+    # Ensure the main app bundle exists before we copy VK into it (avoids races with -j).
+    add_dependencies(virtual_midi_keyboard musicians_canvas)
     add_custom_command(TARGET virtual_midi_keyboard POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
             "$<TARGET_FILE:virtual_midi_keyboard>"
