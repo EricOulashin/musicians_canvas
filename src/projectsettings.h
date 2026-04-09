@@ -14,6 +14,13 @@ struct ProjectSettings
     // MIDI INPUT port name (matched against RtMidiIn::getPortName).
     // Empty = no MIDI input — MIDI tracks cannot be recorded until set.
     QString midiInputPortName;
+    // MIDI volume override for software synth rendering during playback.
+    // -1 = use app default; otherwise percent (0-200).
+    int midiVolumePercent = -1;
+    // When true (default), MIDI tracks are rendered to audio for playback so they
+    // can be heard along with audio tracks. When false, MIDI tracks are sent
+    // in real time to the configured MIDI output device.
+    bool renderMidiToAudioForPlayback = true;
 
     // Audio
     QByteArray audioInputDeviceId;   // empty = use app default (Qt Multimedia device id)

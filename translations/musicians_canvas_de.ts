@@ -694,6 +694,54 @@ Bitte wählen Sie ein Verzeichnis zum Speichern Ihrer aufgenommenen Dateien.</tr
         <source>(Default audio input)</source>
         <translation>(Standard-Audio-Eingang)</translation>
     </message>
+    <message>
+        <source>Select the MIDI output device for this project (used for realtime MIDI playback when enabled).</source>
+        <translation>Wählen Sie das MIDI-Ausgabegerät für dieses Projekt (wird bei aktivierter Echtzeit-MIDI-Wiedergabe verwendet).</translation>
+    </message>
+    <message>
+        <source>Select the MIDI input device used to record MIDI tracks.</source>
+        <translation>Wählen Sie das MIDI-Eingabegerät, das zum Aufnehmen von MIDI-Spuren verwendet wird.</translation>
+    </message>
+    <message>
+        <source>Re-scan for available MIDI and audio devices.</source>
+        <translation>Verfügbare MIDI- und Audiogeräte erneut suchen.</translation>
+    </message>
+    <message>
+        <source>Override the SoundFont (.sf2) used by the built-in synthesizer for this project.</source>
+        <translation>SoundFont (.sf2) überschreiben, die der integrierte Synthesizer für dieses Projekt verwendet.</translation>
+    </message>
+    <message>
+        <source>When enabled, MIDI tracks are rendered to audio for playback so they can be heard with audio tracks.</source>
+        <translation>Wenn aktiviert, werden MIDI-Spuren für die Wiedergabe in Audio gerendert, damit sie zusammen mit Audiospuren hörbar sind.</translation>
+    </message>
+    <message>
+        <source>Use the default MIDI volume from Settings → Configuration.</source>
+        <translation>Standard-MIDI-Lautstärke aus Einstellungen → Konfiguration verwenden.</translation>
+    </message>
+    <message>
+        <source>Override MIDI playback volume for this project (does not change mix/export).</source>
+        <translation>MIDI-Wiedergabelautstärke für dieses Projekt überschreiben (ändert nicht Mix/Export).</translation>
+    </message>
+    <message>
+        <source>Select the audio input device used for recording in this project.</source>
+        <translation>Wählen Sie das Audio-Eingabegerät, das in diesem Projekt zum Aufnehmen verwendet wird.</translation>
+    </message>
+    <message>
+        <source>Select the audio output device used for playback in this project.</source>
+        <translation>Wählen Sie das Audio-Ausgabegerät, das in diesem Projekt für die Wiedergabe verwendet wird.</translation>
+    </message>
+    <message>
+        <source>Sample rate used when recording audio and rendering MIDI in this project.</source>
+        <translation>Abtastrate, die beim Aufnehmen von Audio und beim Rendern von MIDI in diesem Projekt verwendet wird.</translation>
+    </message>
+    <message>
+        <source>Record audio tracks in mono (1 channel).</source>
+        <translation>Audiospuren in Mono aufnehmen (1 Kanal).</translation>
+    </message>
+    <message>
+        <source>Record audio tracks in stereo (2 channels).</source>
+        <translation>Audiospuren in Stereo aufnehmen (2 Kanäle).</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -970,6 +1018,58 @@ Bitte wählen Sie ein Verzeichnis zum Speichern Ihrer aufgenommenen Dateien.</tr
         <source>SoundFont files (*.sf2 *.SF2);;All files (*)</source>
         <translation>SoundFont-Dateien (*.sf2 *.SF2);;Alle Dateien (*)</translation>
     </message>
+    <message>
+        <source>Apply settings and close this window.</source>
+        <translation>Einstellungen anwenden und dieses Fenster schließen.</translation>
+    </message>
+    <message>
+        <source>Close this window without saving changes.</source>
+        <translation>Dieses Fenster schließen, ohne Änderungen zu speichern.</translation>
+    </message>
+    <message>
+        <source>Choose the app theme (dark or light).</source>
+        <translation>App-Design auswählen (dunkel oder hell).</translation>
+    </message>
+    <message>
+        <source>When enabled, writes recording diagnostics to a file for troubleshooting.</source>
+        <translation>Wenn aktiviert, werden Aufnahme-Diagnosedaten zur Fehlerbehebung in eine Datei geschrieben.</translation>
+    </message>
+    <message>
+        <source>Change the color of the numeric time display.</source>
+        <translation>Farbe der numerischen Zeitanzeige ändern.</translation>
+    </message>
+    <message>
+        <source>Default MIDI output device used for project playback unless overridden by Project Settings.</source>
+        <translation>Standard-MIDI-Ausgabegerät für die Projektwiedergabe, sofern nicht in den Projekteinstellungen überschrieben.</translation>
+    </message>
+    <message>
+        <source>Re-scan for available MIDI devices.</source>
+        <translation>Verfügbare MIDI-Geräte erneut suchen.</translation>
+    </message>
+    <message>
+        <source>SoundFont (.sf2) used by the built-in MIDI synthesizer when rendering MIDI to audio.</source>
+        <translation>SoundFont (.sf2), die der integrierte MIDI-Synthesizer beim Rendern von MIDI zu Audio verwendet.</translation>
+    </message>
+    <message>
+        <source>Choose a SoundFont (.sf2) file.</source>
+        <translation>Eine SoundFont-Datei (.sf2) auswählen.</translation>
+    </message>
+    <message>
+        <source>Adjust MIDI playback loudness for software synthesis (does not change mix/export).</source>
+        <translation>MIDI-Wiedergabelautstärke für Software-Synthese anpassen (ändert nicht Mix/Export).</translation>
+    </message>
+    <message>
+        <source>Default audio input device used when recording audio tracks.</source>
+        <translation>Standard-Audioeingabegerät, das beim Aufnehmen von Audiospuren verwendet wird.</translation>
+    </message>
+    <message>
+        <source>Default audio output device used for playback.</source>
+        <translation>Standard-Audioausgabegerät für die Wiedergabe.</translation>
+    </message>
+    <message>
+        <source>Choose the language used by the user interface.</source>
+        <translation>Sprache der Benutzeroberfläche auswählen.</translation>
+    </message>
 </context>
 <context>
     <name>TrackConfigDialog</name>
@@ -1054,6 +1154,14 @@ Bitte wählen Sie ein Verzeichnis zum Speichern Ihrer aufgenommenen Dateien.</tr
         <location filename="../src/trackwidget.cpp" line="259"/>
         <source>Audio track — click to change input type</source>
         <translation>Audiospur — klicken, um den Eingangstyp zu ändern</translation>
+    </message>
+    <message>
+        <source>Include this track in playback and mix/export.</source>
+        <translation>Diese Spur in Wiedergabe und Mix/Export einschließen.</translation>
+    </message>
+    <message>
+        <source>Select this track as the target for recording.</source>
+        <translation>Diese Spur als Ziel für die Aufnahme auswählen.</translation>
     </message>
 </context>
 <context>

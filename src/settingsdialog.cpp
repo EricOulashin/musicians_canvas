@@ -18,6 +18,7 @@ extern void loadAppTranslation(const QString& lang);
 #include <QFrame>
 #include <QFileDialog>
 #include <QDialogButtonBox>
+#include <QSlider>
 #ifdef QT_MULTIMEDIA_AVAILABLE
 #include <QMediaDevices>
 #include <QAudioDevice>
@@ -30,8 +31,8 @@ using std::string;
 SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
 {
     setWindowTitle(tr("Configuration"));
-    setMinimumSize(450, 350);
-    resize(500, 380);
+    setMinimumSize(450, 460);
+    resize(500, 520);
 
     auto* layout = new QVBoxLayout(this);
     m_tabWidget = new QTabWidget();
@@ -45,11 +46,13 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     auto* buttonLayout = new QHBoxLayout();
     buttonLayout->addStretch();
     auto* applyBtn = new QPushButton(tr("Apply"));
+    applyBtn->setToolTip(tr("Apply settings and close this window."));
     applyBtn->setObjectName("applyBtn");
     connect(applyBtn, &QPushButton::clicked, this, &SettingsDialog::onApply);
     buttonLayout->addWidget(applyBtn);
 
     auto* closeBtn = new QPushButton(tr("Close"));
+    closeBtn->setToolTip(tr("Close this window without saving changes."));
     connect(closeBtn, &QPushButton::clicked, this, &QDialog::accept);
     buttonLayout->addWidget(closeBtn);
     layout->addLayout(buttonLayout);
@@ -89,6 +92,7 @@ void SettingsDialog::setupGeneralTab()
     auto* themeLayout = new QVBoxLayout(themeGroup);
     themeLayout->addWidget(new QLabel(tr("Theme:")));
     m_themeCombo = new QComboBox();
+    m_themeCombo->setToolTip(tr("Choose the app theme (dark or light)."));
     m_themeCombo->addItem(tr("Dark"), QString("dark"));
     m_themeCombo->addItem(tr("Light"), QString("light"));
     m_themeCombo->setMinimumWidth(200);
@@ -98,6 +102,7 @@ void SettingsDialog::setupGeneralTab()
     auto* debugGroup = new QGroupBox(tr("Diagnostics"));
     auto* debugLayout = new QVBoxLayout(debugGroup);
     m_debugLogCheck = new QCheckBox(tr("Write recording debug log"));
+    m_debugLogCheck->setToolTip(tr("When enabled, writes recording diagnostics to a file for troubleshooting."));
     debugLayout->addWidget(m_debugLogCheck);
     layout->addWidget(debugGroup);
 
@@ -119,6 +124,7 @@ void SettingsDialog::setupDisplayTab()
     auto* ledLayout = new QVBoxLayout(ledGroup);
     ledLayout->addWidget(new QLabel(tr("Numeric display LED color:")));
     m_ledColorCombo = new QComboBox();
+    m_ledColorCombo->setToolTip(tr("Change the color of the numeric time display."));
     m_ledColorCombo->setMinimumWidth(200);
     m_ledColorCombo->addItem(tr("Light Red"), QStringLiteral("light_red"));
     m_ledColorCombo->addItem(tr("Dark Red"), QStringLiteral("dark_red"));
@@ -151,9 +157,11 @@ void SettingsDialog::setupMidiTab()
     auto* midiLayout = new QVBoxLayout(midiGroup);
     m_midiDeviceCombo = new QComboBox();
     m_midiDeviceCombo->setMinimumWidth(300);
+    m_midiDeviceCombo->setToolTip(tr("Default MIDI output device used for project playback unless overridden by Project Settings."));
     midiLayout->addWidget(m_midiDeviceCombo);
 
     auto* refreshMidiBtn = new QPushButton(tr("Refresh"));
+    refreshMidiBtn->setToolTip(tr("Re-scan for available MIDI devices."));
     connect(refreshMidiBtn, &QPushButton::clicked, this, &SettingsDialog::refreshDevices);
     midiLayout->addWidget(refreshMidiBtn);
 
@@ -163,12 +171,38 @@ void SettingsDialog::setupMidiTab()
     auto* sfLayout = new QHBoxLayout(sfGroup);
     m_soundFontEdit = new QLineEdit();
     m_soundFontEdit->setPlaceholderText(tr("Path to .sf2 SoundFont file"));
+    m_soundFontEdit->setToolTip(tr("SoundFont (.sf2) used by the built-in MIDI synthesizer when rendering MIDI to audio."));
     sfLayout->addWidget(m_soundFontEdit);
 
     auto* browseBtn = new QPushButton(tr("Browse..."));
+    browseBtn->setToolTip(tr("Choose a SoundFont (.sf2) file."));
     connect(browseBtn, &QPushButton::clicked, this, &SettingsDialog::onBrowseSoundFont);
     sfLayout->addWidget(browseBtn);
     layout->addWidget(sfGroup);
+
+    auto* volGroup = new QGroupBox(tr("MIDI Volume (playback only)"));
+    auto* volLayout = new QVBoxLayout(volGroup);
+    auto* volRow = new QHBoxLayout();
+    volRow->addWidget(new QLabel(tr("Volume:")));
+    m_midiVolumeSlider = new QSlider(Qt::Horizontal);
+    m_midiVolumeSlider->setRange(0, 200);
+    m_midiVolumeSlider->setValue(100);
+    m_midiVolumeSlider->setTickPosition(QSlider::NoTicks);
+    m_midiVolumeSlider->setToolTip(tr("Adjust MIDI playback loudness for software synthesis (does not change mix/export)."));
+    volRow->addWidget(m_midiVolumeSlider, 1);
+    m_midiVolumeValue = new QLabel(QStringLiteral("100%"));
+    m_midiVolumeValue->setMinimumWidth(55);
+    m_midiVolumeValue->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    volRow->addWidget(m_midiVolumeValue);
+    volLayout->addLayout(volRow);
+    volLayout->addWidget(new QLabel(tr("Default volume for software synthesizer MIDI during project playback.")));
+    connect(m_midiVolumeSlider, &QSlider::valueChanged, this,
+            [this](int v)
+            {
+                if (m_midiVolumeValue)
+                    m_midiVolumeValue->setText(QString::number(v) + QStringLiteral("%"));
+            });
+    layout->addWidget(volGroup);
 
     layout->addStretch();
     m_tabWidget->addTab(widget, tr("MIDI"));
@@ -188,6 +222,7 @@ void SettingsDialog::setupAudioTab()
     auto* inputLayout = new QVBoxLayout(inputGroup);
     m_audioInputCombo = new QComboBox();
     m_audioInputCombo->setMinimumWidth(300);
+    m_audioInputCombo->setToolTip(tr("Default audio input device used when recording audio tracks."));
     inputLayout->addWidget(m_audioInputCombo);
     layout->addWidget(inputGroup);
 
@@ -195,6 +230,7 @@ void SettingsDialog::setupAudioTab()
     auto* outputLayout = new QVBoxLayout(outputGroup);
     m_audioOutputCombo = new QComboBox();
     m_audioOutputCombo->setMinimumWidth(300);
+    m_audioOutputCombo->setToolTip(tr("Default audio output device used for playback."));
     outputLayout->addWidget(m_audioOutputCombo);
     layout->addWidget(outputGroup);
 
@@ -216,6 +252,7 @@ void SettingsDialog::setupLanguageTab()
     auto* langLayout = new QVBoxLayout(langGroup);
     m_languageCombo = new QComboBox();
     m_languageCombo->setMinimumWidth(250);
+    m_languageCombo->setToolTip(tr("Choose the language used by the user interface."));
     m_languageCombo->addItem(tr("System Default"), QString());
     m_languageCombo->addItem(QStringLiteral("English"), QStringLiteral("en"));
     m_languageCombo->addItem(QStringLiteral("Deutsch"), QStringLiteral("de"));
@@ -307,6 +344,13 @@ void SettingsDialog::loadSettings()
         if (langIdx >= 0) m_languageCombo->setCurrentIndex(langIdx);
     }
     m_soundFontEdit->setText(settings.soundFontPath());
+    if (m_midiVolumeSlider)
+    {
+        const int v = std::clamp(settings.midiVolumePercent(), 0, 200);
+        m_midiVolumeSlider->setValue(v);
+        if (m_midiVolumeValue)
+            m_midiVolumeValue->setText(QString::number(v) + QStringLiteral("%"));
+    }
 
     int midiIdx = settings.midiDeviceIndex();
     for (int i = 0; i < m_midiDeviceCombo->count(); ++i)
@@ -354,6 +398,8 @@ void SettingsDialog::saveSettings()
         settings.setLanguage(m_languageCombo->currentData().toString());
     settings.setMidiDeviceIndex(m_midiDeviceCombo->currentData().toInt());
     settings.setSoundFontPath(m_soundFontEdit->text().trimmed());
+    if (m_midiVolumeSlider)
+        settings.setMidiVolumePercent(m_midiVolumeSlider->value());
     settings.setAudioInputDeviceId(m_audioInputCombo->currentData().toByteArray());
     for (int i = 0; i < m_audioInputCombo->count(); ++i)
     {

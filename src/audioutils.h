@@ -17,13 +17,16 @@ public:
                               int sampleRate = 44100,
                               const QString& soundFontPath = QString());
 
-    // Mix to WAV or FLAC using audio_mixer_cpp; renders MIDI tracks to FLAC in projectPath
-    // (<sanitized_track_name>.flac).
+    // Mix to WAV or FLAC using audio_mixer_cpp.
+    // When renderMidiToAudio is true, MIDI tracks are synthesized offline and mixed in.
+    // When false, MIDI tracks are ignored (useful for real-time MIDI-out playback).
     [[nodiscard]] static bool mixTracksToFile(const QVector<TrackData>& tracks,
                                const QString& outputPath,
                                const QString& projectPath,
                                int sampleRate = 44100,
-                               const QString& soundFontPath = QString());
+                               const QString& soundFontPath = QString(),
+                               bool renderMidiToAudio = true,
+                               double midiGainMultiplier = 1.0);
 
     // Encode Int16 PCM audio data to a FLAC file via a temporary WAV intermediate.
     // Returns true on success.

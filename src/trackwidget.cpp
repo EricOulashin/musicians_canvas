@@ -116,10 +116,12 @@ void TrackWidget::setupUi()
 
     m_enabledCheck = new QCheckBox(tr("Enable"));
     m_enabledCheck->setChecked(m_data.enabled);
+    m_enabledCheck->setToolTip(tr("Include this track in playback and mix/export."));
     connect(m_enabledCheck, &QCheckBox::toggled, this, &TrackWidget::onEnabledToggled);
 
     m_armCheck = new QRadioButton(tr("Arm"));
     m_armCheck->setChecked(m_data.armed);
+    m_armCheck->setToolTip(tr("Select this track as the target for recording."));
     connect(m_armCheck, &QRadioButton::toggled, this, &TrackWidget::onArmToggled);
 
     leftLayout->addWidget(m_enabledCheck);

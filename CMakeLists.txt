@@ -63,6 +63,8 @@ set(SOURCES
     src/audioformats.h
     src/midirecorder.cpp
     src/midirecorder.h
+    src/midiplayer.cpp
+    src/midiplayer.h
     src/midifile.cpp
     src/midifile.h
     src/waveformwidget.cpp

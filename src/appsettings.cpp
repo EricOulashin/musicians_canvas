@@ -38,6 +38,7 @@ void AppSettings::load()
     settings.endGroup();
     m_midiDeviceIndex = settings.value("MIDI/deviceIndex", 0).toInt();
     m_soundFontPath = settings.value("MIDI/soundFontPath").toString();
+    m_midiVolumePercent = settings.value("MIDI/volumePercent", 100).toInt();
     m_audioInputDeviceIndex = settings.value("Audio/inputDeviceIndex", 0).toInt();
     QString deviceIdHex = settings.value("Audio/inputDeviceId").toString();
     m_audioInputDeviceId = QByteArray::fromHex(deviceIdHex.toLatin1());
@@ -78,7 +79,9 @@ void AppSettings::save()
     out << "; Default MIDI input device index (-1 for no device)\n";
     out << "deviceIndex=" << m_midiDeviceIndex << "\n";
     out << "; Path to SoundFont (.sf2) file for MIDI synthesis\n";
-    out << "soundFontPath=" << m_soundFontPath << "\n\n";
+    out << "soundFontPath=" << m_soundFontPath << "\n";
+    out << "; MIDI volume for software synth rendering during playback (percent, 0-200)\n";
+    out << "volumePercent=" << m_midiVolumePercent << "\n\n";
 
     out << "[Audio]\n";
     out << "; Default audio input device index\n";

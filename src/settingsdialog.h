@@ -8,6 +8,8 @@ class QTabWidget;
 class QComboBox;
 class QLineEdit;
 class QPushButton;
+class QSlider;
+class QLabel;
 
 class SettingsDialog : public QDialog
 {
@@ -35,6 +37,8 @@ private:
     QComboBox* m_languageCombo = nullptr;
     QComboBox* m_midiDeviceCombo = nullptr;
     QLineEdit* m_soundFontEdit = nullptr;
+    QSlider* m_midiVolumeSlider = nullptr;
+    QLabel*  m_midiVolumeValue  = nullptr;
     QComboBox* m_ledColorCombo = nullptr;
     QComboBox* m_audioInputCombo = nullptr;
     QComboBox* m_audioOutputCombo = nullptr;

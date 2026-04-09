@@ -8,6 +8,7 @@
 #include <QDebug>
 #include <algorithm>
 #include <cstring>
+#include <cmath>
 
 // Common system SoundFont paths to try when neither the project nor the
 // app default SoundFont is configured (or is unreadable).  Mirrors the
@@ -107,7 +108,8 @@ bool MidiSynth::loadSoundFont(const QString& path)
 
 bool MidiSynth::renderMidiToWav(const QVector<MidiNote>& notes, double lengthSeconds,
                                 const QString& outputPath, int sampleRate,
-                                const QString& soundFontPath)
+                                const QString& soundFontPath,
+                                double gainMultiplier)
 {
     if (notes.isEmpty() && lengthSeconds <= 0) return true;
 
@@ -123,9 +125,9 @@ bool MidiSynth::renderMidiToWav(const QVector<MidiNote>& notes, double lengthSec
     fluid_settings_setnum(settings, "synth.sample-rate", static_cast<double>(sampleRate));
     fluid_settings_setint(settings, "synth.lock-memory", 0);
     // Raise the master gain from FluidSynth's conservative default of 0.2.
-    // Without this, rendered MIDI is much quieter than the audio tracks it
-    // is mixed with, making it sound like the MIDI track is missing.
-    fluid_settings_setnum(settings, "synth.gain", 0.8);
+    // This is further adjusted by gainMultiplier (used for playback-only MIDI volume).
+    const double gm = std::clamp(gainMultiplier, 0.0, 2.0);
+    fluid_settings_setnum(settings, "synth.gain", 0.8 * gm);
 
     fluid_synth_t* synth = new_fluid_synth(settings);
 

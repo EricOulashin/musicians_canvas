@@ -11,6 +11,9 @@ class QTabWidget;
 class QComboBox;
 class QLineEdit;
 class QRadioButton;
+class QSlider;
+class QLabel;
+class QCheckBox;
 
 class ProjectSettingsDialog : public QDialog
 {
@@ -45,6 +48,10 @@ private:
     QComboBox*    m_midiDeviceCombo    = nullptr;
     QComboBox*    m_midiInputCombo     = nullptr;
     QLineEdit*    m_soundFontEdit      = nullptr;
+    QCheckBox*    m_renderMidiToAudioForPlayback = nullptr;
+    QCheckBox*    m_midiVolumeUseAppDefault = nullptr;
+    QSlider*      m_midiVolumeSlider   = nullptr;
+    QLabel*       m_midiVolumeValue    = nullptr;
     QComboBox*    m_audioInputCombo    = nullptr;
     QComboBox*    m_audioOutputCombo   = nullptr;
     QComboBox*    m_sampleRateCombo    = nullptr;

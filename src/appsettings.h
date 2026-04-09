@@ -27,6 +27,10 @@ public:
         m_soundFontPath = path;
     }
 
+    // MIDI volume for software synthesizer rendering during playback (percent, 0-200).
+    int midiVolumePercent() const { return m_midiVolumePercent; }
+    void setMidiVolumePercent(int pct) { m_midiVolumePercent = pct; }
+
     // General settings
     QString theme() const
     {
@@ -119,6 +123,7 @@ private:
     QString m_theme = "dark";
     int m_midiDeviceIndex = 0;
     QString m_soundFontPath;
+    int m_midiVolumePercent = 100;
     int m_audioInputDeviceIndex = 0;
     QByteArray m_audioInputDeviceId;
     QByteArray m_audioOutputDeviceId;

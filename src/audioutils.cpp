@@ -450,7 +450,9 @@ bool AudioUtils::mixTracksToFile(const QVector<TrackData>& tracks,
                                   const QString& outputPath,
                                   const QString& projectPath,
                                   int sampleRate,
-                                  const QString& soundFontPath)
+                                  const QString& soundFontPath,
+                                  bool renderMidiToAudio,
+                                  double midiGainMultiplier)
 {
     std::vector<std::string> inputFiles;
     std::vector<std::string> tempFiles;  // files to clean up afterward
@@ -484,7 +486,7 @@ bool AudioUtils::mixTracksToFile(const QVector<TrackData>& tracks,
                 tempFiles.push_back(wavPath.toStdString());
             }
         }
-        else if (track.type == TrackType::MIDI && !track.midiNotes.isEmpty())
+        else if (renderMidiToAudio && track.type == TrackType::MIDI && !track.midiNotes.isEmpty())
         {
             // Render MIDI to a temp WAV for mixing.  Using WAV at this step avoids
             // depending on the FLAC encoder succeeding; if encoding fails the track
@@ -498,7 +500,8 @@ bool AudioUtils::mixTracksToFile(const QVector<TrackData>& tracks,
 
             MidiSynth synth;
             if (synth.renderMidiToWav(track.midiNotes, track.lengthSeconds,
-                                       tmpWavPath, mixSampleRate, soundFontPath))
+                                       tmpWavPath, mixSampleRate, soundFontPath,
+                                       midiGainMultiplier))
             {
                 inputFiles.push_back(tmpWavPath.toStdString());
                 tempFiles.push_back(tmpWavPath.toStdString());

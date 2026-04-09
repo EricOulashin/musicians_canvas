@@ -11,6 +11,8 @@
 #include <QButtonGroup>
 #include <QFileDialog>
 #include <QDialogButtonBox>
+#include <QSlider>
+#include <QCheckBox>
 #include <QApplication>
 #ifdef QT_MULTIMEDIA_AVAILABLE
 #include <QMediaDevices>
@@ -24,6 +26,7 @@
 #include <RtMidi.h>
 #include <string>
 #include <cmath>
+#include <algorithm>
 #if defined(HAVE_PORTAUDIO)
 #include "portaudiorecorder.h"
 #endif
@@ -40,8 +43,9 @@ ProjectSettingsDialog::ProjectSettingsDialog(const ProjectSettings& settings,
     : QDialog(parent)
 {
     setWindowTitle(tr("Project Settings"));
-    setMinimumSize(450, 300);
-    resize(500, 340);
+    setMinimumSize(450, 460);
+    resize(500, 520);
+    setToolTip(windowTitle());
 
     auto* layout = new QVBoxLayout(this);
 
@@ -66,6 +70,12 @@ ProjectSettings ProjectSettingsDialog::projectSettings() const
     if (m_midiInputCombo)
         s.midiInputPortName = m_midiInputCombo->currentData().toString();
     s.soundFontPath       = m_soundFontEdit->text().trimmed();
+    if (m_renderMidiToAudioForPlayback)
+        s.renderMidiToAudioForPlayback = m_renderMidiToAudioForPlayback->isChecked();
+    if (m_midiVolumeUseAppDefault && m_midiVolumeUseAppDefault->isChecked())
+        s.midiVolumePercent = -1;
+    else if (m_midiVolumeSlider)
+        s.midiVolumePercent = m_midiVolumeSlider->value();
     s.audioInputDeviceId  = m_audioInputCombo->currentData().toByteArray();
     s.audioOutputDeviceId = m_audioOutputCombo->currentData().toByteArray();
     s.sampleRate          = m_sampleRateCombo->currentData().toInt();
@@ -89,6 +99,7 @@ void ProjectSettingsDialog::setupMidiTab()
     auto* midiLayout = new QVBoxLayout(midiGroup);
     m_midiDeviceCombo = new QComboBox();
     m_midiDeviceCombo->setMinimumWidth(300);
+    m_midiDeviceCombo->setToolTip(tr("Select the MIDI output device for this project (used for realtime MIDI playback when enabled)."));
     midiLayout->addWidget(m_midiDeviceCombo);
     layout->addWidget(midiGroup);
 
@@ -97,10 +108,12 @@ void ProjectSettingsDialog::setupMidiTab()
     auto* midiInLayout = new QVBoxLayout(midiInGroup);
     m_midiInputCombo = new QComboBox();
     m_midiInputCombo->setMinimumWidth(300);
+    m_midiInputCombo->setToolTip(tr("Select the MIDI input device used to record MIDI tracks."));
     midiInLayout->addWidget(m_midiInputCombo);
     layout->addWidget(midiInGroup);
 
     auto* refreshBtn = new QPushButton(tr("Refresh"));
+    refreshBtn->setToolTip(tr("Re-scan for available MIDI and audio devices."));
     connect(refreshBtn, &QPushButton::clicked,
             this, &ProjectSettingsDialog::refreshDevices);
     layout->addWidget(refreshBtn);
@@ -109,13 +122,55 @@ void ProjectSettingsDialog::setupMidiTab()
     auto* sfLayout = new QHBoxLayout(sfGroup);
     m_soundFontEdit = new QLineEdit();
     m_soundFontEdit->setPlaceholderText(tr("Path to .sf2 SoundFont file (empty = app default)"));
+    m_soundFontEdit->setToolTip(tr("Override the SoundFont (.sf2) used by the built-in synthesizer for this project."));
     sfLayout->addWidget(m_soundFontEdit);
 
     auto* browseBtn = new QPushButton(tr("Browse..."));
+    browseBtn->setToolTip(tr("Choose a SoundFont (.sf2) file."));
     connect(browseBtn, &QPushButton::clicked,
             this, &ProjectSettingsDialog::onBrowseSoundFont);
     sfLayout->addWidget(browseBtn);
     layout->addWidget(sfGroup);
+
+    m_renderMidiToAudioForPlayback =
+        new QCheckBox(tr("Render to audio file for playback"));
+    m_renderMidiToAudioForPlayback->setChecked(true);
+    m_renderMidiToAudioForPlayback->setToolTip(tr("When enabled, MIDI tracks are rendered to audio for playback so they can be heard with audio tracks."));
+    layout->addWidget(m_renderMidiToAudioForPlayback);
+
+    auto* volGroup = new QGroupBox(tr("MIDI Volume (playback only)"));
+    auto* volLayout = new QVBoxLayout(volGroup);
+    m_midiVolumeUseAppDefault = new QCheckBox(tr("Use app default"));
+    m_midiVolumeUseAppDefault->setChecked(true);
+    m_midiVolumeUseAppDefault->setToolTip(tr("Use the default MIDI volume from Settings → Configuration."));
+    volLayout->addWidget(m_midiVolumeUseAppDefault);
+    auto* volRow = new QHBoxLayout();
+    volRow->addWidget(new QLabel(tr("Volume:")));
+    m_midiVolumeSlider = new QSlider(Qt::Horizontal);
+    m_midiVolumeSlider->setRange(0, 200);
+    m_midiVolumeSlider->setValue(100);
+    m_midiVolumeSlider->setTickPosition(QSlider::NoTicks);
+    m_midiVolumeSlider->setToolTip(tr("Override MIDI playback volume for this project (does not change mix/export)."));
+    volRow->addWidget(m_midiVolumeSlider, 1);
+    m_midiVolumeValue = new QLabel(QStringLiteral("100%"));
+    m_midiVolumeValue->setMinimumWidth(55);
+    m_midiVolumeValue->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    volRow->addWidget(m_midiVolumeValue);
+    volLayout->addLayout(volRow);
+    volLayout->addWidget(new QLabel(tr("This affects MIDI playback volume, not mix/export.")));
+    connect(m_midiVolumeSlider, &QSlider::valueChanged, this,
+            [this](int v)
+            {
+                if (m_midiVolumeValue)
+                    m_midiVolumeValue->setText(QString::number(v) + QStringLiteral("%"));
+            });
+    connect(m_midiVolumeUseAppDefault, &QCheckBox::toggled, this,
+            [this](bool useDefault)
+            {
+                if (m_midiVolumeSlider) m_midiVolumeSlider->setEnabled(!useDefault);
+                if (m_midiVolumeValue)  m_midiVolumeValue->setEnabled(!useDefault);
+            });
+    layout->addWidget(volGroup);
 
     layout->addStretch();
     m_tabWidget->addTab(widget, tr("MIDI"));
@@ -131,6 +186,7 @@ void ProjectSettingsDialog::setupAudioTab()
     auto* inputLayout = new QVBoxLayout(inputGroup);
     m_audioInputCombo = new QComboBox();
     m_audioInputCombo->setMinimumWidth(300);
+    m_audioInputCombo->setToolTip(tr("Select the audio input device used for recording in this project."));
     inputLayout->addWidget(m_audioInputCombo);
     layout->addWidget(inputGroup);
 
@@ -167,6 +223,7 @@ void ProjectSettingsDialog::setupAudioTab()
     auto* outputLayout = new QVBoxLayout(outputGroup);
     m_audioOutputCombo = new QComboBox();
     m_audioOutputCombo->setMinimumWidth(300);
+    m_audioOutputCombo->setToolTip(tr("Select the audio output device used for playback in this project."));
     outputLayout->addWidget(m_audioOutputCombo);
     layout->addWidget(outputGroup);
 
@@ -178,6 +235,7 @@ void ProjectSettingsDialog::setupAudioTab()
     auto* srRow = new QHBoxLayout();
     srRow->addWidget(new QLabel(tr("Sample rate:")));
     m_sampleRateCombo = new QComboBox();
+    m_sampleRateCombo->setToolTip(tr("Sample rate used when recording audio and rendering MIDI in this project."));
     srRow->addWidget(m_sampleRateCombo);
     srRow->addStretch();
     fmtLayout->addLayout(srRow);
@@ -187,6 +245,8 @@ void ProjectSettingsDialog::setupAudioTab()
     chRow->addWidget(new QLabel(tr("Channels:")));
     m_monoRadio   = new QRadioButton(tr("Mono"));
     m_stereoRadio = new QRadioButton(tr("Stereo"));
+    m_monoRadio->setToolTip(tr("Record audio tracks in mono (1 channel)."));
+    m_stereoRadio->setToolTip(tr("Record audio tracks in stereo (2 channels)."));
     m_stereoRadio->setChecked(true);  // default stereo
     auto* chGroup = new QButtonGroup(this);
     chGroup->addButton(m_monoRadio,   1);
@@ -298,6 +358,22 @@ void ProjectSettingsDialog::loadSettings(const ProjectSettings& settings)
     }
 
     m_soundFontEdit->setText(settings.soundFontPath);
+
+    if (m_renderMidiToAudioForPlayback)
+        m_renderMidiToAudioForPlayback->setChecked(settings.renderMidiToAudioForPlayback);
+
+    if (m_midiVolumeSlider)
+    {
+        const bool useDefault = (settings.midiVolumePercent < 0);
+        if (m_midiVolumeUseAppDefault)
+            m_midiVolumeUseAppDefault->setChecked(useDefault);
+        const int v = useDefault ? 100 : settings.midiVolumePercent;
+        m_midiVolumeSlider->setValue(std::clamp(v, 0, 200));
+        if (m_midiVolumeValue)
+            m_midiVolumeValue->setText(QString::number(m_midiVolumeSlider->value()) + QStringLiteral("%"));
+        if (m_midiVolumeSlider) m_midiVolumeSlider->setEnabled(!useDefault);
+        if (m_midiVolumeValue)  m_midiVolumeValue->setEnabled(!useDefault);
+    }
 
     for (int i = 0; i < m_audioInputCombo->count(); ++i)
     {

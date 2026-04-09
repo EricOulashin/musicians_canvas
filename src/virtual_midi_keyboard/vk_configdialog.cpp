@@ -43,6 +43,7 @@ VkConfigDialog::VkConfigDialog(QWidget* parent) : QDialog(parent)
     setWindowTitle(tr("Configuration"));
     setMinimumSize(500, 460);
     resize(540, 480);
+    setToolTip(windowTitle());
 
     auto* layout = new QVBoxLayout(this);
     m_tabWidget = new QTabWidget();
@@ -52,6 +53,7 @@ VkConfigDialog::VkConfigDialog(QWidget* parent) : QDialog(parent)
     layout->addWidget(m_tabWidget);
 
     auto* applyBtn = new QPushButton(tr("Apply"));
+    applyBtn->setToolTip(tr("Apply settings and close this window."));
     connect(applyBtn, &QPushButton::clicked, this, &VkConfigDialog::onApply);
     layout->addWidget(applyBtn);
 
@@ -72,6 +74,7 @@ void VkConfigDialog::setupMidiTab()
     auto* outLayout = new QVBoxLayout(outGroup);
     m_midiOutputCombo = new QComboBox();
     m_midiOutputCombo->setMinimumWidth(300);
+    m_midiOutputCombo->setToolTip(tr("Choose where the virtual keyboard sends MIDI notes."));
     connect(m_midiOutputCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
         this, &VkConfigDialog::onOutputDeviceChanged);
     outLayout->addWidget(m_midiOutputCombo);
@@ -81,6 +84,7 @@ void VkConfigDialog::setupMidiTab()
     auto* inLayout = new QVBoxLayout(inGroup);
     m_midiInputCombo = new QComboBox();
     m_midiInputCombo->setMinimumWidth(300);
+    m_midiInputCombo->setToolTip(tr("Choose a MIDI input device to forward through the app."));
     inLayout->addWidget(m_midiInputCombo);
     layout->addWidget(inGroup);
 
@@ -88,13 +92,16 @@ void VkConfigDialog::setupMidiTab()
     auto* sfLayout = new QHBoxLayout(sfGroup);
     m_soundFontEdit = new QLineEdit();
     m_soundFontEdit->setPlaceholderText(tr("Path to .sf2 SoundFont file"));
+    m_soundFontEdit->setToolTip(tr("SoundFont (.sf2) used by the built-in software synthesizer."));
     sfLayout->addWidget(m_soundFontEdit);
     m_loadSoundFontBtn = new QPushButton(tr("Browse..."));
+    m_loadSoundFontBtn->setToolTip(tr("Choose a SoundFont (.sf2) file."));
     connect(m_loadSoundFontBtn, &QPushButton::clicked, this, &VkConfigDialog::onBrowseSoundFont);
     sfLayout->addWidget(m_loadSoundFontBtn);
     layout->addWidget(sfGroup);
 
     auto* refreshBtn = new QPushButton(tr("Refresh"));
+    refreshBtn->setToolTip(tr("Re-scan for available MIDI and audio devices."));
     connect(refreshBtn, &QPushButton::clicked, this, &VkConfigDialog::refreshDevices);
     layout->addWidget(refreshBtn);
 
@@ -111,6 +118,7 @@ void VkConfigDialog::setupMidiTab()
     m_gainSlider->setTickInterval(10);
     m_gainSlider->setTickPosition(QSlider::TicksBelow);
     m_gainSlider->setFocusPolicy(Qt::ClickFocus);
+    m_gainSlider->setToolTip(tr("Adjust the built-in synthesizer master volume."));
     gainRow->addWidget(m_gainSlider, 1);
 
     gainRow->addWidget(new QLabel(tr("Loud")));
@@ -144,6 +152,7 @@ void VkConfigDialog::setupAudioTab()
     auto* audioLayout = new QVBoxLayout(audioGroup);
     m_audioOutputCombo = new QComboBox();
     m_audioOutputCombo->setMinimumWidth(300);
+    m_audioOutputCombo->setToolTip(tr("Select the audio output device used by the built-in synthesizer."));
     audioLayout->addWidget(m_audioOutputCombo);
     layout->addWidget(audioGroup);
 
@@ -169,6 +178,7 @@ void VkConfigDialog::setupLanguageTab()
     auto* langLayout = new QVBoxLayout(langGroup);
     m_languageCombo = new QComboBox();
     m_languageCombo->setMinimumWidth(250);
+    m_languageCombo->setToolTip(tr("Choose the language used by the user interface."));
     m_languageCombo->addItem(tr("System Default"), QString());
     m_languageCombo->addItem(QStringLiteral("English"), QStringLiteral("en"));
     m_languageCombo->addItem(QStringLiteral("Deutsch"), QStringLiteral("de"));

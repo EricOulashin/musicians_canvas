@@ -14,6 +14,7 @@
 #endif
 
 class MidiRecorder;
+class MidiPlayer;
 
 class QScrollArea;
 class QToolBar;
@@ -171,6 +172,9 @@ private:
     // MIDI recording state (active only while a MIDI track is being recorded).
     std::unique_ptr<MidiRecorder> m_midiRecorder;
     bool m_recordingMidi = false;
+
+    // Real-time MIDI playback (used when an external MIDI output is selected).
+    std::unique_ptr<MidiPlayer> m_midiPlayer;
 };
 
 #endif // MAINWINDOW_H

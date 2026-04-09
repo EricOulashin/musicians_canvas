@@ -71,11 +71,21 @@
     <ClCompile Include="..\..\src\trackwidget.cpp" />
     <ClCompile Include="..\..\src\trackconfigdialog.cpp" />
     <ClCompile Include="..\..\src\settingsdialog.cpp" />
+    <ClCompile Include="..\..\src\projectsettingsdialog.cpp" />
+    <ClCompile Include="..\..\src\mixdialog.cpp" />
+    <ClCompile Include="..\..\src\metronomedialog.cpp" />
+    <ClCompile Include="..\..\src\midirecorder.cpp" />
+    <ClCompile Include="..\..\src\midiplayer.cpp" />
+    <ClCompile Include="..\..\src\midifile.cpp" />
     <ClCompile Include="..\..\src\waveformwidget.cpp" />
     <ClCompile Include="..\..\src\midivisualizationwidget.cpp" />
+    <ClCompile Include="..\..\src\segmentdisplay.cpp" />
     <ClCompile Include="..\..\src\midisynth.cpp" />
     <ClCompile Include="..\..\src\themeutils.cpp" />
     <ClCompile Include="..\..\src\audioutils.cpp" />
+    <ClCompile Include="..\..\src\recordingpostprocess.cpp" />
+    <ClCompile Include="..\..\src\portaudiorecorder.cpp" />
+    <ClCompile Include="..\..\src\audiostartup.cpp" />
     <ClCompile Include="..\..\src\trackdata.cpp" />
     <ClCompile Include="..\..\src\appsettings.cpp" />
   </ItemGroup>
@@ -84,16 +94,29 @@
     <ClInclude Include="..\..\src\trackwidget.h" />
     <ClInclude Include="..\..\src\trackconfigdialog.h" />
     <ClInclude Include="..\..\src\settingsdialog.h" />
+    <ClInclude Include="..\..\src\projectsettings.h" />
+    <ClInclude Include="..\..\src\projectsettingsdialog.h" />
+    <ClInclude Include="..\..\src\audioformats.h" />
+    <ClInclude Include="..\..\src\mixdialog.h" />
+    <ClInclude Include="..\..\src\metronomedialog.h" />
+    <ClInclude Include="..\..\src\midirecorder.h" />
+    <ClInclude Include="..\..\src\midiplayer.h" />
+    <ClInclude Include="..\..\src\midifile.h" />
     <ClInclude Include="..\..\src\waveformwidget.h" />
     <ClInclude Include="..\..\src\midivisualizationwidget.h" />
+    <ClInclude Include="..\..\src\segmentdisplay.h" />
     <ClInclude Include="..\..\src\midisynth.h" />
     <ClInclude Include="..\..\src\themeutils.h" />
     <ClInclude Include="..\..\src\audioutils.h" />
+    <ClInclude Include="..\..\src\recordingpostprocess.h" />
+    <ClInclude Include="..\..\src\portaudiorecorder.h" />
+    <ClInclude Include="..\..\src\audiostartup.h" />
     <ClInclude Include="..\..\src\trackdata.h" />
     <ClInclude Include="..\..\src\appsettings.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\CMakeLists.txt" />
+    <None Include="..\..\src\resources.qrc" />
   </ItemGroup>
 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

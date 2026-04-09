@@ -15,6 +15,7 @@
 #include "midifile.h"
 #include "segmentdisplay.h"
 #include "appsettings.h"
+#include "midiplayer.h"
 #include "audiostartup.h"
 #include <QScrollArea>
 #include <QVBoxLayout>
@@ -48,6 +49,7 @@
 #include <QCloseEvent>
 #include <QRegularExpression>
 #include <QTimer>
+#include <algorithm>
 #include <cmath>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -688,7 +690,9 @@ void MainWindow::onMix()
 
     if (AudioUtils::mixTracksToFile(tracks, outputPath, projectPath,
                                     m_projectSettings.sampleRate,
-                                    m_projectSettings.soundFontPath))
+                                    m_projectSettings.soundFontPath,
+                                    /*renderMidiToAudio=*/true,
+                                    /*midiGainMultiplier=*/1.0))
     {
         QMessageBox::information(this, tr("Mix Complete"),
             tr("Audio exported successfully to:\n%1").arg(outputPath));
@@ -838,7 +842,40 @@ void MainWindow::startPlayback()
     for (auto* w : m_trackWidgets)
         tracks.append(w->trackData());
 
-    // Mix all enabled tracks to a temporary file and play it back
+    const int effectiveMidiDeviceIndex =
+        (m_projectSettings.midiDeviceIndex >= 0)
+            ? m_projectSettings.midiDeviceIndex
+            : AppSettings::instance().midiDeviceIndex();
+
+    const int effectiveMidiVolumePercent =
+        (m_projectSettings.midiVolumePercent >= 0)
+            ? m_projectSettings.midiVolumePercent
+            : AppSettings::instance().midiVolumePercent();
+    const double midiGainMultiplier =
+        std::clamp(effectiveMidiVolumePercent, 0, 200) / 100.0;
+
+    const bool hasEnabledMidi =
+        std::any_of(tracks.begin(), tracks.end(),
+                    [](const TrackData& t)
+                    {
+                        return t.enabled && t.type == TrackType::MIDI && !t.midiNotes.isEmpty();
+                    });
+
+    const bool hasEnabledAudio =
+        std::any_of(tracks.begin(), tracks.end(),
+                    [](const TrackData& t)
+                    {
+                        return t.enabled && t.type == TrackType::Audio && !t.audioData.isEmpty();
+                    });
+
+    // Project option: by default, render MIDI to audio for playback so MIDI can be
+    // heard along with audio tracks. If disabled, send MIDI out in real time.
+    const bool useRealtimeMidiOut =
+        (!m_projectSettings.renderMidiToAudioForPlayback)
+        && (effectiveMidiDeviceIndex > 0)
+        && hasEnabledMidi;
+
+    // Mix enabled AUDIO tracks (and optionally offline-render MIDI) to a temporary file.
     QTemporaryFile* tmpFile = new QTemporaryFile(
         QDir::temp().filePath("mc_play_XXXXXX.wav"), this);
     tmpFile->setAutoRemove(false);
@@ -850,15 +887,55 @@ void MainWindow::startPlayback()
     m_playbackTempFile = tmpFile->fileName();
     tmpFile->close();
 
-    if (!AudioUtils::mixTracksToFile(tracks, m_playbackTempFile, effectiveProjectPath(),
-                                     m_projectSettings.sampleRate,
-                                     m_projectSettings.soundFontPath))
+    const bool mixed = AudioUtils::mixTracksToFile(tracks, m_playbackTempFile, effectiveProjectPath(),
+                                                   m_projectSettings.sampleRate,
+                                                   m_projectSettings.soundFontPath,
+                                                   /*renderMidiToAudio=*/!useRealtimeMidiOut,
+                                                   /*midiGainMultiplier=*/midiGainMultiplier);
+
+    // If we're doing realtime MIDI-out playback and there are no audio tracks,
+    // mixing will (correctly) produce no input files. In that case, proceed with
+    // MIDI-only playback without an audio file.
+    if (!mixed && !(useRealtimeMidiOut && !hasEnabledAudio))
     {
         QMessageBox::warning(this, tr("Playback Error"),
             tr("Could not mix tracks for playback. Make sure tracks have content."));
         QFile::remove(m_playbackTempFile);
         m_playbackTempFile.clear();
         return;
+    }
+
+    if (useRealtimeMidiOut)
+    {
+        m_midiPlayer = std::make_unique<MidiPlayer>(this);
+        connect(m_midiPlayer.get(), &MidiPlayer::finished, this,
+            [this]()
+            {
+                // If audio playback is active, let it drive stop; otherwise
+                // end the MIDI-only playback session.
+                if (m_player == nullptr || m_player->playbackState() == QMediaPlayer::StoppedState)
+                    onPlaybackFinished();
+            });
+
+        if (!m_midiPlayer->start(effectiveMidiDeviceIndex, tracks, effectiveMidiVolumePercent))
+        {
+            // Fall back to offline MIDI render for playback if MIDI-out cannot start.
+            m_midiPlayer.reset();
+
+            // Re-mix including MIDI synthesis so playback still has MIDI audio.
+            if (!AudioUtils::mixTracksToFile(tracks, m_playbackTempFile, effectiveProjectPath(),
+                                             m_projectSettings.sampleRate,
+                                             m_projectSettings.soundFontPath,
+                                             /*renderMidiToAudio=*/true,
+                                             /*midiGainMultiplier=*/midiGainMultiplier))
+            {
+                QMessageBox::warning(this, tr("Playback Error"),
+                    tr("Could not mix tracks for playback. Make sure tracks have content."));
+                QFile::remove(m_playbackTempFile);
+                m_playbackTempFile.clear();
+                return;
+            }
+        }
     }
 
     if (m_player == nullptr)
@@ -870,11 +947,21 @@ void MainWindow::startPlayback()
             [this](QMediaPlayer::PlaybackState state)
             {
                 if (state == QMediaPlayer::StoppedState && m_isActive)
+                {
+                    // When realtime MIDI-out playback is active, the mixed audio file
+                    // can legitimately end before the MIDI timeline (e.g. MIDI starts
+                    // later than the audio). In that case, don't stop the session yet.
+                    if (m_midiPlayer && m_midiPlayer->isRunning())
+                        return;
                     onPlaybackFinished();
+                }
             });
     }
-    m_player->setSource(QUrl::fromLocalFile(m_playbackTempFile));
-    m_player->play();
+    if (!m_playbackTempFile.isEmpty() && QFile::exists(m_playbackTempFile))
+    {
+        m_player->setSource(QUrl::fromLocalFile(m_playbackTempFile));
+        m_player->play();
+    }
 
     m_isActive = true;
     m_activeTimer.start();
@@ -1018,7 +1105,9 @@ void MainWindow::prepareOverdubPlayback()
         overdubTracks, m_playbackTempFile,
         effectiveProjectPath(),
         m_projectSettings.sampleRate,
-        m_projectSettings.soundFontPath);
+        m_projectSettings.soundFontPath,
+        /*renderMidiToAudio=*/true,
+        /*midiGainMultiplier=*/1.0);
     if (mixed)
     {
         if (m_player == nullptr)
@@ -1459,6 +1548,12 @@ void MainWindow::beginRecordingAfterCountdown()
 void MainWindow::stopPlaybackOrRecording()
 {
 #ifdef QT_MULTIMEDIA_AVAILABLE
+    if (m_midiPlayer)
+    {
+        m_midiPlayer->stop();
+        m_midiPlayer.reset();
+    }
+
     // Cancel countdown if still running
     if (m_countdownTimer != nullptr)
     {
@@ -1639,6 +1734,8 @@ void MainWindow::onSaveProject()
     psObj[QStringLiteral("midiDeviceIndex")]     = m_projectSettings.midiDeviceIndex;
     psObj[QStringLiteral("midiInputPortName")]   = m_projectSettings.midiInputPortName;
     psObj[QStringLiteral("soundFontPath")]       = m_projectSettings.soundFontPath;
+    psObj[QStringLiteral("midiVolumePercent")]   = m_projectSettings.midiVolumePercent;
+    psObj[QStringLiteral("renderMidiToAudioForPlayback")] = m_projectSettings.renderMidiToAudioForPlayback;
     psObj[QStringLiteral("audioInputDeviceId")]  =
         QString::fromLatin1(m_projectSettings.audioInputDeviceId.toHex());
     psObj[QStringLiteral("audioOutputDeviceId")] =
@@ -1817,6 +1914,9 @@ void MainWindow::loadProjectFromFile(const QString& path)
         m_projectSettings.midiDeviceIndex   = ps[QStringLiteral("midiDeviceIndex")].toInt(-1);
         m_projectSettings.midiInputPortName = ps[QStringLiteral("midiInputPortName")].toString();
         m_projectSettings.soundFontPath     = ps[QStringLiteral("soundFontPath")].toString();
+        m_projectSettings.midiVolumePercent = ps[QStringLiteral("midiVolumePercent")].toInt(-1);
+        m_projectSettings.renderMidiToAudioForPlayback =
+            ps[QStringLiteral("renderMidiToAudioForPlayback")].toBool(true);
         m_projectSettings.audioInputDeviceId =
             QByteArray::fromHex(ps[QStringLiteral("audioInputDeviceId")].toString().toLatin1());
         m_projectSettings.audioOutputDeviceId =
