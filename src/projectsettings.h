@@ -33,6 +33,9 @@ struct ProjectSettings
     bool useQtAudioInput = false;
     /// PortAudio host input device index, or -1 for Pa_GetDefaultInputDevice().
     int portAudioInputDeviceIndex = -1;
+
+    /// When true, route live input (audio and/or MIDI) to the project output while recording.
+    bool monitorWhileRecording = false;
 };
 
 #endif // PROJECTSETTINGS_H

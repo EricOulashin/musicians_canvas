@@ -28,6 +28,8 @@ public:
 
     bool recording = false;
 
+    std::function<void(const std::vector<unsigned char>&)> rawTap;
+
     Impl()
     {
         for (int i = 0; i < 16 * 128; ++i)
@@ -96,6 +98,11 @@ void midiInCallback(double /*deltatime*/, std::vector<unsigned char>* message, v
             impl->activeVelocity[slot]  = 0;
         }
     }
+
+    const auto tap = impl->rawTap;
+    lock.unlock();
+    if (tap)
+        tap(*message);
 }
 } // anonymous namespace
 
@@ -112,7 +119,8 @@ MidiRecorder::~MidiRecorder()
     }
 }
 
-bool MidiRecorder::start(const QString& portName, QString* errorMsg)
+bool MidiRecorder::start(const QString& portName, QString* errorMsg,
+                         std::function<void(const std::vector<unsigned char>&)> rawTap)
 {
     try
     {
@@ -148,6 +156,7 @@ bool MidiRecorder::start(const QString& portName, QString* errorMsg)
             }
             m_impl->timer.start();
             m_impl->recording = true;
+            m_impl->rawTap   = std::move(rawTap);
         }
         m_impl->midiIn = std::move(in);
         return true;
@@ -166,6 +175,12 @@ bool MidiRecorder::start(const QString& portName, QString* errorMsg)
     }
 }
 
+void MidiRecorder::setRawTap(std::function<void(const std::vector<unsigned char>&)> rawTap)
+{
+    QMutexLocker lock(&m_impl->mutex);
+    m_impl->rawTap = std::move(rawTap);
+}
+
 QVector<MidiNote> MidiRecorder::stop(double* outLengthSeconds)
 {
     QVector<MidiNote> result;
@@ -175,6 +190,7 @@ QVector<MidiNote> MidiRecorder::stop(double* outLengthSeconds)
         if (m_impl->recording && m_impl->timer.isValid())
             endTime = m_impl->timer.elapsed() / 1000.0;
         m_impl->recording = false;
+        m_impl->rawTap    = {};
 
         // Close any still-on notes at the end of recording (across every
         // possible channel × note combination).

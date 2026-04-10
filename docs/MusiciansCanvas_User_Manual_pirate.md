@@ -152,6 +152,28 @@ The plundered audio be saved as a FLAC file in the project directory, named afte
 
 Durin' plunderin' an' replayin', all interactive controls (shanty buttons, settings, etc.) be disabled to prevent accidental changes. Keep yer hands off the riggin' while we're recordin'!
 
+### Insert effects (audio shanties only)
+
+Audio shanties have an **Effects** button just below **Options**. It opens **Track effects**, where ye build a **ordered chain** o' plunder-time insert effects fer this shanty:
+
+![Track effects dialog](../screenshots/Track_Effects_Dialog.png)
+
+- **Add effect…** an' pick **Reverb**, **Chorus**, or **Flanger**. Ye may stack more than one; the red **✕** in the header scuttles an effect.
+- Drag **≡** to **reorder**. The **topmost** effect runs **first**.
+- ms an' Hz stay meanin'ful after convertin' to the **project sample rate**. **Mono** an' **stereo** both be supported (mono runs dual-mono through the chain an' mixes back ta one channel).
+- **OK** saves ta the project; **Cancel** restores the chain as when ye opened the dialog.
+
+Effects be applied **when ye click Stop**, after the usual capture an' resample. The rig be stored in `project.json` under `audioEffectChain`.
+
+### Hear yer racket live
+
+Beside the **time glass**, **Hear yer racket live while recordin'** sends **live plunder** to the **project's speakin' tubes** while ye capture:
+
+- **Audio shanties**: ye hear the mic or line as it happens (the hold be still written to treasure). Stacks atop **overdub** if other shanties be playin'.
+- **MIDI shanties**: when **Render MIDI to sound for playin' back** be set and a **SoundFont** be loaded, notes come through the soft synth. With **outside MIDI ports**—trust yer keyboard's own listenin' line.
+
+The flag be **kept in the chart** (`monitorWhileRecording` in `project.json`). Strike it if ye fear the mic pickin' up the speakers.
+
 #### Overdub Plunderin'
 
 When plunderin' a new shanty while other enabled shanties already contain audio or MIDI data, Musician's Canvas performs overdub plunderin': the existing shanties be mixed together an' played back in real time while the new shanty be recorded. This lets ye hear previously plundered parts while layin' down a new one, like singin' harmony with yer crewmates!

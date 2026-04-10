@@ -181,6 +181,32 @@ Tallennettu ääni tallennetaan FLAC-tiedostona projektihakemistoon raidan nimel
 Tallennuksen ja toiston aikana kaikki interaktiiviset ohjaimet (raitapainikkeet, asetukset jne.)
 poistetaan käytöstä tahattomien muutosten estämiseksi.
 
+### Lisäys tehosteet (vain ääniraidat)
+
+Ääniraidalla on **Tehosteet**-painike suoraan **Options**-painikkeen alla. Se avaa **Raidan tehosteet**
+-valintaikkunan, jossa rakennat **järjestyksessä olevan ketjun** lisäystehosteita tämän raidan tallennukseen:
+
+![Raidan tehosteet -valintaikkuna](../screenshots/Track_Effects_Dialog.png)
+
+- **Lisää tehoste…** → **Kaiku**, **Kuoro** tai **Flanger**. Useita voi lisätä; punainen **✕** poistaa tehosteen.
+- Vedä **≡** uudelleenjärjestämiseen. **Ylin** tehoste ajetaan **ensin**.
+- ms ja Hz säilyttävät merkityksensä **projektin näytteenottotaajuuteen** muunnon jälkeen. **Mono** ja **stereo**
+  ovat tuettuja (mono käsitellään dual-monona ja summataan takaisin yhdelle kanavalle).
+- **OK** tallentaa projektiin; **Peruuta** palauttaa ketjun avaushetkeä vastaavaksi.
+
+Tehosteet käytetään **tallennuksen päätyttyä**, tavallisen kaappauksen ja resamplauksen jälkeen. Asetukset
+tallennetaan `project.json`-tiedostoon avaimella `audioEffectChain`.
+
+### Monitorointi tallennuksen aikana
+
+**Aikanäytön** vieressä **Kuuntele ääntä tallennuksen aikana** määrittää, lähetetäänkö **live-sisääntulo**
+**projektin äänilähtöön** tallennuksen aikana:
+
+- **Ääniraidat**: sama signaali kuuluu reaaliajassa (tallennusketju ennallaan). Lisäksi mahdollinen **overdub**-toisto.
+- **MIDI-raidat**: jos **renderöi MIDI ääneksi toistoa varten** ja **SoundFont** on asetettu, nuotet kuuluvat ohjelmistosyntikan kautta. **Ulkoinen MIDI-lähtö** → käytä laitteen omaa monitorointia.
+
+Asetus **tallennetaan projektiin** (`monitorWhileRecording` tiedostossa `project.json`). Poista käytöstä, jos haluat välttää mikrofonikieroutta.
+
 #### Päälleäänitys
 
 Kun tallennat uutta raitaa samalla kun muut käytössä olevat raidat sisältävät jo ääni- tai MIDI-dataa,

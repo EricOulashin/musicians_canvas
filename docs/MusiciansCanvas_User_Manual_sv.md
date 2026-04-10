@@ -177,6 +177,33 @@ Det inspelade ljudet sparas som en FLAC-fil i projektkatalogen, namngiven efter 
 Under inspelning och uppspelning inaktiveras alla interaktiva kontroller (spårknappar, inställningar etc.)
 för att förhindra oavsiktliga ändringar.
 
+### Infogningseffekter (endast ljudspår)
+
+Ljudspår har en knapp **Effekter** direkt under **Options**. Den öppnar dialogen **Spår-effekter**, där
+du bygger en **ordnad kedja** av insert-effekter för inspelning på detta spår:
+
+![Dialogruta för spår-effekter](../screenshots/Track_Effects_Dialog.png)
+
+- Klicka **Lägg till effekt…** och välj **Reverb**, **Chorus** eller **Flanger**. Flera instanser är tillåtna; rött **✕** i
+  rubriken tar bort en effekt.
+- Dra **≡** för att **ändra ordning**. **Överst** körs **först**.
+- ms och Hz förblir meningsfulla efter konvertering till **projektets samplingsfrekvens**. **Mono** och **stereo**
+  stöds (mono körs som dual-mono och mixas tillbaka till en kanal).
+- **OK** sparar i projektet; **Avbryt** återställer kedjan som när dialogen öppnades.
+
+Effekter tillämpas när du **stoppar inspelningen**, efter normal capture och omsampling. Konfigurationen lagras
+i `project.json` under `audioEffectChain`.
+
+### Övervaka under inspelning
+
+Bredvid **tidsdisplayen** styr **Övervaka ljud under inspelning** om **live-ingång** skickas till **projektets ljudutgång**
+under inspelning:
+
+- **Ljudspår**: inkommande ljud spelas upp i realtid (själva inspelningen oförändrad). Läggs ovanpå eventuell **overdub**-uppspelning.
+- **MIDI-spår**: om **återge MIDI som ljud för uppspelning** och **SoundFont** används hörs anteckningar via mjukvarusynt. Vid **extern MIDI-ut** — använd instrumentets monitor.
+
+Inställningen **sparas i projektet** (`monitorWhileRecording` i `project.json`). Stäng av för att minska mikrofonåterkoppling.
+
 #### Överdubinspelning
 
 När du spelar in ett nytt spår medan andra aktiverade spår redan innehåller ljud- eller MIDI-data utför

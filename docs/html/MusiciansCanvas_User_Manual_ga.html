@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Tr&#233;oirleabhar &#218;s&#225;ideora Musician&#8217;s Canvas</h1>
 <p>Feidhmchlár Taifeadta Ceoil Il-Rian &mdash; Version 0.1.1</p>
-<p>2026-04-08</p>
+<p>2026-04-10</p>
 </div>
 <div class="toc">
 <h2>Cl&aacute;r &Aacute;bhair</h2>
@@ -72,6 +72,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </li>
 <li><a href="#taifeadadh">Taifeadadh</a><ul>
 <li><a href="#taifeadadh-fuaime">Taifeadadh Fuaime</a></li>
+<li><a href="#eifeachtai-insert-rianta-fuaime-amhain">Éifeachtaí insert (rianta fuaime amháin)</a></li>
 <li><a href="#taifeadadh-midi">Taifeadadh MIDI</a></li>
 </ul>
 </li>
@@ -252,6 +253,15 @@ Canvas chun iad a chur leis mar rianta fuaime nua.</p>
 </ol>
 <p>Sábháiltear an fhuaim taifeadta mar chomhad FLAC sa chomhadlann tionscadail, ainmnithe i ndiaidh an rian.</p>
 <p>Le linn taifeadta agus athsheinm, díchumasaítear gach rialú idirghníomhach (cnaipí rianta, socruithe, srl.) chun athruithe de thaisme a chosc.</p>
+<h3 id="eifeachtai-insert-rianta-fuaime-amhain">Éifeachtaí insert (rianta fuaime amháin)</h3>
+<p>Tá cnaipe <strong>Éifeachtaí</strong> ar rianta fuaime díreach faoi <strong>Options</strong>. Osclaíonn sé an dialóg <strong>Éifeachtaí rian</strong>, áit a gcuireann tú <strong>slabhra ordaithe</strong> d'éifeachtaí insert le chéile le haghaidh taifeadta ar an rian sin:</p>
+<ul>
+<li><strong>Cuir éifeacht leis…</strong> agus roghnaigh <strong>Reverb</strong> nó <strong>Chorus</strong>. Is féidir ilchás; déanann an <strong>✕</strong> dearg sa cheannlíne éifeacht a bhaint.</li>
+<li>Tarraing <strong>≡</strong> chun <strong>athordú</strong>. Ritear an <strong>éifeacht is airde</strong> <strong>ar dtús</strong>.</li>
+<li>Fanann ms agus Hz intuigthe tar éis tiontaithe go <strong>ráta samplála an tionscadail</strong>. Tacaítear le <strong>mónó</strong> agus <strong>stirió</strong> (déantar mónó a phróiseáil mar dhúbhail-mónó agus a mheascadh ar ais go bealach amháin).</li>
+<li><strong>OK</strong> sábhálann san tionscadal; <strong>Ceal</strong> aithchóraíonn an slabhra mar ba dhóigh leat nuair a osclaíodh an dialóg.</li>
+</ul>
+<p>Cuirtear éifeachtaí i bhfeidhm <strong>nuair a stopann tú an taifeadadh</strong>, tar éis gabhála agus athshamplála gnáth. Sábháiltear cumraíocht in <code>project.json</code> faoi <code>audioEffectChain</code>.</p>
 <h4 id="taifeadadh-overdub">Taifeadadh Overdub</h4>
 <p>Nuair a thaifeadtar rian nua agus rianta cumasaithe eile ann cheana le sonraí fuaime nó MIDI, déanann Musician's Canvas taifeadadh overdub: measctar na rianta atá ann cheana le chéile agus seinntar iad i bhfíor-am agus an rian nua á thaifeadadh. Ligeann sé seo duit na codanna a taifeadadh roimhe seo a chloisteáil agus tú ag leagan síos ceann nua.</p>
 <p>Ullmhaítear meascán na rianta atá ann cheana sula dtosaíonn an ghabháil, ionas go dtosaíonn an taifeadadh agus an athsheinm ag an nóiméad céanna beagnach, ag coinneáil gach rian sioncronaithe.</p>

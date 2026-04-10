@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QFrame>
+#include <QJsonArray>
 #include <QString>
 #include "trackdata.h"
 
@@ -25,6 +26,11 @@ public:
     {
         return m_data;
     }
+    QJsonArray audioEffectChain() const
+    {
+        return m_data.audioEffectChain;
+    }
+    void setAudioEffectChain(const QJsonArray& chain);
     void setTrackData(const TrackData& data);
     void updateVisualization();
 
@@ -40,12 +46,14 @@ public:
 
 signals:
     void configurationRequested(TrackWidget* widget);
+    void effectsRequested(TrackWidget* widget);
     void armChanged(TrackWidget* widget, bool armed);
     void dataChanged(TrackWidget* widget);
     void nameChanged(TrackWidget* widget, const QString& oldName, const QString& newName);
     void removeRequested(TrackWidget* widget);
 
 private slots:
+    void onEffectsClicked();
     void onConfigClicked();
     void onEnabledToggled(bool checked);
     void onArmToggled(bool checked);
@@ -53,9 +61,11 @@ private slots:
 private:
     void setupUi();
     void updateTypeIcon();
+    void updateEffectsButtonVisibility();
     TrackData m_data;
     QString m_lastValidName;
     QPushButton* m_configButton = nullptr;
+    QPushButton* m_effectsButton = nullptr;
     QPushButton* m_removeBtn = nullptr;
     QToolButton* m_typeIconLabel = nullptr;
     QLineEdit* m_nameEdit = nullptr;

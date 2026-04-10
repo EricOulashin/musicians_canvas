@@ -184,6 +184,50 @@ track.
 During recording and playback, all interactive controls (track buttons, settings, etc.)
 are disabled to prevent accidental changes.
 
+### Recording insert effects (audio tracks only)
+
+Audio tracks have an **Effects** button directly under **Options**. It opens the **Track
+effects** dialog, where you can build an **ordered chain** of insert effects for recordings
+on that track:
+
+![Track effects dialog](../screenshots/Track_Effects_Dialog.png)
+
+- Click **Add effect…** and choose **Reverb**, **Chorus**, or **Flanger** (more types may be added in the
+  future). You can add several instances and remove one with the red **✕** in the effect’s
+  header.
+- Drag the **≡** grip on a row to **reorder** the chain. The effect at the **top** runs
+  **first** on the captured audio; the next runs on its output, and so on.
+- Adjust sliders and read-outs for each effect (pre-delay, decay, mix, modulation, chorus
+  rate/depth, flanger manual/rate/depth/feedback, EQ, etc.). Units are in milliseconds and hertz so they stay meaningful after
+  the app converts your recording to the **project sample rate**. Both **mono** and **stereo**
+  tracks are supported: mono is processed internally as a dual-mono path and mixed back to one
+  channel; stereo keeps separate dry paths where the algorithms allow.
+- **OK** keeps your edits (they are written to the project). **Cancel** puts the chain back
+  to how it was when you opened the dialog.
+
+Effects are applied to audio **when you stop recording**—after the normal capture and
+sample-rate conversion pipeline—so what you hear from the effect controls matches what gets
+baked into the FLAC for that take. The effect configuration is stored in `project.json`
+under that track’s `audioEffectChain` entry.
+
+### Monitor while recording
+
+Next to the main **time display**, the **Monitor audio while recording** checkbox controls
+whether you hear **live input** through the **project audio output** while the transport is
+recording:
+
+- **Audio tracks**: The sound from the input device is sent to the output in real time (the
+  usual capture and WAV/FLAC pipeline is unchanged). This is layered on top of **overdub**
+  playback if other tracks are playing along.
+- **MIDI tracks**: When the project is set to **render MIDI to audio for playback** and a
+  **SoundFont** is configured, incoming MIDI is played through the same software synthesizer
+  route so you can hear notes as you record. If you use **external MIDI output** instead, use
+  your instrument’s own monitoring; this checkbox mainly affects the on-screen synth path.
+
+The choice is **stored in the project** (field `monitorWhileRecording` in `project.json`).
+Turn monitoring **off** if you do not want to hear the input in your speakers or headphones
+(for example to reduce feedback when using a microphone).
+
 #### Overdub Recording
 
 When recording a new track while other enabled tracks already contain audio or MIDI data,

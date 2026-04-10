@@ -25,6 +25,8 @@ GUI 库。此应用程序旨在为 Linux、Windows 和 Mac OS 构建。易用性
 - **PortAudio 捕获（可选构建）**：当项目使用 PortAudio 构建时（`HAVE_PORTAUDIO`），录音可以使用原生 PortAudio 输入路径（精神上类似 Audacity）而非 Qt Multimedia。**Project → Project Settings → Audio** 可让您选择 **PortAudio** 或 **Qt Multimedia** 并选取 PortAudio 输入设备。若未安装 PortAudio，构建仍会成功，录音仅使用 Qt Multimedia。
 - **高品质采样率转换**：以音频设备的原生速率录音，并使用加窗 sinc 插值（Kaiser 窗，~96 dB 阻带衰减）转换为项目速率，这与 Audacity / libsoxr 使用的算法系列相同。这允许以任何项目采样率（8000 Hz 至 192000 Hz）录音，不受设备原生速率限制，且无音调或时长变化。
 - **自动单声道/立体声处理**：检测被标识为立体声的物理单声道设备（在 PipeWire 上的 USB 网络摄像头麦克风常见此情况），并根据需要在单声道和立体声之间转换（复制或平均），符合 Audacity 的声道路由方法
+- **录音插入效果（仅音轨）**：在每个音轨的 **Options** 下方使用 **Effects** 按钮打开 **Track effects** 对话框。添加并配置 **Reverb**、**Chorus** 与 **Flanger**，拖动 **≡** 重排序效果链（最上方最先处理），并与项目一并保存。停止录音后将效果应用于已录片段；参数使用实际单位（ms、Hz），在捕获归一化后，单声道与立体声及常见项目采样率（8 kHz–192 kHz）下行为一致。详见[用户手册](docs/MusiciansCanvas_User_Manual_zh-CN.md)。翻译人员可在 `lupdate` 后通过 `scripts/effect_i18n.tsv`（由 `scripts/build_effect_tsv.py` 生成）与 `scripts/fill_effect_i18n.py` 批量更新效果相关字符串。
+- **录制时监听**：**时间显示**右侧的 **录音时监听音频** 可在录制期间将**实时输入**送往**项目的音频输出**。音轨为正在录制的信号；MIDI 在启用「为回放将 MIDI 渲染为音频」且配置 SoundFont 时经软件合成器播出。选项保存在**项目**（`project.json` 的 `monitorWhileRecording`）。可关闭以减少麦克风回授。
 - **低延迟音频**：在 Windows 上，ASIO 驱动程序检测确保低延迟音频；在 Linux 上，提升进程调度优先级以降低 PipeWire / PulseAudio / ALSA 的抖动
 - **Virtual MIDI Keyboard**：一款通过软件钢琴键盘发送 MIDI 音符的配套应用程序，具有内置 FluidSynth 合成器、可调主增益、计算机键盘到钢琴映射、乐器/程序选择、合唱/效果控制和八度移位
 - **配置**：选择音频输入设备、MIDI 设备和 SoundFont 文件（全局默认值和按项目覆盖）
@@ -44,6 +46,7 @@ GUI 库。此应用程序旨在为 Linux、Windows 和 Mac OS 构建。易用性
 	<a href="screenshots/MusiciansCanvas_LanguageSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_LanguageSettings.png" alt="语言设置" width="800"></a>
 	<a href="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" alt="项目特定 MIDI 设置" width="800"></a>
 	<a href="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" alt="项目特定音频设置" width="800"></a>
+	<a href="screenshots/Track_Effects_Dialog.png" target='_blank'><img src="screenshots/Track_Effects_Dialog.png" alt="轨道效果对话框" width="800"></a>
 	<a href="screenshots/VMIDIKeyboard1.png" target='_blank'><img src="screenshots/VMIDIKeyboard1.png" alt="Virtual MIDI Keyboard" width="800"></a>
 	<a href="screenshots/VMIDIKeyboard2.png" target='_blank'><img src="screenshots/VMIDIKeyboard2.png" alt="Virtual MIDI Keyboard" width="800"></a>
 </p>

@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas Anv&#228;ndarmanual</h1>
 <p>Applikation för flerspårsinspelning av musik &mdash; Version 0.1.1</p>
-<p>2026-04-08</p>
+<p>2026-04-10</p>
 </div>
 <div class="toc">
 <h2>Inneh&aring;llsf&ouml;rteckning</h2>
@@ -72,6 +72,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </li>
 <li><a href="#inspelning">Inspelning</a><ul>
 <li><a href="#ljudinspelning">Ljudinspelning</a></li>
+<li><a href="#infogningseffekter-endast-ljudspar">Infogningseffekter (endast ljudspår)</a></li>
 <li><a href="#midi-inspelning">MIDI-inspelning</a></li>
 </ul>
 </li>
@@ -274,6 +275,19 @@ för inspelning. Detta gäller både när man lägger till det första spåret i
 <p>Det inspelade ljudet sparas som en FLAC-fil i projektkatalogen, namngiven efter spåret.</p>
 <p>Under inspelning och uppspelning inaktiveras alla interaktiva kontroller (spårknappar, inställningar etc.)
 för att förhindra oavsiktliga ändringar.</p>
+<h3 id="infogningseffekter-endast-ljudspar">Infogningseffekter (endast ljudspår)</h3>
+<p>Ljudspår har en knapp <strong>Effekter</strong> direkt under <strong>Options</strong>. Den öppnar dialogen <strong>Spår-effekter</strong>, där
+du bygger en <strong>ordnad kedja</strong> av insert-effekter för inspelning på detta spår:</p>
+<ul>
+<li>Klicka <strong>Lägg till effekt…</strong> och välj <strong>Reverb</strong> eller <strong>Chorus</strong>. Flera instanser är tillåtna; rött <strong>✕</strong> i
+  rubriken tar bort en effekt.</li>
+<li>Dra <strong>≡</strong> för att <strong>ändra ordning</strong>. <strong>Överst</strong> körs <strong>först</strong>.</li>
+<li>ms och Hz förblir meningsfulla efter konvertering till <strong>projektets samplingsfrekvens</strong>. <strong>Mono</strong> och <strong>stereo</strong>
+  stöds (mono körs som dual-mono och mixas tillbaka till en kanal).</li>
+<li><strong>OK</strong> sparar i projektet; <strong>Avbryt</strong> återställer kedjan som när dialogen öppnades.</li>
+</ul>
+<p>Effekter tillämpas när du <strong>stoppar inspelningen</strong>, efter normal capture och omsampling. Konfigurationen lagras
+i <code>project.json</code> under <code>audioEffectChain</code>.</p>
 <h4 id="overdubinspelning">Överdubinspelning</h4>
 <p>När du spelar in ett nytt spår medan andra aktiverade spår redan innehåller ljud- eller MIDI-data utför
 Musician's Canvas överdubinspelning: de befintliga spåren mixas ihop och spelas upp i realtid medan det

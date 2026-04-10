@@ -191,6 +191,33 @@ com a faixa.
 Durante a gravacao e reproducao, todos os controles interativos (botoes de faixa,
 configuracoes, etc.) sao desabilitados para evitar alteracoes acidentais.
 
+### Efeitos de insercao (somente faixas de audio)
+
+Faixas de audio tem o botao **Efeitos** logo abaixo de **Options**. Ele abre o dialogo **Efeitos da
+faixa**, onde voce monta uma **cadeia ordenada** de efeitos de insercao para gravacoes nessa faixa:
+
+![Dialogo Efeitos da faixa](../screenshots/Track_Effects_Dialog.png)
+
+- Clique **Adicionar efeito…** e escolha **Reverb**, **Chorus** ou **Flanger**. Varias instancias sao permitidas; o **✕**
+  vermelho no cabecalho remove um efeito.
+- Arraste **≡** para **reordenar**. O efeito do **topo** processa **primeiro**.
+- Parametros em ms e Hz permanecem coerentes apos a conversao para a **taxa de amostragem do projeto**.
+  **Mono** e **estereo** sao suportados (mono e processado dual-mono e remisturado a um canal).
+- **OK** salva no projeto; **Cancel** restaura a cadeia ao abrir o dialogo.
+
+Os efeitos sao aplicados ao **parar a gravacao**, apos captura e reamostragem usuais. A configuracao fica em
+`project.json` em `audioEffectChain`.
+
+### Monitorar durante a gravacao
+
+Ao lado do **mostrador de tempo**, a caixa **Monitorar audio durante a gravacao** envia ou nao a **entrada ao vivo**
+para a **saida de audio do projeto** durante a captura:
+
+- **Faixas de audio**: o sinal de entrada sai em tempo real (a gravacao continua igual). Soma-se a reproducao de **overdub**, se houver.
+- **Faixas MIDI**: com **renderizar MIDI em audio para reproducao** e **SoundFont** configurados, as notas saem pelo sintetizador. Com **saida MIDI externa**, use o monitor do equipamento.
+
+A opcao fica no **projeto** (`monitorWhileRecording` em `project.json`). Desligue para reduzir retorno no microfone.
+
 #### Gravacao Overdub
 
 Ao gravar uma nova faixa enquanto outras faixas habilitadas ja contem dados de audio ou

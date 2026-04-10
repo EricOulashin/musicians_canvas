@@ -4,6 +4,7 @@
 #include <QString>
 #include <QVector>
 #include <QByteArray>
+#include <QJsonArray>
 
 enum class TrackType
 {
@@ -37,6 +38,10 @@ struct TrackData
     QByteArray audioData;
     int sampleRate = 44100;
     int channelCount = 2;
+
+    // Ordered chain of real-time recording effects (see EffectsDialog / EffectWidget).
+    // Each element: { "type": "reverb"|"chorus", "params": { ... } }
+    QJsonArray audioEffectChain;
 
     // For MIDI tracks: note events
     QVector<MidiNote> midiNotes;

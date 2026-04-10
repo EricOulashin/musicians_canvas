@@ -152,6 +152,32 @@ Den optagede lyd gemmes som en FLAC-fil i projektmappen, navngivet efter sporet.
 
 Under optagelse og afspilning deaktiveres alle interaktive kontroller (sporknapper, indstillinger osv.) for at forhindre utilsigtede ændringer.
 
+### Insert-effekter (kun lydspor)
+
+Lydspor har en knap **Effekter** lige under **Options**. Den åbner dialogen **Spor-effekter**, hvor du
+sætter en **ordnet kæde** af insert-effekter til optagelse på det spor:
+
+![Dialogen Spor-effekter](../screenshots/Track_Effects_Dialog.png)
+
+- Klik **Tilføj effekt…** og vælg **Reverb**, **Chorus** eller **Flanger**. Flere instanser er mulige; rødt **✕** i
+  overskriften fjerner en effekt.
+- Træk **≡** for at **omarrangere**. **Øverst** kører **først**.
+- ms og Hz giver fortsat mening efter konvertering til **projektets sample rate**. **Mono** og **stereo**
+  understøttes (mono kører som dual-mono og mixes tilbage til én kanal).
+- **OK** gemmer i projektet; **Annuller** genskaber kæden som ved åbning.
+
+Effekter anvendes, når du **stopper optagelsen**, efter sædvanlig capture og resampling. Konfigurationen
+gemmes i `project.json` under `audioEffectChain`.
+
+### Lyt med under optagelse
+
+Ved siden af **tidsdisplayet** bestemmer **Lyt til lyd under optagelse**, om **live input** sendes til **projektets lydudgang** under optagelse:
+
+- **Lydspor**: indgangen afspilles i realtid (optagelsen som sædvanlig). Kan kombineres med **overdub** fra andre spor.
+- **MIDI-spor**: når **gengiv MIDI som lyd ved afspilning** og **SoundFont** er sat, høres noderne via soft synth. Ved **ekstern MIDI-udgang** — brug instrumentets egen overvågning.
+
+Indstillingen **gemmes i projektet** (`monitorWhileRecording` i `project.json`). Slå fra for at mindske mikrofonfeedback.
+
 #### Overdub-optagelse
 
 Når du optager et nyt spor, mens andre aktiverede spor allerede indeholder lyd- eller MIDI-data, udfører Musician's Canvas overdub-optagelse: de eksisterende spor mikses sammen og afspilles i realtid, mens det nye spor optages. Dette giver dig mulighed for at høre tidligere optagede dele, mens du lægger en ny del.

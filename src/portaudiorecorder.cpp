@@ -27,6 +27,9 @@ QByteArray PortAudioRecorder::takeRecordedPcm() { return {}; }
 qint64 PortAudioRecorder::processedMicroseconds() const { return 0; }
 float PortAudioRecorder::recentPeak() const { return 0.0f; }
 
+void PortAudioRecorder::setMonitorTap(std::function<void(const char*, int)> /*fn*/) {}
+void PortAudioRecorder::clearMonitorTap() {}
+
 #else
 
 #    include <portaudio.h>
@@ -121,9 +124,19 @@ int PortAudioRecorder::paCallback(const void* input, void* /*output*/, unsigned 
     if (input != nullptr && frameCount > 0 && self->m_bytesPerFrame > 0)
     {
         const int nBytes = static_cast<int>(frameCount) * self->m_bytesPerFrame;
-        std::lock_guard<std::mutex> lock(self->m_mutex);
-        self->m_buffer.append(static_cast<const char*>(input), nBytes);
-        self->m_totalFrames += static_cast<qint64>(frameCount);
+        const char* pcm = static_cast<const char*>(input);
+        std::function<void(const char*, int)> tap;
+        {
+            std::lock_guard<std::mutex> lock(self->m_mutex);
+            self->m_buffer.append(pcm, nBytes);
+            self->m_totalFrames += static_cast<qint64>(frameCount);
+        }
+        {
+            std::lock_guard<std::mutex> lock(self->m_monitorMutex);
+            tap = self->m_monitorTap;
+        }
+        if (tap)
+            tap(pcm, nBytes);
     }
     return paContinue;
 }
@@ -264,6 +277,7 @@ void PortAudioRecorder::stop()
         static_cast<void>(Pa_StopStream(s));
     static_cast<void>(Pa_CloseStream(s));
     m_stream = nullptr;
+    clearMonitorTap();
 }
 
 QByteArray PortAudioRecorder::takeRecordedPcm()
@@ -294,6 +308,18 @@ float PortAudioRecorder::recentPeak() const
     for (int i = 0; i < n; ++i)
         peak = std::max(peak, std::abs(s[i] / 32768.0f));
     return std::min(peak, 1.0f);
+}
+
+void PortAudioRecorder::setMonitorTap(std::function<void(const char*, int)> fn)
+{
+    std::lock_guard<std::mutex> lock(m_monitorMutex);
+    m_monitorTap = std::move(fn);
+}
+
+void PortAudioRecorder::clearMonitorTap()
+{
+    std::lock_guard<std::mutex> lock(m_monitorMutex);
+    m_monitorTap = {};
 }
 
 #endif  // HAVE_PORTAUDIO

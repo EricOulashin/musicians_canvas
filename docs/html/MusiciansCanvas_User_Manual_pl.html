@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Podr&#281;cznik u&#380;ytkownika Musician&#8217;s Canvas</h1>
 <p>Wielościeżkowa aplikacja do nagrywania muzyki &mdash; Version 0.1.1</p>
-<p>2026-04-08</p>
+<p>2026-04-10</p>
 </div>
 <div class="toc">
 <h2>Spis tre&sacute;ci</h2>
@@ -72,6 +72,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </li>
 <li><a href="#nagrywanie">Nagrywanie</a><ul>
 <li><a href="#nagrywanie-audio">Nagrywanie audio</a></li>
+<li><a href="#efekty-insert-tylko-sciezki-audio">Efekty insert (tylko ścieżki audio)</a></li>
 <li><a href="#nagrywanie-midi">Nagrywanie MIDI</a></li>
 </ul>
 </li>
@@ -251,6 +252,19 @@ nowe ścieżki audio.</p>
 </ol>
 <p>Nagrany dźwięk jest zapisywany jako plik FLAC w katalogu projektu, nazwany po ścieżce.</p>
 <p>Podczas nagrywania i odtwarzania wszystkie interaktywne kontrolki (przyciski ścieżek, ustawienia itp.) są wyłączone, aby zapobiec przypadkowym zmianom.</p>
+<h3 id="efekty-insert-tylko-sciezki-audio">Efekty insert (tylko ścieżki audio)</h3>
+<p>Ścieżki audio mają przycisk <strong>Efekty</strong> tuż pod <strong>Options</strong>. Otwiera on okno <strong>Efekty ścieżki</strong>, gdzie
+budujesz <strong>uporządkowany łańcuch</strong> efektów insert dla nagrań na tej ścieżce:</p>
+<ul>
+<li>Kliknij <strong>Dodaj efekt…</strong> i wybierz <strong>Pogłos</strong> lub <strong>Chorus</strong>. Możesz dodać wiele instancji; czerwone <strong>✕</strong>
+  w nagłówku usuwa efekt.</li>
+<li>Przeciągnij <strong>≡</strong>, aby <strong>zmienić kolejność</strong>. <strong>Górny</strong> efekt działa <strong>pierwszy</strong>.</li>
+<li>Jednostki ms i Hz pozostają spójne po konwersji do <strong>częstotliwości próbkowania projektu</strong>. Obsługiwane są
+  <strong>mono</strong> i <strong>stereo</strong> (mono jest przetwarzane dual-mono i sumowane z powrotem do jednego kanału).</li>
+<li><strong>OK</strong> zapisuje zmiany w projekcie; <strong>Anuluj</strong> przywraca łańcuch z momentu otwarcia okna.</li>
+</ul>
+<p>Efekty stosuje się po <strong>zatrzymaniu nagrywania</strong>, po zwykłym przechwyceniu i resamplingu. Konfiguracja jest
+w <code>project.json</code> w <code>audioEffectChain</code>.</p>
 <h4 id="nagrywanie-overdub">Nagrywanie overdub</h4>
 <p>Podczas nagrywania nowej ścieżki, gdy inne włączone ścieżki zawierają już dane audio lub MIDI, Musician's Canvas wykonuje nagrywanie overdub: istniejące ścieżki są miksowane i odtwarzane w czasie rzeczywistym podczas nagrywania nowej ścieżki. Pozwala to słyszeć wcześniej nagrane partie podczas nagrywania nowej.</p>
 <p>Miks istniejących ścieżek jest przygotowywany przed rozpoczęciem przechwytywania, dzięki czemu nagrywanie i odtwarzanie rozpoczynają się w przybliżeniu w tym samym momencie, utrzymując wszystkie ścieżki zsynchronizowane.</p>

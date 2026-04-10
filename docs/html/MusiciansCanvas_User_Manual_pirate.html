@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas &#8212; A Pirate&#8217;s Guide</h1>
 <p>A Multi-Shanty Music Plunderin' Application fer Scallywags an' Sea Dogs Alike &mdash; Version 0.1.1</p>
-<p>2026-04-08</p>
+<p>2026-04-10</p>
 </div>
 <div class="toc">
 <h2>Table of Contents</h2>
@@ -72,6 +72,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </li>
 <li><a href="#plunderin-sounds-recording">Plunderin' Sounds (Recording)</a><ul>
 <li><a href="#audio-plunderin">Audio Plunderin'</a></li>
+<li><a href="#insert-effects-audio-shanties-only">Insert effects (audio shanties only)</a></li>
 <li><a href="#midi-plunderin">MIDI Plunderin'</a></li>
 </ul>
 </li>
@@ -249,6 +250,15 @@ fresh audio shanties.</p>
 </ol>
 <p>The plundered audio be saved as a FLAC file in the project directory, named after the shanty.</p>
 <p>Durin' plunderin' an' replayin', all interactive controls (shanty buttons, settings, etc.) be disabled to prevent accidental changes. Keep yer hands off the riggin' while we're recordin'!</p>
+<h3 id="insert-effects-audio-shanties-only">Insert effects (audio shanties only)</h3>
+<p>Audio shanties have an <strong>Effects</strong> button just below <strong>Options</strong>. It opens <strong>Track effects</strong>, where ye build a <strong>ordered chain</strong> o' plunder-time insert effects fer this shanty:</p>
+<ul>
+<li><strong>Add effect…</strong> an' pick <strong>Reverb</strong> or <strong>Chorus</strong>. Ye may stack more than one; the red <strong>✕</strong> in the header scuttles an effect.</li>
+<li>Drag <strong>≡</strong> to <strong>reorder</strong>. The <strong>topmost</strong> effect runs <strong>first</strong>.</li>
+<li>ms an' Hz stay meanin'ful after convertin' to the <strong>project sample rate</strong>. <strong>Mono</strong> an' <strong>stereo</strong> both be supported (mono runs dual-mono through the chain an' mixes back ta one channel).</li>
+<li><strong>OK</strong> saves ta the project; <strong>Cancel</strong> restores the chain as when ye opened the dialog.</li>
+</ul>
+<p>Effects be applied <strong>when ye click Stop</strong>, after the usual capture an' resample. The rig be stored in <code>project.json</code> under <code>audioEffectChain</code>.</p>
 <h4 id="overdub-plunderin">Overdub Plunderin'</h4>
 <p>When plunderin' a new shanty while other enabled shanties already contain audio or MIDI data, Musician's Canvas performs overdub plunderin': the existing shanties be mixed together an' played back in real time while the new shanty be recorded. This lets ye hear previously plundered parts while layin' down a new one, like singin' harmony with yer crewmates!</p>
 <p>The mix o' existing shanties be prepared before capture begins, so plunderin' an' replayin' start at approximately the same instant, keepin' all shanties synchronized like a well-drilled crew.</p>

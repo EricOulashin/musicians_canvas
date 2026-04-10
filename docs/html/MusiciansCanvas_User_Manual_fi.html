@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas K&#228;ytt&#246;opas</h1>
 <p>Moniraitainen musiikin tallennussovellus &mdash; Version 0.1.1</p>
-<p>2026-04-08</p>
+<p>2026-04-10</p>
 </div>
 <div class="toc">
 <h2>Sis&auml;llysluettelo</h2>
@@ -72,6 +72,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </li>
 <li><a href="#tallennus">Tallennus</a><ul>
 <li><a href="#aanen-tallennus">Äänen tallennus</a></li>
+<li><a href="#lisays-tehosteet-vain-aaniraidat">Lisäys tehosteet (vain ääniraidat)</a></li>
 <li><a href="#midi-tallennus">MIDI-tallennus</a></li>
 </ul>
 </li>
@@ -278,6 +279,18 @@ olemassa olevaa projektia, jossa on yksi tyhjä raita.</p>
 <p>Tallennettu ääni tallennetaan FLAC-tiedostona projektihakemistoon raidan nimellä.</p>
 <p>Tallennuksen ja toiston aikana kaikki interaktiiviset ohjaimet (raitapainikkeet, asetukset jne.)
 poistetaan käytöstä tahattomien muutosten estämiseksi.</p>
+<h3 id="lisays-tehosteet-vain-aaniraidat">Lisäys tehosteet (vain ääniraidat)</h3>
+<p>Ääniraidalla on <strong>Tehosteet</strong>-painike suoraan <strong>Options</strong>-painikkeen alla. Se avaa <strong>Raidan tehosteet</strong>
+-valintaikkunan, jossa rakennat <strong>järjestyksessä olevan ketjun</strong> lisäystehosteita tämän raidan tallennukseen:</p>
+<ul>
+<li><strong>Lisää tehoste…</strong> → <strong>Kaiku</strong> tai <strong>Kuoro</strong>. Useita voi lisätä; punainen <strong>✕</strong> poistaa tehosteen.</li>
+<li>Vedä <strong>≡</strong> uudelleenjärjestämiseen. <strong>Ylin</strong> tehoste ajetaan <strong>ensin</strong>.</li>
+<li>ms ja Hz säilyttävät merkityksensä <strong>projektin näytteenottotaajuuteen</strong> muunnon jälkeen. <strong>Mono</strong> ja <strong>stereo</strong>
+  ovat tuettuja (mono käsitellään dual-monona ja summataan takaisin yhdelle kanavalle).</li>
+<li><strong>OK</strong> tallentaa projektiin; <strong>Peruuta</strong> palauttaa ketjun avaushetkeä vastaavaksi.</li>
+</ul>
+<p>Tehosteet käytetään <strong>tallennuksen päätyttyä</strong>, tavallisen kaappauksen ja resamplauksen jälkeen. Asetukset
+tallennetaan <code>project.json</code>-tiedostoon avaimella <code>audioEffectChain</code>.</p>
 <h4 id="paalleaanitys">Päälleäänitys</h4>
 <p>Kun tallennat uutta raitaa samalla kun muut käytössä olevat raidat sisältävät jo ääni- tai MIDI-dataa,
 Musician's Canvas suorittaa päälleäänityksen: olemassa olevat raidat miksataan yhteen ja toistetaan

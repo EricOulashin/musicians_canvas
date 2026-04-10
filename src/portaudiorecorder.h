@@ -4,6 +4,7 @@
 #include <QByteArray>
 #include <QString>
 
+#include <functional>
 #include <mutex>
 
 #ifdef HAVE_PORTAUDIO
@@ -55,6 +56,10 @@ public:
     /// Peak magnitude [0,1] from the most recent ~2048 frames per channel (meter).
     float recentPeak() const;
 
+    /// Optional real-time tap of captured PCM (same layout as m_buffer). Thread-safe.
+    void setMonitorTap(std::function<void(const char*, int)> fn);
+    void clearMonitorTap();
+
 private:
 #ifdef HAVE_PORTAUDIO
     static int paCallback(const void* input, void* output, unsigned long frameCount,
@@ -69,6 +74,9 @@ private:
     mutable std::mutex m_mutex;
     QByteArray  m_buffer;
     int         m_bytesPerFrame = 0;
+
+    std::mutex                           m_monitorMutex;
+    std::function<void(const char*, int)> m_monitorTap;
 };
 
 #endif

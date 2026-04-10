@@ -154,6 +154,33 @@ Nagrany dźwięk jest zapisywany jako plik FLAC w katalogu projektu, nazwany po 
 
 Podczas nagrywania i odtwarzania wszystkie interaktywne kontrolki (przyciski ścieżek, ustawienia itp.) są wyłączone, aby zapobiec przypadkowym zmianom.
 
+### Efekty insert (tylko ścieżki audio)
+
+Ścieżki audio mają przycisk **Efekty** tuż pod **Options**. Otwiera on okno **Efekty ścieżki**, gdzie
+budujesz **uporządkowany łańcuch** efektów insert dla nagrań na tej ścieżce:
+
+![Okno efektów ścieżki](../screenshots/Track_Effects_Dialog.png)
+
+- Kliknij **Dodaj efekt…** i wybierz **Pogłos**, **Chorus** lub **Flanger**. Możesz dodać wiele instancji; czerwone **✕**
+  w nagłówku usuwa efekt.
+- Przeciągnij **≡**, aby **zmienić kolejność**. **Górny** efekt działa **pierwszy**.
+- Jednostki ms i Hz pozostają spójne po konwersji do **częstotliwości próbkowania projektu**. Obsługiwane są
+  **mono** i **stereo** (mono jest przetwarzane dual-mono i sumowane z powrotem do jednego kanału).
+- **OK** zapisuje zmiany w projekcie; **Anuluj** przywraca łańcuch z momentu otwarcia okna.
+
+Efekty stosuje się po **zatrzymaniu nagrywania**, po zwykłym przechwyceniu i resamplingu. Konfiguracja jest
+w `project.json` w `audioEffectChain`.
+
+### Monitorowanie podczas nagrywania
+
+Obok **wyświetlacza czasu** pole **Monitoruj dźwięk podczas nagrywania** włącza lub wyłącza wysyłanie **żywego wejścia**
+do **wyjścia audio projektu** w trakcie nagrywania:
+
+- **Ścieżki audio**: sygnał wejściowy jest odtwarzany na żywo (zapis bez zmian). Dodatkowo może grać **overdub** innych ścieżek.
+- **Ścieżki MIDI**: przy włączeniu **renderuj MIDI do audio przy odtwarzaniu** i ustawionym **SoundFont** usłyszysz grę przez syntezator programowy. Przy **zewnętrznym wyjściu MIDI** użyj monitorowania instrumentu.
+
+Ustawienie jest **zapisywane w projekcie** (`monitorWhileRecording` w `project.json`). Wyłącz, aby ograniczyć sprzężenie mikrofonowe.
+
 #### Nagrywanie overdub
 
 Podczas nagrywania nowej ścieżki, gdy inne włączone ścieżki zawierają już dane audio lub MIDI, Musician's Canvas wykonuje nagrywanie overdub: istniejące ścieżki są miksowane i odtwarzane w czasie rzeczywistym podczas nagrywania nowej ścieżki. Pozwala to słyszeć wcześniej nagrane partie podczas nagrywania nowej.

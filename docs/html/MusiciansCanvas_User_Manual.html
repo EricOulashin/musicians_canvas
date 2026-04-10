@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas User Manual</h1>
 <p>Multi-Track Music Recording Application &mdash; Version 0.1.1</p>
-<p>2026-04-08</p>
+<p>2026-04-10</p>
 </div>
 <div class="toc">
 <h2>Table of Contents</h2>
@@ -72,6 +72,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </li>
 <li><a href="#recording">Recording</a><ul>
 <li><a href="#audio-recording">Audio Recording</a></li>
+<li><a href="#recording-insert-effects-audio-tracks-only">Recording insert effects (audio tracks only)</a></li>
 <li><a href="#midi-recording">MIDI Recording</a></li>
 </ul>
 </li>
@@ -282,6 +283,28 @@ new project and when opening an existing project that has a single empty track.<
 track.</p>
 <p>During recording and playback, all interactive controls (track buttons, settings, etc.)
 are disabled to prevent accidental changes.</p>
+<h3 id="recording-insert-effects-audio-tracks-only">Recording insert effects (audio tracks only)</h3>
+<p>Audio tracks have an <strong>Effects</strong> button directly under <strong>Options</strong>. It opens the <strong>Track
+effects</strong> dialog, where you can build an <strong>ordered chain</strong> of insert effects for recordings
+on that track:</p>
+<ul>
+<li>Click <strong>Add effect…</strong> and choose <strong>Reverb</strong> or <strong>Chorus</strong> (more types may be added in the
+  future). You can add several instances and remove one with the red <strong>✕</strong> in the effect’s
+  header.</li>
+<li>Drag the <strong>≡</strong> grip on a row to <strong>reorder</strong> the chain. The effect at the <strong>top</strong> runs
+  <strong>first</strong> on the captured audio; the next runs on its output, and so on.</li>
+<li>Adjust sliders and read-outs for each effect (pre-delay, decay, mix, modulation, chorus
+  rate/depth, EQ, etc.). Units are in milliseconds and hertz so they stay meaningful after
+  the app converts your recording to the <strong>project sample rate</strong>. Both <strong>mono</strong> and <strong>stereo</strong>
+  tracks are supported: mono is processed internally as a dual-mono path and mixed back to one
+  channel; stereo keeps separate dry paths where the algorithms allow.</li>
+<li><strong>OK</strong> keeps your edits (they are written to the project). <strong>Cancel</strong> puts the chain back
+  to how it was when you opened the dialog.</li>
+</ul>
+<p>Effects are applied to audio <strong>when you stop recording</strong>—after the normal capture and
+sample-rate conversion pipeline—so what you hear from the effect controls matches what gets
+baked into the FLAC for that take. The effect configuration is stored in <code>project.json</code>
+under that track’s <code>audioEffectChain</code> entry.</p>
 <h4 id="overdub-recording">Overdub Recording</h4>
 <p>When recording a new track while other enabled tracks already contain audio or MIDI data,
 Musician's Canvas performs overdub recording: the existing tracks are mixed together and

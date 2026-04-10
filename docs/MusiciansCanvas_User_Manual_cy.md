@@ -153,6 +153,29 @@ Mae'r sain a recordiwyd yn cael ei chadw fel ffeil FLAC yn y cyfeiriadur prosiec
 
 Yn ystod recordio a chwarae'n ôl, mae'r holl reolaethau rhyngweithiol (botymau traciau, gosodiadau, ayyb) wedi'u hanalluogi i atal newidiadau damweiniol.
 
+### Effeithiau mewnosod (traciau sain yn unig)
+
+Mae botwm **Effeithiau** ar draciau sain union dan **Options**. Mae'n agor y ddeialog **Effeithiau trac**, lle rydych chi'n adeiladu **cadwyn wedi'i threfnu** o effeithiau mewnosod ar gyfer recordio ar y trac hwnnw:
+
+![Deialog effeithiau trac](../screenshots/Track_Effects_Dialog.png)
+
+- **Ychwanegu effaith…** a dewiswch **Reverb**, **Chorus** neu **Flanger**. Mae sawl enghraifft yn cael ei chaniatáu; mae'r **✕** coch yn y pennyn yn dileu effaith.
+- Llusgwch **≡** i **aildrefnu**. Mae'r **effaith uchaf** yn **cychwyn gyntaf**.
+- Mae ms a Hz yn parhau'n ystyrlon ar ôl trosi i **gyfradd samplu'r prosiect**. Cefnogir **mono** a **stereo** (mae mono'n cael ei brosesu fel dwy-lwybr mono ac yn cael ei gymysgu'n ôl i un sianel).
+- **Iawn** yn cadw yn y prosiect; **Canslo** yn adfer y gadwyn fel pan agorwyd y ddeialog.
+
+Cynnir effeithiau **pan fyddwch chi'n stopio recordio**, ar ôl cipio ac ailsampla fel arfer. Mae'r ffurfweddiad yn cael ei gadw yn `project.json` dan `audioEffectChain`.
+
+### Monitro wrth recordio
+
+Wrth ymyl **arddangosfa'r amser**, mae **Monitro sain wrth recordio** yn pennu a yw **mewnbwn byw** yn mynd i **allbwn sain y prosiect**
+wrth recordio:
+
+- **Traciau sain**: chwaraeir y mewnbwn mewn amser real (yr un broses recordio). Gall ail chwarae **overdub** ddod ar ei ben.
+- **Traciau MIDI**: gyda **Rendro MIDI i sain ar gyfer chwarae'n ôl** a **SoundFont** wedi'i osod, cewch glywed nodau trwy'r syntheseisydd meddalwedd. Gyda **allbwn MIDI allanol** — defnyddiwch fonitro eich offer.
+
+Mae'r dewis yn cael ei **gedw yn y prosiect** (`monitorWhileRecording` yn `project.json`). Diffoddwch i leihau adborth meicroffon.
+
 #### Recordio Overdub
 
 Wrth recordio trac newydd tra bod traciau galluogedig eraill eisoes yn cynnwys data sain neu MIDI, mae Musician's Canvas yn cyflawni recordio overdub: mae'r traciau presennol yn cael eu cymysgu gyda'i gilydd a'u chwarae'n ôl mewn amser real tra bod y trac newydd yn cael ei recordio. Mae hyn yn caniatáu i chi glywed rhannau a recordiwyd yn flaenorol wrth osod un newydd i lawr.

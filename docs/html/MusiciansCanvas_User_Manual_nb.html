@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas Brukermanual</h1>
 <p>Flerspors musikkopptaksapplikasjon &mdash; Version 0.1.1</p>
-<p>2026-04-08</p>
+<p>2026-04-10</p>
 </div>
 <div class="toc">
 <h2>Innholdsfortegnelse</h2>
@@ -72,6 +72,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </li>
 <li><a href="#opptak">Opptak</a><ul>
 <li><a href="#lydopptak">Lydopptak</a></li>
+<li><a href="#insert-effekter-kun-lydspor">Insert-effekter (kun lydspor)</a></li>
 <li><a href="#midi-opptak">MIDI-opptak</a></li>
 </ul>
 </li>
@@ -248,6 +249,19 @@ direkte til Musician's Canvas-vinduet for å legge dem til som nye lydspor.</p>
 </ol>
 <p>Det innspilte lydsignalet lagres som en FLAC-fil i prosjektmappen, navngitt etter sporet.</p>
 <p>Under opptak og avspilling deaktiveres alle interaktive kontroller (sporknapper, innstillinger osv.) for å forhindre utilsiktede endringer.</p>
+<h3 id="insert-effekter-kun-lydspor">Insert-effekter (kun lydspor)</h3>
+<p>Lydspor har en knapp <strong>Effekter</strong> rett under <strong>Options</strong>. Den åpner dialogen <strong>Spor-effekter</strong>, der du
+bygger en <strong>ordnet kjede</strong> med insert-effekter for opptak på dette sporet:</p>
+<ul>
+<li>Klikk <strong>Legg til effekt…</strong> og velg <strong>Reverb</strong> eller <strong>Chorus</strong>. Flere instanser er mulig; rødt <strong>✕</strong> i
+  overskriften fjerner en effekt.</li>
+<li>Dra <strong>≡</strong> for å <strong>endre rekkefølge</strong>. <strong>Øverst</strong> kjører <strong>først</strong>.</li>
+<li>ms og Hz gir fortsatt mening etter konvertering til <strong>prosjektets samplingsfrekvens</strong>. <strong>Mono</strong> og <strong>stereo</strong>
+  støttes (mono behandles som dual-mono og mikses tilbake til én kanal).</li>
+<li><strong>OK</strong> lagrer i prosjektet; <strong>Avbryt</strong> gjenoppretter kjeden som da dialogen ble åpnet.</li>
+</ul>
+<p>Effekter brukes når du <strong>stopper opptaket</strong>, etter vanlig capture og resampling. Konfigurasjonen lagres i
+<code>project.json</code> under <code>audioEffectChain</code>.</p>
 <h4 id="overdub-opptak">Overdub-opptak</h4>
 <p>Når du tar opp et nytt spor mens andre aktiverte spor allerede inneholder lyd- eller MIDI-data, utfører Musician's Canvas overdub-opptak: de eksisterende sporene mikses sammen og spilles av i sanntid mens det nye sporet tas opp. Dette lar deg høre tidligere innspilte deler mens du legger inn en ny del.</p>
 <p>Miksen av eksisterende spor forberedes før opptaket begynner, slik at opptak og avspilling starter på omtrent samme tidspunkt, noe som holder alle spor synkroniserte.</p>

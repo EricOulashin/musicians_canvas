@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Manual de usuario de Musician&#8217;s Canvas</h1>
 <p>Aplicación de Grabación Musical Multipista &mdash; Version 0.1.1</p>
-<p>2026-04-08</p>
+<p>2026-04-10</p>
 </div>
 <div class="toc">
 <h2>&Iacute;ndice</h2>
@@ -72,6 +72,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </li>
 <li><a href="#grabacion">Grabación</a><ul>
 <li><a href="#grabacion-de-audio">Grabación de Audio</a></li>
+<li><a href="#efectos-de-insercion-solo-pistas-de-audio">Efectos de inserción (solo pistas de audio)</a></li>
 <li><a href="#grabacion-midi">Grabación MIDI</a></li>
 </ul>
 </li>
@@ -250,6 +251,21 @@ de Musician's Canvas para agregarlos como nuevas pistas de audio.</p>
 </ol>
 <p>El audio grabado se guarda como un archivo FLAC en el directorio del proyecto, nombrado según la pista.</p>
 <p>Durante la grabación y la reproducción, todos los controles interactivos (botones de pista, ajustes, etc.) se deshabilitan para prevenir cambios accidentales.</p>
+<h3 id="efectos-de-insercion-solo-pistas-de-audio">Efectos de inserción (solo pistas de audio)</h3>
+<p>Las pistas de audio tienen un botón <strong>Efectos</strong> justo debajo de <strong>Options</strong>. Abre el diálogo
+<strong>Efectos de pista</strong>, donde puede definir una <strong>cadena ordenada</strong> de efectos insertados para las
+grabaciones en esa pista:</p>
+<ul>
+<li>Pulse <strong>Añadir efecto…</strong> y elija <strong>Reverb</strong> o <strong>Chorus</strong>. Puede añadir varias instancias y
+  quitar una con la <strong>✕</strong> roja en la cabecera del efecto.</li>
+<li>Arrastre el control <strong>≡</strong> para <strong>reordenar</strong>. El efecto de <strong>arriba</strong> se aplica <strong>primero</strong>.</li>
+<li>Los controles usan milisegundos y hercios, coherentes tras la conversión a la <strong>frecuencia de
+  muestreo del proyecto</strong>. Se admite <strong>mono</strong> y <strong>estéreo</strong> (el mono se procesa como dual-mono y
+  se mezcla de nuevo a un canal).</li>
+<li><strong>OK</strong> guarda los cambios en el proyecto; <strong>Cancel</strong> restaura la cadena al abrir el diálogo.</li>
+</ul>
+<p>Los efectos se aplican al <strong>detener la grabación</strong>, después del flujo normal de captura y
+remuestreo. La configuración se guarda en <code>project.json</code> en <code>audioEffectChain</code>.</p>
 <h4 id="grabacion-en-overdub">Grabación en Overdub</h4>
 <p>Al grabar una nueva pista mientras otras pistas habilitadas ya contienen datos de audio o MIDI, Musician's Canvas realiza una grabación en overdub: las pistas existentes se mezclan y se reproducen en tiempo real mientras se graba la nueva pista. Esto le permite escuchar las partes previamente grabadas mientras graba una nueva.</p>
 <p>La mezcla de las pistas existentes se prepara antes de que comience la captura, de modo que la grabación y la reproducción inician aproximadamente en el mismo instante, manteniendo todas las pistas sincronizadas.</p>

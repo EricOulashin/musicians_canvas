@@ -155,6 +155,29 @@ Sábháiltear an fhuaim taifeadta mar chomhad FLAC sa chomhadlann tionscadail, a
 
 Le linn taifeadta agus athsheinm, díchumasaítear gach rialú idirghníomhach (cnaipí rianta, socruithe, srl.) chun athruithe de thaisme a chosc.
 
+### Éifeachtaí insert (rianta fuaime amháin)
+
+Tá cnaipe **Éifeachtaí** ar rianta fuaime díreach faoi **Options**. Osclaíonn sé an dialóg **Éifeachtaí rian**, áit a gcuireann tú **slabhra ordaithe** d'éifeachtaí insert le chéile le haghaidh taifeadta ar an rian sin:
+
+![Dialóg éifeachtaí rian](../screenshots/Track_Effects_Dialog.png)
+
+- **Cuir éifeacht leis…** agus roghnaigh **Reverb**, **Chorus** nó **Flanger**. Is féidir ilchás; déanann an **✕** dearg sa cheannlíne éifeacht a bhaint.
+- Tarraing **≡** chun **athordú**. Ritear an **éifeacht is airde** **ar dtús**.
+- Fanann ms agus Hz intuigthe tar éis tiontaithe go **ráta samplála an tionscadail**. Tacaítear le **mónó** agus **stirió** (déantar mónó a phróiseáil mar dhúbhail-mónó agus a mheascadh ar ais go bealach amháin).
+- **OK** sábhálann san tionscadal; **Ceal** aithchóraíonn an slabhra mar ba dhóigh leat nuair a osclaíodh an dialóg.
+
+Cuirtear éifeachtaí i bhfeidhm **nuair a stopann tú an taifeadadh**, tar éis gabhála agus athshamplála gnáth. Sábháiltear cumraíocht in `project.json` faoi `audioEffectChain`.
+
+### Monatóireacht le linn taifeadta
+
+Taobh le **taispeántas ama**, rialann **Monatóir fuaim agus í á taifeadadh** an sás **beo** a sheoladh chuig **aschur fuaime an tionscadail**
+le linn taifeadta:
+
+- **Rianta fuaime**: seinntear an t-ionchur i bhfíor-am (cosán an taifeadta díreach). Is féidir é a mheascadh le **overdub**.
+- **Rianta MIDI**: agus **Rindreáil MIDI go fuaim le haghaidh athsheinm** agus **SoundFont** cumraithe, cloiseann tú nótaí tríd an tsintéiseoir bogearraí. Le **aschur MIDI seachtrach** — bain úsáid as monatóireacht an uirlis.
+
+Sábháiltear sa **tionscadal** é (`monitorWhileRecording` in `project.json`). Múch chun aischuir micreafóin a laghdú.
+
 #### Taifeadadh Overdub
 
 Nuair a thaifeadtar rian nua agus rianta cumasaithe eile ann cheana le sonraí fuaime nó MIDI, déanann Musician's Canvas taifeadadh overdub: measctar na rianta atá ann cheana le chéile agus seinntar iad i bhfíor-am agus an rian nua á thaifeadadh. Ligeann sé seo duit na codanna a taifeadadh roimhe seo a chloisteáil agus tú ag leagan síos ceann nua.

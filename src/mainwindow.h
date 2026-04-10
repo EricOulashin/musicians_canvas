@@ -31,6 +31,10 @@ class QDropEvent;
 class TrackWidget;
 class SettingsDialog;
 class SegmentDisplay;
+class QCheckBox;
+class RecordingAudioMonitor;
+class MidiRecordingMonitor;
+class RecordingWriteDevice;
 
 #ifdef QT_MULTIMEDIA_AVAILABLE
 class QMediaPlayer;
@@ -49,6 +53,7 @@ public:
 private slots:
     void onAddTrack();
     void onTrackConfigRequested(TrackWidget* widget);
+    void onTrackEffectsRequested(TrackWidget* widget);
     void onArmChanged(TrackWidget* widget, bool armed);
     void onClose();
     void onMix();
@@ -112,7 +117,12 @@ private:
     void startRecordingLevelMeter();
     void finalizeRecordedAudio(const QByteArray& rawData, qint64 processedMicroseconds,
                                const char* captureBackendLabel);
+    void stopRecordingMonitors();
+    /// Start/stop audio or MIDI monitor sinks to match m_projectSettings.monitorWhileRecording
+    /// while a recording session is already active.
+    void applyLiveRecordingMonitorState();
 #endif
+    void syncMonitorCheckboxFromSettings();
 
     QToolBar* m_toolBar = nullptr;
     QToolButton* m_tbOpen = nullptr;
@@ -121,6 +131,7 @@ private:
     QToolButton* m_tbConfig = nullptr;
     QToolButton* m_tbMetronome = nullptr;
     SegmentDisplay* m_timeDisplay = nullptr;
+    QCheckBox* m_monitorWhileRecordingCheck = nullptr;
     QTimer* m_timeDisplayTimer = nullptr;
     QElapsedTimer m_activeTimer;  // tracks elapsed time during play/record
     QTimer* m_metronomeTimer = nullptr;
@@ -160,8 +171,10 @@ private:
     QMediaPlayer* m_player = nullptr;
     QAudioOutput* m_audioOutput = nullptr;
     QAudioSource* m_audioSource = nullptr;
-    QBuffer* m_recordBuffer = nullptr;
+    RecordingWriteDevice* m_recordWriteDevice = nullptr;
     QString m_playbackTempFile;
+    std::unique_ptr<RecordingAudioMonitor> m_recordingAudioMonitor;
+    std::unique_ptr<MidiRecordingMonitor> m_midiRecordingMonitor;
 #endif
 
 #ifdef HAVE_PORTAUDIO

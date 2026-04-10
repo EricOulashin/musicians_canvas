@@ -151,6 +151,33 @@ Det innspilte lydsignalet lagres som en FLAC-fil i prosjektmappen, navngitt ette
 
 Under opptak og avspilling deaktiveres alle interaktive kontroller (sporknapper, innstillinger osv.) for å forhindre utilsiktede endringer.
 
+### Insert-effekter (kun lydspor)
+
+Lydspor har en knapp **Effekter** rett under **Options**. Den åpner dialogen **Spor-effekter**, der du
+bygger en **ordnet kjede** med insert-effekter for opptak på dette sporet:
+
+![Dialogen Spor-effekter](../screenshots/Track_Effects_Dialog.png)
+
+- Klikk **Legg til effekt…** og velg **Reverb**, **Chorus** eller **Flanger**. Flere instanser er mulig; rødt **✕** i
+  overskriften fjerner en effekt.
+- Dra **≡** for å **endre rekkefølge**. **Øverst** kjører **først**.
+- ms og Hz gir fortsatt mening etter konvertering til **prosjektets samplingsfrekvens**. **Mono** og **stereo**
+  støttes (mono behandles som dual-mono og mikses tilbake til én kanal).
+- **OK** lagrer i prosjektet; **Avbryt** gjenoppretter kjeden som da dialogen ble åpnet.
+
+Effekter brukes når du **stopper opptaket**, etter vanlig capture og resampling. Konfigurasjonen lagres i
+`project.json` under `audioEffectChain`.
+
+### Overvåk under opptak
+
+Ved siden av **tidsdisplayet** styr **Overvåk lyd under opptak** om **live-inngang** sendes til **prosjektets lydutgang**
+under opptak:
+
+- **Lydspor**: inngangssignalet spilles i sanntid (opptakskjeden uendret). Legges oppå eventuell **overdub**-avspilling.
+- **MIDI-spor**: med **gjengi MIDI som lyd for avspilling** og **SoundFont** høres notene via programvare-synth. Ved **ekstern MIDI-ut** — bruk instrumentets overvåking.
+
+Valget **lagres i prosjektet** (`monitorWhileRecording` i `project.json`). Skru av for å redusere mikrofontilbakekobling.
+
 #### Overdub-opptak
 
 Når du tar opp et nytt spor mens andre aktiverte spor allerede inneholder lyd- eller MIDI-data, utfører Musician's Canvas overdub-opptak: de eksisterende sporene mikses sammen og spilles av i sanntid mens det nye sporet tas opp. Dette lar deg høre tidligere innspilte deler mens du legger inn en ny del.

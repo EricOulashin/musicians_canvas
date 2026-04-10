@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas Brugermanual</h1>
 <p>Multispors musikoptagelsesapplikation &mdash; Version 0.1.1</p>
-<p>2026-04-08</p>
+<p>2026-04-10</p>
 </div>
 <div class="toc">
 <h2>Indholdsfortegnelse</h2>
@@ -72,6 +72,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </li>
 <li><a href="#optagelse">Optagelse</a><ul>
 <li><a href="#lydoptagelse">Lydoptagelse</a></li>
+<li><a href="#insert-effekter-kun-lydspor">Insert-effekter (kun lydspor)</a></li>
 <li><a href="#midi-optagelse">MIDI-optagelse</a></li>
 </ul>
 </li>
@@ -249,6 +250,19 @@ lydspor.</p>
 </ol>
 <p>Den optagede lyd gemmes som en FLAC-fil i projektmappen, navngivet efter sporet.</p>
 <p>Under optagelse og afspilning deaktiveres alle interaktive kontroller (sporknapper, indstillinger osv.) for at forhindre utilsigtede ændringer.</p>
+<h3 id="insert-effekter-kun-lydspor">Insert-effekter (kun lydspor)</h3>
+<p>Lydspor har en knap <strong>Effekter</strong> lige under <strong>Options</strong>. Den åbner dialogen <strong>Spor-effekter</strong>, hvor du
+sætter en <strong>ordnet kæde</strong> af insert-effekter til optagelse på det spor:</p>
+<ul>
+<li>Klik <strong>Tilføj effekt…</strong> og vælg <strong>Reverb</strong> eller <strong>Chorus</strong>. Flere instanser er mulige; rødt <strong>✕</strong> i
+  overskriften fjerner en effekt.</li>
+<li>Træk <strong>≡</strong> for at <strong>omarrangere</strong>. <strong>Øverst</strong> kører <strong>først</strong>.</li>
+<li>ms og Hz giver fortsat mening efter konvertering til <strong>projektets sample rate</strong>. <strong>Mono</strong> og <strong>stereo</strong>
+  understøttes (mono kører som dual-mono og mixes tilbage til én kanal).</li>
+<li><strong>OK</strong> gemmer i projektet; <strong>Annuller</strong> genskaber kæden som ved åbning.</li>
+</ul>
+<p>Effekter anvendes, når du <strong>stopper optagelsen</strong>, efter sædvanlig capture og resampling. Konfigurationen
+gemmes i <code>project.json</code> under <code>audioEffectChain</code>.</p>
 <h4 id="overdub-optagelse">Overdub-optagelse</h4>
 <p>Når du optager et nyt spor, mens andre aktiverede spor allerede indeholder lyd- eller MIDI-data, udfører Musician's Canvas overdub-optagelse: de eksisterende spor mikses sammen og afspilles i realtid, mens det nye spor optages. Dette giver dig mulighed for at høre tidligere optagede dele, mens du lægger en ny del.</p>
 <p>Mikset af eksisterende spor forberedes, før optagelsen begynder, så optagelse og afspilning starter på omtrent samme tidspunkt, hvilket holder alle spor synkroniserede.</p>

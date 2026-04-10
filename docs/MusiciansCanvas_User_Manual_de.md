@@ -196,6 +196,42 @@ Spur benannt.
 Während der Aufnahme und Wiedergabe werden alle interaktiven Steuerelemente (Spur-
 Schaltflächen, Einstellungen usw.) deaktiviert, um versehentliche Änderungen zu verhindern.
 
+### Insert-Effekte (nur Audiospuren)
+
+Audiospuren haben eine Schaltfläche **Effekte** direkt unter **Optionen**. Sie öffnet den
+Dialog **Spureffekte**, in dem Sie eine **geordnete Kette** von Insert-Effekten für Aufnahmen
+auf dieser Spur einrichten:
+
+![Dialog Spureffekte](../screenshots/Track_Effects_Dialog.png)
+
+- Klicken Sie auf **Effekt hinzufügen…** und wählen Sie **Hall**, **Chorus** oder **Flanger**. Mehrere
+  Instanzen sind möglich; mit dem roten **✕** im Kopfzeilenbereich eines Effekts entfernen
+  Sie diesen.
+- Ziehen Sie den **≡**-Griff, um die Reihenfolge zu ändern. Der **oberste** Effekt läuft
+  **zuerst** auf dem aufgenommenen Signal.
+- Regler und Anzeigen (Vorhalt, Abklingzeit, Mix, Modulation, Chorus-Rate/-Tiefe, Flanger-Manual/Rate/Tiefe/Feedback, EQ usw.)
+  sind in Millisekunden und Hertz angegeben und bleiben nach der Konvertierung auf die
+  **Projekt-Abtastrate** sinnvoll. **Mono** und **Stereo** werden unterstützt: Mono wird
+  intern dual-mono verarbeitet und wieder auf einen Kanal gemischt; Stereo behält getrennte
+  Dry-Pfade, wo die Algorithmen es zulassen.
+- **OK** übernimmt die Einstellungen (sie landen im Projekt). **Abbrechen** stellt die Kette
+  wie beim Öffnen des Dialogs wieder her.
+
+Die Effekte werden auf das Audio **angewendet, wenn Sie die Aufnahme beenden** – nach der
+üblichen Capture- und SRC-Pipeline. Die Konfiguration wird in `project.json` unter
+`audioEffectChain` der Spur gespeichert.
+
+### Mithören während der Aufnahme
+
+Neben der **Zeitanzeige** steuert das Kontrollkästchen **Ton während der Aufnahme mithören**,
+ob **Live-Eingang** während der Aufnahme an den **Projekt-Audioausgang** geleitet wird:
+
+- **Audiospuren**: Der Eingang wird in Echtzeit wiedergegeben (die eigentliche Aufnahme-Pipeline bleibt unverändert). Das läuft zusätzlich zur **Overdub**-Wiedergabe anderer Spuren.
+- **MIDI-Spuren**: Wenn im Projekt **MIDI für Wiedergabe in Audio rendern** aktiv ist und ein **SoundFont** gesetzt ist, erscheinen gespielte Noten über den Software-Synthesizer. Bei **externem MIDI-Ausgang** nutzen Sie die Monitoring-Funktion Ihres Geräts.
+
+Die Einstellung wird **im Projekt** gespeichert (`monitorWhileRecording` in `project.json`).
+Deaktivieren Sie das Mithören, um z. B. Rückkopplung vom Mikrofon zu vermeiden.
+
 #### Overdub-Aufnahme
 
 Wenn Sie eine neue Spur aufnehmen, während andere aktivierte Spuren bereits Audio- oder

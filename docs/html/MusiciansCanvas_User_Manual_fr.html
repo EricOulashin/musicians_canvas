@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Manuel d&#8217;utilisation de Musician&#8217;s Canvas</h1>
 <p>Application d'enregistrement musical multipiste &mdash; Version 0.1.1</p>
-<p>2026-04-08</p>
+<p>2026-04-10</p>
 </div>
 <div class="toc">
 <h2>Table des mati&egrave;res</h2>
@@ -72,6 +72,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </li>
 <li><a href="#enregistrement">Enregistrement</a><ul>
 <li><a href="#enregistrement-audio">Enregistrement audio</a></li>
+<li><a href="#effets-dinsertion-pistes-audio-uniquement">Effets d'insertion (pistes audio uniquement)</a></li>
 <li><a href="#enregistrement-midi">Enregistrement MIDI</a></li>
 </ul>
 </li>
@@ -297,6 +298,24 @@ d'un projet existant comportant une seule piste vide.</p>
 projet, nommé d'après la piste.</p>
 <p>Pendant l'enregistrement et la lecture, tous les contrôles interactifs (boutons de piste,
 paramètres, etc.) sont désactivés pour éviter les modifications accidentelles.</p>
+<h3 id="effets-dinsertion-pistes-audio-uniquement">Effets d'insertion (pistes audio uniquement)</h3>
+<p>Les pistes audio ont un bouton <strong>Effets</strong> juste sous <strong>Options</strong>. Il ouvre la boîte de dialogue
+<strong>Effets de piste</strong>, où vous configurez une <strong>chaîne ordonnée</strong> d'effets d'insertion pour les
+enregistrements sur cette piste :</p>
+<ul>
+<li>Cliquez sur <strong>Ajouter un effet…</strong> et choisissez <strong>Réverb</strong> ou <strong>Chorus</strong>. Ajoutez plusieurs
+  blocs si besoin ; le <strong>✕</strong> rouge dans l’en-tête supprime un effet.</li>
+<li>Faites glisser la poignée <strong>≡</strong> pour <strong>réordonner</strong> la chaîne. L’effet <strong>en haut</strong> s’exécute
+  <strong>en premier</strong>.</li>
+<li>Les réglages utilisent des millisecondes et des hertz, cohérents après conversion vers le
+  <strong>taux d’échantillonnage du projet</strong>. <strong>Mono</strong> et <strong>stéréo</strong> sont pris en charge (le mono est
+  traité en dual-mono puis remixé sur un canal).</li>
+<li><strong>OK</strong> enregistre les changements dans le projet ; <strong>Annuler</strong> restaure la chaîne telle qu’à
+  l’ouverture du dialogue.</li>
+</ul>
+<p>Les effets sont appliqués à l’<strong>arrêt de l’enregistrement</strong>, après la capture et le
+rééchantillonnage habituels. La configuration est stockée dans <code>project.json</code> sous
+<code>audioEffectChain</code>.</p>
 <h4 id="enregistrement-en-overdub">Enregistrement en overdub</h4>
 <p>Lors de l'enregistrement d'une nouvelle piste alors que d'autres pistes activées
 contiennent déjà des données audio ou MIDI, Musician's Canvas effectue un enregistrement

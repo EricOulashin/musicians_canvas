@@ -153,6 +153,34 @@ El audio grabado se guarda como un archivo FLAC en el directorio del proyecto, n
 
 Durante la grabación y la reproducción, todos los controles interactivos (botones de pista, ajustes, etc.) se deshabilitan para prevenir cambios accidentales.
 
+### Efectos de inserción (solo pistas de audio)
+
+Las pistas de audio tienen un botón **Efectos** justo debajo de **Options**. Abre el diálogo
+**Efectos de pista**, donde puede definir una **cadena ordenada** de efectos insertados para las
+grabaciones en esa pista:
+
+![Diálogo Efectos de pista](../screenshots/Track_Effects_Dialog.png)
+
+- Pulse **Añadir efecto…** y elija **Reverb**, **Chorus** o **Flanger**. Puede añadir varias instancias y
+  quitar una con la **✕** roja en la cabecera del efecto.
+- Arrastre el control **≡** para **reordenar**. El efecto de **arriba** se aplica **primero**.
+- Los controles usan milisegundos y hercios, coherentes tras la conversión a la **frecuencia de
+  muestreo del proyecto**. Se admite **mono** y **estéreo** (el mono se procesa como dual-mono y
+  se mezcla de nuevo a un canal).
+- **OK** guarda los cambios en el proyecto; **Cancel** restaura la cadena al abrir el diálogo.
+
+Los efectos se aplican al **detener la grabación**, después del flujo normal de captura y
+remuestreo. La configuración se guarda en `project.json` en `audioEffectChain`.
+
+### Monitorizar durante la grabación
+
+Junto al **visor de tiempo**, la casilla **Escuchar el audio mientras se graba** decide si se envía la **entrada en directo** a la **salida de audio del proyecto** durante la grabación:
+
+- **Pistas de audio**: se reproduce en tiempo real lo que entra (la grabación sigue igual). Se suma a la reproducción de **overdub** si hay otras pistas.
+- **Pistas MIDI**: si el proyecto **renderiza MIDI a audio para reproducción** y hay **SoundFont**, oirá las notas por el sintetizador integrado. Con **salida MIDI externa**, use el monitor de su equipo.
+
+La opción se **guarda en el proyecto** (`monitorWhileRecording` en `project.json`). Desactívela para evitar retroalimentación por micrófono.
+
 #### Grabación en Overdub
 
 Al grabar una nueva pista mientras otras pistas habilitadas ya contienen datos de audio o MIDI, Musician's Canvas realiza una grabación en overdub: las pistas existentes se mezclan y se reproducen en tiempo real mientras se graba la nueva pista. Esto le permite escuchar las partes previamente grabadas mientras graba una nueva.

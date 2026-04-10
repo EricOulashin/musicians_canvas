@@ -5,7 +5,9 @@
 #include <QVector>
 #include <QString>
 #include <QElapsedTimer>
+#include <functional>
 #include <memory>
+#include <vector>
 #include "trackdata.h"
 
 // Captures MIDI events from an RtMidiIn port and converts them into
@@ -32,7 +34,12 @@ public:
     // VkMidiIo and the project settings dialog) and begin recording.
     // Returns false if the port could not be opened.  errorMsg, if non-null,
     // receives a human-readable error description on failure.
-    bool start(const QString& portName, QString* errorMsg = nullptr);
+    // Optional rawTap: invoked from RtMidi's thread for each incoming message.
+    bool start(const QString& portName, QString* errorMsg = nullptr,
+               std::function<void(const std::vector<unsigned char>&)> rawTap = {});
+
+    /// Replace or clear the live tap while recording (thread-safe).
+    void setRawTap(std::function<void(const std::vector<unsigned char>&)> rawTap);
 
     // Stop capture, close the port, and return the captured note events.
     // The returned length is the wall-clock duration in seconds at the

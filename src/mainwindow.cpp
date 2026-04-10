@@ -17,12 +17,22 @@
 #include "appsettings.h"
 #include "midiplayer.h"
 #include "audiostartup.h"
+#include "effectdsp.h"
+#include "effectsdialog.h"
+#ifdef QT_MULTIMEDIA_AVAILABLE
+#include "recordingwritedevice.h"
+#include "recordingaudiomonitor.h"
+#include "midirecordingmonitor.h"
+#endif
 #include <QScrollArea>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QCheckBox>
+#include <QSignalBlocker>
 #include <QLineEdit>
 #include <QLabel>
+#include <QIODevice>
 #include <QMenuBar>
 #include <QMenu>
 #include <QAction>
@@ -55,7 +65,10 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QFileInfo>
+#include <QFile>
 #include <QTextStream>
+#include <functional>
+#include <vector>
 
 #ifdef QT_MULTIMEDIA_AVAILABLE
 #include <QMediaPlayer>
@@ -63,9 +76,25 @@
 #include <QAudioSource>
 #include <QAudioFormat>
 #include <QMediaDevices>
-#include <QBuffer>
 #include <QUrl>
-#include <QAudioSink>
+#endif
+
+#ifdef QT_MULTIMEDIA_AVAILABLE
+static QAudioDevice resolveAudioOutputDevice(const QByteArray& projectId,
+                                             const QByteArray& appId)
+{
+    const QByteArray id = !projectId.isEmpty() ? projectId : appId;
+    if (!id.isEmpty())
+    {
+        const auto outs = QMediaDevices::audioOutputs();
+        for (const auto& d : outs)
+        {
+            if (d.id() == id)
+                return d;
+        }
+    }
+    return QMediaDevices::defaultAudioOutput();
+}
 #endif
 
 // Map LED color setting name to QColor
@@ -251,6 +280,8 @@ void MainWindow::retranslateUi()
     if (m_tbProjectSettings) m_tbProjectSettings->setToolTip(tr("Project Settings"));
     if (m_tbConfig) m_tbConfig->setToolTip(tr("Configuration"));
     if (m_tbMetronome) m_tbMetronome->setToolTip(tr("Metronome Settings"));
+    if (m_monitorWhileRecordingCheck)
+        m_monitorWhileRecordingCheck->setText(tr("Monitor audio while recording"));
     updatePlayRecordButton();
     // Update track widgets
     for (auto* tw : m_trackWidgets)
@@ -420,6 +451,20 @@ void MainWindow::setupUi()
     m_timeDisplay->setFixedHeight(36);
     m_timeDisplay->setFixedWidth(m_timeDisplay->sizeHint().width());
     toolbarLayout->addWidget(m_timeDisplay);
+
+    m_monitorWhileRecordingCheck = new QCheckBox(
+        tr("Monitor audio while recording"));
+    m_monitorWhileRecordingCheck->setChecked(m_projectSettings.monitorWhileRecording);
+    connect(m_monitorWhileRecordingCheck, &QCheckBox::toggled, this, [this](bool on)
+    {
+        m_projectSettings.monitorWhileRecording = on;
+        markDirty();
+#ifdef QT_MULTIMEDIA_AVAILABLE
+        applyLiveRecordingMonitorState();
+#endif
+    });
+    toolbarLayout->addWidget(m_monitorWhileRecordingCheck);
+
     toolbarLayout->addStretch();
 
     mainLayout->addLayout(toolbarLayout);
@@ -446,6 +491,7 @@ void MainWindow::onAddTrack()
     TrackData data = createNewTrack();
     auto* widget = new TrackWidget(data, this);
     connect(widget, &TrackWidget::configurationRequested, this, &MainWindow::onTrackConfigRequested);
+    connect(widget, &TrackWidget::effectsRequested, this, &MainWindow::onTrackEffectsRequested);
     connect(widget, &TrackWidget::armChanged, this, &MainWindow::onArmChanged);
     connect(widget, &TrackWidget::dataChanged, this, [this](TrackWidget*)
     {
@@ -625,6 +671,7 @@ bool MainWindow::addAudioFileAsTrack(const QString& sourcePath)
 
     auto* widget = new TrackWidget(data, this);
     connect(widget, &TrackWidget::configurationRequested, this, &MainWindow::onTrackConfigRequested);
+    connect(widget, &TrackWidget::effectsRequested, this, &MainWindow::onTrackEffectsRequested);
     connect(widget, &TrackWidget::armChanged, this, &MainWindow::onArmChanged);
     connect(widget, &TrackWidget::dataChanged, this, [this](TrackWidget*)
     {
@@ -667,6 +714,14 @@ void MainWindow::onTrackConfigRequested(TrackWidget* widget)
         widget->setTrackData(data);
         markDirty();
     }
+}
+
+void MainWindow::onTrackEffectsRequested(TrackWidget* widget)
+{
+    if (widget == nullptr || widget->trackData().type != TrackType::Audio)
+        return;
+    EffectsDialog dlg(widget, this);
+    dlg.exec();
 }
 
 void MainWindow::onClose()
@@ -1166,8 +1221,8 @@ void MainWindow::startRecordingLevelMeter()
             return;
         }
 #endif
-        if (m_recordBuffer == nullptr) return;
-        const QByteArray& buf = m_recordBuffer->data();
+        if (m_recordWriteDevice == nullptr) return;
+        const QByteArray& buf = m_recordWriteDevice->recordedData();
         if (buf.isEmpty())
         {
             armed->setRecordingLevel(0.0f);
@@ -1239,7 +1294,12 @@ void MainWindow::finalizeRecordedAudio(const QByteArray& rawData, qint64 process
     rp.projectSampleRate = m_projectSettings.sampleRate;
     rp.projectChannelCount = m_projectSettings.channelCount;
 
-    const RecordingPostProcessResult rec = RecordingPostProcess::process(rp);
+    RecordingPostProcessResult rec = RecordingPostProcess::process(rp);
+
+    const TrackData armedDataBeforeFx = armed->trackData();
+    if (!armedDataBeforeFx.audioEffectChain.isEmpty())
+        applyAudioEffectChain(rec.int16Pcm, rec.channelCount, rec.sampleRate,
+                              armedDataBeforeFx.audioEffectChain);
 
     if (AppSettings::instance().recordingDebugLog())
     {
@@ -1285,7 +1345,163 @@ void MainWindow::finalizeRecordedAudio(const QByteArray& rawData, qint64 process
                                          rec.channelCount,
                                          flacPath));
 }
+
+void MainWindow::applyLiveRecordingMonitorState()
+{
+    const bool want = m_projectSettings.monitorWhileRecording;
+
+    if (m_recordingMidi && m_midiRecorder)
+    {
+        if (!want)
+        {
+            m_midiRecorder->setRawTap({});
+            if (m_midiRecordingMonitor)
+            {
+                m_midiRecordingMonitor->stop();
+                m_midiRecordingMonitor.reset();
+            }
+            return;
+        }
+
+        QString sfPath = m_projectSettings.soundFontPath;
+        if (sfPath.isEmpty())
+            sfPath = AppSettings::instance().soundFontPath();
+        if (!m_projectSettings.renderMidiToAudioForPlayback || sfPath.isEmpty()
+            || !QFile::exists(sfPath))
+        {
+            m_midiRecorder->setRawTap({});
+            if (m_midiRecordingMonitor)
+            {
+                m_midiRecordingMonitor->stop();
+                m_midiRecordingMonitor.reset();
+            }
+            return;
+        }
+
+        if (!m_midiRecordingMonitor)
+        {
+            m_midiRecordingMonitor = std::make_unique<MidiRecordingMonitor>(this);
+            const QAudioDevice outDev = resolveAudioOutputDevice(
+                m_projectSettings.audioOutputDeviceId,
+                AppSettings::instance().audioOutputDeviceId());
+            const int volPct =
+                (m_projectSettings.midiVolumePercent >= 0)
+                    ? m_projectSettings.midiVolumePercent
+                    : AppSettings::instance().midiVolumePercent();
+            const double gainMult = std::clamp(volPct, 0, 200) / 100.0;
+            if (!m_midiRecordingMonitor->start(sfPath, m_projectSettings.sampleRate, outDev,
+                                               gainMult))
+            {
+                m_midiRecordingMonitor.reset();
+                m_midiRecorder->setRawTap({});
+                return;
+            }
+        }
+
+        m_midiRecorder->setRawTap(
+            [this](const std::vector<unsigned char>& v)
+            {
+                if (m_midiRecordingMonitor)
+                    m_midiRecordingMonitor->postMidiBytes(v);
+            });
+        return;
+    }
+
+#if defined(HAVE_PORTAUDIO)
+    if (m_recordingUsesPortAudio && m_portAudioRecorder)
+    {
+        if (!want)
+        {
+            m_portAudioRecorder->clearMonitorTap();
+            if (m_recordingAudioMonitor)
+            {
+                m_recordingAudioMonitor->stop();
+                m_recordingAudioMonitor.reset();
+            }
+            return;
+        }
+        if (m_recordingAudioMonitor)
+            return;
+
+        QAudioFormat paFmt;
+        paFmt.setSampleRate(m_recordingSampleRate);
+        paFmt.setChannelCount(m_recordingChannelCount);
+        paFmt.setSampleFormat(QAudioFormat::Int16);
+        const QAudioDevice outDev = resolveAudioOutputDevice(
+            m_projectSettings.audioOutputDeviceId,
+            AppSettings::instance().audioOutputDeviceId());
+        m_recordingAudioMonitor = std::make_unique<RecordingAudioMonitor>(this);
+        if (m_recordingAudioMonitor->start(outDev, paFmt))
+        {
+            m_portAudioRecorder->setMonitorTap(
+                [this](const char* p, int n)
+                {
+                    if (m_recordingAudioMonitor)
+                        m_recordingAudioMonitor->enqueuePcm(p, n);
+                });
+        }
+        else
+            m_recordingAudioMonitor.reset();
+        return;
+    }
+#endif
+
+    if (m_audioSource != nullptr && m_recordWriteDevice != nullptr)
+    {
+        if (!want)
+        {
+            m_recordWriteDevice->setAudioMonitor(nullptr);
+            if (m_recordingAudioMonitor)
+            {
+                m_recordingAudioMonitor->stop();
+                m_recordingAudioMonitor.reset();
+            }
+            return;
+        }
+        if (m_recordingAudioMonitor)
+            return;
+
+        QAudioFormat format;
+        format.setSampleRate(m_recordingSampleRate);
+        format.setChannelCount(m_recordingChannelCount);
+        format.setSampleFormat(static_cast<QAudioFormat::SampleFormat>(m_recordingSampleFormat));
+        const QAudioDevice outDev = resolveAudioOutputDevice(
+            m_projectSettings.audioOutputDeviceId,
+            AppSettings::instance().audioOutputDeviceId());
+        m_recordingAudioMonitor = std::make_unique<RecordingAudioMonitor>(this);
+        if (m_recordingAudioMonitor->start(outDev, format))
+            m_recordWriteDevice->setAudioMonitor(m_recordingAudioMonitor.get());
+        else
+            m_recordingAudioMonitor.reset();
+    }
+}
+
+void MainWindow::stopRecordingMonitors()
+{
+#if defined(HAVE_PORTAUDIO)
+    if (m_portAudioRecorder)
+        m_portAudioRecorder->clearMonitorTap();
+#endif
+    if (m_recordingAudioMonitor)
+    {
+        m_recordingAudioMonitor->stop();
+        m_recordingAudioMonitor.reset();
+    }
+    if (m_midiRecordingMonitor)
+    {
+        m_midiRecordingMonitor->stop();
+        m_midiRecordingMonitor.reset();
+    }
+}
 #endif  // QT_MULTIMEDIA_AVAILABLE
+
+void MainWindow::syncMonitorCheckboxFromSettings()
+{
+    if (!m_monitorWhileRecordingCheck)
+        return;
+    const QSignalBlocker blocker(m_monitorWhileRecordingCheck);
+    m_monitorWhileRecordingCheck->setChecked(m_projectSettings.monitorWhileRecording);
+}
 
 void MainWindow::beginRecordingAfterCountdown()
 {
@@ -1311,14 +1527,47 @@ void MainWindow::beginRecordingAfterCountdown()
         // playing notes on their MIDI controller.
         prepareOverdubPlayback();
 
+        std::function<void(const std::vector<unsigned char>&)> midiTap;
+        if (m_projectSettings.monitorWhileRecording
+            && m_projectSettings.renderMidiToAudioForPlayback)
+        {
+            QString sfPath = m_projectSettings.soundFontPath;
+            if (sfPath.isEmpty())
+                sfPath = AppSettings::instance().soundFontPath();
+            if (!sfPath.isEmpty() && QFile::exists(sfPath))
+            {
+                m_midiRecordingMonitor = std::make_unique<MidiRecordingMonitor>(this);
+                const QAudioDevice outDev = resolveAudioOutputDevice(
+                    m_projectSettings.audioOutputDeviceId,
+                    AppSettings::instance().audioOutputDeviceId());
+                const int volPct =
+                    (m_projectSettings.midiVolumePercent >= 0)
+                        ? m_projectSettings.midiVolumePercent
+                        : AppSettings::instance().midiVolumePercent();
+                const double gainMult = std::clamp(volPct, 0, 200) / 100.0;
+                if (m_midiRecordingMonitor->start(sfPath, m_projectSettings.sampleRate, outDev,
+                                                  gainMult))
+                {
+                    midiTap = [this](const std::vector<unsigned char>& v)
+                    {
+                        if (m_midiRecordingMonitor)
+                            m_midiRecordingMonitor->postMidiBytes(v);
+                    };
+                }
+                else
+                    m_midiRecordingMonitor.reset();
+            }
+        }
+
         m_midiRecorder = std::make_unique<MidiRecorder>();
         QString err;
-        if (!m_midiRecorder->start(m_projectSettings.midiInputPortName, &err))
+        if (!m_midiRecorder->start(m_projectSettings.midiInputPortName, &err, midiTap))
         {
             QMessageBox::warning(this, tr("Recording Error"),
                 tr("Could not open MIDI input port \"%1\":\n%2")
                     .arg(m_projectSettings.midiInputPortName, err));
             m_midiRecorder.reset();
+            m_midiRecordingMonitor.reset();
             stopPlaybackOrRecording();
             return;
         }
@@ -1444,6 +1693,30 @@ void MainWindow::beginRecordingAfterCountdown()
             }
 
             m_recordingTimer.start();
+
+            if (m_projectSettings.monitorWhileRecording)
+            {
+                QAudioFormat paFmt;
+                paFmt.setSampleRate(m_recordingSampleRate);
+                paFmt.setChannelCount(m_recordingChannelCount);
+                paFmt.setSampleFormat(QAudioFormat::Int16);
+                const QAudioDevice outDev = resolveAudioOutputDevice(
+                    m_projectSettings.audioOutputDeviceId,
+                    AppSettings::instance().audioOutputDeviceId());
+                m_recordingAudioMonitor = std::make_unique<RecordingAudioMonitor>(this);
+                if (m_recordingAudioMonitor->start(outDev, paFmt))
+                {
+                    m_portAudioRecorder->setMonitorTap(
+                        [this](const char* p, int n)
+                        {
+                            if (m_recordingAudioMonitor)
+                                m_recordingAudioMonitor->enqueuePcm(p, n);
+                        });
+                }
+                else
+                    m_recordingAudioMonitor.reset();
+            }
+
             startOverdubPlayback();
             startRecordingLevelMeter();
 
@@ -1523,8 +1796,19 @@ void MainWindow::beginRecordingAfterCountdown()
         }
     }
 
-    m_recordBuffer = new QBuffer(this);
-    m_recordBuffer->open(QBuffer::WriteOnly);
+    m_recordWriteDevice = new RecordingWriteDevice(this);
+    if (m_projectSettings.monitorWhileRecording)
+    {
+        const QAudioDevice outDev = resolveAudioOutputDevice(
+            m_projectSettings.audioOutputDeviceId,
+            AppSettings::instance().audioOutputDeviceId());
+        m_recordingAudioMonitor = std::make_unique<RecordingAudioMonitor>(this);
+        if (m_recordingAudioMonitor->start(outDev, format))
+            m_recordWriteDevice->setAudioMonitor(m_recordingAudioMonitor.get());
+        else
+            m_recordingAudioMonitor.reset();
+    }
+    m_recordWriteDevice->open(QIODevice::WriteOnly);
 
     m_audioSource = new QAudioSource(inputDevice, format, this);
     // Use the platform default buffer size.  Overriding with a small value
@@ -1533,7 +1817,7 @@ void MainWindow::beginRecordingAfterCountdown()
     // enough frames and the audio callback drops ~75% of the data.
     // Basically, DON'T DO THIS: m_audioSource->setBufferSize(AudioStartup::recommendedBufferBytes());
 
-    m_audioSource->start(m_recordBuffer);
+    m_audioSource->start(m_recordWriteDevice);
     m_recordingTimer.start();
 
     startOverdubPlayback();
@@ -1575,7 +1859,7 @@ void MainWindow::stopPlaybackOrRecording()
     if (m_player != nullptr && m_player->playbackState() != QMediaPlayer::StoppedState)
         m_player->stop();
 
-    // ── MIDI recording stop ─────────────────────────────────────────
+    // ── MIDI recording stop (before tearing down monitor sinks) ───
     if (m_recordingMidi)
     {
         if (m_midiRecorder)
@@ -1598,6 +1882,8 @@ void MainWindow::stopPlaybackOrRecording()
         m_recordingMidi = false;
     }
 
+    stopRecordingMonitors();
+
 #if defined(HAVE_PORTAUDIO)
     if (m_recordingUsesPortAudio && m_portAudioRecorder != nullptr)
     {
@@ -1616,13 +1902,13 @@ void MainWindow::stopPlaybackOrRecording()
         m_audioSource->stop();
         const qint64 processedMicroseconds = m_audioSource->processedUSecs();
 
-        if (m_recordBuffer != nullptr)
+        if (m_recordWriteDevice != nullptr)
         {
-            const QByteArray rawData = m_recordBuffer->data();
+            const QByteArray rawData = m_recordWriteDevice->recordedData();
             if (!rawData.isEmpty())
                 finalizeRecordedAudio(rawData, processedMicroseconds, "Qt Multimedia");
-            delete m_recordBuffer;
-            m_recordBuffer = nullptr;
+            delete m_recordWriteDevice;
+            m_recordWriteDevice = nullptr;
         }
         delete m_audioSource;
         m_audioSource = nullptr;
@@ -1673,6 +1959,8 @@ void MainWindow::onSaveProject()
         obj[QStringLiteral("sampleRate")]    = d.sampleRate;
         obj[QStringLiteral("channelCount")]  = d.channelCount;
         obj[QStringLiteral("lengthSeconds")] = d.lengthSeconds;
+
+        obj[QStringLiteral("audioEffectChain")] = d.audioEffectChain;
 
         if (d.type == TrackType::Audio)
         {
@@ -1745,6 +2033,8 @@ void MainWindow::onSaveProject()
     psObj[QStringLiteral("useQtAudioInput")] = m_projectSettings.useQtAudioInput;
     psObj[QStringLiteral("portAudioInputDeviceIndex")] =
         m_projectSettings.portAudioInputDeviceIndex;
+    psObj[QStringLiteral("monitorWhileRecording")] =
+        m_projectSettings.monitorWhileRecording;
 
     QJsonObject root;
     root[QStringLiteral("version")]         = 1;
@@ -1829,6 +2119,7 @@ void MainWindow::loadProjectFromFile(const QString& path)
         d.sampleRate    = obj[QStringLiteral("sampleRate")].toInt(44100);
         d.channelCount  = obj[QStringLiteral("channelCount")].toInt(2);
         d.lengthSeconds = obj[QStringLiteral("lengthSeconds")].toDouble(0.0);
+        d.audioEffectChain = obj[QStringLiteral("audioEffectChain")].toArray();
 
         if (d.type == TrackType::Audio)
         {
@@ -1895,6 +2186,7 @@ void MainWindow::loadProjectFromFile(const QString& path)
         auto* widget = new TrackWidget(d, this);
         connect(widget, &TrackWidget::configurationRequested,
                 this, &MainWindow::onTrackConfigRequested);
+        connect(widget, &TrackWidget::effectsRequested, this, &MainWindow::onTrackEffectsRequested);
         connect(widget, &TrackWidget::armChanged, this, &MainWindow::onArmChanged);
         connect(widget, &TrackWidget::dataChanged, this, [this](TrackWidget*)
         {
@@ -1928,11 +2220,16 @@ void MainWindow::loadProjectFromFile(const QString& path)
         if (ps.contains(QStringLiteral("portAudioInputDeviceIndex")))
             m_projectSettings.portAudioInputDeviceIndex =
                 ps[QStringLiteral("portAudioInputDeviceIndex")].toInt(-1);
+        if (ps.contains(QStringLiteral("monitorWhileRecording")))
+            m_projectSettings.monitorWhileRecording =
+                ps[QStringLiteral("monitorWhileRecording")].toBool();
     }
     else
     {
         m_projectSettings = ProjectSettings{};
     }
+
+    syncMonitorCheckboxFromSettings();
 
     // If the project has exactly one track and it hasn't been recorded yet,
     // arm it automatically so the user can start recording immediately.

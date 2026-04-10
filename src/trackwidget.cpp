@@ -23,7 +23,7 @@ void TrackWidget::setupUi()
     setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     setLineWidth(1);
     setObjectName("trackFrame");
-    setFixedHeight(120);
+    setFixedHeight(132);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     auto* outerLayout = new QVBoxLayout(this);
@@ -34,6 +34,10 @@ void TrackWidget::setupUi()
     auto* topRow = new QHBoxLayout();
     topRow->setSpacing(8);
 
+    auto* leftBtns = new QVBoxLayout();
+    leftBtns->setSpacing(4);
+    leftBtns->setContentsMargins(0, 0, 0, 0);
+
     m_configButton = new QPushButton(tr("Options"));
     m_configButton->setFixedWidth(80);
     connect(m_configButton, &QPushButton::clicked, this,
@@ -41,7 +45,16 @@ void TrackWidget::setupUi()
             {
                 emit configurationRequested(this);
             });
-    topRow->addWidget(m_configButton);
+    leftBtns->addWidget(m_configButton);
+
+    m_effectsButton = new QPushButton(tr("Effects"));
+    m_effectsButton->setFixedWidth(80);
+    m_effectsButton->setToolTip(
+        tr("Configure insert effects for recordings on this audio track."));
+    connect(m_effectsButton, &QPushButton::clicked, this, &TrackWidget::onEffectsClicked);
+    leftBtns->addWidget(m_effectsButton);
+
+    topRow->addLayout(leftBtns);
 
     m_typeIconLabel = new QToolButton();
     m_typeIconLabel->setFixedSize(26, 26);
@@ -143,6 +156,29 @@ void TrackWidget::setupUi()
 
     updateVisualization();
     updateTypeIcon();
+    updateEffectsButtonVisibility();
+}
+
+void TrackWidget::setAudioEffectChain(const QJsonArray& chain)
+{
+    m_data.audioEffectChain = chain;
+    emit dataChanged(this);
+}
+
+void TrackWidget::onEffectsClicked()
+{
+    if (m_data.type == TrackType::Audio)
+        emit effectsRequested(this);
+}
+
+void TrackWidget::updateEffectsButtonVisibility()
+{
+    const bool audio = (m_data.type == TrackType::Audio);
+    if (m_effectsButton)
+    {
+        m_effectsButton->setVisible(audio);
+        m_effectsButton->setEnabled(audio);
+    }
 }
 
 bool TrackWidget::isArmed() const
@@ -183,6 +219,7 @@ void TrackWidget::setInteractiveControlsEnabled(bool enabled)
     if (m_nameEdit)       m_nameEdit->setEnabled(enabled);
     if (m_removeBtn)      m_removeBtn->setEnabled(enabled);
     if (m_typeIconLabel)  m_typeIconLabel->setEnabled(enabled);
+    if (m_effectsButton)  m_effectsButton->setEnabled(enabled && m_data.type == TrackType::Audio);
 }
 
 void TrackWidget::setTrackData(const TrackData& data)
@@ -203,6 +240,7 @@ void TrackWidget::setTrackData(const TrackData& data)
     }
     updateVisualization();
     updateTypeIcon();
+    updateEffectsButtonVisibility();
 }
 
 void TrackWidget::setRecordingLevel(float level)
@@ -241,6 +279,7 @@ void TrackWidget::clearRecordingStatus()
 void TrackWidget::retranslateUi()
 {
     if (m_configButton) m_configButton->setText(tr("Options"));
+    if (m_effectsButton) m_effectsButton->setText(tr("Effects"));
     if (m_removeBtn) m_removeBtn->setToolTip(tr("Remove track"));
     if (m_enabledCheck) m_enabledCheck->setText(tr("Enable"));
     if (m_armCheck) m_armCheck->setText(tr("Arm"));

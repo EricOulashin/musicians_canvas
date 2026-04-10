@@ -200,6 +200,37 @@ projet, nommé d'après la piste.
 Pendant l'enregistrement et la lecture, tous les contrôles interactifs (boutons de piste,
 paramètres, etc.) sont désactivés pour éviter les modifications accidentelles.
 
+### Effets d'insertion (pistes audio uniquement)
+
+Les pistes audio ont un bouton **Effets** juste sous **Options**. Il ouvre la boîte de dialogue
+**Effets de piste**, où vous configurez une **chaîne ordonnée** d'effets d'insertion pour les
+enregistrements sur cette piste :
+
+![Boîte de dialogue Effets de piste](../screenshots/Track_Effects_Dialog.png)
+
+- Cliquez sur **Ajouter un effet…** et choisissez **Réverb**, **Chorus** ou **Flanger**. Ajoutez plusieurs
+  blocs si besoin ; le **✕** rouge dans l’en-tête supprime un effet.
+- Faites glisser la poignée **≡** pour **réordonner** la chaîne. L’effet **en haut** s’exécute
+  **en premier**.
+- Les réglages utilisent des millisecondes et des hertz, cohérents après conversion vers le
+  **taux d’échantillonnage du projet**. **Mono** et **stéréo** sont pris en charge (le mono est
+  traité en dual-mono puis remixé sur un canal).
+- **OK** enregistre les changements dans le projet ; **Annuler** restaure la chaîne telle qu’à
+  l’ouverture du dialogue.
+
+Les effets sont appliqués à l’**arrêt de l’enregistrement**, après la capture et le
+rééchantillonnage habituels. La configuration est stockée dans `project.json` sous
+`audioEffectChain`.
+
+### Écoute pendant l’enregistrement
+
+À côté de l’**affichage du temps**, la case **Écouter l’audio pendant l’enregistrement** active ou non l’envoi de l’**entrée en direct** vers la **sortie audio du projet** pendant l’enregistrement :
+
+- **Pistes audio** : le signal d’entrée est joué en temps réel (la chaîne d’enregistrement habituelle ne change pas). Cela s’ajoute à la lecture **overdub** des autres pistes.
+- **Pistes MIDI** : si le projet **restitue le MIDI en audio pour la lecture** et qu’un **SoundFont** est défini, vous entendez le jeu via le synthétiseur logiciel. Avec une **sortie MIDI externe**, utilisez le monitoring de l’instrument.
+
+Le réglage est **enregistré dans le projet** (`monitorWhileRecording` dans `project.json`). Décochez pour limiter l’acoustique vers le micro (retour).
+
 #### Enregistrement en overdub
 
 Lors de l'enregistrement d'une nouvelle piste alors que d'autres pistes activées

@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Manual do Usu&aacute;rio do Musician&#8217;s Canvas</h1>
 <p>Aplicativo de Gravacao Musical Multi-Faixa &mdash; Version 0.1.1</p>
-<p>2026-04-08</p>
+<p>2026-04-10</p>
 </div>
 <div class="toc">
 <h2>&Iacute;ndice</h2>
@@ -72,6 +72,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </li>
 <li><a href="#gravacao">Gravacao</a><ul>
 <li><a href="#gravacao-de-audio">Gravacao de Audio</a></li>
+<li><a href="#efeitos-de-insercao-somente-faixas-de-audio">Efeitos de insercao (somente faixas de audio)</a></li>
 <li><a href="#gravacao-midi">Gravacao MIDI</a></li>
 </ul>
 </li>
@@ -288,6 +289,19 @@ a um novo projeto quanto ao abrir um projeto existente que tenha uma unica faixa
 com a faixa.</p>
 <p>Durante a gravacao e reproducao, todos os controles interativos (botoes de faixa,
 configuracoes, etc.) sao desabilitados para evitar alteracoes acidentais.</p>
+<h3 id="efeitos-de-insercao-somente-faixas-de-audio">Efeitos de insercao (somente faixas de audio)</h3>
+<p>Faixas de audio tem o botao <strong>Efeitos</strong> logo abaixo de <strong>Options</strong>. Ele abre o dialogo <strong>Efeitos da
+faixa</strong>, onde voce monta uma <strong>cadeia ordenada</strong> de efeitos de insercao para gravacoes nessa faixa:</p>
+<ul>
+<li>Clique <strong>Adicionar efeito…</strong> e escolha <strong>Reverb</strong> ou <strong>Chorus</strong>. Varias instancias sao permitidas; o <strong>✕</strong>
+  vermelho no cabecalho remove um efeito.</li>
+<li>Arraste <strong>≡</strong> para <strong>reordenar</strong>. O efeito do <strong>topo</strong> processa <strong>primeiro</strong>.</li>
+<li>Parametros em ms e Hz permanecem coerentes apos a conversao para a <strong>taxa de amostragem do projeto</strong>.
+  <strong>Mono</strong> e <strong>estereo</strong> sao suportados (mono e processado dual-mono e remisturado a um canal).</li>
+<li><strong>OK</strong> salva no projeto; <strong>Cancel</strong> restaura a cadeia ao abrir o dialogo.</li>
+</ul>
+<p>Os efeitos sao aplicados ao <strong>parar a gravacao</strong>, apos captura e reamostragem usuais. A configuracao fica em
+<code>project.json</code> em <code>audioEffectChain</code>.</p>
 <h4 id="gravacao-overdub">Gravacao Overdub</h4>
 <p>Ao gravar uma nova faixa enquanto outras faixas habilitadas ja contem dados de audio ou
 MIDI, Musician's Canvas realiza gravacao overdub: as faixas existentes sao mixadas e

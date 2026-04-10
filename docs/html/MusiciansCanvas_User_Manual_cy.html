@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Llawlyfr Defnyddiwr Musician&#8217;s Canvas</h1>
 <p>Cymhwysiad Recordio Cerddoriaeth Aml-Drac &mdash; Version 0.1.1</p>
-<p>2026-04-08</p>
+<p>2026-04-10</p>
 </div>
 <div class="toc">
 <h2>Tabl Cynnwys</h2>
@@ -72,6 +72,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </li>
 <li><a href="#recordio">Recordio</a><ul>
 <li><a href="#recordio-sain">Recordio Sain</a></li>
+<li><a href="#effeithiau-mewnosod-traciau-sain-yn-unig">Effeithiau mewnosod (traciau sain yn unig)</a></li>
 <li><a href="#recordio-midi">Recordio MIDI</a></li>
 </ul>
 </li>
@@ -250,6 +251,15 @@ sain newydd.</p>
 </ol>
 <p>Mae'r sain a recordiwyd yn cael ei chadw fel ffeil FLAC yn y cyfeiriadur prosiect, wedi'i enwi ar ôl y trac.</p>
 <p>Yn ystod recordio a chwarae'n ôl, mae'r holl reolaethau rhyngweithiol (botymau traciau, gosodiadau, ayyb) wedi'u hanalluogi i atal newidiadau damweiniol.</p>
+<h3 id="effeithiau-mewnosod-traciau-sain-yn-unig">Effeithiau mewnosod (traciau sain yn unig)</h3>
+<p>Mae botwm <strong>Effeithiau</strong> ar draciau sain union dan <strong>Options</strong>. Mae'n agor y ddeialog <strong>Effeithiau trac</strong>, lle rydych chi'n adeiladu <strong>cadwyn wedi'i threfnu</strong> o effeithiau mewnosod ar gyfer recordio ar y trac hwnnw:</p>
+<ul>
+<li><strong>Ychwanegu effaith…</strong> a dewiswch <strong>Reverb</strong> neu <strong>Chorus</strong>. Mae sawl enghraifft yn cael ei chaniatáu; mae'r <strong>✕</strong> coch yn y pennyn yn dileu effaith.</li>
+<li>Llusgwch <strong>≡</strong> i <strong>aildrefnu</strong>. Mae'r <strong>effaith uchaf</strong> yn <strong>cychwyn gyntaf</strong>.</li>
+<li>Mae ms a Hz yn parhau'n ystyrlon ar ôl trosi i <strong>gyfradd samplu'r prosiect</strong>. Cefnogir <strong>mono</strong> a <strong>stereo</strong> (mae mono'n cael ei brosesu fel dwy-lwybr mono ac yn cael ei gymysgu'n ôl i un sianel).</li>
+<li><strong>Iawn</strong> yn cadw yn y prosiect; <strong>Canslo</strong> yn adfer y gadwyn fel pan agorwyd y ddeialog.</li>
+</ul>
+<p>Cynnir effeithiau <strong>pan fyddwch chi'n stopio recordio</strong>, ar ôl cipio ac ailsampla fel arfer. Mae'r ffurfweddiad yn cael ei gadw yn <code>project.json</code> dan <code>audioEffectChain</code>.</p>
 <h4 id="recordio-overdub">Recordio Overdub</h4>
 <p>Wrth recordio trac newydd tra bod traciau galluogedig eraill eisoes yn cynnwys data sain neu MIDI, mae Musician's Canvas yn cyflawni recordio overdub: mae'r traciau presennol yn cael eu cymysgu gyda'i gilydd a'u chwarae'n ôl mewn amser real tra bod y trac newydd yn cael ei recordio. Mae hyn yn caniatáu i chi glywed rhannau a recordiwyd yn flaenorol wrth osod un newydd i lawr.</p>
 <p>Mae'r cymysgedd o draciau presennol yn cael ei baratoi cyn i'r cipio ddechrau, felly mae recordio a chwarae'n ôl yn dechrau ar tua'r un eiliad, gan gadw'r holl draciau wedi'u cydamseru.</p>

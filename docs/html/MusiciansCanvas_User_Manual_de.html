@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas Benutzerhandbuch</h1>
 <p>Mehrspurige Musikaufnahme-Anwendung &mdash; Version 0.1.1</p>
-<p>2026-04-08</p>
+<p>2026-04-10</p>
 </div>
 <div class="toc">
 <h2>Inhaltsverzeichnis</h2>
@@ -72,6 +72,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </li>
 <li><a href="#aufnahme">Aufnahme</a><ul>
 <li><a href="#audioaufnahme">Audioaufnahme</a></li>
+<li><a href="#insert-effekte-nur-audiospuren">Insert-Effekte (nur Audiospuren)</a></li>
 <li><a href="#midi-aufnahme">MIDI-Aufnahme</a></li>
 </ul>
 </li>
@@ -293,6 +294,27 @@ einzelnen leeren Spur.</p>
 Spur benannt.</p>
 <p>Während der Aufnahme und Wiedergabe werden alle interaktiven Steuerelemente (Spur-
 Schaltflächen, Einstellungen usw.) deaktiviert, um versehentliche Änderungen zu verhindern.</p>
+<h3 id="insert-effekte-nur-audiospuren">Insert-Effekte (nur Audiospuren)</h3>
+<p>Audiospuren haben eine Schaltfläche <strong>Effekte</strong> direkt unter <strong>Optionen</strong>. Sie öffnet den
+Dialog <strong>Spureffekte</strong>, in dem Sie eine <strong>geordnete Kette</strong> von Insert-Effekten für Aufnahmen
+auf dieser Spur einrichten:</p>
+<ul>
+<li>Klicken Sie auf <strong>Effekt hinzufügen…</strong> und wählen Sie <strong>Hall</strong> oder <strong>Chorus</strong>. Mehrere
+  Instanzen sind möglich; mit dem roten <strong>✕</strong> im Kopfzeilenbereich eines Effekts entfernen
+  Sie diesen.</li>
+<li>Ziehen Sie den <strong>≡</strong>-Griff, um die Reihenfolge zu ändern. Der <strong>oberste</strong> Effekt läuft
+  <strong>zuerst</strong> auf dem aufgenommenen Signal.</li>
+<li>Regler und Anzeigen (Vorhalt, Abklingzeit, Mix, Modulation, Chorus-Rate/-Tiefe, EQ usw.)
+  sind in Millisekunden und Hertz angegeben und bleiben nach der Konvertierung auf die
+  <strong>Projekt-Abtastrate</strong> sinnvoll. <strong>Mono</strong> und <strong>Stereo</strong> werden unterstützt: Mono wird
+  intern dual-mono verarbeitet und wieder auf einen Kanal gemischt; Stereo behält getrennte
+  Dry-Pfade, wo die Algorithmen es zulassen.</li>
+<li><strong>OK</strong> übernimmt die Einstellungen (sie landen im Projekt). <strong>Abbrechen</strong> stellt die Kette
+  wie beim Öffnen des Dialogs wieder her.</li>
+</ul>
+<p>Die Effekte werden auf das Audio <strong>angewendet, wenn Sie die Aufnahme beenden</strong> – nach der
+üblichen Capture- und SRC-Pipeline. Die Konfiguration wird in <code>project.json</code> unter
+<code>audioEffectChain</code> der Spur gespeichert.</p>
 <h4 id="overdub-aufnahme">Overdub-Aufnahme</h4>
 <p>Wenn Sie eine neue Spur aufnehmen, während andere aktivierte Spuren bereits Audio- oder
 MIDI-Daten enthalten, führt Musician's Canvas eine Overdub-Aufnahme durch: Die vorhandenen

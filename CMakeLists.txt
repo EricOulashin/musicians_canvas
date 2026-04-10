@@ -55,6 +55,18 @@ set(SOURCES
     src/trackwidget.h
     src/trackconfigdialog.cpp
     src/trackconfigdialog.h
+    src/effectdsp.cpp
+    src/effectdsp.h
+    src/effectwidget.cpp
+    src/effectwidget.h
+    src/reverbwidget.cpp
+    src/reverbwidget.h
+    src/choruswidget.cpp
+    src/choruswidget.h
+    src/flangewidget.cpp
+    src/flangewidget.h
+    src/effectsdialog.cpp
+    src/effectsdialog.h
     src/settingsdialog.cpp
     src/settingsdialog.h
     src/projectsettings.h
@@ -88,6 +100,15 @@ set(SOURCES
     src/audiostartup.h
     src/resources.qrc
     ${AUDIO_MIXER_SOURCES}
+)
+
+set(MC_MONITOR_SOURCES
+    src/recordingwritedevice.cpp
+    src/recordingwritedevice.h
+    src/recordingaudiomonitor.cpp
+    src/recordingaudiomonitor.h
+    src/midirecordingmonitor.cpp
+    src/midirecordingmonitor.h
 )
 
 # ── Translations (Qt Linguist) ────────────────────────────────────────
@@ -296,6 +317,7 @@ target_link_libraries(musicians_canvas PRIVATE
     ${FLAC_LIBRARY}
 )
 if(QT_MULTIMEDIA_FOUND)
+    target_sources(musicians_canvas PRIVATE ${MC_MONITOR_SOURCES})
     target_link_libraries(musicians_canvas PRIVATE Qt6::Multimedia)
     target_compile_definitions(musicians_canvas PRIVATE QT_MULTIMEDIA_AVAILABLE)
 endif()
