@@ -31,8 +31,23 @@
 #define StartMenuDir   "{userprograms}\Musician's Canvas"
 #define DocsMenuDir    "{userprograms}\Musician's Canvas\Docs"
 
+; User settings (NOT shipped in the installer payload) -------------------------
+; Both applications store their configuration as INI files next to the
+; executables in the install directory:
+;   - musicians_canvas.exe  ->  config.ini           (see src/appsettings.cpp)
+;   - virtual_midi_keyboard.exe  ->  virtual_keyboard_config.ini  (see src/virtual_midi_keyboard/vk_settings.cpp)
+; Upgrades use the same stable AppId below, so the install folder is updated in
+; place. Inno Setup only overwrites files that are part of this [Files] payload;
+; runtime-created INIs are left untouched. The [Files] Excludes list below is a
+; safeguard so a future staging tree cannot accidentally ship and overwrite
+; those names.
+
 [Setup]
-; Stable AppId so upgrades replace the previous install
+; Stable AppId: required for upgrades.  When this GUID matches an existing
+; install (Uninstall registry key), Setup runs as an update: same {app} path by
+; default, destination wizard page suppressed (DisableDirPage=auto), files from
+; [Files] replaced (see ignoreversion below).  Do not change AppId or users
+; will get a second, parallel install.
 AppId={{B7E5F2A8-8C4D-4F1E-9B2A-3D4E5F6A7B8C}
 AppName={#AppName}
 AppVersion={#AppVersion}
@@ -41,6 +56,12 @@ AppPublisher={#AppPublisher}
 AppPublisherURL={#AppURL}
 AppSupportURL={#AppURL}
 AppUpdatesURL={#AppURL}
+; Reuse the prior install directory from the registry when upgrading (Inno default
+; is yes; kept explicit so a future edit does not break in-place updates).
+UsePreviousAppDir=yes
+; Hide "Select Destination Location" when updating an existing install (Inno default
+; is auto; explicit for the same reason as UsePreviousAppDir).
+DisableDirPage=auto
 DefaultDirName={commonpf64}\{#InstallSubdir}
 DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
@@ -50,7 +71,14 @@ UsedUserAreasWarning=no
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 PrivilegesRequired=admin
+; Inno default is yes: use Restart Manager so locked EXEs/DLLs can be closed before
+; replacing files during an upgrade (see [Files] ignoreversion).
+CloseApplications=yes
 OutputBaseFilename={#OutputBaseName}
+; Embed version metadata in the setup .exe (visible in File Properties).
+VersionInfoVersion={#AppVersion}
+VersionInfoCompany={#AppPublisher}
+VersionInfoDescription={#AppName} Installer
 ; Maximum compression: LZMA2 with the ultra64 preset (the highest preset Inno
 ; Setup offers).  Combined with solid compression, a large dictionary, the
 ; binary-tree match finder, the maximum number of fast bytes, and a separate
@@ -79,7 +107,9 @@ Name: "desktopicon"; Description: "Create &desktop shortcuts (Musician's Canvas 
 [Files]
 ; Recursively include EVERYTHING from the staging directory.  This picks up
 ; both executables, all DLLs, translations\*.qm, docs\html\**, docs\*.pdf, etc.
-Source: "{#StagingDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+; Never install packaged copies of user-specific config files (see comment block
+; above); existing files from a prior install must be preserved on upgrade.
+Source: "{#StagingDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Excludes: "config.ini;virtual_keyboard_config.ini"
 
 [Icons]
 ; --- Main program shortcuts in the per-user Start Menu group
