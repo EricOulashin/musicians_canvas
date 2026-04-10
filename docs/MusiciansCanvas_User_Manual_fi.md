@@ -188,7 +188,13 @@ poistetaan käytöstä tahattomien muutosten estämiseksi.
 
 ![Raidan tehosteet -valintaikkuna](../screenshots/Track_Effects_Dialog.png)
 
-- **Lisää tehoste…** → **Kaiku**, **Kuoro** tai **Flanger**. Useita voi lisätä; punainen **✕** poistaa tehosteen.
+Saatavilla ovat mm. **Kaiku**, **Kuoro**, **Flanger**, **Overdrive / distortion** ja **Amp & cabinet** (vahvistimen ja kaapin mallinnus: vahvistintyyppi, kaappi, vahvistus, basso/keski/discantti, ilmavuus ja sekoitus). Kuvakaappaukset **Amp & cabinet** -tehosteesta:
+
+![Amp & cabinet -mallinnus (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+
+![Amp & cabinet -mallinnus (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+
+- **Lisää tehoste…** ja valitse tehostetyyppi. Useita voi lisätä; punainen **✕** poistaa tehosteen.
 - Vedä **≡** uudelleenjärjestämiseen. **Ylin** tehoste ajetaan **ensin**.
 - ms ja Hz säilyttävät merkityksensä **projektin näytteenottotaajuuteen** muunnon jälkeen. **Mono** ja **stereo**
   ovat tuettuja (mono käsitellään dual-monona ja summataan takaisin yhdelle kanavalle).

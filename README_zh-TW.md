@@ -25,7 +25,7 @@ GUI 函式庫。此應用程式旨在為 Linux、Windows 和 Mac OS 構建。易
 - **PortAudio 擷取（選用構建）**：當專案使用 PortAudio 構建時（`HAVE_PORTAUDIO`），錄音可以使用原生 PortAudio 輸入路徑（精神上類似 Audacity）而非 Qt Multimedia。**Project → Project Settings → Audio** 可讓您選擇 **PortAudio** 或 **Qt Multimedia** 並選取 PortAudio 輸入裝置。若未安裝 PortAudio，構建仍會成功，錄音僅使用 Qt Multimedia。
 - **高品質取樣率轉換**：以音訊裝置的原生速率錄音，並使用加窗 sinc 內插法（Kaiser 窗，~96 dB 阻帶衰減）轉換為專案速率，這與 Audacity / libsoxr 使用的演算法系列相同。這允許以任何專案取樣率（8000 Hz 至 192000 Hz）錄音，不受裝置原生速率限制，且無音調或時長變化。
 - **自動單聲道/立體聲處理**：偵測被標示為立體聲的物理單聲道裝置（在 PipeWire 上的 USB 網路攝影機麥克風常見此情況），並根據需要在單聲道和立體聲之間轉換（複製或平均），符合 Audacity 的聲道路由方法
-- **錄音插入效果（僅音軌）**：在每個音軌的 **Options** 下方使用 **Effects** 按鈕開啟 **Track effects** 對話方塊。新增並設定 **Reverb**、**Chorus** 與 **Flanger**，拖曳 **≡** 重新排序效果鏈（最上方最先處理），並與專案一併儲存。停止錄音後將效果套用至該次收音；參數採實際單位（ms、Hz），在擷取正規化後，單聲道與立體聲及常見專案取樣率（8 kHz–192 kHz）下行為一致。詳見[使用者手冊](docs/MusiciansCanvas_User_Manual_zh-TW.md)。譯者可於 `lupdate` 後透過 `scripts/effect_i18n.tsv`（由 `scripts/build_effect_tsv.py` 產生）與 `scripts/fill_effect_i18n.py` 批次更新效果字串。
+- **錄音插入效果（僅音軌）**：在每個音軌的 **Options** 下方使用 **Effects** 按鈕開啟 **Track effects** 對話方塊。新增並設定 **Reverb**、**Chorus**、**Flanger**、**Overdrive / distortion** 與 **Amp & cabinet**（音箱頭與箱體建模），拖曳 **≡** 重新排序效果鏈（最上方最先處理），並與專案一併儲存。停止錄音後將效果套用至該次收音；參數採實際單位（ms、Hz），在擷取正規化後，單聲道與立體聲及常見專案取樣率（8 kHz–192 kHz）下行為一致。詳見[使用者手冊](docs/MusiciansCanvas_User_Manual_zh-TW.md)。譯者可於 `lupdate` 後透過 `scripts/effect_i18n.tsv`（由 `scripts/build_effect_tsv.py` 產生）與 `scripts/fill_effect_i18n.py` 批次更新效果字串。
 - **錄製時監聽**：**時間顯示**右側的 **錄音時監聽音訊** 可於錄製期間將**即時輸入**送至**專案的音訊輸出**。音軌為正在錄下的訊號；MIDI 在啟用「為播放將 MIDI 算繪成音訊」且設定 SoundFont 時由軟體合成器播出。設定存於**專案**（`project.json` 的 `monitorWhileRecording`）。可關閉以降低麥克風回授。
 - **低延遲音訊**：在 Windows 上，ASIO 驅動程式偵測確保低延遲音訊；在 Linux 上，提升程序排程優先權以降低 PipeWire / PulseAudio / ALSA 的抖動
 - **Virtual MIDI Keyboard**：一款透過軟體鋼琴鍵盤傳送 MIDI 音符的配套應用程式，具有內建 FluidSynth 合成器、可調主增益、電腦鍵盤到鋼琴對映、樂器/程式選擇、合唱/效果控制和八度移位
@@ -47,6 +47,8 @@ GUI 函式庫。此應用程式旨在為 Linux、Windows 和 Mac OS 構建。易
 	<a href="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" alt="專案特定 MIDI 設定" width="800"></a>
 	<a href="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" alt="專案特定音訊設定" width="800"></a>
 	<a href="screenshots/Track_Effects_Dialog.png" target='_blank'><img src="screenshots/Track_Effects_Dialog.png" alt="軌道效果對話框" width="800"></a>
+	<a href="screenshots/Amp_And_Cabinet_Model_1.png" target='_blank'><img src="screenshots/Amp_And_Cabinet_Model_1.png" alt="Amp & cabinet modeling (1)" width="800"></a>
+	<a href="screenshots/Amp_And_Cabinet_Model_2.png" target='_blank'><img src="screenshots/Amp_And_Cabinet_Model_2.png" alt="Amp & cabinet modeling (2)" width="800"></a>
 	<a href="screenshots/VMIDIKeyboard1.png" target='_blank'><img src="screenshots/VMIDIKeyboard1.png" alt="Virtual MIDI Keyboard" width="800"></a>
 	<a href="screenshots/VMIDIKeyboard2.png" target='_blank'><img src="screenshots/VMIDIKeyboard2.png" alt="Virtual MIDI Keyboard" width="800"></a>
 </p>

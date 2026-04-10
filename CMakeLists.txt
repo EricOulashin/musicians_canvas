@@ -67,6 +67,12 @@ set(SOURCES
     src/flangewidget.h
     src/effectsdialog.cpp
     src/effectsdialog.h
+    src/effectchaindragoverlay.cpp
+    src/effectchaindragoverlay.h
+    src/overdrivedistortionwidget.cpp
+    src/overdrivedistortionwidget.h
+    src/ampandcabinetmodelwidget.cpp
+    src/ampandcabinetmodelwidget.h
     src/settingsdialog.cpp
     src/settingsdialog.h
     src/projectsettings.h

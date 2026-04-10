@@ -161,7 +161,13 @@ grabaciones en esa pista:
 
 ![Diálogo Efectos de pista](../screenshots/Track_Effects_Dialog.png)
 
-- Pulse **Añadir efecto…** y elija **Reverb**, **Chorus** o **Flanger**. Puede añadir varias instancias y
+Puede usar **Reverb**, **Chorus**, **Flanger**, **Overdrive / distorsión** y **Amp & cabinet** (modelado de amplificador y pantalla: tipo de ampli, pantalla, ganancia, graves/medios/agudos, aire y mezcla). Capturas del efecto **Amp & cabinet**:
+
+![Modelado Amp & cabinet (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+
+![Modelado Amp & cabinet (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+
+- Pulse **Añadir efecto…** y elija un tipo de efecto. Puede añadir varias instancias y
   quitar una con la **✕** roja en la cabecera del efecto.
 - Arrastre el control **≡** para **reordenar**. El efecto de **arriba** se aplica **primero**.
 - Los controles usan milisegundos y hercios, coherentes tras la conversión a la **frecuencia de

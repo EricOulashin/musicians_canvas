@@ -198,7 +198,13 @@ faixa**, onde voce monta uma **cadeia ordenada** de efeitos de insercao para gra
 
 ![Dialogo Efeitos da faixa](../screenshots/Track_Effects_Dialog.png)
 
-- Clique **Adicionar efeito…** e escolha **Reverb**, **Chorus** ou **Flanger**. Varias instancias sao permitidas; o **✕**
+Tipos incluem **Reverb**, **Chorus**, **Flanger**, **Overdrive / distorcao** e **Amp & cabinet** (modelagem de amplificador e caixa: tipo de amp, caixa, ganho, graves/medios/agudos, ar e mistura). Telas do efeito **Amp & cabinet**:
+
+![Modelagem Amp & cabinet (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+
+![Modelagem Amp & cabinet (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+
+- Clique **Adicionar efeito…** e escolha um tipo de efeito. Varias instancias sao permitidas; o **✕**
   vermelho no cabecalho remove um efeito.
 - Arraste **≡** para **reordenar**. O efeito do **topo** processa **primeiro**.
 - Parametros em ms e Hz permanecem coerentes apos a conversao para a **taxa de amostragem do projeto**.

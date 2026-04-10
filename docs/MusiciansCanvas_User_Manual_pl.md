@@ -161,7 +161,13 @@ budujesz **uporządkowany łańcuch** efektów insert dla nagrań na tej ścież
 
 ![Okno efektów ścieżki](../screenshots/Track_Effects_Dialog.png)
 
-- Kliknij **Dodaj efekt…** i wybierz **Pogłos**, **Chorus** lub **Flanger**. Możesz dodać wiele instancji; czerwone **✕**
+Dostępne są m.in. **Pogłos**, **Chorus**, **Flanger**, **Overdrive / distortion** i **Amp & cabinet** (modelowanie wzmacniacza i kolumny: typ wzm., kolumna, przester, bas/średnie/wysokie, „powietrze” i mieszanie). Zrzuty ekranu efektu **Amp & cabinet**:
+
+![Modelowanie Amp & cabinet (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+
+![Modelowanie Amp & cabinet (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+
+- Kliknij **Dodaj efekt…** i wybierz typ efektu. Możesz dodać wiele instancji; czerwone **✕**
   w nagłówku usuwa efekt.
 - Przeciągnij **≡**, aby **zmienić kolejność**. **Górny** efekt działa **pierwszy**.
 - Jednostki ms i Hz pozostają spójne po konwersji do **częstotliwości próbkowania projektu**. Obsługiwane są

@@ -204,7 +204,13 @@ auf dieser Spur einrichten:
 
 ![Dialog Spureffekte](../screenshots/Track_Effects_Dialog.png)
 
-- Klicken Sie auf **Effekt hinzufügen…** und wählen Sie **Hall**, **Chorus** oder **Flanger**. Mehrere
+Zur Verfügung stehen u. a. **Hall**, **Chorus**, **Flanger**, **Overdrive / distortion** und **Amp & cabinet** (Modellierung von Verstärker und Lautsprecherbox: Amp-Typ, Box, Gain, Bass/Mitten/Höhen, Air und Mischung). Screenshots des Effekts **Amp & cabinet**:
+
+![Amp & cabinet-Modellierung (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+
+![Amp & cabinet-Modellierung (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+
+- Klicken Sie auf **Effekt hinzufügen…** und wählen Sie einen Effekttyp. Mehrere
   Instanzen sind möglich; mit dem roten **✕** im Kopfzeilenbereich eines Effekts entfernen
   Sie diesen.
 - Ziehen Sie den **≡**-Griff, um die Reihenfolge zu ändern. Der **oberste** Effekt läuft

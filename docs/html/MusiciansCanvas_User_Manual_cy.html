@@ -73,6 +73,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#recordio">Recordio</a><ul>
 <li><a href="#recordio-sain">Recordio Sain</a></li>
 <li><a href="#effeithiau-mewnosod-traciau-sain-yn-unig">Effeithiau mewnosod (traciau sain yn unig)</a></li>
+<li><a href="#monitro-wrth-recordio">Monitro wrth recordio</a></li>
 <li><a href="#recordio-midi">Recordio MIDI</a></li>
 </ul>
 </li>
@@ -253,13 +254,25 @@ sain newydd.</p>
 <p>Yn ystod recordio a chwarae'n ôl, mae'r holl reolaethau rhyngweithiol (botymau traciau, gosodiadau, ayyb) wedi'u hanalluogi i atal newidiadau damweiniol.</p>
 <h3 id="effeithiau-mewnosod-traciau-sain-yn-unig">Effeithiau mewnosod (traciau sain yn unig)</h3>
 <p>Mae botwm <strong>Effeithiau</strong> ar draciau sain union dan <strong>Options</strong>. Mae'n agor y ddeialog <strong>Effeithiau trac</strong>, lle rydych chi'n adeiladu <strong>cadwyn wedi'i threfnu</strong> o effeithiau mewnosod ar gyfer recordio ar y trac hwnnw:</p>
+<p><img alt="Deialog effeithiau trac" src="screenshots/Track_Effects_Dialog.png" /></p>
+<p>Mae <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong> a <strong>Amp &amp; cabinet</strong> (modelu amplyffydd a chabinet: math o amplyffydd, cabinet, ennill, bas/canol/uchel, awyr a chymysgu) ar gael. Sgrinluniau'r effaith <strong>Amp &amp; cabinet</strong>:</p>
+<p><img alt="Modelu Amp &amp; cabinet (1)" src="screenshots/Amp_And_Cabinet_Model_1.png" /></p>
+<p><img alt="Modelu Amp &amp; cabinet (2)" src="screenshots/Amp_And_Cabinet_Model_2.png" /></p>
 <ul>
-<li><strong>Ychwanegu effaith…</strong> a dewiswch <strong>Reverb</strong> neu <strong>Chorus</strong>. Mae sawl enghraifft yn cael ei chaniatáu; mae'r <strong>✕</strong> coch yn y pennyn yn dileu effaith.</li>
+<li><strong>Ychwanegu effaith…</strong> a dewiswch fath o effaith. Mae sawl enghraifft yn cael ei chaniatáu; mae'r <strong>✕</strong> coch yn y pennyn yn dileu effaith.</li>
 <li>Llusgwch <strong>≡</strong> i <strong>aildrefnu</strong>. Mae'r <strong>effaith uchaf</strong> yn <strong>cychwyn gyntaf</strong>.</li>
 <li>Mae ms a Hz yn parhau'n ystyrlon ar ôl trosi i <strong>gyfradd samplu'r prosiect</strong>. Cefnogir <strong>mono</strong> a <strong>stereo</strong> (mae mono'n cael ei brosesu fel dwy-lwybr mono ac yn cael ei gymysgu'n ôl i un sianel).</li>
 <li><strong>Iawn</strong> yn cadw yn y prosiect; <strong>Canslo</strong> yn adfer y gadwyn fel pan agorwyd y ddeialog.</li>
 </ul>
 <p>Cynnir effeithiau <strong>pan fyddwch chi'n stopio recordio</strong>, ar ôl cipio ac ailsampla fel arfer. Mae'r ffurfweddiad yn cael ei gadw yn <code>project.json</code> dan <code>audioEffectChain</code>.</p>
+<h3 id="monitro-wrth-recordio">Monitro wrth recordio</h3>
+<p>Wrth ymyl <strong>arddangosfa'r amser</strong>, mae <strong>Monitro sain wrth recordio</strong> yn pennu a yw <strong>mewnbwn byw</strong> yn mynd i <strong>allbwn sain y prosiect</strong>
+wrth recordio:</p>
+<ul>
+<li><strong>Traciau sain</strong>: chwaraeir y mewnbwn mewn amser real (yr un broses recordio). Gall ail chwarae <strong>overdub</strong> ddod ar ei ben.</li>
+<li><strong>Traciau MIDI</strong>: gyda <strong>Rendro MIDI i sain ar gyfer chwarae'n ôl</strong> a <strong>SoundFont</strong> wedi'i osod, cewch glywed nodau trwy'r syntheseisydd meddalwedd. Gyda <strong>allbwn MIDI allanol</strong> — defnyddiwch fonitro eich offer.</li>
+</ul>
+<p>Mae'r dewis yn cael ei <strong>gedw yn y prosiect</strong> (<code>monitorWhileRecording</code> yn <code>project.json</code>). Diffoddwch i leihau adborth meicroffon.</p>
 <h4 id="recordio-overdub">Recordio Overdub</h4>
 <p>Wrth recordio trac newydd tra bod traciau galluogedig eraill eisoes yn cynnwys data sain neu MIDI, mae Musician's Canvas yn cyflawni recordio overdub: mae'r traciau presennol yn cael eu cymysgu gyda'i gilydd a'u chwarae'n ôl mewn amser real tra bod y trac newydd yn cael ei recordio. Mae hyn yn caniatáu i chi glywed rhannau a recordiwyd yn flaenorol wrth osod un newydd i lawr.</p>
 <p>Mae'r cymysgedd o draciau presennol yn cael ei baratoi cyn i'r cipio ddechrau, felly mae recordio a chwarae'n ôl yn dechrau ar tua'r un eiliad, gan gadw'r holl draciau wedi'u cydamseru.</p>

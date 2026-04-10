@@ -158,7 +158,13 @@ bygger en **ordnet kjede** med insert-effekter for opptak på dette sporet:
 
 ![Dialogen Spor-effekter](../screenshots/Track_Effects_Dialog.png)
 
-- Klikk **Legg til effekt…** og velg **Reverb**, **Chorus** eller **Flanger**. Flere instanser er mulig; rødt **✕** i
+Effekttypene inkluderer **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion** og **Amp & cabinet** (modellering av forsterker og høyttalerkabinett: amptype, kabinett, gain, bass/mellomtone/discant, luft og blandning). Skjermbilder av **Amp & cabinet**:
+
+![Amp & cabinet-modellering (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+
+![Amp & cabinet-modellering (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+
+- Klikk **Legg til effekt…** og velg en effekttype. Flere instanser er mulig; rødt **✕** i
   overskriften fjerner en effekt.
 - Dra **≡** for å **endre rekkefølge**. **Øverst** kjører **først**.
 - ms og Hz gir fortsatt mening etter konvertering til **prosjektets samplingsfrekvens**. **Mono** og **stereo**

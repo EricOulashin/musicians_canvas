@@ -73,6 +73,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#taifeadadh">Taifeadadh</a><ul>
 <li><a href="#taifeadadh-fuaime">Taifeadadh Fuaime</a></li>
 <li><a href="#eifeachtai-insert-rianta-fuaime-amhain">Éifeachtaí insert (rianta fuaime amháin)</a></li>
+<li><a href="#monatoireacht-le-linn-taifeadta">Monatóireacht le linn taifeadta</a></li>
 <li><a href="#taifeadadh-midi">Taifeadadh MIDI</a></li>
 </ul>
 </li>
@@ -255,13 +256,25 @@ Canvas chun iad a chur leis mar rianta fuaime nua.</p>
 <p>Le linn taifeadta agus athsheinm, díchumasaítear gach rialú idirghníomhach (cnaipí rianta, socruithe, srl.) chun athruithe de thaisme a chosc.</p>
 <h3 id="eifeachtai-insert-rianta-fuaime-amhain">Éifeachtaí insert (rianta fuaime amháin)</h3>
 <p>Tá cnaipe <strong>Éifeachtaí</strong> ar rianta fuaime díreach faoi <strong>Options</strong>. Osclaíonn sé an dialóg <strong>Éifeachtaí rian</strong>, áit a gcuireann tú <strong>slabhra ordaithe</strong> d'éifeachtaí insert le chéile le haghaidh taifeadta ar an rian sin:</p>
+<p><img alt="Dialóg éifeachtaí rian" src="screenshots/Track_Effects_Dialog.png" /></p>
+<p>Tá <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong> agus <strong>Amp &amp; cabinet</strong> (samhaltú sainmhéadra agus cáibín: cineál sainmhéadra, cáibín, gnóthachán, dóigh/barr/díreach, aer agus meascthán) ar fáil. Seatanna scáileáin an éifeachta <strong>Amp &amp; cabinet</strong>:</p>
+<p><img alt="Samhaltú Amp &amp; cabinet (1)" src="screenshots/Amp_And_Cabinet_Model_1.png" /></p>
+<p><img alt="Samhaltú Amp &amp; cabinet (2)" src="screenshots/Amp_And_Cabinet_Model_2.png" /></p>
 <ul>
-<li><strong>Cuir éifeacht leis…</strong> agus roghnaigh <strong>Reverb</strong> nó <strong>Chorus</strong>. Is féidir ilchás; déanann an <strong>✕</strong> dearg sa cheannlíne éifeacht a bhaint.</li>
+<li><strong>Cuir éifeacht leis…</strong> agus roghnaigh cineál éifeachta. Is féidir ilchás; déanann an <strong>✕</strong> dearg sa cheannlíne éifeacht a bhaint.</li>
 <li>Tarraing <strong>≡</strong> chun <strong>athordú</strong>. Ritear an <strong>éifeacht is airde</strong> <strong>ar dtús</strong>.</li>
 <li>Fanann ms agus Hz intuigthe tar éis tiontaithe go <strong>ráta samplála an tionscadail</strong>. Tacaítear le <strong>mónó</strong> agus <strong>stirió</strong> (déantar mónó a phróiseáil mar dhúbhail-mónó agus a mheascadh ar ais go bealach amháin).</li>
 <li><strong>OK</strong> sábhálann san tionscadal; <strong>Ceal</strong> aithchóraíonn an slabhra mar ba dhóigh leat nuair a osclaíodh an dialóg.</li>
 </ul>
 <p>Cuirtear éifeachtaí i bhfeidhm <strong>nuair a stopann tú an taifeadadh</strong>, tar éis gabhála agus athshamplála gnáth. Sábháiltear cumraíocht in <code>project.json</code> faoi <code>audioEffectChain</code>.</p>
+<h3 id="monatoireacht-le-linn-taifeadta">Monatóireacht le linn taifeadta</h3>
+<p>Taobh le <strong>taispeántas ama</strong>, rialann <strong>Monatóir fuaim agus í á taifeadadh</strong> an sás <strong>beo</strong> a sheoladh chuig <strong>aschur fuaime an tionscadail</strong>
+le linn taifeadta:</p>
+<ul>
+<li><strong>Rianta fuaime</strong>: seinntear an t-ionchur i bhfíor-am (cosán an taifeadta díreach). Is féidir é a mheascadh le <strong>overdub</strong>.</li>
+<li><strong>Rianta MIDI</strong>: agus <strong>Rindreáil MIDI go fuaim le haghaidh athsheinm</strong> agus <strong>SoundFont</strong> cumraithe, cloiseann tú nótaí tríd an tsintéiseoir bogearraí. Le <strong>aschur MIDI seachtrach</strong> — bain úsáid as monatóireacht an uirlis.</li>
+</ul>
+<p>Sábháiltear sa <strong>tionscadal</strong> é (<code>monitorWhileRecording</code> in <code>project.json</code>). Múch chun aischuir micreafóin a laghdú.</p>
 <h4 id="taifeadadh-overdub">Taifeadadh Overdub</h4>
 <p>Nuair a thaifeadtar rian nua agus rianta cumasaithe eile ann cheana le sonraí fuaime nó MIDI, déanann Musician's Canvas taifeadadh overdub: measctar na rianta atá ann cheana le chéile agus seinntar iad i bhfíor-am agus an rian nua á thaifeadadh. Ligeann sé seo duit na codanna a taifeadadh roimhe seo a chloisteáil agus tú ag leagan síos ceann nua.</p>
 <p>Ullmhaítear meascán na rianta atá ann cheana sula dtosaíonn an ghabháil, ionas go dtosaíonn an taifeadadh agus an athsheinm ag an nóiméad céanna beagnach, ag coinneáil gach rian sioncronaithe.</p>

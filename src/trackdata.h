@@ -40,7 +40,7 @@ struct TrackData
     int channelCount = 2;
 
     // Ordered chain of real-time recording effects (see EffectsDialog / EffectWidget).
-    // Each element: { "type": "reverb"|"chorus", "params": { ... } }
+    // Each element: { "type": "reverb"|"chorus"|"flanger"|"overdrive_distortion"|"amp_cabinet", "params": { ... } }
     QJsonArray audioEffectChain;
 
     // For MIDI tracks: note events

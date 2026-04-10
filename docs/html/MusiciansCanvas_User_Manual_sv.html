@@ -73,6 +73,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#inspelning">Inspelning</a><ul>
 <li><a href="#ljudinspelning">Ljudinspelning</a></li>
 <li><a href="#infogningseffekter-endast-ljudspar">Infogningseffekter (endast ljudspår)</a></li>
+<li><a href="#overvaka-under-inspelning">Övervaka under inspelning</a></li>
 <li><a href="#midi-inspelning">MIDI-inspelning</a></li>
 </ul>
 </li>
@@ -278,8 +279,12 @@ för att förhindra oavsiktliga ändringar.</p>
 <h3 id="infogningseffekter-endast-ljudspar">Infogningseffekter (endast ljudspår)</h3>
 <p>Ljudspår har en knapp <strong>Effekter</strong> direkt under <strong>Options</strong>. Den öppnar dialogen <strong>Spår-effekter</strong>, där
 du bygger en <strong>ordnad kedja</strong> av insert-effekter för inspelning på detta spår:</p>
+<p><img alt="Dialogruta för spår-effekter" src="screenshots/Track_Effects_Dialog.png" /></p>
+<p>Effekttyper inkluderar <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong> och <strong>Amp &amp; cabinet</strong> (modellering av förstärkare och högtalarlåda: amptyp, kabinett, förstärkning, bas/mellan/discant, luft och blandning). Skärmbilder av <strong>Amp &amp; cabinet</strong>:</p>
+<p><img alt="Amp &amp; cabinet-modellering (1)" src="screenshots/Amp_And_Cabinet_Model_1.png" /></p>
+<p><img alt="Amp &amp; cabinet-modellering (2)" src="screenshots/Amp_And_Cabinet_Model_2.png" /></p>
 <ul>
-<li>Klicka <strong>Lägg till effekt…</strong> och välj <strong>Reverb</strong> eller <strong>Chorus</strong>. Flera instanser är tillåtna; rött <strong>✕</strong> i
+<li>Klicka <strong>Lägg till effekt…</strong> och välj en effekttyp. Flera instanser är tillåtna; rött <strong>✕</strong> i
   rubriken tar bort en effekt.</li>
 <li>Dra <strong>≡</strong> för att <strong>ändra ordning</strong>. <strong>Överst</strong> körs <strong>först</strong>.</li>
 <li>ms och Hz förblir meningsfulla efter konvertering till <strong>projektets samplingsfrekvens</strong>. <strong>Mono</strong> och <strong>stereo</strong>
@@ -288,6 +293,14 @@ du bygger en <strong>ordnad kedja</strong> av insert-effekter för inspelning p�
 </ul>
 <p>Effekter tillämpas när du <strong>stoppar inspelningen</strong>, efter normal capture och omsampling. Konfigurationen lagras
 i <code>project.json</code> under <code>audioEffectChain</code>.</p>
+<h3 id="overvaka-under-inspelning">Övervaka under inspelning</h3>
+<p>Bredvid <strong>tidsdisplayen</strong> styr <strong>Övervaka ljud under inspelning</strong> om <strong>live-ingång</strong> skickas till <strong>projektets ljudutgång</strong>
+under inspelning:</p>
+<ul>
+<li><strong>Ljudspår</strong>: inkommande ljud spelas upp i realtid (själva inspelningen oförändrad). Läggs ovanpå eventuell <strong>overdub</strong>-uppspelning.</li>
+<li><strong>MIDI-spår</strong>: om <strong>återge MIDI som ljud för uppspelning</strong> och <strong>SoundFont</strong> används hörs anteckningar via mjukvarusynt. Vid <strong>extern MIDI-ut</strong> — använd instrumentets monitor.</li>
+</ul>
+<p>Inställningen <strong>sparas i projektet</strong> (<code>monitorWhileRecording</code> i <code>project.json</code>). Stäng av för att minska mikrofonåterkoppling.</p>
 <h4 id="overdubinspelning">Överdubinspelning</h4>
 <p>När du spelar in ett nytt spår medan andra aktiverade spår redan innehåller ljud- eller MIDI-data utför
 Musician's Canvas överdubinspelning: de befintliga spåren mixas ihop och spelas upp i realtid medan det

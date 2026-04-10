@@ -161,7 +161,13 @@ Tá cnaipe **Éifeachtaí** ar rianta fuaime díreach faoi **Options**. Osclaío
 
 ![Dialóg éifeachtaí rian](../screenshots/Track_Effects_Dialog.png)
 
-- **Cuir éifeacht leis…** agus roghnaigh **Reverb**, **Chorus** nó **Flanger**. Is féidir ilchás; déanann an **✕** dearg sa cheannlíne éifeacht a bhaint.
+Tá **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion** agus **Amp & cabinet** (samhaltú sainmhéadra agus cáibín: cineál sainmhéadra, cáibín, gnóthachán, dóigh/barr/díreach, aer agus meascthán) ar fáil. Seatanna scáileáin an éifeachta **Amp & cabinet**:
+
+![Samhaltú Amp & cabinet (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+
+![Samhaltú Amp & cabinet (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+
+- **Cuir éifeacht leis…** agus roghnaigh cineál éifeachta. Is féidir ilchás; déanann an **✕** dearg sa cheannlíne éifeacht a bhaint.
 - Tarraing **≡** chun **athordú**. Ritear an **éifeacht is airde** **ar dtús**.
 - Fanann ms agus Hz intuigthe tar éis tiontaithe go **ráta samplála an tionscadail**. Tacaítear le **mónó** agus **stirió** (déantar mónó a phróiseáil mar dhúbhail-mónó agus a mheascadh ar ais go bealach amháin).
 - **OK** sábhálann san tionscadal; **Ceal** aithchóraíonn an slabhra mar ba dhóigh leat nuair a osclaíodh an dialóg.

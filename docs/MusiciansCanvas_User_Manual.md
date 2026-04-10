@@ -192,13 +192,18 @@ on that track:
 
 ![Track effects dialog](../screenshots/Track_Effects_Dialog.png)
 
-- Click **Add effect…** and choose **Reverb**, **Chorus**, or **Flanger** (more types may be added in the
-  future). You can add several instances and remove one with the red **✕** in the effect’s
+You can add **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, and **Amp & cabinet** (amplifier and speaker modeling: amp type, cabinet, gain, bass/mid/treble, air/presence, and wet/dry mix). The following screenshots show the **Amp & cabinet** effect:
+
+![Amp & cabinet modeling (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+
+![Amp & cabinet modeling (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+
+- Click **Add effect…** and choose an effect type. You can add several instances and remove one with the red **✕** in the effect’s
   header.
 - Drag the **≡** grip on a row to **reorder** the chain. The effect at the **top** runs
   **first** on the captured audio; the next runs on its output, and so on.
 - Adjust sliders and read-outs for each effect (pre-delay, decay, mix, modulation, chorus
-  rate/depth, flanger manual/rate/depth/feedback, EQ, etc.). Units are in milliseconds and hertz so they stay meaningful after
+  rate/depth, flanger manual/rate/depth/feedback, overdrive/distortion color and drive, amp/cabinet type and EQ, etc.). Units are in milliseconds and hertz so they stay meaningful after
   the app converts your recording to the **project sample rate**. Both **mono** and **stereo**
   tracks are supported: mono is processed internally as a dual-mono path and mixed back to one
   channel; stereo keeps separate dry paths where the algorithms allow.

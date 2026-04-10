@@ -208,7 +208,13 @@ enregistrements sur cette piste :
 
 ![Boîte de dialogue Effets de piste](../screenshots/Track_Effects_Dialog.png)
 
-- Cliquez sur **Ajouter un effet…** et choisissez **Réverb**, **Chorus** ou **Flanger**. Ajoutez plusieurs
+Parmi les types proposés : **Réverb**, **Chorus**, **Flanger**, **Overdrive / distorsion** et **Amp & cab** (modélisation ampli et baffle : type d’ampli, baffle, gain, grave/médium/aigu, présence/air et mixage). Captures du module **Amp & cab** :
+
+![Modélisation ampli et baffle (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+
+![Modélisation ampli et baffle (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+
+- Cliquez sur **Ajouter un effet…** et choisissez un type d’effet. Ajoutez plusieurs
   blocs si besoin ; le **✕** rouge dans l’en-tête supprime un effet.
 - Faites glisser la poignée **≡** pour **réordonner** la chaîne. L’effet **en haut** s’exécute
   **en premier**.

@@ -459,6 +459,207 @@ private:
     float               m_phaseR = 0.f;
 };
 
+// ── Overdrive / distortion (soft vs hard clip blend + tone) ───────────────────────────────
+
+class OverdriveDistortionDsp
+{
+public:
+    void configure(const QJsonObject& p, int sampleRateIn)
+    {
+        m_sr = normalizedSampleRate(sampleRateIn);
+        m_drive = float(p.value(QStringLiteral("drive")).toDouble(0.45));
+        m_color = float(p.value(QStringLiteral("color")).toDouble(0.5));
+        m_tone  = float(p.value(QStringLiteral("tone")).toDouble(0.5));
+        m_mix   = float(p.value(QStringLiteral("effectLevel")).toDouble(0.65));
+
+        m_drive = clampf(m_drive, 0.02f, 1.f);
+        m_color = clampf(m_color, 0.f, 1.f);
+        m_tone  = clampf(m_tone, 0.f, 1.f);
+        m_mix   = clampf(m_mix, 0.f, 1.f);
+
+        const float fc = 350.f + m_tone * 9500.f;
+        m_toneLpA =
+            clampf(1.f - std::exp(-2.f * float(M_PI) * fc / float(m_sr)), 0.002f, 0.99f);
+        reset();
+    }
+
+    void reset()
+    {
+        m_lpPostL = m_lpPostR = 0.f;
+    }
+
+    void processFrame(float& l, float& r)
+    {
+        const float dryL = l;
+        const float dryR = r;
+
+        auto wetChannel = [&](float x, float& lpPost)
+        {
+            const float in = x * (0.18f + m_drive * 22.f);
+            const float od = std::tanh(in * 1.32f);
+            float ds       = in * 3.8f;
+            ds             = std::tanh(std::clamp(ds, -4.f, 4.f));
+            float y        = (1.f - m_color) * od + m_color * ds;
+            lpPost += (y - lpPost) * m_toneLpA;
+            const float hi = y - lpPost;
+            const float lowGain  = 0.22f + 0.78f * (1.f - m_tone);
+            const float highGain = 0.12f + 0.88f * m_tone;
+            return lpPost * lowGain + hi * highGain;
+        };
+
+        const float wetL = wetChannel(dryL, m_lpPostL);
+        const float wetR = wetChannel(dryR, m_lpPostR);
+
+        const float dryW = 1.f - m_mix;
+        const float wetW = m_mix;
+        l                = dryW * dryL + wetW * wetL;
+        r                = dryW * dryR + wetW * wetR;
+    }
+
+private:
+    int   m_sr = 44100;
+    float m_drive = 0.45f;
+    float m_color = 0.5f;
+    float m_tone  = 0.5f;
+    float m_mix   = 0.65f;
+    float m_toneLpA = 0.08f;
+    float m_lpPostL = 0.f;
+    float m_lpPostR = 0.f;
+};
+
+// ── Amp + cabinet modeling (voicing curve, EQ, cab rolloff, air) ─────────────────────────
+
+class AmpCabinetModelDsp
+{
+public:
+    void configure(const QJsonObject& p, int sampleRateIn)
+    {
+        m_sr = normalizedSampleRate(sampleRateIn);
+        m_ampModel = std::clamp(p.value(QStringLiteral("ampModel")).toInt(2), 0, 5);
+        m_cabModel = std::clamp(p.value(QStringLiteral("cabinetModel")).toInt(1), 0, 5);
+        m_gain     = float(p.value(QStringLiteral("gain")).toDouble(0.45));
+        m_bass     = float(p.value(QStringLiteral("bass")).toDouble(0.5));
+        m_mid      = float(p.value(QStringLiteral("mid")).toDouble(0.5));
+        m_treble   = float(p.value(QStringLiteral("treble")).toDouble(0.5));
+        m_air      = float(p.value(QStringLiteral("air")).toDouble(0.35));
+        m_mix      = float(p.value(QStringLiteral("effectLevel")).toDouble(0.75));
+
+        m_gain   = clampf(m_gain, 0.01f, 1.f);
+        m_bass   = clampf(m_bass, 0.f, 1.f);
+        m_mid    = clampf(m_mid, 0.f, 1.f);
+        m_treble = clampf(m_treble, 0.f, 1.f);
+        m_air    = clampf(m_air, 0.f, 1.f);
+        m_mix    = clampf(m_mix, 0.f, 1.f);
+
+        static const float kShape[6] = {0.95f, 1.15f, 1.38f, 1.58f, 1.92f, 1.48f};
+        m_shape                        = kShape[static_cast<std::size_t>(m_ampModel)];
+
+        static const float kCabFc[6] = {9000.f, 7800.f, 6500.f, 5200.f, 4800.f, 14000.f};
+        const float cabFc            = kCabFc[static_cast<std::size_t>(m_cabModel)];
+        m_cabLpA =
+            clampf(1.f - std::exp(-2.f * float(M_PI) * cabFc / float(m_sr)), 0.01f, 0.99f);
+
+        const float bassFc  = 120.f + m_bass * 280.f;
+        const float midFc   = 400.f + m_mid * 2200.f;
+        const float trebFc  = 2000.f + m_treble * 8000.f;
+        m_bassLpA  = clampf(1.f - std::exp(-2.f * float(M_PI) * bassFc / float(m_sr)), 0.01f, 0.95f);
+        m_midLpA   = clampf(1.f - std::exp(-2.f * float(M_PI) * midFc / float(m_sr)), 0.01f, 0.95f);
+        m_trebLpA  = clampf(1.f - std::exp(-2.f * float(M_PI) * trebFc / float(m_sr)), 0.01f, 0.95f);
+        m_airLpA   = clampf(1.f - std::exp(-2.f * float(M_PI) * 9000.f / float(m_sr)), 0.02f, 0.95f);
+        m_airAmt   = m_air * 0.55f;
+
+        m_bassDb   = (m_bass - 0.5f) * 14.f;
+        m_midDb    = (m_mid - 0.5f) * 12.f;
+        m_trebleDb = (m_treble - 0.5f) * 14.f;
+
+        reset();
+    }
+
+    void reset()
+    {
+        m_hpL = m_hpR = 0.f;
+        m_lpBL = m_lpBR = m_lpML = m_lpMR = m_lpTL = m_lpTR = 0.f;
+        m_cLpL = m_cLpR = 0.f;
+        m_airLpL = m_airLpR = 0.f;
+    }
+
+    void processFrame(float& l, float& r)
+    {
+        const float dryL = l;
+        const float dryR = r;
+
+        auto process = [&](float x, float& hp, float& lpB, float& lpM, float& lpT, float& cLp,
+                           float& airLp) -> float
+        {
+            const float pre = x * (0.12f + m_gain * 14.f);
+            hp += (pre - hp) * 0.12f;
+            float w = pre - hp * (0.35f + float(m_ampModel) * 0.04f);
+
+            lpB += (w - lpB) * m_bassLpA;
+            lpM += (w - lpM) * m_midLpA;
+            lpT += (w - lpT) * m_trebLpA;
+            const float low  = lpB;
+            const float midb = lpM - lpB * 0.55f;
+            const float high = w - lpT;
+
+            w = low * dbToLin(m_bassDb) * 0.45f + midb * dbToLin(m_midDb) * 0.9f
+                + high * dbToLin(m_trebleDb) * 0.55f + w * 0.25f;
+
+            w = std::tanh(w * m_shape);
+
+            cLp += (w - cLp) * m_cabLpA;
+            w = cLp;
+
+            airLp += (w - airLp) * m_airLpA;
+            const float airHi = w - airLp;
+            w += airHi * m_airAmt;
+            return w;
+        };
+
+        const float wetL = process(l, m_hpL, m_lpBL, m_lpML, m_lpTL, m_cLpL, m_airLpL);
+        const float wetR = process(r, m_hpR, m_lpBR, m_lpMR, m_lpTR, m_cLpR, m_airLpR);
+
+        const float dryW = 1.f - m_mix;
+        const float wetW = m_mix;
+        l                = dryW * dryL + wetW * wetL;
+        r                = dryW * dryR + wetW * wetR;
+    }
+
+private:
+    int   m_sr = 44100;
+    int   m_ampModel = 2;
+    int   m_cabModel = 1;
+    float m_gain = 0.45f;
+    float m_bass = 0.5f;
+    float m_mid = 0.5f;
+    float m_treble = 0.5f;
+    float m_air = 0.35f;
+    float m_mix = 0.75f;
+    float m_shape = 1.4f;
+    float m_cabLpA = 0.2f;
+    float m_bassLpA = 0.1f;
+    float m_midLpA = 0.1f;
+    float m_trebLpA = 0.1f;
+    float m_airLpA = 0.2f;
+    float m_airAmt = 0.2f;
+    float m_bassDb = 0.f;
+    float m_midDb = 0.f;
+    float m_trebleDb = 0.f;
+
+    float m_hpL = 0.f;
+    float m_hpR = 0.f;
+    float m_lpBL = 0.f;
+    float m_lpBR = 0.f;
+    float m_lpML = 0.f;
+    float m_lpMR = 0.f;
+    float m_lpTL = 0.f;
+    float m_lpTR = 0.f;
+    float m_cLpL = 0.f;
+    float m_cLpR = 0.f;
+    float m_airLpL = 0.f;
+    float m_airLpR = 0.f;
+};
+
 // ── Chain runner ──────────────────────────────────────────────────────────────────────────
 
 void applyChainImpl(QByteArray& pcm, int channelCount, int sampleRate, const QJsonArray& chain)
@@ -473,10 +674,14 @@ void applyChainImpl(QByteArray& pcm, int channelCount, int sampleRate, const QJs
     std::vector<ReverbDsp> reverbs;
     std::vector<ChorusDsp> choruses;
     std::vector<FlangeDsp> flangers;
+    std::vector<OverdriveDistortionDsp> odDists;
+    std::vector<AmpCabinetModelDsp> ampCabs;
     reverbs.reserve(size_t(chain.size()));
     choruses.reserve(size_t(chain.size()));
     flangers.reserve(size_t(chain.size()));
-    enum class Kind { Reverb, Chorus, Flanger };
+    odDists.reserve(size_t(chain.size()));
+    ampCabs.reserve(size_t(chain.size()));
+    enum class Kind { Reverb, Chorus, Flanger, OverdriveDistortion, AmpCabinet };
     std::vector<Kind> kinds;
     kinds.reserve(size_t(chain.size()));
 
@@ -508,6 +713,20 @@ void applyChainImpl(QByteArray& pcm, int channelCount, int sampleRate, const QJs
             flangers.push_back(std::move(fg));
             kinds.push_back(Kind::Flanger);
         }
+        else if (type == QStringLiteral("overdrive_distortion"))
+        {
+            OverdriveDistortionDsp od;
+            od.configure(params, sampleRate);
+            odDists.push_back(std::move(od));
+            kinds.push_back(Kind::OverdriveDistortion);
+        }
+        else if (type == QStringLiteral("amp_cabinet"))
+        {
+            AmpCabinetModelDsp ac;
+            ac.configure(params, sampleRate);
+            ampCabs.push_back(std::move(ac));
+            kinds.push_back(Kind::AmpCabinet);
+        }
     }
 
     if (kinds.empty())
@@ -517,19 +736,27 @@ void applyChainImpl(QByteArray& pcm, int channelCount, int sampleRate, const QJs
     size_t ir = 0;
     size_t ic = 0;
     size_t iz = 0;
+    size_t io = 0;
+    size_t ia = 0;
     for (Kind k : kinds)
     {
         if (k == Kind::Reverb)
             reverbs[ir++].reset();
         else if (k == Kind::Chorus)
             choruses[ic++].reset();
-        else
+        else if (k == Kind::Flanger)
             flangers[iz++].reset();
+        else if (k == Kind::OverdriveDistortion)
+            odDists[io++].reset();
+        else
+            ampCabs[ia++].reset();
     }
 
     ir = 0;
     ic = 0;
     iz = 0;
+    io = 0;
+    ia = 0;
 
     auto* s = reinterpret_cast<qint16*>(pcm.data());
     const int frameCount = pcm.size() / bytesPerFrame;
@@ -544,14 +771,20 @@ void applyChainImpl(QByteArray& pcm, int channelCount, int sampleRate, const QJs
             ir = 0;
             ic = 0;
             iz = 0;
+            io = 0;
+            ia = 0;
             for (Kind k : kinds)
             {
                 if (k == Kind::Reverb)
                     reverbs[ir++].processFrame(l, r);
                 else if (k == Kind::Chorus)
                     choruses[ic++].processFrame(l, r);
-                else
+                else if (k == Kind::Flanger)
                     flangers[iz++].processFrame(l, r);
+                else if (k == Kind::OverdriveDistortion)
+                    odDists[io++].processFrame(l, r);
+                else
+                    ampCabs[ia++].processFrame(l, r);
             }
             x = (l + r) * 0.5f;
             x = clampf(x, -1.f, 1.f);
@@ -568,14 +801,20 @@ void applyChainImpl(QByteArray& pcm, int channelCount, int sampleRate, const QJs
             ir = 0;
             ic = 0;
             iz = 0;
+            io = 0;
+            ia = 0;
             for (Kind k : kinds)
             {
                 if (k == Kind::Reverb)
                     reverbs[ir++].processFrame(l, r);
                 else if (k == Kind::Chorus)
                     choruses[ic++].processFrame(l, r);
-                else
+                else if (k == Kind::Flanger)
                     flangers[iz++].processFrame(l, r);
+                else if (k == Kind::OverdriveDistortion)
+                    odDists[io++].processFrame(l, r);
+                else
+                    ampCabs[ia++].processFrame(l, r);
             }
             l = clampf(l, -1.f, 1.f);
             r = clampf(r, -1.f, 1.f);

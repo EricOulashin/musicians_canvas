@@ -1,19 +1,25 @@
 #include "effectsdialog.h"
 
+#include "ampandcabinetmodelwidget.h"
 #include "choruswidget.h"
+#include "effectchaindragoverlay.h"
 #include "effectwidget.h"
 #include "flangewidget.h"
+#include "overdrivedistortionwidget.h"
 #include "reverbwidget.h"
 #include "trackwidget.h"
 
 #include <QComboBox>
+#include <QCursor>
 #include <QDialogButtonBox>
 #include <QDrag>
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>
 #include <QEvent>
+#include <QGraphicsOpacityEffect>
 #include <QHBoxLayout>
+#include <QPointer>
 #include <QLabel>
 #include <QMessageBox>
 #include <QMimeData>
@@ -24,6 +30,29 @@
 namespace
 {
 constexpr char kMimeEffectPtr[] = "application/x-mc-effect-ptr";
+
+/// Map drag event coordinates into \a chain (same basis as handleReorderDrop uses for drops).
+/// Using QCursor::pos() for DragMove can disagree with QDragMoveEvent::position() (hotspot vs
+/// cursor), which made the blue line show the wrong slot.
+QPoint dragPointInChain(QObject* watched, QEvent* event, QWidget* chain)
+{
+    auto* w = qobject_cast<QWidget*>(watched);
+    if (!chain)
+        return {};
+    if (!w)
+        return chain->mapFromGlobal(QCursor::pos());
+
+    switch (event->type())
+    {
+        case QEvent::DragMove:
+            return chain->mapFrom(w, static_cast<QDragMoveEvent*>(event)->position().toPoint());
+        case QEvent::DragEnter:
+            return chain->mapFrom(w, static_cast<QDragEnterEvent*>(event)->position().toPoint());
+        default:
+            break;
+    }
+    return chain->mapFromGlobal(QCursor::pos());
+}
 }
 
 EffectsDialog::EffectsDialog(TrackWidget* trackWidget, QWidget* parent)
@@ -67,6 +96,10 @@ EffectsDialog::EffectsDialog(TrackWidget* trackWidget, QWidget* parent)
 
     m_chainContainer->setAcceptDrops(true);
     m_chainContainer->installEventFilter(this);
+    m_scroll->installEventFilter(this);
+    if (QWidget* vp = m_scroll->viewport())
+        vp->installEventFilter(this);
+    installEventFilter(this);
 
     rebuildFromChain();
 }
@@ -87,6 +120,10 @@ EffectWidget* EffectsDialog::createEffectWidget(const QString& type)
         w = new ChorusWidget(m_chainContainer);
     else if (type == QStringLiteral("flanger"))
         w = new FlangeWidget(m_chainContainer);
+    else if (type == QStringLiteral("overdrive_distortion"))
+        w = new OverdriveDistortionWidget(m_chainContainer);
+    else if (type == QStringLiteral("amp_cabinet"))
+        w = new AmpAndCabinetModelWidget(m_chainContainer);
 
     if (!w)
         return nullptr;
@@ -164,6 +201,8 @@ void EffectsDialog::onAddEffect()
     combo->addItem(tr("Reverb"), QStringLiteral("reverb"));
     combo->addItem(tr("Chorus"), QStringLiteral("chorus"));
     combo->addItem(tr("Flanger"), QStringLiteral("flanger"));
+    combo->addItem(tr("Overdrive / distortion"), QStringLiteral("overdrive_distortion"));
+    combo->addItem(tr("Amp & cabinet"), QStringLiteral("amp_cabinet"));
     vl->addWidget(combo);
     auto* bb = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &chooser);
     vl->addWidget(bb);
@@ -206,6 +245,8 @@ void EffectsDialog::onReorderDrag(EffectWidget* source)
     if (!source)
         return;
 
+    beginReorderVisuals(source);
+
     auto* mime = new QMimeData;
     mime->setData(QString::fromLatin1(kMimeEffectPtr),
                   QByteArray::number(reinterpret_cast<quintptr>(source)));
@@ -213,25 +254,100 @@ void EffectsDialog::onReorderDrag(EffectWidget* source)
     QDrag drag(this);
     drag.setMimeData(mime);
     drag.exec(Qt::MoveAction);
+
+    endReorderVisuals();
 }
 
-EffectWidget* EffectsDialog::effectWidgetAtDropPos(const QPoint& localPos)
+void EffectsDialog::beginReorderVisuals(EffectWidget* source)
 {
-    QWidget* at = m_chainContainer->childAt(localPos);
-    while (at != nullptr)
+    m_dragSource        = source;
+    m_reorderDragActive = true;
+    // QGraphicsEffect ownership: each widget takes ownership when set; clearing with nullptr
+    // deletes the effect. Reusing a single effect pointer across drags would dangle after the
+    // first drag — create a fresh opacity effect per drag, parented to the row being moved.
+    if (m_dragSource)
     {
-        if (auto* ew = qobject_cast<EffectWidget*>(at))
-            return ew;
-        at = at->parentWidget();
+        auto* fx = new QGraphicsOpacityEffect(m_dragSource);
+        fx->setOpacity(0.35);
+        m_dragSource->setGraphicsEffect(fx);
+    }
+
+    if (!m_dropOverlay)
+        m_dropOverlay = new EffectChainDragOverlay(m_chainContainer);
+    m_dropOverlay->setGeometry(m_chainContainer->rect());
+    m_dropOverlay->raise();
+    m_dropOverlay->show();
+    updateReorderOverlay(m_chainContainer->mapFromGlobal(QCursor::pos()));
+}
+
+void EffectsDialog::endReorderVisuals()
+{
+    m_reorderDragActive = false;
+    if (m_dragSource)
+    {
+        m_dragSource->setGraphicsEffect(nullptr);
+        m_dragSource = nullptr;
+    }
+    if (m_dropOverlay)
+    {
+        m_dropOverlay->hide();
+        m_dropOverlay->clearPlaceholder();
+        m_dropOverlay->setDropLine(0, false);
+    }
+}
+
+void EffectsDialog::updateReorderOverlay(const QPoint& localInChain)
+{
+    QPointer<EffectWidget> srcGuard(m_dragSource);
+    if (!m_dropOverlay || !srcGuard)
+        return;
+
+    // Keep the overlay above effect rows (layout/stacking can bury it after relayout).
+    m_dropOverlay->setGeometry(m_chainContainer->rect());
+    m_dropOverlay->raise();
+
+    const QRect cr = m_chainContainer->rect();
+    m_dropOverlay->setPlaceholderRect(srcGuard->geometry());
+
+    // Slight margin: mapped points can sit on the edge due to rounding / HiDPI.
+    if (!cr.adjusted(-1, -1, 1, 1).contains(localInChain))
+    {
+        m_dropOverlay->setDropLine(0, false);
+        m_dropOverlay->update();
+        return;
+    }
+
+    const int idx   = dropIndexFromPos(localInChain);
+    const int lineY = dropLineYForIndex(idx);
+    m_dropOverlay->setDropLine(lineY, true);
+}
+
+EffectWidget* EffectsDialog::effectWidgetAtDropPos(const QPoint& localPos) const
+{
+    for (EffectWidget* w : std::as_const(m_widgets))
+    {
+        if (w && w->geometry().contains(localPos))
+            return w;
     }
     return nullptr;
 }
 
-int EffectsDialog::insertionIndexFromPos(const QPoint& localPos, EffectWidget* dragged)
+int EffectsDialog::dropIndexFromPos(const QPoint& localPos) const
 {
-    Q_UNUSED(dragged);
     if (m_widgets.isEmpty())
         return 0;
+
+    EffectWidget* const under = effectWidgetAtDropPos(localPos);
+    if (under != nullptr)
+    {
+        int insertIndex = m_widgets.indexOf(under);
+        if (insertIndex < 0)
+            return 0;
+        const QRect gr = under->geometry();
+        if (localPos.y() >= gr.center().y())
+            insertIndex += 1;
+        return insertIndex;
+    }
 
     for (int i = 0; i < m_widgets.size(); ++i)
     {
@@ -243,7 +359,25 @@ int EffectsDialog::insertionIndexFromPos(const QPoint& localPos, EffectWidget* d
         if (localPos.y() < midY)
             return i;
     }
-    return m_widgets.size();
+    return int(m_widgets.size());
+}
+
+int EffectsDialog::dropLineYForIndex(int insertIndex) const
+{
+    const int n = int(m_widgets.size());
+    if (n <= 0)
+        return 4;
+    insertIndex = qBound(0, insertIndex, n);
+    const int spacing = m_chainLayout ? m_chainLayout->spacing() : 8;
+    const int half    = qMax(2, spacing / 2);
+
+    if (insertIndex == 0)
+        return m_widgets[0]->geometry().top() - half;
+    if (insertIndex >= n)
+        return m_widgets[n - 1]->geometry().bottom() + half;
+    const int top = m_widgets[insertIndex - 1]->geometry().bottom();
+    const int bot = m_widgets[insertIndex]->geometry().top();
+    return (top + bot) / 2;
 }
 
 void EffectsDialog::handleReorderDrop(QDropEvent* event, const QPoint& localInChain)
@@ -262,16 +396,7 @@ void EffectsDialog::handleReorderDrop(QDropEvent* event, const QPoint& localInCh
         return;
     }
 
-    EffectWidget* under = effectWidgetAtDropPos(localInChain);
-    int insertIndex = insertionIndexFromPos(localInChain, source);
-
-    if (under != nullptr)
-    {
-        insertIndex = m_widgets.indexOf(under);
-        const QRect gr = under->geometry();
-        if (localInChain.y() >= gr.center().y())
-            insertIndex += 1;
-    }
+    int insertIndex = dropIndexFromPos(localInChain);
 
     int from = m_widgets.indexOf(source);
     if (from < 0)
@@ -293,7 +418,19 @@ void EffectsDialog::handleReorderDrop(QDropEvent* event, const QPoint& localInCh
 
 bool EffectsDialog::eventFilter(QObject* watched, QEvent* event)
 {
-    if (watched == m_chainContainer || m_widgets.contains(qobject_cast<EffectWidget*>(watched)))
+    if (m_reorderDragActive
+        && (event->type() == QEvent::DragMove || event->type() == QEvent::DragEnter))
+        updateReorderOverlay(dragPointInChain(watched, event, m_chainContainer));
+
+    if (event->type() == QEvent::Resize && watched == m_chainContainer && m_dropOverlay
+        && m_dropOverlay->isVisible())
+        m_dropOverlay->setGeometry(m_chainContainer->rect());
+
+    QWidget* scrollVp = m_scroll ? m_scroll->viewport() : nullptr;
+    const bool dropWatcher = watched == m_chainContainer || watched == m_scroll || watched == scrollVp
+                             || watched == this
+                             || m_widgets.contains(qobject_cast<EffectWidget*>(watched));
+    if (dropWatcher)
     {
         const auto mimeOk = [](const QMimeData* m)
         {

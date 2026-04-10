@@ -13,6 +13,7 @@ class QVBoxLayout;
 class QWidget;
 class TrackWidget;
 class EffectWidget;
+class EffectChainDragOverlay;
 class QEvent;
 
 class EffectsDialog final : public QDialog
@@ -35,8 +36,12 @@ private:
     void rebuildFromChain();
     void relayoutChain();
     EffectWidget* createEffectWidget(const QString& type);
-    EffectWidget* effectWidgetAtDropPos(const QPoint& localPos);
-    int insertionIndexFromPos(const QPoint& localPos, EffectWidget* dragged);
+    EffectWidget* effectWidgetAtDropPos(const QPoint& localPos) const;
+    int dropIndexFromPos(const QPoint& localPos) const;
+    int dropLineYForIndex(int insertIndex) const;
+    void beginReorderVisuals(EffectWidget* source);
+    void endReorderVisuals();
+    void updateReorderOverlay(const QPoint& localInChain);
     void handleReorderDrop(QDropEvent* event, const QPoint& posInChain);
 
     TrackWidget*      m_trackWidget = nullptr;
@@ -47,6 +52,10 @@ private:
     QPushButton*      m_addButton = nullptr;
     QVector<EffectWidget*> m_widgets;
     bool              m_suspendSync = false;
+
+    EffectWidget*            m_dragSource = nullptr;
+    EffectChainDragOverlay*  m_dropOverlay = nullptr;
+    bool                     m_reorderDragActive = false;
 };
 
 #endif

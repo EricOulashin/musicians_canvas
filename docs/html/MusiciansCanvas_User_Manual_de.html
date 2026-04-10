@@ -73,6 +73,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#aufnahme">Aufnahme</a><ul>
 <li><a href="#audioaufnahme">Audioaufnahme</a></li>
 <li><a href="#insert-effekte-nur-audiospuren">Insert-Effekte (nur Audiospuren)</a></li>
+<li><a href="#mithoren-wahrend-der-aufnahme">Mithören während der Aufnahme</a></li>
 <li><a href="#midi-aufnahme">MIDI-Aufnahme</a></li>
 </ul>
 </li>
@@ -298,13 +299,17 @@ Schaltflächen, Einstellungen usw.) deaktiviert, um versehentliche Änderungen z
 <p>Audiospuren haben eine Schaltfläche <strong>Effekte</strong> direkt unter <strong>Optionen</strong>. Sie öffnet den
 Dialog <strong>Spureffekte</strong>, in dem Sie eine <strong>geordnete Kette</strong> von Insert-Effekten für Aufnahmen
 auf dieser Spur einrichten:</p>
+<p><img alt="Dialog Spureffekte" src="screenshots/Track_Effects_Dialog.png" /></p>
+<p>Zur Verfügung stehen u. a. <strong>Hall</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong> und <strong>Amp &amp; cabinet</strong> (Modellierung von Verstärker und Lautsprecherbox: Amp-Typ, Box, Gain, Bass/Mitten/Höhen, Air und Mischung). Screenshots des Effekts <strong>Amp &amp; cabinet</strong>:</p>
+<p><img alt="Amp &amp; cabinet-Modellierung (1)" src="screenshots/Amp_And_Cabinet_Model_1.png" /></p>
+<p><img alt="Amp &amp; cabinet-Modellierung (2)" src="screenshots/Amp_And_Cabinet_Model_2.png" /></p>
 <ul>
-<li>Klicken Sie auf <strong>Effekt hinzufügen…</strong> und wählen Sie <strong>Hall</strong> oder <strong>Chorus</strong>. Mehrere
+<li>Klicken Sie auf <strong>Effekt hinzufügen…</strong> und wählen Sie einen Effekttyp. Mehrere
   Instanzen sind möglich; mit dem roten <strong>✕</strong> im Kopfzeilenbereich eines Effekts entfernen
   Sie diesen.</li>
 <li>Ziehen Sie den <strong>≡</strong>-Griff, um die Reihenfolge zu ändern. Der <strong>oberste</strong> Effekt läuft
   <strong>zuerst</strong> auf dem aufgenommenen Signal.</li>
-<li>Regler und Anzeigen (Vorhalt, Abklingzeit, Mix, Modulation, Chorus-Rate/-Tiefe, EQ usw.)
+<li>Regler und Anzeigen (Vorhalt, Abklingzeit, Mix, Modulation, Chorus-Rate/-Tiefe, Flanger-Manual/Rate/Tiefe/Feedback, EQ usw.)
   sind in Millisekunden und Hertz angegeben und bleiben nach der Konvertierung auf die
   <strong>Projekt-Abtastrate</strong> sinnvoll. <strong>Mono</strong> und <strong>Stereo</strong> werden unterstützt: Mono wird
   intern dual-mono verarbeitet und wieder auf einen Kanal gemischt; Stereo behält getrennte
@@ -315,6 +320,15 @@ auf dieser Spur einrichten:</p>
 <p>Die Effekte werden auf das Audio <strong>angewendet, wenn Sie die Aufnahme beenden</strong> – nach der
 üblichen Capture- und SRC-Pipeline. Die Konfiguration wird in <code>project.json</code> unter
 <code>audioEffectChain</code> der Spur gespeichert.</p>
+<h3 id="mithoren-wahrend-der-aufnahme">Mithören während der Aufnahme</h3>
+<p>Neben der <strong>Zeitanzeige</strong> steuert das Kontrollkästchen <strong>Ton während der Aufnahme mithören</strong>,
+ob <strong>Live-Eingang</strong> während der Aufnahme an den <strong>Projekt-Audioausgang</strong> geleitet wird:</p>
+<ul>
+<li><strong>Audiospuren</strong>: Der Eingang wird in Echtzeit wiedergegeben (die eigentliche Aufnahme-Pipeline bleibt unverändert). Das läuft zusätzlich zur <strong>Overdub</strong>-Wiedergabe anderer Spuren.</li>
+<li><strong>MIDI-Spuren</strong>: Wenn im Projekt <strong>MIDI für Wiedergabe in Audio rendern</strong> aktiv ist und ein <strong>SoundFont</strong> gesetzt ist, erscheinen gespielte Noten über den Software-Synthesizer. Bei <strong>externem MIDI-Ausgang</strong> nutzen Sie die Monitoring-Funktion Ihres Geräts.</li>
+</ul>
+<p>Die Einstellung wird <strong>im Projekt</strong> gespeichert (<code>monitorWhileRecording</code> in <code>project.json</code>).
+Deaktivieren Sie das Mithören, um z. B. Rückkopplung vom Mikrofon zu vermeiden.</p>
 <h4 id="overdub-aufnahme">Overdub-Aufnahme</h4>
 <p>Wenn Sie eine neue Spur aufnehmen, während andere aktivierte Spuren bereits Audio- oder
 MIDI-Daten enthalten, führt Musician's Canvas eine Overdub-Aufnahme durch: Die vorhandenen

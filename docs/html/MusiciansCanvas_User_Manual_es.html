@@ -73,6 +73,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#grabacion">Grabación</a><ul>
 <li><a href="#grabacion-de-audio">Grabación de Audio</a></li>
 <li><a href="#efectos-de-insercion-solo-pistas-de-audio">Efectos de inserción (solo pistas de audio)</a></li>
+<li><a href="#monitorizar-durante-la-grabacion">Monitorizar durante la grabación</a></li>
 <li><a href="#grabacion-midi">Grabación MIDI</a></li>
 </ul>
 </li>
@@ -255,8 +256,12 @@ de Musician's Canvas para agregarlos como nuevas pistas de audio.</p>
 <p>Las pistas de audio tienen un botón <strong>Efectos</strong> justo debajo de <strong>Options</strong>. Abre el diálogo
 <strong>Efectos de pista</strong>, donde puede definir una <strong>cadena ordenada</strong> de efectos insertados para las
 grabaciones en esa pista:</p>
+<p><img alt="Diálogo Efectos de pista" src="screenshots/Track_Effects_Dialog.png" /></p>
+<p>Puede usar <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distorsión</strong> y <strong>Amp &amp; cabinet</strong> (modelado de amplificador y pantalla: tipo de ampli, pantalla, ganancia, graves/medios/agudos, aire y mezcla). Capturas del efecto <strong>Amp &amp; cabinet</strong>:</p>
+<p><img alt="Modelado Amp &amp; cabinet (1)" src="screenshots/Amp_And_Cabinet_Model_1.png" /></p>
+<p><img alt="Modelado Amp &amp; cabinet (2)" src="screenshots/Amp_And_Cabinet_Model_2.png" /></p>
 <ul>
-<li>Pulse <strong>Añadir efecto…</strong> y elija <strong>Reverb</strong> o <strong>Chorus</strong>. Puede añadir varias instancias y
+<li>Pulse <strong>Añadir efecto…</strong> y elija un tipo de efecto. Puede añadir varias instancias y
   quitar una con la <strong>✕</strong> roja en la cabecera del efecto.</li>
 <li>Arrastre el control <strong>≡</strong> para <strong>reordenar</strong>. El efecto de <strong>arriba</strong> se aplica <strong>primero</strong>.</li>
 <li>Los controles usan milisegundos y hercios, coherentes tras la conversión a la <strong>frecuencia de
@@ -266,6 +271,13 @@ grabaciones en esa pista:</p>
 </ul>
 <p>Los efectos se aplican al <strong>detener la grabación</strong>, después del flujo normal de captura y
 remuestreo. La configuración se guarda en <code>project.json</code> en <code>audioEffectChain</code>.</p>
+<h3 id="monitorizar-durante-la-grabacion">Monitorizar durante la grabación</h3>
+<p>Junto al <strong>visor de tiempo</strong>, la casilla <strong>Escuchar el audio mientras se graba</strong> decide si se envía la <strong>entrada en directo</strong> a la <strong>salida de audio del proyecto</strong> durante la grabación:</p>
+<ul>
+<li><strong>Pistas de audio</strong>: se reproduce en tiempo real lo que entra (la grabación sigue igual). Se suma a la reproducción de <strong>overdub</strong> si hay otras pistas.</li>
+<li><strong>Pistas MIDI</strong>: si el proyecto <strong>renderiza MIDI a audio para reproducción</strong> y hay <strong>SoundFont</strong>, oirá las notas por el sintetizador integrado. Con <strong>salida MIDI externa</strong>, use el monitor de su equipo.</li>
+</ul>
+<p>La opción se <strong>guarda en el proyecto</strong> (<code>monitorWhileRecording</code> en <code>project.json</code>). Desactívela para evitar retroalimentación por micrófono.</p>
 <h4 id="grabacion-en-overdub">Grabación en Overdub</h4>
 <p>Al grabar una nueva pista mientras otras pistas habilitadas ya contienen datos de audio o MIDI, Musician's Canvas realiza una grabación en overdub: las pistas existentes se mezclan y se reproducen en tiempo real mientras se graba la nueva pista. Esto le permite escuchar las partes previamente grabadas mientras graba una nueva.</p>
 <p>La mezcla de las pistas existentes se prepara antes de que comience la captura, de modo que la grabación y la reproducción inician aproximadamente en el mismo instante, manteniendo todas las pistas sincronizadas.</p>

@@ -184,7 +184,13 @@ du bygger en **ordnad kedja** av insert-effekter för inspelning på detta spår
 
 ![Dialogruta för spår-effekter](../screenshots/Track_Effects_Dialog.png)
 
-- Klicka **Lägg till effekt…** och välj **Reverb**, **Chorus** eller **Flanger**. Flera instanser är tillåtna; rött **✕** i
+Effekttyper inkluderar **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion** och **Amp & cabinet** (modellering av förstärkare och högtalarlåda: amptyp, kabinett, förstärkning, bas/mellan/discant, luft och blandning). Skärmbilder av **Amp & cabinet**:
+
+![Amp & cabinet-modellering (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+
+![Amp & cabinet-modellering (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+
+- Klicka **Lägg till effekt…** och välj en effekttyp. Flera instanser är tillåtna; rött **✕** i
   rubriken tar bort en effekt.
 - Dra **≡** för att **ändra ordning**. **Överst** körs **först**.
 - ms och Hz förblir meningsfulla efter konvertering till **projektets samplingsfrekvens**. **Mono** och **stereo**

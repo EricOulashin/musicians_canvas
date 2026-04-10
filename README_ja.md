@@ -20,7 +20,7 @@
 - **PortAudioキャプチャ（オプションビルド）**：プロジェクトがPortAudioでビルドされている場合（`HAVE_PORTAUDIO`）、録音はQt Multimediaの代わりにネイティブPortAudio入力パスを使用できます（Audacityと同様の精神）。**Project → Project Settings → Audio** で **PortAudio** または **Qt Multimedia** を選択し、PortAudio入力デバイスを選択できます。PortAudioがインストールされていない場合でもビルドは成功し、録音はQt Multimediaのみを使用します。
 - **高品質サンプルレート変換**：オーディオデバイスのネイティブレートで録音し、ウィンドウ付きsinc補間（Kaiser窓、~96 dBの阻止帯域減衰）を使用してプロジェクトレートに変換します。これはAudacity / libsoxrが使用するのと同じアルゴリズムファミリーです。これにより、デバイスのネイティブレートに関係なく、任意のプロジェクトサンプルレート（8000 Hzから192000 Hz）で録音でき、ピッチや長さの変更はありません。
 - **自動モノ/ステレオ処理**：ステレオとして広告されている物理的にモノのデバイスを検出し（PipeWireでのUSBウェブカムマイクによく見られる）、必要に応じてモノとステレオ間で変換（複製または平均化）します。Audacityのチャンネルルーティングアプローチに対応
-- **録音インサートエフェクト（オーディオトラック）**：各オーディオトラックの **Options** の下にある **Effects** ボタンで **Track effects** ダイアログを開きます。**Reverb**、**Chorus**、**Flanger** を追加・設定し、**≡** をドラッグしてチェーンを並べ替え（上が先）、プロジェクトに保存します。エフェクトは録音停止時にテイクへ適用されます。パラメータは実単位（ms、Hz）で、キャプチャ正規化後もモノ／ステレオおよび一般的なプロジェクトサンプルレート（8 kHz～192 kHz）で一貫した挙動になります。詳細は[ユーザーマニュアル](docs/MusiciansCanvas_User_Manual_ja.md)を参照。翻訳者は `lupdate` 後に `scripts/effect_i18n.tsv`（`scripts/build_effect_tsv.py` で生成）と `scripts/fill_effect_i18n.py` で一括更新できます。
+- **録音インサートエフェクト（オーディオトラック）**：各オーディオトラックの **Options** の下にある **Effects** ボタンで **Track effects** ダイアログを開きます。**Reverb**、**Chorus**、**Flanger**、**Overdrive / distortion**、**Amp & cabinet**（アンプ＆キャビネット・モデリング）を追加・設定し、**≡** をドラッグしてチェーンを並べ替え（上が先）、プロジェクトに保存します。エフェクトは録音停止時にテイクへ適用されます。パラメータは実単位（ms、Hz）で、キャプチャ正規化後もモノ／ステレオおよび一般的なプロジェクトサンプルレート（8 kHz～192 kHz）で一貫した挙動になります。詳細は[ユーザーマニュアル](docs/MusiciansCanvas_User_Manual_ja.md)を参照。翻訳者は `lupdate` 後に `scripts/effect_i18n.tsv`（`scripts/build_effect_tsv.py` で生成）と `scripts/fill_effect_i18n.py` で一括更新できます。
 - **録音中のモニター**：数値時刻表示の右の **録音中にオーディオをモニター** で、キャプチャ中にライブ入力を**プロジェクトのオーディオ出力**へ送るか切り替えます。オーディオトラックは録音と同じ信号、MIDI は「再生用に MIDI をオーディオへレンダリング」と SoundFont 利用時にソフトシンスで聴取。設定は**プロジェクト**に保存（`monitorWhileRecording`）。フィードバック回避のためオフにできます。
 - **低レイテンシーオーディオ**：WindowsではASIOドライバー検出により低レイテンシーオーディオを実現。LinuxではPipeWire / PulseAudio / ALSAでのジッター低減のためにプロセススケジューリング優先度を上げます
 - **Virtual MIDI Keyboard**：ソフトウェアピアノキーボードを介してMIDIノートを送信するコンパニオンアプリケーション。内蔵FluidSynthシンセサイザー、調整可能なマスターゲイン、コンピューターキーボードからピアノへのマッピング、楽器/プログラム選択、コーラス/エフェクト制御、オクターブシフト機能付き
@@ -42,6 +42,8 @@
 	<a href="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" alt="プロジェクト固有のMIDI設定" width="800"></a>
 	<a href="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" alt="プロジェクト固有のオーディオ設定" width="800"></a>
 	<a href="screenshots/Track_Effects_Dialog.png" target='_blank'><img src="screenshots/Track_Effects_Dialog.png" alt="トラックエフェクト" width="800"></a>
+	<a href="screenshots/Amp_And_Cabinet_Model_1.png" target='_blank'><img src="screenshots/Amp_And_Cabinet_Model_1.png" alt="Amp & cabinet modeling (1)" width="800"></a>
+	<a href="screenshots/Amp_And_Cabinet_Model_2.png" target='_blank'><img src="screenshots/Amp_And_Cabinet_Model_2.png" alt="Amp & cabinet modeling (2)" width="800"></a>
 	<a href="screenshots/VMIDIKeyboard1.png" target='_blank'><img src="screenshots/VMIDIKeyboard1.png" alt="Virtual MIDI Keyboard" width="800"></a>
 	<a href="screenshots/VMIDIKeyboard2.png" target='_blank'><img src="screenshots/VMIDIKeyboard2.png" alt="Virtual MIDI Keyboard" width="800"></a>
 </p>

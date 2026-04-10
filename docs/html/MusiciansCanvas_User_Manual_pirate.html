@@ -73,6 +73,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#plunderin-sounds-recording">Plunderin' Sounds (Recording)</a><ul>
 <li><a href="#audio-plunderin">Audio Plunderin'</a></li>
 <li><a href="#insert-effects-audio-shanties-only">Insert effects (audio shanties only)</a></li>
+<li><a href="#hear-yer-racket-live">Hear yer racket live</a></li>
 <li><a href="#midi-plunderin">MIDI Plunderin'</a></li>
 </ul>
 </li>
@@ -252,13 +253,24 @@ fresh audio shanties.</p>
 <p>Durin' plunderin' an' replayin', all interactive controls (shanty buttons, settings, etc.) be disabled to prevent accidental changes. Keep yer hands off the riggin' while we're recordin'!</p>
 <h3 id="insert-effects-audio-shanties-only">Insert effects (audio shanties only)</h3>
 <p>Audio shanties have an <strong>Effects</strong> button just below <strong>Options</strong>. It opens <strong>Track effects</strong>, where ye build a <strong>ordered chain</strong> o' plunder-time insert effects fer this shanty:</p>
+<p><img alt="Track effects dialog" src="screenshots/Track_Effects_Dialog.png" /></p>
+<p>Ye can haul aboard <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, an' <strong>Amp &amp; cabinet</strong> (modelin' amp an' speaker box: amp voice, cabinet, gain, bass/middle/treble, air, an' wet/dry). Spyglass on <strong>Amp &amp; cabinet</strong>:</p>
+<p><img alt="Amp &amp; cabinet modelin' (1)" src="screenshots/Amp_And_Cabinet_Model_1.png" /></p>
+<p><img alt="Amp &amp; cabinet modelin' (2)" src="screenshots/Amp_And_Cabinet_Model_2.png" /></p>
 <ul>
-<li><strong>Add effect…</strong> an' pick <strong>Reverb</strong> or <strong>Chorus</strong>. Ye may stack more than one; the red <strong>✕</strong> in the header scuttles an effect.</li>
+<li><strong>Add effect…</strong> an' pick a type o' effect. Ye may stack more than one; the red <strong>✕</strong> in the header scuttles an effect.</li>
 <li>Drag <strong>≡</strong> to <strong>reorder</strong>. The <strong>topmost</strong> effect runs <strong>first</strong>.</li>
 <li>ms an' Hz stay meanin'ful after convertin' to the <strong>project sample rate</strong>. <strong>Mono</strong> an' <strong>stereo</strong> both be supported (mono runs dual-mono through the chain an' mixes back ta one channel).</li>
 <li><strong>OK</strong> saves ta the project; <strong>Cancel</strong> restores the chain as when ye opened the dialog.</li>
 </ul>
 <p>Effects be applied <strong>when ye click Stop</strong>, after the usual capture an' resample. The rig be stored in <code>project.json</code> under <code>audioEffectChain</code>.</p>
+<h3 id="hear-yer-racket-live">Hear yer racket live</h3>
+<p>Beside the <strong>time glass</strong>, <strong>Hear yer racket live while recordin'</strong> sends <strong>live plunder</strong> to the <strong>project's speakin' tubes</strong> while ye capture:</p>
+<ul>
+<li><strong>Audio shanties</strong>: ye hear the mic or line as it happens (the hold be still written to treasure). Stacks atop <strong>overdub</strong> if other shanties be playin'.</li>
+<li><strong>MIDI shanties</strong>: when <strong>Render MIDI to sound for playin' back</strong> be set and a <strong>SoundFont</strong> be loaded, notes come through the soft synth. With <strong>outside MIDI ports</strong>—trust yer keyboard's own listenin' line.</li>
+</ul>
+<p>The flag be <strong>kept in the chart</strong> (<code>monitorWhileRecording</code> in <code>project.json</code>). Strike it if ye fear the mic pickin' up the speakers.</p>
 <h4 id="overdub-plunderin">Overdub Plunderin'</h4>
 <p>When plunderin' a new shanty while other enabled shanties already contain audio or MIDI data, Musician's Canvas performs overdub plunderin': the existing shanties be mixed together an' played back in real time while the new shanty be recorded. This lets ye hear previously plundered parts while layin' down a new one, like singin' harmony with yer crewmates!</p>
 <p>The mix o' existing shanties be prepared before capture begins, so plunderin' an' replayin' start at approximately the same instant, keepin' all shanties synchronized like a well-drilled crew.</p>

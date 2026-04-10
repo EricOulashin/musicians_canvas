@@ -159,7 +159,13 @@ Mae botwm **Effeithiau** ar draciau sain union dan **Options**. Mae'n agor y dde
 
 ![Deialog effeithiau trac](../screenshots/Track_Effects_Dialog.png)
 
-- **Ychwanegu effaith…** a dewiswch **Reverb**, **Chorus** neu **Flanger**. Mae sawl enghraifft yn cael ei chaniatáu; mae'r **✕** coch yn y pennyn yn dileu effaith.
+Mae **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion** a **Amp & cabinet** (modelu amplyffydd a chabinet: math o amplyffydd, cabinet, ennill, bas/canol/uchel, awyr a chymysgu) ar gael. Sgrinluniau'r effaith **Amp & cabinet**:
+
+![Modelu Amp & cabinet (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+
+![Modelu Amp & cabinet (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+
+- **Ychwanegu effaith…** a dewiswch fath o effaith. Mae sawl enghraifft yn cael ei chaniatáu; mae'r **✕** coch yn y pennyn yn dileu effaith.
 - Llusgwch **≡** i **aildrefnu**. Mae'r **effaith uchaf** yn **cychwyn gyntaf**.
 - Mae ms a Hz yn parhau'n ystyrlon ar ôl trosi i **gyfradd samplu'r prosiect**. Cefnogir **mono** a **stereo** (mae mono'n cael ei brosesu fel dwy-lwybr mono ac yn cael ei gymysgu'n ôl i un sianel).
 - **Iawn** yn cadw yn y prosiect; **Canslo** yn adfer y gadwyn fel pan agorwyd y ddeialog.

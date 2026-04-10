@@ -73,6 +73,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#opptak">Opptak</a><ul>
 <li><a href="#lydopptak">Lydopptak</a></li>
 <li><a href="#insert-effekter-kun-lydspor">Insert-effekter (kun lydspor)</a></li>
+<li><a href="#overvak-under-opptak">Overvåk under opptak</a></li>
 <li><a href="#midi-opptak">MIDI-opptak</a></li>
 </ul>
 </li>
@@ -252,8 +253,12 @@ direkte til Musician's Canvas-vinduet for å legge dem til som nye lydspor.</p>
 <h3 id="insert-effekter-kun-lydspor">Insert-effekter (kun lydspor)</h3>
 <p>Lydspor har en knapp <strong>Effekter</strong> rett under <strong>Options</strong>. Den åpner dialogen <strong>Spor-effekter</strong>, der du
 bygger en <strong>ordnet kjede</strong> med insert-effekter for opptak på dette sporet:</p>
+<p><img alt="Dialogen Spor-effekter" src="screenshots/Track_Effects_Dialog.png" /></p>
+<p>Effekttypene inkluderer <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong> og <strong>Amp &amp; cabinet</strong> (modellering av forsterker og høyttalerkabinett: amptype, kabinett, gain, bass/mellomtone/discant, luft og blandning). Skjermbilder av <strong>Amp &amp; cabinet</strong>:</p>
+<p><img alt="Amp &amp; cabinet-modellering (1)" src="screenshots/Amp_And_Cabinet_Model_1.png" /></p>
+<p><img alt="Amp &amp; cabinet-modellering (2)" src="screenshots/Amp_And_Cabinet_Model_2.png" /></p>
 <ul>
-<li>Klikk <strong>Legg til effekt…</strong> og velg <strong>Reverb</strong> eller <strong>Chorus</strong>. Flere instanser er mulig; rødt <strong>✕</strong> i
+<li>Klikk <strong>Legg til effekt…</strong> og velg en effekttype. Flere instanser er mulig; rødt <strong>✕</strong> i
   overskriften fjerner en effekt.</li>
 <li>Dra <strong>≡</strong> for å <strong>endre rekkefølge</strong>. <strong>Øverst</strong> kjører <strong>først</strong>.</li>
 <li>ms og Hz gir fortsatt mening etter konvertering til <strong>prosjektets samplingsfrekvens</strong>. <strong>Mono</strong> og <strong>stereo</strong>
@@ -262,6 +267,14 @@ bygger en <strong>ordnet kjede</strong> med insert-effekter for opptak på dette
 </ul>
 <p>Effekter brukes når du <strong>stopper opptaket</strong>, etter vanlig capture og resampling. Konfigurasjonen lagres i
 <code>project.json</code> under <code>audioEffectChain</code>.</p>
+<h3 id="overvak-under-opptak">Overvåk under opptak</h3>
+<p>Ved siden av <strong>tidsdisplayet</strong> styr <strong>Overvåk lyd under opptak</strong> om <strong>live-inngang</strong> sendes til <strong>prosjektets lydutgang</strong>
+under opptak:</p>
+<ul>
+<li><strong>Lydspor</strong>: inngangssignalet spilles i sanntid (opptakskjeden uendret). Legges oppå eventuell <strong>overdub</strong>-avspilling.</li>
+<li><strong>MIDI-spor</strong>: med <strong>gjengi MIDI som lyd for avspilling</strong> og <strong>SoundFont</strong> høres notene via programvare-synth. Ved <strong>ekstern MIDI-ut</strong> — bruk instrumentets overvåking.</li>
+</ul>
+<p>Valget <strong>lagres i prosjektet</strong> (<code>monitorWhileRecording</code> i <code>project.json</code>). Skru av for å redusere mikrofontilbakekobling.</p>
 <h4 id="overdub-opptak">Overdub-opptak</h4>
 <p>Når du tar opp et nytt spor mens andre aktiverte spor allerede inneholder lyd- eller MIDI-data, utfører Musician's Canvas overdub-opptak: de eksisterende sporene mikses sammen og spilles av i sanntid mens det nye sporet tas opp. Dette lar deg høre tidligere innspilte deler mens du legger inn en ny del.</p>
 <p>Miksen av eksisterende spor forberedes før opptaket begynner, slik at opptak og avspilling starter på omtrent samme tidspunkt, noe som holder alle spor synkroniserte.</p>

@@ -158,7 +158,13 @@ Audio shanties have an **Effects** button just below **Options**. It opens **Tra
 
 ![Track effects dialog](../screenshots/Track_Effects_Dialog.png)
 
-- **Add effect…** an' pick **Reverb**, **Chorus**, or **Flanger**. Ye may stack more than one; the red **✕** in the header scuttles an effect.
+Ye can haul aboard **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, an' **Amp & cabinet** (modelin' amp an' speaker box: amp voice, cabinet, gain, bass/middle/treble, air, an' wet/dry). Spyglass on **Amp & cabinet**:
+
+![Amp & cabinet modelin' (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+
+![Amp & cabinet modelin' (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+
+- **Add effect…** an' pick a type o' effect. Ye may stack more than one; the red **✕** in the header scuttles an effect.
 - Drag **≡** to **reorder**. The **topmost** effect runs **first**.
 - ms an' Hz stay meanin'ful after convertin' to the **project sample rate**. **Mono** an' **stereo** both be supported (mono runs dual-mono through the chain an' mixes back ta one channel).
 - **OK** saves ta the project; **Cancel** restores the chain as when ye opened the dialog.

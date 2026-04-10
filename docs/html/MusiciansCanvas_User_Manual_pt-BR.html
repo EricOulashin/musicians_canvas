@@ -73,6 +73,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#gravacao">Gravacao</a><ul>
 <li><a href="#gravacao-de-audio">Gravacao de Audio</a></li>
 <li><a href="#efeitos-de-insercao-somente-faixas-de-audio">Efeitos de insercao (somente faixas de audio)</a></li>
+<li><a href="#monitorar-durante-a-gravacao">Monitorar durante a gravacao</a></li>
 <li><a href="#gravacao-midi">Gravacao MIDI</a></li>
 </ul>
 </li>
@@ -292,8 +293,12 @@ configuracoes, etc.) sao desabilitados para evitar alteracoes acidentais.</p>
 <h3 id="efeitos-de-insercao-somente-faixas-de-audio">Efeitos de insercao (somente faixas de audio)</h3>
 <p>Faixas de audio tem o botao <strong>Efeitos</strong> logo abaixo de <strong>Options</strong>. Ele abre o dialogo <strong>Efeitos da
 faixa</strong>, onde voce monta uma <strong>cadeia ordenada</strong> de efeitos de insercao para gravacoes nessa faixa:</p>
+<p><img alt="Dialogo Efeitos da faixa" src="screenshots/Track_Effects_Dialog.png" /></p>
+<p>Tipos incluem <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distorcao</strong> e <strong>Amp &amp; cabinet</strong> (modelagem de amplificador e caixa: tipo de amp, caixa, ganho, graves/medios/agudos, ar e mistura). Telas do efeito <strong>Amp &amp; cabinet</strong>:</p>
+<p><img alt="Modelagem Amp &amp; cabinet (1)" src="screenshots/Amp_And_Cabinet_Model_1.png" /></p>
+<p><img alt="Modelagem Amp &amp; cabinet (2)" src="screenshots/Amp_And_Cabinet_Model_2.png" /></p>
 <ul>
-<li>Clique <strong>Adicionar efeito…</strong> e escolha <strong>Reverb</strong> ou <strong>Chorus</strong>. Varias instancias sao permitidas; o <strong>✕</strong>
+<li>Clique <strong>Adicionar efeito…</strong> e escolha um tipo de efeito. Varias instancias sao permitidas; o <strong>✕</strong>
   vermelho no cabecalho remove um efeito.</li>
 <li>Arraste <strong>≡</strong> para <strong>reordenar</strong>. O efeito do <strong>topo</strong> processa <strong>primeiro</strong>.</li>
 <li>Parametros em ms e Hz permanecem coerentes apos a conversao para a <strong>taxa de amostragem do projeto</strong>.
@@ -302,6 +307,14 @@ faixa</strong>, onde voce monta uma <strong>cadeia ordenada</strong> de efeitos 
 </ul>
 <p>Os efeitos sao aplicados ao <strong>parar a gravacao</strong>, apos captura e reamostragem usuais. A configuracao fica em
 <code>project.json</code> em <code>audioEffectChain</code>.</p>
+<h3 id="monitorar-durante-a-gravacao">Monitorar durante a gravacao</h3>
+<p>Ao lado do <strong>mostrador de tempo</strong>, a caixa <strong>Monitorar audio durante a gravacao</strong> envia ou nao a <strong>entrada ao vivo</strong>
+para a <strong>saida de audio do projeto</strong> durante a captura:</p>
+<ul>
+<li><strong>Faixas de audio</strong>: o sinal de entrada sai em tempo real (a gravacao continua igual). Soma-se a reproducao de <strong>overdub</strong>, se houver.</li>
+<li><strong>Faixas MIDI</strong>: com <strong>renderizar MIDI em audio para reproducao</strong> e <strong>SoundFont</strong> configurados, as notas saem pelo sintetizador. Com <strong>saida MIDI externa</strong>, use o monitor do equipamento.</li>
+</ul>
+<p>A opcao fica no <strong>projeto</strong> (<code>monitorWhileRecording</code> em <code>project.json</code>). Desligue para reduzir retorno no microfone.</p>
 <h4 id="gravacao-overdub">Gravacao Overdub</h4>
 <p>Ao gravar uma nova faixa enquanto outras faixas habilitadas ja contem dados de audio ou
 MIDI, Musician's Canvas realiza gravacao overdub: as faixas existentes sao mixadas e
