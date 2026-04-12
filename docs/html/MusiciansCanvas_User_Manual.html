@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas User Manual</h1>
 <p>Multi-Track Music Recording Application &mdash; Version 0.1.1</p>
-<p>2026-04-10</p>
+<p>2026-04-11</p>
 </div>
 <div class="toc">
 <h2>Table of Contents</h2>
@@ -73,6 +73,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#recording">Recording</a><ul>
 <li><a href="#audio-recording">Audio Recording</a></li>
 <li><a href="#recording-insert-effects-audio-tracks-only">Recording insert effects (audio tracks only)</a></li>
+<li><a href="#mix-effects-full-project">Mix effects (full project)</a></li>
 <li><a href="#monitor-while-recording">Monitor while recording</a></li>
 <li><a href="#midi-recording">MIDI Recording</a></li>
 </ul>
@@ -90,6 +91,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#project-menu">Project Menu</a></li>
 <li><a href="#settings-menu">Settings Menu</a></li>
 <li><a href="#tools-menu">Tools Menu</a></li>
+<li><a href="#add-drum-track">Add drum track</a></li>
 </ul>
 </li>
 <li><a href="#keyboard-shortcuts">Keyboard Shortcuts</a></li>
@@ -309,6 +311,9 @@ on that track:</p>
 sample-rate conversion pipeline—so what you hear from the effect controls matches what gets
 baked into the FLAC for that take. The effect configuration is stored in <code>project.json</code>
 under that track’s <code>audioEffectChain</code> entry.</p>
+<h3 id="mix-effects-full-project">Mix effects (full project)</h3>
+<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
 <h3 id="monitor-while-recording">Monitor while recording</h3>
 <p>Next to the main <strong>time display</strong>, the <strong>Monitor audio while recording</strong> checkbox controls
 whether you hear <strong>live input</strong> through the <strong>project audio output</strong> while the transport is
@@ -476,6 +481,8 @@ or audio device. Project-specific settings are saved inside the <code>project.js
   is disabled.</li>
 </ul>
 <p><img alt="Project audio settings" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
+<h4 id="mix-effects-tab">Mix Effects tab</h4>
+<p>The <strong>Mix Effects</strong> tab is a scrollable list with the same controls as <strong>Track effects</strong> (<strong>Add effect…</strong>, drag <strong>≡</strong> to reorder, <strong>✕</strong> to remove). Processing order is <strong>top to bottom</strong> on the <strong>combined</strong> mix of all enabled tracks. These effects run during <strong>whole-project playback</strong> and when <strong>mixing to a single WAV or FLAC file</strong>; they are <strong>not</strong> baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer’s own level handling.</p>
 <h2 id="menus">Menus</h2>
 <h3 id="file-menu">File Menu</h3>
 <table>
@@ -559,12 +566,27 @@ or audio device. Project-specific settings are saved inside the <code>project.js
 <td>Export all enabled tracks to a file</td>
 </tr>
 <tr>
+<td>Add drum track</td>
+<td>D</td>
+<td>Add a MIDI drum track and write a <code>.mid</code> groove (see below)</td>
+</tr>
+<tr>
 <td>Virtual MIDI Keyboard</td>
 <td></td>
 <td>Launch the companion keyboard app</td>
 </tr>
 </tbody>
 </table>
+<h3 id="add-drum-track">Add drum track</h3>
+<p><strong>Tools → Add drum track</strong> (shortcut <strong>D</strong>) creates a new <strong>MIDI</strong> track intended for percussion: notes are on <strong>MIDI channel 10</strong> (General MIDI drums; internally channel index 9). The track is given a default name such as <strong>Drums</strong> (with a numeric suffix if that name is already taken).</p>
+<p>A <strong>Standard MIDI File</strong> (<code>.mid</code>) is written into the <strong>project directory</strong> immediately, containing a <strong>two-bar 4/4</strong> pattern with kick, snare, and closed hi-hat at a tempo chosen as follows:</p>
+<ul>
+<li>If <strong>Metronome Settings</strong> (toolbar <strong>metronome</strong> button) has <strong>Enable metronome during recording</strong> <strong>enabled</strong>, the pattern uses the <strong>Beats per minute</strong> value from that dialog.</li>
+<li>If the metronome is <strong>disabled</strong>, the application <strong>estimates BPM</strong> from a <strong>mono mix</strong> of all <strong>enabled</strong> <strong>audio</strong> tracks that contain recorded audio. If there is no usable audio or estimation fails, <strong>120 BPM</strong> is used.</li>
+</ul>
+<p>Save the project (<strong>File → Save Project</strong>) so <code>project.json</code> references the new <code>.mid</code> file like any other MIDI track.</p>
+<p><strong>Note:</strong> BPM detection is a simple onset-autocorrelation helper; it works best on rhythmic material and may pick half/double time on some sources—adjust the metronome and re-add the track, or edit the MIDI file in another tool if needed.</p>
+<p><strong>Further reading (external):</strong> <a href="https://audient.com/tutorial/how-to-program-realistic-midi-drum-tracks/">Audient — How to program realistic MIDI drum tracks</a>, <a href="https://www.meldaproduction.com/MDrummer">MeldaProduction — MDrummer</a> (see also Melda’s <a href="https://www.youtube.com/watch?v=qfXuNcfDuIA">MDrummer overview video</a>), <a href="https://www.reddit.com/r/ableton/comments/1e51a7g/generating_midi_drum_patterns_based_on_audio_input/">Reddit — generating MIDI drum patterns from audio</a>, the overview paper <em><a href="https://cs229.stanford.edu/proj2014/Louis%20Eugene,%20Guillaume%20Rostaing,%20Automated%20Music%20Track%20Generation.pdf">Automated Music Track Generation</a></em> (Stanford CS229), and an informal video on <a href="https://www.youtube.com/watch?v=jFVMKf8-IXk">playing drum-like MIDI from a keyboard controller</a>.</p>
 <h2 id="keyboard-shortcuts">Keyboard Shortcuts</h2>
 <table>
 <thead>
@@ -585,6 +607,10 @@ or audio device. Project-specific settings are saved inside the <code>project.js
 <tr>
 <td>Ctrl+M</td>
 <td>Mix tracks to file</td>
+</tr>
+<tr>
+<td>D</td>
+<td>Add drum track (Tools menu)</td>
 </tr>
 <tr>
 <td>Ctrl+P</td>

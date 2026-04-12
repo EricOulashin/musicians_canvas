@@ -177,6 +177,12 @@ Dostępne są m.in. **Pogłos**, **Chorus**, **Flanger**, **Overdrive / distorti
 Efekty stosuje się po **zatrzymaniu nagrywania**, po zwykłym przechwyceniu i resamplingu. Konfiguracja jest
 w `project.json` w `audioEffectChain`.
 
+### Mix effects (full project)
+
+**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
+
+To reduce harsh [digital clipping](https://en.wikipedia.org/wiki/Clipping_%28audio%29) when processing pushes peaks toward full scale, the effect engine applies a **soft limiter** to normalized float samples immediately before conversion to 16-bit PCM. The **EffectWidget** base class documents `guardFloatSampleForInt16Pcm()` and `softLimitFloatSampleForInt16Pcm()` for any new real-time code that writes to 16-bit audio.
+
 ### Monitorowanie podczas nagrywania
 
 Obok **wyświetlacza czasu** pole **Monitoruj dźwięk podczas nagrywania** włącza lub wyłącza wysyłanie **żywego wejścia**
@@ -322,6 +328,10 @@ Użyj **Project > Project Settings** (Ctrl+P), aby nadpisać globalne wartości 
 
 ![Ustawienia audio projektu](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
 
+#### Mix Effects tab
+
+The **Mix Effects** tab is a scrollable list with the same controls as **Track effects** (**Add effect…**, drag **≡** to reorder, **✕** to remove). Processing order is **top to bottom** on the **combined** mix of all enabled tracks. These effects run during **whole-project playback** and when **mixing to a single WAV or FLAC file**; they are **not** baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.
+
 ## Menu
 
 ### Menu Plik
@@ -350,6 +360,7 @@ Użyj **Project > Project Settings** (Ctrl+P), aby nadpisać globalne wartości 
 | Element menu          | Skrót    | Opis                                            |
 |-----------------------|----------|-------------------------------------------------|
 | Mix tracks to file    | Ctrl+M   | Eksportuj wszystkie włączone ścieżki do pliku  |
+| Add drum track        | D        | Ścieżka MIDI perkusji i plik `.mid` (patrz niżej) |
 | Virtual MIDI Keyboard |          | Uruchom aplikację towarzyszącą klawiatury       |
 
 ## Skróty klawiaturowe
@@ -359,9 +370,22 @@ Użyj **Project > Project Settings** (Ctrl+P), aby nadpisać globalne wartości 
 | Ctrl+S          | Zapisz projekt                     |
 | Ctrl+O          | Otwórz projekt                     |
 | Ctrl+M          | Miksuj ścieżki do pliku           |
+| D               | Dodaj ścieżkę perkusji (menu Tools)    |
 | Ctrl+P          | Ustawienia projektu                |
 | Ctrl+,          | Ustawienia / Konfiguracja          |
 | Ctrl+Q / Alt+F4 | Zamknij                           |
+
+
+### Dodaj ścieżkę perkusji
+
+**Tools → Add drum track** (skrót **D**) dodaje **MIDI** na **kanale 10** General MIDI (indeks 9). Domyślna nazwa **Drums**.
+
+Od razu zapisywany jest **`.mid`** w **folderze projektu**: dwa takty 4/4. Tempo:
+
+- Przy włączonym **Włącz metronom podczas nagrywania** używane jest **BPM** z metronomu.
+- W przeciwnym razie **szacowane BPM** z włączonych ścieżek **audio**; inaczej **120 BPM**.
+
+**Linki:** [Audient](https://audient.com/tutorial/how-to-program-realistic-midi-drum-tracks/), [MDrummer](https://www.meldaproduction.com/MDrummer), [Reddit](https://www.reddit.com/r/ableton/comments/1e51a7g/generating_midi_drum_patterns_based_on_audio_input/), [CS229 PDF](https://cs229.stanford.edu/proj2014/Louis%20Eugene,%20Guillaume%20Rostaing,%20Automated%20Music%20Track%20Generation.pdf).
 
 ## Virtual MIDI Keyboard
 

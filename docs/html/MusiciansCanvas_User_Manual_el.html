@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas &#917;&#947;&#967;&#949;&#953;&#961;&#943;&#948;&#953;&#959; &#935;&#961;&#942;&#963;&#964;&#951;</h1>
 <p>Εφαρμογή Εγγραφής Μουσικής Πολλαπλών Καναλιών &mdash; Version 0.1.1</p>
-<p>2026-04-10</p>
+<p>2026-04-11</p>
 </div>
 <div class="toc">
 <h2>&#928;&#943;&#957;&#945;&#954;&#945;&#962; &#928;&#949;&#961;&#953;&#949;&#967;&#959;&#956;&#941;&#957;&#969;&#957;</h2>
@@ -73,6 +73,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#_14">Εγγραφή</a><ul>
 <li><a href="#_15">Εγγραφή Ήχου</a></li>
 <li><a href="#_16">Εφέ εισαγωγής (μόνο κανάλια ήχου)</a></li>
+<li><a href="#mix-effects-full-project">Mix effects (full project)</a></li>
 <li><a href="#_17">Παρακολούθηση κατά την εγγραφή</a></li>
 <li><a href="#midi">Εγγραφή MIDI</a></li>
 </ul>
@@ -92,12 +93,15 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#tools">Μενού Tools</a></li>
 </ul>
 </li>
-<li><a href="#_28">Συντομεύσεις Πληκτρολογίου</a></li>
+<li><a href="#_28">Συντομεύσεις Πληκτρολογίου</a><ul>
+<li><a href="#_29">Προσθήκη κομματιού τύμπανων</a></li>
+</ul>
+</li>
 <li><a href="#virtual-midi-keyboard">Virtual MIDI Keyboard</a><ul>
-<li><a href="#_29">Χαρακτηριστικά</a></li>
-<li><a href="#_30">Χειριστήρια Γραμμής Εργαλείων</a></li>
-<li><a href="#_31">Παίζοντας με το Πληκτρολόγιο Υπολογιστή</a></li>
-<li><a href="#_32">Διαμόρφωση</a></li>
+<li><a href="#_30">Χαρακτηριστικά</a></li>
+<li><a href="#_31">Χειριστήρια Γραμμής Εργαλείων</a></li>
+<li><a href="#_32">Παίζοντας με το Πληκτρολόγιο Υπολογιστή</a></li>
+<li><a href="#_33">Διαμόρφωση</a></li>
 <li><a href="#virtual-midi-keyboard_1">Συντομεύσεις Virtual MIDI Keyboard</a></li>
 </ul>
 </li>
@@ -107,22 +111,22 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#virtual-midi-keyboard-musicians-canvas">Πώς σχετίζεται το Virtual MIDI Keyboard με το Musician's Canvas;</a></li>
 <li><a href="#configuration-project-settings">Ποια η διαφορά Configuration και Project Settings;</a></li>
 <li><a href="#-">Γιατί η μεταφορά-και-απόθεση δεν προσθέτει αρχεία ήχου;</a></li>
-<li><a href="#_33">Πού αποθηκεύονται οι ηχογραφήσεις;</a></li>
+<li><a href="#_34">Πού αποθηκεύονται οι ηχογραφήσεις;</a></li>
 <li><a href="#midi_6">Ποιο όνομα αρχείου χρησιμοποιείται όταν το MIDI αποδίδεται για μίξη;</a></li>
-<li><a href="#_34">Μπορώ να ηχογραφήσω δύο κανάλια ταυτόχρονα;</a></li>
-<li><a href="#_35">Καταγράφεται το μετρονόμο στο κανάλι;</a></li>
+<li><a href="#_35">Μπορώ να ηχογραφήσω δύο κανάλια ταυτόχρονα;</a></li>
+<li><a href="#_36">Καταγράφεται το μετρονόμο στο κανάλι;</a></li>
 <li><a href="#musicians-canvas-asio-windows">Γιατί το Musician's Canvas απαιτεί ASIO στα Windows;</a></li>
 <li><a href="#virtual-midi-keyboard-macos">Πού βρίσκεται το Virtual MIDI Keyboard στο macOS;</a></li>
 </ul>
 </li>
-<li><a href="#_36">Αντιμετώπιση Προβλημάτων</a><ul>
-<li><a href="#_37">Δεν Υπάρχει Έξοδος Ήχου</a></li>
+<li><a href="#_37">Αντιμετώπιση Προβλημάτων</a><ul>
+<li><a href="#_38">Δεν Υπάρχει Έξοδος Ήχου</a></li>
 <li><a href="#midi_7">Τα Κανάλια MIDI Είναι Σιωπηλά</a></li>
-<li><a href="#_38">Η Εγγραφή Ακούγεται Παραμορφωμένη ή Έχει Λάθος Τονικότητα</a></li>
+<li><a href="#_39">Η Εγγραφή Ακούγεται Παραμορφωμένη ή Έχει Λάθος Τονικότητα</a></li>
 <li><a href="#virtual-midi-keyboard_2">Το Virtual MIDI Keyboard Δεν Έχει Ήχο</a></li>
 </ul>
 </li>
-<li><a href="#_39">Κατασκευή από τον Πηγαίο Κώδικα</a></li>
+<li><a href="#_40">Κατασκευή από τον Πηγαίο Κώδικα</a></li>
 </ul>
 </li>
 </ul>
@@ -266,6 +270,9 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><strong>OK</strong> αποθηκεύει στο έργο· <strong>Άκυρο</strong> επαναφέρει την αλυσίδα όπως κατά το άνοιγμα.</li>
 </ul>
 <p>Τα εφέ εφαρμόζονται όταν <strong>σταματάτε την εγγραφή</strong>, μετά τη συνήθη καταγραφή και επαναδειγματοληψία. Η ρύθμιση αποθηκεύεται στο <code>project.json</code> στο πεδίο <code>audioEffectChain</code>.</p>
+<h3 id="mix-effects-full-project">Mix effects (full project)</h3>
+<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
 <h3 id="_17">Παρακολούθηση κατά την εγγραφή</h3>
 <p>Δίπλα στην <strong>ένδειξη χρόνου</strong>, το πλαίσιο <strong>Παρακολούθηση ήχου κατά την εγγραφή</strong> ενεργοποιεί ή όχι τη μετάδοση <strong>ζωντανής εισόδου</strong>
 στην <strong>έξοδο ήχου του έργου</strong> κατά την εγγραφή:</p>
@@ -377,6 +384,8 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><strong>Κανάλια</strong>: Μονοφωνικό ή Στερεοφωνικό. Αν η συσκευή υποστηρίζει μόνο μονοφωνικό, η επιλογή Στερεοφωνικό είναι απενεργοποιημένη.</li>
 </ul>
 <p><img alt="Ρυθμίσεις ήχου έργου" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
+<h4 id="mix-effects-tab">Mix Effects tab</h4>
+<p>The <strong>Mix Effects</strong> tab is a scrollable list with the same controls as <strong>Track effects</strong> (<strong>Add effect…</strong>, drag <strong>≡</strong> to reorder, <strong>✕</strong> to remove). Processing order is <strong>top to bottom</strong> on the <strong>combined</strong> mix of all enabled tracks. These effects run during <strong>whole-project playback</strong> and when <strong>mixing to a single WAV or FLAC file</strong>; they are <strong>not</strong> baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.</p>
 <h2 id="_27">Μενού</h2>
 <h3 id="file">Μενού File</h3>
 <table>
@@ -460,6 +469,11 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <td>Εξαγωγή όλων των ενεργοποιημένων καναλιών σε αρχείο</td>
 </tr>
 <tr>
+<td>Add drum track</td>
+<td>D</td>
+<td>Προσθήκη MIDI τυμπάνων και <code>.mid</code> (δείτε παρακάτω)</td>
+</tr>
+<tr>
 <td>Virtual MIDI Keyboard</td>
 <td></td>
 <td>Εκκίνηση της συνοδευτικής εφαρμογής πληκτρολογίου</td>
@@ -488,6 +502,10 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <td>Μίξη καναλιών σε αρχείο</td>
 </tr>
 <tr>
+<td>D</td>
+<td>Προσθήκη κομματιού τύμπανων (μενού Tools)</td>
+</tr>
+<tr>
 <td>Ctrl+P</td>
 <td>Ρυθμίσεις Έργου</td>
 </tr>
@@ -501,10 +519,18 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </tr>
 </tbody>
 </table>
+<h3 id="_29">Προσθήκη κομματιού τύμπανων</h3>
+<p><strong>Tools → Add drum track</strong> (συντόμευση <strong>D</strong>) προσθέτει <strong>MIDI</strong> κομμάτι τυμπάνων στο <strong>κανάλι 10</strong> General MIDI (δείκτης 9). Προεπιλεγμένο όνομα <strong>Drums</strong>.</p>
+<p>Γράφεται αμέσως <strong><code>.mid</code></strong> στον <strong>φάκελο έργου</strong>: δύο μέτρα 4/4. Ρυθμός:</p>
+<ul>
+<li>Αν είναι ενεργό <strong>Ενεργοποίηση μετρονόμου κατά την εγγραφή</strong>, χρησιμοποιείται το <strong>BPM</strong> του διαλόγου.</li>
+<li>Αλλιώς <strong>εκτίμηση BPM</strong> από ενεργοποιημένα <strong>ήχου</strong> κομμάτια· αλλιώς <strong>120 BPM</strong>.</li>
+</ul>
+<p><strong>Σύνδεσμοι:</strong> <a href="https://audient.com/tutorial/how-to-program-realistic-midi-drum-tracks/">Audient</a>, <a href="https://www.meldaproduction.com/MDrummer">MDrummer</a>, <a href="https://www.reddit.com/r/ableton/comments/1e51a7g/generating_midi_drum_patterns_based_on_audio_input/">Reddit</a>, <a href="https://cs229.stanford.edu/proj2014/Louis%20Eugene,%20Guillaume%20Rostaing,%20Automated%20Music%20Track%20Generation.pdf">CS229 PDF</a>.</p>
 <h2 id="virtual-midi-keyboard">Virtual MIDI Keyboard</h2>
 <p>Το Virtual MIDI Keyboard είναι μια συνοδευτική εφαρμογή (<code>virtual_midi_keyboard</code>) που παρέχει ένα πληκτρολόγιο πιάνου στην οθόνη για αποστολή νοτών MIDI. Μπορεί να εκκινηθεί από το μενού <strong>Tools &gt; Virtual MIDI Keyboard</strong> στην κύρια εφαρμογή, ή να εκτελεστεί ανεξάρτητα.</p>
 <p><img alt="Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard1.png" /></p>
-<h3 id="_29">Χαρακτηριστικά</h3>
+<h3 id="_30">Χαρακτηριστικά</h3>
 <ul>
 <li>Κάντε κλικ στα πλήκτρα του πληκτρολογίου πιάνου στην οθόνη για αναπαραγωγή νοτών</li>
 <li>Χρησιμοποιήστε το πληκτρολόγιο υπολογιστή ως πληκτρολόγιο πιάνου (δείτε την αντιστοίχιση πλήκτρων παρακάτω)</li>
@@ -517,7 +543,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>Μετατόπιση οκτάβας (-3 έως +5)</li>
 <li>Έλεγχος έντασης MIDI (CC#7, 0--127)</li>
 </ul>
-<h3 id="_30">Χειριστήρια Γραμμής Εργαλείων</h3>
+<h3 id="_31">Χειριστήρια Γραμμής Εργαλείων</h3>
 <ul>
 <li><strong>Volume</strong>: Ένταση MIDI (CC#7), ρυθμιζόμενη από 0 έως 127 μέσω του πλαισίου αριθμών.</li>
 <li><strong>Octave</strong>: Μετατόπιση οκτάβας πληκτρολογίου χρησιμοποιώντας τα κουμπιά <strong>&lt;</strong> και <strong>&gt;</strong> ή το πλαίσιο αριθμών. Εύρος -3 έως +5.</li>
@@ -526,7 +552,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><strong>Κρουστά</strong>: Ένα πλαίσιο ελέγχου ακριβώς πάνω από τον επιλογέα καναλιού MIDI. Όταν δεν είναι επιλεγμένο (προεπιλογή), το κανάλι MIDI είναι αυτό που έχει επιλέξει ο χρήστης. Όταν είναι επιλεγμένο, το κανάλι MIDI μεταφέρεται αυτόματα στο κανάλι 10 — το τυπικό κανάλι κρουστών του General MIDI — ώστε οτιδήποτε παίζεται να ακούγεται ως κρουστά. Η αποεπιλογή του πλαισίου επαναφέρει το κανάλι που ήταν επιλεγμένο πριν ενεργοποιηθούν τα Κρουστά.</li>
 <li><strong>Επιλογέας οργάνου</strong>: Επιλέξτε ένα όργανο MIDI. Όταν χρησιμοποιείτε τον ενσωματωμένο συνθετητή FluidSynth, εμφανίζονται οι προεπιλογές SoundFont (Bank:Program Name). Όταν είστε συνδεδεμένοι σε εξωτερική συσκευή MIDI, εμφανίζεται η λίστα 128 οργάνων General MIDI.</li>
 </ul>
-<h3 id="_31">Παίζοντας με το Πληκτρολόγιο Υπολογιστή</h3>
+<h3 id="_32">Παίζοντας με το Πληκτρολόγιο Υπολογιστή</h3>
 <p>Το πληκτρολόγιο υπολογιστή αντιστοιχίζεται σε πλήκτρα πιάνου σε δύο οκτάβες:</p>
 <p><strong>Κάτω οκτάβα (ξεκινώντας από την τρέχουσα οκτάβα):</strong></p>
 <table>
@@ -667,7 +693,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </tbody>
 </table>
 <p>Τα πλήκτρα φωτίζονται οπτικά όταν πατιούνται (τα λευκά πλήκτρα γίνονται ανοιχτό μπλε, τα μαύρα πλήκτρα σκουραίνουν).</p>
-<h3 id="_32">Διαμόρφωση</h3>
+<h3 id="_33">Διαμόρφωση</h3>
 <p>Ανοίξτε το παράθυρο Διαμόρφωσης (<strong>Settings &gt; Configuration</strong>, Ctrl+,) για ρύθμιση συσκευών MIDI και ήχου:</p>
 <p><img alt="Διαμόρφωση Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard2.png" /></p>
 <h4 id="midi_3">Καρτέλα MIDI</h4>
@@ -728,20 +754,20 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <p>Το <strong>Settings &gt; Configuration</strong> ορίζει <strong>καθολικές προεπιλογές</strong> (θέμα, γλώσσα, συσκευές MIDI/ήχου, SoundFont κ.λπ.). Το <strong>Project &gt; Project Settings</strong> αντικαθιστά μέρη <strong>μόνο για το τρέχον έργο</strong> και αποθηκεύεται στο <code>project.json</code>. Αν ένα πεδίο παραμένει στην προεπιλογή έργου, ισχύει η καθολική τιμή από το Configuration.</p>
 <h3 id="-">Γιατί η μεταφορά-και-απόθεση δεν προσθέτει αρχεία ήχου;</h3>
 <p>Τα αρχεία γίνονται δεκτά μόνο όταν έχει οριστεί <strong>κατάλογος έργου</strong> και το Musician's Canvas <strong>δεν</strong> αναπαράγει ούτε ηχογραφεί. Υποστηριζόμενοι τύποι: <strong><code>.wav</code></strong> και <strong><code>.flac</code></strong>· άλλες καταλήξεις παραλείπονται και εμφανίζονται σε διάλογο. Κάθε αρχείο γίνεται νέο κανάλι <strong>ήχου</strong> με όνομα από το βασικό όνομα αρχείου.</p>
-<h3 id="_33">Πού αποθηκεύονται οι ηχογραφήσεις;</h3>
+<h3 id="_34">Πού αποθηκεύονται οι ηχογραφήσεις;</h3>
 <p>Ο ήχος αποθηκεύεται στον <strong>κατάλογο έργου</strong> ως <strong><code>&lt;όνομα_καναλιού&gt;.flac</code></strong> (χαρακτήρες όπως <code>/ \ : * ? " &lt; &gt; |</code> αντικαθίστανται με κάτω παύλα). Το αρχείο έργου είναι <strong><code>project.json</code></strong> στον ίδιο φάκελο. Τα κανάλια MIDI αποθηκεύονται ως <strong><code>&lt;όνομα_καναλιού&gt;.mid</code></strong> όταν αποθηκεύετε το έργο (μαζί με νότες στο <code>project.json</code>).</p>
 <h3 id="midi_6">Ποιο όνομα αρχείου χρησιμοποιείται όταν το MIDI αποδίδεται για μίξη;</h3>
 <p>Κατά τη <strong>μίξη</strong> ή <strong>αναπαραγωγή</strong> το MIDI αποδίδεται πρώτα σε προσωρινό WAV εσωτερικά. Αν είναι γνωστή η διαδρομή έργου, το Musician's Canvas γράφει και <strong>FLAC προσωρινής αποθήκευσης</strong> στον φάκελο έργου: <strong><code>&lt;καθαρισμένο_όνομα_καναλιού&gt;.flac</code></strong> (ίδιοι κανόνες με άλλα αρχεία καναλιών). Το όνομα βασίζεται στο <strong>όνομα καναλιού</strong>, όχι σε εσωτερικό ID.</p>
-<h3 id="_34">Μπορώ να ηχογραφήσω δύο κανάλια ταυτόχρονα;</h3>
+<h3 id="_35">Μπορώ να ηχογραφήσω δύο κανάλια ταυτόχρονα;</h3>
 <p>Όχι. Μόνο <strong>ένα</strong> κανάλι μπορεί να είναι <strong>οπλισμένο</strong> κάθε φορά· αυτό λαμβάνει την επόμενη ηχογράφηση. Χτίστε το κομμάτι ηχογραφώντας <strong>ένα-ένα</strong> (το <strong>overdub</strong> αναπαράγει υπάρχοντα κανάλια κατά νέα λήψη).</p>
-<h3 id="_35">Καταγράφεται το μετρονόμο στο κανάλι;</h3>
+<h3 id="_36">Καταγράφεται το μετρονόμο στο κανάλι;</h3>
 <p>Όχι. Όταν είναι ενεργό, το μετρονόμο ακούγεται μέσω <strong>συστήματος ήχου</strong> μόνο ως αναφορά για εσάς. <strong>Δεν</strong> μιξάρεται στο αρχείο ηχογράφησης.</p>
 <h3 id="musicians-canvas-asio-windows">Γιατί το Musician's Canvas απαιτεί ASIO στα Windows;</h3>
 <p>Στα Windows η κύρια εφαρμογή αναμένει οδηγό <strong>ASIO</strong> για αξιόπιστο ήχο χαμηλής καθυστέρησης. Εγκαταστήστε <strong>ASIO4ALL</strong> ή οδηγό κατασκευαστή σε περίπτωση σφαλμάτων.</p>
 <h3 id="virtual-midi-keyboard-macos">Πού βρίσκεται το Virtual MIDI Keyboard στο macOS;</h3>
 <p>Στο <strong>πακέτο <code>.app</code></strong>, το εκτελέσιμο Virtual MIDI Keyboard <strong>αντιγράφεται μέσα</strong> στο <code>Musician's Canvas.app</code> (<strong>Contents/MacOS/</strong>) ώστε να διανέμεται ένας φάκελος εφαρμογής. Εξακολουθείτε να το ανοίγετε από <strong>Tools &gt; Virtual MIDI Keyboard</strong>.</p>
-<h2 id="_36">Αντιμετώπιση Προβλημάτων</h2>
-<h3 id="_37">Δεν Υπάρχει Έξοδος Ήχου</h3>
+<h2 id="_37">Αντιμετώπιση Προβλημάτων</h2>
+<h3 id="_38">Δεν Υπάρχει Έξοδος Ήχου</h3>
 <ul>
 <li>Ελέγξτε ότι η σωστή συσκευή εξόδου ήχου είναι επιλεγμένη στο Settings &gt; Configuration &gt; Audio.</li>
 <li>Σε Linux, επαληθεύστε ότι το PipeWire ή το PulseAudio λειτουργεί και ότι η έξοδος δεν είναι σε σίγαση. Χρησιμοποιήστε <code>amixer</code> ή τις ρυθμίσεις ήχου της επιφάνειας εργασίας σας για έλεγχο των επιπέδων έντασης.</li>
@@ -753,7 +779,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>Σε Linux, ένα SoundFont συστήματος μπορεί να ανιχνευθεί αυτόματα αν είναι εγκατεστημένο το πακέτο <code>fluid-soundfont-gm</code>.</li>
 <li>Σε Windows και macOS, πρέπει να ρυθμίσετε τη διαδρομή SoundFont χειροκίνητα.</li>
 </ul>
-<h3 id="_38">Η Εγγραφή Ακούγεται Παραμορφωμένη ή Έχει Λάθος Τονικότητα</h3>
+<h3 id="_39">Η Εγγραφή Ακούγεται Παραμορφωμένη ή Έχει Λάθος Τονικότητα</h3>
 <ul>
 <li>Αυτό μπορεί να συμβεί όταν ο εγγενής ρυθμός δειγματοληψίας της συσκευής εισόδου ήχου διαφέρει από τον ρυθμό που έχει ρυθμιστεί στο έργο. Το Musician's Canvas χειρίζεται αυτόματα αυτό μέσω επαναδειγματοληψίας, αλλά αν τα προβλήματα επιμένουν, δοκιμάστε να ρυθμίσετε τον ρυθμό δειγματοληψίας του έργου ώστε να ταιριάζει με τον εγγενή ρυθμό της συσκευής.</li>
 <li>Τα μικρόφωνα USB webcam συχνά έχουν ασυνήθιστους εγγενείς ρυθμούς (π.χ., 32000 Hz). Η εφαρμογή τους ανιχνεύει αυτόματα.</li>
@@ -765,7 +791,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li>Ελέγξτε ότι ένα SoundFont είναι φορτωμένο (δείτε την καρτέλα MIDI στο παράθυρο διαμόρφωσης).</li>
 <li>Επαληθεύστε ότι η συσκευή εξόδου ήχου είναι επιλεγμένη και η ένταση του συστήματος δεν είναι σε σίγαση.</li>
 </ul>
-<h2 id="_39">Κατασκευή από τον Πηγαίο Κώδικα</h2>
+<h2 id="_40">Κατασκευή από τον Πηγαίο Κώδικα</h2>
 <p>Δείτε το <a href="../README.md">README</a> για πλήρεις οδηγίες κατασκευής για Linux, macOS και Windows, συμπεριλαμβανομένων όλων των απαιτούμενων εξαρτήσεων.</p>
 </body>
 </html>

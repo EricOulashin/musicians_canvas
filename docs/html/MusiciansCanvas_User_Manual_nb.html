@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas Brukermanual</h1>
 <p>Flerspors musikkopptaksapplikasjon &mdash; Version 0.1.1</p>
-<p>2026-04-10</p>
+<p>2026-04-11</p>
 </div>
 <div class="toc">
 <h2>Innholdsfortegnelse</h2>
@@ -73,6 +73,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#opptak">Opptak</a><ul>
 <li><a href="#lydopptak">Lydopptak</a></li>
 <li><a href="#insert-effekter-kun-lydspor">Insert-effekter (kun lydspor)</a></li>
+<li><a href="#mix-effects-full-project">Mix effects (full project)</a></li>
 <li><a href="#overvak-under-opptak">Overvåk under opptak</a></li>
 <li><a href="#midi-opptak">MIDI-opptak</a></li>
 </ul>
@@ -92,7 +93,10 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#verktymenyen">Verktøymenyen</a></li>
 </ul>
 </li>
-<li><a href="#tastatursnarveier">Tastatursnarveier</a></li>
+<li><a href="#tastatursnarveier">Tastatursnarveier</a><ul>
+<li><a href="#legg-til-trommespor">Legg til trommespor</a></li>
+</ul>
+</li>
 <li><a href="#virtual-midi-keyboard">Virtual MIDI Keyboard</a><ul>
 <li><a href="#funksjoner">Funksjoner</a></li>
 <li><a href="#verktylinjekontroller">Verktøylinjekontroller</a></li>
@@ -267,6 +271,9 @@ bygger en <strong>ordnet kjede</strong> med insert-effekter for opptak på dette
 </ul>
 <p>Effekter brukes når du <strong>stopper opptaket</strong>, etter vanlig capture og resampling. Konfigurasjonen lagres i
 <code>project.json</code> under <code>audioEffectChain</code>.</p>
+<h3 id="mix-effects-full-project">Mix effects (full project)</h3>
+<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
 <h3 id="overvak-under-opptak">Overvåk under opptak</h3>
 <p>Ved siden av <strong>tidsdisplayet</strong> styr <strong>Overvåk lyd under opptak</strong> om <strong>live-inngang</strong> sendes til <strong>prosjektets lydutgang</strong>
 under opptak:</p>
@@ -378,6 +385,8 @@ hjelpe deg å holde takten. Klikk på metronomknappen på knapperaden (under men
 <li><strong>Kanaler</strong>: Mono eller Stereo. Hvis enheten bare støtter mono, er Stereo-alternativet deaktivert.</li>
 </ul>
 <p><img alt="Prosjekt-lydinnstillinger" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
+<h4 id="mix-effects-tab">Mix Effects tab</h4>
+<p>The <strong>Mix Effects</strong> tab is a scrollable list with the same controls as <strong>Track effects</strong> (<strong>Add effect…</strong>, drag <strong>≡</strong> to reorder, <strong>✕</strong> to remove). Processing order is <strong>top to bottom</strong> on the <strong>combined</strong> mix of all enabled tracks. These effects run during <strong>whole-project playback</strong> and when <strong>mixing to a single WAV or FLAC file</strong>; they are <strong>not</strong> baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.</p>
 <h2 id="menyer">Menyer</h2>
 <h3 id="fil-menyen">Fil-menyen</h3>
 <table>
@@ -461,6 +470,11 @@ hjelpe deg å holde takten. Klikk på metronomknappen på knapperaden (under men
 <td>Eksportere alle aktiverte spor til en fil</td>
 </tr>
 <tr>
+<td>Add drum track</td>
+<td>D</td>
+<td>MIDI-trommespor og <code>.mid</code> (se nedenfor)</td>
+</tr>
+<tr>
 <td>Virtual MIDI Keyboard</td>
 <td></td>
 <td>Starte følgeapplikasjonen for keyboard</td>
@@ -489,6 +503,10 @@ hjelpe deg å holde takten. Klikk på metronomknappen på knapperaden (under men
 <td>Mikse spor til fil</td>
 </tr>
 <tr>
+<td>D</td>
+<td>Legg til trommespor (Tools-menyen)</td>
+</tr>
+<tr>
 <td>Ctrl+P</td>
 <td>Prosjektinnstillinger</td>
 </tr>
@@ -502,6 +520,14 @@ hjelpe deg å holde takten. Klikk på metronomknappen på knapperaden (under men
 </tr>
 </tbody>
 </table>
+<h3 id="legg-til-trommespor">Legg til trommespor</h3>
+<p><strong>Tools → Add drum track</strong> (snarvei <strong>D</strong>) legger til <strong>MIDI</strong>-trommespor på <strong>kanal 10</strong> General MIDI (indeks 9). Standardnavn <strong>Drums</strong>.</p>
+<p><strong><code>.mid</code></strong> skrives i <strong>prosjektmappa</strong>: to takter 4/4. Tempo:</p>
+<ul>
+<li>Med <strong>Aktiver metronom under opptak</strong> i <strong>metronom</strong>, brukes <strong>BPM</strong> derfra.</li>
+<li>Ellers <strong>estimeres BPM</strong> fra aktiverte <strong>lydspor</strong>; ellers <strong>120 BPM</strong>.</li>
+</ul>
+<p><strong>Lenker:</strong> <a href="https://audient.com/tutorial/how-to-program-realistic-midi-drum-tracks/">Audient</a>, <a href="https://www.meldaproduction.com/MDrummer">MDrummer</a>, <a href="https://www.reddit.com/r/ableton/comments/1e51a7g/generating_midi_drum_patterns_based_on_audio_input/">Reddit</a>, <a href="https://cs229.stanford.edu/proj2014/Louis%20Eugene,%20Guillaume%20Rostaing,%20Automated%20Music%20Track%20Generation.pdf">CS229 PDF</a>.</p>
 <h2 id="virtual-midi-keyboard">Virtual MIDI Keyboard</h2>
 <p>Virtual MIDI Keyboard er en følgeapplikasjon (<code>virtual_midi_keyboard</code>) som gir et skjermklaviatur for sending av MIDI-noter. Den kan startes fra menyen <strong>Tools &gt; Virtual MIDI Keyboard</strong> i hovedapplikasjonen, eller kjøres uavhengig.</p>
 <p><img alt="Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard1.png" /></p>

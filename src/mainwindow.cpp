@@ -13,6 +13,7 @@
 #include "metronomedialog.h"
 #include "midirecorder.h"
 #include "midifile.h"
+#include "drumtrackgenerator.h"
 #include "segmentdisplay.h"
 #include "appsettings.h"
 #include "midiplayer.h"
@@ -48,6 +49,7 @@
 #include <QDropEvent>
 #include <QMimeData>
 #include <QUrl>
+#include <QSet>
 #include <QFileInfo>
 #include <QCoreApplication>
 #include <QFrame>
@@ -97,6 +99,18 @@ static QAudioDevice resolveAudioOutputDevice(const QByteArray& projectId,
 }
 #endif
 
+namespace
+{
+void applyMixBusEffectsToPathIfSet(const QString& path, const QJsonArray& chain)
+{
+    if (path.isEmpty() || chain.isEmpty())
+        return;
+    if (!QFile::exists(path))
+        return;
+    static_cast<void>(AudioUtils::applyMixEffectChainToAudioFile(path, chain));
+}
+}  // namespace
+
 // Map LED color setting name to QColor
 static QColor ledColorFromName(const QString& name)
 {
@@ -136,78 +150,6 @@ static QByteArray generateClickPcm()
 }
 #endif
 
-// Parses a WAV file's RIFF/WAVE header by scanning chunks, populates audioData,
-// sampleRate, and channelCount from the file's own header (more robust than seek(44)).
-// Returns true on success.
-static bool readWavAudioData(const QString& path, QByteArray& audioData,
-                             int& sampleRate, int& channelCount)
-{
-    QFile f(path);
-    if (!f.open(QIODevice::ReadOnly))
-        return false;
-
-    // RIFF descriptor (12 bytes): "RIFF" + file-size + "WAVE"
-    const QByteArray riff = f.read(12);
-    if (riff.size() < 12
-        || riff.left(4)  != QByteArray("RIFF", 4)
-        || riff.mid(8, 4) != QByteArray("WAVE", 4))
-    {
-        return false;
-    }
-
-    bool foundFmt  = false;
-    bool foundData = false;
-
-    while (!f.atEnd())
-    {
-        const QByteArray chunkHdr = f.read(8);
-        if (chunkHdr.size() < 8)
-            break;
-
-        const QByteArray chunkId = chunkHdr.left(4);
-        const quint32 chunkSize =
-            static_cast<quint32>(static_cast<unsigned char>(chunkHdr[4])) |
-            (static_cast<quint32>(static_cast<unsigned char>(chunkHdr[5])) << 8)  |
-            (static_cast<quint32>(static_cast<unsigned char>(chunkHdr[6])) << 16) |
-            (static_cast<quint32>(static_cast<unsigned char>(chunkHdr[7])) << 24);
-
-        if (chunkId == QByteArray("fmt ", 4))
-        {
-            if (chunkSize < 16)
-                return false;
-            const QByteArray fmt = f.read(chunkSize);
-            if (static_cast<quint32>(fmt.size()) < chunkSize)
-                return false;
-            // bytes 2-3: num channels, bytes 4-7: sample rate
-            channelCount =
-                static_cast<int>(static_cast<unsigned char>(fmt[2])) |
-                (static_cast<int>(static_cast<unsigned char>(fmt[3])) << 8);
-            sampleRate =
-                static_cast<int>(static_cast<unsigned char>(fmt[4])) |
-                (static_cast<int>(static_cast<unsigned char>(fmt[5])) << 8) |
-                (static_cast<int>(static_cast<unsigned char>(fmt[6])) << 16) |
-                (static_cast<int>(static_cast<unsigned char>(fmt[7])) << 24);
-            foundFmt = true;
-        }
-        else if (chunkId == QByteArray("data", 4))
-        {
-            audioData = f.read(chunkSize);
-            foundData = true;
-            break;
-        }
-        else
-        {
-            // Unknown chunk — skip it (RIFF chunks are word-aligned)
-            qint64 skipBytes = static_cast<qint64>(chunkSize);
-            if (skipBytes % 2 != 0)
-                skipBytes++;
-            f.seek(f.pos() + skipBytes);
-        }
-    }
-
-    return foundFmt && foundData;
-}
-
 // Single dispatch point for loading any supported audio file format.  When
 // adding a new format, register its extension in src/audioformats.h and add
 // a new branch here that calls the appropriate decoder.
@@ -218,7 +160,7 @@ static bool loadAudioFile(const QString& path, QByteArray& audioData,
     if (ext == QStringLiteral(".flac"))
         return AudioUtils::readFlacAudioData(path, audioData, sampleRate, channelCount);
     if (ext == QStringLiteral(".wav"))
-        return readWavAudioData(path, audioData, sampleRate, channelCount);
+        return AudioUtils::readWavInt16Pcm(path, audioData, sampleRate, channelCount);
     return false;
 }
 
@@ -321,6 +263,9 @@ void MainWindow::setupMenuBar()
     auto* mixAction = toolsMenu->addAction(tr("&Mix tracks to file..."));
     mixAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_M));
     connect(mixAction, &QAction::triggered, this, &MainWindow::onMix);
+    auto* drumAction = toolsMenu->addAction(tr("Add &drum track"));
+    drumAction->setShortcut(QKeySequence(Qt::Key_D));
+    connect(drumAction, &QAction::triggered, this, &MainWindow::onAddDrumTrack);
     auto* vkAction = toolsMenu->addAction(tr("&Virtual MIDI Keyboard"));
     connect(vkAction, &QAction::triggered, this, &MainWindow::onVirtualMidiKeyboard);
 
@@ -510,6 +455,92 @@ void MainWindow::onAddTrack()
 
     markDirty();
     updatePlayRecordButton();
+}
+
+void MainWindow::onAddDrumTrack()
+{
+    const QString projectDir = m_projectLocationEdit->text().trimmed();
+    if (projectDir.isEmpty())
+    {
+        QMessageBox::warning(this, tr("Add drum track"),
+            tr("Please choose a project directory before adding a drum track."));
+        return;
+    }
+
+    double bpm = 120.0;
+    AppSettings& app = AppSettings::instance();
+    if (app.metronomeEnabled())
+        bpm = static_cast<double>(qBound(20, app.metronomeBpm(), 300));
+    else
+    {
+        QVector<TrackData> list;
+        list.reserve(m_trackWidgets.size());
+        for (auto* w : m_trackWidgets)
+            list.append(w->trackData());
+        const int sr = m_projectSettings.sampleRate > 0 ? m_projectSettings.sampleRate : 44100;
+        const QByteArray mix = DrumTrackGenerator::mixEnabledAudioTracksForAnalysis(list, sr);
+        const int est =
+            mix.isEmpty()
+                ? 0
+                : DrumTrackGenerator::estimateBpmFromInt16Pcm(mix, sr, 2);
+        if (est > 0)
+            bpm = static_cast<double>(est);
+    }
+
+    constexpr int kBars = 2;
+    QVector<MidiNote> notes = DrumTrackGenerator::createGroovePattern(bpm, kBars);
+    double lengthSeconds = DrumTrackGenerator::patternLengthSeconds(bpm, kBars);
+    for (MidiNote& n : notes)
+        n.channel = 9;  // General MIDI drums (MIDI channel 10)
+
+    const QString trackName = allocateUniqueDrumTrackName();
+    const QString midiBase   = AudioUtils::sanitizedTrackFilesystemName(trackName);
+    const QString midiFullPath =
+        projectDir + QDir::separator() + midiBase + QStringLiteral(".mid");
+    if (!MidiFile::write(midiFullPath, notes, lengthSeconds))
+    {
+        QMessageBox::warning(this, tr("Add drum track"),
+            tr("Could not write drum MIDI file:\n%1").arg(midiFullPath));
+        return;
+    }
+
+    TrackData data;
+    data.id            = m_nextTrackId++;
+    data.name          = trackName;
+    data.type          = TrackType::MIDI;
+    data.enabled       = true;
+    data.midiNotes     = std::move(notes);
+    data.lengthSeconds = lengthSeconds;
+
+    auto* widget = new TrackWidget(data, this);
+    connect(widget, &TrackWidget::configurationRequested, this, &MainWindow::onTrackConfigRequested);
+    connect(widget, &TrackWidget::effectsRequested, this, &MainWindow::onTrackEffectsRequested);
+    connect(widget, &TrackWidget::armChanged, this, &MainWindow::onArmChanged);
+    connect(widget, &TrackWidget::dataChanged, this, [this](TrackWidget*)
+    {
+        markDirty();
+        updatePlayRecordButton();
+    });
+    connect(widget, &TrackWidget::nameChanged, this, &MainWindow::onTrackNameChanged);
+    connect(widget, &TrackWidget::removeRequested, this, &MainWindow::onTrackRemoveRequested);
+    m_trackWidgets.append(widget);
+    m_tracksLayout->insertWidget(m_tracksLayout->count() - 1, widget);
+
+    markDirty();
+    updatePlayRecordButton();
+}
+
+QString MainWindow::allocateUniqueDrumTrackName() const
+{
+    const QString base = tr("Drums");
+    QSet<QString> existing;
+    for (auto* w : m_trackWidgets)
+        existing.insert(w->trackData().name);
+    QString candidate = base;
+    int     n           = 2;
+    while (existing.contains(candidate))
+        candidate = base + QLatin1Char(' ') + QString::number(n++);
+    return candidate;
 }
 
 // ─── Drag-and-drop of audio files ─────────────────────────────────────────
@@ -749,6 +780,7 @@ void MainWindow::onMix()
                                     /*renderMidiToAudio=*/true,
                                     /*midiGainMultiplier=*/1.0))
     {
+        applyMixBusEffectsToPathIfSet(outputPath, m_projectSettings.mixEffectChain);
         QMessageBox::information(this, tr("Mix Complete"),
             tr("Audio exported successfully to:\n%1").arg(outputPath));
     }
@@ -1014,6 +1046,7 @@ void MainWindow::startPlayback()
     }
     if (!m_playbackTempFile.isEmpty() && QFile::exists(m_playbackTempFile))
     {
+        applyMixBusEffectsToPathIfSet(m_playbackTempFile, m_projectSettings.mixEffectChain);
         m_player->setSource(QUrl::fromLocalFile(m_playbackTempFile));
         m_player->play();
     }
@@ -1181,6 +1214,7 @@ void MainWindow::prepareOverdubPlayback()
         // Pre-load the media source so QMediaPlayer buffers it.  When
         // startOverdubPlayback() calls play(), audio output will begin
         // with minimal latency.
+        applyMixBusEffectsToPathIfSet(m_playbackTempFile, m_projectSettings.mixEffectChain);
         m_player->setSource(QUrl::fromLocalFile(m_playbackTempFile));
     }
     else
@@ -2035,6 +2069,7 @@ void MainWindow::onSaveProject()
         m_projectSettings.portAudioInputDeviceIndex;
     psObj[QStringLiteral("monitorWhileRecording")] =
         m_projectSettings.monitorWhileRecording;
+    psObj[QStringLiteral("mixEffectChain")] = m_projectSettings.mixEffectChain;
 
     QJsonObject root;
     root[QStringLiteral("version")]         = 1;
@@ -2223,6 +2258,7 @@ void MainWindow::loadProjectFromFile(const QString& path)
         if (ps.contains(QStringLiteral("monitorWhileRecording")))
             m_projectSettings.monitorWhileRecording =
                 ps[QStringLiteral("monitorWhileRecording")].toBool();
+        m_projectSettings.mixEffectChain = ps[QStringLiteral("mixEffectChain")].toArray();
     }
     else
     {

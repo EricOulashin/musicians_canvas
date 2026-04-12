@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas Benutzerhandbuch</h1>
 <p>Mehrspurige Musikaufnahme-Anwendung &mdash; Version 0.1.1</p>
-<p>2026-04-10</p>
+<p>2026-04-11</p>
 </div>
 <div class="toc">
 <h2>Inhaltsverzeichnis</h2>
@@ -73,6 +73,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#aufnahme">Aufnahme</a><ul>
 <li><a href="#audioaufnahme">Audioaufnahme</a></li>
 <li><a href="#insert-effekte-nur-audiospuren">Insert-Effekte (nur Audiospuren)</a></li>
+<li><a href="#mix-effekte-gesamtes-projekt">Mix-Effekte (gesamtes Projekt)</a></li>
 <li><a href="#mithoren-wahrend-der-aufnahme">Mithören während der Aufnahme</a></li>
 <li><a href="#midi-aufnahme">MIDI-Aufnahme</a></li>
 </ul>
@@ -92,7 +93,10 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#menue-tools">Menue "Tools"</a></li>
 </ul>
 </li>
-<li><a href="#tastenkurzel">Tastenkürzel</a></li>
+<li><a href="#tastenkurzel">Tastenkürzel</a><ul>
+<li><a href="#schlagzeugspur-hinzufugen">Schlagzeugspur hinzufügen</a></li>
+</ul>
+</li>
 <li><a href="#virtual-midi-keyboard">Virtual MIDI Keyboard</a><ul>
 <li><a href="#funktionen">Funktionen</a></li>
 <li><a href="#werkzeugleisten-steuerungen">Werkzeugleisten-Steuerungen</a></li>
@@ -320,6 +324,9 @@ auf dieser Spur einrichten:</p>
 <p>Die Effekte werden auf das Audio <strong>angewendet, wenn Sie die Aufnahme beenden</strong> – nach der
 üblichen Capture- und SRC-Pipeline. Die Konfiguration wird in <code>project.json</code> unter
 <code>audioEffectChain</code> der Spur gespeichert.</p>
+<h3 id="mix-effekte-gesamtes-projekt">Mix-Effekte (gesamtes Projekt)</h3>
+<p>Unter <strong>Project → Project Settings → Mix Effects</strong> legen Sie dieselbe Art von Effektkette wie bei <strong>Track effects</strong> fest, angewendet auf die <strong>komplette Mischung</strong> aller aktivierten Spuren: beim <strong>Abspielen des ganzen Projekts</strong> und beim <strong>Export als gemischte Datei</strong> (WAV/FLAC). Die Kette wird in <code>project.json</code> unter <code>projectSettings</code> → <code>mixEffectChain</code> gespeichert.</p>
+<p>Um hartes <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digitales Clipping</a> zu vermeiden, wenn Pegel nahe Vollaussteuerung steigen, wendet die Engine eine <strong>weiche Begrenzung</strong> auf normalisierte Float-Samples an, unmittelbar bevor sie in 16-Bit-PCM gewandelt werden. Die Basisklasse <strong>EffectWidget</strong> dokumentiert <code>guardFloatSampleForInt16Pcm()</code> und <code>softLimitFloatSampleForInt16Pcm()</code> für neuen DSP-Code.</p>
 <h3 id="mithoren-wahrend-der-aufnahme">Mithören während der Aufnahme</h3>
 <p>Neben der <strong>Zeitanzeige</strong> steuert das Kontrollkästchen <strong>Ton während der Aufnahme mithören</strong>,
 ob <strong>Live-Eingang</strong> während der Aufnahme an den <strong>Projekt-Audioausgang</strong> geleitet wird:</p>
@@ -489,6 +496,8 @@ Projektspezifische Einstellungen werden in der Datei <code>project.json</code> g
   Stereo-Option deaktiviert.</li>
 </ul>
 <p><img alt="Projekt-Audio-Einstellungen" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
+<h4 id="registerkarte-mix-effects">Registerkarte Mix Effects</h4>
+<p>Wie bei <strong>Track effects</strong>: scrollbare Liste mit <strong>Effekt hinzufügen…</strong>, <strong>≡</strong> zum Neuordnen, <strong>✕</strong> zum Entfernen. Die Reihenfolge ist <strong>von oben nach unten</strong> auf dem <strong>Summensignal</strong>, nachdem alle aktivierten Spuren gemischt wurden. Diese Effekte laufen bei <strong>Wiedergabe aller Spuren</strong> und beim <strong>Mix zu einer Datei</strong>; sie werden <strong>nicht</strong> in die einzelnen Spurdateien auf der Festplatte „eingebacken“. Eine leere Liste lässt den Mix unverändert (abgesehen von der internen Pegelführung des Mixers).</p>
 <h2 id="menus">Menüs</h2>
 <h3 id="menue-file">Menue "File"</h3>
 <table>
@@ -572,6 +581,11 @@ Projektspezifische Einstellungen werden in der Datei <code>project.json</code> g
 <td>Alle aktivierten Spuren in eine Datei exportieren</td>
 </tr>
 <tr>
+<td>Add drum track</td>
+<td>D</td>
+<td>MIDI-Schlagzeugspur anlegen und <code>.mid</code>-Groove schreiben</td>
+</tr>
+<tr>
 <td>Virtual MIDI Keyboard</td>
 <td></td>
 <td>Die Begleit-Tastaturanwendung starten</td>
@@ -600,6 +614,10 @@ Projektspezifische Einstellungen werden in der Datei <code>project.json</code> g
 <td>Spuren in eine Datei abmischen</td>
 </tr>
 <tr>
+<td>D</td>
+<td>Schlagzeugspur hinzufügen (Tools-Menü)</td>
+</tr>
+<tr>
 <td>Ctrl+P</td>
 <td>Projekteinstellungen</td>
 </tr>
@@ -613,6 +631,15 @@ Projektspezifische Einstellungen werden in der Datei <code>project.json</code> g
 </tr>
 </tbody>
 </table>
+<h3 id="schlagzeugspur-hinzufugen">Schlagzeugspur hinzufügen</h3>
+<p><strong>Tools → Add drum track</strong> (Tastenkürzel <strong>D</strong>) erzeugt eine <strong>MIDI</strong>-Spur für Schlagzeug auf <strong>MIDI-Kanal 10</strong> (General MIDI; intern Kanalindex 9). Standardname z. B. <strong>Drums</strong> (mit Nummer bei Bedarf).</p>
+<p>Sofort wird eine <strong>Standard-MIDI-Datei</strong> (<code>.mid</code>) im <strong>Projektordner</strong> geschrieben: <strong>zwei Takte 4/4</strong> mit Kick, Snare und geschlossenem Hi-Hat. Tempo:</p>
+<ul>
+<li>Ist im <strong>Metronom</strong>-Dialog <strong>Metronom während Aufnahme aktiv</strong> eingeschaltet, gilt der eingestellte <strong>BPM</strong>-Wert.</li>
+<li>Sonst wird <strong>BPM</strong> aus einem Mix der <strong>aktivierten</strong> <strong>Audio</strong>spuren mit Inhalt geschätzt; ohne brauchbares Audio wird <strong>120 BPM</strong> angenommen.</li>
+</ul>
+<p><strong>Hinweis:</strong> Die Schätzung ist bewusst einfach (Onset-Autokorrelation); bei manchem Material kann Halb-/Doppelzeit auftreten.</p>
+<p><strong>Weiterführend:</strong> <a href="https://audient.com/tutorial/how-to-program-realistic-midi-drum-tracks/">Audient — realistische MIDI-Drums</a>, <a href="https://www.meldaproduction.com/MDrummer">Melda MDrummer</a>, <a href="https://www.reddit.com/r/ableton/comments/1e51a7g/generating_midi_drum_patterns_based_on_audio_input/">Reddit — Drum-Patterns aus Audio</a>, <a href="https://cs229.stanford.edu/proj2014/Louis%20Eugene,%20Guillaume%20Rostaing,%20Automated%20Music%20Track%20Generation.pdf">Stanford CS229 — Automated Music Track Generation</a>.</p>
 <h2 id="virtual-midi-keyboard">Virtual MIDI Keyboard</h2>
 <p>Das Virtual MIDI Keyboard ist eine Begleitanwendung (<code>virtual_midi_keyboard</code>), die eine
 Bildschirm-Klaviertastatur zum Senden von MIDI-Noten bereitstellt. Es kann über das Menue

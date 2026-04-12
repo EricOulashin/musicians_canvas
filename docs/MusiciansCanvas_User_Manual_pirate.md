@@ -171,6 +171,12 @@ Ye can haul aboard **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion
 
 Effects be applied **when ye click Stop**, after the usual capture an' resample. The rig be stored in `project.json` under `audioEffectChain`.
 
+### Mix effects (full project)
+
+**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
+
+To reduce harsh [digital clipping](https://en.wikipedia.org/wiki/Clipping_%28audio%29) when processing pushes peaks toward full scale, the effect engine applies a **soft limiter** to normalized float samples immediately before conversion to 16-bit PCM. The **EffectWidget** base class documents `guardFloatSampleForInt16Pcm()` and `softLimitFloatSampleForInt16Pcm()` for any new real-time code that writes to 16-bit audio.
+
 ### Hear yer racket live
 
 Beside the **time glass**, **Hear yer racket live while recordin'** sends **live plunder** to the **project's speakin' tubes** while ye capture:
@@ -331,6 +337,10 @@ Use **Project > Project Settings** (Ctrl+P) to override global defaults fer the 
 
 ![Project audio settings](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
 
+#### Mix Effects tab
+
+The **Mix Effects** tab is a scrollable list with the same controls as **Track effects** (**Add effect…**, drag **≡** to reorder, **✕** to remove). Processing order is **top to bottom** on the **combined** mix of all enabled tracks. These effects run during **whole-project playback** and when **mixing to a single WAV or FLAC file**; they are **not** baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.
+
 ## Menus
 
 ### File Menu
@@ -359,6 +369,7 @@ Use **Project > Project Settings** (Ctrl+P) to override global defaults fer the 
 | Menu Item             | Shortcut | Description                                      |
 |-----------------------|----------|--------------------------------------------------|
 | Mix tracks to file    | Ctrl+M   | Export all enabled shanties to a single file      |
+| Add drum track        | D        | Add a MIDI drum deck an' a `.mid` scroll (see below) |
 | Virtual MIDI Keyboard |          | Launch the companion keyboard vessel              |
 
 ## Keyboard Shortcuts
@@ -368,9 +379,22 @@ Use **Project > Project Settings** (Ctrl+P) to override global defaults fer the 
 | Ctrl+S          | Save project (stow yer treasure!)       |
 | Ctrl+O          | Open project                            |
 | Ctrl+M          | Mix shanties to file                    |
+| D               | Add drum deck (Tools menu)            |
 | Ctrl+P          | Project Settings                        |
 | Ctrl+,          | Settings / Configuration                |
 | Ctrl+Q / Alt+F4 | Quit (abandon ship)                    |
+
+
+### Add a drum deck
+
+**Tools → Add drum track** (hotkey **D**) adds a **MIDI** deck on **channel 10** General MIDI (index 9). Default name **Drums** (numbered if taken).
+
+A **`.mid`** be writ **straight** into the **project chest**: two bars o' 4/4 kick, snare, an' hat. Tempo:
+
+- If **Enable metronome durin' recordin'** be set in the **metronome** dialog, that **BPM** be used.
+- Else **BPM be guessed** from **enabled** **audio** tracks; if that fails, **120 BPM**.
+
+**Charts ashore:** [Audient](https://audient.com/tutorial/how-to-program-realistic-midi-drum-tracks/), [MDrummer](https://www.meldaproduction.com/MDrummer), [Reddit](https://www.reddit.com/r/ableton/comments/1e51a7g/generating_midi_drum_patterns_based_on_audio_input/), [CS229 PDF](https://cs229.stanford.edu/proj2014/Louis%20Eugene,%20Guillaume%20Rostaing,%20Automated%20Music%20Track%20Generation.pdf).
 
 ## Virtual MIDI Keyboard
 

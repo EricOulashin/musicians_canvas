@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas &#8212; A Pirate&#8217;s Guide</h1>
 <p>A Multi-Shanty Music Plunderin' Application fer Scallywags an' Sea Dogs Alike &mdash; Version 0.1.1</p>
-<p>2026-04-10</p>
+<p>2026-04-11</p>
 </div>
 <div class="toc">
 <h2>Table of Contents</h2>
@@ -73,6 +73,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#plunderin-sounds-recording">Plunderin' Sounds (Recording)</a><ul>
 <li><a href="#audio-plunderin">Audio Plunderin'</a></li>
 <li><a href="#insert-effects-audio-shanties-only">Insert effects (audio shanties only)</a></li>
+<li><a href="#mix-effects-full-project">Mix effects (full project)</a></li>
 <li><a href="#hear-yer-racket-live">Hear yer racket live</a></li>
 <li><a href="#midi-plunderin">MIDI Plunderin'</a></li>
 </ul>
@@ -92,7 +93,10 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#tools-menu">Tools Menu</a></li>
 </ul>
 </li>
-<li><a href="#keyboard-shortcuts">Keyboard Shortcuts</a></li>
+<li><a href="#keyboard-shortcuts">Keyboard Shortcuts</a><ul>
+<li><a href="#add-a-drum-deck">Add a drum deck</a></li>
+</ul>
+</li>
 <li><a href="#virtual-midi-keyboard">Virtual MIDI Keyboard</a><ul>
 <li><a href="#features">Features</a></li>
 <li><a href="#toolbar-controls">Toolbar Controls</a></li>
@@ -264,6 +268,9 @@ fresh audio shanties.</p>
 <li><strong>OK</strong> saves ta the project; <strong>Cancel</strong> restores the chain as when ye opened the dialog.</li>
 </ul>
 <p>Effects be applied <strong>when ye click Stop</strong>, after the usual capture an' resample. The rig be stored in <code>project.json</code> under <code>audioEffectChain</code>.</p>
+<h3 id="mix-effects-full-project">Mix effects (full project)</h3>
+<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
 <h3 id="hear-yer-racket-live">Hear yer racket live</h3>
 <p>Beside the <strong>time glass</strong>, <strong>Hear yer racket live while recordin'</strong> sends <strong>live plunder</strong> to the <strong>project's speakin' tubes</strong> while ye capture:</p>
 <ul>
@@ -390,6 +397,8 @@ durin' recordin' to keep yer crew in time. Click the metronome button on the but
 <li><strong>Channels</strong>: Mono or Stereo. If the device only supports mono, the Stereo option be disabled.</li>
 </ul>
 <p><img alt="Project audio settings" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
+<h4 id="mix-effects-tab">Mix Effects tab</h4>
+<p>The <strong>Mix Effects</strong> tab is a scrollable list with the same controls as <strong>Track effects</strong> (<strong>Add effect…</strong>, drag <strong>≡</strong> to reorder, <strong>✕</strong> to remove). Processing order is <strong>top to bottom</strong> on the <strong>combined</strong> mix of all enabled tracks. These effects run during <strong>whole-project playback</strong> and when <strong>mixing to a single WAV or FLAC file</strong>; they are <strong>not</strong> baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.</p>
 <h2 id="menus">Menus</h2>
 <h3 id="file-menu">File Menu</h3>
 <table>
@@ -473,6 +482,11 @@ durin' recordin' to keep yer crew in time. Click the metronome button on the but
 <td>Export all enabled shanties to a single file</td>
 </tr>
 <tr>
+<td>Add drum track</td>
+<td>D</td>
+<td>Add a MIDI drum deck an' a <code>.mid</code> scroll (see below)</td>
+</tr>
+<tr>
 <td>Virtual MIDI Keyboard</td>
 <td></td>
 <td>Launch the companion keyboard vessel</td>
@@ -501,6 +515,10 @@ durin' recordin' to keep yer crew in time. Click the metronome button on the but
 <td>Mix shanties to file</td>
 </tr>
 <tr>
+<td>D</td>
+<td>Add drum deck (Tools menu)</td>
+</tr>
+<tr>
 <td>Ctrl+P</td>
 <td>Project Settings</td>
 </tr>
@@ -514,6 +532,14 @@ durin' recordin' to keep yer crew in time. Click the metronome button on the but
 </tr>
 </tbody>
 </table>
+<h3 id="add-a-drum-deck">Add a drum deck</h3>
+<p><strong>Tools → Add drum track</strong> (hotkey <strong>D</strong>) adds a <strong>MIDI</strong> deck on <strong>channel 10</strong> General MIDI (index 9). Default name <strong>Drums</strong> (numbered if taken).</p>
+<p>A <strong><code>.mid</code></strong> be writ <strong>straight</strong> into the <strong>project chest</strong>: two bars o' 4/4 kick, snare, an' hat. Tempo:</p>
+<ul>
+<li>If <strong>Enable metronome durin' recordin'</strong> be set in the <strong>metronome</strong> dialog, that <strong>BPM</strong> be used.</li>
+<li>Else <strong>BPM be guessed</strong> from <strong>enabled</strong> <strong>audio</strong> tracks; if that fails, <strong>120 BPM</strong>.</li>
+</ul>
+<p><strong>Charts ashore:</strong> <a href="https://audient.com/tutorial/how-to-program-realistic-midi-drum-tracks/">Audient</a>, <a href="https://www.meldaproduction.com/MDrummer">MDrummer</a>, <a href="https://www.reddit.com/r/ableton/comments/1e51a7g/generating_midi_drum_patterns_based_on_audio_input/">Reddit</a>, <a href="https://cs229.stanford.edu/proj2014/Louis%20Eugene,%20Guillaume%20Rostaing,%20Automated%20Music%20Track%20Generation.pdf">CS229 PDF</a>.</p>
 <h2 id="virtual-midi-keyboard">Virtual MIDI Keyboard</h2>
 <p>The Virtual MIDI Keyboard be a companion vessel (<code>virtual_midi_keyboard</code>) that provides an on-screen pianer keyboard fer sendin' MIDI notes across the musical seas. It can be launched from the <strong>Tools &gt; Virtual MIDI Keyboard</strong> menu in the main application, or run independently as a lone privateer.</p>
 <p><img alt="Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard1.png" /></p>

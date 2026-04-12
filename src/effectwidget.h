@@ -31,6 +31,11 @@ public:
 
     static void applyCloseButtonStyle(QPushButton* btn);
 
+    /// Normalized float (\p x in roughly ±1.0) soft-limited toward full scale before int16 conversion.
+    [[nodiscard]] static float softLimitFloatSampleForInt16Pcm(float x);
+    /// Soft limit plus hard clamp — use as the last step before scaling to int16 PCM.
+    [[nodiscard]] static float guardFloatSampleForInt16Pcm(float x);
+
 signals:
     void removeRequested(EffectWidget* self);
     void parametersChanged(EffectWidget* self);

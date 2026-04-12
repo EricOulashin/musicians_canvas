@@ -67,6 +67,9 @@ set(SOURCES
     src/flangewidget.h
     src/effectsdialog.cpp
     src/effectsdialog.h
+    src/effectchaineditorwidget.cpp
+    src/effectchaineditorwidget.h
+    src/audiopcmlimits.h
     src/effectchaindragoverlay.cpp
     src/effectchaindragoverlay.h
     src/overdrivedistortionwidget.cpp
@@ -92,6 +95,8 @@ set(SOURCES
     src/midisynth.cpp
     src/themeutils.cpp
     src/audioutils.cpp
+    src/drumtrackgenerator.cpp
+    src/drumtrackgenerator.h
     src/recordingpostprocess.cpp
     src/portaudiorecorder.cpp
     src/trackdata.cpp
@@ -240,6 +245,7 @@ if(BUILD_TESTING)
         tests/musicians_canvas_tests.cpp
         src/recordingpostprocess.cpp
         src/audioutils.cpp
+        src/effectdsp.cpp
         src/midisynth.cpp
         src/appsettings.cpp
         ${AUDIO_MIXER_SOURCES}

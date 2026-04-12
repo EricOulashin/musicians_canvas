@@ -60,6 +60,18 @@ public:
     [[nodiscard]] static QByteArray convertChannels(const QByteArray& int16Data,
                                                       int srcChannels,
                                                       int dstChannels);
+
+    /// Read 16-bit PCM from a RIFF/WAVE file (chunk scan; supports mono/stereo).
+    [[nodiscard]] static bool readWavInt16Pcm(const QString& path, QByteArray& audioData,
+                                               int& sampleRate, int& channelCount);
+
+    /// Write 16-bit little-endian interleaved PCM to a standard WAV file (overwrites \p path).
+    [[nodiscard]] static bool writeWavInt16Pcm(const QString& path, const QByteArray& int16Interleaved,
+                                                int sampleRate, int channelCount);
+
+    /// Apply mix-bus effect chain to an existing WAV or FLAC file (same formats as mix export).
+    [[nodiscard]] static bool applyMixEffectChainToAudioFile(const QString& path,
+                                                              const QJsonArray& chain);
 };
 
 #endif // AUDIOUTILS_H

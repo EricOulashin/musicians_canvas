@@ -214,6 +214,12 @@ Tipos incluem **Reverb**, **Chorus**, **Flanger**, **Overdrive / distorcao** e *
 Os efeitos sao aplicados ao **parar a gravacao**, apos captura e reamostragem usuais. A configuracao fica em
 `project.json` em `audioEffectChain`.
 
+### Mix effects (full project)
+
+**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
+
+To reduce harsh [digital clipping](https://en.wikipedia.org/wiki/Clipping_%28audio%29) when processing pushes peaks toward full scale, the effect engine applies a **soft limiter** to normalized float samples immediately before conversion to 16-bit PCM. The **EffectWidget** base class documents `guardFloatSampleForInt16Pcm()` and `softLimitFloatSampleForInt16Pcm()` for any new real-time code that writes to 16-bit audio.
+
 ### Monitorar durante a gravacao
 
 Ao lado do **mostrador de tempo**, a caixa **Monitorar audio durante a gravacao** envia ou nao a **entrada ao vivo**
@@ -418,6 +424,10 @@ sao salvas dentro do arquivo `project.json`.
 
 ![Configuracoes de audio do projeto](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
 
+#### Mix Effects tab
+
+The **Mix Effects** tab is a scrollable list with the same controls as **Track effects** (**Add effect…**, drag **≡** to reorder, **✕** to remove). Processing order is **top to bottom** on the **combined** mix of all enabled tracks. These effects run during **whole-project playback** and when **mixing to a single WAV or FLAC file**; they are **not** baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.
+
 ## Menus
 
 ### Menu File
@@ -446,6 +456,7 @@ sao salvas dentro do arquivo `project.json`.
 | Item do Menu          | Atalho   | Descricao                                     |
 |-----------------------|----------|------------------------------------------------|
 | Mix tracks to file    | Ctrl+M   | Exportar todas as faixas habilitadas para um arquivo |
+| Add drum track        | D        | Faixa MIDI de bateria e arquivo `.mid` (veja abaixo) |
 | Virtual MIDI Keyboard |          | Iniciar o aplicativo de teclado complementar   |
 
 ## Atalhos de Teclado
@@ -455,9 +466,22 @@ sao salvas dentro do arquivo `project.json`.
 | Ctrl+S          | Salvar projeto                      |
 | Ctrl+O          | Abrir projeto                       |
 | Ctrl+M          | Mixar faixas para arquivo           |
+| D               | Adicionar faixa de bateria (menu Tools) |
 | Ctrl+P          | Configuracoes do Projeto            |
 | Ctrl+,          | Configuracoes / Configuration       |
 | Ctrl+Q / Alt+F4 | Sair                               |
+
+
+### Adicionar faixa de bateria
+
+**Tools → Add drum track** (atalho **D**) adiciona uma faixa **MIDI** de bateria no **canal 10** General MIDI (índice 9). Nome padrão **Drums** (com sufixo se necessário).
+
+Um **`.mid`** é gravado na **pasta do projeto**: dois compassos 4/4 (bumbo, caixa, hi-hat fechado). Andamento:
+
+- Com **Ativar metrônomo durante a gravação** no **metrônomo**, usa-se o **BPM** configurado.
+- Caso contrário, **estima-se o BPM** a partir das faixas de **áudio** **habilitadas**; se não for possível, **120 BPM**.
+
+**Referências:** [Audient](https://audient.com/tutorial/how-to-program-realistic-midi-drum-tracks/), [MDrummer](https://www.meldaproduction.com/MDrummer), [Reddit](https://www.reddit.com/r/ableton/comments/1e51a7g/generating_midi_drum_patterns_based_on_audio_input/), [PDF CS229](https://cs229.stanford.edu/proj2014/Louis%20Eugene,%20Guillaume%20Rostaing,%20Automated%20Music%20Track%20Generation.pdf).
 
 ## Virtual MIDI Keyboard
 

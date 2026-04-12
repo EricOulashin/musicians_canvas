@@ -228,6 +228,12 @@ Les effets sont appliqués à l’**arrêt de l’enregistrement**, après la ca
 rééchantillonnage habituels. La configuration est stockée dans `project.json` sous
 `audioEffectChain`.
 
+### Mix effects (full project)
+
+**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
+
+To reduce harsh [digital clipping](https://en.wikipedia.org/wiki/Clipping_%28audio%29) when processing pushes peaks toward full scale, the effect engine applies a **soft limiter** to normalized float samples immediately before conversion to 16-bit PCM. The **EffectWidget** base class documents `guardFloatSampleForInt16Pcm()` and `softLimitFloatSampleForInt16Pcm()` for any new real-time code that writes to 16-bit audio.
+
 ### Écoute pendant l’enregistrement
 
 À côté de l’**affichage du temps**, la case **Écouter l’audio pendant l’enregistrement** active ou non l’envoi de l’**entrée en direct** vers la **sortie audio du projet** pendant l’enregistrement :
@@ -439,6 +445,10 @@ paramètres spécifiques au projet sont sauvegardés dans le fichier `project.js
 
 ![Paramètres audio du projet](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
 
+#### Mix Effects tab
+
+The **Mix Effects** tab is a scrollable list with the same controls as **Track effects** (**Add effect…**, drag **≡** to reorder, **✕** to remove). Processing order is **top to bottom** on the **combined** mix of all enabled tracks. These effects run during **whole-project playback** and when **mixing to a single WAV or FLAC file**; they are **not** baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.
+
 ## Menus
 
 ### Menu File
@@ -467,6 +477,7 @@ paramètres spécifiques au projet sont sauvegardés dans le fichier `project.js
 | Élément du menu       | Raccourci | Description                                      |
 |-----------------------|-----------|--------------------------------------------------|
 | Mix tracks to file    | Ctrl+M    | Exporter toutes les pistes activées vers un fichier |
+| Add drum track        | D        | Piste MIDI batterie et groove `.mid` (voir ci-dessous) |
 | Virtual MIDI Keyboard |           | Lancer l'application clavier compagnon           |
 
 ## Raccourcis clavier
@@ -476,9 +487,24 @@ paramètres spécifiques au projet sont sauvegardés dans le fichier `project.js
 | Ctrl+S          | Sauvegarder le projet               |
 | Ctrl+O          | Ouvrir un projet                    |
 | Ctrl+M          | Mixer les pistes vers un fichier    |
+| D               | Ajouter une piste de batterie (menu Tools) |
 | Ctrl+P          | Paramètres du projet                |
 | Ctrl+,          | Paramètres / Configuration          |
 | Ctrl+Q / Alt+F4 | Quitter                            |
+
+
+### Ajouter une piste de batterie
+
+**Tools → Add drum track** (raccourci **D**) ajoute une piste **MIDI** percussions sur le **canal 10** General MIDI (index 9). Nom par défaut **Drums** (suffixe numérique si besoin).
+
+Un fichier **`.mid`** est écrit tout de suite dans le **dossier du projet** : deux mesures 4/4 (grosse caisse, caisse claire, charleston fermé). Tempo :
+
+- Si **Activer le métronome pendant l’enregistrement** est coché dans le **métronome**, le **BPM** configuré est utilisé.
+- Sinon le **BPM est estimé** à partir des pistes **audio** **activées** ; sinon **120 BPM**.
+
+**Note :** estimation simple ; risque de demi/double temps.
+
+**Liens :** [Audient](https://audient.com/tutorial/how-to-program-realistic-midi-drum-tracks/), [MDrummer](https://www.meldaproduction.com/MDrummer), [Reddit](https://www.reddit.com/r/ableton/comments/1e51a7g/generating_midi_drum_patterns_based_on_audio_input/), [CS229 PDF](https://cs229.stanford.edu/proj2014/Louis%20Eugene,%20Guillaume%20Rostaing,%20Automated%20Music%20Track%20Generation.pdf).
 
 ## Virtual MIDI Keyboard
 

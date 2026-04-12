@@ -173,6 +173,12 @@ lang: "el"
 
 Τα εφέ εφαρμόζονται όταν **σταματάτε την εγγραφή**, μετά τη συνήθη καταγραφή και επαναδειγματοληψία. Η ρύθμιση αποθηκεύεται στο `project.json` στο πεδίο `audioEffectChain`.
 
+### Mix effects (full project)
+
+**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
+
+To reduce harsh [digital clipping](https://en.wikipedia.org/wiki/Clipping_%28audio%29) when processing pushes peaks toward full scale, the effect engine applies a **soft limiter** to normalized float samples immediately before conversion to 16-bit PCM. The **EffectWidget** base class documents `guardFloatSampleForInt16Pcm()` and `softLimitFloatSampleForInt16Pcm()` for any new real-time code that writes to 16-bit audio.
+
 ### Παρακολούθηση κατά την εγγραφή
 
 Δίπλα στην **ένδειξη χρόνου**, το πλαίσιο **Παρακολούθηση ήχου κατά την εγγραφή** ενεργοποιεί ή όχι τη μετάδοση **ζωντανής εισόδου**
@@ -318,6 +324,10 @@ lang: "el"
 
 ![Ρυθμίσεις ήχου έργου](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
 
+#### Mix Effects tab
+
+The **Mix Effects** tab is a scrollable list with the same controls as **Track effects** (**Add effect…**, drag **≡** to reorder, **✕** to remove). Processing order is **top to bottom** on the **combined** mix of all enabled tracks. These effects run during **whole-project playback** and when **mixing to a single WAV or FLAC file**; they are **not** baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.
+
 ## Μενού
 
 ### Μενού File
@@ -346,6 +356,7 @@ lang: "el"
 | Στοιχείο Μενού        | Συντόμευση | Περιγραφή                                       |
 |------------------------|------------|------------------------------------------------|
 | Mix tracks to file     | Ctrl+M     | Εξαγωγή όλων των ενεργοποιημένων καναλιών σε αρχείο |
+| Add drum track        | D        | Προσθήκη MIDI τυμπάνων και `.mid` (δείτε παρακάτω) |
 | Virtual MIDI Keyboard  |            | Εκκίνηση της συνοδευτικής εφαρμογής πληκτρολογίου    |
 
 ## Συντομεύσεις Πληκτρολογίου
@@ -355,9 +366,22 @@ lang: "el"
 | Ctrl+S          | Αποθήκευση έργου                |
 | Ctrl+O          | Άνοιγμα έργου                   |
 | Ctrl+M          | Μίξη καναλιών σε αρχείο         |
+| D               | Προσθήκη κομματιού τύμπανων (μενού Tools) |
 | Ctrl+P          | Ρυθμίσεις Έργου                 |
 | Ctrl+,          | Ρυθμίσεις / Διαμόρφωση          |
 | Ctrl+Q / Alt+F4 | Έξοδος                         |
+
+
+### Προσθήκη κομματιού τύμπανων
+
+**Tools → Add drum track** (συντόμευση **D**) προσθέτει **MIDI** κομμάτι τυμπάνων στο **κανάλι 10** General MIDI (δείκτης 9). Προεπιλεγμένο όνομα **Drums**.
+
+Γράφεται αμέσως **`.mid`** στον **φάκελο έργου**: δύο μέτρα 4/4. Ρυθμός:
+
+- Αν είναι ενεργό **Ενεργοποίηση μετρονόμου κατά την εγγραφή**, χρησιμοποιείται το **BPM** του διαλόγου.
+- Αλλιώς **εκτίμηση BPM** από ενεργοποιημένα **ήχου** κομμάτια· αλλιώς **120 BPM**.
+
+**Σύνδεσμοι:** [Audient](https://audient.com/tutorial/how-to-program-realistic-midi-drum-tracks/), [MDrummer](https://www.meldaproduction.com/MDrummer), [Reddit](https://www.reddit.com/r/ableton/comments/1e51a7g/generating_midi_drum_patterns_based_on_audio_input/), [CS229 PDF](https://cs229.stanford.edu/proj2014/Louis%20Eugene,%20Guillaume%20Rostaing,%20Automated%20Music%20Track%20Generation.pdf).
 
 ## Virtual MIDI Keyboard
 

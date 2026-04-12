@@ -215,6 +215,12 @@ sample-rate conversion pipeline—so what you hear from the effect controls matc
 baked into the FLAC for that take. The effect configuration is stored in `project.json`
 under that track’s `audioEffectChain` entry.
 
+### Mix effects (full project)
+
+**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
+
+To reduce harsh [digital clipping](https://en.wikipedia.org/wiki/Clipping_%28audio%29) when processing pushes peaks toward full scale, the effect engine applies a **soft limiter** to normalized float samples immediately before conversion to 16-bit PCM. The **EffectWidget** base class documents `guardFloatSampleForInt16Pcm()` and `softLimitFloatSampleForInt16Pcm()` for any new real-time code that writes to 16-bit audio.
+
 ### Monitor while recording
 
 Next to the main **time display**, the **Monitor audio while recording** checkbox controls
@@ -416,6 +422,10 @@ or audio device. Project-specific settings are saved inside the `project.json` f
 
 ![Project audio settings](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
 
+#### Mix Effects tab
+
+The **Mix Effects** tab is a scrollable list with the same controls as **Track effects** (**Add effect…**, drag **≡** to reorder, **✕** to remove). Processing order is **top to bottom** on the **combined** mix of all enabled tracks. These effects run during **whole-project playback** and when **mixing to a single WAV or FLAC file**; they are **not** baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer’s own level handling.
+
 ## Menus
 
 ### File Menu
@@ -444,7 +454,23 @@ or audio device. Project-specific settings are saved inside the `project.json` f
 | Menu Item             | Shortcut | Description                              |
 |-----------------------|----------|------------------------------------------|
 | Mix tracks to file    | Ctrl+M   | Export all enabled tracks to a file      |
+| Add drum track        | D        | Add a MIDI drum track and write a `.mid` groove (see below) |
 | Virtual MIDI Keyboard |          | Launch the companion keyboard app        |
+
+### Add drum track
+
+**Tools → Add drum track** (shortcut **D**) creates a new **MIDI** track intended for percussion: notes are on **MIDI channel 10** (General MIDI drums; internally channel index 9). The track is given a default name such as **Drums** (with a numeric suffix if that name is already taken).
+
+A **Standard MIDI File** (`.mid`) is written into the **project directory** immediately, containing a **two-bar 4/4** pattern with kick, snare, and closed hi-hat at a tempo chosen as follows:
+
+- If **Metronome Settings** (toolbar **metronome** button) has **Enable metronome during recording** **enabled**, the pattern uses the **Beats per minute** value from that dialog.
+- If the metronome is **disabled**, the application **estimates BPM** from a **mono mix** of all **enabled** **audio** tracks that contain recorded audio. If there is no usable audio or estimation fails, **120 BPM** is used.
+
+Save the project (**File → Save Project**) so `project.json` references the new `.mid` file like any other MIDI track.
+
+**Note:** BPM detection is a simple onset-autocorrelation helper; it works best on rhythmic material and may pick half/double time on some sources—adjust the metronome and re-add the track, or edit the MIDI file in another tool if needed.
+
+**Further reading (external):** [Audient — How to program realistic MIDI drum tracks](https://audient.com/tutorial/how-to-program-realistic-midi-drum-tracks/), [MeldaProduction — MDrummer](https://www.meldaproduction.com/MDrummer) (see also Melda’s [MDrummer overview video](https://www.youtube.com/watch?v=qfXuNcfDuIA)), [Reddit — generating MIDI drum patterns from audio](https://www.reddit.com/r/ableton/comments/1e51a7g/generating_midi_drum_patterns_based_on_audio_input/), the overview paper *[Automated Music Track Generation](https://cs229.stanford.edu/proj2014/Louis%20Eugene,%20Guillaume%20Rostaing,%20Automated%20Music%20Track%20Generation.pdf)* (Stanford CS229), and an informal video on [playing drum-like MIDI from a keyboard controller](https://www.youtube.com/watch?v=jFVMKf8-IXk).
 
 ## Keyboard Shortcuts
 
@@ -453,6 +479,7 @@ or audio device. Project-specific settings are saved inside the `project.json` f
 | Ctrl+S          | Save project                   |
 | Ctrl+O          | Open project                   |
 | Ctrl+M          | Mix tracks to file             |
+| D               | Add drum track (Tools menu)    |
 | Ctrl+P          | Project Settings               |
 | Ctrl+,          | Settings / Configuration       |
 | Ctrl+Q / Alt+F4 | Quit                          |

@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Tr&#233;oirleabhar &#218;s&#225;ideora Musician&#8217;s Canvas</h1>
 <p>Feidhmchlár Taifeadta Ceoil Il-Rian &mdash; Version 0.1.1</p>
-<p>2026-04-10</p>
+<p>2026-04-11</p>
 </div>
 <div class="toc">
 <h2>Cl&aacute;r &Aacute;bhair</h2>
@@ -73,6 +73,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#taifeadadh">Taifeadadh</a><ul>
 <li><a href="#taifeadadh-fuaime">Taifeadadh Fuaime</a></li>
 <li><a href="#eifeachtai-insert-rianta-fuaime-amhain">Éifeachtaí insert (rianta fuaime amháin)</a></li>
+<li><a href="#mix-effects-full-project">Mix effects (full project)</a></li>
 <li><a href="#monatoireacht-le-linn-taifeadta">Monatóireacht le linn taifeadta</a></li>
 <li><a href="#taifeadadh-midi">Taifeadadh MIDI</a></li>
 </ul>
@@ -92,7 +93,10 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#roghchlar-tools">Roghchlár Tools</a></li>
 </ul>
 </li>
-<li><a href="#aicearrai-mearchlair">Aicearraí Méarchláir</a></li>
+<li><a href="#aicearrai-mearchlair">Aicearraí Méarchláir</a><ul>
+<li><a href="#cuir-rian-drumai-leis">Cuir rian drumaí leis</a></li>
+</ul>
+</li>
 <li><a href="#virtual-midi-keyboard">Virtual MIDI Keyboard</a><ul>
 <li><a href="#gneithe">Gnéithe</a></li>
 <li><a href="#rialuithe-barra-uirlisi">Rialuithe Barra Uirlisí</a></li>
@@ -267,6 +271,9 @@ Canvas chun iad a chur leis mar rianta fuaime nua.</p>
 <li><strong>OK</strong> sábhálann san tionscadal; <strong>Ceal</strong> aithchóraíonn an slabhra mar ba dhóigh leat nuair a osclaíodh an dialóg.</li>
 </ul>
 <p>Cuirtear éifeachtaí i bhfeidhm <strong>nuair a stopann tú an taifeadadh</strong>, tar éis gabhála agus athshamplála gnáth. Sábháiltear cumraíocht in <code>project.json</code> faoi <code>audioEffectChain</code>.</p>
+<h3 id="mix-effects-full-project">Mix effects (full project)</h3>
+<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
 <h3 id="monatoireacht-le-linn-taifeadta">Monatóireacht le linn taifeadta</h3>
 <p>Taobh le <strong>taispeántas ama</strong>, rialann <strong>Monatóir fuaim agus í á taifeadadh</strong> an sás <strong>beo</strong> a sheoladh chuig <strong>aschur fuaime an tionscadail</strong>
 le linn taifeadta:</p>
@@ -379,6 +386,8 @@ an taifeadadh.</p>
 <li><strong>Cainéil</strong>: Monafónach nó Steiréafónach. Mura dtacaíonn an gléas ach le monafónach, tá an rogha Steiréafónach díchumasaithe.</li>
 </ul>
 <p><img alt="Socruithe fuaime tionscadail" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
+<h4 id="mix-effects-tab">Mix Effects tab</h4>
+<p>The <strong>Mix Effects</strong> tab is a scrollable list with the same controls as <strong>Track effects</strong> (<strong>Add effect…</strong>, drag <strong>≡</strong> to reorder, <strong>✕</strong> to remove). Processing order is <strong>top to bottom</strong> on the <strong>combined</strong> mix of all enabled tracks. These effects run during <strong>whole-project playback</strong> and when <strong>mixing to a single WAV or FLAC file</strong>; they are <strong>not</strong> baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.</p>
 <h2 id="roghchlair">Roghchláir</h2>
 <h3 id="roghchlar-file">Roghchlár File</h3>
 <table>
@@ -462,6 +471,11 @@ an taifeadadh.</p>
 <td>Easpórtáil gach rian cumasaithe go comhad</td>
 </tr>
 <tr>
+<td>Add drum track</td>
+<td>D</td>
+<td>Rian MIDI drumaí agus <code>.mid</code> (féach thíos)</td>
+</tr>
+<tr>
 <td>Virtual MIDI Keyboard</td>
 <td></td>
 <td>Seoladh an fheidhmchláir mhéarchláir chomhpháirtigh</td>
@@ -490,6 +504,10 @@ an taifeadadh.</p>
 <td>Measc rianta go comhad</td>
 </tr>
 <tr>
+<td>D</td>
+<td>Cuir rian drumaí leis (roghchlár Tools)</td>
+</tr>
+<tr>
 <td>Ctrl+P</td>
 <td>Socruithe Tionscadail</td>
 </tr>
@@ -503,6 +521,14 @@ an taifeadadh.</p>
 </tr>
 </tbody>
 </table>
+<h3 id="cuir-rian-drumai-leis">Cuir rian drumaí leis</h3>
+<p><strong>Tools → Add drum track</strong> (aicearra <strong>D</strong>) cuireann sé rian <strong>MIDI</strong> ar <strong>cainéal 10</strong> General MIDI (innéacs 9). Ainm réamhshocraithe <strong>Drums</strong>.</p>
+<p>Scríobhtar <strong><code>.mid</code> go huath</strong> sa <strong>chomhadlann tionscadail</strong>: dhá bharra 4/4. Luas:</p>
+<ul>
+<li>Má tá <strong>Cumasaigh an mhéadrán le linn taifeadta</strong> ar siúl, úsáidtear an <strong>BPM</strong> sin.</li>
+<li>Nó <strong>meastar BPM</strong> ó rianta <strong>fuaime</strong> cumasaithe; nó <strong>120 BPM</strong>.</li>
+</ul>
+<p><strong>Naisc:</strong> <a href="https://audient.com/tutorial/how-to-program-realistic-midi-drum-tracks/">Audient</a>, <a href="https://www.meldaproduction.com/MDrummer">MDrummer</a>, <a href="https://www.reddit.com/r/ableton/comments/1e51a7g/generating_midi_drum_patterns_based_on_audio_input/">Reddit</a>, <a href="https://cs229.stanford.edu/proj2014/Louis%20Eugene,%20Guillaume%20Rostaing,%20Automated%20Music%20Track%20Generation.pdf">CS229 PDF</a>.</p>
 <h2 id="virtual-midi-keyboard">Virtual MIDI Keyboard</h2>
 <p>Is feidhmchlár comhpháirteach é Virtual MIDI Keyboard (<code>virtual_midi_keyboard</code>) a sholáthraíonn méarchlár pianó ar an scáileán chun nótaí MIDI a sheoladh. Is féidir é a sheoladh ón roghchlár <strong>Tools &gt; Virtual MIDI Keyboard</strong> sa phríomhfheidhmchlár, nó é a rith go neamhspleách.</p>
 <p><img alt="Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard1.png" /></p>

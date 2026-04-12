@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Llawlyfr Defnyddiwr Musician&#8217;s Canvas</h1>
 <p>Cymhwysiad Recordio Cerddoriaeth Aml-Drac &mdash; Version 0.1.1</p>
-<p>2026-04-10</p>
+<p>2026-04-11</p>
 </div>
 <div class="toc">
 <h2>Tabl Cynnwys</h2>
@@ -73,6 +73,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#recordio">Recordio</a><ul>
 <li><a href="#recordio-sain">Recordio Sain</a></li>
 <li><a href="#effeithiau-mewnosod-traciau-sain-yn-unig">Effeithiau mewnosod (traciau sain yn unig)</a></li>
+<li><a href="#mix-effects-full-project">Mix effects (full project)</a></li>
 <li><a href="#monitro-wrth-recordio">Monitro wrth recordio</a></li>
 <li><a href="#recordio-midi">Recordio MIDI</a></li>
 </ul>
@@ -92,7 +93,10 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#dewislen-tools">Dewislen Tools</a></li>
 </ul>
 </li>
-<li><a href="#llwybrau-byr-bysellfwrdd">Llwybrau Byr Bysellfwrdd</a></li>
+<li><a href="#llwybrau-byr-bysellfwrdd">Llwybrau Byr Bysellfwrdd</a><ul>
+<li><a href="#ychwanegu-trac-drymiau">Ychwanegu trac drymiau</a></li>
+</ul>
+</li>
 <li><a href="#virtual-midi-keyboard">Virtual MIDI Keyboard</a><ul>
 <li><a href="#nodweddion">Nodweddion</a></li>
 <li><a href="#rheolaethau-bar-offer">Rheolaethau Bar Offer</a></li>
@@ -265,6 +269,9 @@ sain newydd.</p>
 <li><strong>Iawn</strong> yn cadw yn y prosiect; <strong>Canslo</strong> yn adfer y gadwyn fel pan agorwyd y ddeialog.</li>
 </ul>
 <p>Cynnir effeithiau <strong>pan fyddwch chi'n stopio recordio</strong>, ar ôl cipio ac ailsampla fel arfer. Mae'r ffurfweddiad yn cael ei gadw yn <code>project.json</code> dan <code>audioEffectChain</code>.</p>
+<h3 id="mix-effects-full-project">Mix effects (full project)</h3>
+<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
 <h3 id="monitro-wrth-recordio">Monitro wrth recordio</h3>
 <p>Wrth ymyl <strong>arddangosfa'r amser</strong>, mae <strong>Monitro sain wrth recordio</strong> yn pennu a yw <strong>mewnbwn byw</strong> yn mynd i <strong>allbwn sain y prosiect</strong>
 wrth recordio:</p>
@@ -376,6 +383,8 @@ go iawn (ar ôl i'r cyfrif tuag at i lawr 3 eiliad gwblhau), ac yn stopio pan dd
 <li><strong>Sianeli</strong>: Mono neu Stereo. Os mai dim ond mono y mae'r ddyfais yn ei gefnogi, mae'r opsiwn Stereo wedi'i analluogi.</li>
 </ul>
 <p><img alt="Gosodiadau sain prosiect" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
+<h4 id="mix-effects-tab">Mix Effects tab</h4>
+<p>The <strong>Mix Effects</strong> tab is a scrollable list with the same controls as <strong>Track effects</strong> (<strong>Add effect…</strong>, drag <strong>≡</strong> to reorder, <strong>✕</strong> to remove). Processing order is <strong>top to bottom</strong> on the <strong>combined</strong> mix of all enabled tracks. These effects run during <strong>whole-project playback</strong> and when <strong>mixing to a single WAV or FLAC file</strong>; they are <strong>not</strong> baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.</p>
 <h2 id="dewislenni">Dewislenni</h2>
 <h3 id="dewislen-file">Dewislen File</h3>
 <table>
@@ -459,6 +468,11 @@ go iawn (ar ôl i'r cyfrif tuag at i lawr 3 eiliad gwblhau), ac yn stopio pan dd
 <td>Allforio'r holl draciau galluogedig i ffeil</td>
 </tr>
 <tr>
+<td>Add drum track</td>
+<td>D</td>
+<td>Trac MIDI drymiau a <code>.mid</code> (gweler isod)</td>
+</tr>
+<tr>
 <td>Virtual MIDI Keyboard</td>
 <td></td>
 <td>Lansio'r cymhwysiad bysellfwrdd cydymaith</td>
@@ -487,6 +501,10 @@ go iawn (ar ôl i'r cyfrif tuag at i lawr 3 eiliad gwblhau), ac yn stopio pan dd
 <td>Cymysgu traciau i ffeil</td>
 </tr>
 <tr>
+<td>D</td>
+<td>Ychwanegu trac drymiau (dewislen Tools)</td>
+</tr>
+<tr>
 <td>Ctrl+P</td>
 <td>Gosodiadau Prosiect</td>
 </tr>
@@ -500,6 +518,14 @@ go iawn (ar ôl i'r cyfrif tuag at i lawr 3 eiliad gwblhau), ac yn stopio pan dd
 </tr>
 </tbody>
 </table>
+<h3 id="ychwanegu-trac-drymiau">Ychwanegu trac drymiau</h3>
+<p><strong>Tools → Add drum track</strong> (bysellfwrdd byr <strong>D</strong>) yn ychwanegu trac <strong>MIDI</strong> ar <strong>sianel 10</strong> General MIDI (mynegai 9). Enw diofyn <strong>Drums</strong>.</p>
+<p>Mae <strong><code>.mid</code></strong> yn cael ei ysgrifennu i'r <strong>ffolder prosiect</strong> ar unwaith: dwy fesur 4/4. Tempo:</p>
+<ul>
+<li>Os yw <strong>Galluogi'r metrôn wrth recordio</strong> ymlaen, defnyddir y <strong>BPM</strong> hwnnw.</li>
+<li>Fel arall <strong>amcangyfrif BPM</strong> o draciau <strong>sain</strong> wedi'u galluogi; fel arall <strong>120 BPM</strong>.</li>
+</ul>
+<p><strong>Dolenni:</strong> <a href="https://audient.com/tutorial/how-to-program-realistic-midi-drum-tracks/">Audient</a>, <a href="https://www.meldaproduction.com/MDrummer">MDrummer</a>, <a href="https://www.reddit.com/r/ableton/comments/1e51a7g/generating_midi_drum_patterns_based_on_audio_input/">Reddit</a>, <a href="https://cs229.stanford.edu/proj2014/Louis%20Eugene,%20Guillaume%20Rostaing,%20Automated%20Music%20Track%20Generation.pdf">CS229 PDF</a>.</p>
 <h2 id="virtual-midi-keyboard">Virtual MIDI Keyboard</h2>
 <p>Mae Virtual MIDI Keyboard yn gymhwysiad cydymaith (<code>virtual_midi_keyboard</code>) sy'n darparu bysellfwrdd piano ar y sgrin ar gyfer anfon nodau MIDI. Gellir ei lansio o'r ddewislen <strong>Tools &gt; Virtual MIDI Keyboard</strong> yn y prif gymhwysiad, neu ei redeg yn annibynnol.</p>
 <p><img alt="Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard1.png" /></p>

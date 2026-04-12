@@ -227,6 +227,12 @@ Die Effekte werden auf das Audio **angewendet, wenn Sie die Aufnahme beenden** �
 üblichen Capture- und SRC-Pipeline. Die Konfiguration wird in `project.json` unter
 `audioEffectChain` der Spur gespeichert.
 
+### Mix-Effekte (gesamtes Projekt)
+
+Unter **Project → Project Settings → Mix Effects** legen Sie dieselbe Art von Effektkette wie bei **Track effects** fest, angewendet auf die **komplette Mischung** aller aktivierten Spuren: beim **Abspielen des ganzen Projekts** und beim **Export als gemischte Datei** (WAV/FLAC). Die Kette wird in `project.json` unter `projectSettings` → `mixEffectChain` gespeichert.
+
+Um hartes [digitales Clipping](https://en.wikipedia.org/wiki/Clipping_%28audio%29) zu vermeiden, wenn Pegel nahe Vollaussteuerung steigen, wendet die Engine eine **weiche Begrenzung** auf normalisierte Float-Samples an, unmittelbar bevor sie in 16-Bit-PCM gewandelt werden. Die Basisklasse **EffectWidget** dokumentiert `guardFloatSampleForInt16Pcm()` und `softLimitFloatSampleForInt16Pcm()` für neuen DSP-Code.
+
 ### Mithören während der Aufnahme
 
 Neben der **Zeitanzeige** steuert das Kontrollkästchen **Ton während der Aufnahme mithören**,
@@ -430,6 +436,10 @@ Projektspezifische Einstellungen werden in der Datei `project.json` gespeichert.
 
 ![Projekt-Audio-Einstellungen](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
 
+#### Registerkarte Mix Effects
+
+Wie bei **Track effects**: scrollbare Liste mit **Effekt hinzufügen…**, **≡** zum Neuordnen, **✕** zum Entfernen. Die Reihenfolge ist **von oben nach unten** auf dem **Summensignal**, nachdem alle aktivierten Spuren gemischt wurden. Diese Effekte laufen bei **Wiedergabe aller Spuren** und beim **Mix zu einer Datei**; sie werden **nicht** in die einzelnen Spurdateien auf der Festplatte „eingebacken“. Eine leere Liste lässt den Mix unverändert (abgesehen von der internen Pegelführung des Mixers).
+
 ## Menüs
 
 ### Menue "File"
@@ -458,6 +468,7 @@ Projektspezifische Einstellungen werden in der Datei `project.json` gespeichert.
 | Menüeintrag          | Tastenkürzel | Beschreibung                                  |
 |-----------------------|---------------|-----------------------------------------------|
 | Mix tracks to file    | Ctrl+M        | Alle aktivierten Spuren in eine Datei exportieren |
+| Add drum track        | D        | MIDI-Schlagzeugspur anlegen und `.mid`-Groove schreiben |
 | Virtual MIDI Keyboard |               | Die Begleit-Tastaturanwendung starten         |
 
 ## Tastenkürzel
@@ -467,9 +478,24 @@ Projektspezifische Einstellungen werden in der Datei `project.json` gespeichert.
 | Ctrl+S          | Projekt speichern                     |
 | Ctrl+O          | Projekt öffnen                       |
 | Ctrl+M          | Spuren in eine Datei abmischen        |
+| D               | Schlagzeugspur hinzufügen (Tools-Menü) |
 | Ctrl+P          | Projekteinstellungen                  |
 | Ctrl+,          | Einstellungen / Konfiguration         |
 | Ctrl+Q / Alt+F4 | Beenden                              |
+
+
+### Schlagzeugspur hinzufügen
+
+**Tools → Add drum track** (Tastenkürzel **D**) erzeugt eine **MIDI**-Spur für Schlagzeug auf **MIDI-Kanal 10** (General MIDI; intern Kanalindex 9). Standardname z. B. **Drums** (mit Nummer bei Bedarf).
+
+Sofort wird eine **Standard-MIDI-Datei** (`.mid`) im **Projektordner** geschrieben: **zwei Takte 4/4** mit Kick, Snare und geschlossenem Hi-Hat. Tempo:
+
+- Ist im **Metronom**-Dialog **Metronom während Aufnahme aktiv** eingeschaltet, gilt der eingestellte **BPM**-Wert.
+- Sonst wird **BPM** aus einem Mix der **aktivierten** **Audio**spuren mit Inhalt geschätzt; ohne brauchbares Audio wird **120 BPM** angenommen.
+
+**Hinweis:** Die Schätzung ist bewusst einfach (Onset-Autokorrelation); bei manchem Material kann Halb-/Doppelzeit auftreten.
+
+**Weiterführend:** [Audient — realistische MIDI-Drums](https://audient.com/tutorial/how-to-program-realistic-midi-drum-tracks/), [Melda MDrummer](https://www.meldaproduction.com/MDrummer), [Reddit — Drum-Patterns aus Audio](https://www.reddit.com/r/ableton/comments/1e51a7g/generating_midi_drum_patterns_based_on_audio_input/), [Stanford CS229 — Automated Music Track Generation](https://cs229.stanford.edu/proj2014/Louis%20Eugene,%20Guillaume%20Rostaing,%20Automated%20Music%20Track%20Generation.pdf).
 
 ## Virtual MIDI Keyboard
 

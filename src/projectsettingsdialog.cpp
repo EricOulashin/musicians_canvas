@@ -1,4 +1,5 @@
 #include "projectsettingsdialog.h"
+#include "effectchaineditorwidget.h"
 #include <QTabWidget>
 #include <QLabel>
 #include <QVBoxLayout>
@@ -13,6 +14,7 @@
 #include <QDialogButtonBox>
 #include <QSlider>
 #include <QCheckBox>
+#include <QSizePolicy>
 #include <QApplication>
 #ifdef QT_MULTIMEDIA_AVAILABLE
 #include <QMediaDevices>
@@ -52,6 +54,7 @@ ProjectSettingsDialog::ProjectSettingsDialog(const ProjectSettings& settings,
     m_tabWidget = new QTabWidget();
     setupMidiTab();
     setupAudioTab();
+    setupMixEffectsTab();
     layout->addWidget(m_tabWidget);
 
     auto* buttons = new QDialogButtonBox(QDialogButtonBox::Ok |
@@ -87,6 +90,8 @@ ProjectSettings ProjectSettingsDialog::projectSettings() const
     s.useQtAudioInput              = true;
     s.portAudioInputDeviceIndex    = -1;
 #endif
+    if (m_mixEffectsEditor)
+        s.mixEffectChain = m_mixEffectsEditor->chain();
     return s;
 }
 
@@ -266,6 +271,22 @@ void ProjectSettingsDialog::setupAudioTab()
     m_tabWidget->addTab(widget, tr("Audio"));
 }
 
+void ProjectSettingsDialog::setupMixEffectsTab()
+{
+    auto* widget = new QWidget();
+    auto* layout = new QVBoxLayout(widget);
+    auto* introLabel = new QLabel(
+        tr("Effects on the full mix when playing all tracks and when exporting a mixed file. "
+           "Order is top to bottom (same as track effects)."));
+    introLabel->setWordWrap(true);
+    introLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    introLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+    layout->addWidget(introLabel);
+    m_mixEffectsEditor = new EffectChainEditorWidget(widget);
+    layout->addWidget(m_mixEffectsEditor, 1);
+    m_tabWidget->addTab(widget, tr("Mix Effects"));
+}
+
 void ProjectSettingsDialog::refreshDevices()
 {
     m_midiDeviceCombo->clear();
@@ -429,6 +450,9 @@ void ProjectSettingsDialog::loadSettings(const ProjectSettings& settings)
     }
     onRecordingBackendChanged();
 #endif
+
+    if (m_mixEffectsEditor)
+        m_mixEffectsEditor->setChain(settings.mixEffectChain);
 }
 
 #ifdef QT_MULTIMEDIA_AVAILABLE

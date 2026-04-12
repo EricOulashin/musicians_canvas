@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Manual de usuario de Musician&#8217;s Canvas</h1>
 <p>Aplicación de Grabación Musical Multipista &mdash; Version 0.1.1</p>
-<p>2026-04-10</p>
+<p>2026-04-11</p>
 </div>
 <div class="toc">
 <h2>&Iacute;ndice</h2>
@@ -73,6 +73,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#grabacion">Grabación</a><ul>
 <li><a href="#grabacion-de-audio">Grabación de Audio</a></li>
 <li><a href="#efectos-de-insercion-solo-pistas-de-audio">Efectos de inserción (solo pistas de audio)</a></li>
+<li><a href="#mix-effects-full-project">Mix effects (full project)</a></li>
 <li><a href="#monitorizar-durante-la-grabacion">Monitorizar durante la grabación</a></li>
 <li><a href="#grabacion-midi">Grabación MIDI</a></li>
 </ul>
@@ -92,7 +93,10 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#menu-tools">Menú Tools</a></li>
 </ul>
 </li>
-<li><a href="#atajos-de-teclado">Atajos de Teclado</a></li>
+<li><a href="#atajos-de-teclado">Atajos de Teclado</a><ul>
+<li><a href="#anadir-pista-de-bateria">Añadir pista de batería</a></li>
+</ul>
+</li>
 <li><a href="#virtual-midi-keyboard">Virtual MIDI Keyboard</a><ul>
 <li><a href="#funciones">Funciones</a></li>
 <li><a href="#controles-de-la-barra-de-herramientas">Controles de la Barra de Herramientas</a></li>
@@ -271,6 +275,9 @@ grabaciones en esa pista:</p>
 </ul>
 <p>Los efectos se aplican al <strong>detener la grabación</strong>, después del flujo normal de captura y
 remuestreo. La configuración se guarda en <code>project.json</code> en <code>audioEffectChain</code>.</p>
+<h3 id="mix-effects-full-project">Mix effects (full project)</h3>
+<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
 <h3 id="monitorizar-durante-la-grabacion">Monitorizar durante la grabación</h3>
 <p>Junto al <strong>visor de tiempo</strong>, la casilla <strong>Escuchar el audio mientras se graba</strong> decide si se envía la <strong>entrada en directo</strong> a la <strong>salida de audio del proyecto</strong> durante la grabación:</p>
 <ul>
@@ -399,6 +406,8 @@ finaliza la grabación.</p>
 <li><strong>Canales</strong>: Mono o Estéreo. Si el dispositivo solo soporta mono, la opción Estéreo se deshabilita.</li>
 </ul>
 <p><img alt="Ajustes de audio del proyecto" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
+<h4 id="mix-effects-tab">Mix Effects tab</h4>
+<p>The <strong>Mix Effects</strong> tab is a scrollable list with the same controls as <strong>Track effects</strong> (<strong>Add effect…</strong>, drag <strong>≡</strong> to reorder, <strong>✕</strong> to remove). Processing order is <strong>top to bottom</strong> on the <strong>combined</strong> mix of all enabled tracks. These effects run during <strong>whole-project playback</strong> and when <strong>mixing to a single WAV or FLAC file</strong>; they are <strong>not</strong> baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.</p>
 <h2 id="menus">Menús</h2>
 <h3 id="menu-file">Menú File</h3>
 <table>
@@ -482,6 +491,11 @@ finaliza la grabación.</p>
 <td>Exportar todas las pistas habilitadas a un archivo</td>
 </tr>
 <tr>
+<td>Add drum track</td>
+<td>D</td>
+<td>Añadir pista MIDI de batería y escribir un <code>.mid</code> (ver abajo)</td>
+</tr>
+<tr>
 <td>Virtual MIDI Keyboard</td>
 <td></td>
 <td>Iniciar la aplicación complementaria de teclado</td>
@@ -510,6 +524,10 @@ finaliza la grabación.</p>
 <td>Mezclar pistas a archivo</td>
 </tr>
 <tr>
+<td>D</td>
+<td>Añadir pista de batería (menú Tools)</td>
+</tr>
+<tr>
 <td>Ctrl+P</td>
 <td>Ajustes del Proyecto</td>
 </tr>
@@ -523,6 +541,15 @@ finaliza la grabación.</p>
 </tr>
 </tbody>
 </table>
+<h3 id="anadir-pista-de-bateria">Añadir pista de batería</h3>
+<p><strong>Tools → Add drum track</strong> (atajo <strong>D</strong>) crea una pista <strong>MIDI</strong> de percusión en el <strong>canal 10</strong> General MIDI (índice de canal 9). El nombre predeterminado suele ser <strong>Drums</strong> (con sufijo numérico si hace falta).</p>
+<p>Se escribe de inmediato un <strong><code>.mid</code></strong> en la <strong>carpeta del proyecto</strong>: dos compases 4/4 con bombo, caja y charleston cerrado. El tempo:</p>
+<ul>
+<li>Si en <strong>Ajustes del metrónomo</strong> está <strong>Activar metrónomo durante la grabación</strong>, se usa ese <strong>BPM</strong>.</li>
+<li>Si no, se <strong>estima el BPM</strong> a partir de las pistas de <strong>audio</strong> <strong>habilitadas</strong> con contenido; si no hay audio útil, <strong>120 BPM</strong>.</li>
+</ul>
+<p><strong>Nota:</strong> la detección es sencilla; puede confundir tiempos relacionados por 2.</p>
+<p><strong>Referencias:</strong> <a href="https://audient.com/tutorial/how-to-program-realistic-midi-drum-tracks/">Audient — batería MIDI realista</a>, <a href="https://www.meldaproduction.com/MDrummer">Melda MDrummer</a>, <a href="https://www.reddit.com/r/ableton/comments/1e51a7g/generating_midi_drum_patterns_based_on_audio_input/">Reddit</a>, <a href="https://cs229.stanford.edu/proj2014/Louis%20Eugene,%20Guillaume%20Rostaing,%20Automated%20Music%20Track%20Generation.pdf">PDF Stanford CS229</a>.</p>
 <h2 id="virtual-midi-keyboard">Virtual MIDI Keyboard</h2>
 <p>Virtual MIDI Keyboard es una aplicación complementaria (<code>virtual_midi_keyboard</code>) que proporciona un teclado de piano en pantalla para enviar notas MIDI. Puede iniciarse desde el menú <strong>Tools &gt; Virtual MIDI Keyboard</strong> en la aplicación principal, o ejecutarse de forma independiente.</p>
 <p><img alt="Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard1.png" /></p>

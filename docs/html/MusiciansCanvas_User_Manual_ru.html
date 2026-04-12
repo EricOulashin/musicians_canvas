@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas &#1056;&#1091;&#1082;&#1086;&#1074;&#1086;&#1076;&#1089;&#1090;&#1074;&#1086; &#1087;&#1086;&#1083;&#1100;&#1079;&#1086;&#1074;&#1072;&#1090;&#1077;&#1083;&#1103;</h1>
 <p>Приложение для многодорожечной записи музыки &mdash; Version 0.1.1</p>
-<p>2026-04-10</p>
+<p>2026-04-11</p>
 </div>
 <div class="toc">
 <h2>&#1057;&#1086;&#1076;&#1077;&#1088;&#1078;&#1072;&#1085;&#1080;&#1077;</h2>
@@ -73,6 +73,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#_14">Запись</a><ul>
 <li><a href="#_15">Запись звука</a></li>
 <li><a href="#_16">Вставные эффекты (только аудиодорожки)</a></li>
+<li><a href="#mix-effects-full-project">Mix effects (full project)</a></li>
 <li><a href="#_17">Мониторинг при записи</a></li>
 <li><a href="#midi">Запись MIDI</a></li>
 </ul>
@@ -92,12 +93,15 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#tools">Меню Tools</a></li>
 </ul>
 </li>
-<li><a href="#_35">Сочетания клавиш</a></li>
+<li><a href="#_35">Сочетания клавиш</a><ul>
+<li><a href="#_36">Добавить ударную дорожку</a></li>
+</ul>
+</li>
 <li><a href="#virtual-midi-keyboard">Virtual MIDI Keyboard</a><ul>
-<li><a href="#_36">Возможности</a></li>
-<li><a href="#_37">Элементы управления панели инструментов</a></li>
-<li><a href="#_38">Игра с клавиатуры компьютера</a></li>
-<li><a href="#_39">Конфигурация</a></li>
+<li><a href="#_37">Возможности</a></li>
+<li><a href="#_38">Элементы управления панели инструментов</a></li>
+<li><a href="#_39">Игра с клавиатуры компьютера</a></li>
+<li><a href="#_40">Конфигурация</a></li>
 <li><a href="#virtual-midi-keyboard_1">Сочетания клавиш Virtual MIDI Keyboard</a></li>
 </ul>
 </li>
@@ -106,23 +110,23 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#midi-_1">Почему MIDI-дорожка беззвучна при воспроизведении?</a></li>
 <li><a href="#virtual-midi-keyboard-musicians-canvas">Как Virtual MIDI Keyboard связан с Musician's Canvas?</a></li>
 <li><a href="#configuration-project-settings">Чем отличаются Configuration и Project Settings?</a></li>
-<li><a href="#_42">Почему перетаскивание файлов не добавляет аудио?</a></li>
-<li><a href="#_43">Где хранятся записи?</a></li>
+<li><a href="#_43">Почему перетаскивание файлов не добавляет аудио?</a></li>
+<li><a href="#_44">Где хранятся записи?</a></li>
 <li><a href="#midi_4">Какое имя файла при рендере MIDI для сведения?</a></li>
-<li><a href="#_44">Можно ли записывать две дорожки одновременно?</a></li>
-<li><a href="#_45">Попадает ли метроном в запись?</a></li>
+<li><a href="#_45">Можно ли записывать две дорожки одновременно?</a></li>
+<li><a href="#_46">Попадает ли метроном в запись?</a></li>
 <li><a href="#windows-asio">Почему на Windows требуется ASIO?</a></li>
 <li><a href="#macos-virtual-midi-keyboard">Где на macOS находится Virtual MIDI Keyboard?</a></li>
 </ul>
 </li>
-<li><a href="#_46">Устранение неполадок</a><ul>
-<li><a href="#_47">Нет звукового вывода</a></li>
+<li><a href="#_47">Устранение неполадок</a><ul>
+<li><a href="#_48">Нет звукового вывода</a></li>
 <li><a href="#midi-_2">MIDI-дорожки не воспроизводят звук</a></li>
-<li><a href="#_48">Запись звучит искажённо или с неправильной высотой тона</a></li>
+<li><a href="#_49">Запись звучит искажённо или с неправильной высотой тона</a></li>
 <li><a href="#virtual-midi-keyboard_2">Virtual MIDI Keyboard не воспроизводит звук</a></li>
 </ul>
 </li>
-<li><a href="#_49">Сборка из исходного кода</a></li>
+<li><a href="#_50">Сборка из исходного кода</a></li>
 </ul>
 </li>
 </ul>
@@ -298,6 +302,9 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </ul>
 <p>Эффекты применяются при <strong>остановке записи</strong>, после обычного захвата и передискретизации. Конфигурация
 хранится в <code>project.json</code> в поле <code>audioEffectChain</code>.</p>
+<h3 id="mix-effects-full-project">Mix effects (full project)</h3>
+<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
 <h3 id="_17">Мониторинг при записи</h3>
 <p>Рядом с <strong>индикатором времени</strong> флажок <strong>Мониторинг звука при записи</strong> включает или отключает вывод <strong>живого входа</strong>
 на <strong>аудиовыход проекта</strong> во время захвата:</p>
@@ -445,6 +452,8 @@ SoundFont или аудиоустройства. Настройки проект
 <li><strong>Каналы</strong>: моно или стерео. Если устройство поддерживает только моно, опция стерео отключена.</li>
 </ul>
 <p><img alt="Настройки аудио проекта" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
+<h4 id="mix-effects-tab">Mix Effects tab</h4>
+<p>The <strong>Mix Effects</strong> tab is a scrollable list with the same controls as <strong>Track effects</strong> (<strong>Add effect…</strong>, drag <strong>≡</strong> to reorder, <strong>✕</strong> to remove). Processing order is <strong>top to bottom</strong> on the <strong>combined</strong> mix of all enabled tracks. These effects run during <strong>whole-project playback</strong> and when <strong>mixing to a single WAV or FLAC file</strong>; they are <strong>not</strong> baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.</p>
 <h2 id="_34">Меню</h2>
 <h3 id="file">Меню File</h3>
 <table>
@@ -528,6 +537,11 @@ SoundFont или аудиоустройства. Настройки проект
 <td>Экспорт всех включённых дорожек в файл</td>
 </tr>
 <tr>
+<td>Add drum track</td>
+<td>D</td>
+<td>MIDI-ударная дорожка и <code>.mid</code> (см. ниже)</td>
+</tr>
+<tr>
 <td>Virtual MIDI Keyboard</td>
 <td></td>
 <td>Запустить сопутствующее приложение клавиатуры</td>
@@ -556,6 +570,10 @@ SoundFont или аудиоустройства. Настройки проект
 <td>Сведение дорожек в файл</td>
 </tr>
 <tr>
+<td>D</td>
+<td>Добавить ударную дорожку (меню Tools)</td>
+</tr>
+<tr>
 <td>Ctrl+P</td>
 <td>Настройки проекта</td>
 </tr>
@@ -569,12 +587,20 @@ SoundFont или аудиоустройства. Настройки проект
 </tr>
 </tbody>
 </table>
+<h3 id="_36">Добавить ударную дорожку</h3>
+<p><strong>Tools → Add drum track</strong> (клавиша <strong>D</strong>) добавляет <strong>MIDI</strong>-дорожку на <strong>канале 10</strong> General MIDI (индекс 9). Имя по умолчанию — <strong>Drums</strong>.</p>
+<p>Сразу записывается <strong><code>.mid</code></strong> в <strong>папку проекта</strong>: два такта 4/4. Темп:</p>
+<ul>
+<li>Если включено <strong>Включить метроном при записи</strong>, используется <strong>BPM</strong> из настроек метронома.</li>
+<li>Иначе <strong>оценка BPM</strong> по включённым <strong>аудио</strong>дорожкам; при неудаче <strong>120 BPM</strong>.</li>
+</ul>
+<p><strong>Ссылки:</strong> <a href="https://audient.com/tutorial/how-to-program-realistic-midi-drum-tracks/">Audient</a>, <a href="https://www.meldaproduction.com/MDrummer">MDrummer</a>, <a href="https://www.reddit.com/r/ableton/comments/1e51a7g/generating_midi_drum_patterns_based_on_audio_input/">Reddit</a>, <a href="https://cs229.stanford.edu/proj2014/Louis%20Eugene,%20Guillaume%20Rostaing,%20Automated%20Music%20Track%20Generation.pdf">CS229 PDF</a>.</p>
 <h2 id="virtual-midi-keyboard">Virtual MIDI Keyboard</h2>
 <p>Virtual MIDI Keyboard — это сопутствующее приложение (<code>virtual_midi_keyboard</code>), которое предоставляет
 экранную фортепианную клавиатуру для отправки MIDI-нот. Его можно запустить из меню
 <strong>Tools &gt; Virtual MIDI Keyboard</strong> в основном приложении или запустить независимо.</p>
 <p><img alt="Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard1.png" /></p>
-<h3 id="_36">Возможности</h3>
+<h3 id="_37">Возможности</h3>
 <ul>
 <li>Нажимайте клавиши на экранном пианино для воспроизведения нот</li>
 <li>Используйте клавиатуру компьютера как фортепианную клавиатуру (см. раскладку клавиш ниже)</li>
@@ -587,7 +613,7 @@ SoundFont или аудиоустройства. Настройки проект
 <li>Сдвиг октавы (от -3 до +5)</li>
 <li>Регулировка громкости MIDI (CC#7, 0--127)</li>
 </ul>
-<h3 id="_37">Элементы управления панели инструментов</h3>
+<h3 id="_38">Элементы управления панели инструментов</h3>
 <ul>
 <li><strong>Volume</strong>: громкость MIDI (CC#7), регулируемая от 0 до 127 через поле ввода.</li>
 <li><strong>Octave</strong>: сдвиг октавы клавиатуры с помощью кнопок <strong>&lt;</strong> и <strong>&gt;</strong> или поля ввода.
@@ -609,7 +635,7 @@ SoundFont или аудиоустройства. Настройки проект
   отображаются пресеты SoundFont (Банк:Программа Название). При подключении к внешнему MIDI-устройству
   отображается список 128 инструментов General MIDI.</li>
 </ul>
-<h3 id="_38">Игра с клавиатуры компьютера</h3>
+<h3 id="_39">Игра с клавиатуры компьютера</h3>
 <p>Клавиатура компьютера сопоставлена с клавишами фортепиано на протяжении двух октав:</p>
 <p><strong>Нижняя октава (начиная с текущей октавы):</strong></p>
 <table>
@@ -750,7 +776,7 @@ SoundFont или аудиоустройства. Настройки проект
 </tbody>
 </table>
 <p>Клавиши визуально подсвечиваются при нажатии (белые клавиши становятся голубыми, чёрные — затемняются).</p>
-<h3 id="_39">Конфигурация</h3>
+<h3 id="_40">Конфигурация</h3>
 <p>Откройте диалог конфигурации (<strong>Settings &gt; Configuration</strong>, Ctrl+,) для настройки MIDI- и аудиоустройств:</p>
 <p><img alt="Конфигурация Virtual MIDI Keyboard" src="screenshots/VMIDIKeyboard2.png" /></p>
 <h4 id="midi_3">Вкладка «MIDI»</h4>
@@ -763,11 +789,11 @@ SoundFont или аудиоустройства. Настройки проект
 <li><strong>SoundFont</strong>: выберите файл SoundFont <code>.sf2</code> для встроенного синтезатора.</li>
 <li><strong>Refresh</strong>: повторное сканирование доступных MIDI-устройств.</li>
 </ul>
-<h4 id="_40">Вкладка «Аудио»</h4>
+<h4 id="_41">Вкладка «Аудио»</h4>
 <ul>
 <li><strong>Устройство вывода аудио</strong>: выберите устройство вывода для встроенного синтезатора.</li>
 </ul>
-<h4 id="_41">Вкладка «Язык»</h4>
+<h4 id="_42">Вкладка «Язык»</h4>
 <ul>
 <li><strong>Язык</strong>: выберите язык интерфейса. Доступны те же языки, что и в Musician's Canvas.
   Интерфейс обновляется немедленно при смене языка.</li>
@@ -812,22 +838,22 @@ SoundFont или аудиоустройства. Настройки проект
 <p>Это <strong>два отдельных приложения</strong>. Запускайте Virtual MIDI Keyboard через <strong>Tools &gt; Virtual MIDI Keyboard</strong> (или отдельно). Чтобы экранная клавиатура <strong>попадала</strong> в Musician's Canvas при записи MIDI, ОС должна направить <strong>MIDI-выход</strong> клавиатуры на <strong>вход</strong>, который использует Musician's Canvas — часто через виртуальный MIDI-кабель или согласованные порты в обоих программах. Автоподключения нет.</p>
 <h3 id="configuration-project-settings">Чем отличаются Configuration и Project Settings?</h3>
 <p><strong>Settings &gt; Configuration</strong> задаёт <strong>глобальные значения по умолчанию</strong> (тема, язык, MIDI/аудиоустройства, SoundFont и т. д.). <strong>Project &gt; Project Settings</strong> переопределяет часть параметров <strong>только для текущего проекта</strong> и сохраняется в <code>project.json</code>. Если поле оставлено на проектном умолчании, используется глобальное значение из Configuration.</p>
-<h3 id="_42">Почему перетаскивание файлов не добавляет аудио?</h3>
+<h3 id="_43">Почему перетаскивание файлов не добавляет аудио?</h3>
 <p>Файлы принимаются только при заданном <strong>каталоге проекта</strong> и когда Musician's Canvas <strong>не</strong> воспроизводит и <strong>не</strong> записывает. Поддерживаются <strong><code>.wav</code></strong> и <strong><code>.flac</code></strong>; остальные расширения пропускаются и показываются в диалоге. Каждый файл становится новой <strong>аудио</strong>дорожкой с именем из базового имени файла.</p>
-<h3 id="_43">Где хранятся записи?</h3>
+<h3 id="_44">Где хранятся записи?</h3>
 <p>Аудио сохраняется в <strong>каталоге проекта</strong> как <strong><code>&lt;имя_дорожки&gt;.flac</code></strong> (символы вроде <code>/ \ : * ? " &lt; &gt; |</code> заменяются на подчёркивание). Файл проекта — <strong><code>project.json</code></strong> в той же папке. MIDI-дорожки при сохранении проекта записываются как <strong><code>&lt;имя_дорожки&gt;.mid</code></strong> (ноты также в <code>project.json</code>).</p>
 <h3 id="midi_4">Какое имя файла при рендере MIDI для сведения?</h3>
 <p>При <strong>сведении</strong> или <strong>воспроизведении</strong> MIDI сначала рендерится во временный WAV. Если известен путь проекта, Musician's Canvas также записывает <strong>кэширующий FLAC</strong> в папку проекта: <strong><code>&lt;очищенное_имя_дорожки&gt;.flac</code></strong> (те же правила очистки, что и у других файлов дорожек). Имя берётся от <strong>названия дорожки</strong>, а не от внутреннего ID.</p>
-<h3 id="_44">Можно ли записывать две дорожки одновременно?</h3>
+<h3 id="_45">Можно ли записывать две дорожки одновременно?</h3>
 <p>Нет. <strong>Вооружена</strong> может быть только <strong>одна</strong> дорожка; на неё идёт следующая запись. Собирайте проект, записывая <strong>по очереди</strong> (<strong>overdub</strong> воспроизводит существующие дорожки при новой записи).</p>
-<h3 id="_45">Попадает ли метроном в запись?</h3>
+<h3 id="_46">Попадает ли метроном в запись?</h3>
 <p>Нет. При включении метроном звучит через <strong>системный вывод</strong> только для вас. В файл записи он <strong>не</strong> микшируется.</p>
 <h3 id="windows-asio">Почему на Windows требуется ASIO?</h3>
 <p>В Windows основное приложение рассчитывает на драйвер <strong>ASIO</strong> для стабильного аудио с низкой задержкой. При ошибках установите <strong>ASIO4ALL</strong> или драйвер производителя интерфейса.</p>
 <h3 id="macos-virtual-midi-keyboard">Где на macOS находится Virtual MIDI Keyboard?</h3>
 <p>В <strong>пакете <code>.app</code></strong> исполняемый файл Virtual MIDI Keyboard <strong>копируется внутрь</strong> <code>Musician's Canvas.app</code> (<strong>Contents/MacOS/</strong>), чтобы распространять один каталог приложения. Запуск по-прежнему через <strong>Tools &gt; Virtual MIDI Keyboard</strong>.</p>
-<h2 id="_46">Устранение неполадок</h2>
-<h3 id="_47">Нет звукового вывода</h3>
+<h2 id="_47">Устранение неполадок</h2>
+<h3 id="_48">Нет звукового вывода</h3>
 <ul>
 <li>Проверьте, что правильное устройство вывода аудио выбрано в Settings &gt; Configuration &gt; Audio.</li>
 <li>В Linux убедитесь, что PipeWire или PulseAudio запущены и вывод не заглушён. Используйте <code>amixer</code>
@@ -843,7 +869,7 @@ SoundFont или аудиоустройства. Настройки проект
   <code>fluid-soundfont-gm</code>.</li>
 <li>В Windows и macOS путь к SoundFont необходимо настроить вручную.</li>
 </ul>
-<h3 id="_48">Запись звучит искажённо или с неправильной высотой тона</h3>
+<h3 id="_49">Запись звучит искажённо или с неправильной высотой тона</h3>
 <ul>
 <li>Это может произойти, когда собственная частота дискретизации устройства ввода звука отличается от
   настроенной частоты проекта. Musician's Canvas автоматически обрабатывает это с помощью передискретизации,
@@ -861,7 +887,7 @@ SoundFont или аудиоустройства. Настройки проект
 <li>Проверьте, что SoundFont загружен (см. вкладку MIDI в диалоге конфигурации).</li>
 <li>Убедитесь, что устройство вывода аудио выбрано и системная громкость не заглушена.</li>
 </ul>
-<h2 id="_49">Сборка из исходного кода</h2>
+<h2 id="_50">Сборка из исходного кода</h2>
 <p>Полные инструкции по сборке для Linux, macOS и Windows, включая все необходимые зависимости,
 см. в <a href="../README.md">README</a>.</p>
 </body>

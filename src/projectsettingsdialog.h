@@ -14,6 +14,7 @@ class QRadioButton;
 class QSlider;
 class QLabel;
 class QCheckBox;
+class EffectChainEditorWidget;
 
 class ProjectSettingsDialog : public QDialog
 {
@@ -34,6 +35,7 @@ private slots:
 private:
     void setupMidiTab();
     void setupAudioTab();
+    void setupMixEffectsTab();
     void loadSettings(const ProjectSettings& settings);
 #ifdef QT_MULTIMEDIA_AVAILABLE
     QAudioDevice selectedInputDevice() const;
@@ -68,6 +70,8 @@ private:
     // backend delivers data at a lower rate than advertised.
     int m_probedMonoMaxRate   = 0;
     int m_probedStereoMaxRate = 0;
+
+    EffectChainEditorWidget* m_mixEffectsEditor = nullptr;
 };
 
 #endif // PROJECTSETTINGSDIALOG_H

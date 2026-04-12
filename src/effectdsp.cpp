@@ -1,4 +1,5 @@
 #include "effectdsp.h"
+#include "audiopcmlimits.h"
 
 #include <QJsonObject>
 #include <QJsonValue>
@@ -787,7 +788,7 @@ void applyChainImpl(QByteArray& pcm, int channelCount, int sampleRate, const QJs
                     ampCabs[ia++].processFrame(l, r);
             }
             x = (l + r) * 0.5f;
-            x = clampf(x, -1.f, 1.f);
+            x = AudioPcmLimits::guardFloatSampleForInt16Pcm(x);
             s[f] = static_cast<qint16>(std::lround(x * 32767.f));
         }
     }
@@ -816,8 +817,8 @@ void applyChainImpl(QByteArray& pcm, int channelCount, int sampleRate, const QJs
                 else
                     ampCabs[ia++].processFrame(l, r);
             }
-            l = clampf(l, -1.f, 1.f);
-            r = clampf(r, -1.f, 1.f);
+            l = AudioPcmLimits::guardFloatSampleForInt16Pcm(l);
+            r = AudioPcmLimits::guardFloatSampleForInt16Pcm(r);
             s[b]     = static_cast<qint16>(std::lround(l * 32767.f));
             s[b + 1] = static_cast<qint16>(std::lround(r * 32767.f));
             // Additional channels, if any, are left unchanged (this app is typically mono/stereo).

@@ -1,4 +1,5 @@
 #include "effectwidget.h"
+#include "audiopcmlimits.h"
 
 #include <QApplication>
 #include <QHBoxLayout>
@@ -19,6 +20,16 @@ QJsonObject EffectWidget::toChainEntry() const
     o.insert(QStringLiteral("type"), effectTypeId());
     o.insert(QStringLiteral("params"), parametersToJson());
     return o;
+}
+
+float EffectWidget::softLimitFloatSampleForInt16Pcm(float x)
+{
+    return AudioPcmLimits::softLimitUnitFloat(x);
+}
+
+float EffectWidget::guardFloatSampleForInt16Pcm(float x)
+{
+    return AudioPcmLimits::guardFloatSampleForInt16Pcm(x);
 }
 
 void EffectWidget::applyCloseButtonStyle(QPushButton* btn)

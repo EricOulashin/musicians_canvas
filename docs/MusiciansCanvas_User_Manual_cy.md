@@ -172,6 +172,12 @@ Mae **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion** a **Amp & ca
 
 Cynnir effeithiau **pan fyddwch chi'n stopio recordio**, ar ôl cipio ac ailsampla fel arfer. Mae'r ffurfweddiad yn cael ei gadw yn `project.json` dan `audioEffectChain`.
 
+### Mix effects (full project)
+
+**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
+
+To reduce harsh [digital clipping](https://en.wikipedia.org/wiki/Clipping_%28audio%29) when processing pushes peaks toward full scale, the effect engine applies a **soft limiter** to normalized float samples immediately before conversion to 16-bit PCM. The **EffectWidget** base class documents `guardFloatSampleForInt16Pcm()` and `softLimitFloatSampleForInt16Pcm()` for any new real-time code that writes to 16-bit audio.
+
 ### Monitro wrth recordio
 
 Wrth ymyl **arddangosfa'r amser**, mae **Monitro sain wrth recordio** yn pennu a yw **mewnbwn byw** yn mynd i **allbwn sain y prosiect**
@@ -317,6 +323,10 @@ Defnyddiwch **Project > Project Settings** (Ctrl+P) i orosgyn rhagosodiadau byd-
 
 ![Gosodiadau sain prosiect](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
 
+#### Mix Effects tab
+
+The **Mix Effects** tab is a scrollable list with the same controls as **Track effects** (**Add effect…**, drag **≡** to reorder, **✕** to remove). Processing order is **top to bottom** on the **combined** mix of all enabled tracks. These effects run during **whole-project playback** and when **mixing to a single WAV or FLAC file**; they are **not** baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.
+
 ## Dewislenni
 
 ### Dewislen File
@@ -345,6 +355,7 @@ Defnyddiwch **Project > Project Settings** (Ctrl+P) i orosgyn rhagosodiadau byd-
 | Eitem Dewislen         | Llwybr Byr | Disgrifiad                                       |
 |------------------------|------------|--------------------------------------------------|
 | Mix tracks to file     | Ctrl+M     | Allforio'r holl draciau galluogedig i ffeil      |
+| Add drum track        | D        | Trac MIDI drymiau a `.mid` (gweler isod) |
 | Virtual MIDI Keyboard  |            | Lansio'r cymhwysiad bysellfwrdd cydymaith        |
 
 ## Llwybrau Byr Bysellfwrdd
@@ -354,9 +365,22 @@ Defnyddiwch **Project > Project Settings** (Ctrl+P) i orosgyn rhagosodiadau byd-
 | Ctrl+S          | Cadw prosiect                   |
 | Ctrl+O          | Agor prosiect                   |
 | Ctrl+M          | Cymysgu traciau i ffeil         |
+| D               | Ychwanegu trac drymiau (dewislen Tools) |
 | Ctrl+P          | Gosodiadau Prosiect             |
 | Ctrl+,          | Gosodiadau / Ffurfweddiad       |
 | Ctrl+Q / Alt+F4 | Cau                            |
+
+
+### Ychwanegu trac drymiau
+
+**Tools → Add drum track** (bysellfwrdd byr **D**) yn ychwanegu trac **MIDI** ar **sianel 10** General MIDI (mynegai 9). Enw diofyn **Drums**.
+
+Mae **`.mid`** yn cael ei ysgrifennu i'r **ffolder prosiect** ar unwaith: dwy fesur 4/4. Tempo:
+
+- Os yw **Galluogi'r metrôn wrth recordio** ymlaen, defnyddir y **BPM** hwnnw.
+- Fel arall **amcangyfrif BPM** o draciau **sain** wedi'u galluogi; fel arall **120 BPM**.
+
+**Dolenni:** [Audient](https://audient.com/tutorial/how-to-program-realistic-midi-drum-tracks/), [MDrummer](https://www.meldaproduction.com/MDrummer), [Reddit](https://www.reddit.com/r/ableton/comments/1e51a7g/generating_midi_drum_patterns_based_on_audio_input/), [CS229 PDF](https://cs229.stanford.edu/proj2014/Louis%20Eugene,%20Guillaume%20Rostaing,%20Automated%20Music%20Track%20Generation.pdf).
 
 ## Virtual MIDI Keyboard
 

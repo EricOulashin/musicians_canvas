@@ -62,6 +62,7 @@ private slots:
     void onSettingsConfiguration();
     void onAddDemoData();
     void onVirtualMidiKeyboard();
+    void onAddDrumTrack();
     void onPlayRecord();
     void onBrowseProjectLocation();
     void onPlaybackFinished();
@@ -82,6 +83,7 @@ private:
     void changeEvent(QEvent* event) override;
     void loadProjectFromFile(const QString& path);
     TrackData createNewTrack();
+    [[nodiscard]] QString allocateUniqueDrumTrackName() const;
     void updatePlayRecordButton();
     bool isAnyTrackArmed() const;
     TrackWidget* armedTrack() const;

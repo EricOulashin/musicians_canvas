@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QByteArray>
+#include <QJsonArray>
 
 // Per-project audio/MIDI configuration stored inside the project JSON file.
 // These settings take precedence over the global app defaults for the loaded project.
@@ -36,6 +37,10 @@ struct ProjectSettings
 
     /// When true, route live input (audio and/or MIDI) to the project output while recording.
     bool monitorWhileRecording = false;
+
+    /// Mix-bus effect chain (top to bottom). Applied when playing all tracks and when mixing
+    /// the project to a file — same effect types and ordering as per-track effects.
+    QJsonArray mixEffectChain;
 };
 
 #endif // PROJECTSETTINGS_H

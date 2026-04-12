@@ -4,8 +4,9 @@
 #include <QByteArray>
 #include <QJsonArray>
 
-/// Apply an ordered chain of effects (JSON from TrackData::audioEffectChain) to
-/// interleaved 16-bit little-endian PCM. Processes in-place on \p pcm.
+/// Apply an ordered chain of effects (JSON from TrackData::audioEffectChain or project mix bus) to
+/// interleaved 16-bit little-endian PCM. Processes in-place on \p pcm. Output samples are
+/// soft-limited then hard-clamped to int16 range to avoid harsh digital clipping.
 ///
 /// Channel handling: \p sampleRate should match the PCM (typically the project rate after
 /// RecordingPostProcess). Mono (\p channelCount == 1) is run through the stereo processors as

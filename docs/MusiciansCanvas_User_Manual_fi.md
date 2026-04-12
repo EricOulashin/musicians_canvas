@@ -203,6 +203,12 @@ Saatavilla ovat mm. **Kaiku**, **Kuoro**, **Flanger**, **Overdrive / distortion*
 Tehosteet käytetään **tallennuksen päätyttyä**, tavallisen kaappauksen ja resamplauksen jälkeen. Asetukset
 tallennetaan `project.json`-tiedostoon avaimella `audioEffectChain`.
 
+### Mix effects (full project)
+
+**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
+
+To reduce harsh [digital clipping](https://en.wikipedia.org/wiki/Clipping_%28audio%29) when processing pushes peaks toward full scale, the effect engine applies a **soft limiter** to normalized float samples immediately before conversion to 16-bit PCM. The **EffectWidget** base class documents `guardFloatSampleForInt16Pcm()` and `softLimitFloatSampleForInt16Pcm()` for any new real-time code that writes to 16-bit audio.
+
 ### Monitorointi tallennuksen aikana
 
 **Aikanäytön** vieressä **Kuuntele ääntä tallennuksen aikana** määrittää, lähetetäänkö **live-sisääntulo**
@@ -384,6 +390,10 @@ SoundFont-tiedoston tai äänilaitteen. Projektikohtaiset asetukset tallennetaan
 
 ![Projektin ääniasetukset](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
 
+#### Mix Effects tab
+
+The **Mix Effects** tab is a scrollable list with the same controls as **Track effects** (**Add effect…**, drag **≡** to reorder, **✕** to remove). Processing order is **top to bottom** on the **combined** mix of all enabled tracks. These effects run during **whole-project playback** and when **mixing to a single WAV or FLAC file**; they are **not** baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.
+
 ## Valikot
 
 ### File-valikko
@@ -412,6 +422,7 @@ SoundFont-tiedoston tai äänilaitteen. Projektikohtaiset asetukset tallennetaan
 | Valikkokohta          | Pikanäppäin | Kuvaus                                        |
 |------------------------|-------------|-----------------------------------------------|
 | Mix tracks to file     | Ctrl+M      | Vie kaikki käytössä olevat raidat tiedostoon  |
+| Add drum track        | D        | MIDI-rumpuraita ja `.mid` (katso alla) |
 | Virtual MIDI Keyboard  |             | Käynnistä lisäkoskettimistosovellus           |
 
 ## Pikanäppäimet
@@ -421,9 +432,22 @@ SoundFont-tiedoston tai äänilaitteen. Projektikohtaiset asetukset tallennetaan
 | Ctrl+S          | Tallenna projekti              |
 | Ctrl+O          | Avaa projekti                  |
 | Ctrl+M          | Miksaa raidat tiedostoon       |
+| D               | Lisää rumpuraita (Tools-valikko)       |
 | Ctrl+P          | Projektiasetukset              |
 | Ctrl+,          | Asetukset / Määritykset        |
 | Ctrl+Q / Alt+F4 | Sulje                          |
+
+
+### Lisää rumpuraita
+
+**Tools → Add drum track** (pikanäppäin **D**) lisää **MIDI**-rumpuraidan **kanavalle 10** General MIDI (indeksi 9). Oletusnimi **Drums**.
+
+**`.mid`** kirjoitetaan heti **projektikansioon**: kaksi tahtia 4/4. Tempo:
+
+- Jos **Metronomissa** on **Käytä metronomia tallennuksen aikana**, käytetään sitä **BPM**-arvoa.
+- Muuten **BPM arvioidaan** käytössä olevista **ääni**raidoista; muuten **120 BPM**.
+
+**Linkit:** [Audient](https://audient.com/tutorial/how-to-program-realistic-midi-drum-tracks/), [MDrummer](https://www.meldaproduction.com/MDrummer), [Reddit](https://www.reddit.com/r/ableton/comments/1e51a7g/generating_midi_drum_patterns_based_on_audio_input/), [CS229 PDF](https://cs229.stanford.edu/proj2014/Louis%20Eugene,%20Guillaume%20Rostaing,%20Automated%20Music%20Track%20Generation.pdf).
 
 ## Virtual MIDI Keyboard
 

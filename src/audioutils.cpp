@@ -1,6 +1,8 @@
 #include "audioutils.h"
+#include "effectdsp.h"
 #include "midisynth.h"
 #include <QFile>
+#include <QFileInfo>
 #include <QDir>
 #include <QRegularExpression>
 #include <QTemporaryFile>
@@ -560,4 +562,143 @@ bool AudioUtils::mixTracksToFile(const QVector<TrackData>& tracks,
         QFile::remove(QString::fromStdString(f));
 
     return success;
+}
+
+bool AudioUtils::readWavInt16Pcm(const QString& path, QByteArray& audioData,
+                                  int& sampleRate, int& channelCount)
+{
+    QFile f(path);
+    if (!f.open(QIODevice::ReadOnly))
+        return false;
+
+    const QByteArray riff = f.read(12);
+    if (riff.size() < 12
+        || riff.left(4) != QByteArray("RIFF", 4)
+        || riff.mid(8, 4) != QByteArray("WAVE", 4))
+    {
+        return false;
+    }
+
+    bool foundFmt  = false;
+    bool foundData = false;
+
+    while (!f.atEnd())
+    {
+        const QByteArray chunkHdr = f.read(8);
+        if (chunkHdr.size() < 8)
+            break;
+
+        const QByteArray chunkId = chunkHdr.left(4);
+        const quint32 chunkSize =
+            static_cast<quint32>(static_cast<unsigned char>(chunkHdr[4]))
+            | (static_cast<quint32>(static_cast<unsigned char>(chunkHdr[5])) << 8)
+            | (static_cast<quint32>(static_cast<unsigned char>(chunkHdr[6])) << 16)
+            | (static_cast<quint32>(static_cast<unsigned char>(chunkHdr[7])) << 24);
+
+        if (chunkId == QByteArray("fmt ", 4))
+        {
+            if (chunkSize < 16)
+                return false;
+            const QByteArray fmt = f.read(chunkSize);
+            if (static_cast<quint32>(fmt.size()) < chunkSize)
+                return false;
+            channelCount =
+                static_cast<int>(static_cast<unsigned char>(fmt[2]))
+                | (static_cast<int>(static_cast<unsigned char>(fmt[3])) << 8);
+            sampleRate =
+                static_cast<int>(static_cast<unsigned char>(fmt[4]))
+                | (static_cast<int>(static_cast<unsigned char>(fmt[5])) << 8)
+                | (static_cast<int>(static_cast<unsigned char>(fmt[6])) << 16)
+                | (static_cast<int>(static_cast<unsigned char>(fmt[7])) << 24);
+            foundFmt = true;
+        }
+        else if (chunkId == QByteArray("data", 4))
+        {
+            audioData = f.read(chunkSize);
+            foundData = true;
+            break;
+        }
+        else
+        {
+            qint64 skipBytes = static_cast<qint64>(chunkSize);
+            if (skipBytes % 2 != 0)
+                skipBytes++;
+            f.seek(f.pos() + skipBytes);
+        }
+    }
+
+    return foundFmt && foundData;
+}
+
+bool AudioUtils::writeWavInt16Pcm(const QString& path, const QByteArray& int16Interleaved,
+                                   int sampleRate, int channelCount)
+{
+    if (channelCount <= 0 || sampleRate <= 0)
+        return false;
+    const int frameBytes = channelCount * static_cast<int>(sizeof(qint16));
+    if (int16Interleaved.isEmpty() || (int16Interleaved.size() % frameBytes != 0))
+        return false;
+
+    const quint32 numFrames =
+        static_cast<quint32>(int16Interleaved.size() / frameBytes);
+    const quint16 ch = static_cast<quint16>(channelCount);
+    const quint32 dataSize = static_cast<quint32>(int16Interleaved.size());
+    const quint16 blockAlign = static_cast<quint16>(frameBytes);
+    const quint32 byteRate = static_cast<quint32>(sampleRate) * blockAlign;
+    const quint32 fileSize = 36 + dataSize;
+
+    QFile file(path);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+        return false;
+
+    file.write("RIFF", 4);
+    file.write(reinterpret_cast<const char*>(&fileSize), 4);
+    file.write("WAVE", 4);
+    file.write("fmt ", 4);
+    quint32 fmtSize = 16;
+    file.write(reinterpret_cast<const char*>(&fmtSize), 4);
+    quint16 audioFormat = 1;
+    file.write(reinterpret_cast<const char*>(&audioFormat), 2);
+    file.write(reinterpret_cast<const char*>(&ch), 2);
+    quint32 sr = static_cast<quint32>(sampleRate);
+    file.write(reinterpret_cast<const char*>(&sr), 4);
+    file.write(reinterpret_cast<const char*>(&byteRate), 4);
+    file.write(reinterpret_cast<const char*>(&blockAlign), 2);
+    quint16 bitsPerSample = 16;
+    file.write(reinterpret_cast<const char*>(&bitsPerSample), 2);
+    file.write("data", 4);
+    file.write(reinterpret_cast<const char*>(&dataSize), 4);
+    file.write(int16Interleaved);
+    file.close();
+    return true;
+}
+
+bool AudioUtils::applyMixEffectChainToAudioFile(const QString& path, const QJsonArray& chain)
+{
+    if (chain.isEmpty())
+        return true;
+
+    const QString ext = QStringLiteral(".") + QFileInfo(path).suffix().toLower();
+    QByteArray pcm;
+    int sampleRate = 44100;
+    int channelCount = 2;
+
+    if (ext == QStringLiteral(".wav"))
+    {
+        if (!readWavInt16Pcm(path, pcm, sampleRate, channelCount))
+            return false;
+    }
+    else if (ext == QStringLiteral(".flac"))
+    {
+        if (!readFlacAudioData(path, pcm, sampleRate, channelCount))
+            return false;
+    }
+    else
+        return false;
+
+    applyAudioEffectChain(pcm, channelCount, sampleRate, chain);
+
+    if (ext == QStringLiteral(".wav"))
+        return writeWavInt16Pcm(path, pcm, sampleRate, channelCount);
+    return writeAudioDataToFlac(pcm, sampleRate, channelCount, path);
 }

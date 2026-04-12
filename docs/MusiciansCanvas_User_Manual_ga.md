@@ -174,6 +174,12 @@ Tá **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion** agus **Amp &
 
 Cuirtear éifeachtaí i bhfeidhm **nuair a stopann tú an taifeadadh**, tar éis gabhála agus athshamplála gnáth. Sábháiltear cumraíocht in `project.json` faoi `audioEffectChain`.
 
+### Mix effects (full project)
+
+**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
+
+To reduce harsh [digital clipping](https://en.wikipedia.org/wiki/Clipping_%28audio%29) when processing pushes peaks toward full scale, the effect engine applies a **soft limiter** to normalized float samples immediately before conversion to 16-bit PCM. The **EffectWidget** base class documents `guardFloatSampleForInt16Pcm()` and `softLimitFloatSampleForInt16Pcm()` for any new real-time code that writes to 16-bit audio.
+
 ### Monatóireacht le linn taifeadta
 
 Taobh le **taispeántas ama**, rialann **Monatóir fuaim agus í á taifeadadh** an sás **beo** a sheoladh chuig **aschur fuaime an tionscadail**
@@ -320,6 +326,10 @@ Cliceáil an cnaipe **Stop** chun an athsheinm a chríochnú ag am ar bith.
 
 ![Socruithe fuaime tionscadail](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
 
+#### Mix Effects tab
+
+The **Mix Effects** tab is a scrollable list with the same controls as **Track effects** (**Add effect…**, drag **≡** to reorder, **✕** to remove). Processing order is **top to bottom** on the **combined** mix of all enabled tracks. These effects run during **whole-project playback** and when **mixing to a single WAV or FLAC file**; they are **not** baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.
+
 ## Roghchláir
 
 ### Roghchlár File
@@ -348,6 +358,7 @@ Cliceáil an cnaipe **Stop** chun an athsheinm a chríochnú ag am ar bith.
 | Mír Roghchláir         | Aicearra   | Cur Síos                                        |
 |------------------------|------------|-------------------------------------------------|
 | Mix tracks to file     | Ctrl+M     | Easpórtáil gach rian cumasaithe go comhad       |
+| Add drum track        | D        | Rian MIDI drumaí agus `.mid` (féach thíos) |
 | Virtual MIDI Keyboard  |            | Seoladh an fheidhmchláir mhéarchláir chomhpháirtigh|
 
 ## Aicearraí Méarchláir
@@ -357,9 +368,22 @@ Cliceáil an cnaipe **Stop** chun an athsheinm a chríochnú ag am ar bith.
 | Ctrl+S          | Sábháil tionscadal              |
 | Ctrl+O          | Oscail tionscadal               |
 | Ctrl+M          | Measc rianta go comhad          |
+| D               | Cuir rian drumaí leis (roghchlár Tools) |
 | Ctrl+P          | Socruithe Tionscadail           |
 | Ctrl+,          | Socruithe / Cumraíocht          |
 | Ctrl+Q / Alt+F4 | Scoir                          |
+
+
+### Cuir rian drumaí leis
+
+**Tools → Add drum track** (aicearra **D**) cuireann sé rian **MIDI** ar **cainéal 10** General MIDI (innéacs 9). Ainm réamhshocraithe **Drums**.
+
+Scríobhtar **`.mid` go huath** sa **chomhadlann tionscadail**: dhá bharra 4/4. Luas:
+
+- Má tá **Cumasaigh an mhéadrán le linn taifeadta** ar siúl, úsáidtear an **BPM** sin.
+- Nó **meastar BPM** ó rianta **fuaime** cumasaithe; nó **120 BPM**.
+
+**Naisc:** [Audient](https://audient.com/tutorial/how-to-program-realistic-midi-drum-tracks/), [MDrummer](https://www.meldaproduction.com/MDrummer), [Reddit](https://www.reddit.com/r/ableton/comments/1e51a7g/generating_midi_drum_patterns_based_on_audio_input/), [CS229 PDF](https://cs229.stanford.edu/proj2014/Louis%20Eugene,%20Guillaume%20Rostaing,%20Automated%20Music%20Track%20Generation.pdf).
 
 ## Virtual MIDI Keyboard
 

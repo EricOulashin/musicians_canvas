@@ -174,6 +174,12 @@ Effekttypene inkluderer **Reverb**, **Chorus**, **Flanger**, **Overdrive / disto
 Effekter brukes når du **stopper opptaket**, etter vanlig capture og resampling. Konfigurasjonen lagres i
 `project.json` under `audioEffectChain`.
 
+### Mix effects (full project)
+
+**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
+
+To reduce harsh [digital clipping](https://en.wikipedia.org/wiki/Clipping_%28audio%29) when processing pushes peaks toward full scale, the effect engine applies a **soft limiter** to normalized float samples immediately before conversion to 16-bit PCM. The **EffectWidget** base class documents `guardFloatSampleForInt16Pcm()` and `softLimitFloatSampleForInt16Pcm()` for any new real-time code that writes to 16-bit audio.
+
 ### Overvåk under opptak
 
 Ved siden av **tidsdisplayet** styr **Overvåk lyd under opptak** om **live-inngang** sendes til **prosjektets lydutgang**
@@ -319,6 +325,10 @@ Bruk **Project > Project Settings** (Ctrl+P) for å overstyre globale standarder
 
 ![Prosjekt-lydinnstillinger](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
 
+#### Mix Effects tab
+
+The **Mix Effects** tab is a scrollable list with the same controls as **Track effects** (**Add effect…**, drag **≡** to reorder, **✕** to remove). Processing order is **top to bottom** on the **combined** mix of all enabled tracks. These effects run during **whole-project playback** and when **mixing to a single WAV or FLAC file**; they are **not** baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.
+
 ## Menyer
 
 ### Fil-menyen
@@ -347,6 +357,7 @@ Bruk **Project > Project Settings** (Ctrl+P) for å overstyre globale standarder
 | Menypunkt             | Snarvei  | Beskrivelse                                     |
 |-----------------------|----------|-------------------------------------------------|
 | Mix tracks to file    | Ctrl+M   | Eksportere alle aktiverte spor til en fil       |
+| Add drum track        | D        | MIDI-trommespor og `.mid` (se nedenfor) |
 | Virtual MIDI Keyboard |          | Starte følgeapplikasjonen for keyboard          |
 
 ## Tastatursnarveier
@@ -356,9 +367,22 @@ Bruk **Project > Project Settings** (Ctrl+P) for å overstyre globale standarder
 | Ctrl+S          | Lagre prosjekt                    |
 | Ctrl+O          | Åpne prosjekt                     |
 | Ctrl+M          | Mikse spor til fil                |
+| D               | Legg til trommespor (Tools-menyen)   |
 | Ctrl+P          | Prosjektinnstillinger             |
 | Ctrl+,          | Innstillinger / Konfigurasjon     |
 | Ctrl+Q / Alt+F4 | Avslutte                         |
+
+
+### Legg til trommespor
+
+**Tools → Add drum track** (snarvei **D**) legger til **MIDI**-trommespor på **kanal 10** General MIDI (indeks 9). Standardnavn **Drums**.
+
+**`.mid`** skrives i **prosjektmappa**: to takter 4/4. Tempo:
+
+- Med **Aktiver metronom under opptak** i **metronom**, brukes **BPM** derfra.
+- Ellers **estimeres BPM** fra aktiverte **lydspor**; ellers **120 BPM**.
+
+**Lenker:** [Audient](https://audient.com/tutorial/how-to-program-realistic-midi-drum-tracks/), [MDrummer](https://www.meldaproduction.com/MDrummer), [Reddit](https://www.reddit.com/r/ableton/comments/1e51a7g/generating_midi_drum_patterns_based_on_audio_input/), [CS229 PDF](https://cs229.stanford.edu/proj2014/Louis%20Eugene,%20Guillaume%20Rostaing,%20Automated%20Music%20Track%20Generation.pdf).
 
 ## Virtual MIDI Keyboard
 
