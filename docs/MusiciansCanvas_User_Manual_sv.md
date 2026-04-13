@@ -57,13 +57,13 @@ har använts och innehåller en `project.json`-fil, laddas projektet automatiskt
 3. **Namnge spåret**: Skriv ett namn i textfältet bredvid knappen "Options". Detta namn används som
    filnamn för den inspelade ljudfilen.
 
-![Huvudfönster](../screenshots/MusiciansCanvas_1_MainWin.png)
+![Huvudfönster](../screenshots/i18n/sv/MusiciansCanvas_1_MainWin.png)
 
 ### Knapprad
 
 Direkt under menyraden finns ett verktygsfält med snabbåtkomstknappar:
 
-![Knapprad](../screenshots/ButtonBar.png)
+![Knapprad](../screenshots/i18n/sv/ButtonBar.png)
 
 - **Open Project**: Samma som **File > Open Project** — öppnar ett tidigare sparat projekt.
 - **Save Project**: Samma som **File > Save Project** — sparar det aktuella projektet. Den
@@ -129,7 +129,7 @@ Så här ändrar du spårtyp:
 
 Detta öppnar dialogen för spårkonfiguration där du kan välja ingångskälla.
 
-![Spårkonfiguration](../screenshots/MusiciansCanvas_2_TrackConfig.png)
+![Spårkonfiguration](../screenshots/i18n/sv/MusiciansCanvas_2_TrackConfig.png)
 
 ### Spårkontroller
 
@@ -182,7 +182,7 @@ för att förhindra oavsiktliga ändringar.
 Ljudspår har en knapp **Effekter** direkt under **Options**. Den öppnar dialogen **Spår-effekter**, där
 du bygger en **ordnad kedja** av insert-effekter för inspelning på detta spår:
 
-![Dialogruta för spår-effekter](../screenshots/Track_Effects_Dialog.png)
+![Dialogruta för spår-effekter](../screenshots/i18n/sv/Track_Effects_Dialog.png)
 
 Effekttyper inkluderar **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet** (modellering av förstärkare och högtalarlåda: amptyp, kabinett, förstärkning, bas/mellan/discant, luft och blandning) och **Vibrato (Tremolo)**.
 
@@ -190,9 +190,9 @@ Effekttyper inkluderar **Reverb**, **Chorus**, **Flanger**, **Overdrive / distor
 
 Skärmbilder av **Amp & cabinet**:
 
-![Amp & cabinet-modellering (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+![Amp & cabinet-modellering (1)](../screenshots/i18n/sv/Amp_And_Cabinet_Model_1.png)
 
-![Amp & cabinet-modellering (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+![Amp & cabinet-modellering (2)](../screenshots/i18n/sv/Amp_And_Cabinet_Model_2.png)
 
 - Klicka **Lägg till effekt…** och välj en effekttyp. Flera instanser är tillåtna; rött **✕** i
   rubriken tar bort en effekt.
@@ -287,7 +287,7 @@ Musician's Canvas innehåller en inbyggd metronom som kan användas under inspel
 hjälpa till att hålla takten. Klicka på metronomknappen i knappraden (under menyraden) för att
 öppna dialogrutan för metronominställningar:
 
-![Metronominställningar](../screenshots/MetronomeSettings.png)
+![Metronominställningar](../screenshots/i18n/sv/MetronomeSettings.png)
 
 Dialogrutan erbjuder:
 
@@ -329,7 +329,7 @@ SoundFont.
 Använd **Settings > Configuration** (Ctrl+,) för att ställa in globala standardvärden som gäller för
 alla projekt:
 
-![Allmänna inställningar](../screenshots/MusiciansCanvas_3_GeneralSettings.png)
+![Allmänna inställningar](../screenshots/i18n/sv/MusiciansCanvas_3_GeneralSettings.png)
 
 #### Fliken Allmänt
 
@@ -343,7 +343,7 @@ alla projekt:
   Dark Red, Light Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan och Dark
   Cyan. Standardvärdet är Light Green.
 
-![Visningsinställningar](../screenshots/MusiciansCanvas_DisplaySettings.png)
+![Visningsinställningar](../screenshots/i18n/sv/MusiciansCanvas_DisplaySettings.png)
 
 #### Fliken Språk
 
@@ -353,7 +353,7 @@ alla projekt:
   Chinese (förenklad) och Pirate.
   Gränssnittet uppdateras omedelbart när du ändrar språk.
 
-![Språkinställningar](../screenshots/MusiciansCanvas_LanguageSettings.png)
+![Språkinställningar](../screenshots/i18n/sv/MusiciansCanvas_LanguageSettings.png)
 
 #### Fliken MIDI
 
@@ -363,14 +363,14 @@ alla projekt:
   detekteras automatiskt om paketet `fluid-soundfont-gm` är installerat. I Windows och macOS måste du
   konfigurera SoundFont-sökvägen manuellt.
 
-![MIDI-inställningar](../screenshots/MusiciansCanvas_4_MIDISettings.png)
+![MIDI-inställningar](../screenshots/i18n/sv/MusiciansCanvas_4_MIDISettings.png)
 
 #### Fliken Ljud
 
 - **Ljudingångsenhet**: Välj mikrofon eller linjeinenhet för inspelning.
 - **Ljudutgångsenhet**: Välj högtalare eller hörlurar för uppspelning.
 
-![Ljudinställningar](../screenshots/MusiciansCanvas_5_AudioSettings.png)
+![Ljudinställningar](../screenshots/i18n/sv/MusiciansCanvas_5_AudioSettings.png)
 
 ### Projektinställningar
 
@@ -378,7 +378,7 @@ Använd **Project > Project Settings** (Ctrl+P) för att åsidosätta globala st
 aktuella projektet. Detta är användbart för projekt som behöver en specifik samplingsfrekvens, SoundFont
 eller ljudenhet. Projektspecifika inställningar sparas i filen `project.json`.
 
-![Projektets MIDI-inställningar](../screenshots/MusiciansCanvas_6_ProjectMIDISettings.png)
+![Projektets MIDI-inställningar](../screenshots/i18n/sv/MusiciansCanvas_6_ProjectMIDISettings.png)
 
 #### Fliken MIDI
 
@@ -403,7 +403,7 @@ eller ljudenhet. Projektspecifika inställningar sparas i filen `project.json`.
   frekvens oavsett enhetens kapacitet; Musician's Canvas kommer automatiskt att omsampla vid behov.
 - **Kanaler**: Mono eller stereo. Om enheten bara stöder mono är stereoalternativet inaktiverat.
 
-![Projektets ljudinställningar](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
+![Projektets ljudinställningar](../screenshots/i18n/sv/MusiciansCanvas_7_ProjectAudioSettings.png)
 
 #### Mix Effects tab
 
@@ -495,7 +495,7 @@ Virtual MIDI Keyboard är en kompletterande applikation (`virtual_midi_keyboard`
 ett pianoklaviatur på skärmen för att skicka MIDI-noter. Den kan startas från menyn
 **Tools > Virtual MIDI Keyboard** i huvudapplikationen, eller köras fristående.
 
-![Virtual MIDI Keyboard](../screenshots/VMIDIKeyboard1.png)
+![Virtual MIDI Keyboard](../screenshots/i18n/sv/VMIDIKeyboard1.png)
 
 ### Funktioner
 
@@ -581,7 +581,7 @@ Tangenter lyser upp visuellt när de trycks ned (vita tangenter blir ljusblå, s
 Öppna konfigurationsdialogen (**Settings > Configuration**, Ctrl+,) för att konfigurera MIDI- och
 ljudenheter:
 
-![Virtual MIDI Keyboard-konfiguration](../screenshots/VMIDIKeyboard2.png)
+![Virtual MIDI Keyboard-konfiguration](../screenshots/i18n/sv/VMIDIKeyboard2.png)
 
 #### Fliken MIDI
 

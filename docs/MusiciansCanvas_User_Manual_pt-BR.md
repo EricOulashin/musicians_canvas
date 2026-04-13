@@ -62,13 +62,13 @@ carregado automaticamente.
 3. **Nomeie a faixa**: Digite um nome no campo de texto ao lado do botao "Options". Este
    nome e usado como nome do arquivo de audio gravado.
 
-![Janela principal](../screenshots/MusiciansCanvas_1_MainWin.png)
+![Janela principal](../screenshots/i18n/pt_BR/MusiciansCanvas_1_MainWin.png)
 
 ### Barra de Botoes
 
 Logo abaixo da barra de menus ha uma barra de ferramentas com botoes de acesso rapido:
 
-![Barra de botoes](../screenshots/ButtonBar.png)
+![Barra de botoes](../screenshots/i18n/pt_BR/ButtonBar.png)
 
 - **Open Project**: O mesmo que **File > Open Project** — abre um projeto salvo anteriormente.
 - **Save Project**: O mesmo que **File > Save Project** — salva o projeto atual. Este botao
@@ -138,7 +138,7 @@ Para alterar o tipo de faixa:
 
 Isso abre o dialogo de Configuracao de Faixa, onde voce pode selecionar a fonte de entrada.
 
-![Configuracao de faixa](../screenshots/MusiciansCanvas_2_TrackConfig.png)
+![Configuracao de faixa](../screenshots/i18n/pt_BR/MusiciansCanvas_2_TrackConfig.png)
 
 ### Controles de Faixa
 
@@ -196,7 +196,7 @@ configuracoes, etc.) sao desabilitados para evitar alteracoes acidentais.
 Faixas de audio tem o botao **Efeitos** logo abaixo de **Options**. Ele abre o dialogo **Efeitos da
 faixa**, onde voce monta uma **cadeia ordenada** de efeitos de insercao para gravacoes nessa faixa:
 
-![Dialogo Efeitos da faixa](../screenshots/Track_Effects_Dialog.png)
+![Dialogo Efeitos da faixa](../screenshots/i18n/pt_BR/Track_Effects_Dialog.png)
 
 Tipos incluem **Reverb**, **Chorus**, **Flanger**, **Overdrive / distorcao**, **Amp & cabinet** (modelagem de amplificador e caixa: tipo de amp, caixa, ganho, graves/medios/agudos, ar e mistura) e **Vibrato (Trêmolo)**.
 
@@ -204,9 +204,9 @@ Tipos incluem **Reverb**, **Chorus**, **Flanger**, **Overdrive / distorcao**, **
 
 Telas do efeito **Amp & cabinet**:
 
-![Modelagem Amp & cabinet (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+![Modelagem Amp & cabinet (1)](../screenshots/i18n/pt_BR/Amp_And_Cabinet_Model_1.png)
 
-![Modelagem Amp & cabinet (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+![Modelagem Amp & cabinet (2)](../screenshots/i18n/pt_BR/Amp_And_Cabinet_Model_2.png)
 
 - Clique **Adicionar efeito…** e escolha um tipo de efeito. Varias instancias sao permitidas; o **✕**
   vermelho no cabecalho remove um efeito.
@@ -308,7 +308,7 @@ Musician's Canvas inclui um metronomo integrado que pode ser usado durante a gra
 ajudar a manter o tempo. Clique no botao do metronomo na barra de botoes (abaixo da barra
 de menus) para abrir o dialogo de configuracoes do metronomo:
 
-![Configuracoes do metronomo](../screenshots/MetronomeSettings.png)
+![Configuracoes do metronomo](../screenshots/i18n/pt_BR/MetronomeSettings.png)
 
 O dialogo oferece:
 
@@ -353,7 +353,7 @@ usando o SoundFont configurado.
 Use **Settings > Configuration** (Ctrl+,) para definir padroes globais que se aplicam a
 todos os projetos:
 
-![Configuracoes gerais](../screenshots/MusiciansCanvas_3_GeneralSettings.png)
+![Configuracoes gerais](../screenshots/i18n/pt_BR/MusiciansCanvas_3_GeneralSettings.png)
 
 #### Aba General
 
@@ -374,7 +374,7 @@ todos os projetos:
   Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan e Dark Cyan. O
   padrao e Light Green.
 
-![Configuracoes de exibicao](../screenshots/MusiciansCanvas_DisplaySettings.png)
+![Configuracoes de exibicao](../screenshots/i18n/pt_BR/MusiciansCanvas_DisplaySettings.png)
 
 #### Aba Language
 
@@ -386,7 +386,7 @@ todos os projetos:
   (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh) e Pirate. A interface e
   atualizada imediatamente ao alterar o idioma.
 
-![Configuracoes de idioma](../screenshots/MusiciansCanvas_LanguageSettings.png)
+![Configuracoes de idioma](../screenshots/i18n/pt_BR/MusiciansCanvas_LanguageSettings.png)
 
 #### Aba MIDI
 
@@ -397,7 +397,7 @@ todos os projetos:
   estiver instalado. No Windows e macOS, voce deve configurar o caminho do SoundFont
   manualmente.
 
-![Configuracoes MIDI](../screenshots/MusiciansCanvas_4_MIDISettings.png)
+![Configuracoes MIDI](../screenshots/i18n/pt_BR/MusiciansCanvas_4_MIDISettings.png)
 
 #### Aba Audio
 
@@ -405,7 +405,7 @@ todos os projetos:
   gravacao.
 - **Audio Output Device**: Selecione o alto-falante ou fone de ouvido para reproducao.
 
-![Configuracoes de audio](../screenshots/MusiciansCanvas_5_AudioSettings.png)
+![Configuracoes de audio](../screenshots/i18n/pt_BR/MusiciansCanvas_5_AudioSettings.png)
 
 ### Configuracoes do Projeto
 
@@ -414,7 +414,7 @@ para o projeto atual. Isso e util para projetos que precisam de uma taxa de amos
 SoundFont ou dispositivo de audio especificos. As configuracoes especificas do projeto
 sao salvas dentro do arquivo `project.json`.
 
-![Configuracoes MIDI do projeto](../screenshots/MusiciansCanvas_6_ProjectMIDISettings.png)
+![Configuracoes MIDI do projeto](../screenshots/i18n/pt_BR/MusiciansCanvas_6_ProjectMIDISettings.png)
 
 #### Aba MIDI
 
@@ -444,7 +444,7 @@ sao salvas dentro do arquivo `project.json`.
 - **Channels**: Mono ou Stereo. Se o dispositivo suportar apenas mono, a opcao Stereo
   e desabilitada.
 
-![Configuracoes de audio do projeto](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
+![Configuracoes de audio do projeto](../screenshots/i18n/pt_BR/MusiciansCanvas_7_ProjectAudioSettings.png)
 
 #### Mix Effects tab
 
@@ -537,7 +537,7 @@ um teclado de piano na tela para envio de notas MIDI. Ele pode ser iniciado a pa
 menu **Tools > Virtual MIDI Keyboard** no aplicativo principal, ou executado
 independentemente.
 
-![Virtual MIDI Keyboard](../screenshots/VMIDIKeyboard1.png)
+![Virtual MIDI Keyboard](../screenshots/i18n/pt_BR/VMIDIKeyboard1.png)
 
 ### Recursos
 
@@ -627,7 +627,7 @@ teclas pretas escurecem).
 Abra o dialogo de Configuracao (**Settings > Configuration**, Ctrl+,) para configurar
 dispositivos MIDI e audio:
 
-![Configuracao do Virtual MIDI Keyboard](../screenshots/VMIDIKeyboard2.png)
+![Configuracao do Virtual MIDI Keyboard](../screenshots/i18n/pt_BR/VMIDIKeyboard2.png)
 
 #### Aba MIDI
 

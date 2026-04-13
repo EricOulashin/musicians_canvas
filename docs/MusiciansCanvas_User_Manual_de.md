@@ -62,13 +62,13 @@ das Projekt automatisch geladen.
 3. **Die Spur benennen**: Geben Sie einen Namen in das Textfeld neben der Schaltfläche
    "Options" ein. Dieser Name wird als Dateiname für die aufgenommene Audiodatei verwendet.
 
-![Hauptfenster](../screenshots/MusiciansCanvas_1_MainWin.png)
+![Hauptfenster](../screenshots/i18n/de/MusiciansCanvas_1_MainWin.png)
 
 ### Schaltflächenleiste
 
 Direkt unter der Menüleiste befindet sich eine Werkzeugleiste mit Schnellzugriffs-Schaltflächen:
 
-![Schaltflächenleiste](../screenshots/ButtonBar.png)
+![Schaltflächenleiste](../screenshots/i18n/de/ButtonBar.png)
 
 - **Open Project**: Entspricht **File > Open Project** — öffnet ein zuvor gespeichertes Projekt.
 - **Save Project**: Entspricht **File > Save Project** — speichert das aktuelle Projekt. Diese
@@ -142,7 +142,7 @@ Um den Spurtyp zu ändern:
 Dies öffnet den Dialog zur Spurkonfiguration, in dem Sie die Eingangsqülle auswählen
 können.
 
-![Spurkonfiguration](../screenshots/MusiciansCanvas_2_TrackConfig.png)
+![Spurkonfiguration](../screenshots/i18n/de/MusiciansCanvas_2_TrackConfig.png)
 
 ### Spursteuerungen
 
@@ -202,7 +202,7 @@ Audiospuren haben eine Schaltfläche **Effekte** direkt unter **Optionen**. Sie 
 Dialog **Spureffekte**, in dem Sie eine **geordnete Kette** von Insert-Effekten für Aufnahmen
 auf dieser Spur einrichten:
 
-![Dialog Spureffekte](../screenshots/Track_Effects_Dialog.png)
+![Dialog Spureffekte](../screenshots/i18n/de/Track_Effects_Dialog.png)
 
 Zur Verfügung stehen u. a. **Hall**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet** (Modellierung von Verstärker und Lautsprecherbox: Amp-Typ, Box, Gain, Bass/Mitten/Höhen, Air und Mischung) sowie **Vibrato (Tremolo)**.
 
@@ -210,9 +210,9 @@ Zur Verfügung stehen u. a. **Hall**, **Chorus**, **Flanger**, **Overdrive / dis
 
 Screenshots des Effekts **Amp & cabinet**:
 
-![Amp & cabinet-Modellierung (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+![Amp & cabinet-Modellierung (1)](../screenshots/i18n/de/Amp_And_Cabinet_Model_1.png)
 
-![Amp & cabinet-Modellierung (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+![Amp & cabinet-Modellierung (2)](../screenshots/i18n/de/Amp_And_Cabinet_Model_2.png)
 
 - Klicken Sie auf **Effekt hinzufügen…** und wählen Sie einen Effekttyp. Mehrere
   Instanzen sind möglich; mit dem roten **✕** im Kopfzeilenbereich eines Effekts entfernen
@@ -322,7 +322,7 @@ Musician's Canvas enthält ein integriertes Metronom, das während der Aufnahme 
 des Takts verwendet werden kann. Klicken Sie auf die Metronom-Schaltfläche in der
 Schaltflächenleiste (unter der Menüleiste), um den Dialog der Metronom-Einstellungen zu öffnen:
 
-![Metronom-Einstellungen](../screenshots/MetronomeSettings.png)
+![Metronom-Einstellungen](../screenshots/i18n/de/MetronomeSettings.png)
 
 Der Dialog bietet:
 
@@ -373,7 +373,7 @@ des Gesamtprogramms werden **nicht** auf einzelne Stems angewendet.
 Verwenden Sie **Settings > Configuration** (Ctrl+,), um globale Standardwerte festzulegen,
 die für alle Projekte gelten:
 
-![Allgemeine Einstellungen](../screenshots/MusiciansCanvas_3_GeneralSettings.png)
+![Allgemeine Einstellungen](../screenshots/i18n/de/MusiciansCanvas_3_GeneralSettings.png)
 
 #### Registerkarte "General"
 
@@ -393,7 +393,7 @@ die für alle Projekte gelten:
   Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan und Dark Cyan. Die
   Standardeinstellung ist Light Green.
 
-![Anzeigeeinstellungen](../screenshots/MusiciansCanvas_DisplaySettings.png)
+![Anzeigeeinstellungen](../screenshots/i18n/de/MusiciansCanvas_DisplaySettings.png)
 
 #### Registerkarte "Language"
 
@@ -405,7 +405,7 @@ die für alle Projekte gelten:
   Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh) und Pirate.
   Die Benutzeroberfläche wird sofort aktualisiert, wenn Sie die Sprache ändern.
 
-![Spracheinstellungen](../screenshots/MusiciansCanvas_LanguageSettings.png)
+![Spracheinstellungen](../screenshots/i18n/de/MusiciansCanvas_LanguageSettings.png)
 
 #### Registerkarte "MIDI"
 
@@ -417,14 +417,14 @@ die für alle Projekte gelten:
   `fluid-soundfont-gm` installiert ist. Unter Windows und macOS müssen Sie den
   SoundFont-Pfad manuell konfigurieren.
 
-![MIDI-Einstellungen](../screenshots/MusiciansCanvas_4_MIDISettings.png)
+![MIDI-Einstellungen](../screenshots/i18n/de/MusiciansCanvas_4_MIDISettings.png)
 
 #### Registerkarte "Audio"
 
 - **Audio Input Device**: Wählen Sie das Mikrofon oder Line-In-Gerät für die Aufnahme.
 - **Audio Output Device**: Wählen Sie den Lautsprecher oder Kopfhörer für die Wiedergabe.
 
-![Audio-Einstellungen](../screenshots/MusiciansCanvas_5_AudioSettings.png)
+![Audio-Einstellungen](../screenshots/i18n/de/MusiciansCanvas_5_AudioSettings.png)
 
 ### Projekteinstellungen
 
@@ -433,7 +433,7 @@ für das aktuelle Projekt zu überschreiben. Dies ist nützlich für Projekte, d
 bestimmte Abtastrate, ein bestimmtes SoundFont oder ein bestimmtes Audiogerät benötigen.
 Projektspezifische Einstellungen werden in der Datei `project.json` gespeichert.
 
-![Projekt-MIDI-Einstellungen](../screenshots/MusiciansCanvas_6_ProjectMIDISettings.png)
+![Projekt-MIDI-Einstellungen](../screenshots/i18n/de/MusiciansCanvas_6_ProjectMIDISettings.png)
 
 #### Registerkarte "MIDI"
 
@@ -461,7 +461,7 @@ Projektspezifische Einstellungen werden in der Datei `project.json` gespeichert.
 - **Channels**: Mono oder Stereo. Wenn das Gerät nur Mono unterstützt, ist die
   Stereo-Option deaktiviert.
 
-![Projekt-Audio-Einstellungen](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
+![Projekt-Audio-Einstellungen](../screenshots/i18n/de/MusiciansCanvas_7_ProjectAudioSettings.png)
 
 #### Registerkarte Mix Effects
 
@@ -556,7 +556,7 @@ Bildschirm-Klaviertastatur zum Senden von MIDI-Noten bereitstellt. Es kann über
 **Tools > Virtual MIDI Keyboard** in der Hauptanwendung gestartet oder unabhängig
 ausgeführt werden.
 
-![Virtual MIDI Keyboard](../screenshots/VMIDIKeyboard1.png)
+![Virtual MIDI Keyboard](../screenshots/i18n/de/VMIDIKeyboard1.png)
 
 ### Funktionen
 
@@ -647,7 +647,7 @@ werden dunkler).
 Öffnen Sie den Konfigurationsdialog (**Settings > Configuration**, Ctrl+,), um MIDI- und
 Audiogeräte einzurichten:
 
-![Virtual MIDI Keyboard Konfiguration](../screenshots/VMIDIKeyboard2.png)
+![Virtual MIDI Keyboard Konfiguration](../screenshots/i18n/de/VMIDIKeyboard2.png)
 
 #### Registerkarte "MIDI"
 

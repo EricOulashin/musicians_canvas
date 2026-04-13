@@ -40,20 +40,20 @@ tehdä jotain parempaa.
 ## Kuvakaappaukset
 
 <p align="center">
-	<a href="screenshots/MusiciansCanvas_1_MainWin.png" target='_blank'><img src="screenshots/MusiciansCanvas_1_MainWin.png" alt="Pääikkuna" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_2_TrackConfig.png" target='_blank'><img src="screenshots/MusiciansCanvas_2_TrackConfig.png" alt="Raidan asetukset" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_3_GeneralSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_3_GeneralSettings.png" alt="Yleiset asetukset" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_4_MIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_4_MIDISettings.png" alt="Oletus-/yleiset MIDI-asetukset" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_5_AudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_5_AudioSettings.png" alt="Oletus-/yleiset ääniasetukset" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_DisplaySettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_DisplaySettings.png" alt="Näyttöasetukset" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_LanguageSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_LanguageSettings.png" alt="Kieliasetukset" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" alt="Projektikohtaiset MIDI-asetukset" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" alt="Projektikohtaiset ääniasetukset" width="800"></a>
-	<a href="screenshots/Track_Effects_Dialog.png" target='_blank'><img src="screenshots/Track_Effects_Dialog.png" alt="Raidan tehosteet" width="800"></a>
-	<a href="screenshots/Amp_And_Cabinet_Model_1.png" target='_blank'><img src="screenshots/Amp_And_Cabinet_Model_1.png" alt="Amp & cabinet modeling (1)" width="800"></a>
-	<a href="screenshots/Amp_And_Cabinet_Model_2.png" target='_blank'><img src="screenshots/Amp_And_Cabinet_Model_2.png" alt="Amp & cabinet modeling (2)" width="800"></a>
-	<a href="screenshots/VMIDIKeyboard1.png" target='_blank'><img src="screenshots/VMIDIKeyboard1.png" alt="Virtual MIDI Keyboard" width="800"></a>
-	<a href="screenshots/VMIDIKeyboard2.png" target='_blank'><img src="screenshots/VMIDIKeyboard2.png" alt="Virtual MIDI Keyboard" width="800"></a>
+	<a href="screenshots/i18n/fi/MusiciansCanvas_1_MainWin.png" target='_blank'><img src="screenshots/i18n/fi/MusiciansCanvas_1_MainWin.png" alt="Pääikkuna" width="800"></a>
+	<a href="screenshots/i18n/fi/MusiciansCanvas_2_TrackConfig.png" target='_blank'><img src="screenshots/i18n/fi/MusiciansCanvas_2_TrackConfig.png" alt="Raidan asetukset" width="800"></a>
+	<a href="screenshots/i18n/fi/MusiciansCanvas_3_GeneralSettings.png" target='_blank'><img src="screenshots/i18n/fi/MusiciansCanvas_3_GeneralSettings.png" alt="Yleiset asetukset" width="800"></a>
+	<a href="screenshots/i18n/fi/MusiciansCanvas_4_MIDISettings.png" target='_blank'><img src="screenshots/i18n/fi/MusiciansCanvas_4_MIDISettings.png" alt="Oletus-/yleiset MIDI-asetukset" width="800"></a>
+	<a href="screenshots/i18n/fi/MusiciansCanvas_5_AudioSettings.png" target='_blank'><img src="screenshots/i18n/fi/MusiciansCanvas_5_AudioSettings.png" alt="Oletus-/yleiset ääniasetukset" width="800"></a>
+	<a href="screenshots/i18n/fi/MusiciansCanvas_DisplaySettings.png" target='_blank'><img src="screenshots/i18n/fi/MusiciansCanvas_DisplaySettings.png" alt="Näyttöasetukset" width="800"></a>
+	<a href="screenshots/i18n/fi/MusiciansCanvas_LanguageSettings.png" target='_blank'><img src="screenshots/i18n/fi/MusiciansCanvas_LanguageSettings.png" alt="Kieliasetukset" width="800"></a>
+	<a href="screenshots/i18n/fi/MusiciansCanvas_6_ProjectMIDISettings.png" target='_blank'><img src="screenshots/i18n/fi/MusiciansCanvas_6_ProjectMIDISettings.png" alt="Projektikohtaiset MIDI-asetukset" width="800"></a>
+	<a href="screenshots/i18n/fi/MusiciansCanvas_7_ProjectAudioSettings.png" target='_blank'><img src="screenshots/i18n/fi/MusiciansCanvas_7_ProjectAudioSettings.png" alt="Projektikohtaiset ääniasetukset" width="800"></a>
+	<a href="screenshots/i18n/fi/Track_Effects_Dialog.png" target='_blank'><img src="screenshots/i18n/fi/Track_Effects_Dialog.png" alt="Raidan tehosteet" width="800"></a>
+	<a href="screenshots/i18n/fi/Amp_And_Cabinet_Model_1.png" target='_blank'><img src="screenshots/i18n/fi/Amp_And_Cabinet_Model_1.png" alt="Amp & cabinet modeling (1)" width="800"></a>
+	<a href="screenshots/i18n/fi/Amp_And_Cabinet_Model_2.png" target='_blank'><img src="screenshots/i18n/fi/Amp_And_Cabinet_Model_2.png" alt="Amp & cabinet modeling (2)" width="800"></a>
+	<a href="screenshots/i18n/fi/VMIDIKeyboard1.png" target='_blank'><img src="screenshots/i18n/fi/VMIDIKeyboard1.png" alt="Virtual MIDI Keyboard" width="800"></a>
+	<a href="screenshots/i18n/fi/VMIDIKeyboard2.png" target='_blank'><img src="screenshots/i18n/fi/VMIDIKeyboard2.png" alt="Virtual MIDI Keyboard" width="800"></a>
 </p>
 
 ## Riippuvuudet

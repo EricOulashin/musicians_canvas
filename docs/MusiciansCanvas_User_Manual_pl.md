@@ -48,13 +48,13 @@ Przy uruchomieniu aplikacja stosuje zapisany motyw (ciemny lub jasny), a jeśli 
 
 3. **Nazwij ścieżkę**: Wpisz nazwę w polu tekstowym obok przycisku "Options". Ta nazwa jest używana jako nazwa pliku nagrywanego pliku audio.
 
-![Okno główne](../screenshots/MusiciansCanvas_1_MainWin.png)
+![Okno główne](../screenshots/i18n/pl/MusiciansCanvas_1_MainWin.png)
 
 ### Pasek przycisków
 
 Tuż pod paskiem menu znajduje się pasek narzędzi z przyciskami szybkiego dostępu:
 
-![Pasek przycisków](../screenshots/ButtonBar.png)
+![Pasek przycisków](../screenshots/i18n/pl/ButtonBar.png)
 
 - **Open Project**: To samo co **File > Open Project** — otwiera wcześniej zapisany projekt.
 - **Save Project**: To samo co **File > Save Project** — zapisuje bieżący projekt. Ten przycisk
@@ -117,7 +117,7 @@ Aby zmienić typ ścieżki:
 
 Otworzy się dialog Konfiguracja ścieżki, w którym można wybrać źródło wejściowe.
 
-![Konfiguracja ścieżki](../screenshots/MusiciansCanvas_2_TrackConfig.png)
+![Konfiguracja ścieżki](../screenshots/i18n/pl/MusiciansCanvas_2_TrackConfig.png)
 
 ### Kontrolki ścieżki
 
@@ -159,7 +159,7 @@ Podczas nagrywania i odtwarzania wszystkie interaktywne kontrolki (przyciski śc
 Ścieżki audio mają przycisk **Efekty** tuż pod **Options**. Otwiera on okno **Efekty ścieżki**, gdzie
 budujesz **uporządkowany łańcuch** efektów insert dla nagrań na tej ścieżce:
 
-![Okno efektów ścieżki](../screenshots/Track_Effects_Dialog.png)
+![Okno efektów ścieżki](../screenshots/i18n/pl/Track_Effects_Dialog.png)
 
 Dostępne są m.in. **Pogłos**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet** (modelowanie wzmacniacza i kolumny: typ wzm., kolumna, przester, bas/średnie/wysokie, „powietrze” i mieszanie) oraz **Vibrato (Tremolo)**.
 
@@ -167,9 +167,9 @@ Dostępne są m.in. **Pogłos**, **Chorus**, **Flanger**, **Overdrive / distorti
 
 Zrzuty ekranu efektu **Amp & cabinet**:
 
-![Modelowanie Amp & cabinet (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+![Modelowanie Amp & cabinet (1)](../screenshots/i18n/pl/Amp_And_Cabinet_Model_1.png)
 
-![Modelowanie Amp & cabinet (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+![Modelowanie Amp & cabinet (2)](../screenshots/i18n/pl/Amp_And_Cabinet_Model_2.png)
 
 - Kliknij **Dodaj efekt…** i wybierz typ efektu. Możesz dodać wiele instancji; czerwone **✕**
   w nagłówku usuwa efekt.
@@ -254,7 +254,7 @@ Musician's Canvas zawiera wbudowany metronom, którego można używać podczas n
 pomóc utrzymać rytm. Kliknij przycisk metronomu na pasku przycisków (pod paskiem menu), aby
 otworzyć okno dialogowe ustawień metronomu:
 
-![Ustawienia metronomu](../screenshots/MetronomeSettings.png)
+![Ustawienia metronomu](../screenshots/i18n/pl/MetronomeSettings.png)
 
 Okno dialogowe udostępnia:
 
@@ -290,7 +290,7 @@ Miks używa skonfigurowanej częstotliwości próbkowania projektu. Ścieżki MI
 
 Użyj **Settings > Configuration** (Ctrl+,), aby ustawić globalne wartości domyślne, które mają zastosowanie do wszystkich projektów:
 
-![Ustawienia ogólne](../screenshots/MusiciansCanvas_3_GeneralSettings.png)
+![Ustawienia ogólne](../screenshots/i18n/pl/MusiciansCanvas_3_GeneralSettings.png)
 
 #### Karta Ogólne
 
@@ -300,33 +300,33 @@ Użyj **Settings > Configuration** (Ctrl+,), aby ustawić globalne wartości dom
 
 - **Kolor numerycznego wyświetlacza LED**: Wybierz kolor używany dla numerycznego wyświetlacza LED czasu pokazywanego na pasku narzędzi głównego okna. Aktywne segmenty cyfr są rysowane w wybranym kolorze, a nieaktywne segmenty są rysowane jako przyciemniona wersja tego samego koloru. Dostępne kolory to Light Red, Dark Red, Light Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan i Dark Cyan. Domyślny to Light Green.
 
-![Ustawienia wyświetlania](../screenshots/MusiciansCanvas_DisplaySettings.png)
+![Ustawienia wyświetlania](../screenshots/i18n/pl/MusiciansCanvas_DisplaySettings.png)
 
 #### Karta Język
 
 - **Język**: Wybierz język wyświetlania aplikacji. Domyślnie jest to "System Default", który używa ustawień językowych systemu operacyjnego. Dostępne języki to angielski, Deutsch (niemiecki), Español (hiszpański), Français (francuski), japoński, Português (portugalski brazylijski), chiński (tradycyjny), chiński (uproszczony) i piracki. Interfejs aktualizuje się natychmiast po zmianie języka.
 
-![Ustawienia języka](../screenshots/MusiciansCanvas_LanguageSettings.png)
+![Ustawienia języka](../screenshots/i18n/pl/MusiciansCanvas_LanguageSettings.png)
 
 #### Karta MIDI
 
 - **Urządzenie wyjściowe MIDI**: Wybierz wbudowany syntezator FluidSynth lub zewnętrzne urządzenie MIDI. Użyj przycisku **Refresh**, aby ponownie przeskanować dostępne urządzenia MIDI.
 - **SoundFont**: Przejdź do pliku `.sf2` SoundFont do syntezy MIDI. W systemie Linux systemowy SoundFont może zostać automatycznie wykryty, jeśli jest zainstalowany pakiet `fluid-soundfont-gm`. W systemach Windows i macOS należy ręcznie skonfigurować ścieżkę SoundFont.
 
-![Ustawienia MIDI](../screenshots/MusiciansCanvas_4_MIDISettings.png)
+![Ustawienia MIDI](../screenshots/i18n/pl/MusiciansCanvas_4_MIDISettings.png)
 
 #### Karta Audio
 
 - **Urządzenie wejściowe audio**: Wybierz mikrofon lub urządzenie line-in do nagrywania.
 - **Urządzenie wyjściowe audio**: Wybierz głośnik lub słuchawki do odtwarzania.
 
-![Ustawienia audio](../screenshots/MusiciansCanvas_5_AudioSettings.png)
+![Ustawienia audio](../screenshots/i18n/pl/MusiciansCanvas_5_AudioSettings.png)
 
 ### Ustawienia projektu
 
 Użyj **Project > Project Settings** (Ctrl+P), aby nadpisać globalne wartości domyślne tylko dla bieżącego projektu. Jest to przydatne w przypadku projektów wymagających określonej częstotliwości próbkowania, SoundFont lub urządzenia audio. Ustawienia specyficzne dla projektu są zapisywane w pliku `project.json`.
 
-![Ustawienia MIDI projektu](../screenshots/MusiciansCanvas_6_ProjectMIDISettings.png)
+![Ustawienia MIDI projektu](../screenshots/i18n/pl/MusiciansCanvas_6_ProjectMIDISettings.png)
 
 #### Karta MIDI
 
@@ -348,7 +348,7 @@ Użyj **Project > Project Settings** (Ctrl+P), aby nadpisać globalne wartości 
 - **Częstotliwość próbkowania**: Wybierz spośród standardowych częstotliwości (8000 Hz do 192000 Hz). Natywna częstotliwość urządzenia jest oznaczona "(native)". Częstotliwości wymagające resamplingu są oznaczone "(resampled)". Możesz wybrać dowolną częstotliwość niezależnie od możliwości urządzenia; Musician's Canvas automatycznie wykonuje resampling w razie potrzeby.
 - **Kanały**: Mono lub Stereo. Jeśli urządzenie obsługuje tylko mono, opcja Stereo jest wyłączona.
 
-![Ustawienia audio projektu](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
+![Ustawienia audio projektu](../screenshots/i18n/pl/MusiciansCanvas_7_ProjectAudioSettings.png)
 
 #### Mix Effects tab
 
@@ -438,7 +438,7 @@ Od razu zapisywany jest **`.mid`** w **folderze projektu**: dwa takty 4/4. Tempo
 
 Virtual MIDI Keyboard to aplikacja towarzysząca (`virtual_midi_keyboard`), która udostępnia klawiaturę ekranową do wysyłania nut MIDI. Można ją uruchomić z menu **Tools > Virtual MIDI Keyboard** w głównej aplikacji lub uruchomić niezależnie.
 
-![Virtual MIDI Keyboard](../screenshots/VMIDIKeyboard1.png)
+![Virtual MIDI Keyboard](../screenshots/i18n/pl/VMIDIKeyboard1.png)
 
 ### Funkcje
 
@@ -511,7 +511,7 @@ Klawisze podświetlają się wizualnie po naciśnięciu (białe klawisze stają 
 
 Otwórz dialog konfiguracji (**Settings > Configuration**, Ctrl+,), aby skonfigurować urządzenia MIDI i audio:
 
-![Konfiguracja Virtual MIDI Keyboard](../screenshots/VMIDIKeyboard2.png)
+![Konfiguracja Virtual MIDI Keyboard](../screenshots/i18n/pl/VMIDIKeyboard2.png)
 
 #### Karta MIDI
 

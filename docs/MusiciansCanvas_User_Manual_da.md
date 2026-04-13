@@ -48,13 +48,13 @@ Ved opstart anvender applikationen det gemte tema (mørkt eller lyst), og hvis e
 
 3. **Navngiv sporet**: Skriv et navn i tekstfeltet ved siden af knappen "Options". Dette navn bruges som filnavn for den optagede lydfil.
 
-![Hovedvindue](../screenshots/MusiciansCanvas_1_MainWin.png)
+![Hovedvindue](../screenshots/i18n/da/MusiciansCanvas_1_MainWin.png)
 
 ### Knaplinje
 
 Lige under menulinjen er der en værktøjslinje med hurtigadgangsknapper:
 
-![Knaplinje](../screenshots/ButtonBar.png)
+![Knaplinje](../screenshots/i18n/da/ButtonBar.png)
 
 - **Open Project**: Samme som **File > Open Project** — åbner et tidligere gemt projekt.
 - **Save Project**: Samme som **File > Save Project** — gemmer det aktuelle projekt. Denne
@@ -115,7 +115,7 @@ For at ændre sportypen:
 
 Dette åbner dialogen Sporkonfiguration, hvor du kan vælge inputkilden.
 
-![Sporkonfiguration](../screenshots/MusiciansCanvas_2_TrackConfig.png)
+![Sporkonfiguration](../screenshots/i18n/da/MusiciansCanvas_2_TrackConfig.png)
 
 ### Sporkontroller
 
@@ -157,7 +157,7 @@ Under optagelse og afspilning deaktiveres alle interaktive kontroller (sporknapp
 Lydspor har en knap **Effekter** lige under **Options**. Den åbner dialogen **Spor-effekter**, hvor du
 sætter en **ordnet kæde** af insert-effekter til optagelse på det spor:
 
-![Dialogen Spor-effekter](../screenshots/Track_Effects_Dialog.png)
+![Dialogen Spor-effekter](../screenshots/i18n/da/Track_Effects_Dialog.png)
 
 Effekttyper omfatter **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet** (modellering af forstærker og kabinet: amptype, kabinet, gain, bas/mellem/discant, luft og mix) og **Vibrato (Tremolo)**.
 
@@ -165,9 +165,9 @@ Effekttyper omfatter **Reverb**, **Chorus**, **Flanger**, **Overdrive / distorti
 
 Skærmbilleder af **Amp & cabinet**:
 
-![Amp & cabinet-modellering (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+![Amp & cabinet-modellering (1)](../screenshots/i18n/da/Amp_And_Cabinet_Model_1.png)
 
-![Amp & cabinet-modellering (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+![Amp & cabinet-modellering (2)](../screenshots/i18n/da/Amp_And_Cabinet_Model_2.png)
 
 - Klik **Tilføj effekt…** og vælg en effekttype. Flere instanser er mulige; rødt **✕** i
   overskriften fjerner en effekt.
@@ -251,7 +251,7 @@ Musician's Canvas indeholder en indbygget metronom, der kan bruges under optagel
 hjælpe med at holde takten. Klik på metronomknappen på knaplinjen (under menulinjen) for at
 åbne dialogen med metronomindstillinger:
 
-![Metronomindstillinger](../screenshots/MetronomeSettings.png)
+![Metronomindstillinger](../screenshots/i18n/da/MetronomeSettings.png)
 
 Dialogen indeholder:
 
@@ -287,7 +287,7 @@ Mikset bruger projektets konfigurerede samplerate. MIDI-spor renderes ved hjælp
 
 Brug **Settings > Configuration** (Ctrl+,) til at indstille globale standarder, der gælder for alle projekter:
 
-![Generelle indstillinger](../screenshots/MusiciansCanvas_3_GeneralSettings.png)
+![Generelle indstillinger](../screenshots/i18n/da/MusiciansCanvas_3_GeneralSettings.png)
 
 #### Fanen Generelt
 
@@ -297,33 +297,33 @@ Brug **Settings > Configuration** (Ctrl+,) til at indstille globale standarder, 
 
 - **Farve på numerisk LED-display**: Vælg den farve, der bruges til det numeriske LED-tidsdisplay, som vises på værktøjslinjen i hovedvinduet. De aktive cifres segmenter tegnes i den valgte farve, og inaktive segmenter tegnes som en dæmpet version af samme farve. Tilgængelige farver er Light Red, Dark Red, Light Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan og Dark Cyan. Standard er Light Green.
 
-![Visningsindstillinger](../screenshots/MusiciansCanvas_DisplaySettings.png)
+![Visningsindstillinger](../screenshots/i18n/da/MusiciansCanvas_DisplaySettings.png)
 
 #### Fanen Sprog
 
 - **Sprog**: Vælg visningssproget for applikationen. Standard er "System Default", som bruger operativsystemets sprogindstilling. Tilgængelige sprog er engelsk, Deutsch (tysk), Español (spansk), Français (fransk), japansk, Português (brasiliansk portugisisk), kinesisk (traditionelt), kinesisk (forenklet) og pirat. Grænsefladen opdateres med det samme, når du ændrer sproget.
 
-![Sprogindstillinger](../screenshots/MusiciansCanvas_LanguageSettings.png)
+![Sprogindstillinger](../screenshots/i18n/da/MusiciansCanvas_LanguageSettings.png)
 
 #### Fanen MIDI
 
 - **MIDI-outputenhed**: Vælg den indbyggede FluidSynth-synthesizer eller en ekstern MIDI-enhed. Brug knappen **Refresh** til at scanne efter tilgængelige MIDI-enheder igen.
 - **SoundFont**: Gennemse til en `.sf2` SoundFont-fil til MIDI-syntese. På Linux kan en system-SoundFont blive automatisk detekteret, hvis pakken `fluid-soundfont-gm` er installeret. På Windows og macOS skal du konfigurere SoundFont-stien manuelt.
 
-![MIDI-indstillinger](../screenshots/MusiciansCanvas_4_MIDISettings.png)
+![MIDI-indstillinger](../screenshots/i18n/da/MusiciansCanvas_4_MIDISettings.png)
 
 #### Fanen Lyd
 
 - **Lydinputenhed**: Vælg mikrofonen eller line-in-enheden til optagelse.
 - **Lydoutputenhed**: Vælg højttaleren eller hovedtelefonenheden til afspilning.
 
-![Lydindstillinger](../screenshots/MusiciansCanvas_5_AudioSettings.png)
+![Lydindstillinger](../screenshots/i18n/da/MusiciansCanvas_5_AudioSettings.png)
 
 ### Projektindstillinger
 
 Brug **Project > Project Settings** (Ctrl+P) til at tilsidesætte globale standarder kun for det aktuelle projekt. Dette er nyttigt for projekter, der kræver en bestemt samplerate, SoundFont eller lydenhed. Projektspecifikke indstillinger gemmes i `project.json`-filen.
 
-![Projekt-MIDI-indstillinger](../screenshots/MusiciansCanvas_6_ProjectMIDISettings.png)
+![Projekt-MIDI-indstillinger](../screenshots/i18n/da/MusiciansCanvas_6_ProjectMIDISettings.png)
 
 #### Fanen MIDI
 
@@ -345,7 +345,7 @@ Brug **Project > Project Settings** (Ctrl+P) til at tilsidesætte globale standa
 - **Samplerate**: Vælg mellem standardrater (8000 Hz til 192000 Hz). Enhedens native rate er mærket "(native)". Rater, der kræver resampling, er mærket "(resampled)". Du kan vælge enhver rate uanset enhedens kapabilitet; Musician's Canvas vil automatisk resample efter behov.
 - **Kanaler**: Mono eller Stereo. Hvis enheden kun understøtter mono, er Stereo-indstillingen deaktiveret.
 
-![Projekt-lydindstillinger](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
+![Projekt-lydindstillinger](../screenshots/i18n/da/MusiciansCanvas_7_ProjectAudioSettings.png)
 
 #### Mix Effects tab
 
@@ -435,7 +435,7 @@ En **`.mid`** skrives i **projektmappen**: to takter 4/4 (kick, snare, lukket hi
 
 Virtual MIDI Keyboard er en ledsagerapplikation (`virtual_midi_keyboard`), der giver et skærmklaviatur til afsendelse af MIDI-noter. Den kan startes fra menuen **Tools > Virtual MIDI Keyboard** i hovedapplikationen eller køres selvstændigt.
 
-![Virtual MIDI Keyboard](../screenshots/VMIDIKeyboard1.png)
+![Virtual MIDI Keyboard](../screenshots/i18n/da/VMIDIKeyboard1.png)
 
 ### Funktioner
 
@@ -508,7 +508,7 @@ Taster lyser visuelt op, når de trykkes ned (hvide tangenter bliver lyseblå, s
 
 Åbn konfigurationsdialogen (**Settings > Configuration**, Ctrl+,) for at opsætte MIDI- og lydenheder:
 
-![Virtual MIDI Keyboard konfiguration](../screenshots/VMIDIKeyboard2.png)
+![Virtual MIDI Keyboard konfiguration](../screenshots/i18n/da/VMIDIKeyboard2.png)
 
 #### Fanen MIDI
 

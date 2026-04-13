@@ -40,20 +40,20 @@ GUI 库。此应用程序旨在为 Linux、Windows 和 Mac OS 构建。易用性
 ## 屏幕截图
 
 <p align="center">
-	<a href="screenshots/MusiciansCanvas_1_MainWin.png" target='_blank'><img src="screenshots/MusiciansCanvas_1_MainWin.png" alt="主窗口" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_2_TrackConfig.png" target='_blank'><img src="screenshots/MusiciansCanvas_2_TrackConfig.png" alt="轨道配置" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_3_GeneralSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_3_GeneralSettings.png" alt="常规设置" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_4_MIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_4_MIDISettings.png" alt="默认/常规 MIDI 设置" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_5_AudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_5_AudioSettings.png" alt="默认/常规音频设置" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_DisplaySettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_DisplaySettings.png" alt="显示设置" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_LanguageSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_LanguageSettings.png" alt="语言设置" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" alt="项目特定 MIDI 设置" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" alt="项目特定音频设置" width="800"></a>
-	<a href="screenshots/Track_Effects_Dialog.png" target='_blank'><img src="screenshots/Track_Effects_Dialog.png" alt="轨道效果对话框" width="800"></a>
-	<a href="screenshots/Amp_And_Cabinet_Model_1.png" target='_blank'><img src="screenshots/Amp_And_Cabinet_Model_1.png" alt="Amp & cabinet modeling (1)" width="800"></a>
-	<a href="screenshots/Amp_And_Cabinet_Model_2.png" target='_blank'><img src="screenshots/Amp_And_Cabinet_Model_2.png" alt="Amp & cabinet modeling (2)" width="800"></a>
-	<a href="screenshots/VMIDIKeyboard1.png" target='_blank'><img src="screenshots/VMIDIKeyboard1.png" alt="Virtual MIDI Keyboard" width="800"></a>
-	<a href="screenshots/VMIDIKeyboard2.png" target='_blank'><img src="screenshots/VMIDIKeyboard2.png" alt="Virtual MIDI Keyboard" width="800"></a>
+	<a href="screenshots/i18n/zh_CN/MusiciansCanvas_1_MainWin.png" target='_blank'><img src="screenshots/i18n/zh_CN/MusiciansCanvas_1_MainWin.png" alt="主窗口" width="800"></a>
+	<a href="screenshots/i18n/zh_CN/MusiciansCanvas_2_TrackConfig.png" target='_blank'><img src="screenshots/i18n/zh_CN/MusiciansCanvas_2_TrackConfig.png" alt="轨道配置" width="800"></a>
+	<a href="screenshots/i18n/zh_CN/MusiciansCanvas_3_GeneralSettings.png" target='_blank'><img src="screenshots/i18n/zh_CN/MusiciansCanvas_3_GeneralSettings.png" alt="常规设置" width="800"></a>
+	<a href="screenshots/i18n/zh_CN/MusiciansCanvas_4_MIDISettings.png" target='_blank'><img src="screenshots/i18n/zh_CN/MusiciansCanvas_4_MIDISettings.png" alt="默认/常规 MIDI 设置" width="800"></a>
+	<a href="screenshots/i18n/zh_CN/MusiciansCanvas_5_AudioSettings.png" target='_blank'><img src="screenshots/i18n/zh_CN/MusiciansCanvas_5_AudioSettings.png" alt="默认/常规音频设置" width="800"></a>
+	<a href="screenshots/i18n/zh_CN/MusiciansCanvas_DisplaySettings.png" target='_blank'><img src="screenshots/i18n/zh_CN/MusiciansCanvas_DisplaySettings.png" alt="显示设置" width="800"></a>
+	<a href="screenshots/i18n/zh_CN/MusiciansCanvas_LanguageSettings.png" target='_blank'><img src="screenshots/i18n/zh_CN/MusiciansCanvas_LanguageSettings.png" alt="语言设置" width="800"></a>
+	<a href="screenshots/i18n/zh_CN/MusiciansCanvas_6_ProjectMIDISettings.png" target='_blank'><img src="screenshots/i18n/zh_CN/MusiciansCanvas_6_ProjectMIDISettings.png" alt="项目特定 MIDI 设置" width="800"></a>
+	<a href="screenshots/i18n/zh_CN/MusiciansCanvas_7_ProjectAudioSettings.png" target='_blank'><img src="screenshots/i18n/zh_CN/MusiciansCanvas_7_ProjectAudioSettings.png" alt="项目特定音频设置" width="800"></a>
+	<a href="screenshots/i18n/zh_CN/Track_Effects_Dialog.png" target='_blank'><img src="screenshots/i18n/zh_CN/Track_Effects_Dialog.png" alt="轨道效果对话框" width="800"></a>
+	<a href="screenshots/i18n/zh_CN/Amp_And_Cabinet_Model_1.png" target='_blank'><img src="screenshots/i18n/zh_CN/Amp_And_Cabinet_Model_1.png" alt="Amp & cabinet modeling (1)" width="800"></a>
+	<a href="screenshots/i18n/zh_CN/Amp_And_Cabinet_Model_2.png" target='_blank'><img src="screenshots/i18n/zh_CN/Amp_And_Cabinet_Model_2.png" alt="Amp & cabinet modeling (2)" width="800"></a>
+	<a href="screenshots/i18n/zh_CN/VMIDIKeyboard1.png" target='_blank'><img src="screenshots/i18n/zh_CN/VMIDIKeyboard1.png" alt="Virtual MIDI Keyboard" width="800"></a>
+	<a href="screenshots/i18n/zh_CN/VMIDIKeyboard2.png" target='_blank'><img src="screenshots/i18n/zh_CN/VMIDIKeyboard2.png" alt="Virtual MIDI Keyboard" width="800"></a>
 </p>
 
 ## 依赖

@@ -9,6 +9,7 @@
 #include <QLocale>
 #include <QLibraryInfo>
 #include <QDir>
+#include <QByteArray>
 
 static QTranslator* s_translator = nullptr;
 static QTranslator* s_qtTranslator = nullptr;
@@ -74,8 +75,13 @@ int main(int argc, char* argv[])
     app.setApplicationName("Musician's Canvas");
     app.setOrganizationName("Eric Oulashin");
 
-    // Load translation based on saved language setting or system locale
-    loadAppTranslation(AppSettings::instance().language());
+    // Optional override for translators / screenshot capture (does not change saved settings).
+    // Example: MUSICIANS_CANVAS_LANG=de ./musicians_canvas
+    const QByteArray langEnv = qgetenv("MUSICIANS_CANVAS_LANG");
+    if (!langEnv.isEmpty())
+        loadAppTranslation(QString::fromLocal8Bit(langEnv));
+    else
+        loadAppTranslation(AppSettings::instance().language());
 
     ThemeUtils::applySavedTheme();
 

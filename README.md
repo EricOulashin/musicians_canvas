@@ -40,6 +40,8 @@ to make something better.
 
 ## Screenshots
 
+Localized READMEs and user manuals under [docs/](docs/) use `screenshots/i18n/<locale>/` (same filenames as below). Those files are symlinks to the English PNGs until locale-specific captures are added. To run the UI in a given locale without changing saved settings (for new screenshots), set `MUSICIANS_CANVAS_LANG` to a Qt locale id (for example `de`, `pt_BR`, `zh_CN`) when starting `musicians_canvas` or `virtual_midi_keyboard`.
+
 <p align="center">
 	<a href="screenshots/MusiciansCanvas_1_MainWin.png" target='_blank'><img src="screenshots/MusiciansCanvas_1_MainWin.png" alt="Main window" width="800"></a>
 	<a href="screenshots/MusiciansCanvas_2_TrackConfig.png" target='_blank'><img src="screenshots/MusiciansCanvas_2_TrackConfig.png" alt="Track configuration" width="800"></a>

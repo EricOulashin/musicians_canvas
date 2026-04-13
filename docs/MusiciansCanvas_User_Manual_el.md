@@ -48,13 +48,13 @@ lang: "el"
 
 3. **Ονομάστε το κανάλι**: Πληκτρολογήστε ένα όνομα στο πεδίο κειμένου δίπλα στο κουμπί "Options". Αυτό το όνομα χρησιμοποιείται ως όνομα αρχείου για το ηχογραφημένο αρχείο ήχου.
 
-![Κύριο παράθυρο](../screenshots/MusiciansCanvas_1_MainWin.png)
+![Κύριο παράθυρο](../screenshots/i18n/el/MusiciansCanvas_1_MainWin.png)
 
 ### Γραμμή κουμπιών
 
 Ακριβώς κάτω από τη γραμμή μενού υπάρχει μια γραμμή εργαλείων με κουμπιά γρήγορης πρόσβασης:
 
-![Γραμμή κουμπιών](../screenshots/ButtonBar.png)
+![Γραμμή κουμπιών](../screenshots/i18n/el/ButtonBar.png)
 
 - **Open Project**: Το ίδιο με **File > Open Project** — ανοίγει ένα προηγουμένως αποθηκευμένο έργο.
 - **Save Project**: Το ίδιο με **File > Save Project** — αποθηκεύει το τρέχον έργο. Αυτό το
@@ -117,7 +117,7 @@ lang: "el"
 
 Αυτό ανοίγει το παράθυρο Ρύθμισης Καναλιού όπου μπορείτε να επιλέξετε την πηγή εισόδου.
 
-![Ρύθμιση καναλιού](../screenshots/MusiciansCanvas_2_TrackConfig.png)
+![Ρύθμιση καναλιού](../screenshots/i18n/el/MusiciansCanvas_2_TrackConfig.png)
 
 ### Χειριστήρια Καναλιού
 
@@ -158,7 +158,7 @@ lang: "el"
 
 Τα κανάλια ήχου έχουν κουμπί **Εφέ** ακριβώς κάτω από **Options**. Ανοίγει το παράθυρο **Εφέ καναλιού**, όπου χτίζετε μια **διατεταγμένη αλυσίδα** εισαγόμενων εφέ για εγγραφή σε αυτό το κανάλι:
 
-![Διάλογος εφέ καναλιού](../screenshots/Track_Effects_Dialog.png)
+![Διάλογος εφέ καναλιού](../screenshots/i18n/el/Track_Effects_Dialog.png)
 
 Περιλαμβάνονται **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet** (μοντελοποίηση ενισχυτή και καμπίνας: τύπος ενισχυτή, καμπίνα, κέρδος, μπάσα/μεσαία/πρίμα, «αέρας» και μίξη) και **Vibrato (Tremolo)**.
 
@@ -166,9 +166,9 @@ lang: "el"
 
 Στιγμιότυπα του **Amp & cabinet**:
 
-![Μοντελοποίηση Amp & cabinet (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+![Μοντελοποίηση Amp & cabinet (1)](../screenshots/i18n/el/Amp_And_Cabinet_Model_1.png)
 
-![Μοντελοποίηση Amp & cabinet (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+![Μοντελοποίηση Amp & cabinet (2)](../screenshots/i18n/el/Amp_And_Cabinet_Model_2.png)
 
 - **Προσθήκη εφέ…** και επιλέξτε τύπο εφέ. Πολλαπλές εμφανίσεις επιτρέπονται· το κόκκινο **✕** στην επικεφαλίδα αφαιρεί ένα εφέ.
 - Σύρετε το **≡** για **αναδιάταξη**. Το **ανώτερο** εφέ τρέχει **πρώτα**.
@@ -250,7 +250,7 @@ MIDI tracks can carry **control change (CC)** automation stored in the project a
 κατά την εγγραφή για να βοηθήσει στην τήρηση του ρυθμού. Κάντε κλικ στο κουμπί του μετρονόμου
 στη γραμμή κουμπιών (κάτω από τη γραμμή μενού) για να ανοίξετε το παράθυρο ρυθμίσεων μετρονόμου:
 
-![Ρυθμίσεις μετρονόμου](../screenshots/MetronomeSettings.png)
+![Ρυθμίσεις μετρονόμου](../screenshots/i18n/el/MetronomeSettings.png)
 
 Το παράθυρο διαλόγου παρέχει:
 
@@ -286,7 +286,7 @@ MIDI tracks can carry **control change (CC)** automation stored in the project a
 
 Χρησιμοποιήστε **Settings > Configuration** (Ctrl+,) για ορισμό γενικών προεπιλογών που ισχύουν για όλα τα έργα:
 
-![Γενικές ρυθμίσεις](../screenshots/MusiciansCanvas_3_GeneralSettings.png)
+![Γενικές ρυθμίσεις](../screenshots/i18n/el/MusiciansCanvas_3_GeneralSettings.png)
 
 #### Καρτέλα General
 
@@ -296,33 +296,33 @@ MIDI tracks can carry **control change (CC)** automation stored in the project a
 
 - **Χρώμα αριθμητικής οθόνης LED**: Επιλέξτε το χρώμα που χρησιμοποιείται για την αριθμητική οθόνη LED χρόνου που εμφανίζεται στη γραμμή εργαλείων του κύριου παραθύρου. Τα ενεργά τμήματα των ψηφίων σχεδιάζονται με το επιλεγμένο χρώμα, και τα ανενεργά τμήματα σχεδιάζονται ως μια εξασθενημένη έκδοση του ίδιου χρώματος. Τα διαθέσιμα χρώματα είναι Light Red, Dark Red, Light Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan και Dark Cyan. Η προεπιλογή είναι Light Green.
 
-![Ρυθμίσεις οθόνης](../screenshots/MusiciansCanvas_DisplaySettings.png)
+![Ρυθμίσεις οθόνης](../screenshots/i18n/el/MusiciansCanvas_DisplaySettings.png)
 
 #### Καρτέλα Language
 
 - **Γλώσσα**: Επιλέξτε τη γλώσσα εμφάνισης της εφαρμογής. Η προεπιλογή είναι "System Default", που χρησιμοποιεί τη ρύθμιση γλώσσας του λειτουργικού συστήματος. Οι διαθέσιμες γλώσσες είναι Αγγλικά, Deutsch (Γερμανικά), Español (Ισπανικά), Français (Γαλλικά), Ιαπωνικά, Português (Βραζιλιάνικα Πορτογαλικά), Κινεζικά (Παραδοσιακά), Κινεζικά (Απλοποιημένα) και Πειρατικά. Η διεπαφή ενημερώνεται αμέσως όταν αλλάζετε τη γλώσσα.
 
-![Ρυθμίσεις γλώσσας](../screenshots/MusiciansCanvas_LanguageSettings.png)
+![Ρυθμίσεις γλώσσας](../screenshots/i18n/el/MusiciansCanvas_LanguageSettings.png)
 
 #### Καρτέλα MIDI
 
 - **Συσκευή Εξόδου MIDI**: Επιλέξτε τον ενσωματωμένο συνθετητή FluidSynth ή μια εξωτερική συσκευή MIDI. Χρησιμοποιήστε το κουμπί **Refresh** για επανασάρωση των διαθέσιμων συσκευών MIDI.
 - **SoundFont**: Αναζητήστε ένα αρχείο SoundFont `.sf2` για σύνθεση MIDI. Σε Linux, ένα SoundFont συστήματος μπορεί να ανιχνευθεί αυτόματα αν είναι εγκατεστημένο το πακέτο `fluid-soundfont-gm`. Σε Windows και macOS, πρέπει να ρυθμίσετε τη διαδρομή SoundFont χειροκίνητα.
 
-![Ρυθμίσεις MIDI](../screenshots/MusiciansCanvas_4_MIDISettings.png)
+![Ρυθμίσεις MIDI](../screenshots/i18n/el/MusiciansCanvas_4_MIDISettings.png)
 
 #### Καρτέλα Audio
 
 - **Συσκευή Εισόδου Ήχου**: Επιλέξτε το μικρόφωνο ή τη συσκευή line-in για εγγραφή.
 - **Συσκευή Εξόδου Ήχου**: Επιλέξτε το ηχείο ή τη συσκευή ακουστικών για αναπαραγωγή.
 
-![Ρυθμίσεις ήχου](../screenshots/MusiciansCanvas_5_AudioSettings.png)
+![Ρυθμίσεις ήχου](../screenshots/i18n/el/MusiciansCanvas_5_AudioSettings.png)
 
 ### Ρυθμίσεις Έργου
 
 Χρησιμοποιήστε **Project > Project Settings** (Ctrl+P) για παράκαμψη των γενικών προεπιλογών μόνο για το τρέχον έργο. Αυτό είναι χρήσιμο για έργα που χρειάζονται συγκεκριμένο ρυθμό δειγματοληψίας, SoundFont ή συσκευή ήχου. Οι ρυθμίσεις ανά έργο αποθηκεύονται μέσα στο αρχείο `project.json`.
 
-![Ρυθμίσεις MIDI έργου](../screenshots/MusiciansCanvas_6_ProjectMIDISettings.png)
+![Ρυθμίσεις MIDI έργου](../screenshots/i18n/el/MusiciansCanvas_6_ProjectMIDISettings.png)
 
 #### Καρτέλα MIDI
 
@@ -344,7 +344,7 @@ MIDI tracks can carry **control change (CC)** automation stored in the project a
 - **Ρυθμός δειγματοληψίας**: Επιλέξτε από τυπικούς ρυθμούς (8000 Hz έως 192000 Hz). Ο εγγενής ρυθμός της συσκευής επισημαίνεται ως "(native)". Οι ρυθμοί που απαιτούν επαναδειγματοληψία επισημαίνονται ως "(resampled)". Μπορείτε να επιλέξετε οποιονδήποτε ρυθμό ανεξάρτητα από τις δυνατότητες της συσκευής· το Musician's Canvas θα κάνει αυτόματα επαναδειγματοληψία όπως χρειάζεται.
 - **Κανάλια**: Μονοφωνικό ή Στερεοφωνικό. Αν η συσκευή υποστηρίζει μόνο μονοφωνικό, η επιλογή Στερεοφωνικό είναι απενεργοποιημένη.
 
-![Ρυθμίσεις ήχου έργου](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
+![Ρυθμίσεις ήχου έργου](../screenshots/i18n/el/MusiciansCanvas_7_ProjectAudioSettings.png)
 
 #### Mix Effects tab
 
@@ -434,7 +434,7 @@ Configure the **shared aux effect chain** (same effect types as track inserts). 
 
 Το Virtual MIDI Keyboard είναι μια συνοδευτική εφαρμογή (`virtual_midi_keyboard`) που παρέχει ένα πληκτρολόγιο πιάνου στην οθόνη για αποστολή νοτών MIDI. Μπορεί να εκκινηθεί από το μενού **Tools > Virtual MIDI Keyboard** στην κύρια εφαρμογή, ή να εκτελεστεί ανεξάρτητα.
 
-![Virtual MIDI Keyboard](../screenshots/VMIDIKeyboard1.png)
+![Virtual MIDI Keyboard](../screenshots/i18n/el/VMIDIKeyboard1.png)
 
 ### Χαρακτηριστικά
 
@@ -507,7 +507,7 @@ Configure the **shared aux effect chain** (same effect types as track inserts). 
 
 Ανοίξτε το παράθυρο Διαμόρφωσης (**Settings > Configuration**, Ctrl+,) για ρύθμιση συσκευών MIDI και ήχου:
 
-![Διαμόρφωση Virtual MIDI Keyboard](../screenshots/VMIDIKeyboard2.png)
+![Διαμόρφωση Virtual MIDI Keyboard](../screenshots/i18n/el/VMIDIKeyboard2.png)
 
 #### Καρτέλα MIDI
 

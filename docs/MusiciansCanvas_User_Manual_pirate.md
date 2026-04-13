@@ -48,13 +48,13 @@ On startup, the application applies the saved theme (dark or light) an', if a pr
 
 3. **Name the shanty**: Type a name in the text field next to the "Options" button. This name be used as the filename fer the recorded audio file, so choose wisely, ye scallywag!
 
-![Main window](../screenshots/MusiciansCanvas_1_MainWin.png)
+![Main window](../screenshots/i18n/pirate/MusiciansCanvas_1_MainWin.png)
 
 ### Button Bar (The Quick-Draw Belt)
 
 Just below the menu bar, ye'll find a row o' trusty buttons for quick plunderin':
 
-![Button bar](../screenshots/ButtonBar.png)
+![Button bar](../screenshots/i18n/pirate/ButtonBar.png)
 
 - **Open Project**: Same as **File > Open Project** — hoists up a shanty ye stashed away earlier.
 - **Save Project**: Same as **File > Save Project** — buries the current shanty in yer chest.
@@ -115,7 +115,7 @@ To change the shanty type:
 
 This opens the Track Configuration dialog where ye can select the input source, arr.
 
-![Track configuration](../screenshots/MusiciansCanvas_2_TrackConfig.png)
+![Track configuration](../screenshots/i18n/pirate/MusiciansCanvas_2_TrackConfig.png)
 
 ### Shanty Controls
 
@@ -156,7 +156,7 @@ Durin' plunderin' an' replayin', all interactive controls (shanty buttons, setti
 
 Audio shanties have an **Effects** button just below **Options**. It opens **Track effects**, where ye build a **ordered chain** o' plunder-time insert effects fer this shanty:
 
-![Track effects dialog](../screenshots/Track_Effects_Dialog.png)
+![Track effects dialog](../screenshots/i18n/pirate/Track_Effects_Dialog.png)
 
 Ye can haul aboard **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet** (modelin' amp an' speaker box: amp voice, cabinet, gain, bass/middle/treble, air, an' wet/dry), an' **Vibrato (Tremolo)**.
 
@@ -164,9 +164,9 @@ Ye can haul aboard **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion
 
 Spyglass on **Amp & cabinet**:
 
-![Amp & cabinet modelin' (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+![Amp & cabinet modelin' (1)](../screenshots/i18n/pirate/Amp_And_Cabinet_Model_1.png)
 
-![Amp & cabinet modelin' (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+![Amp & cabinet modelin' (2)](../screenshots/i18n/pirate/Amp_And_Cabinet_Model_2.png)
 
 - **Add effect…** an' pick a type o' effect. Ye may stack more than one; the red **✕** in the header scuttles an effect.
 - Drag **≡** to **reorder**. The **topmost** effect runs **first**.
@@ -247,7 +247,7 @@ Musician's Canvas carries a trusty built-in metronome, a steady drummer ye can c
 durin' recordin' to keep yer crew in time. Click the metronome button on the button bar
 (below the menu bar) to open the metronome settings parchment:
 
-![Metronome settings](../screenshots/MetronomeSettings.png)
+![Metronome settings](../screenshots/i18n/pirate/MetronomeSettings.png)
 
 The parchment offers:
 
@@ -283,7 +283,7 @@ The mix uses the project's configured sample rate. MIDI shanties be rendered usi
 
 Use **Settings > Configuration** (Ctrl+,) to set global defaults that apply to all projects across the seven seas:
 
-![General settings](../screenshots/MusiciansCanvas_3_GeneralSettings.png)
+![General settings](../screenshots/i18n/pirate/MusiciansCanvas_3_GeneralSettings.png)
 
 #### General Tab
 
@@ -303,7 +303,7 @@ Use **Settings > Configuration** (Ctrl+,) to set global defaults that apply to a
   Dark Blue, Yellow, Orange, Light Cyan, an' Dark Cyan. The default be Light Green, bright
   as a sea serpent's eye.
 
-![Display settin's](../screenshots/MusiciansCanvas_DisplaySettings.png)
+![Display settin's](../screenshots/i18n/pirate/MusiciansCanvas_DisplaySettings.png)
 
 #### Language Tab
 
@@ -315,27 +315,27 @@ Use **Settings > Configuration** (Ctrl+,) to set global defaults that apply to a
   Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh), an' Pirate.
   The interface updates immediately when ye change the language -- no need to restart the ship!
 
-![Language settin's](../screenshots/MusiciansCanvas_LanguageSettings.png)
+![Language settin's](../screenshots/i18n/pirate/MusiciansCanvas_LanguageSettings.png)
 
 #### MIDI Tab
 
 - **MIDI Output Device**: Select the built-in FluidSynth synthesizer or an external MIDI device. Use the **Refresh** button to rescan fer available MIDI devices on the horizon.
 - **SoundFont**: Browse to a `.sf2` SoundFont file fer MIDI synthesis. On Linux, a system SoundFont may be auto-detected if the `fluid-soundfont-gm` package be installed. On Windows an' macOS, ye must configure the SoundFont path manually, ye landlubber.
 
-![MIDI settings](../screenshots/MusiciansCanvas_4_MIDISettings.png)
+![MIDI settings](../screenshots/i18n/pirate/MusiciansCanvas_4_MIDISettings.png)
 
 #### Audio Tab
 
 - **Audio Input Device**: Select the microphone or line-in device fer plunderin' sounds.
 - **Audio Output Device**: Select the speaker or headphone device fer replayin' shanties.
 
-![Audio settings](../screenshots/MusiciansCanvas_5_AudioSettings.png)
+![Audio settings](../screenshots/i18n/pirate/MusiciansCanvas_5_AudioSettings.png)
 
 ### Project Settings
 
 Use **Project > Project Settings** (Ctrl+P) to override global defaults fer the current project only. This be useful fer projects that need a specific sample rate, SoundFont, or audio device. Project-specific settings be saved inside the `project.json` file, safe in the treasure chest.
 
-![Project MIDI settings](../screenshots/MusiciansCanvas_6_ProjectMIDISettings.png)
+![Project MIDI settings](../screenshots/i18n/pirate/MusiciansCanvas_6_ProjectMIDISettings.png)
 
 #### MIDI Tab
 
@@ -357,7 +357,7 @@ Use **Project > Project Settings** (Ctrl+P) to override global defaults fer the 
 - **Sample rate**: Choose from standard rates (8000 Hz to 192000 Hz). The device's native rate be labeled "(native)". Rates that require resamplin' be labeled "(resampled)". Ye can select any rate regardless of device capability; Musician's Canvas will automatically resample as needed -- no excuses, we sail at any speed!
 - **Channels**: Mono or Stereo. If the device only supports mono, the Stereo option be disabled.
 
-![Project audio settings](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
+![Project audio settings](../screenshots/i18n/pirate/MusiciansCanvas_7_ProjectAudioSettings.png)
 
 #### Mix Effects tab
 
@@ -447,7 +447,7 @@ A **`.mid`** be writ **straight** into the **project chest**: two bars o' 4/4 ki
 
 The Virtual MIDI Keyboard be a companion vessel (`virtual_midi_keyboard`) that provides an on-screen pianer keyboard fer sendin' MIDI notes across the musical seas. It can be launched from the **Tools > Virtual MIDI Keyboard** menu in the main application, or run independently as a lone privateer.
 
-![Virtual MIDI Keyboard](../screenshots/VMIDIKeyboard1.png)
+![Virtual MIDI Keyboard](../screenshots/i18n/pirate/VMIDIKeyboard1.png)
 
 ### Features
 
@@ -520,7 +520,7 @@ Keys light up visually when pressed (white keys turn light blue like the Caribbe
 
 Open the Configuration dialog (**Settings > Configuration**, Ctrl+,) to set up MIDI an' audio devices:
 
-![Virtual MIDI Keyboard configuration](../screenshots/VMIDIKeyboard2.png)
+![Virtual MIDI Keyboard configuration](../screenshots/i18n/pirate/VMIDIKeyboard2.png)
 
 #### MIDI Tab
 

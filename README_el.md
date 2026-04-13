@@ -40,20 +40,20 @@
 ## Στιγμιότυπα οθόνης
 
 <p align="center">
-	<a href="screenshots/MusiciansCanvas_1_MainWin.png" target='_blank'><img src="screenshots/MusiciansCanvas_1_MainWin.png" alt="Κύριο παράθυρο" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_2_TrackConfig.png" target='_blank'><img src="screenshots/MusiciansCanvas_2_TrackConfig.png" alt="Διαμόρφωση καναλιού" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_3_GeneralSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_3_GeneralSettings.png" alt="Γενικές ρυθμίσεις" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_4_MIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_4_MIDISettings.png" alt="Προεπιλεγμένες/γενικές ρυθμίσεις MIDI" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_5_AudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_5_AudioSettings.png" alt="Προεπιλεγμένες/γενικές ρυθμίσεις ήχου" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_DisplaySettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_DisplaySettings.png" alt="Ρυθμίσεις οθόνης" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_LanguageSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_LanguageSettings.png" alt="Ρυθμίσεις γλώσσας" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" alt="Ρυθμίσεις MIDI ειδικές ανά έργο" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" alt="Ρυθμίσεις ήχου ειδικές ανά έργο" width="800"></a>
-	<a href="screenshots/Track_Effects_Dialog.png" target='_blank'><img src="screenshots/Track_Effects_Dialog.png" alt="Εφέ κομματιού" width="800"></a>
-	<a href="screenshots/Amp_And_Cabinet_Model_1.png" target='_blank'><img src="screenshots/Amp_And_Cabinet_Model_1.png" alt="Amp & cabinet modeling (1)" width="800"></a>
-	<a href="screenshots/Amp_And_Cabinet_Model_2.png" target='_blank'><img src="screenshots/Amp_And_Cabinet_Model_2.png" alt="Amp & cabinet modeling (2)" width="800"></a>
-	<a href="screenshots/VMIDIKeyboard1.png" target='_blank'><img src="screenshots/VMIDIKeyboard1.png" alt="Virtual MIDI Keyboard" width="800"></a>
-	<a href="screenshots/VMIDIKeyboard2.png" target='_blank'><img src="screenshots/VMIDIKeyboard2.png" alt="Virtual MIDI Keyboard" width="800"></a>
+	<a href="screenshots/i18n/el/MusiciansCanvas_1_MainWin.png" target='_blank'><img src="screenshots/i18n/el/MusiciansCanvas_1_MainWin.png" alt="Κύριο παράθυρο" width="800"></a>
+	<a href="screenshots/i18n/el/MusiciansCanvas_2_TrackConfig.png" target='_blank'><img src="screenshots/i18n/el/MusiciansCanvas_2_TrackConfig.png" alt="Διαμόρφωση καναλιού" width="800"></a>
+	<a href="screenshots/i18n/el/MusiciansCanvas_3_GeneralSettings.png" target='_blank'><img src="screenshots/i18n/el/MusiciansCanvas_3_GeneralSettings.png" alt="Γενικές ρυθμίσεις" width="800"></a>
+	<a href="screenshots/i18n/el/MusiciansCanvas_4_MIDISettings.png" target='_blank'><img src="screenshots/i18n/el/MusiciansCanvas_4_MIDISettings.png" alt="Προεπιλεγμένες/γενικές ρυθμίσεις MIDI" width="800"></a>
+	<a href="screenshots/i18n/el/MusiciansCanvas_5_AudioSettings.png" target='_blank'><img src="screenshots/i18n/el/MusiciansCanvas_5_AudioSettings.png" alt="Προεπιλεγμένες/γενικές ρυθμίσεις ήχου" width="800"></a>
+	<a href="screenshots/i18n/el/MusiciansCanvas_DisplaySettings.png" target='_blank'><img src="screenshots/i18n/el/MusiciansCanvas_DisplaySettings.png" alt="Ρυθμίσεις οθόνης" width="800"></a>
+	<a href="screenshots/i18n/el/MusiciansCanvas_LanguageSettings.png" target='_blank'><img src="screenshots/i18n/el/MusiciansCanvas_LanguageSettings.png" alt="Ρυθμίσεις γλώσσας" width="800"></a>
+	<a href="screenshots/i18n/el/MusiciansCanvas_6_ProjectMIDISettings.png" target='_blank'><img src="screenshots/i18n/el/MusiciansCanvas_6_ProjectMIDISettings.png" alt="Ρυθμίσεις MIDI ειδικές ανά έργο" width="800"></a>
+	<a href="screenshots/i18n/el/MusiciansCanvas_7_ProjectAudioSettings.png" target='_blank'><img src="screenshots/i18n/el/MusiciansCanvas_7_ProjectAudioSettings.png" alt="Ρυθμίσεις ήχου ειδικές ανά έργο" width="800"></a>
+	<a href="screenshots/i18n/el/Track_Effects_Dialog.png" target='_blank'><img src="screenshots/i18n/el/Track_Effects_Dialog.png" alt="Εφέ κομματιού" width="800"></a>
+	<a href="screenshots/i18n/el/Amp_And_Cabinet_Model_1.png" target='_blank'><img src="screenshots/i18n/el/Amp_And_Cabinet_Model_1.png" alt="Amp & cabinet modeling (1)" width="800"></a>
+	<a href="screenshots/i18n/el/Amp_And_Cabinet_Model_2.png" target='_blank'><img src="screenshots/i18n/el/Amp_And_Cabinet_Model_2.png" alt="Amp & cabinet modeling (2)" width="800"></a>
+	<a href="screenshots/i18n/el/VMIDIKeyboard1.png" target='_blank'><img src="screenshots/i18n/el/VMIDIKeyboard1.png" alt="Virtual MIDI Keyboard" width="800"></a>
+	<a href="screenshots/i18n/el/VMIDIKeyboard2.png" target='_blank'><img src="screenshots/i18n/el/VMIDIKeyboard2.png" alt="Virtual MIDI Keyboard" width="800"></a>
 </p>
 
 ## Εξαρτήσεις

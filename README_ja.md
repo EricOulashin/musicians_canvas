@@ -35,20 +35,20 @@
 ## スクリーンショット
 
 <p align="center">
-	<a href="screenshots/MusiciansCanvas_1_MainWin.png" target='_blank'><img src="screenshots/MusiciansCanvas_1_MainWin.png" alt="メインウィンドウ" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_2_TrackConfig.png" target='_blank'><img src="screenshots/MusiciansCanvas_2_TrackConfig.png" alt="トラック設定" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_3_GeneralSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_3_GeneralSettings.png" alt="一般設定" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_4_MIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_4_MIDISettings.png" alt="デフォルト/一般MIDI設定" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_5_AudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_5_AudioSettings.png" alt="デフォルト/一般オーディオ設定" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_DisplaySettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_DisplaySettings.png" alt="表示設定" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_LanguageSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_LanguageSettings.png" alt="言語設定" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" alt="プロジェクト固有のMIDI設定" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" alt="プロジェクト固有のオーディオ設定" width="800"></a>
-	<a href="screenshots/Track_Effects_Dialog.png" target='_blank'><img src="screenshots/Track_Effects_Dialog.png" alt="トラックエフェクト" width="800"></a>
-	<a href="screenshots/Amp_And_Cabinet_Model_1.png" target='_blank'><img src="screenshots/Amp_And_Cabinet_Model_1.png" alt="Amp & cabinet modeling (1)" width="800"></a>
-	<a href="screenshots/Amp_And_Cabinet_Model_2.png" target='_blank'><img src="screenshots/Amp_And_Cabinet_Model_2.png" alt="Amp & cabinet modeling (2)" width="800"></a>
-	<a href="screenshots/VMIDIKeyboard1.png" target='_blank'><img src="screenshots/VMIDIKeyboard1.png" alt="Virtual MIDI Keyboard" width="800"></a>
-	<a href="screenshots/VMIDIKeyboard2.png" target='_blank'><img src="screenshots/VMIDIKeyboard2.png" alt="Virtual MIDI Keyboard" width="800"></a>
+	<a href="screenshots/i18n/ja/MusiciansCanvas_1_MainWin.png" target='_blank'><img src="screenshots/i18n/ja/MusiciansCanvas_1_MainWin.png" alt="メインウィンドウ" width="800"></a>
+	<a href="screenshots/i18n/ja/MusiciansCanvas_2_TrackConfig.png" target='_blank'><img src="screenshots/i18n/ja/MusiciansCanvas_2_TrackConfig.png" alt="トラック設定" width="800"></a>
+	<a href="screenshots/i18n/ja/MusiciansCanvas_3_GeneralSettings.png" target='_blank'><img src="screenshots/i18n/ja/MusiciansCanvas_3_GeneralSettings.png" alt="一般設定" width="800"></a>
+	<a href="screenshots/i18n/ja/MusiciansCanvas_4_MIDISettings.png" target='_blank'><img src="screenshots/i18n/ja/MusiciansCanvas_4_MIDISettings.png" alt="デフォルト/一般MIDI設定" width="800"></a>
+	<a href="screenshots/i18n/ja/MusiciansCanvas_5_AudioSettings.png" target='_blank'><img src="screenshots/i18n/ja/MusiciansCanvas_5_AudioSettings.png" alt="デフォルト/一般オーディオ設定" width="800"></a>
+	<a href="screenshots/i18n/ja/MusiciansCanvas_DisplaySettings.png" target='_blank'><img src="screenshots/i18n/ja/MusiciansCanvas_DisplaySettings.png" alt="表示設定" width="800"></a>
+	<a href="screenshots/i18n/ja/MusiciansCanvas_LanguageSettings.png" target='_blank'><img src="screenshots/i18n/ja/MusiciansCanvas_LanguageSettings.png" alt="言語設定" width="800"></a>
+	<a href="screenshots/i18n/ja/MusiciansCanvas_6_ProjectMIDISettings.png" target='_blank'><img src="screenshots/i18n/ja/MusiciansCanvas_6_ProjectMIDISettings.png" alt="プロジェクト固有のMIDI設定" width="800"></a>
+	<a href="screenshots/i18n/ja/MusiciansCanvas_7_ProjectAudioSettings.png" target='_blank'><img src="screenshots/i18n/ja/MusiciansCanvas_7_ProjectAudioSettings.png" alt="プロジェクト固有のオーディオ設定" width="800"></a>
+	<a href="screenshots/i18n/ja/Track_Effects_Dialog.png" target='_blank'><img src="screenshots/i18n/ja/Track_Effects_Dialog.png" alt="トラックエフェクト" width="800"></a>
+	<a href="screenshots/i18n/ja/Amp_And_Cabinet_Model_1.png" target='_blank'><img src="screenshots/i18n/ja/Amp_And_Cabinet_Model_1.png" alt="Amp & cabinet modeling (1)" width="800"></a>
+	<a href="screenshots/i18n/ja/Amp_And_Cabinet_Model_2.png" target='_blank'><img src="screenshots/i18n/ja/Amp_And_Cabinet_Model_2.png" alt="Amp & cabinet modeling (2)" width="800"></a>
+	<a href="screenshots/i18n/ja/VMIDIKeyboard1.png" target='_blank'><img src="screenshots/i18n/ja/VMIDIKeyboard1.png" alt="Virtual MIDI Keyboard" width="800"></a>
+	<a href="screenshots/i18n/ja/VMIDIKeyboard2.png" target='_blank'><img src="screenshots/i18n/ja/VMIDIKeyboard2.png" alt="Virtual MIDI Keyboard" width="800"></a>
 </p>
 
 ## 依存関係

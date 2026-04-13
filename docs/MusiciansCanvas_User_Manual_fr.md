@@ -63,13 +63,13 @@ le projet est automatiquement chargé.
 3. **Nommer la piste** : Saisissez un nom dans le champ texte à côté du bouton "Options".
    Ce nom est utilisé comme nom de fichier pour le fichier audio enregistré.
 
-![Fenêtre principale](../screenshots/MusiciansCanvas_1_MainWin.png)
+![Fenêtre principale](../screenshots/i18n/fr/MusiciansCanvas_1_MainWin.png)
 
 ### Barre de boutons
 
 Juste en dessous de la barre de menus se trouve une barre d'outils avec des boutons d'accès rapide :
 
-![Barre de boutons](../screenshots/ButtonBar.png)
+![Barre de boutons](../screenshots/i18n/fr/ButtonBar.png)
 
 - **Open Project** : Identique à **File > Open Project** — ouvre un projet précédemment sauvegardé.
 - **Save Project** : Identique à **File > Save Project** — sauvegarde le projet en cours. Ce
@@ -143,7 +143,7 @@ Pour changer le type de piste :
 Cela ouvre la boîte de dialogue de configuration de la piste où vous pouvez sélectionner
 la source d'entrée.
 
-![Configuration de la piste](../screenshots/MusiciansCanvas_2_TrackConfig.png)
+![Configuration de la piste](../screenshots/i18n/fr/MusiciansCanvas_2_TrackConfig.png)
 
 ### Contrôles des pistes
 
@@ -206,7 +206,7 @@ Les pistes audio ont un bouton **Effets** juste sous **Options**. Il ouvre la bo
 **Effets de piste**, où vous configurez une **chaîne ordonnée** d'effets d'insertion pour les
 enregistrements sur cette piste :
 
-![Boîte de dialogue Effets de piste](../screenshots/Track_Effects_Dialog.png)
+![Boîte de dialogue Effets de piste](../screenshots/i18n/fr/Track_Effects_Dialog.png)
 
 Parmi les types proposés : **Réverb**, **Chorus**, **Flanger**, **Overdrive / distorsion**, **Amp & cab** (modélisation ampli et baffle : type d’ampli, baffle, gain, grave/médium/aigu, présence/air et mixage) et **Vibrato (trémolo)**.
 
@@ -214,9 +214,9 @@ Parmi les types proposés : **Réverb**, **Chorus**, **Flanger**, **Overdrive / 
 
 Captures du module **Amp & cab** :
 
-![Modélisation ampli et baffle (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+![Modélisation ampli et baffle (1)](../screenshots/i18n/fr/Amp_And_Cabinet_Model_1.png)
 
-![Modélisation ampli et baffle (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+![Modélisation ampli et baffle (2)](../screenshots/i18n/fr/Amp_And_Cabinet_Model_2.png)
 
 - Cliquez sur **Ajouter un effet…** et choisissez un type d’effet. Ajoutez plusieurs
   blocs si besoin ; le **✕** rouge dans l’en-tête supprime un effet.
@@ -323,7 +323,7 @@ Musician's Canvas inclut un métronome intégré qui peut être utilisé pendant
 pour aider à garder le tempo. Cliquez sur le bouton du métronome dans la barre de boutons
 (sous la barre de menus) pour ouvrir la boîte de dialogue des paramètres du métronome :
 
-![Paramètres du métronome](../screenshots/MetronomeSettings.png)
+![Paramètres du métronome](../screenshots/i18n/fr/MetronomeSettings.png)
 
 La boîte de dialogue fournit :
 
@@ -370,7 +370,7 @@ sont rendues en utilisant le SoundFont configuré.
 Utilisez **Settings > Configuration** (Ctrl+,) pour définir les valeurs par défaut
 globales qui s'appliquent à tous les projets :
 
-![Paramètres généraux](../screenshots/MusiciansCanvas_3_GeneralSettings.png)
+![Paramètres généraux](../screenshots/i18n/fr/MusiciansCanvas_3_GeneralSettings.png)
 
 #### Onglet General
 
@@ -392,7 +392,7 @@ globales qui s'appliquent à tous les projets :
   Dark Blue, Yellow, Orange, Light Cyan et Dark Cyan. La valeur par défaut est Light
   Green.
 
-![Paramètres d'affichage](../screenshots/MusiciansCanvas_DisplaySettings.png)
+![Paramètres d'affichage](../screenshots/i18n/fr/MusiciansCanvas_DisplaySettings.png)
 
 #### Onglet Language
 
@@ -404,7 +404,7 @@ globales qui s'appliquent à tous les projets :
   Polski (Polish), Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh)
   et Pirate. L'interface se met à jour immédiatement lorsque vous changez la langue.
 
-![Paramètres de langue](../screenshots/MusiciansCanvas_LanguageSettings.png)
+![Paramètres de langue](../screenshots/i18n/fr/MusiciansCanvas_LanguageSettings.png)
 
 #### Onglet MIDI
 
@@ -416,7 +416,7 @@ globales qui s'appliquent à tous les projets :
   `fluid-soundfont-gm` est installé. Sous Windows et macOS, vous devez configurer le
   chemin du SoundFont manuellement.
 
-![Paramètres MIDI](../screenshots/MusiciansCanvas_4_MIDISettings.png)
+![Paramètres MIDI](../screenshots/i18n/fr/MusiciansCanvas_4_MIDISettings.png)
 
 #### Onglet Audio
 
@@ -425,7 +425,7 @@ globales qui s'appliquent à tous les projets :
 - **Périphérique de sortie audio** : Sélectionnez le haut-parleur ou le casque pour la
   lecture.
 
-![Paramètres audio](../screenshots/MusiciansCanvas_5_AudioSettings.png)
+![Paramètres audio](../screenshots/i18n/fr/MusiciansCanvas_5_AudioSettings.png)
 
 ### Paramètres du projet
 
@@ -434,7 +434,7 @@ globales pour le projet en cours uniquement. Ceci est utile pour les projets né
 une fréquence d'échantillonnage, un SoundFont ou un périphérique audio spécifique. Les
 paramètres spécifiques au projet sont sauvegardés dans le fichier `project.json`.
 
-![Paramètres MIDI du projet](../screenshots/MusiciansCanvas_6_ProjectMIDISettings.png)
+![Paramètres MIDI du projet](../screenshots/i18n/fr/MusiciansCanvas_6_ProjectMIDISettings.png)
 
 #### Onglet MIDI
 
@@ -466,7 +466,7 @@ paramètres spécifiques au projet sont sauvegardés dans le fichier `project.js
 - **Canaux** : Mono ou Stéréo. Si le périphérique ne prend en charge que le mono, l'option
   Stéréo est désactivée.
 
-![Paramètres audio du projet](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
+![Paramètres audio du projet](../screenshots/i18n/fr/MusiciansCanvas_7_ProjectAudioSettings.png)
 
 #### Mix Effects tab
 
@@ -561,7 +561,7 @@ un clavier de piano à l'écran pour envoyer des notes MIDI. Elle peut être lan
 le menu **Tools > Virtual MIDI Keyboard** dans l'application principale, ou exécutée
 indépendamment.
 
-![Virtual MIDI Keyboard](../screenshots/VMIDIKeyboard1.png)
+![Virtual MIDI Keyboard](../screenshots/i18n/fr/VMIDIKeyboard1.png)
 
 ### Fonctionnalités
 
@@ -651,7 +651,7 @@ deviennent bleu clair, les touches noires s'assombrissent).
 Ouvrez la boîte de dialogue de configuration (**Settings > Configuration**, Ctrl+,) pour
 configurer les périphériques MIDI et audio :
 
-![Configuration de Virtual MIDI Keyboard](../screenshots/VMIDIKeyboard2.png)
+![Configuration de Virtual MIDI Keyboard](../screenshots/i18n/fr/VMIDIKeyboard2.png)
 
 #### Onglet MIDI
 

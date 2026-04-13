@@ -40,20 +40,20 @@ stworzenia czegoś lepszego.
 ## Zrzuty ekranu
 
 <p align="center">
-	<a href="screenshots/MusiciansCanvas_1_MainWin.png" target='_blank'><img src="screenshots/MusiciansCanvas_1_MainWin.png" alt="Okno główne" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_2_TrackConfig.png" target='_blank'><img src="screenshots/MusiciansCanvas_2_TrackConfig.png" alt="Konfiguracja ścieżki" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_3_GeneralSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_3_GeneralSettings.png" alt="Ustawienia ogólne" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_4_MIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_4_MIDISettings.png" alt="Domyślne/ogólne ustawienia MIDI" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_5_AudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_5_AudioSettings.png" alt="Domyślne/ogólne ustawienia audio" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_DisplaySettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_DisplaySettings.png" alt="Ustawienia wyświetlania" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_LanguageSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_LanguageSettings.png" alt="Ustawienia języka" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" alt="Ustawienia MIDI specyficzne dla projektu" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" alt="Ustawienia audio specyficzne dla projektu" width="800"></a>
-	<a href="screenshots/Track_Effects_Dialog.png" target='_blank'><img src="screenshots/Track_Effects_Dialog.png" alt="Efekty ścieżki" width="800"></a>
-	<a href="screenshots/Amp_And_Cabinet_Model_1.png" target='_blank'><img src="screenshots/Amp_And_Cabinet_Model_1.png" alt="Amp & cabinet modeling (1)" width="800"></a>
-	<a href="screenshots/Amp_And_Cabinet_Model_2.png" target='_blank'><img src="screenshots/Amp_And_Cabinet_Model_2.png" alt="Amp & cabinet modeling (2)" width="800"></a>
-	<a href="screenshots/VMIDIKeyboard1.png" target='_blank'><img src="screenshots/VMIDIKeyboard1.png" alt="Virtual MIDI Keyboard" width="800"></a>
-	<a href="screenshots/VMIDIKeyboard2.png" target='_blank'><img src="screenshots/VMIDIKeyboard2.png" alt="Virtual MIDI Keyboard" width="800"></a>
+	<a href="screenshots/i18n/pl/MusiciansCanvas_1_MainWin.png" target='_blank'><img src="screenshots/i18n/pl/MusiciansCanvas_1_MainWin.png" alt="Okno główne" width="800"></a>
+	<a href="screenshots/i18n/pl/MusiciansCanvas_2_TrackConfig.png" target='_blank'><img src="screenshots/i18n/pl/MusiciansCanvas_2_TrackConfig.png" alt="Konfiguracja ścieżki" width="800"></a>
+	<a href="screenshots/i18n/pl/MusiciansCanvas_3_GeneralSettings.png" target='_blank'><img src="screenshots/i18n/pl/MusiciansCanvas_3_GeneralSettings.png" alt="Ustawienia ogólne" width="800"></a>
+	<a href="screenshots/i18n/pl/MusiciansCanvas_4_MIDISettings.png" target='_blank'><img src="screenshots/i18n/pl/MusiciansCanvas_4_MIDISettings.png" alt="Domyślne/ogólne ustawienia MIDI" width="800"></a>
+	<a href="screenshots/i18n/pl/MusiciansCanvas_5_AudioSettings.png" target='_blank'><img src="screenshots/i18n/pl/MusiciansCanvas_5_AudioSettings.png" alt="Domyślne/ogólne ustawienia audio" width="800"></a>
+	<a href="screenshots/i18n/pl/MusiciansCanvas_DisplaySettings.png" target='_blank'><img src="screenshots/i18n/pl/MusiciansCanvas_DisplaySettings.png" alt="Ustawienia wyświetlania" width="800"></a>
+	<a href="screenshots/i18n/pl/MusiciansCanvas_LanguageSettings.png" target='_blank'><img src="screenshots/i18n/pl/MusiciansCanvas_LanguageSettings.png" alt="Ustawienia języka" width="800"></a>
+	<a href="screenshots/i18n/pl/MusiciansCanvas_6_ProjectMIDISettings.png" target='_blank'><img src="screenshots/i18n/pl/MusiciansCanvas_6_ProjectMIDISettings.png" alt="Ustawienia MIDI specyficzne dla projektu" width="800"></a>
+	<a href="screenshots/i18n/pl/MusiciansCanvas_7_ProjectAudioSettings.png" target='_blank'><img src="screenshots/i18n/pl/MusiciansCanvas_7_ProjectAudioSettings.png" alt="Ustawienia audio specyficzne dla projektu" width="800"></a>
+	<a href="screenshots/i18n/pl/Track_Effects_Dialog.png" target='_blank'><img src="screenshots/i18n/pl/Track_Effects_Dialog.png" alt="Efekty ścieżki" width="800"></a>
+	<a href="screenshots/i18n/pl/Amp_And_Cabinet_Model_1.png" target='_blank'><img src="screenshots/i18n/pl/Amp_And_Cabinet_Model_1.png" alt="Amp & cabinet modeling (1)" width="800"></a>
+	<a href="screenshots/i18n/pl/Amp_And_Cabinet_Model_2.png" target='_blank'><img src="screenshots/i18n/pl/Amp_And_Cabinet_Model_2.png" alt="Amp & cabinet modeling (2)" width="800"></a>
+	<a href="screenshots/i18n/pl/VMIDIKeyboard1.png" target='_blank'><img src="screenshots/i18n/pl/VMIDIKeyboard1.png" alt="Virtual MIDI Keyboard" width="800"></a>
+	<a href="screenshots/i18n/pl/VMIDIKeyboard2.png" target='_blank'><img src="screenshots/i18n/pl/VMIDIKeyboard2.png" alt="Virtual MIDI Keyboard" width="800"></a>
 </p>
 
 ## Zależności

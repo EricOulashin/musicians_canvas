@@ -40,20 +40,20 @@ på at lave noget bedre.
 ## Skærmbilleder
 
 <p align="center">
-	<a href="screenshots/MusiciansCanvas_1_MainWin.png" target='_blank'><img src="screenshots/MusiciansCanvas_1_MainWin.png" alt="Hovedvindue" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_2_TrackConfig.png" target='_blank'><img src="screenshots/MusiciansCanvas_2_TrackConfig.png" alt="Sporkonfiguration" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_3_GeneralSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_3_GeneralSettings.png" alt="Generelle indstillinger" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_4_MIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_4_MIDISettings.png" alt="Standard-/generelle MIDI-indstillinger" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_5_AudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_5_AudioSettings.png" alt="Standard-/generelle lydindstillinger" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_DisplaySettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_DisplaySettings.png" alt="Visningsindstillinger" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_LanguageSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_LanguageSettings.png" alt="Sprogindstillinger" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" alt="Projektspecifikke MIDI-indstillinger" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" alt="Projektspecifikke lydindstillinger" width="800"></a>
-	<a href="screenshots/Track_Effects_Dialog.png" target='_blank'><img src="screenshots/Track_Effects_Dialog.png" alt="Spor-effekter" width="800"></a>
-	<a href="screenshots/Amp_And_Cabinet_Model_1.png" target='_blank'><img src="screenshots/Amp_And_Cabinet_Model_1.png" alt="Amp & cabinet modeling (1)" width="800"></a>
-	<a href="screenshots/Amp_And_Cabinet_Model_2.png" target='_blank'><img src="screenshots/Amp_And_Cabinet_Model_2.png" alt="Amp & cabinet modeling (2)" width="800"></a>
-	<a href="screenshots/VMIDIKeyboard1.png" target='_blank'><img src="screenshots/VMIDIKeyboard1.png" alt="Virtual MIDI Keyboard" width="800"></a>
-	<a href="screenshots/VMIDIKeyboard2.png" target='_blank'><img src="screenshots/VMIDIKeyboard2.png" alt="Virtual MIDI Keyboard" width="800"></a>
+	<a href="screenshots/i18n/da/MusiciansCanvas_1_MainWin.png" target='_blank'><img src="screenshots/i18n/da/MusiciansCanvas_1_MainWin.png" alt="Hovedvindue" width="800"></a>
+	<a href="screenshots/i18n/da/MusiciansCanvas_2_TrackConfig.png" target='_blank'><img src="screenshots/i18n/da/MusiciansCanvas_2_TrackConfig.png" alt="Sporkonfiguration" width="800"></a>
+	<a href="screenshots/i18n/da/MusiciansCanvas_3_GeneralSettings.png" target='_blank'><img src="screenshots/i18n/da/MusiciansCanvas_3_GeneralSettings.png" alt="Generelle indstillinger" width="800"></a>
+	<a href="screenshots/i18n/da/MusiciansCanvas_4_MIDISettings.png" target='_blank'><img src="screenshots/i18n/da/MusiciansCanvas_4_MIDISettings.png" alt="Standard-/generelle MIDI-indstillinger" width="800"></a>
+	<a href="screenshots/i18n/da/MusiciansCanvas_5_AudioSettings.png" target='_blank'><img src="screenshots/i18n/da/MusiciansCanvas_5_AudioSettings.png" alt="Standard-/generelle lydindstillinger" width="800"></a>
+	<a href="screenshots/i18n/da/MusiciansCanvas_DisplaySettings.png" target='_blank'><img src="screenshots/i18n/da/MusiciansCanvas_DisplaySettings.png" alt="Visningsindstillinger" width="800"></a>
+	<a href="screenshots/i18n/da/MusiciansCanvas_LanguageSettings.png" target='_blank'><img src="screenshots/i18n/da/MusiciansCanvas_LanguageSettings.png" alt="Sprogindstillinger" width="800"></a>
+	<a href="screenshots/i18n/da/MusiciansCanvas_6_ProjectMIDISettings.png" target='_blank'><img src="screenshots/i18n/da/MusiciansCanvas_6_ProjectMIDISettings.png" alt="Projektspecifikke MIDI-indstillinger" width="800"></a>
+	<a href="screenshots/i18n/da/MusiciansCanvas_7_ProjectAudioSettings.png" target='_blank'><img src="screenshots/i18n/da/MusiciansCanvas_7_ProjectAudioSettings.png" alt="Projektspecifikke lydindstillinger" width="800"></a>
+	<a href="screenshots/i18n/da/Track_Effects_Dialog.png" target='_blank'><img src="screenshots/i18n/da/Track_Effects_Dialog.png" alt="Spor-effekter" width="800"></a>
+	<a href="screenshots/i18n/da/Amp_And_Cabinet_Model_1.png" target='_blank'><img src="screenshots/i18n/da/Amp_And_Cabinet_Model_1.png" alt="Amp & cabinet modeling (1)" width="800"></a>
+	<a href="screenshots/i18n/da/Amp_And_Cabinet_Model_2.png" target='_blank'><img src="screenshots/i18n/da/Amp_And_Cabinet_Model_2.png" alt="Amp & cabinet modeling (2)" width="800"></a>
+	<a href="screenshots/i18n/da/VMIDIKeyboard1.png" target='_blank'><img src="screenshots/i18n/da/VMIDIKeyboard1.png" alt="Virtual MIDI Keyboard" width="800"></a>
+	<a href="screenshots/i18n/da/VMIDIKeyboard2.png" target='_blank'><img src="screenshots/i18n/da/VMIDIKeyboard2.png" alt="Virtual MIDI Keyboard" width="800"></a>
 </p>
 
 ## Afhængigheder

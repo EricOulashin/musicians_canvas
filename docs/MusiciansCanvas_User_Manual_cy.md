@@ -48,13 +48,13 @@ Ar gychwyn, mae'r cymhwysiad yn cymhwyso'r thema a gadwyd (tywyll neu olau) ac, 
 
 3. **Enwch y trac**: Teipiwch enw yn y maes testun wrth ymyl y botwm "Options". Defnyddir yr enw hwn fel enw ffeil ar gyfer y ffeil sain a recordiwyd.
 
-![Prif ffenestr](../screenshots/MusiciansCanvas_1_MainWin.png)
+![Prif ffenestr](../screenshots/i18n/cy/MusiciansCanvas_1_MainWin.png)
 
 ### Bar Botymau
 
 Yn union o dan y bar dewislen mae bar offer gyda botymau mynediad cyflym:
 
-![Bar Botymau](../screenshots/ButtonBar.png)
+![Bar Botymau](../screenshots/i18n/cy/ButtonBar.png)
 
 - **Open Project**: Yr un peth â **File > Open Project** — mae'n agor prosiect a gadwyd yn flaenorol.
 - **Save Project**: Yr un peth â **File > Save Project** — mae'n cadw'r prosiect cyfredol.
@@ -116,7 +116,7 @@ I newid y math trac:
 
 Mae hyn yn agor y ddeialog Ffurfweddu Trac lle gallwch ddewis y ffynhonnell fewnbwn.
 
-![Ffurfweddu trac](../screenshots/MusiciansCanvas_2_TrackConfig.png)
+![Ffurfweddu trac](../screenshots/i18n/cy/MusiciansCanvas_2_TrackConfig.png)
 
 ### Rheolaethau Trac
 
@@ -157,7 +157,7 @@ Yn ystod recordio a chwarae'n ôl, mae'r holl reolaethau rhyngweithiol (botymau 
 
 Mae botwm **Effeithiau** ar draciau sain union dan **Options**. Mae'n agor y ddeialog **Effeithiau trac**, lle rydych chi'n adeiladu **cadwyn wedi'i threfnu** o effeithiau mewnosod ar gyfer recordio ar y trac hwnnw:
 
-![Deialog effeithiau trac](../screenshots/Track_Effects_Dialog.png)
+![Deialog effeithiau trac](../screenshots/i18n/cy/Track_Effects_Dialog.png)
 
 Mae **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet** (modelu amplyffydd a chabinet: math o amplyffydd, cabinet, ennill, bas/canol/uchel, awyr a chymysgu) a **Vibrato (Tremolo)** ar gael.
 
@@ -165,9 +165,9 @@ Mae **Vibrato (Tremolo)** yn “Vibrato” clasurol Fender (tremolo mewn gwirion
 
 Sgrinluniau'r effaith **Amp & cabinet**:
 
-![Modelu Amp & cabinet (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+![Modelu Amp & cabinet (1)](../screenshots/i18n/cy/Amp_And_Cabinet_Model_1.png)
 
-![Modelu Amp & cabinet (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+![Modelu Amp & cabinet (2)](../screenshots/i18n/cy/Amp_And_Cabinet_Model_2.png)
 
 - **Ychwanegu effaith…** a dewiswch fath o effaith. Mae sawl enghraifft yn cael ei chaniatáu; mae'r **✕** coch yn y pennyn yn dileu effaith.
 - Llusgwch **≡** i **aildrefnu**. Mae'r **effaith uchaf** yn **cychwyn gyntaf**.
@@ -249,7 +249,7 @@ Mae Musician's Canvas yn cynnwys metronom adeiledig y gellir ei ddefnyddio yn ys
 i helpu i gadw amser. Cliciwch ar fotwm y metronom ar y bar botymau (o dan y bar dewislen) i
 agor y ddeialog gosodiadau metronom:
 
-![Gosodiadau metronom](../screenshots/MetronomeSettings.png)
+![Gosodiadau metronom](../screenshots/i18n/cy/MetronomeSettings.png)
 
 Mae'r ddeialog yn darparu:
 
@@ -285,7 +285,7 @@ Mae'r cymysgedd yn defnyddio cyfradd samplu ffurfweddig y prosiect. Mae traciau 
 
 Defnyddiwch **Settings > Configuration** (Ctrl+,) i osod rhagosodiadau byd-eang sy'n berthnasol i bob prosiect:
 
-![Gosodiadau cyffredinol](../screenshots/MusiciansCanvas_3_GeneralSettings.png)
+![Gosodiadau cyffredinol](../screenshots/i18n/cy/MusiciansCanvas_3_GeneralSettings.png)
 
 #### Tab General
 
@@ -295,33 +295,33 @@ Defnyddiwch **Settings > Configuration** (Ctrl+,) i osod rhagosodiadau byd-eang 
 
 - **Lliw'r arddangosfa LED rhifol**: Dewiswch y lliw a ddefnyddir ar gyfer yr arddangosfa amser LED rhifol a ddangosir ar far offer y brif ffenestr. Mae segmentau gweithredol y digidau'n cael eu tynnu yn y lliw a ddewiswyd, ac mae segmentau anweithredol yn cael eu tynnu fel fersiwn bŵl o'r un lliw. Y lliwiau sydd ar gael yw Light Red, Dark Red, Light Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan a Dark Cyan. Y rhagosodiad yw Light Green.
 
-![Gosodiadau arddangos](../screenshots/MusiciansCanvas_DisplaySettings.png)
+![Gosodiadau arddangos](../screenshots/i18n/cy/MusiciansCanvas_DisplaySettings.png)
 
 #### Tab Language
 
 - **Iaith**: Dewiswch iaith arddangos y cymhwysiad. Y rhagosodiad yw "System Default", sy'n defnyddio gosodiad iaith y system weithredu. Yr ieithoedd sydd ar gael yw Saesneg, Deutsch (Almaeneg), Español (Sbaeneg), Français (Ffrangeg), Siapanëeg, Português (Portiwgaleg Brasil), Tsieinëeg (Traddodiadol), Tsieinëeg (Symledig), a Môr-ladron. Mae'r rhyngwyneb yn diweddaru ar unwaith pan fyddwch yn newid yr iaith.
 
-![Gosodiadau iaith](../screenshots/MusiciansCanvas_LanguageSettings.png)
+![Gosodiadau iaith](../screenshots/i18n/cy/MusiciansCanvas_LanguageSettings.png)
 
 #### Tab MIDI
 
 - **Dyfais Allbwn MIDI**: Dewiswch y synth FluidSynth adeiledig neu ddyfais MIDI allanol. Defnyddiwch y botwm **Refresh** i ailsganio am ddyfeisiau MIDI sydd ar gael.
 - **SoundFont**: Porwch i ffeil SoundFont `.sf2` ar gyfer synthesis MIDI. Ar Linux, gellir canfod SoundFont system yn awtomatig os yw'r pecyn `fluid-soundfont-gm` wedi'i osod. Ar Windows a macOS, rhaid i chi ffurfweddu'r llwybr SoundFont â llaw.
 
-![Gosodiadau MIDI](../screenshots/MusiciansCanvas_4_MIDISettings.png)
+![Gosodiadau MIDI](../screenshots/i18n/cy/MusiciansCanvas_4_MIDISettings.png)
 
 #### Tab Audio
 
 - **Dyfais Fewnbwn Sain**: Dewiswch y meicroffon neu'r ddyfais line-in ar gyfer recordio.
 - **Dyfais Allbwn Sain**: Dewiswch y seinydd neu'r ddyfais clustffonau ar gyfer chwarae'n ôl.
 
-![Gosodiadau sain](../screenshots/MusiciansCanvas_5_AudioSettings.png)
+![Gosodiadau sain](../screenshots/i18n/cy/MusiciansCanvas_5_AudioSettings.png)
 
 ### Gosodiadau Prosiect
 
 Defnyddiwch **Project > Project Settings** (Ctrl+P) i orosgyn rhagosodiadau byd-eang ar gyfer y prosiect cyfredol yn unig. Mae hyn yn ddefnyddiol ar gyfer prosiectau sydd angen cyfradd samplu benodol, SoundFont, neu ddyfais sain. Mae gosodiadau penodol i'r prosiect yn cael eu cadw y tu mewn i'r ffeil `project.json`.
 
-![Gosodiadau MIDI prosiect](../screenshots/MusiciansCanvas_6_ProjectMIDISettings.png)
+![Gosodiadau MIDI prosiect](../screenshots/i18n/cy/MusiciansCanvas_6_ProjectMIDISettings.png)
 
 #### Tab MIDI
 
@@ -343,7 +343,7 @@ Defnyddiwch **Project > Project Settings** (Ctrl+P) i orosgyn rhagosodiadau byd-
 - **Cyfradd samplu**: Dewiswch o gyfraddau safonol (8000 Hz i 192000 Hz). Mae cyfradd frodorol y ddyfais wedi'i labelu "(native)". Mae cyfraddau sydd angen ailsamplu wedi'u labelu "(resampled)". Gallwch ddewis unrhyw gyfradd waeth beth yw gallu'r ddyfais; bydd Musician's Canvas yn ailsamplu'n awtomatig yn ôl yr angen.
 - **Sianeli**: Mono neu Stereo. Os mai dim ond mono y mae'r ddyfais yn ei gefnogi, mae'r opsiwn Stereo wedi'i analluogi.
 
-![Gosodiadau sain prosiect](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
+![Gosodiadau sain prosiect](../screenshots/i18n/cy/MusiciansCanvas_7_ProjectAudioSettings.png)
 
 #### Mix Effects tab
 
@@ -433,7 +433,7 @@ Mae **`.mid`** yn cael ei ysgrifennu i'r **ffolder prosiect** ar unwaith: dwy fe
 
 Mae Virtual MIDI Keyboard yn gymhwysiad cydymaith (`virtual_midi_keyboard`) sy'n darparu bysellfwrdd piano ar y sgrin ar gyfer anfon nodau MIDI. Gellir ei lansio o'r ddewislen **Tools > Virtual MIDI Keyboard** yn y prif gymhwysiad, neu ei redeg yn annibynnol.
 
-![Virtual MIDI Keyboard](../screenshots/VMIDIKeyboard1.png)
+![Virtual MIDI Keyboard](../screenshots/i18n/cy/VMIDIKeyboard1.png)
 
 ### Nodweddion
 
@@ -506,7 +506,7 @@ Mae allweddi'n goleuo'n weledol pan gânt eu gwasgu (mae allweddi gwyn yn troi'n
 
 Agorwch y ddeialog Ffurfweddiad (**Settings > Configuration**, Ctrl+,) i sefydlu dyfeisiau MIDI a sain:
 
-![Ffurfweddiad Virtual MIDI Keyboard](../screenshots/VMIDIKeyboard2.png)
+![Ffurfweddiad Virtual MIDI Keyboard](../screenshots/i18n/cy/VMIDIKeyboard2.png)
 
 #### Tab MIDI
 

@@ -40,20 +40,20 @@
 ## Снимки экрана
 
 <p align="center">
-	<a href="screenshots/MusiciansCanvas_1_MainWin.png" target='_blank'><img src="screenshots/MusiciansCanvas_1_MainWin.png" alt="Главное окно" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_2_TrackConfig.png" target='_blank'><img src="screenshots/MusiciansCanvas_2_TrackConfig.png" alt="Конфигурация дорожки" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_3_GeneralSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_3_GeneralSettings.png" alt="Общие настройки" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_4_MIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_4_MIDISettings.png" alt="Настройки MIDI по умолчанию/общие" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_5_AudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_5_AudioSettings.png" alt="Настройки аудио по умолчанию/общие" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_DisplaySettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_DisplaySettings.png" alt="Настройки отображения" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_LanguageSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_LanguageSettings.png" alt="Настройки языка" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" alt="Настройки MIDI конкретного проекта" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" alt="Настройки аудио конкретного проекта" width="800"></a>
-	<a href="screenshots/Track_Effects_Dialog.png" target='_blank'><img src="screenshots/Track_Effects_Dialog.png" alt="Эффекты дорожки" width="800"></a>
-	<a href="screenshots/Amp_And_Cabinet_Model_1.png" target='_blank'><img src="screenshots/Amp_And_Cabinet_Model_1.png" alt="Amp & cabinet modeling (1)" width="800"></a>
-	<a href="screenshots/Amp_And_Cabinet_Model_2.png" target='_blank'><img src="screenshots/Amp_And_Cabinet_Model_2.png" alt="Amp & cabinet modeling (2)" width="800"></a>
-	<a href="screenshots/VMIDIKeyboard1.png" target='_blank'><img src="screenshots/VMIDIKeyboard1.png" alt="Virtual MIDI Keyboard" width="800"></a>
-	<a href="screenshots/VMIDIKeyboard2.png" target='_blank'><img src="screenshots/VMIDIKeyboard2.png" alt="Virtual MIDI Keyboard" width="800"></a>
+	<a href="screenshots/i18n/ru/MusiciansCanvas_1_MainWin.png" target='_blank'><img src="screenshots/i18n/ru/MusiciansCanvas_1_MainWin.png" alt="Главное окно" width="800"></a>
+	<a href="screenshots/i18n/ru/MusiciansCanvas_2_TrackConfig.png" target='_blank'><img src="screenshots/i18n/ru/MusiciansCanvas_2_TrackConfig.png" alt="Конфигурация дорожки" width="800"></a>
+	<a href="screenshots/i18n/ru/MusiciansCanvas_3_GeneralSettings.png" target='_blank'><img src="screenshots/i18n/ru/MusiciansCanvas_3_GeneralSettings.png" alt="Общие настройки" width="800"></a>
+	<a href="screenshots/i18n/ru/MusiciansCanvas_4_MIDISettings.png" target='_blank'><img src="screenshots/i18n/ru/MusiciansCanvas_4_MIDISettings.png" alt="Настройки MIDI по умолчанию/общие" width="800"></a>
+	<a href="screenshots/i18n/ru/MusiciansCanvas_5_AudioSettings.png" target='_blank'><img src="screenshots/i18n/ru/MusiciansCanvas_5_AudioSettings.png" alt="Настройки аудио по умолчанию/общие" width="800"></a>
+	<a href="screenshots/i18n/ru/MusiciansCanvas_DisplaySettings.png" target='_blank'><img src="screenshots/i18n/ru/MusiciansCanvas_DisplaySettings.png" alt="Настройки отображения" width="800"></a>
+	<a href="screenshots/i18n/ru/MusiciansCanvas_LanguageSettings.png" target='_blank'><img src="screenshots/i18n/ru/MusiciansCanvas_LanguageSettings.png" alt="Настройки языка" width="800"></a>
+	<a href="screenshots/i18n/ru/MusiciansCanvas_6_ProjectMIDISettings.png" target='_blank'><img src="screenshots/i18n/ru/MusiciansCanvas_6_ProjectMIDISettings.png" alt="Настройки MIDI конкретного проекта" width="800"></a>
+	<a href="screenshots/i18n/ru/MusiciansCanvas_7_ProjectAudioSettings.png" target='_blank'><img src="screenshots/i18n/ru/MusiciansCanvas_7_ProjectAudioSettings.png" alt="Настройки аудио конкретного проекта" width="800"></a>
+	<a href="screenshots/i18n/ru/Track_Effects_Dialog.png" target='_blank'><img src="screenshots/i18n/ru/Track_Effects_Dialog.png" alt="Эффекты дорожки" width="800"></a>
+	<a href="screenshots/i18n/ru/Amp_And_Cabinet_Model_1.png" target='_blank'><img src="screenshots/i18n/ru/Amp_And_Cabinet_Model_1.png" alt="Amp & cabinet modeling (1)" width="800"></a>
+	<a href="screenshots/i18n/ru/Amp_And_Cabinet_Model_2.png" target='_blank'><img src="screenshots/i18n/ru/Amp_And_Cabinet_Model_2.png" alt="Amp & cabinet modeling (2)" width="800"></a>
+	<a href="screenshots/i18n/ru/VMIDIKeyboard1.png" target='_blank'><img src="screenshots/i18n/ru/VMIDIKeyboard1.png" alt="Virtual MIDI Keyboard" width="800"></a>
+	<a href="screenshots/i18n/ru/VMIDIKeyboard2.png" target='_blank'><img src="screenshots/i18n/ru/VMIDIKeyboard2.png" alt="Virtual MIDI Keyboard" width="800"></a>
 </p>
 
 ## Зависимости

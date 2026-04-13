@@ -5,6 +5,7 @@
 #include <QLocale>
 #include <QLibraryInfo>
 #include <QDir>
+#include <QByteArray>
 
 #ifdef HAVE_PIPEWIRE
 #include <pipewire/pipewire.h>
@@ -78,8 +79,12 @@ int main(int argc, char* argv[])
     QApplication app(argc, argv);
     app.setApplicationName("Virtual MIDI Keyboard");
 
-    // Load translation based on saved language setting or system locale
-    loadVkTranslation(VkSettings::instance().language());
+    // Optional override (same as Musician's Canvas) for translators / screenshots.
+    const QByteArray langEnv = qgetenv("MUSICIANS_CANVAS_LANG");
+    if (!langEnv.isEmpty())
+        loadVkTranslation(QString::fromLocal8Bit(langEnv));
+    else
+        loadVkTranslation(VkSettings::instance().language());
 
     VkMainWindow window;
     window.show();

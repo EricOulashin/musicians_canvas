@@ -48,13 +48,13 @@ Al iniciar, la aplicación aplica el tema guardado (oscuro o claro) y, si un dir
 
 3. **Nombrar la pista**: Escriba un nombre en el campo de texto junto al botón "Options". Este nombre se utiliza como nombre del archivo de audio grabado.
 
-![Ventana principal](../screenshots/MusiciansCanvas_1_MainWin.png)
+![Ventana principal](../screenshots/i18n/es/MusiciansCanvas_1_MainWin.png)
 
 ### Barra de botones
 
 Justo debajo de la barra de menús hay una barra de herramientas con botones de acceso rápido:
 
-![Barra de botones](../screenshots/ButtonBar.png)
+![Barra de botones](../screenshots/i18n/es/ButtonBar.png)
 
 - **Open Project**: Igual que **File > Open Project** — abre un proyecto guardado previamente.
 - **Save Project**: Igual que **File > Save Project** — guarda el proyecto actual. Este
@@ -116,7 +116,7 @@ Para cambiar el tipo de pista:
 
 Esto abre el diálogo de Configuración de Pista donde puede seleccionar la fuente de entrada.
 
-![Configuración de pista](../screenshots/MusiciansCanvas_2_TrackConfig.png)
+![Configuración de pista](../screenshots/i18n/es/MusiciansCanvas_2_TrackConfig.png)
 
 ### Controles de Pista
 
@@ -159,7 +159,7 @@ Las pistas de audio tienen un botón **Efectos** justo debajo de **Options**. Ab
 **Efectos de pista**, donde puede definir una **cadena ordenada** de efectos insertados para las
 grabaciones en esa pista:
 
-![Diálogo Efectos de pista](../screenshots/Track_Effects_Dialog.png)
+![Diálogo Efectos de pista](../screenshots/i18n/es/Track_Effects_Dialog.png)
 
 Puede usar **Reverb**, **Chorus**, **Flanger**, **Overdrive / distorsión**, **Amp & cabinet** (modelado de amplificador y pantalla: tipo de ampli, pantalla, ganancia, graves/medios/agudos, aire y mezcla) y **Vibrato (Trémolo)**.
 
@@ -167,9 +167,9 @@ Puede usar **Reverb**, **Chorus**, **Flanger**, **Overdrive / distorsión**, **A
 
 Capturas del efecto **Amp & cabinet**:
 
-![Modelado Amp & cabinet (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+![Modelado Amp & cabinet (1)](../screenshots/i18n/es/Amp_And_Cabinet_Model_1.png)
 
-![Modelado Amp & cabinet (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+![Modelado Amp & cabinet (2)](../screenshots/i18n/es/Amp_And_Cabinet_Model_2.png)
 
 - Pulse **Añadir efecto…** y elija un tipo de efecto. Puede añadir varias instancias y
   quitar una con la **✕** roja en la cabecera del efecto.
@@ -254,7 +254,7 @@ Musician's Canvas incluye un metrónomo integrado que puede usarse durante la gr
 ayudar a mantener el tiempo. Haga clic en el botón del metrónomo en la barra de botones
 (debajo de la barra de menús) para abrir el diálogo de ajustes del metrónomo:
 
-![Ajustes del metrónomo](../screenshots/MetronomeSettings.png)
+![Ajustes del metrónomo](../screenshots/i18n/es/MetronomeSettings.png)
 
 El diálogo proporciona:
 
@@ -293,7 +293,7 @@ La mezcla utiliza la frecuencia de muestreo configurada del proyecto. Las pistas
 
 Use **Settings > Configuration** (Ctrl+,) para establecer los valores predeterminados globales que se aplican a todos los proyectos:
 
-![Ajustes generales](../screenshots/MusiciansCanvas_3_GeneralSettings.png)
+![Ajustes generales](../screenshots/i18n/es/MusiciansCanvas_3_GeneralSettings.png)
 
 #### Pestaña General
 
@@ -314,7 +314,7 @@ Use **Settings > Configuration** (Ctrl+,) para establecer los valores predetermi
   disponibles son Light Red, Dark Red, Light Green, Dark Green, Light Blue, Dark Blue,
   Yellow, Orange, Light Cyan y Dark Cyan. El valor predeterminado es Light Green.
 
-![Configuración de pantalla](../screenshots/MusiciansCanvas_DisplaySettings.png)
+![Configuración de pantalla](../screenshots/i18n/es/MusiciansCanvas_DisplaySettings.png)
 
 #### Pestaña Language
 
@@ -326,27 +326,27 @@ Use **Settings > Configuration** (Ctrl+,) para establecer los valores predetermi
   Русский (Russian), Suomi (Finnish), Svenska (Swedish), Cymraeg (Welsh) y Pirate. La
   interfaz se actualiza inmediatamente al cambiar el idioma.
 
-![Configuración de idioma](../screenshots/MusiciansCanvas_LanguageSettings.png)
+![Configuración de idioma](../screenshots/i18n/es/MusiciansCanvas_LanguageSettings.png)
 
 #### Pestaña MIDI
 
 - **Dispositivo de Salida MIDI**: Seleccione el sintetizador FluidSynth integrado o un dispositivo MIDI externo. Use el botón **Refresh** para volver a buscar dispositivos MIDI disponibles.
 - **SoundFont**: Navegue hasta un archivo SoundFont `.sf2` para la síntesis MIDI. En Linux, un SoundFont del sistema puede ser detectado automáticamente si el paquete `fluid-soundfont-gm` está instalado. En Windows y macOS, debe configurar la ruta del SoundFont manualmente.
 
-![Ajustes MIDI](../screenshots/MusiciansCanvas_4_MIDISettings.png)
+![Ajustes MIDI](../screenshots/i18n/es/MusiciansCanvas_4_MIDISettings.png)
 
 #### Pestaña Audio
 
 - **Dispositivo de Entrada de Audio**: Seleccione el micrófono o dispositivo de entrada de línea para grabación.
 - **Dispositivo de Salida de Audio**: Seleccione el altavoz o auriculares para reproducción.
 
-![Ajustes de audio](../screenshots/MusiciansCanvas_5_AudioSettings.png)
+![Ajustes de audio](../screenshots/i18n/es/MusiciansCanvas_5_AudioSettings.png)
 
 ### Ajustes del Proyecto
 
 Use **Project > Project Settings** (Ctrl+P) para anular los valores predeterminados globales solo para el proyecto actual. Esto es útil para proyectos que necesitan una frecuencia de muestreo, SoundFont o dispositivo de audio específico. Los ajustes específicos del proyecto se guardan dentro del archivo `project.json`.
 
-![Ajustes MIDI del proyecto](../screenshots/MusiciansCanvas_6_ProjectMIDISettings.png)
+![Ajustes MIDI del proyecto](../screenshots/i18n/es/MusiciansCanvas_6_ProjectMIDISettings.png)
 
 #### Pestaña MIDI
 
@@ -368,7 +368,7 @@ Use **Project > Project Settings** (Ctrl+P) para anular los valores predetermina
 - **Frecuencia de muestreo**: Elija entre las frecuencias estándar (8000 Hz a 192000 Hz). La frecuencia nativa del dispositivo se etiqueta como "(native)". Las frecuencias que requieren remuestreo se etiquetan como "(resampled)". Puede seleccionar cualquier frecuencia independientemente de la capacidad del dispositivo; Musician's Canvas realizará el remuestreo automáticamente según sea necesario.
 - **Canales**: Mono o Estéreo. Si el dispositivo solo soporta mono, la opción Estéreo se deshabilita.
 
-![Ajustes de audio del proyecto](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
+![Ajustes de audio del proyecto](../screenshots/i18n/es/MusiciansCanvas_7_ProjectAudioSettings.png)
 
 #### Mix Effects tab
 
@@ -460,7 +460,7 @@ Se escribe de inmediato un **`.mid`** en la **carpeta del proyecto**: dos compas
 
 Virtual MIDI Keyboard es una aplicación complementaria (`virtual_midi_keyboard`) que proporciona un teclado de piano en pantalla para enviar notas MIDI. Puede iniciarse desde el menú **Tools > Virtual MIDI Keyboard** en la aplicación principal, o ejecutarse de forma independiente.
 
-![Virtual MIDI Keyboard](../screenshots/VMIDIKeyboard1.png)
+![Virtual MIDI Keyboard](../screenshots/i18n/es/VMIDIKeyboard1.png)
 
 ### Funciones
 
@@ -533,7 +533,7 @@ Las teclas se iluminan visualmente al presionarlas (las teclas blancas se vuelve
 
 Abra el diálogo de Configuración (**Settings > Configuration**, Ctrl+,) para configurar los dispositivos MIDI y de audio:
 
-![Configuración de Virtual MIDI Keyboard](../screenshots/VMIDIKeyboard2.png)
+![Configuración de Virtual MIDI Keyboard](../screenshots/i18n/es/VMIDIKeyboard2.png)
 
 #### Pestaña MIDI
 

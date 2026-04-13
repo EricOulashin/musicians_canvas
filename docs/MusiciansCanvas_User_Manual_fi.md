@@ -58,13 +58,13 @@ projektihakemisto sisältää `project.json`-tiedoston, projekti ladataan automa
 3. **Nimeä raita**: Kirjoita nimi tekstikenttään "Options"-painikkeen viereen. Tätä nimeä käytetään
    tallennetun äänitiedoston tiedostonimenä.
 
-![Pääikkuna](../screenshots/MusiciansCanvas_1_MainWin.png)
+![Pääikkuna](../screenshots/i18n/fi/MusiciansCanvas_1_MainWin.png)
 
 ### Painikepalkki
 
 Aivan valikkopalkin alapuolella on työkalupalkki pikakäyttöpainikkeineen:
 
-![Painikepalkki](../screenshots/ButtonBar.png)
+![Painikepalkki](../screenshots/i18n/fi/ButtonBar.png)
 
 - **Open Project**: Sama kuin **File > Open Project** — avaa aiemmin tallennetun projektin.
 - **Save Project**: Sama kuin **File > Save Project** — tallentaa nykyisen projektin. Tämä
@@ -131,7 +131,7 @@ Raitatyypin muuttaminen:
 
 Tämä avaa raidan asetusvalintaikkunan, jossa voit valita sisääntulon lähteen.
 
-![Raidan asetukset](../screenshots/MusiciansCanvas_2_TrackConfig.png)
+![Raidan asetukset](../screenshots/i18n/fi/MusiciansCanvas_2_TrackConfig.png)
 
 ### Raidan ohjaimet
 
@@ -186,7 +186,7 @@ poistetaan käytöstä tahattomien muutosten estämiseksi.
 Ääniraidalla on **Tehosteet**-painike suoraan **Options**-painikkeen alla. Se avaa **Raidan tehosteet**
 -valintaikkunan, jossa rakennat **järjestyksessä olevan ketjun** lisäystehosteita tämän raidan tallennukseen:
 
-![Raidan tehosteet -valintaikkuna](../screenshots/Track_Effects_Dialog.png)
+![Raidan tehosteet -valintaikkuna](../screenshots/i18n/fi/Track_Effects_Dialog.png)
 
 Saatavilla ovat mm. **Kaiku**, **Kuoro**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet** (vahvistimen ja kaapin mallinnus: vahvistintyyppi, kaappi, vahvistus, basso/keski/discantti, ilmavuus ja sekoitus) sekä **Vibrato (Tremolo)**.
 
@@ -194,9 +194,9 @@ Saatavilla ovat mm. **Kaiku**, **Kuoro**, **Flanger**, **Overdrive / distortion*
 
 Kuvakaappaukset **Amp & cabinet** -tehosteesta:
 
-![Amp & cabinet -mallinnus (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+![Amp & cabinet -mallinnus (1)](../screenshots/i18n/fi/Amp_And_Cabinet_Model_1.png)
 
-![Amp & cabinet -mallinnus (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+![Amp & cabinet -mallinnus (2)](../screenshots/i18n/fi/Amp_And_Cabinet_Model_2.png)
 
 - **Lisää tehoste…** ja valitse tehostetyyppi. Useita voi lisätä; punainen **✕** poistaa tehosteen.
 - Vedä **≡** uudelleenjärjestämiseen. **Ylin** tehoste ajetaan **ensin**.
@@ -292,7 +292,7 @@ Musician's Canvas sisältää sisäänrakennetun metronomin, jota voidaan käytt
 aikana pitämään tahtia yllä. Napsauta metronomipainiketta painikepalkissa (valikkopalkin
 alapuolella) avataksesi metronomin asetusten valintaikkunan:
 
-![Metronomin asetukset](../screenshots/MetronomeSettings.png)
+![Metronomin asetukset](../screenshots/i18n/fi/MetronomeSettings.png)
 
 Valintaikkuna tarjoaa:
 
@@ -335,7 +335,7 @@ määritettyä SoundFont-tiedostoa.
 Käytä **Settings > Configuration** (Ctrl+,) asettaaksesi yleiset oletusarvot, jotka koskevat kaikkia
 projekteja:
 
-![Yleiset asetukset](../screenshots/MusiciansCanvas_3_GeneralSettings.png)
+![Yleiset asetukset](../screenshots/i18n/fi/MusiciansCanvas_3_GeneralSettings.png)
 
 #### Yleiset-välilehti
 
@@ -349,7 +349,7 @@ projekteja:
   ovat Light Red, Dark Red, Light Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange,
   Light Cyan ja Dark Cyan. Oletusarvo on Light Green.
 
-![Näyttöasetukset](../screenshots/MusiciansCanvas_DisplaySettings.png)
+![Näyttöasetukset](../screenshots/i18n/fi/MusiciansCanvas_DisplaySettings.png)
 
 #### Kieli-välilehti
 
@@ -359,7 +359,7 @@ projekteja:
   ja Pirate.
   Käyttöliittymä päivittyy välittömästi kieltä vaihdettaessa.
 
-![Kieliasetukset](../screenshots/MusiciansCanvas_LanguageSettings.png)
+![Kieliasetukset](../screenshots/i18n/fi/MusiciansCanvas_LanguageSettings.png)
 
 #### MIDI-välilehti
 
@@ -369,14 +369,14 @@ projekteja:
   SoundFont voidaan tunnistaa automaattisesti, jos `fluid-soundfont-gm`-paketti on asennettu.
   Windowsissa ja macOS:ssä SoundFont-polku on määritettävä manuaalisesti.
 
-![MIDI-asetukset](../screenshots/MusiciansCanvas_4_MIDISettings.png)
+![MIDI-asetukset](../screenshots/i18n/fi/MusiciansCanvas_4_MIDISettings.png)
 
 #### Ääni-välilehti
 
 - **Äänen sisääntulolaite**: Valitse mikrofoni tai linjasisääntulo tallennusta varten.
 - **Äänen lähtölaite**: Valitse kaiutin tai kuulokkeet toistoa varten.
 
-![Ääniasetukset](../screenshots/MusiciansCanvas_5_AudioSettings.png)
+![Ääniasetukset](../screenshots/i18n/fi/MusiciansCanvas_5_AudioSettings.png)
 
 ### Projektiasetukset
 
@@ -384,7 +384,7 @@ Käytä **Project > Project Settings** (Ctrl+P) ohittaaksesi yleiset oletusarvot
 projektille. Tämä on hyödyllistä projekteille, jotka tarvitsevat tietyn näytteenottotaajuuden,
 SoundFont-tiedoston tai äänilaitteen. Projektikohtaiset asetukset tallennetaan `project.json`-tiedostoon.
 
-![Projektin MIDI-asetukset](../screenshots/MusiciansCanvas_6_ProjectMIDISettings.png)
+![Projektin MIDI-asetukset](../screenshots/i18n/fi/MusiciansCanvas_6_ProjectMIDISettings.png)
 
 #### MIDI-välilehti
 
@@ -410,7 +410,7 @@ SoundFont-tiedoston tai äänilaitteen. Projektikohtaiset asetukset tallennetaan
   uudelleennäytteistämisen automaattisesti tarvittaessa.
 - **Kanavat**: Mono tai stereo. Jos laite tukee vain monoa, stereovaihtoehto on poistettu käytöstä.
 
-![Projektin ääniasetukset](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
+![Projektin ääniasetukset](../screenshots/i18n/fi/MusiciansCanvas_7_ProjectAudioSettings.png)
 
 #### Mix Effects tab
 
@@ -502,7 +502,7 @@ Virtual MIDI Keyboard on lisäsovellus (`virtual_midi_keyboard`), joka tarjoaa n
 pianokoskettimiston MIDI-nuottien lähettämiseen. Se voidaan käynnistää pääsovelluksen valikosta
 **Tools > Virtual MIDI Keyboard** tai suorittaa itsenäisesti.
 
-![Virtual MIDI Keyboard](../screenshots/VMIDIKeyboard1.png)
+![Virtual MIDI Keyboard](../screenshots/i18n/fi/VMIDIKeyboard1.png)
 
 ### Ominaisuudet
 
@@ -590,7 +590,7 @@ mustat tummenevat).
 Avaa määritysvalintaikkuna (**Settings > Configuration**, Ctrl+,) MIDI- ja äänilaitteiden
 määrittämiseksi:
 
-![Virtual MIDI Keyboard -määritykset](../screenshots/VMIDIKeyboard2.png)
+![Virtual MIDI Keyboard -määritykset](../screenshots/i18n/fi/VMIDIKeyboard2.png)
 
 #### MIDI-välilehti
 

@@ -40,20 +40,20 @@ de créer quelque chose de mieux.
 ## Captures d'écran
 
 <p align="center">
-	<a href="screenshots/MusiciansCanvas_1_MainWin.png" target='_blank'><img src="screenshots/MusiciansCanvas_1_MainWin.png" alt="Fenêtre principale" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_2_TrackConfig.png" target='_blank'><img src="screenshots/MusiciansCanvas_2_TrackConfig.png" alt="Configuration de piste" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_3_GeneralSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_3_GeneralSettings.png" alt="Paramètres généraux" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_4_MIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_4_MIDISettings.png" alt="Paramètres MIDI par défaut/généraux" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_5_AudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_5_AudioSettings.png" alt="Paramètres audio par défaut/généraux" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_DisplaySettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_DisplaySettings.png" alt="Paramètres d'affichage" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_LanguageSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_LanguageSettings.png" alt="Paramètres de langue" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_6_ProjectMIDISettings.png" alt="Paramètres MIDI spécifiques au projet" width="800"></a>
-	<a href="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" target='_blank'><img src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" alt="Paramètres audio spécifiques au projet" width="800"></a>
-	<a href="screenshots/Track_Effects_Dialog.png" target='_blank'><img src="screenshots/Track_Effects_Dialog.png" alt="Boîte de dialogue Effets de piste" width="800"></a>
-	<a href="screenshots/Amp_And_Cabinet_Model_1.png" target='_blank'><img src="screenshots/Amp_And_Cabinet_Model_1.png" alt="Amp & cabinet modeling (1)" width="800"></a>
-	<a href="screenshots/Amp_And_Cabinet_Model_2.png" target='_blank'><img src="screenshots/Amp_And_Cabinet_Model_2.png" alt="Amp & cabinet modeling (2)" width="800"></a>
-	<a href="screenshots/VMIDIKeyboard1.png" target='_blank'><img src="screenshots/VMIDIKeyboard1.png" alt="Virtual MIDI Keyboard" width="800"></a>
-	<a href="screenshots/VMIDIKeyboard2.png" target='_blank'><img src="screenshots/VMIDIKeyboard2.png" alt="Virtual MIDI Keyboard" width="800"></a>
+	<a href="screenshots/i18n/fr/MusiciansCanvas_1_MainWin.png" target='_blank'><img src="screenshots/i18n/fr/MusiciansCanvas_1_MainWin.png" alt="Fenêtre principale" width="800"></a>
+	<a href="screenshots/i18n/fr/MusiciansCanvas_2_TrackConfig.png" target='_blank'><img src="screenshots/i18n/fr/MusiciansCanvas_2_TrackConfig.png" alt="Configuration de piste" width="800"></a>
+	<a href="screenshots/i18n/fr/MusiciansCanvas_3_GeneralSettings.png" target='_blank'><img src="screenshots/i18n/fr/MusiciansCanvas_3_GeneralSettings.png" alt="Paramètres généraux" width="800"></a>
+	<a href="screenshots/i18n/fr/MusiciansCanvas_4_MIDISettings.png" target='_blank'><img src="screenshots/i18n/fr/MusiciansCanvas_4_MIDISettings.png" alt="Paramètres MIDI par défaut/généraux" width="800"></a>
+	<a href="screenshots/i18n/fr/MusiciansCanvas_5_AudioSettings.png" target='_blank'><img src="screenshots/i18n/fr/MusiciansCanvas_5_AudioSettings.png" alt="Paramètres audio par défaut/généraux" width="800"></a>
+	<a href="screenshots/i18n/fr/MusiciansCanvas_DisplaySettings.png" target='_blank'><img src="screenshots/i18n/fr/MusiciansCanvas_DisplaySettings.png" alt="Paramètres d'affichage" width="800"></a>
+	<a href="screenshots/i18n/fr/MusiciansCanvas_LanguageSettings.png" target='_blank'><img src="screenshots/i18n/fr/MusiciansCanvas_LanguageSettings.png" alt="Paramètres de langue" width="800"></a>
+	<a href="screenshots/i18n/fr/MusiciansCanvas_6_ProjectMIDISettings.png" target='_blank'><img src="screenshots/i18n/fr/MusiciansCanvas_6_ProjectMIDISettings.png" alt="Paramètres MIDI spécifiques au projet" width="800"></a>
+	<a href="screenshots/i18n/fr/MusiciansCanvas_7_ProjectAudioSettings.png" target='_blank'><img src="screenshots/i18n/fr/MusiciansCanvas_7_ProjectAudioSettings.png" alt="Paramètres audio spécifiques au projet" width="800"></a>
+	<a href="screenshots/i18n/fr/Track_Effects_Dialog.png" target='_blank'><img src="screenshots/i18n/fr/Track_Effects_Dialog.png" alt="Boîte de dialogue Effets de piste" width="800"></a>
+	<a href="screenshots/i18n/fr/Amp_And_Cabinet_Model_1.png" target='_blank'><img src="screenshots/i18n/fr/Amp_And_Cabinet_Model_1.png" alt="Amp & cabinet modeling (1)" width="800"></a>
+	<a href="screenshots/i18n/fr/Amp_And_Cabinet_Model_2.png" target='_blank'><img src="screenshots/i18n/fr/Amp_And_Cabinet_Model_2.png" alt="Amp & cabinet modeling (2)" width="800"></a>
+	<a href="screenshots/i18n/fr/VMIDIKeyboard1.png" target='_blank'><img src="screenshots/i18n/fr/VMIDIKeyboard1.png" alt="Virtual MIDI Keyboard" width="800"></a>
+	<a href="screenshots/i18n/fr/VMIDIKeyboard2.png" target='_blank'><img src="screenshots/i18n/fr/VMIDIKeyboard2.png" alt="Virtual MIDI Keyboard" width="800"></a>
 </p>
 
 ## Dépendances

@@ -48,13 +48,13 @@ Ar thosach, cuireann an feidhmchlár an téama sábháilte i bhfeidhm (dorcha n�
 
 3. **Ainmnigh an rian**: Clóscríobh ainm sa réimse téacs in aice leis an gcnaipe "Options". Úsáidtear an t-ainm seo mar ainm comhaid don chomhad fuaime taifeadta.
 
-![Príomhfhuinneog](../screenshots/MusiciansCanvas_1_MainWin.png)
+![Príomhfhuinneog](../screenshots/i18n/ga/MusiciansCanvas_1_MainWin.png)
 
 ### Barra Cnaipí
 
 Díreach faoin mbarra roghchláir tá barra uirlisí le cnaipí mear-rochtana:
 
-![Barra Cnaipí](../screenshots/ButtonBar.png)
+![Barra Cnaipí](../screenshots/i18n/ga/ButtonBar.png)
 
 - **Open Project**: Mar an gcéanna le **File > Open Project** — osclaíonn tionscadal a sábháladh roimhe seo.
 - **Save Project**: Mar an gcéanna le **File > Save Project** — sábhálann an tionscadal reatha. Níl
@@ -118,7 +118,7 @@ Chun an cineál rian a athrú:
 
 Osclaíonn sé seo an dialóg Cumraíochta Rian inar féidir leat an fhoinse ionchuir a roghnú.
 
-![Cumraíocht rian](../screenshots/MusiciansCanvas_2_TrackConfig.png)
+![Cumraíocht rian](../screenshots/i18n/ga/MusiciansCanvas_2_TrackConfig.png)
 
 ### Rialuithe Rian
 
@@ -159,7 +159,7 @@ Le linn taifeadta agus athsheinm, díchumasaítear gach rialú idirghníomhach (
 
 Tá cnaipe **Éifeachtaí** ar rianta fuaime díreach faoi **Options**. Osclaíonn sé an dialóg **Éifeachtaí rian**, áit a gcuireann tú **slabhra ordaithe** d'éifeachtaí insert le chéile le haghaidh taifeadta ar an rian sin:
 
-![Dialóg éifeachtaí rian](../screenshots/Track_Effects_Dialog.png)
+![Dialóg éifeachtaí rian](../screenshots/i18n/ga/Track_Effects_Dialog.png)
 
 Tá **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet** (samhaltú sainmhéadra agus cáibín: cineál sainmhéadra, cáibín, gnóthachán, dóigh/barr/díreach, aer agus meascthán) agus **Vibrato (Tremolo)** ar fáil.
 
@@ -167,9 +167,9 @@ Is é **Vibrato (Tremolo)** an “Vibrato” clasaiceach i stíl Fender (i ndái
 
 Seatanna scáileáin an éifeachta **Amp & cabinet**:
 
-![Samhaltú Amp & cabinet (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
+![Samhaltú Amp & cabinet (1)](../screenshots/i18n/ga/Amp_And_Cabinet_Model_1.png)
 
-![Samhaltú Amp & cabinet (2)](../screenshots/Amp_And_Cabinet_Model_2.png)
+![Samhaltú Amp & cabinet (2)](../screenshots/i18n/ga/Amp_And_Cabinet_Model_2.png)
 
 - **Cuir éifeacht leis…** agus roghnaigh cineál éifeachta. Is féidir ilchás; déanann an **✕** dearg sa cheannlíne éifeacht a bhaint.
 - Tarraing **≡** chun **athordú**. Ritear an **éifeacht is airde** **ar dtús**.
@@ -251,7 +251,7 @@ Tá méadranóm ionsuite ag Musician's Canvas is féidir a úsáid le linn taife
 leis an am a choinneáil. Cliceáil an cnaipe méadranóim ar an mbarra cnaipí (faoin mbarra
 roghchláir) chun an dialóg socruithe méadranóim a oscailt:
 
-![Socruithe méadranóim](../screenshots/MetronomeSettings.png)
+![Socruithe méadranóim](../screenshots/i18n/ga/MetronomeSettings.png)
 
 Soláthraíonn an dialóg:
 
@@ -288,7 +288,7 @@ Cliceáil an cnaipe **Stop** chun an athsheinm a chríochnú ag am ar bith.
 
 Úsáid **Settings > Configuration** (Ctrl+,) chun réamhshocruithe domhanda a shocrú a bhaineann le gach tionscadal:
 
-![Socruithe ginearálta](../screenshots/MusiciansCanvas_3_GeneralSettings.png)
+![Socruithe ginearálta](../screenshots/i18n/ga/MusiciansCanvas_3_GeneralSettings.png)
 
 #### Cluaisín General
 
@@ -298,33 +298,33 @@ Cliceáil an cnaipe **Stop** chun an athsheinm a chríochnú ag am ar bith.
 
 - **Dath an taispeána LED uimhriúil**: Roghnaigh an dath a úsáidtear le haghaidh an taispeána ama LED uimhriúil atá le feiceáil ar bharra uirlisí na príomhfhuinneoige. Tarraingítear deighleáin ghníomhacha na ndigití sa dath roghnaithe, agus tarraingítear deighleáin neamhghníomhacha mar leagan lagaithe den dath céanna. Is iad na dathanna atá ar fáil ná Light Red, Dark Red, Light Green, Dark Green, Light Blue, Dark Blue, Yellow, Orange, Light Cyan agus Dark Cyan. Is é Light Green an réamhshocrú.
 
-![Socruithe taispeána](../screenshots/MusiciansCanvas_DisplaySettings.png)
+![Socruithe taispeána](../screenshots/i18n/ga/MusiciansCanvas_DisplaySettings.png)
 
 #### Cluaisín Language
 
 - **Teanga**: Roghnaigh teanga taispeána an fheidhmchláir. Is é "System Default" an réamhshocrú, a úsáideann socrú teanga an chórais oibriúcháin. Is iad na teangacha atá ar fáil ná Béarla, Deutsch (Gearmáinis), Español (Spáinnis), Français (Fraincis), Seapáinis, Português (Portaingéilis na Brasaíle), Sínis (Traidisiúnta), Sínis (Simplithe), agus Foghlaeireacht. Déantar an comhéadan a nuashonrú láithreach nuair a athraíonn tú an teanga.
 
-![Socruithe teanga](../screenshots/MusiciansCanvas_LanguageSettings.png)
+![Socruithe teanga](../screenshots/i18n/ga/MusiciansCanvas_LanguageSettings.png)
 
 #### Cluaisín MIDI
 
 - **Gléas Aschuir MIDI**: Roghnaigh an sintéiseoir FluidSynth ionsuite nó gléas MIDI seachtrach. Úsáid an cnaipe **Refresh** chun athscanadh a dhéanamh le haghaidh gléasanna MIDI atá ar fáil.
 - **SoundFont**: Brabhsáil chuig comhad SoundFont `.sf2` le haghaidh sintéise MIDI. Ar Linux, d'fhéadfaí SoundFont córais a bhrath go huathoibríoch má tá an pacáiste `fluid-soundfont-gm` suiteáilte. Ar Windows agus macOS, ní mór duit cosán SoundFont a chumrú de láimh.
 
-![Socruithe MIDI](../screenshots/MusiciansCanvas_4_MIDISettings.png)
+![Socruithe MIDI](../screenshots/i18n/ga/MusiciansCanvas_4_MIDISettings.png)
 
 #### Cluaisín Audio
 
 - **Gléas Ionchuir Fuaime**: Roghnaigh an micreafón nó an gléas line-in le haghaidh taifeadta.
 - **Gléas Aschuir Fuaime**: Roghnaigh an callaire nó an gléas cluasán le haghaidh athsheinm.
 
-![Socruithe fuaime](../screenshots/MusiciansCanvas_5_AudioSettings.png)
+![Socruithe fuaime](../screenshots/i18n/ga/MusiciansCanvas_5_AudioSettings.png)
 
 ### Socruithe Tionscadail
 
 Úsáid **Project > Project Settings** (Ctrl+P) chun réamhshocruithe domhanda a fhorchealú don tionscadal reatha amháin. Tá sé seo úsáideach do thionscadail a dteastaíonn ráta samplála sonrach, SoundFont, nó gléas fuaime uathu. Sábháiltear socruithe a bhaineann leis an tionscadal taobh istigh den chomhad `project.json`.
 
-![Socruithe MIDI tionscadail](../screenshots/MusiciansCanvas_6_ProjectMIDISettings.png)
+![Socruithe MIDI tionscadail](../screenshots/i18n/ga/MusiciansCanvas_6_ProjectMIDISettings.png)
 
 #### Cluaisín MIDI
 
@@ -346,7 +346,7 @@ Cliceáil an cnaipe **Stop** chun an athsheinm a chríochnú ag am ar bith.
 - **Ráta samplála**: Roghnaigh ó rátaí caighdeánacha (8000 Hz go 192000 Hz). Lipéadaítear ráta dúchais an ghléis mar "(native)". Lipéadaítear rátaí a dteastaíonn athshamplú uathu mar "(resampled)". Is féidir leat aon ráta a roghnú beag beann ar chumas an ghléis; déanfaidh Musician's Canvas athshamplú go huathoibríoch de réir mar is gá.
 - **Cainéil**: Monafónach nó Steiréafónach. Mura dtacaíonn an gléas ach le monafónach, tá an rogha Steiréafónach díchumasaithe.
 
-![Socruithe fuaime tionscadail](../screenshots/MusiciansCanvas_7_ProjectAudioSettings.png)
+![Socruithe fuaime tionscadail](../screenshots/i18n/ga/MusiciansCanvas_7_ProjectAudioSettings.png)
 
 #### Mix Effects tab
 
@@ -436,7 +436,7 @@ Scríobhtar **`.mid` go huath** sa **chomhadlann tionscadail**: dhá bharra 4/4.
 
 Is feidhmchlár comhpháirteach é Virtual MIDI Keyboard (`virtual_midi_keyboard`) a sholáthraíonn méarchlár pianó ar an scáileán chun nótaí MIDI a sheoladh. Is féidir é a sheoladh ón roghchlár **Tools > Virtual MIDI Keyboard** sa phríomhfheidhmchlár, nó é a rith go neamhspleách.
 
-![Virtual MIDI Keyboard](../screenshots/VMIDIKeyboard1.png)
+![Virtual MIDI Keyboard](../screenshots/i18n/ga/VMIDIKeyboard1.png)
 
 ### Gnéithe
 
@@ -509,7 +509,7 @@ Lasann eochracha go hamhairc nuair a bhrúitear iad (athraíonn eochracha bána 
 
 Oscail an dialóg Cumraíochta (**Settings > Configuration**, Ctrl+,) chun gléasanna MIDI agus fuaime a shocrú:
 
-![Cumraíocht Virtual MIDI Keyboard](../screenshots/VMIDIKeyboard2.png)
+![Cumraíocht Virtual MIDI Keyboard](../screenshots/i18n/ga/VMIDIKeyboard2.png)
 
 #### Cluaisín MIDI
 
