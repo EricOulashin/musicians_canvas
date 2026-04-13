@@ -235,7 +235,25 @@ Die Effekte werden auf das Audio **angewendet, wenn Sie die Aufnahme beenden** �
 
 Unter **Project → Project Settings → Mix Effects** legen Sie dieselbe Art von Effektkette wie bei **Track effects** fest, angewendet auf die **komplette Mischung** aller aktivierten Spuren: beim **Abspielen des ganzen Projekts** und beim **Export als gemischte Datei** (WAV/FLAC). Die Kette wird in `project.json` unter `projectSettings` → `mixEffectChain` gespeichert.
 
+**Project → Project Settings → Aux / Send Bus** legt eine **gemeinsame Effektkette** fest, die von jedem **Aux**-Senderegler auf der Spurzeile gespeist wird. Zuerst wird das Trockensignal aller Spuren summiert; das Signal jeder Spur nach Gain und Pan wird mit dem **Aux**-Pegel skaliert, durch diese Bus-Kette verarbeitet und der **nasse Aux**-Anteil wird zum Trockensum zurückaddiert, **bevor** **Mix Effects** laufen. So nutzen Sie z. B. einen gemeinsamen Hall oder Delay bei unabhängigen Insert-Effekten pro Spur.
+
 Um hartes [digitales Clipping](https://en.wikipedia.org/wiki/Clipping_%28audio%29) zu vermeiden, wenn Pegel nahe Vollaussteuerung steigen, wendet die Engine eine **weiche Begrenzung** auf normalisierte Float-Samples an, unmittelbar bevor sie in 16-Bit-PCM gewandelt werden. Die Basisklasse **EffectWidget** dokumentiert `guardFloatSampleForInt16Pcm()` und `softLimitFloatSampleForInt16Pcm()` für neuen DSP-Code.
+
+### Mixer pro Spur, Stummschaltung/Solo, Trim und MIDI
+
+Jede Spurzeile enthält einen kompakten **Mixer-Bereich**:
+
+- **Gain**: Pegel in Dezibel (Regler in Zehntel-dB; 0 dB = Unity).
+- **Pan**: Stereo-Position (-100 = ganz links, +100 = ganz rechts).
+- **Aux**: Send-Pegel (0–100 %) in den **Aux- / Send-Bus** des Projekts (siehe oben).
+- **Stumm**: blendet die Spur in der Mischung aus, ohne sie in der Arranger-Ansicht zu deaktivieren.
+- **Solo**: Wenn **irgendeine** Spur **Solo** aktiviert hat, sind **nur** solche Spuren hörbar (außer sie sind zusätzlich stummgeschaltet).
+
+**Options → Track Configuration** bietet **Clip trim (nicht-destruktiv)**: **Trim start** und **Trim end** lassen so viele Sekunden am Anfang und Ende des Clips für **Wiedergabe, Mix und Export** weg, ohne die zugrundeliegende Aufnahme zu löschen.
+
+MIDI-Spuren können **Control-Change- (CC-)Automatisierung** im Projekt und in exportierten `.mid`-Dateien tragen; Offline-Wiedergabe und Mix verwenden diese Ereignisse beim Rendern von MIDI zu Audio.
+
+**Edit → Undo** / **Redo** (übliche Tastenkürzel) gelten für Mixer- und Trim-Änderungen auf den Spuren.
 
 ### Mithören während der Aufnahme
 
@@ -312,7 +330,7 @@ Der Dialog bietet:
   Aufnahme einen Tick-Ton ab. Der Tick wird über das Systemaudio wiedergegeben und **nicht**
   in die aufgenommene Spur aufgenommen.
 - **Beats per minute**: Eine numerische Eingabe für das Tempo in Schlägen pro Minute (BPM).
-  Der Bereich ist 20–300 BPM.
+  Der Bereich ist 20–300 BPM. Wenn **Project → Tempo map** Tempoänderungen definiert, folgt das Metronom diesen Markern während der Aufnahme (das BPM-Feld legt weiterhin das Ausgangstempo fest, solange noch kein Marker greift).
 
 Wenn das Metronom aktiviert ist, beginnt es zu ticken, sobald die Aufnahme tatsächlich
 startet (nach Ablauf des 3-Sekunden-Countdowns), und stoppt, wenn die Aufnahme endet.
@@ -341,7 +359,12 @@ Formats:
   WAV (unkomprimiert).
 
 Die Abmischung verwendet die konfigurierte Projekt-Abtastrate. MIDI-Spuren werden mit dem
-konfigurierten SoundFont gerendert.
+konfigurierten SoundFont gerendert. **Gain**, **Pan**, **Stumm/Solo**, **Aux-Send** und **Trim**
+pro Spur werden wie bei der Wiedergabe angewendet.
+
+**Tools → Export stems to folder** schreibt eine **WAV**-Datei pro Spur (aktivierte Spuren, die am Mix
+teilnehmen). Jeder Stem übernimmt die Mixer-Einstellungen und den Trim dieser Spur; die **Mix Effects**
+des Gesamtprogramms werden **nicht** auf einzelne Stems angewendet.
 
 ## Einstellungen
 
@@ -444,6 +467,10 @@ Projektspezifische Einstellungen werden in der Datei `project.json` gespeichert.
 
 Wie bei **Track effects**: scrollbare Liste mit **Effekt hinzufügen…**, **≡** zum Neuordnen, **✕** zum Entfernen. Die Reihenfolge ist **von oben nach unten** auf dem **Summensignal**, nachdem alle aktivierten Spuren gemischt wurden. Diese Effekte laufen bei **Wiedergabe aller Spuren** und beim **Mix zu einer Datei**; sie werden **nicht** in die einzelnen Spurdateien auf der Festplatte „eingebacken“. Eine leere Liste lässt den Mix unverändert (abgesehen von der internen Pegelführung des Mixers).
 
+#### Registerkarte Aux / Send Bus
+
+Hier konfigurieren Sie die **gemeinsame Aux-Effektkette** (dieselben Effekttypen wie bei Spur-Inserts). Der **Aux**-Regler jeder Spur steuert, wie viel des Signals dieser Spur durch diesen Bus läuft; der nasse Aux-Rückweg wird zum Trockensum addiert, **bevor** **Mix Effects** angewendet werden.
+
 ## Menüs
 
 ### Menue "File"
@@ -458,8 +485,16 @@ Wie bei **Track effects**: scrollbare Liste mit **Effekt hinzufügen…**, **≡
 
 | Menüeintrag                        | Tastenkürzel | Beschreibung                                    |
 |-------------------------------------|---------------|-------------------------------------------------|
-| Project Settings                    | Ctrl+P        | Projektspezifische Einstellungen konfigurieren  |
+| Project Settings                    | Ctrl+P        | Projektspezifische Einstellungen konfigurieren (inkl. **Aux / Send Bus**)  |
+| Tempo map                           |               | Tempoänderungen (Sekunden vs. BPM) bearbeiten; Metronom-Hinweise und MIDI-Quantisierung |
 | Add Demo Data to Selected Track     |               | Beispiel-MIDI-Noten zur Demonstration hinzufügen |
+
+### Menue "Edit"
+
+| Menüeintrag | Tastenkürzel | Beschreibung |
+|---------------|---------------|--------------|
+| Undo          | Ctrl+Z        | Mixer-/Trim-Änderungen rückgängig machen |
+| Redo          | Ctrl+Shift+Z  | Wiederholen |
 
 ### Menue "Settings"
 
@@ -472,6 +507,9 @@ Wie bei **Track effects**: scrollbare Liste mit **Effekt hinzufügen…**, **≡
 | Menüeintrag          | Tastenkürzel | Beschreibung                                  |
 |-----------------------|---------------|-----------------------------------------------|
 | Mix tracks to file    | Ctrl+M        | Alle aktivierten Spuren in eine Datei exportieren |
+| Export stems to folder |               | Ein WAV-Stem pro Spur (Gain/Pan/Trim; ohne Master-Mix-Effects) |
+| Recording options     |               | **Punch-in**-Bereich für Audio-Retakes; **Loop**-Wiedergabe für das ganze Projekt |
+| Quantize MIDI         |               | MIDI-Notenanfänge auf ein Raster rastern (alle MIDI-Spuren oder nur scharfgeschaltete) |
 | Add drum track        | D        | MIDI-Schlagzeugspur anlegen und `.mid`-Groove schreiben |
 | Virtual MIDI Keyboard |               | Die Begleit-Tastaturanwendung starten         |
 
@@ -488,10 +526,13 @@ Wie bei **Track effects**: scrollbare Liste mit **Effekt hinzufügen…**, **≡
 |-----------------|---------------------------------------|
 | Ctrl+S          | Projekt speichern                     |
 | Ctrl+O          | Projekt öffnen                       |
+| Ctrl+Z          | Rückgängig (Mixer/Trim)              |
+| Ctrl+Shift+Z    | Wiederholen                          |
 | Ctrl+M          | Spuren in eine Datei abmischen        |
 | D               | Schlagzeugspur hinzufügen (Tools-Menü) |
 | Ctrl+P          | Projekteinstellungen                  |
 | Ctrl+,          | Einstellungen / Konfiguration         |
+| Alt+M           | PDF-Handbuch öffnen (Help)            |
 | Ctrl+Q / Alt+F4 | Beenden                              |
 
 

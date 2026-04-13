@@ -12,6 +12,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <QJsonArray>
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -99,7 +100,8 @@ bool AudioUtils::mixTracksToWav(const QVector<TrackData>& tracks,
             tmpWav.close();
 
             MidiSynth synth;
-            if (synth.renderMidiToWav(track.midiNotes, track.lengthSeconds, tmpPath, sampleRate, soundFontPath))
+            if (synth.renderMidiToWav(track.midiNotes, track.midiControlChanges, track.lengthSeconds,
+ tmpPath, sampleRate, soundFontPath))
             {
                 if (QFile f(tmpPath); f.open(QIODevice::ReadOnly))
                 {
@@ -448,23 +450,209 @@ QByteArray AudioUtils::convertChannels(const QByteArray& int16Data,
     return result;
 }
 
+namespace
+{
+void applyGainPanToStereoInt16(QByteArray& stereoInterleaved, float gainDb, float pan)
+{
+    if (stereoInterleaved.isEmpty())
+        return;
+    const float lin = std::pow(10.0f, gainDb / 20.0f);
+    const float p = std::clamp(pan, -1.f, 1.f);
+    const float ang = (p + 1.f) * (float(M_PI) * 0.25f);
+    const float gL = std::cos(ang) * lin;
+    const float gR = std::sin(ang) * lin;
+    auto* s = reinterpret_cast<qint16*>(stereoInterleaved.data());
+    const int nFrames = stereoInterleaved.size() / 4;
+    for (int i = 0; i < nFrames; ++i)
+    {
+        const float L = s[i * 2] / 32768.0f;
+        const float R = s[i * 2 + 1] / 32768.0f;
+        s[i * 2] = static_cast<qint16>(
+            std::clamp(L * gL, -1.0f, 1.0f) * 32767.0f);
+        s[i * 2 + 1] = static_cast<qint16>(
+            std::clamp(R * gR, -1.0f, 1.0f) * 32767.0f);
+    }
+}
+
+/// Trim, resample to mixRate, stereo, gain/pan. Empty if no audible content.
+QByteArray prepareTrackForMix(const TrackData& track, int mixSampleRate,
+                              const QString& soundFontPath, bool renderMidiToAudio,
+                              double midiGainMultiplier, const QString& projectPath,
+                              bool writeMidiFlacAsset)
+{
+    QByteArray stereoPcm;
+    int workRate = 44100;
+
+    if (track.type == TrackType::Audio && !track.audioData.isEmpty())
+    {
+        QByteArray pcm = track.audioData;
+        int ch = track.channelCount > 0 ? track.channelCount : 2;
+        workRate = track.sampleRate > 0 ? track.sampleRate : mixSampleRate;
+        const int bpf = ch * static_cast<int>(sizeof(qint16));
+        int frames = pcm.size() / bpf;
+        const int trim0 = static_cast<int>(
+            std::llround(std::max(0.0, track.trimStartSec) * workRate));
+        const int trim1 = static_cast<int>(
+            std::llround(std::max(0.0, track.trimEndSec) * workRate));
+        const int startF = std::clamp(trim0, 0, frames);
+        const int endF = std::clamp(frames - trim1, 0, frames);
+        if (endF <= startF)
+            return {};
+        pcm = pcm.mid(startF * bpf, (endF - startF) * bpf);
+        frames = endF - startF;
+
+        if (workRate != mixSampleRate)
+            pcm = AudioUtils::resampleInt16(pcm, workRate, mixSampleRate, ch);
+        if (ch != 2)
+            pcm = AudioUtils::convertChannels(pcm, ch, 2);
+        stereoPcm = pcm;
+    }
+    else if (renderMidiToAudio && track.type == TrackType::MIDI
+             && (!track.midiNotes.isEmpty() || !track.midiControlChanges.isEmpty()))
+    {
+        QTemporaryFile tmpWav(QDir::temp().filePath("mc_midi_XXXXXX.wav"));
+        tmpWav.setAutoRemove(false);
+        if (!tmpWav.open())
+            return {};
+        const QString tmpWavPath = tmpWav.fileName();
+        tmpWav.close();
+
+        MidiSynth synth;
+        if (!synth.renderMidiToWav(track.midiNotes, track.midiControlChanges, track.lengthSeconds,
+                                   tmpWavPath, mixSampleRate, soundFontPath, midiGainMultiplier))
+        {
+            QFile::remove(tmpWavPath);
+            return {};
+        }
+
+        if (writeMidiFlacAsset && !projectPath.isEmpty())
+        {
+            QDir().mkpath(projectPath);
+            QString baseName = AudioUtils::sanitizedTrackFilesystemName(track.name);
+            if (baseName.isEmpty())
+                baseName = QStringLiteral("track_%1").arg(track.id);
+            const QString flacPath =
+                projectPath + QDir::separator() + baseName + QStringLiteral(".flac");
+            auto wavAudio = EOUtils::createAudioFileObjForExistingFile(
+                tmpWavPath.toStdString().c_str());
+            if (wavAudio && wavAudio->open(EOUtils::AUDIO_FILE_READ))
+            {
+                const EOUtils::AudioFileInfo info = wavAudio->getAudioFileInfo();
+                auto flacAudio = EOUtils::createAudioFileObjForNewFile(
+                    flacPath.toStdString().c_str());
+                if (flacAudio)
+                {
+                    flacAudio->setAudioFileInfo(info);
+                    if (flacAudio->open(EOUtils::AUDIO_FILE_WRITE))
+                    {
+                        const size_t n = wavAudio->numSamples();
+                        for (size_t si = 0; si < n; ++si)
+                        {
+                            int64_t s = 0;
+                            if (!wavAudio->getNextSample_int64(s))
+                                break;
+                            flacAudio->writeSample_int64(s);
+                        }
+                        flacAudio->close();
+                    }
+                }
+                wavAudio->close();
+            }
+        }
+
+        int fileSr = mixSampleRate;
+        int fileCh = 2;
+        if (!AudioUtils::readWavInt16Pcm(tmpWavPath, stereoPcm, fileSr, fileCh))
+        {
+            QFile::remove(tmpWavPath);
+            return {};
+        }
+        QFile::remove(tmpWavPath);
+
+        const int bpf = fileCh * static_cast<int>(sizeof(qint16));
+        int frames = stereoPcm.size() / bpf;
+        const int trim0 = static_cast<int>(
+            std::llround(std::max(0.0, track.trimStartSec) * fileSr));
+        const int trim1 = static_cast<int>(
+            std::llround(std::max(0.0, track.trimEndSec) * fileSr));
+        const int startF = std::clamp(trim0, 0, frames);
+        const int endF = std::clamp(frames - trim1, 0, frames);
+        if (endF <= startF)
+            return {};
+        stereoPcm = stereoPcm.mid(startF * bpf, (endF - startF) * bpf);
+        if (fileCh != 2)
+            stereoPcm = AudioUtils::convertChannels(stereoPcm, fileCh, 2);
+    }
+    else
+        return {};
+
+    applyGainPanToStereoInt16(stereoPcm, track.gainDb, track.pan);
+    return stereoPcm;
+}
+
+void addInt16StereoToFloatMix(const QByteArray& pcm, QVector<float>& L, QVector<float>& R)
+{
+    const auto* s = reinterpret_cast<const qint16*>(pcm.constData());
+    const int n = qMin(static_cast<int>(pcm.size() / 4), L.size());
+    for (int i = 0; i < n; ++i)
+    {
+        L[i] += s[i * 2] / 32768.0f;
+        R[i] += s[i * 2 + 1] / 32768.0f;
+    }
+}
+
+void addSendToAux(const QByteArray& pcm, float send, QVector<float>& auxL, QVector<float>& auxR,
+                  int maxFrames)
+{
+    if (send <= 0.f || pcm.isEmpty())
+        return;
+    const auto* s = reinterpret_cast<const qint16*>(pcm.constData());
+    const int n = pcm.size() / 4;
+    const int lim = qMin(maxFrames, n);
+    for (int i = 0; i < lim; ++i)
+    {
+        auxL[i] += (s[i * 2] / 32768.0f) * send;
+        auxR[i] += (s[i * 2 + 1] / 32768.0f) * send;
+    }
+}
+
+QByteArray floatStereoToInt16Pcm(const QVector<float>& L, const QVector<float>& R)
+{
+    QByteArray out;
+    out.resize(L.size() * 4);
+    auto* d = reinterpret_cast<qint16*>(out.data());
+    for (int i = 0; i < L.size(); ++i)
+    {
+        d[i * 2] = static_cast<qint16>(std::clamp(L[i], -1.0f, 1.0f) * 32767.0f);
+        d[i * 2 + 1] = static_cast<qint16>(std::clamp(R[i], -1.0f, 1.0f) * 32767.0f);
+    }
+    return out;
+}
+
+void int16StereoToFloat(const QByteArray& pcm, QVector<float>& L, QVector<float>& R)
+{
+    const auto* s = reinterpret_cast<const qint16*>(pcm.constData());
+    const int n = pcm.size() / 4;
+    L.resize(n);
+    R.resize(n);
+    for (int i = 0; i < n; ++i)
+    {
+        L[i] = s[i * 2] / 32768.0f;
+        R[i] = s[i * 2 + 1] / 32768.0f;
+    }
+}
+
+}  // namespace
+
 bool AudioUtils::mixTracksToFile(const QVector<TrackData>& tracks,
                                   const QString& outputPath,
                                   const QString& projectPath,
                                   int sampleRate,
                                   const QString& soundFontPath,
                                   bool renderMidiToAudio,
-                                  double midiGainMultiplier)
+                                  double midiGainMultiplier,
+                                  const QJsonArray& auxEffectChain)
 {
-    std::vector<std::string> inputFiles;
-    std::vector<std::string> tempFiles;  // files to clean up afterward
-
-    // Determine the sample rate to use for the mix.  Audio tracks are recorded at
-    // the device's native rate (e.g. 48000 Hz on a PipeWire system), which may
-    // differ from the project sample-rate setting.  EOUtils requires all input
-    // files to share the same sample rate, so we derive the mix rate from the
-    // first enabled audio track that has data, and fall back to the project
-    // sampleRate only when there are no audio tracks (MIDI-only mix).
     int mixSampleRate = sampleRate;
     for (const auto& track : tracks)
     {
@@ -475,93 +663,180 @@ bool AudioUtils::mixTracksToFile(const QVector<TrackData>& tracks,
         }
     }
 
+    QVector<QByteArray> perTrackPcm;
+    perTrackPcm.reserve(tracks.size());
+    int maxFrames = 0;
+
+    bool anyAuxSend = false;
+    for (const TrackData& t : tracks)
+    {
+        if (trackShouldMix(t, tracks) && t.auxSend > 0.f)
+        {
+            anyAuxSend = true;
+            break;
+        }
+    }
+    const bool useAux = !auxEffectChain.isEmpty() && anyAuxSend;
+
     for (const auto& track : tracks)
     {
-        if (!track.enabled) continue;
+        if (!trackShouldMix(track, tracks))
+        {
+            perTrackPcm.append(QByteArray());
+            continue;
+        }
+        QByteArray pcm =
+            prepareTrackForMix(track, mixSampleRate, soundFontPath, renderMidiToAudio,
+                                 midiGainMultiplier, projectPath, /*writeMidiFlacAsset=*/true);
+        perTrackPcm.append(pcm);
+        maxFrames = qMax(maxFrames, pcm.size() / 4);
+    }
 
+    if (maxFrames <= 0)
+        return false;
+
+    QVector<float> dryL(maxFrames, 0.f);
+    QVector<float> dryR(maxFrames, 0.f);
+    QVector<float> auxL;
+    QVector<float> auxR;
+    if (useAux)
+    {
+        auxL = QVector<float>(maxFrames, 0.f);
+        auxR = QVector<float>(maxFrames, 0.f);
+    }
+
+    for (int ti = 0; ti < tracks.size(); ++ti)
+    {
+        const TrackData& track = tracks[ti];
+        const QByteArray& pcm = perTrackPcm[ti];
+        if (pcm.isEmpty())
+            continue;
+        addInt16StereoToFloatMix(pcm, dryL, dryR);
+        if (useAux)
+            addSendToAux(pcm, track.auxSend, auxL, auxR, maxFrames);
+    }
+
+    if (useAux)
+    {
+        QByteArray auxPcm = floatStereoToInt16Pcm(auxL, auxR);
+        applyAudioEffectChain(auxPcm, 2, mixSampleRate, auxEffectChain);
+        QVector<float> wetL, wetR;
+        int16StereoToFloat(auxPcm, wetL, wetR);
+        const int n = qMin(maxFrames, wetL.size());
+        for (int i = 0; i < n; ++i)
+        {
+            dryL[i] += wetL[i];
+            dryR[i] += wetR[i];
+        }
+    }
+
+    float peak = 0.f;
+    for (int i = 0; i < maxFrames; ++i)
+    {
+        peak = qMax(peak, qMax(std::fabs(dryL[i]), std::fabs(dryR[i])));
+    }
+    const float norm = (peak > 0.9f) ? (0.9f / peak) : 1.f;
+
+    const QString outExt = QFileInfo(outputPath).suffix().toLower();
+    const bool outFlac = (outExt == QLatin1String("flac"));
+
+    QTemporaryFile tmpWav(QDir::temp().filePath("mc_mixout_XXXXXX.wav"));
+    tmpWav.setAutoRemove(outFlac);
+    if (!tmpWav.open())
+        return false;
+    const QString wavOutPath = tmpWav.fileName();
+    tmpWav.close();
+
+    QFile file(wavOutPath);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+        return false;
+    writeWavHeader(file, static_cast<quint32>(mixSampleRate),
+                   static_cast<quint32>(maxFrames));
+    constexpr float scale = 32767.0f;
+    constexpr float minV = -32768.0f;
+    for (int i = 0; i < maxFrames; ++i)
+    {
+        const qint16 l = static_cast<qint16>(
+            std::clamp(dryL[i] * norm * scale, minV, scale));
+        const qint16 r = static_cast<qint16>(
+            std::clamp(dryR[i] * norm * scale, minV, scale));
+        file.write(reinterpret_cast<const char*>(&l), 2);
+        file.write(reinterpret_cast<const char*>(&r), 2);
+    }
+    file.close();
+
+    if (outFlac)
+    {
+        QByteArray pcmData;
+        int sr = mixSampleRate;
+        int ch = 2;
+        if (!readWavInt16Pcm(wavOutPath, pcmData, sr, ch))
+            return false;
+        if (!writeAudioDataToFlac(pcmData, sr, ch, outputPath))
+            return false;
+    }
+    else
+    {
+        if (QFile::exists(outputPath))
+            QFile::remove(outputPath);
+        if (!QFile::rename(wavOutPath, outputPath))
+        {
+            if (!QFile::copy(wavOutPath, outputPath))
+                return false;
+            QFile::remove(wavOutPath);
+        }
+    }
+
+    return true;
+}
+
+bool AudioUtils::exportStemsToDirectory(const QVector<TrackData>& tracks,
+                                          const QString& outputDirectory,
+                                          const QString& projectPath,
+                                          int sampleRate,
+                                          const QString& soundFontPath,
+                                          bool renderMidiToAudio,
+                                          double midiGainMultiplier)
+{
+    if (outputDirectory.isEmpty() || !QDir(outputDirectory).exists())
+        return false;
+
+    int mixSampleRate = sampleRate;
+    for (const auto& track : tracks)
+    {
         if (track.type == TrackType::Audio && !track.audioData.isEmpty())
         {
-            const QString wavPath = writeAudioTrackToTempWav(track);
-            if (!wavPath.isEmpty())
-            {
-                inputFiles.push_back(wavPath.toStdString());
-                tempFiles.push_back(wavPath.toStdString());
-            }
-        }
-        else if (renderMidiToAudio && track.type == TrackType::MIDI && !track.midiNotes.isEmpty())
-        {
-            // Render MIDI to a temp WAV for mixing.  Using WAV at this step avoids
-            // depending on the FLAC encoder succeeding; if encoding fails the track
-            // would otherwise be silently dropped from the mix.
-            QTemporaryFile tmpWav(QDir::temp().filePath("mc_midi_XXXXXX.wav"));
-            tmpWav.setAutoRemove(false);
-            if (!tmpWav.open())
-                continue;
-            const QString tmpWavPath = tmpWav.fileName();
-            tmpWav.close();
-
-            MidiSynth synth;
-            if (synth.renderMidiToWav(track.midiNotes, track.lengthSeconds,
-                                       tmpWavPath, mixSampleRate, soundFontPath,
-                                       midiGainMultiplier))
-            {
-                inputFiles.push_back(tmpWavPath.toStdString());
-                tempFiles.push_back(tmpWavPath.toStdString());
-
-                // Best-effort: also save a persistent FLAC copy as a project asset.
-                // This does not affect mixing — failure is silently ignored.
-                if (!projectPath.isEmpty())
-                {
-                    QDir().mkpath(projectPath);
-                    QString baseName = sanitizedTrackFilesystemName(track.name);
-                    if (baseName.isEmpty())
-                        baseName = QStringLiteral("track_%1").arg(track.id);
-                    const QString flacPath =
-                        projectPath + QDir::separator() + baseName + QStringLiteral(".flac");
-                    auto wavAudio = EOUtils::createAudioFileObjForExistingFile(
-                        tmpWavPath.toStdString().c_str());
-                    if (wavAudio && wavAudio->open(EOUtils::AUDIO_FILE_READ))
-                    {
-                        const EOUtils::AudioFileInfo info = wavAudio->getAudioFileInfo();
-                        auto flacAudio = EOUtils::createAudioFileObjForNewFile(
-                            flacPath.toStdString().c_str());
-                        if (flacAudio)
-                        {
-                            flacAudio->setAudioFileInfo(info);
-                            if (flacAudio->open(EOUtils::AUDIO_FILE_WRITE))
-                            {
-                                const size_t n = wavAudio->numSamples();
-                                for (size_t si = 0; si < n; ++si)
-                                {
-                                    int64_t s = 0;
-                                    if (!wavAudio->getNextSample_int64(s)) break;
-                                    flacAudio->writeSample_int64(s);
-                                }
-                                flacAudio->close();
-                            }
-                        }
-                        wavAudio->close();
-                    }
-                }
-            }
-            else
-            {
-                QFile::remove(tmpWavPath);
-            }
+            mixSampleRate = track.sampleRate > 0 ? track.sampleRate : sampleRate;
+            break;
         }
     }
 
-    bool success = false;
-    if (!inputFiles.empty())
+    for (const TrackData& track : tracks)
     {
-        const auto result = EOUtils::mixAudioFiles(inputFiles, outputPath.toStdString());
-        success = static_cast<bool>(result);
+        const bool hasAudio = track.type == TrackType::Audio && !track.audioData.isEmpty();
+        const bool hasMidi = track.type == TrackType::MIDI
+                             && (!track.midiNotes.isEmpty() || !track.midiControlChanges.isEmpty());
+        if (!hasAudio && !hasMidi)
+            continue;
+
+        TrackData one = track;
+        one.mute = false;
+        one.solo = false;
+        QByteArray pcm =
+            prepareTrackForMix(one, mixSampleRate, soundFontPath, renderMidiToAudio,
+                                 midiGainMultiplier, QString(), /*writeMidiFlacAsset=*/false);
+        if (pcm.isEmpty())
+            continue;
+
+        QString base = sanitizedTrackFilesystemName(track.name);
+        if (base.isEmpty())
+            base = QStringLiteral("track_%1").arg(track.id);
+        const QString pathWav =
+            outputDirectory + QDir::separator() + base + QStringLiteral("_stem.wav");
+        if (!writeWavInt16Pcm(pathWav, pcm, mixSampleRate, 2))
+            return false;
     }
-
-    for (const auto& f : tempFiles)
-        QFile::remove(QString::fromStdString(f));
-
-    return success;
+    return true;
 }
 
 bool AudioUtils::readWavInt16Pcm(const QString& path, QByteArray& audioData,

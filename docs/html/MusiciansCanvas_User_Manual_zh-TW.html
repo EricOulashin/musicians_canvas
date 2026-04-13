@@ -74,6 +74,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#_15">音訊錄製</a></li>
 <li><a href="#_16">插入式效果（僅音訊音軌）</a></li>
 <li><a href="#mix-effects-full-project">Mix effects (full project)</a></li>
+<li><a href="#per-track-mixer-mutesolo-trim-and-midi-details">Per-track mixer, mute/solo, trim, and MIDI details</a></li>
 <li><a href="#_17">錄製時監聽</a></li>
 <li><a href="#midi">MIDI 錄製</a></li>
 </ul>
@@ -89,6 +90,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#_29">選單</a><ul>
 <li><a href="#file">File 選單</a></li>
 <li><a href="#project">Project 選單</a></li>
+<li><a href="#edit">Edit 選單</a></li>
 <li><a href="#settings">Settings 選單</a></li>
 <li><a href="#tools">Tools 選單</a></li>
 <li><a href="#help">Help 選單</a></li>
@@ -265,7 +267,20 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <p>效果在 <strong>停止錄製</strong> 後套用（經一般擷取與重取樣）。設定儲存在 <code>project.json</code> 的 <code>audioEffectChain</code>。</p>
 <h3 id="mix-effects-full-project">Mix effects (full project)</h3>
 <p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>, <strong>Vibrato (Tremolo)</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p><strong>Project → Project Settings → Aux / Send Bus</strong> configures a <strong>shared effect chain</strong> fed by each track’s <strong>Aux</strong> send slider (on the track row). The dry mix of all tracks is summed, each track’s post-gain/post-pan signal is scaled by its <strong>Aux</strong> level and sent through this bus, then the <strong>wet aux</strong> output is added back to the dry sum <strong>before</strong> <strong>Mix Effects</strong> run. Use it for a single shared reverb/delay while keeping per-track insert effects independent.</p>
 <p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
+<h3 id="per-track-mixer-mutesolo-trim-and-midi-details">Per-track mixer, mute/solo, trim, and MIDI details</h3>
+<p>Each track row includes a compact <strong>mixer strip</strong>:</p>
+<ul>
+<li><strong>Gain</strong>: Per-track level in decibels (the slider uses tenths of a dB; 0 dB = unity gain).</li>
+<li><strong>Pan</strong>: Stereo placement (-100 = full left, +100 = full right).</li>
+<li><strong>Aux</strong>: Send amount (0–100%) into the project <strong>Aux / Send Bus</strong> (see above).</li>
+<li><strong>Mute</strong>: Silences the track in the mix without disabling it in the arrange view.</li>
+<li><strong>Solo</strong>: If <strong>any</strong> track has <strong>Solo</strong> enabled, <strong>only</strong> soloed tracks are heard (unless they are also muted).</li>
+</ul>
+<p><strong>Options → Track Configuration</strong> also offers <strong>Clip trim (non-destructive)</strong>: <strong>Trim start</strong> and <strong>Trim end</strong> skip that many seconds from the beginning and end of the clip for <strong>playback, mix, and export</strong> without deleting the underlying recording.</p>
+<p>MIDI tracks can carry <strong>control change (CC)</strong> automation stored in the project and in exported <code>.mid</code> files; offline playback and mix use these events when rendering MIDI to audio.</p>
+<p><strong>Edit → Undo</strong> / <strong>Redo</strong> (standard shortcuts) apply to mixer and trim changes made on tracks.</p>
 <h3 id="_17">錄製時監聽</h3>
 <p>在 <strong>時間顯示</strong> 右側，<strong>錄音時監聽音訊</strong> 控制錄製期間是否將 <strong>即時輸入</strong> 送到 <strong>專案的音訊輸出</strong>：</p>
 <ul>
@@ -302,7 +317,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <p>該對話框提供：</p>
 <ul>
 <li><strong>Enable metronome during recording</strong>：勾選時，節拍器會在錄製進行中播放滴答聲。滴答聲會透過系統音訊播放，<strong>不會</strong>被擷取到錄製的音軌中。</li>
-<li><strong>Beats per minute</strong>：速度的數字輸入，以每分鐘拍數（BPM）為單位。範圍為 20–300 BPM。</li>
+<li><strong>Beats per minute</strong>：速度的數字輸入，以每分鐘拍數（BPM）為單位。範圍為 20–300 BPM。若 <strong>Project → Tempo map</strong> 已定義速度變化，錄製時節拍器會跟隨這些標記（在尚無適用標記前，仍以本對話方塊的 BPM 作為起始速度）。</li>
 </ul>
 <p>當節拍器啟用時，它會在錄製真正開始後（3 秒倒數計時結束後）開始滴答，並在錄製結束時停止。</p>
 <h2 id="_23">播放</h2>
@@ -315,7 +330,8 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><strong>輸出檔案</strong>：瀏覽以選擇目的地檔案路徑。</li>
 <li><strong>格式</strong>：選擇 FLAC（無損壓縮，檔案較小）或 WAV（未壓縮）。</li>
 </ul>
-<p>混音使用專案設定的取樣率。MIDI 音軌使用設定的 SoundFont 進行轉譯。</p>
+<p>混音使用專案設定的取樣率。MIDI 音軌使用設定的 SoundFont 進行轉譯。每軌的 <strong>增益</strong>、<strong>聲像</strong>、<strong>靜音／獨奏</strong>、<strong>Aux 送出</strong> 與 <strong>修剪</strong> 與播放時相同套用。</p>
+<p><strong>Tools → Export stems to folder</strong> 會為參與混音的已啟用音軌各寫出一個 <strong>WAV</strong> 分軌；每個分軌反映該軌的混音與修剪設定；全專案的 <strong>Mix Effects</strong> <strong>不會</strong>套用在個別分軌上。</p>
 <h2 id="_25">設定</h2>
 <h3 id="_26">全域設定</h3>
 <p>使用 <strong>Settings &gt; Configuration</strong>（Ctrl+,）設定適用於所有專案的全域預設值：</p>
@@ -383,6 +399,8 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <p><img alt="專案音訊設定" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
 <h4 id="mix-effects-tab">Mix Effects tab</h4>
 <p>The <strong>Mix Effects</strong> tab is a scrollable list with the same controls as <strong>Track effects</strong> (<strong>Add effect…</strong>, drag <strong>≡</strong> to reorder, <strong>✕</strong> to remove). Processing order is <strong>top to bottom</strong> on the <strong>combined</strong> mix of all enabled tracks. These effects run during <strong>whole-project playback</strong> and when <strong>mixing to a single WAV or FLAC file</strong>; they are <strong>not</strong> baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.</p>
+<h4 id="aux-send-bus">Aux / Send Bus 索引標籤</h4>
+<p>設定 <strong>共用 Aux 效果鏈</strong>（與音軌插入效果相同類型）。每軌的 <strong>Aux</strong> 滑桿控制送入此匯流排的量；濕聲回送會在套用 <strong>Mix Effects</strong> 之前加回乾聲總和。</p>
 <h2 id="_29">選單</h2>
 <h3 id="file">File 選單</h3>
 <table>
@@ -424,12 +442,39 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <tr>
 <td>Project Settings</td>
 <td>Ctrl+P</td>
-<td>設定專案特定的設定</td>
+<td>設定專案（含 <strong>Aux / Send Bus</strong>）</td>
+</tr>
+<tr>
+<td>Tempo map</td>
+<td></td>
+<td>編輯速度變化（秒與 BPM）：節拍器與 MIDI 量化</td>
 </tr>
 <tr>
 <td>Add Demo Data to Selected Track</td>
 <td></td>
 <td>為選取的音軌新增範例 MIDI 音符</td>
+</tr>
+</tbody>
+</table>
+<h3 id="edit">Edit 選單</h3>
+<table>
+<thead>
+<tr>
+<th>選單項目</th>
+<th>快捷鍵</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Undo</td>
+<td>Ctrl+Z</td>
+<td>復原混音器／修剪變更</td>
+</tr>
+<tr>
+<td>Redo</td>
+<td>Ctrl+Shift+Z</td>
+<td>重做</td>
 </tr>
 </tbody>
 </table>
@@ -464,6 +509,21 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <td>Mix tracks to file</td>
 <td>Ctrl+M</td>
 <td>將所有已啟用的音軌匯出為檔案</td>
+</tr>
+<tr>
+<td>Export stems to folder</td>
+<td></td>
+<td>每音軌一個 WAV（增益／聲像／修剪；無主程式 Mix Effects）</td>
+</tr>
+<tr>
+<td>Recording options</td>
+<td></td>
+<td>音訊 <strong>切入錄音</strong>；整個專案的 <strong>循環播放</strong></td>
+</tr>
+<tr>
+<td>Quantize MIDI</td>
+<td></td>
+<td>將 MIDI 音符開頭對齊格線（全部 MIDI 或僅待命音軌）</td>
 </tr>
 <tr>
 <td>Add drum track</td>
@@ -513,6 +573,14 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <td>儲存專案</td>
 </tr>
 <tr>
+<td>Ctrl+Z</td>
+<td>復原（混音器／修剪）</td>
+</tr>
+<tr>
+<td>Ctrl+Shift+Z</td>
+<td>重做</td>
+</tr>
+<tr>
 <td>Ctrl+O</td>
 <td>開啟專案</td>
 </tr>
@@ -531,6 +599,10 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <tr>
 <td>Ctrl+,</td>
 <td>設定 / Configuration</td>
+</tr>
+<tr>
+<td>Alt+M</td>
+<td>開啟 PDF 使用手冊（Help）</td>
 </tr>
 <tr>
 <td>Ctrl+Q / Alt+F4</td>

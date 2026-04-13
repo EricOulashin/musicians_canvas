@@ -55,6 +55,7 @@ ProjectSettingsDialog::ProjectSettingsDialog(const ProjectSettings& settings,
     setupMidiTab();
     setupAudioTab();
     setupMixEffectsTab();
+    setupAuxEffectsTab();
     layout->addWidget(m_tabWidget);
 
     auto* buttons = new QDialogButtonBox(QDialogButtonBox::Ok |
@@ -92,6 +93,8 @@ ProjectSettings ProjectSettingsDialog::projectSettings() const
 #endif
     if (m_mixEffectsEditor)
         s.mixEffectChain = m_mixEffectsEditor->chain();
+    if (m_auxEffectsEditor)
+        s.auxEffectChain = m_auxEffectsEditor->chain();
     return s;
 }
 
@@ -287,6 +290,22 @@ void ProjectSettingsDialog::setupMixEffectsTab()
     m_tabWidget->addTab(widget, tr("Mix Effects"));
 }
 
+void ProjectSettingsDialog::setupAuxEffectsTab()
+{
+    auto* widget = new QWidget();
+    auto* layout = new QVBoxLayout(widget);
+    auto* introLabel = new QLabel(
+        tr("Aux / send bus: each track's Aux send control routes audio into this chain. "
+           "The wet aux bus is mixed with the dry sum before master Mix Effects."));
+    introLabel->setWordWrap(true);
+    introLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    introLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+    layout->addWidget(introLabel);
+    m_auxEffectsEditor = new EffectChainEditorWidget(widget);
+    layout->addWidget(m_auxEffectsEditor, 1);
+    m_tabWidget->addTab(widget, tr("Aux / Send Bus"));
+}
+
 void ProjectSettingsDialog::refreshDevices()
 {
     m_midiDeviceCombo->clear();
@@ -453,6 +472,8 @@ void ProjectSettingsDialog::loadSettings(const ProjectSettings& settings)
 
     if (m_mixEffectsEditor)
         m_mixEffectsEditor->setChain(settings.mixEffectChain);
+    if (m_auxEffectsEditor)
+        m_auxEffectsEditor->setChain(settings.auxEffectChain);
 }
 
 #ifdef QT_MULTIMEDIA_AVAILABLE

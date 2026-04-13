@@ -186,7 +186,25 @@ remuestreo. La configuración se guarda en `project.json` en `audioEffectChain`.
 
 **Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**, **Vibrato (Tremolo)**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
 
+**Project → Project Settings → Aux / Send Bus** configura una **cadena de efectos compartida** alimentada por el control de envío **Aux** de cada pista (en la fila de la pista). Se suma la mezcla seca de todas las pistas; la señal tras **Gain** y **Pan** se escala con el nivel **Aux** y pasa por este bus; la salida **húmeda** del aux se suma de nuevo a la suma seca **antes** de **Mix Effects**. Sirve para un reverb o delay compartido manteniendo los inserts por pista.
+
 To reduce harsh [digital clipping](https://en.wikipedia.org/wiki/Clipping_%28audio%29) when processing pushes peaks toward full scale, the effect engine applies a **soft limiter** to normalized float samples immediately before conversion to 16-bit PCM. The **EffectWidget** base class documents `guardFloatSampleForInt16Pcm()` and `softLimitFloatSampleForInt16Pcm()` for any new real-time code that writes to 16-bit audio.
+
+### Mezclador por pista, mute/solo, recorte y MIDI
+
+Cada fila de pista incluye una franja de **mezclador**:
+
+- **Gain**: Nivel en decibelios (el deslizador usa décimas de dB; 0 dB = unidad).
+- **Pan**: Panorámica (-100 = todo a la izquierda, +100 = todo a la derecha).
+- **Aux**: Cantidad de envío (0–100 %) al **Aux / Send Bus** del proyecto (arriba).
+- **Mute**: Silencia la pista en la mezcla sin desactivarla en la vista de arreglo.
+- **Solo**: Si **alguna** pista tiene **Solo**, solo se oyen las pistas en solo (salvo que también estén en mute).
+
+**Options → Track Configuration** ofrece **Clip trim (no destructivo)**: **Trim start** y **Trim end** omiten esos segundos al inicio y al final del clip para **reproducción, mezcla y exportación** sin borrar la grabación subyacente.
+
+Las pistas MIDI pueden llevar automatización **CC** en el proyecto y en `.mid` exportados; la reproducción y mezcla offline usan esos eventos al renderizar MIDI a audio.
+
+**Edit → Undo** / **Redo** (atajos habituales) aplican a cambios de mezclador y recorte en las pistas.
 
 ### Monitorizar durante la grabación
 
@@ -244,7 +262,7 @@ El diálogo proporciona:
   sonido de tic mientras la grabación está activa. El tic se reproduce a través del audio del
   sistema y **no** se captura en la pista grabada.
 - **Beats per minute**: Una entrada numérica para el tempo, en pulsos por minuto (BPM). El
-  rango es de 20 a 300 BPM.
+  rango es de 20 a 300 BPM. Si **Project → Tempo map** define cambios de tempo, el metrónomo sigue esos marcadores durante la grabación (el campo BPM sigue fijando el tempo inicial mientras no aplique un marcador).
 
 Cuando el metrónomo está habilitado, comienza a sonar una vez que la grabación realmente
 comienza (después de que termina la cuenta regresiva de 3 segundos) y se detiene cuando
@@ -265,7 +283,9 @@ Use **Tools > Mix tracks to file** (Ctrl+M) para exportar todas las pistas habil
 - **Archivo de salida**: Navegue para seleccionar la ruta del archivo de destino.
 - **Formato**: Elija entre FLAC (compresión sin pérdida, archivos más pequeños) o WAV (sin comprimir).
 
-La mezcla utiliza la frecuencia de muestreo configurada del proyecto. Las pistas MIDI se renderizan usando el SoundFont configurado.
+La mezcla utiliza la frecuencia de muestreo configurada del proyecto. Las pistas MIDI se renderizan usando el SoundFont configurado. Se aplican **Gain**, **Pan**, **mute/solo**, **envío Aux** y **trim** por pista igual que en reproducción.
+
+**Tools → Export stems to folder** escribe un archivo **WAV** por pista (pistas habilitadas que entren en la mezcla). Cada stem refleja el mezclador y trim de esa pista; los **Mix Effects** maestros **no** se aplican a stems individuales.
 
 ## Ajustes
 
@@ -354,6 +374,10 @@ Use **Project > Project Settings** (Ctrl+P) para anular los valores predetermina
 
 The **Mix Effects** tab is a scrollable list with the same controls as **Track effects** (**Add effect…**, drag **≡** to reorder, **✕** to remove). Processing order is **top to bottom** on the **combined** mix of all enabled tracks. These effects run during **whole-project playback** and when **mixing to a single WAV or FLAC file**; they are **not** baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.
 
+#### Pestaña Aux / Send Bus
+
+Configura la **cadena de efectos aux compartida** (mismos tipos que inserts de pista). El deslizador **Aux** de cada pista controla cuánta señal entra en este bus; la vuelta húmeda se suma a la mezcla seca **antes** de **Mix Effects**.
+
 ## Menús
 
 ### Menú File
@@ -368,8 +392,16 @@ The **Mix Effects** tab is a scrollable list with the same controls as **Track e
 
 | Elemento del Menú                   | Atajo    | Descripción                                        |
 |--------------------------------------|----------|----------------------------------------------------|
-| Project Settings                     | Ctrl+P   | Configurar ajustes específicos del proyecto        |
+| Project Settings                     | Ctrl+P   | Configurar ajustes del proyecto (incl. **Aux / Send Bus**)        |
+| Tempo map                           |          | Editar cambios de tempo (s vs BPM) para metrónomo y cuantización MIDI |
 | Add Demo Data to Selected Track      |          | Agregar notas MIDI de ejemplo para demostración    |
+
+### Menú Edit
+
+| Elemento del Menú | Atajo    | Descripción                                    |
+|--------------------|----------|-----------------------------------------------|
+| Undo               | Ctrl+Z   | Deshacer cambios de mezclador/trim en pistas |
+| Redo               | Ctrl+Shift+Z | Rehacer                                  |
 
 ### Menú Settings
 
@@ -382,6 +414,9 @@ The **Mix Effects** tab is a scrollable list with the same controls as **Track e
 | Elemento del Menú     | Atajo    | Descripción                                        |
 |------------------------|----------|----------------------------------------------------|
 | Mix tracks to file     | Ctrl+M   | Exportar todas las pistas habilitadas a un archivo |
+| Export stems to folder |          | Un WAV por pista (gain/pan/trim; sin Mix Effects maestros) |
+| Recording options |          | Región **punch-in**; **loop** de reproducción del proyecto |
+| Quantize MIDI         |          | Alinear inicios de notas MIDI a rejilla (todas o pista armada) |
 | Add drum track        | D        | Añadir pista MIDI de batería y escribir un `.mid` (ver abajo) |
 | Virtual MIDI Keyboard  |          | Iniciar la aplicación complementaria de teclado    |
 
@@ -398,10 +433,13 @@ The **Mix Effects** tab is a scrollable list with the same controls as **Track e
 |-----------------|---------------------------------------|
 | Ctrl+S          | Guardar proyecto                      |
 | Ctrl+O          | Abrir proyecto                        |
+| Ctrl+Z          | Deshacer (mezclador/trim)           |
+| Ctrl+Shift+Z    | Rehacer                             |
 | Ctrl+M          | Mezclar pistas a archivo              |
 | D               | Añadir pista de batería (menú Tools)   |
 | Ctrl+P          | Ajustes del Proyecto                  |
 | Ctrl+,          | Ajustes / Configuración               |
+| Alt+M           | Abrir manual PDF (Help)               |
 | Ctrl+Q / Alt+F4 | Salir                                |
 
 

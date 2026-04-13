@@ -26,7 +26,17 @@ public:
                                int sampleRate = 44100,
                                const QString& soundFontPath = QString(),
                                bool renderMidiToAudio = true,
-                               double midiGainMultiplier = 1.0);
+                               double midiGainMultiplier = 1.0,
+                               const QJsonArray& auxEffectChain = QJsonArray());
+
+    /// Export each non-empty track as its own WAV file (mixer gain/pan/trim; no aux/master FX).
+    [[nodiscard]] static bool exportStemsToDirectory(const QVector<TrackData>& tracks,
+                                                      const QString& outputDirectory,
+                                                      const QString& projectPath,
+                                                      int sampleRate = 44100,
+                                                      const QString& soundFontPath = QString(),
+                                                      bool renderMidiToAudio = true,
+                                                      double midiGainMultiplier = 1.0);
 
     // Encode Int16 PCM audio data to a FLAC file via a temporary WAV intermediate.
     // Returns true on success.

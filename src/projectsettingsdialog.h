@@ -36,6 +36,7 @@ private:
     void setupMidiTab();
     void setupAudioTab();
     void setupMixEffectsTab();
+    void setupAuxEffectsTab();
     void loadSettings(const ProjectSettings& settings);
 #ifdef QT_MULTIMEDIA_AVAILABLE
     QAudioDevice selectedInputDevice() const;
@@ -72,6 +73,7 @@ private:
     int m_probedStereoMaxRate = 0;
 
     EffectChainEditorWidget* m_mixEffectsEditor = nullptr;
+    EffectChainEditorWidget* m_auxEffectsEditor = nullptr;
 };
 
 #endif // PROJECTSETTINGSDIALOG_H

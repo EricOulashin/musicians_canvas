@@ -111,13 +111,28 @@ bool MidiSynth::renderMidiToWav(const QVector<MidiNote>& notes, double lengthSec
                                 const QString& soundFontPath,
                                 double gainMultiplier)
 {
-    if (notes.isEmpty() && lengthSeconds <= 0) return true;
+    return renderMidiToWav(notes, {}, lengthSeconds, outputPath, sampleRate, soundFontPath,
+                           gainMultiplier);
+}
+
+bool MidiSynth::renderMidiToWav(const QVector<MidiNote>& notes,
+                                const QVector<MidiControlChange>& controlChanges,
+                                double lengthSeconds,
+                                const QString& outputPath, int sampleRate,
+                                const QString& soundFontPath,
+                                double gainMultiplier)
+{
+    if (notes.isEmpty() && controlChanges.isEmpty() && lengthSeconds <= 0) return true;
 
     double maxTime = lengthSeconds;
     for (const auto& n : notes)
     {
         double end = n.startTime + n.duration;
         if (end > maxTime) maxTime = end;
+    }
+    for (const auto& c : controlChanges)
+    {
+        if (c.timeSec > maxTime) maxTime = c.timeSec;
     }
     if (maxTime < 0.01) maxTime = 1.0;
 
@@ -174,21 +189,26 @@ bool MidiSynth::renderMidiToWav(const QVector<MidiNote>& notes, double lengthSec
     QVector<MidiNote> sortedNotes = notes;
     std::sort(sortedNotes.begin(), sortedNotes.end(), noteCompare);
 
-    struct NoteEvent
+    enum class EvKind { NoteOn, NoteOff, Cc };
+    struct SynthEvent
     {
         double time;
-        int note;
-        int vel;
-        int channel;
-        bool on;
+        EvKind kind;
+        int a = 0;
+        int b = 0;
+        int c = 0;
     };
-    QVector<NoteEvent> events;
+    QVector<SynthEvent> events;
     for (const auto& n : sortedNotes)
     {
-        events.append({n.startTime,             n.note, n.velocity, n.channel, true});
-        events.append({n.startTime + n.duration, n.note, 0,         n.channel, false});
+        events.append({n.startTime, EvKind::NoteOn, n.note, n.velocity, n.channel});
+        events.append({n.startTime + n.duration, EvKind::NoteOff, n.note, 0, n.channel});
     }
-    std::sort(events.begin(), events.end(), [](const NoteEvent& a, const NoteEvent& b)
+    for (const auto& cc : controlChanges)
+    {
+        events.append({cc.timeSec, EvKind::Cc, cc.controller, cc.value, cc.channel});
+    }
+    std::sort(events.begin(), events.end(), [](const SynthEvent& a, const SynthEvent& b)
     {
         return a.time < b.time;
     });
@@ -204,20 +224,18 @@ bool MidiSynth::renderMidiToWav(const QVector<MidiNote>& notes, double lengthSec
         while (eventIdx < events.size() && events[eventIdx].time <= blockEndTime)
         {
             const auto& e = events[eventIdx];
-            // Render each note on its captured channel.  This is essential
-            // for drum tracks: notes recorded on MIDI channel 10 (= channel
-            // index 9) must be played back on channel 9 so FluidSynth uses
-            // the percussion bank.  Notes recorded on melodic channels are
-            // played on those channels with the bank/program last selected
-            // for them (defaults to bank 0 / program 0 = Acoustic Grand).
-            const int ch = (e.channel >= 0 && e.channel <= 15) ? e.channel : 0;
-            if (e.on)
+            const int ch = (e.c >= 0 && e.c <= 15) ? e.c : 0;
+            if (e.kind == EvKind::NoteOn)
             {
-                fluid_synth_noteon(synth, ch, e.note, e.vel);
+                fluid_synth_noteon(synth, ch, e.a, std::clamp(e.b, 0, 127));
             }
-            else
+            else if (e.kind == EvKind::NoteOff)
             {
-                fluid_synth_noteoff(synth, ch, e.note);
+                fluid_synth_noteoff(synth, ch, e.a);
+            }
+            else if (e.kind == EvKind::Cc)
+            {
+                fluid_synth_cc(synth, ch, std::clamp(e.a, 0, 127), std::clamp(e.b, 0, 127));
             }
             eventIdx++;
         }

@@ -17,6 +17,11 @@ public:
                          const QString& outputPath, int sampleRate = 44100,
                          const QString& soundFontPath = QString(),
                          double gainMultiplier = 1.0);
+    [[nodiscard]] bool renderMidiToWav(const QVector<MidiNote>& notes,
+                         const QVector<MidiControlChange>& controlChanges,
+                         double lengthSeconds, const QString& outputPath, int sampleRate = 44100,
+                         const QString& soundFontPath = QString(),
+                         double gainMultiplier = 1.0);
     [[nodiscard]] bool renderMidiFileToWav(const QString& midiPath, const QString& outputPath,
                             int sampleRate = 44100,
                             const QString& soundFontPath = QString());

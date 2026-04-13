@@ -56,18 +56,19 @@ quint32 secondsToTicks(double seconds)
 
 bool write(const QString& path,
            const QVector<MidiNote>& notes,
-           double lengthSeconds)
+           double lengthSeconds,
+           const QVector<MidiControlChange>& controlChanges)
 {
-    // Build a sorted event list (note-on and note-off, by absolute tick)
+    // Build a sorted event list (note-on, note-off, CC) by absolute tick
     struct Event
     {
         quint32 tick;
-        quint8  status;     // 0x90|ch (on) or 0x80|ch (off)
-        quint8  note;
-        quint8  velocity;
+        quint8  status;
+        quint8  data1;
+        quint8  data2;
     };
     QVector<Event> events;
-    events.reserve(notes.size() * 2 + 1);
+    events.reserve(notes.size() * 2 + controlChanges.size() + 1);
 
     for (const auto& n : notes)
     {
@@ -82,6 +83,14 @@ bool write(const QString& path,
                            static_cast<quint8>(0x80 | ch),
                            static_cast<quint8>(n.note & 0x7F),
                            static_cast<quint8>(0) });
+    }
+    for (const auto& cc : controlChanges)
+    {
+        const int ch = (cc.channel >= 0 && cc.channel <= 15) ? cc.channel : 0;
+        events.push_back({ secondsToTicks(cc.timeSec),
+                           static_cast<quint8>(0xB0 | ch),
+                           static_cast<quint8>(cc.controller & 0x7F),
+                           static_cast<quint8>(cc.value & 0x7F) });
     }
 
     // Stable sort by tick — when two events have the same tick we keep the
@@ -109,8 +118,8 @@ bool write(const QString& path,
         const quint32 dt = e.tick - lastTick;
         track.append(encodeVlq(dt));
         track.append(static_cast<char>(e.status));
-        track.append(static_cast<char>(e.note));
-        track.append(static_cast<char>(e.velocity));
+        track.append(static_cast<char>(e.data1));
+        track.append(static_cast<char>(e.data2));
         lastTick = e.tick;
     }
 
@@ -184,10 +193,12 @@ quint32 readBE32(const QByteArray& buf, int pos)
 
 } // anonymous namespace
 
-QVector<MidiNote> read(const QString& path, double* outLengthSeconds)
+QVector<MidiNote> read(const QString& path, double* outLengthSeconds,
+                       QVector<MidiControlChange>* outControlChanges)
 {
     QVector<MidiNote> result;
     if (outLengthSeconds) *outLengthSeconds = 0.0;
+    if (outControlChanges) outControlChanges->clear();
 
     QFile f(path);
     if (!f.open(QIODevice::ReadOnly))
@@ -326,6 +337,15 @@ QVector<MidiNote> read(const QString& path, double* outLengthSeconds)
                             if (end > maxEndTime) maxEndTime = end;
                             active[slot] = { -1.0, 0 };
                         }
+                    }
+                    else if (kind == 0xB0 && outControlChanges)
+                    {
+                        MidiControlChange cc;
+                        cc.timeSec = trackTimeSec;
+                        cc.channel = ch;
+                        cc.controller = d1;
+                        cc.value = d2;
+                        outControlChanges->append(cc);
                     }
                 }
                 else if (kind == 0xC0 || kind == 0xD0)

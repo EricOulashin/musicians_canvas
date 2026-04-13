@@ -74,6 +74,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#_15">音频录制</a></li>
 <li><a href="#_16">插入式效果（仅音频轨道）</a></li>
 <li><a href="#mix-effects-full-project">Mix effects (full project)</a></li>
+<li><a href="#per-track-mixer-mutesolo-trim-and-midi-details">Per-track mixer, mute/solo, trim, and MIDI details</a></li>
 <li><a href="#_17">录制时监听</a></li>
 <li><a href="#midi">MIDI 录制</a></li>
 </ul>
@@ -89,6 +90,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#_29">菜单</a><ul>
 <li><a href="#file">File 菜单</a></li>
 <li><a href="#project">Project 菜单</a></li>
+<li><a href="#edit">Edit 菜单</a></li>
 <li><a href="#settings">Settings 菜单</a></li>
 <li><a href="#tools">Tools 菜单</a></li>
 <li><a href="#help">Help 菜单</a></li>
@@ -265,7 +267,20 @@ Linux 文件管理器等）将一个或多个受支持的音频文件直接拖�
 <p>效果在 <strong>停止录制</strong> 后应用（经过常规采集与重采样）。配置保存在 <code>project.json</code> 的 <code>audioEffectChain</code> 字段。</p>
 <h3 id="mix-effects-full-project">Mix effects (full project)</h3>
 <p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>, <strong>Vibrato (Tremolo)</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p><strong>Project → Project Settings → Aux / Send Bus</strong> configures a <strong>shared effect chain</strong> fed by each track’s <strong>Aux</strong> send slider (on the track row). The dry mix of all tracks is summed, each track’s post-gain/post-pan signal is scaled by its <strong>Aux</strong> level and sent through this bus, then the <strong>wet aux</strong> output is added back to the dry sum <strong>before</strong> <strong>Mix Effects</strong> run. Use it for a single shared reverb/delay while keeping per-track insert effects independent.</p>
 <p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
+<h3 id="per-track-mixer-mutesolo-trim-and-midi-details">Per-track mixer, mute/solo, trim, and MIDI details</h3>
+<p>Each track row includes a compact <strong>mixer strip</strong>:</p>
+<ul>
+<li><strong>Gain</strong>: Per-track level in decibels (the slider uses tenths of a dB; 0 dB = unity gain).</li>
+<li><strong>Pan</strong>: Stereo placement (-100 = full left, +100 = full right).</li>
+<li><strong>Aux</strong>: Send amount (0–100%) into the project <strong>Aux / Send Bus</strong> (see above).</li>
+<li><strong>Mute</strong>: Silences the track in the mix without disabling it in the arrange view.</li>
+<li><strong>Solo</strong>: If <strong>any</strong> track has <strong>Solo</strong> enabled, <strong>only</strong> soloed tracks are heard (unless they are also muted).</li>
+</ul>
+<p><strong>Options → Track Configuration</strong> also offers <strong>Clip trim (non-destructive)</strong>: <strong>Trim start</strong> and <strong>Trim end</strong> skip that many seconds from the beginning and end of the clip for <strong>playback, mix, and export</strong> without deleting the underlying recording.</p>
+<p>MIDI tracks can carry <strong>control change (CC)</strong> automation stored in the project and in exported <code>.mid</code> files; offline playback and mix use these events when rendering MIDI to audio.</p>
+<p><strong>Edit → Undo</strong> / <strong>Redo</strong> (standard shortcuts) apply to mixer and trim changes made on tracks.</p>
 <h3 id="_17">录制时监听</h3>
 <p>在 <strong>时间显示</strong> 右侧，<strong>录音时监听音频</strong> 决定在录制期间是否把 <strong>实时输入</strong> 送到 <strong>项目的音频输出</strong>：</p>
 <ul>
@@ -383,6 +398,8 @@ Linux 文件管理器等）将一个或多个受支持的音频文件直接拖�
 <p><img alt="项目音频设置" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
 <h4 id="mix-effects-tab">Mix Effects tab</h4>
 <p>The <strong>Mix Effects</strong> tab is a scrollable list with the same controls as <strong>Track effects</strong> (<strong>Add effect…</strong>, drag <strong>≡</strong> to reorder, <strong>✕</strong> to remove). Processing order is <strong>top to bottom</strong> on the <strong>combined</strong> mix of all enabled tracks. These effects run during <strong>whole-project playback</strong> and when <strong>mixing to a single WAV or FLAC file</strong>; they are <strong>not</strong> baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.</p>
+<h4 id="aux-send-bus-tab">Aux / Send Bus tab</h4>
+<p>Configure the <strong>shared aux effect chain</strong> (same effect types as track inserts). Each track’s <strong>Aux</strong> slider on the track row controls how much of that track’s signal is sent through this bus; the wet aux return is summed with the dry mix <strong>before</strong> <strong>Mix Effects</strong> are applied.</p>
 <h2 id="_29">菜单</h2>
 <h3 id="file">File 菜单</h3>
 <table>
@@ -424,12 +441,39 @@ Linux 文件管理器等）将一个或多个受支持的音频文件直接拖�
 <tr>
 <td>Project Settings</td>
 <td>Ctrl+P</td>
-<td>配置项目特定设置</td>
+<td>配置工程设置（含 <strong>Aux / Send Bus</strong>）</td>
+</tr>
+<tr>
+<td>Tempo map</td>
+<td></td>
+<td>编辑速度变化（秒与 BPM）：节拍器与 MIDI 量化</td>
 </tr>
 <tr>
 <td>Add Demo Data to Selected Track</td>
 <td></td>
 <td>向选定轨道添加示例 MIDI 音符</td>
+</tr>
+</tbody>
+</table>
+<h3 id="edit">Edit 菜单</h3>
+<table>
+<thead>
+<tr>
+<th>菜单项</th>
+<th>快捷键</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Undo</td>
+<td>Ctrl+Z</td>
+<td>撤销混音器/修剪更改</td>
+</tr>
+<tr>
+<td>Redo</td>
+<td>Ctrl+Shift+Z</td>
+<td>重做</td>
 </tr>
 </tbody>
 </table>
@@ -464,6 +508,21 @@ Linux 文件管理器等）将一个或多个受支持的音频文件直接拖�
 <td>Mix tracks to file</td>
 <td>Ctrl+M</td>
 <td>将所有已启用轨道导出到文件</td>
+</tr>
+<tr>
+<td>Export stems to folder</td>
+<td></td>
+<td>每轨一个 WAV（增益/声像/修剪；无总线 Mix Effects）</td>
+</tr>
+<tr>
+<td>Recording options</td>
+<td></td>
+<td>音频 <strong>切入录音</strong>；整工程 <strong>循环播放</strong></td>
+</tr>
+<tr>
+<td>Quantize MIDI</td>
+<td></td>
+<td>MIDI 音符对齐网格（全部 MIDI 或仅预备轨）</td>
 </tr>
 <tr>
 <td>Add drum track</td>
@@ -513,6 +572,14 @@ Linux 文件管理器等）将一个或多个受支持的音频文件直接拖�
 <td>保存项目</td>
 </tr>
 <tr>
+<td>Ctrl+Z</td>
+<td>撤销（混音器/修剪）</td>
+</tr>
+<tr>
+<td>Ctrl+Shift+Z</td>
+<td>重做</td>
+</tr>
+<tr>
 <td>Ctrl+O</td>
 <td>打开项目</td>
 </tr>
@@ -531,6 +598,10 @@ Linux 文件管理器等）将一个或多个受支持的音频文件直接拖�
 <tr>
 <td>Ctrl+,</td>
 <td>设置 / 配置</td>
+</tr>
+<tr>
+<td>Alt+M</td>
+<td>打开 PDF 手册（Help）</td>
 </tr>
 <tr>
 <td>Ctrl+Q / Alt+F4</td>

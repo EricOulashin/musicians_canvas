@@ -211,7 +211,25 @@ tallennetaan `project.json`-tiedostoon avaimella `audioEffectChain`.
 
 **Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**, **Vibrato (Tremolo)**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
 
+**Project → Project Settings → Aux / Send Bus** configures a **shared effect chain** fed by each track’s **Aux** send slider (on the track row). The dry mix of all tracks is summed, each track’s post-gain/post-pan signal is scaled by its **Aux** level and sent through this bus, then the **wet aux** output is added back to the dry sum **before** **Mix Effects** run. Use it for a single shared reverb/delay while keeping per-track insert effects independent.
+
 To reduce harsh [digital clipping](https://en.wikipedia.org/wiki/Clipping_%28audio%29) when processing pushes peaks toward full scale, the effect engine applies a **soft limiter** to normalized float samples immediately before conversion to 16-bit PCM. The **EffectWidget** base class documents `guardFloatSampleForInt16Pcm()` and `softLimitFloatSampleForInt16Pcm()` for any new real-time code that writes to 16-bit audio.
+
+### Per-track mixer, mute/solo, trim, and MIDI details
+
+Each track row includes a compact **mixer strip**:
+
+- **Gain**: Per-track level in decibels (the slider uses tenths of a dB; 0 dB = unity gain).
+- **Pan**: Stereo placement (-100 = full left, +100 = full right).
+- **Aux**: Send amount (0–100%) into the project **Aux / Send Bus** (see above).
+- **Mute**: Silences the track in the mix without disabling it in the arrange view.
+- **Solo**: If **any** track has **Solo** enabled, **only** soloed tracks are heard (unless they are also muted).
+
+**Options → Track Configuration** also offers **Clip trim (non-destructive)**: **Trim start** and **Trim end** skip that many seconds from the beginning and end of the clip for **playback, mix, and export** without deleting the underlying recording.
+
+MIDI tracks can carry **control change (CC)** automation stored in the project and in exported `.mid` files; offline playback and mix use these events when rendering MIDI to audio.
+
+**Edit → Undo** / **Redo** (standard shortcuts) apply to mixer and trim changes made on tracks.
 
 ### Monitorointi tallennuksen aikana
 
@@ -398,6 +416,10 @@ SoundFont-tiedoston tai äänilaitteen. Projektikohtaiset asetukset tallennetaan
 
 The **Mix Effects** tab is a scrollable list with the same controls as **Track effects** (**Add effect…**, drag **≡** to reorder, **✕** to remove). Processing order is **top to bottom** on the **combined** mix of all enabled tracks. These effects run during **whole-project playback** and when **mixing to a single WAV or FLAC file**; they are **not** baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.
 
+#### Aux / Send Bus tab
+
+Configure the **shared aux effect chain** (same effect types as track inserts). Each track’s **Aux** slider on the track row controls how much of that track’s signal is sent through this bus; the wet aux return is summed with the dry mix **before** **Mix Effects** are applied.
+
 ## Valikot
 
 ### File-valikko
@@ -412,8 +434,16 @@ The **Mix Effects** tab is a scrollable list with the same controls as **Track e
 
 | Valikkokohta                        | Pikanäppäin | Kuvaus                                        |
 |-------------------------------------|-------------|-----------------------------------------------|
-| Project Settings                    | Ctrl+P      | Määritä projektikohtaiset asetukset            |
+| Project Settings                    | Ctrl+P   | Configure project-specific settings (includes **Aux / Send Bus**) |
+| Tempo map                           |          | Edit tempo changes (seconds vs BPM) for metronome and MIDI quantization |
 | Add Demo Data to Selected Track     |             | Lisää esimerkki-MIDI-nuotteja esittelyä varten|
+
+### Edit Menu
+
+| Menu Item | Shortcut | Description |
+|-----------|----------|-------------|
+| Undo      | Ctrl+Z   | Undo recent mixer/trim edits on tracks |
+| Redo      | Ctrl+Shift+Z | Redo |
 
 ### Settings-valikko
 
@@ -426,6 +456,9 @@ The **Mix Effects** tab is a scrollable list with the same controls as **Track e
 | Valikkokohta          | Pikanäppäin | Kuvaus                                        |
 |------------------------|-------------|-----------------------------------------------|
 | Mix tracks to file     | Ctrl+M      | Vie kaikki käytössä olevat raidat tiedostoon  |
+| Export stems to folder |          | One WAV stem per track (gain/pan/trim; no master Mix Effects) |
+| Recording options     |          | **Punch-in** region for audio; **loop playback** for the whole project |
+| Quantize MIDI         |          | Snap MIDI note starts to a grid (all MIDI tracks or armed track only) |
 | Add drum track        | D        | MIDI-rumpuraita ja `.mid` (katso alla) |
 | Virtual MIDI Keyboard  |             | Käynnistä lisäkoskettimistosovellus           |
 
@@ -441,11 +474,14 @@ The **Mix Effects** tab is a scrollable list with the same controls as **Track e
 | Pikanäppäin     | Toiminto                        |
 |-----------------|--------------------------------|
 | Ctrl+S          | Tallenna projekti              |
+| Ctrl+Z          | Undo (mixer/trim)              |
+| Ctrl+Shift+Z    | Redo                           |
 | Ctrl+O          | Avaa projekti                  |
 | Ctrl+M          | Miksaa raidat tiedostoon       |
 | D               | Lisää rumpuraita (Tools-valikko)       |
 | Ctrl+P          | Projektiasetukset              |
 | Ctrl+,          | Asetukset / Määritykset        |
+| Alt+M           | Open PDF manual (Help)         |
 | Ctrl+Q / Alt+F4 | Sulje                          |
 
 

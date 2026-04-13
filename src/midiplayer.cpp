@@ -1,4 +1,5 @@
 #include "midiplayer.h"
+#include "trackdata.h"
 
 #include <RtMidi.h>
 #include <QTimer>
@@ -42,7 +43,7 @@ bool MidiPlayer::start(int midiDeviceIndex, const QVector<TrackData>& tracks, in
     double lastEventTime = 0.0;
     for (const auto& t : tracks)
     {
-        if (!t.enabled) continue;
+        if (!trackShouldMix(t, tracks)) continue;
         if (t.type != TrackType::MIDI) continue;
         for (const auto& n : t.midiNotes)
         {

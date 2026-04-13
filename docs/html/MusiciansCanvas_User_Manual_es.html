@@ -74,6 +74,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#grabacion-de-audio">Grabación de Audio</a></li>
 <li><a href="#efectos-de-insercion-solo-pistas-de-audio">Efectos de inserción (solo pistas de audio)</a></li>
 <li><a href="#mix-effects-full-project">Mix effects (full project)</a></li>
+<li><a href="#mezclador-por-pista-mutesolo-recorte-y-midi">Mezclador por pista, mute/solo, recorte y MIDI</a></li>
 <li><a href="#monitorizar-durante-la-grabacion">Monitorizar durante la grabación</a></li>
 <li><a href="#grabacion-midi">Grabación MIDI</a></li>
 </ul>
@@ -89,6 +90,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#menus">Menús</a><ul>
 <li><a href="#menu-file">Menú File</a></li>
 <li><a href="#menu-project">Menú Project</a></li>
+<li><a href="#menu-edit">Menú Edit</a></li>
 <li><a href="#menu-settings">Menú Settings</a></li>
 <li><a href="#menu-tools">Menú Tools</a></li>
 <li><a href="#menu-help">Menú Help</a></li>
@@ -280,7 +282,20 @@ grabaciones en esa pista:</p>
 remuestreo. La configuración se guarda en <code>project.json</code> en <code>audioEffectChain</code>.</p>
 <h3 id="mix-effects-full-project">Mix effects (full project)</h3>
 <p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>, <strong>Vibrato (Tremolo)</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p><strong>Project → Project Settings → Aux / Send Bus</strong> configura una <strong>cadena de efectos compartida</strong> alimentada por el control de envío <strong>Aux</strong> de cada pista (en la fila de la pista). Se suma la mezcla seca de todas las pistas; la señal tras <strong>Gain</strong> y <strong>Pan</strong> se escala con el nivel <strong>Aux</strong> y pasa por este bus; la salida <strong>húmeda</strong> del aux se suma de nuevo a la suma seca <strong>antes</strong> de <strong>Mix Effects</strong>. Sirve para un reverb o delay compartido manteniendo los inserts por pista.</p>
 <p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
+<h3 id="mezclador-por-pista-mutesolo-recorte-y-midi">Mezclador por pista, mute/solo, recorte y MIDI</h3>
+<p>Cada fila de pista incluye una franja de <strong>mezclador</strong>:</p>
+<ul>
+<li><strong>Gain</strong>: Nivel en decibelios (el deslizador usa décimas de dB; 0 dB = unidad).</li>
+<li><strong>Pan</strong>: Panorámica (-100 = todo a la izquierda, +100 = todo a la derecha).</li>
+<li><strong>Aux</strong>: Cantidad de envío (0–100 %) al <strong>Aux / Send Bus</strong> del proyecto (arriba).</li>
+<li><strong>Mute</strong>: Silencia la pista en la mezcla sin desactivarla en la vista de arreglo.</li>
+<li><strong>Solo</strong>: Si <strong>alguna</strong> pista tiene <strong>Solo</strong>, solo se oyen las pistas en solo (salvo que también estén en mute).</li>
+</ul>
+<p><strong>Options → Track Configuration</strong> ofrece <strong>Clip trim (no destructivo)</strong>: <strong>Trim start</strong> y <strong>Trim end</strong> omiten esos segundos al inicio y al final del clip para <strong>reproducción, mezcla y exportación</strong> sin borrar la grabación subyacente.</p>
+<p>Las pistas MIDI pueden llevar automatización <strong>CC</strong> en el proyecto y en <code>.mid</code> exportados; la reproducción y mezcla offline usan esos eventos al renderizar MIDI a audio.</p>
+<p><strong>Edit → Undo</strong> / <strong>Redo</strong> (atajos habituales) aplican a cambios de mezclador y recorte en las pistas.</p>
 <h3 id="monitorizar-durante-la-grabacion">Monitorizar durante la grabación</h3>
 <p>Junto al <strong>visor de tiempo</strong>, la casilla <strong>Escuchar el audio mientras se graba</strong> decide si se envía la <strong>entrada en directo</strong> a la <strong>salida de audio del proyecto</strong> durante la grabación:</p>
 <ul>
@@ -322,7 +337,7 @@ ayudar a mantener el tiempo. Haga clic en el botón del metrónomo en la barra d
   sonido de tic mientras la grabación está activa. El tic se reproduce a través del audio del
   sistema y <strong>no</strong> se captura en la pista grabada.</li>
 <li><strong>Beats per minute</strong>: Una entrada numérica para el tempo, en pulsos por minuto (BPM). El
-  rango es de 20 a 300 BPM.</li>
+  rango es de 20 a 300 BPM. Si <strong>Project → Tempo map</strong> define cambios de tempo, el metrónomo sigue esos marcadores durante la grabación (el campo BPM sigue fijando el tempo inicial mientras no aplique un marcador).</li>
 </ul>
 <p>Cuando el metrónomo está habilitado, comienza a sonar una vez que la grabación realmente
 comienza (después de que termina la cuenta regresiva de 3 segundos) y se detiene cuando
@@ -337,7 +352,8 @@ finaliza la grabación.</p>
 <li><strong>Archivo de salida</strong>: Navegue para seleccionar la ruta del archivo de destino.</li>
 <li><strong>Formato</strong>: Elija entre FLAC (compresión sin pérdida, archivos más pequeños) o WAV (sin comprimir).</li>
 </ul>
-<p>La mezcla utiliza la frecuencia de muestreo configurada del proyecto. Las pistas MIDI se renderizan usando el SoundFont configurado.</p>
+<p>La mezcla utiliza la frecuencia de muestreo configurada del proyecto. Las pistas MIDI se renderizan usando el SoundFont configurado. Se aplican <strong>Gain</strong>, <strong>Pan</strong>, <strong>mute/solo</strong>, <strong>envío Aux</strong> y <strong>trim</strong> por pista igual que en reproducción.</p>
+<p><strong>Tools → Export stems to folder</strong> escribe un archivo <strong>WAV</strong> por pista (pistas habilitadas que entren en la mezcla). Cada stem refleja el mezclador y trim de esa pista; los <strong>Mix Effects</strong> maestros <strong>no</strong> se aplican a stems individuales.</p>
 <h2 id="ajustes">Ajustes</h2>
 <h3 id="ajustes-globales">Ajustes Globales</h3>
 <p>Use <strong>Settings &gt; Configuration</strong> (Ctrl+,) para establecer los valores predeterminados globales que se aplican a todos los proyectos:</p>
@@ -411,6 +427,8 @@ finaliza la grabación.</p>
 <p><img alt="Ajustes de audio del proyecto" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
 <h4 id="mix-effects-tab">Mix Effects tab</h4>
 <p>The <strong>Mix Effects</strong> tab is a scrollable list with the same controls as <strong>Track effects</strong> (<strong>Add effect…</strong>, drag <strong>≡</strong> to reorder, <strong>✕</strong> to remove). Processing order is <strong>top to bottom</strong> on the <strong>combined</strong> mix of all enabled tracks. These effects run during <strong>whole-project playback</strong> and when <strong>mixing to a single WAV or FLAC file</strong>; they are <strong>not</strong> baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.</p>
+<h4 id="pestana-aux-send-bus">Pestaña Aux / Send Bus</h4>
+<p>Configura la <strong>cadena de efectos aux compartida</strong> (mismos tipos que inserts de pista). El deslizador <strong>Aux</strong> de cada pista controla cuánta señal entra en este bus; la vuelta húmeda se suma a la mezcla seca <strong>antes</strong> de <strong>Mix Effects</strong>.</p>
 <h2 id="menus">Menús</h2>
 <h3 id="menu-file">Menú File</h3>
 <table>
@@ -452,12 +470,39 @@ finaliza la grabación.</p>
 <tr>
 <td>Project Settings</td>
 <td>Ctrl+P</td>
-<td>Configurar ajustes específicos del proyecto</td>
+<td>Configurar ajustes del proyecto (incl. <strong>Aux / Send Bus</strong>)</td>
+</tr>
+<tr>
+<td>Tempo map</td>
+<td></td>
+<td>Editar cambios de tempo (s vs BPM) para metrónomo y cuantización MIDI</td>
 </tr>
 <tr>
 <td>Add Demo Data to Selected Track</td>
 <td></td>
 <td>Agregar notas MIDI de ejemplo para demostración</td>
+</tr>
+</tbody>
+</table>
+<h3 id="menu-edit">Menú Edit</h3>
+<table>
+<thead>
+<tr>
+<th>Elemento del Menú</th>
+<th>Atajo</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Undo</td>
+<td>Ctrl+Z</td>
+<td>Deshacer cambios de mezclador/trim en pistas</td>
+</tr>
+<tr>
+<td>Redo</td>
+<td>Ctrl+Shift+Z</td>
+<td>Rehacer</td>
 </tr>
 </tbody>
 </table>
@@ -492,6 +537,21 @@ finaliza la grabación.</p>
 <td>Mix tracks to file</td>
 <td>Ctrl+M</td>
 <td>Exportar todas las pistas habilitadas a un archivo</td>
+</tr>
+<tr>
+<td>Export stems to folder</td>
+<td></td>
+<td>Un WAV por pista (gain/pan/trim; sin Mix Effects maestros)</td>
+</tr>
+<tr>
+<td>Recording options</td>
+<td></td>
+<td>Región <strong>punch-in</strong>; <strong>loop</strong> de reproducción del proyecto</td>
+</tr>
+<tr>
+<td>Quantize MIDI</td>
+<td></td>
+<td>Alinear inicios de notas MIDI a rejilla (todas o pista armada)</td>
 </tr>
 <tr>
 <td>Add drum track</td>
@@ -545,6 +605,14 @@ finaliza la grabación.</p>
 <td>Abrir proyecto</td>
 </tr>
 <tr>
+<td>Ctrl+Z</td>
+<td>Deshacer (mezclador/trim)</td>
+</tr>
+<tr>
+<td>Ctrl+Shift+Z</td>
+<td>Rehacer</td>
+</tr>
+<tr>
 <td>Ctrl+M</td>
 <td>Mezclar pistas a archivo</td>
 </tr>
@@ -559,6 +627,10 @@ finaliza la grabación.</p>
 <tr>
 <td>Ctrl+,</td>
 <td>Ajustes / Configuración</td>
+</tr>
+<tr>
+<td>Alt+M</td>
+<td>Abrir manual PDF (Help)</td>
 </tr>
 <tr>
 <td>Ctrl+Q / Alt+F4</td>

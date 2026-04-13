@@ -12,6 +12,15 @@ enum class TrackType
     MIDI
 };
 
+/// Channel control change (0xB0), stored with time in seconds for project/FluidSynth rendering.
+struct MidiControlChange
+{
+    double timeSec = 0;
+    int channel = 0; // 0..15
+    int controller = 0;  // 0..127
+    int value = 0;       // 0..127
+};
+
 struct MidiNote
 {
     int note;       // MIDI note number (0-127)
@@ -45,7 +54,25 @@ struct TrackData
 
     // For MIDI tracks: note events
     QVector<MidiNote> midiNotes;
+    /// Expression, modulation, sustain, etc. — applied during offline render and saved to SMF.
+    QVector<MidiControlChange> midiControlChanges;
     double lengthSeconds = 0;  // Track length in seconds
+
+    /// Mixer gain in decibels (about -60 to +12), default 0.
+    float gainDb = 0.f;
+    /// Stereo pan: -1 = full left, 0 = center, +1 = full right.
+    float pan = 0.f;
+    /// When true, track is silent in the mix (track may still be enabled in the arrange view).
+    bool mute = false;
+    /// When any enabled track has solo, only soloed tracks are heard (mute still wins).
+    bool solo = false;
+    /// Send level (0-1) to the project aux effect bus (post-gain / post-pan tap).
+    float auxSend = 0.f;
+
+    /// Non-destructive trim: drop this many seconds from the start of the clip for playback/mix.
+    double trimStartSec = 0;
+    /// Non-destructive trim: drop this many seconds from the end of the clip for playback/mix.
+    double trimEndSec = 0;
 
     [[nodiscard]] double length() const
     {
@@ -60,5 +87,8 @@ struct TrackData
         }
     }
 };
+
+/// Enabled, not muted, and respects solo rules (any soloed enabled track gates others).
+[[nodiscard]] bool trackShouldMix(const TrackData& t, const QVector<TrackData>& allTracks);
 
 #endif // TRACKDATA_H

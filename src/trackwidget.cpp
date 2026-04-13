@@ -11,6 +11,9 @@
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QStackedWidget>
+#include <QSlider>
+#include <QLabel>
+#include <cmath>
 
 TrackWidget::TrackWidget(const TrackData& data, QWidget* parent)
     : QFrame(parent), m_data(data), m_lastValidName(data.name)
@@ -23,7 +26,8 @@ void TrackWidget::setupUi()
     setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     setLineWidth(1);
     setObjectName("trackFrame");
-    setFixedHeight(132);
+    setMinimumHeight(188);
+    setMaximumHeight(220);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     auto* outerLayout = new QVBoxLayout(this);
@@ -154,9 +158,130 @@ void TrackWidget::setupUi()
     bottomRow->addWidget(m_stackedWidget, 1);
     outerLayout->addLayout(bottomRow);
 
+    auto* mixRow = new QHBoxLayout();
+    mixRow->setSpacing(6);
+    m_gainValueLabel = new QLabel(this);
+    m_gainValueLabel->setMinimumWidth(52);
+    m_gainSlider = new QSlider(Qt::Horizontal, this);
+    m_gainSlider->setRange(-600, 120);
+    m_gainSlider->setToolTip(tr("Track gain (dB x10, e.g. 0 = 0 dB, -60 = -6.0 dB)"));
+    m_gainSlider->setMaximumWidth(120);
+    m_panValueLabel = new QLabel(this);
+    m_panValueLabel->setMinimumWidth(40);
+    m_panSlider = new QSlider(Qt::Horizontal, this);
+    m_panSlider->setRange(-100, 100);
+    m_panSlider->setToolTip(tr("Stereo pan (left -100 … right +100)"));
+    m_panSlider->setMaximumWidth(100);
+    m_auxValueLabel = new QLabel(this);
+    m_auxValueLabel->setMinimumWidth(36);
+    m_auxSlider = new QSlider(Qt::Horizontal, this);
+    m_auxSlider->setRange(0, 100);
+    m_auxSlider->setToolTip(tr("Aux send to the project aux effect bus (0–100%)"));
+    m_auxSlider->setMaximumWidth(90);
+    m_muteCheck = new QCheckBox(tr("Mute"), this);
+    m_muteCheck->setToolTip(tr("Silence this track in the mix."));
+    m_soloCheck = new QCheckBox(tr("Solo"), this);
+    m_soloCheck->setToolTip(
+        tr("When any track is soloed, only soloed tracks are heard (unless muted)."));
+    connect(m_gainSlider, &QSlider::valueChanged, this, &TrackWidget::onGainPanAuxChanged);
+    connect(m_panSlider, &QSlider::valueChanged, this, &TrackWidget::onGainPanAuxChanged);
+    connect(m_auxSlider, &QSlider::valueChanged, this, &TrackWidget::onGainPanAuxChanged);
+    connect(m_gainSlider, &QSlider::sliderPressed, this, &TrackWidget::onMixerSliderPressed);
+    connect(m_gainSlider, &QSlider::sliderReleased, this, &TrackWidget::onMixerSliderReleased);
+    connect(m_panSlider, &QSlider::sliderPressed, this, &TrackWidget::onMixerSliderPressed);
+    connect(m_panSlider, &QSlider::sliderReleased, this, &TrackWidget::onMixerSliderReleased);
+    connect(m_auxSlider, &QSlider::sliderPressed, this, &TrackWidget::onMixerSliderPressed);
+    connect(m_auxSlider, &QSlider::sliderReleased, this, &TrackWidget::onMixerSliderReleased);
+    connect(m_muteCheck, &QCheckBox::toggled, this, &TrackWidget::onMuteToggled);
+    connect(m_soloCheck, &QCheckBox::toggled, this, &TrackWidget::onSoloToggled);
+    mixRow->addWidget(new QLabel(tr("Gain"), this));
+    mixRow->addWidget(m_gainValueLabel);
+    mixRow->addWidget(m_gainSlider);
+    mixRow->addWidget(new QLabel(tr("Pan"), this));
+    mixRow->addWidget(m_panValueLabel);
+    mixRow->addWidget(m_panSlider);
+    mixRow->addWidget(new QLabel(tr("Aux"), this));
+    mixRow->addWidget(m_auxValueLabel);
+    mixRow->addWidget(m_auxSlider);
+    mixRow->addWidget(m_muteCheck);
+    mixRow->addWidget(m_soloCheck);
+    mixRow->addStretch();
+    outerLayout->addLayout(mixRow);
+
     updateVisualization();
     updateTypeIcon();
     updateEffectsButtonVisibility();
+    syncMixerControlsFromData();
+}
+
+void TrackWidget::syncMixerControlsFromData()
+{
+    if (m_gainSlider)
+    {
+        QSignalBlocker b1(m_gainSlider);
+        QSignalBlocker b2(m_panSlider);
+        QSignalBlocker b3(m_auxSlider);
+        QSignalBlocker b4(m_muteCheck);
+        QSignalBlocker b5(m_soloCheck);
+        const int g = static_cast<int>(std::lround(std::clamp(m_data.gainDb, -60.f, 12.f) * 10.f));
+        m_gainSlider->setValue(std::clamp(g, m_gainSlider->minimum(), m_gainSlider->maximum()));
+        const int p = static_cast<int>(std::lround(std::clamp(m_data.pan, -1.f, 1.f) * 100.f));
+        m_panSlider->setValue(std::clamp(p, m_panSlider->minimum(), m_panSlider->maximum()));
+        const int a = static_cast<int>(std::lround(std::clamp(m_data.auxSend, 0.f, 1.f) * 100.f));
+        m_auxSlider->setValue(std::clamp(a, m_auxSlider->minimum(), m_auxSlider->maximum()));
+        m_muteCheck->setChecked(m_data.mute);
+        m_soloCheck->setChecked(m_data.solo);
+    }
+    updateMixerValueLabels();
+}
+
+void TrackWidget::updateMixerValueLabels()
+{
+    if (m_gainValueLabel && m_gainSlider)
+        m_gainValueLabel->setText(QStringLiteral("%1 dB")
+ .arg(QString::number(m_gainSlider->value() / 10.0, 'f', 1)));
+    if (m_panValueLabel && m_panSlider)
+        m_panValueLabel->setText(QString::number(m_panSlider->value()));
+    if (m_auxValueLabel && m_auxSlider)
+        m_auxValueLabel->setText(QStringLiteral("%1%").arg(m_auxSlider->value()));
+}
+
+void TrackWidget::onGainPanAuxChanged()
+{
+    if (m_gainSlider)
+        m_data.gainDb = m_gainSlider->value() / 10.f;
+    if (m_panSlider)
+        m_data.pan = m_panSlider->value() / 100.f;
+    if (m_auxSlider)
+        m_data.auxSend = m_auxSlider->value() / 100.f;
+    updateMixerValueLabels();
+    emit dataChanged(this);
+}
+
+void TrackWidget::onMixerSliderPressed()
+{
+    emit mixerInteractionStarted(this);
+}
+
+void TrackWidget::onMixerSliderReleased()
+{
+    emit mixerInteractionEnded(this);
+}
+
+void TrackWidget::onMuteToggled(bool checked)
+{
+    emit mixerInteractionStarted(this);
+    m_data.mute = checked;
+    emit dataChanged(this);
+    emit mixerInteractionEnded(this);
+}
+
+void TrackWidget::onSoloToggled(bool checked)
+{
+    emit mixerInteractionStarted(this);
+    m_data.solo = checked;
+    emit dataChanged(this);
+    emit mixerInteractionEnded(this);
 }
 
 void TrackWidget::setAudioEffectChain(const QJsonArray& chain)
@@ -220,6 +345,11 @@ void TrackWidget::setInteractiveControlsEnabled(bool enabled)
     if (m_removeBtn)      m_removeBtn->setEnabled(enabled);
     if (m_typeIconLabel)  m_typeIconLabel->setEnabled(enabled);
     if (m_effectsButton)  m_effectsButton->setEnabled(enabled && m_data.type == TrackType::Audio);
+    if (m_gainSlider)     m_gainSlider->setEnabled(enabled);
+    if (m_panSlider) m_panSlider->setEnabled(enabled);
+    if (m_auxSlider)      m_auxSlider->setEnabled(enabled);
+    if (m_muteCheck)      m_muteCheck->setEnabled(enabled);
+    if (m_soloCheck)      m_soloCheck->setEnabled(enabled);
 }
 
 void TrackWidget::setTrackData(const TrackData& data)
@@ -241,6 +371,7 @@ void TrackWidget::setTrackData(const TrackData& data)
     updateVisualization();
     updateTypeIcon();
     updateEffectsButtonVisibility();
+    syncMixerControlsFromData();
 }
 
 void TrackWidget::setRecordingLevel(float level)

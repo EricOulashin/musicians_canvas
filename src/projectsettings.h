@@ -4,9 +4,18 @@
 #include <QString>
 #include <QByteArray>
 #include <QJsonArray>
+#include <QVector>
 
 // Per-project audio/MIDI configuration stored inside the project JSON file.
 // These settings take precedence over the global app defaults for the loaded project.
+
+/// Tempo change on the project timeline (seconds from project start, BPM).
+struct TempoMarker
+{
+    double timeSec = 0;
+    double bpm = 120;
+};
+
 struct ProjectSettings
 {
     // MIDI
@@ -41,6 +50,29 @@ struct ProjectSettings
     /// Mix-bus effect chain (top to bottom). Applied when playing all tracks and when mixing
     /// the project to a file — same effect types and ordering as per-track effects.
     QJsonArray mixEffectChain;
+
+    /// Shared aux/send bus: each track's auxSend taps post-fader stereo into this chain, then
+    /// the wet bus is summed with the dry mix before the master mixEffectChain.
+    QJsonArray auxEffectChain;
+
+    /// Piecewise-constant tempo map for metronome flashes and MIDI quantization. When empty,
+    /// global metronome BPM (Settings) is used.
+    QVector<TempoMarker> tempoMarkers;
+
+    /// Punch-in recording for audio: replace samples between punchInSec and punchOutSec in the
+    /// existing take with the new recording. Ignored for MIDI or when punch is disabled.
+    bool punchRecordingEnabled = false;
+    double punchInSec = 0;
+    double punchOutSec = 0;
+
+    /// Loop playback region while playing all tracks (requires Qt Multimedia playback).
+    bool loopPlaybackEnabled = false;
+    double loopStartSec = 0;
+    double loopEndSec = 0;
 };
+
+/// Effective BPM at time t (seconds) using markers; falls back to defaultBpm if no markers.
+[[nodiscard]] double tempoBpmAtTime(const QVector<TempoMarker>& markers, double tSec,
+                                    double defaultBpm);
 
 #endif // PROJECTSETTINGS_H

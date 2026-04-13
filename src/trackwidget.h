@@ -16,6 +16,8 @@ class QStackedWidget;
 class WaveformWidget;
 class MidiVisualizationWidget;
 class TrackConfigDialog;
+class QSlider;
+class QLabel;
 
 class TrackWidget : public QFrame
 {
@@ -51,17 +53,28 @@ signals:
     void dataChanged(TrackWidget* widget);
     void nameChanged(TrackWidget* widget, const QString& oldName, const QString& newName);
     void removeRequested(TrackWidget* widget);
+    /// Emitted before a mixer slider drag changes values (for undo coalescing).
+    void mixerInteractionStarted(TrackWidget* widget);
+    /// Emitted after a mixer slider is released.
+    void mixerInteractionEnded(TrackWidget* widget);
 
 private slots:
     void onEffectsClicked();
     void onConfigClicked();
     void onEnabledToggled(bool checked);
     void onArmToggled(bool checked);
+    void onGainPanAuxChanged();
+    void onMuteToggled(bool checked);
+    void onSoloToggled(bool checked);
+    void onMixerSliderPressed();
+    void onMixerSliderReleased();
 
 private:
     void setupUi();
     void updateTypeIcon();
     void updateEffectsButtonVisibility();
+    void syncMixerControlsFromData();
+    void updateMixerValueLabels();
     TrackData m_data;
     QString m_lastValidName;
     QPushButton* m_configButton = nullptr;
@@ -74,6 +87,15 @@ private:
     QStackedWidget* m_stackedWidget = nullptr;
     WaveformWidget* m_waveformWidget = nullptr;
     MidiVisualizationWidget* m_midiWidget = nullptr;
+
+    QSlider* m_gainSlider = nullptr;
+    QSlider* m_panSlider = nullptr;
+    QSlider* m_auxSlider = nullptr;
+    QCheckBox* m_muteCheck = nullptr;
+    QCheckBox* m_soloCheck = nullptr;
+    QLabel* m_gainValueLabel = nullptr;
+    QLabel* m_panValueLabel = nullptr;
+    QLabel* m_auxValueLabel = nullptr;
 };
 
 #endif // TRACKWIDGET_H

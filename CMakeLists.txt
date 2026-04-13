@@ -81,6 +81,7 @@ set(SOURCES
     src/settingsdialog.cpp
     src/settingsdialog.h
     src/projectsettings.h
+    src/projectsettings.cpp
     src/projectsettingsdialog.cpp
     src/projectsettingsdialog.h
     src/audioformats.h
@@ -107,6 +108,10 @@ set(SOURCES
     src/mixdialog.h
     src/metronomedialog.cpp
     src/metronomedialog.h
+    src/trackmixerundocommand.cpp
+    src/trackmixerundocommand.h
+    src/workflowdialogs.cpp
+    src/workflowdialogs.h
     src/segmentdisplay.cpp
     src/segmentdisplay.h
     src/audiostartup.cpp
@@ -246,6 +251,7 @@ if(BUILD_TESTING)
     add_executable(musicians_canvas_tests
         tests/musicians_canvas_tests.cpp
         src/recordingpostprocess.cpp
+        src/trackdata.cpp
         src/audioutils.cpp
         src/effectdsp.cpp
         src/midisynth.cpp

@@ -23,20 +23,23 @@
 // back as drums when re-rendered.
 namespace MidiFile {
 
-// Write `notes` as a Standard MIDI File at `path`.  Returns true on success.
+// Write `notes` (and optional control changes) as a Standard MIDI File at `path`.
 // `lengthSeconds` is the total length of the track in seconds; an
 // "End of Track" meta event is written at this position so the file's
 // duration matches the original recording even if the last note ends earlier.
 bool write(const QString& path,
            const QVector<MidiNote>& notes,
-           double lengthSeconds);
+           double lengthSeconds,
+           const QVector<MidiControlChange>& controlChanges = {});
 
 // Read a Standard MIDI File from `path` and return its note events.  Both
 // format 0 and format 1 files are supported (events from all tracks are
 // merged).  On success, `outLengthSeconds` (if non-null) receives the
 // duration computed from the End-of-Track meta events, or from the last
 // note's end time if no end-of-track marker is present.
-QVector<MidiNote> read(const QString& path, double* outLengthSeconds = nullptr);
+// `outControlChanges` (if non-null) receives channel CC events (0xB0) with resolved times.
+QVector<MidiNote> read(const QString& path, double* outLengthSeconds = nullptr,
+                       QVector<MidiControlChange>* outControlChanges = nullptr);
 
 } // namespace MidiFile
 

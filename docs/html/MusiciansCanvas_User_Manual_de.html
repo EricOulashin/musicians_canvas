@@ -74,6 +74,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#audioaufnahme">Audioaufnahme</a></li>
 <li><a href="#insert-effekte-nur-audiospuren">Insert-Effekte (nur Audiospuren)</a></li>
 <li><a href="#mix-effekte-gesamtes-projekt">Mix-Effekte (gesamtes Projekt)</a></li>
+<li><a href="#mixer-pro-spur-stummschaltungsolo-trim-und-midi">Mixer pro Spur, Stummschaltung/Solo, Trim und MIDI</a></li>
 <li><a href="#mithoren-wahrend-der-aufnahme">Mithören während der Aufnahme</a></li>
 <li><a href="#midi-aufnahme">MIDI-Aufnahme</a></li>
 </ul>
@@ -89,6 +90,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#menus">Menüs</a><ul>
 <li><a href="#menue-file">Menue "File"</a></li>
 <li><a href="#menue-project">Menue "Project"</a></li>
+<li><a href="#menue-edit">Menue "Edit"</a></li>
 <li><a href="#menue-settings">Menue "Settings"</a></li>
 <li><a href="#menue-tools">Menue "Tools"</a></li>
 <li><a href="#menue-help">Menue "Help"</a></li>
@@ -329,7 +331,20 @@ auf dieser Spur einrichten:</p>
 <code>audioEffectChain</code> der Spur gespeichert.</p>
 <h3 id="mix-effekte-gesamtes-projekt">Mix-Effekte (gesamtes Projekt)</h3>
 <p>Unter <strong>Project → Project Settings → Mix Effects</strong> legen Sie dieselbe Art von Effektkette wie bei <strong>Track effects</strong> fest, angewendet auf die <strong>komplette Mischung</strong> aller aktivierten Spuren: beim <strong>Abspielen des ganzen Projekts</strong> und beim <strong>Export als gemischte Datei</strong> (WAV/FLAC). Die Kette wird in <code>project.json</code> unter <code>projectSettings</code> → <code>mixEffectChain</code> gespeichert.</p>
+<p><strong>Project → Project Settings → Aux / Send Bus</strong> legt eine <strong>gemeinsame Effektkette</strong> fest, die von jedem <strong>Aux</strong>-Senderegler auf der Spurzeile gespeist wird. Zuerst wird das Trockensignal aller Spuren summiert; das Signal jeder Spur nach Gain und Pan wird mit dem <strong>Aux</strong>-Pegel skaliert, durch diese Bus-Kette verarbeitet und der <strong>nasse Aux</strong>-Anteil wird zum Trockensum zurückaddiert, <strong>bevor</strong> <strong>Mix Effects</strong> laufen. So nutzen Sie z. B. einen gemeinsamen Hall oder Delay bei unabhängigen Insert-Effekten pro Spur.</p>
 <p>Um hartes <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digitales Clipping</a> zu vermeiden, wenn Pegel nahe Vollaussteuerung steigen, wendet die Engine eine <strong>weiche Begrenzung</strong> auf normalisierte Float-Samples an, unmittelbar bevor sie in 16-Bit-PCM gewandelt werden. Die Basisklasse <strong>EffectWidget</strong> dokumentiert <code>guardFloatSampleForInt16Pcm()</code> und <code>softLimitFloatSampleForInt16Pcm()</code> für neuen DSP-Code.</p>
+<h3 id="mixer-pro-spur-stummschaltungsolo-trim-und-midi">Mixer pro Spur, Stummschaltung/Solo, Trim und MIDI</h3>
+<p>Jede Spurzeile enthält einen kompakten <strong>Mixer-Bereich</strong>:</p>
+<ul>
+<li><strong>Gain</strong>: Pegel in Dezibel (Regler in Zehntel-dB; 0 dB = Unity).</li>
+<li><strong>Pan</strong>: Stereo-Position (-100 = ganz links, +100 = ganz rechts).</li>
+<li><strong>Aux</strong>: Send-Pegel (0–100 %) in den <strong>Aux- / Send-Bus</strong> des Projekts (siehe oben).</li>
+<li><strong>Stumm</strong>: blendet die Spur in der Mischung aus, ohne sie in der Arranger-Ansicht zu deaktivieren.</li>
+<li><strong>Solo</strong>: Wenn <strong>irgendeine</strong> Spur <strong>Solo</strong> aktiviert hat, sind <strong>nur</strong> solche Spuren hörbar (außer sie sind zusätzlich stummgeschaltet).</li>
+</ul>
+<p><strong>Options → Track Configuration</strong> bietet <strong>Clip trim (nicht-destruktiv)</strong>: <strong>Trim start</strong> und <strong>Trim end</strong> lassen so viele Sekunden am Anfang und Ende des Clips für <strong>Wiedergabe, Mix und Export</strong> weg, ohne die zugrundeliegende Aufnahme zu löschen.</p>
+<p>MIDI-Spuren können <strong>Control-Change- (CC-)Automatisierung</strong> im Projekt und in exportierten <code>.mid</code>-Dateien tragen; Offline-Wiedergabe und Mix verwenden diese Ereignisse beim Rendern von MIDI zu Audio.</p>
+<p><strong>Edit → Undo</strong> / <strong>Redo</strong> (übliche Tastenkürzel) gelten für Mixer- und Trim-Änderungen auf den Spuren.</p>
 <h3 id="mithoren-wahrend-der-aufnahme">Mithören während der Aufnahme</h3>
 <p>Neben der <strong>Zeitanzeige</strong> steuert das Kontrollkästchen <strong>Ton während der Aufnahme mithören</strong>,
 ob <strong>Live-Eingang</strong> während der Aufnahme an den <strong>Projekt-Audioausgang</strong> geleitet wird:</p>
@@ -390,7 +405,7 @@ Schaltflächenleiste (unter der Menüleiste), um den Dialog der Metronom-Einstel
   Aufnahme einen Tick-Ton ab. Der Tick wird über das Systemaudio wiedergegeben und <strong>nicht</strong>
   in die aufgenommene Spur aufgenommen.</li>
 <li><strong>Beats per minute</strong>: Eine numerische Eingabe für das Tempo in Schlägen pro Minute (BPM).
-  Der Bereich ist 20–300 BPM.</li>
+  Der Bereich ist 20–300 BPM. Wenn <strong>Project → Tempo map</strong> Tempoänderungen definiert, folgt das Metronom diesen Markern während der Aufnahme (das BPM-Feld legt weiterhin das Ausgangstempo fest, solange noch kein Marker greift).</li>
 </ul>
 <p>Wenn das Metronom aktiviert ist, beginnt es zu ticken, sobald die Aufnahme tatsächlich
 startet (nach Ablauf des 3-Sekunden-Countdowns), und stoppt, wenn die Aufnahme endet.</p>
@@ -413,7 +428,11 @@ Formats:</p>
   WAV (unkomprimiert).</li>
 </ul>
 <p>Die Abmischung verwendet die konfigurierte Projekt-Abtastrate. MIDI-Spuren werden mit dem
-konfigurierten SoundFont gerendert.</p>
+konfigurierten SoundFont gerendert. <strong>Gain</strong>, <strong>Pan</strong>, <strong>Stumm/Solo</strong>, <strong>Aux-Send</strong> und <strong>Trim</strong>
+pro Spur werden wie bei der Wiedergabe angewendet.</p>
+<p><strong>Tools → Export stems to folder</strong> schreibt eine <strong>WAV</strong>-Datei pro Spur (aktivierte Spuren, die am Mix
+teilnehmen). Jeder Stem übernimmt die Mixer-Einstellungen und den Trim dieser Spur; die <strong>Mix Effects</strong>
+des Gesamtprogramms werden <strong>nicht</strong> auf einzelne Stems angewendet.</p>
 <h2 id="einstellungen">Einstellungen</h2>
 <h3 id="globale-einstellungen">Globale Einstellungen</h3>
 <p>Verwenden Sie <strong>Settings &gt; Configuration</strong> (Ctrl+,), um globale Standardwerte festzulegen,
@@ -501,6 +520,8 @@ Projektspezifische Einstellungen werden in der Datei <code>project.json</code> g
 <p><img alt="Projekt-Audio-Einstellungen" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
 <h4 id="registerkarte-mix-effects">Registerkarte Mix Effects</h4>
 <p>Wie bei <strong>Track effects</strong>: scrollbare Liste mit <strong>Effekt hinzufügen…</strong>, <strong>≡</strong> zum Neuordnen, <strong>✕</strong> zum Entfernen. Die Reihenfolge ist <strong>von oben nach unten</strong> auf dem <strong>Summensignal</strong>, nachdem alle aktivierten Spuren gemischt wurden. Diese Effekte laufen bei <strong>Wiedergabe aller Spuren</strong> und beim <strong>Mix zu einer Datei</strong>; sie werden <strong>nicht</strong> in die einzelnen Spurdateien auf der Festplatte „eingebacken“. Eine leere Liste lässt den Mix unverändert (abgesehen von der internen Pegelführung des Mixers).</p>
+<h4 id="registerkarte-aux-send-bus">Registerkarte Aux / Send Bus</h4>
+<p>Hier konfigurieren Sie die <strong>gemeinsame Aux-Effektkette</strong> (dieselben Effekttypen wie bei Spur-Inserts). Der <strong>Aux</strong>-Regler jeder Spur steuert, wie viel des Signals dieser Spur durch diesen Bus läuft; der nasse Aux-Rückweg wird zum Trockensum addiert, <strong>bevor</strong> <strong>Mix Effects</strong> angewendet werden.</p>
 <h2 id="menus">Menüs</h2>
 <h3 id="menue-file">Menue "File"</h3>
 <table>
@@ -542,12 +563,39 @@ Projektspezifische Einstellungen werden in der Datei <code>project.json</code> g
 <tr>
 <td>Project Settings</td>
 <td>Ctrl+P</td>
-<td>Projektspezifische Einstellungen konfigurieren</td>
+<td>Projektspezifische Einstellungen konfigurieren (inkl. <strong>Aux / Send Bus</strong>)</td>
+</tr>
+<tr>
+<td>Tempo map</td>
+<td></td>
+<td>Tempoänderungen (Sekunden vs. BPM) bearbeiten; Metronom-Hinweise und MIDI-Quantisierung</td>
 </tr>
 <tr>
 <td>Add Demo Data to Selected Track</td>
 <td></td>
 <td>Beispiel-MIDI-Noten zur Demonstration hinzufügen</td>
+</tr>
+</tbody>
+</table>
+<h3 id="menue-edit">Menue "Edit"</h3>
+<table>
+<thead>
+<tr>
+<th>Menüeintrag</th>
+<th>Tastenkürzel</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Undo</td>
+<td>Ctrl+Z</td>
+<td>Mixer-/Trim-Änderungen rückgängig machen</td>
+</tr>
+<tr>
+<td>Redo</td>
+<td>Ctrl+Shift+Z</td>
+<td>Wiederholen</td>
 </tr>
 </tbody>
 </table>
@@ -582,6 +630,21 @@ Projektspezifische Einstellungen werden in der Datei <code>project.json</code> g
 <td>Mix tracks to file</td>
 <td>Ctrl+M</td>
 <td>Alle aktivierten Spuren in eine Datei exportieren</td>
+</tr>
+<tr>
+<td>Export stems to folder</td>
+<td></td>
+<td>Ein WAV-Stem pro Spur (Gain/Pan/Trim; ohne Master-Mix-Effects)</td>
+</tr>
+<tr>
+<td>Recording options</td>
+<td></td>
+<td><strong>Punch-in</strong>-Bereich für Audio-Retakes; <strong>Loop</strong>-Wiedergabe für das ganze Projekt</td>
+</tr>
+<tr>
+<td>Quantize MIDI</td>
+<td></td>
+<td>MIDI-Notenanfänge auf ein Raster rastern (alle MIDI-Spuren oder nur scharfgeschaltete)</td>
 </tr>
 <tr>
 <td>Add drum track</td>
@@ -635,6 +698,14 @@ Projektspezifische Einstellungen werden in der Datei <code>project.json</code> g
 <td>Projekt öffnen</td>
 </tr>
 <tr>
+<td>Ctrl+Z</td>
+<td>Rückgängig (Mixer/Trim)</td>
+</tr>
+<tr>
+<td>Ctrl+Shift+Z</td>
+<td>Wiederholen</td>
+</tr>
+<tr>
 <td>Ctrl+M</td>
 <td>Spuren in eine Datei abmischen</td>
 </tr>
@@ -649,6 +720,10 @@ Projektspezifische Einstellungen werden in der Datei <code>project.json</code> g
 <tr>
 <td>Ctrl+,</td>
 <td>Einstellungen / Konfiguration</td>
+</tr>
+<tr>
+<td>Alt+M</td>
+<td>PDF-Handbuch öffnen (Help)</td>
 </tr>
 <tr>
 <td>Ctrl+Q / Alt+F4</td>

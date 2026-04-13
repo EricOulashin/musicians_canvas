@@ -1,4 +1,6 @@
 #include "mainwindow.h"
+#include "trackmixerundocommand.h"
+#include "workflowdialogs.h"
 #include "trackwidget.h"
 #include "trackconfigdialog.h"
 #include "settingsdialog.h"
@@ -72,6 +74,7 @@
 #include <QTextStream>
 #include <functional>
 #include <vector>
+#include <cstring>
 
 #ifdef QT_MULTIMEDIA_AVAILABLE
 #include <QMediaPlayer>
@@ -163,6 +166,32 @@ QString resolveManualPdfPathForLanguage(const QString& langSetting)
             break;
     }
     return {};
+}
+}  // namespace
+
+namespace
+{
+QByteArray spliceAudioPunchReplace(const QByteArray& oldPcm, const QByteArray& newPcm, int sampleRate,
+                                 int channelCount, double punchInSec, double punchOutSec)
+{
+    if (oldPcm.isEmpty() || newPcm.isEmpty() || sampleRate <= 0 || channelCount <= 0)
+        return newPcm;
+    const int bps = channelCount * static_cast<int>(sizeof(qint16));
+    const int oldFrames = oldPcm.size() / bps;
+    const int newFrames = newPcm.size() / bps;
+    int i0 = static_cast<int>(std::llround(std::max(0.0, punchInSec) * sampleRate));
+    int i1 = static_cast<int>(std::llround(std::max(0.0, punchOutSec) * sampleRate));
+    i0 = std::clamp(i0, 0, oldFrames);
+    i1 = std::clamp(i1, i0, oldFrames);
+    const int replaceFrames = i1 - i0;
+    const int takeNew = std::min(replaceFrames, newFrames);
+    QByteArray out = oldPcm;
+    const int newSizeBytes = (i0 + takeNew) * bps;
+    if (newSizeBytes > out.size())
+        out.resize(newSizeBytes);
+    if (takeNew > 0)
+        std::memcpy(out.data() + i0 * bps, newPcm.constData(), takeNew * bps);
+    return out;
 }
 }  // namespace
 
@@ -290,6 +319,10 @@ void MainWindow::setupMenuBar()
     auto* menuBar = this->menuBar();
 
     auto* fileMenu = menuBar->addMenu(tr("&File"));
+    auto* editMenu = menuBar->addMenu(tr("&Edit"));
+    editMenu->addAction(m_undoStack.createUndoAction(this, tr("&Undo")));
+    editMenu->addAction(m_undoStack.createRedoAction(this, tr("&Redo")));
+
     auto* saveAction = fileMenu->addAction(tr("&Save Project"));
     saveAction->setShortcut(QKeySequence::Save);
     connect(saveAction, &QAction::triggered, this, &MainWindow::onSaveProject);
@@ -305,6 +338,8 @@ void MainWindow::setupMenuBar()
     auto* projectSettingsAction = projectMenu->addAction(tr("&Project Settings"));
     projectSettingsAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_P));
     connect(projectSettingsAction, &QAction::triggered, this, &MainWindow::onProjectSettings);
+    auto* tempoMapAction = projectMenu->addAction(tr("&Tempo map..."));
+    connect(tempoMapAction, &QAction::triggered, this, &MainWindow::onTempoMapEditor);
     projectMenu->addSeparator();
     auto* demoAction = projectMenu->addAction(tr("Add Demo &Data to Selected Track"));
     connect(demoAction, &QAction::triggered, this, &MainWindow::onAddDemoData);
@@ -318,6 +353,13 @@ void MainWindow::setupMenuBar()
     auto* mixAction = toolsMenu->addAction(tr("&Mix tracks to file..."));
     mixAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_M));
     connect(mixAction, &QAction::triggered, this, &MainWindow::onMix);
+    auto* stemsAction = toolsMenu->addAction(tr("Export &stems to folder..."));
+    connect(stemsAction, &QAction::triggered, this, &MainWindow::onExportStems);
+    auto* recOptAction = toolsMenu->addAction(tr("&Recording options..."));
+    connect(recOptAction, &QAction::triggered, this, &MainWindow::onRecordingOptions);
+    auto* quantAction = toolsMenu->addAction(tr("&Quantize MIDI..."));
+    connect(quantAction, &QAction::triggered, this, &MainWindow::onQuantizeMidi);
+    toolsMenu->addSeparator();
     auto* drumAction = toolsMenu->addAction(tr("Add &drum track"));
     drumAction->setShortcut(QKeySequence(Qt::Key_D));
     connect(drumAction, &QAction::triggered, this, &MainWindow::onAddDrumTrack);
@@ -489,10 +531,8 @@ void MainWindow::setupUi()
     mainLayout->addWidget(m_scrollArea);
 }
 
-void MainWindow::onAddTrack()
+void MainWindow::wireTrackWidget(TrackWidget* widget)
 {
-    TrackData data = createNewTrack();
-    auto* widget = new TrackWidget(data, this);
     connect(widget, &TrackWidget::configurationRequested, this, &MainWindow::onTrackConfigRequested);
     connect(widget, &TrackWidget::effectsRequested, this, &MainWindow::onTrackEffectsRequested);
     connect(widget, &TrackWidget::armChanged, this, &MainWindow::onArmChanged);
@@ -503,6 +543,46 @@ void MainWindow::onAddTrack()
     });
     connect(widget, &TrackWidget::nameChanged, this, &MainWindow::onTrackNameChanged);
     connect(widget, &TrackWidget::removeRequested, this, &MainWindow::onTrackRemoveRequested);
+    connect(widget, &TrackWidget::mixerInteractionStarted, this,
+            &MainWindow::onTrackMixerInteractionStarted);
+    connect(widget, &TrackWidget::mixerInteractionEnded, this,
+            &MainWindow::onTrackMixerInteractionEnded);
+}
+
+void MainWindow::onTrackMixerInteractionStarted(TrackWidget* w)
+{
+    if (w)
+        m_mixerUndoBaseline[w] = w->trackData();
+}
+
+static bool mixerFieldsEqual(const TrackData& a, const TrackData& b)
+{
+    return a.gainDb == b.gainDb && a.pan == b.pan && a.mute == b.mute && a.solo == b.solo
+ && a.auxSend == b.auxSend && a.trimStartSec == b.trimStartSec
+           && a.trimEndSec == b.trimEndSec;
+}
+
+void MainWindow::onTrackMixerInteractionEnded(TrackWidget* w)
+{
+    if (!w)
+        return;
+    auto it = m_mixerUndoBaseline.find(w);
+    if (it == m_mixerUndoBaseline.end())
+        return;
+    const TrackData before = it.value();
+    m_mixerUndoBaseline.erase(it);
+    const TrackData after = w->trackData();
+    if (mixerFieldsEqual(before, after))
+        return;
+    m_undoStack.push(new TrackMixerUndoCommand(w, before, after));
+    markDirty();
+}
+
+void MainWindow::onAddTrack()
+{
+    TrackData data = createNewTrack();
+    auto* widget = new TrackWidget(data, this);
+    wireTrackWidget(widget);
     m_trackWidgets.append(widget);
     m_tracksLayout->insertWidget(m_tracksLayout->count() - 1, widget);
 
@@ -525,10 +605,15 @@ void MainWindow::onAddDrumTrack()
         return;
     }
 
-    double bpm = 120.0;
     AppSettings& app = AppSettings::instance();
+    const double defaultBpm =
+        static_cast<double>(qBound(20, app.metronomeBpm(), 300));
+    double bpm = tempoBpmAtTime(m_projectSettings.tempoMarkers, 0.0, defaultBpm);
     if (app.metronomeEnabled())
-        bpm = static_cast<double>(qBound(20, app.metronomeBpm(), 300));
+    {
+        bpm = tempoBpmAtTime(m_projectSettings.tempoMarkers, 0.0,
+                             static_cast<double>(qBound(20, app.metronomeBpm(), 300)));
+    }
     else
     {
         QVector<TrackData> list;
@@ -571,16 +656,7 @@ void MainWindow::onAddDrumTrack()
     data.lengthSeconds = lengthSeconds;
 
     auto* widget = new TrackWidget(data, this);
-    connect(widget, &TrackWidget::configurationRequested, this, &MainWindow::onTrackConfigRequested);
-    connect(widget, &TrackWidget::effectsRequested, this, &MainWindow::onTrackEffectsRequested);
-    connect(widget, &TrackWidget::armChanged, this, &MainWindow::onArmChanged);
-    connect(widget, &TrackWidget::dataChanged, this, [this](TrackWidget*)
-    {
-        markDirty();
-        updatePlayRecordButton();
-    });
-    connect(widget, &TrackWidget::nameChanged, this, &MainWindow::onTrackNameChanged);
-    connect(widget, &TrackWidget::removeRequested, this, &MainWindow::onTrackRemoveRequested);
+    wireTrackWidget(widget);
     m_trackWidgets.append(widget);
     m_tracksLayout->insertWidget(m_tracksLayout->count() - 1, widget);
 
@@ -759,16 +835,7 @@ bool MainWindow::addAudioFileAsTrack(const QString& sourcePath)
     }
 
     auto* widget = new TrackWidget(data, this);
-    connect(widget, &TrackWidget::configurationRequested, this, &MainWindow::onTrackConfigRequested);
-    connect(widget, &TrackWidget::effectsRequested, this, &MainWindow::onTrackEffectsRequested);
-    connect(widget, &TrackWidget::armChanged, this, &MainWindow::onArmChanged);
-    connect(widget, &TrackWidget::dataChanged, this, [this](TrackWidget*)
-    {
-        markDirty();
-        updatePlayRecordButton();
-    });
-    connect(widget, &TrackWidget::nameChanged, this, &MainWindow::onTrackNameChanged);
-    connect(widget, &TrackWidget::removeRequested, this, &MainWindow::onTrackRemoveRequested);
+    wireTrackWidget(widget);
     m_trackWidgets.append(widget);
     m_tracksLayout->insertWidget(m_tracksLayout->count() - 1, widget);
     widget->updateVisualization();
@@ -795,11 +862,12 @@ void MainWindow::onArmChanged(TrackWidget* armed, bool isArmed)
 void MainWindow::onTrackConfigRequested(TrackWidget* widget)
 {
     TrackConfigDialog dlg(this);
-    dlg.setTrackType(widget->trackData().type);
+    dlg.setFromTrackData(widget->trackData());
     if (dlg.exec() == QDialog::Accepted)
     {
         TrackData data = widget->trackData();
         data.type = dlg.trackType();
+        dlg.applyTrimToTrackData(data);
         widget->setTrackData(data);
         markDirty();
     }
@@ -831,12 +899,18 @@ void MainWindow::onMix()
     if (outputPath.isEmpty()) return;
 
     const QString projectPath = effectiveProjectPath();
+    const int volPct =
+        (m_projectSettings.midiVolumePercent >= 0)
+            ? m_projectSettings.midiVolumePercent
+            : AppSettings::instance().midiVolumePercent();
+    const double midiGainMultiplier = std::clamp(volPct, 0, 200) / 100.0;
 
     if (AudioUtils::mixTracksToFile(tracks, outputPath, projectPath,
                                     m_projectSettings.sampleRate,
                                     m_projectSettings.soundFontPath,
                                     /*renderMidiToAudio=*/true,
-                                    /*midiGainMultiplier=*/1.0))
+                                    /*midiGainMultiplier=*/midiGainMultiplier,
+                                    m_projectSettings.auxEffectChain))
     {
         applyMixBusEffectsToPathIfSet(outputPath, m_projectSettings.mixEffectChain);
         QMessageBox::information(this, tr("Mix Complete"),
@@ -1001,16 +1075,17 @@ void MainWindow::startPlayback()
 
     const bool hasEnabledMidi =
         std::any_of(tracks.begin(), tracks.end(),
-                    [](const TrackData& t)
+                    [&tracks](const TrackData& t)
                     {
-                        return t.enabled && t.type == TrackType::MIDI && !t.midiNotes.isEmpty();
+                        return trackShouldMix(t, tracks) && t.type == TrackType::MIDI && (!t.midiNotes.isEmpty() || !t.midiControlChanges.isEmpty());
                     });
 
     const bool hasEnabledAudio =
         std::any_of(tracks.begin(), tracks.end(),
-                    [](const TrackData& t)
+                    [&tracks](const TrackData& t)
                     {
-                        return t.enabled && t.type == TrackType::Audio && !t.audioData.isEmpty();
+                        return trackShouldMix(t, tracks) && t.type == TrackType::Audio
+                               && !t.audioData.isEmpty();
                     });
 
     // Project option: by default, render MIDI to audio for playback so MIDI can be
@@ -1036,7 +1111,8 @@ void MainWindow::startPlayback()
                                                    m_projectSettings.sampleRate,
                                                    m_projectSettings.soundFontPath,
                                                    /*renderMidiToAudio=*/!useRealtimeMidiOut,
-                                                   /*midiGainMultiplier=*/midiGainMultiplier);
+                                                   /*midiGainMultiplier=*/midiGainMultiplier,
+                                                   m_projectSettings.auxEffectChain);
 
     // If we're doing realtime MIDI-out playback and there are no audio tracks,
     // mixing will (correctly) produce no input files. In that case, proceed with
@@ -1072,7 +1148,8 @@ void MainWindow::startPlayback()
                                              m_projectSettings.sampleRate,
                                              m_projectSettings.soundFontPath,
                                              /*renderMidiToAudio=*/true,
-                                             /*midiGainMultiplier=*/midiGainMultiplier))
+                                             /*midiGainMultiplier=*/midiGainMultiplier,
+                                             m_projectSettings.auxEffectChain))
             {
                 QMessageBox::warning(this, tr("Playback Error"),
                     tr("Could not mix tracks for playback. Make sure tracks have content."));
@@ -1101,6 +1178,20 @@ void MainWindow::startPlayback()
                     onPlaybackFinished();
                 }
             });
+        connect(
+            m_player, &QMediaPlayer::positionChanged, this,
+            [this](qint64 posMs)
+            {
+                if (!m_isActive || !m_projectSettings.loopPlaybackEnabled || !m_player)
+                    return;
+                const double endSec = m_projectSettings.loopEndSec;
+                const double startSec = m_projectSettings.loopStartSec;
+                if (endSec <= startSec)
+                    return;
+                if (posMs >= static_cast<qint64>(endSec * 1000.0))
+                    m_player->setPosition(static_cast<qint64>(startSec * 1000.0));
+            },
+            Qt::UniqueConnection);
     }
     if (!m_playbackTempFile.isEmpty() && QFile::exists(m_playbackTempFile))
     {
@@ -1247,13 +1338,19 @@ void MainWindow::prepareOverdubPlayback()
         return;
     m_playbackTempFile = tmpFile->fileName();
     tmpFile->close();
+    const int volPct =
+        (m_projectSettings.midiVolumePercent >= 0)
+            ? m_projectSettings.midiVolumePercent
+            : AppSettings::instance().midiVolumePercent();
+    const double midiGainMultiplier = std::clamp(volPct, 0, 200) / 100.0;
     const bool mixed = AudioUtils::mixTracksToFile(
         overdubTracks, m_playbackTempFile,
         effectiveProjectPath(),
         m_projectSettings.sampleRate,
         m_projectSettings.soundFontPath,
         /*renderMidiToAudio=*/true,
-        /*midiGainMultiplier=*/1.0);
+        /*midiGainMultiplier=*/midiGainMultiplier,
+        m_projectSettings.auxEffectChain);
     if (mixed)
     {
         if (m_player == nullptr)
@@ -1392,6 +1489,16 @@ void MainWindow::finalizeRecordedAudio(const QByteArray& rawData, qint64 process
     if (!armedDataBeforeFx.audioEffectChain.isEmpty())
         applyAudioEffectChain(rec.int16Pcm, rec.channelCount, rec.sampleRate,
                               armedDataBeforeFx.audioEffectChain);
+
+    if (m_projectSettings.punchRecordingEnabled && !m_recordingMidi
+        && m_projectSettings.punchOutSec > m_projectSettings.punchInSec
+        && !armedDataBeforeFx.audioData.isEmpty())
+    {
+        rec.int16Pcm =
+            spliceAudioPunchReplace(armedDataBeforeFx.audioData, rec.int16Pcm, rec.sampleRate,
+                                    rec.channelCount, m_projectSettings.punchInSec,
+                                    m_projectSettings.punchOutSec);
+    }
 
     if (AppSettings::instance().recordingDebugLog())
     {
@@ -2052,6 +2159,14 @@ void MainWindow::onSaveProject()
         obj[QStringLiteral("channelCount")]  = d.channelCount;
         obj[QStringLiteral("lengthSeconds")] = d.lengthSeconds;
 
+        obj[QStringLiteral("gainDb")] = static_cast<double>(d.gainDb);
+        obj[QStringLiteral("pan")] = static_cast<double>(d.pan);
+        obj[QStringLiteral("mute")] = d.mute;
+        obj[QStringLiteral("solo")] = d.solo;
+        obj[QStringLiteral("auxSend")] = static_cast<double>(d.auxSend);
+        obj[QStringLiteral("trimStartSec")] = d.trimStartSec;
+        obj[QStringLiteral("trimEndSec")] = d.trimEndSec;
+
         obj[QStringLiteral("audioEffectChain")] = d.audioEffectChain;
 
         if (d.type == TrackType::Audio)
@@ -2085,7 +2200,7 @@ void MainWindow::onSaveProject()
             const QString midiFullPath =
                 m_projectLocationEdit->text().trimmed()
                 + QDir::separator() + midiFileName;
-            if (MidiFile::write(midiFullPath, d.midiNotes, d.lengthSeconds))
+            if (MidiFile::write(midiFullPath, d.midiNotes, d.lengthSeconds, d.midiControlChanges))
             {
                 obj[QStringLiteral("midiFile")] = midiFileName;
             }
@@ -2105,6 +2220,17 @@ void MainWindow::onSaveProject()
                     notesArray.append(no);
                 }
                 obj[QStringLiteral("midiNotes")] = notesArray;
+                QJsonArray ccArr;
+                for (const MidiControlChange& cc : d.midiControlChanges)
+                {
+                    QJsonObject co;
+                    co[QStringLiteral("t")] = cc.timeSec;
+                    co[QStringLiteral("ch")] = cc.channel;
+                    co[QStringLiteral("c")] = cc.controller;
+                    co[QStringLiteral("v")] = cc.value;
+                    ccArr.append(co);
+                }
+                obj[QStringLiteral("midiControlChanges")] = ccArr;
             }
         }
         tracksArray.append(obj);
@@ -2128,6 +2254,22 @@ void MainWindow::onSaveProject()
     psObj[QStringLiteral("monitorWhileRecording")] =
         m_projectSettings.monitorWhileRecording;
     psObj[QStringLiteral("mixEffectChain")] = m_projectSettings.mixEffectChain;
+    psObj[QStringLiteral("auxEffectChain")] = m_projectSettings.auxEffectChain;
+    QJsonArray tempoArr;
+    for (const TempoMarker& m : m_projectSettings.tempoMarkers)
+    {
+        QJsonObject mo;
+        mo[QStringLiteral("t")] = m.timeSec;
+        mo[QStringLiteral("bpm")] = m.bpm;
+        tempoArr.append(mo);
+    }
+    psObj[QStringLiteral("tempoMarkers")] = tempoArr;
+    psObj[QStringLiteral("punchRecordingEnabled")] = m_projectSettings.punchRecordingEnabled;
+    psObj[QStringLiteral("punchInSec")] = m_projectSettings.punchInSec;
+    psObj[QStringLiteral("punchOutSec")] = m_projectSettings.punchOutSec;
+    psObj[QStringLiteral("loopPlaybackEnabled")] = m_projectSettings.loopPlaybackEnabled;
+    psObj[QStringLiteral("loopStartSec")] = m_projectSettings.loopStartSec;
+    psObj[QStringLiteral("loopEndSec")] = m_projectSettings.loopEndSec;
 
     QJsonObject root;
     root[QStringLiteral("version")]         = 1;
@@ -2213,6 +2355,13 @@ void MainWindow::loadProjectFromFile(const QString& path)
         d.channelCount  = obj[QStringLiteral("channelCount")].toInt(2);
         d.lengthSeconds = obj[QStringLiteral("lengthSeconds")].toDouble(0.0);
         d.audioEffectChain = obj[QStringLiteral("audioEffectChain")].toArray();
+        d.gainDb = static_cast<float>(obj[QStringLiteral("gainDb")].toDouble(0));
+        d.pan = static_cast<float>(obj[QStringLiteral("pan")].toDouble(0));
+        d.mute = obj[QStringLiteral("mute")].toBool(false);
+        d.solo = obj[QStringLiteral("solo")].toBool(false);
+        d.auxSend = static_cast<float>(obj[QStringLiteral("auxSend")].toDouble(0));
+        d.trimStartSec = obj[QStringLiteral("trimStartSec")].toDouble(0);
+        d.trimEndSec = obj[QStringLiteral("trimEndSec")].toDouble(0);
 
         if (d.type == TrackType::Audio)
         {
@@ -2238,10 +2387,12 @@ void MainWindow::loadProjectFromFile(const QString& path)
             {
                 const QString midiPath = projectDir + QDir::separator() + midiFileName;
                 double fileLen = 0.0;
-                QVector<MidiNote> notes = MidiFile::read(midiPath, &fileLen);
-                if (!notes.isEmpty())
+                QVector<MidiControlChange> ccRead;
+                QVector<MidiNote> notes = MidiFile::read(midiPath, &fileLen, &ccRead);
+                if (!notes.isEmpty() || !ccRead.isEmpty())
                 {
                     d.midiNotes = notes;
+                    d.midiControlChanges = ccRead;
                     if (fileLen > d.lengthSeconds)
                         d.lengthSeconds = fileLen;
                     loadedFromFile = true;
@@ -2271,23 +2422,29 @@ void MainWindow::loadProjectFromFile(const QString& path)
                 n.duration  = no[QStringLiteral("duration")].toDouble();
                 d.midiNotes.append(n);
             }
+            if (!loadedFromFile)
+            {
+                const QJsonArray ccJson = obj[QStringLiteral("midiControlChanges")].toArray();
+                for (const QJsonValue& cv : ccJson)
+                {
+                    if (!cv.isObject())
+                        continue;
+                    const QJsonObject co = cv.toObject();
+                    MidiControlChange cc;
+                    cc.timeSec = co[QStringLiteral("t")].toDouble();
+                    cc.channel = co[QStringLiteral("ch")].toInt(0);
+                    cc.controller = co[QStringLiteral("c")].toInt(0);
+                    cc.value = co[QStringLiteral("v")].toInt(0);
+                    d.midiControlChanges.append(cc);
+                }
+            }
         }
 
         if (d.id >= m_nextTrackId)
             m_nextTrackId = d.id + 1;
 
         auto* widget = new TrackWidget(d, this);
-        connect(widget, &TrackWidget::configurationRequested,
-                this, &MainWindow::onTrackConfigRequested);
-        connect(widget, &TrackWidget::effectsRequested, this, &MainWindow::onTrackEffectsRequested);
-        connect(widget, &TrackWidget::armChanged, this, &MainWindow::onArmChanged);
-        connect(widget, &TrackWidget::dataChanged, this, [this](TrackWidget*)
-        {
-            markDirty();
-            updatePlayRecordButton();
-        });
-        connect(widget, &TrackWidget::nameChanged, this, &MainWindow::onTrackNameChanged);
-        connect(widget, &TrackWidget::removeRequested, this, &MainWindow::onTrackRemoveRequested);
+        wireTrackWidget(widget);
         m_trackWidgets.append(widget);
         m_tracksLayout->insertWidget(m_tracksLayout->count() - 1, widget);
     }
@@ -2317,6 +2474,28 @@ void MainWindow::loadProjectFromFile(const QString& path)
             m_projectSettings.monitorWhileRecording =
                 ps[QStringLiteral("monitorWhileRecording")].toBool();
         m_projectSettings.mixEffectChain = ps[QStringLiteral("mixEffectChain")].toArray();
+        m_projectSettings.auxEffectChain = ps[QStringLiteral("auxEffectChain")].toArray();
+        m_projectSettings.tempoMarkers.clear();
+        const QJsonArray tempoArr = ps[QStringLiteral("tempoMarkers")].toArray();
+        for (const QJsonValue& tv : tempoArr)
+        {
+            if (!tv.isObject())
+                continue;
+            const QJsonObject mo = tv.toObject();
+            TempoMarker m;
+            m.timeSec = mo[QStringLiteral("t")].toDouble();
+            m.bpm = mo[QStringLiteral("bpm")].toDouble(120);
+            if (m.bpm > 0)
+                m_projectSettings.tempoMarkers.append(m);
+        }
+        m_projectSettings.punchRecordingEnabled =
+            ps[QStringLiteral("punchRecordingEnabled")].toBool(false);
+        m_projectSettings.punchInSec = ps[QStringLiteral("punchInSec")].toDouble(0);
+        m_projectSettings.punchOutSec = ps[QStringLiteral("punchOutSec")].toDouble(0);
+        m_projectSettings.loopPlaybackEnabled =
+            ps[QStringLiteral("loopPlaybackEnabled")].toBool(false);
+        m_projectSettings.loopStartSec = ps[QStringLiteral("loopStartSec")].toDouble(0);
+        m_projectSettings.loopEndSec = ps[QStringLiteral("loopEndSec")].toDouble(0);
     }
     else
     {
@@ -2367,6 +2546,7 @@ void MainWindow::onTrackNameChanged(TrackWidget* /*widget*/,
 
 void MainWindow::onTrackRemoveRequested(TrackWidget* widget)
 {
+    m_mixerUndoBaseline.remove(widget);
     m_trackWidgets.removeOne(widget);
     m_tracksLayout->removeWidget(widget);
     widget->deleteLater();
@@ -2382,6 +2562,7 @@ void MainWindow::onClearTracks()
         tr("Remove all %1 track(s) from the project?").arg(m_trackWidgets.size()),
         QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Cancel);
     if (result != QMessageBox::Yes) return;
+    m_mixerUndoBaseline.clear();
     for (auto* w : m_trackWidgets)
     {
         m_tracksLayout->removeWidget(w);
@@ -2446,12 +2627,108 @@ void MainWindow::onVirtualMidiKeyboard()
 
 void MainWindow::onProjectSettings()
 {
+    const ProjectSettings preservedTimeline = m_projectSettings;
     ProjectSettingsDialog dlg(m_projectSettings, this);
     if (dlg.exec() == QDialog::Accepted)
     {
         m_projectSettings = dlg.projectSettings();
+        m_projectSettings.tempoMarkers = preservedTimeline.tempoMarkers;
+        m_projectSettings.punchRecordingEnabled = preservedTimeline.punchRecordingEnabled;
+        m_projectSettings.punchInSec = preservedTimeline.punchInSec;
+        m_projectSettings.punchOutSec = preservedTimeline.punchOutSec;
+        m_projectSettings.loopPlaybackEnabled = preservedTimeline.loopPlaybackEnabled;
+        m_projectSettings.loopStartSec = preservedTimeline.loopStartSec;
+        m_projectSettings.loopEndSec = preservedTimeline.loopEndSec;
         markDirty();
     }
+}
+
+void MainWindow::onExportStems()
+{
+    const QString projectPath = effectiveProjectPath();
+    if (projectPath.isEmpty() || projectPath == QDir::tempPath())
+    {
+        QMessageBox::warning(this, tr("Export stems"),
+                             tr("Please set a project directory before exporting stems."));
+        return;
+    }
+    const QString dir = QFileDialog::getExistingDirectory(
+        this, tr("Export stems"), projectPath, QFileDialog::ShowDirsOnly);
+    if (dir.isEmpty())
+        return;
+    QDir().mkpath(dir);
+    QVector<TrackData> tracks;
+    for (auto* w : m_trackWidgets)
+        tracks.append(w->trackData());
+    const int volPct =
+        (m_projectSettings.midiVolumePercent >= 0)
+            ? m_projectSettings.midiVolumePercent
+            : AppSettings::instance().midiVolumePercent();
+    const double midiGainMultiplier = std::clamp(volPct, 0, 200) / 100.0;
+    QString sf = m_projectSettings.soundFontPath;
+    if (sf.isEmpty())
+        sf = AppSettings::instance().soundFontPath();
+    if (AudioUtils::exportStemsToDirectory(tracks, dir, projectPath, m_projectSettings.sampleRate,
+                                           sf, true, midiGainMultiplier))
+        QMessageBox::information(this, tr("Export stems"),
+                                 tr("Stems exported to:\n%1").arg(dir));
+    else
+        QMessageBox::warning(this, tr("Export stems"),
+                             tr("Could not export stems. Ensure tracks have audio or MIDI."));
+}
+
+void MainWindow::onRecordingOptions()
+{
+    RecordingOptionsDialog dlg(m_projectSettings, this);
+    if (dlg.exec() != QDialog::Accepted)
+        return;
+    const ProjectSettings s = dlg.settings();
+    m_projectSettings.punchRecordingEnabled = s.punchRecordingEnabled;
+    m_projectSettings.punchInSec = s.punchInSec;
+    m_projectSettings.punchOutSec = s.punchOutSec;
+    m_projectSettings.loopPlaybackEnabled = s.loopPlaybackEnabled;
+    m_projectSettings.loopStartSec = s.loopStartSec;
+    m_projectSettings.loopEndSec = s.loopEndSec;
+    markDirty();
+}
+
+void MainWindow::onTempoMapEditor()
+{
+    TempoMapDialog dlg(m_projectSettings.tempoMarkers, this);
+    if (dlg.exec() != QDialog::Accepted)
+        return;
+    m_projectSettings.tempoMarkers = dlg.markers();
+    markDirty();
+}
+
+void MainWindow::onQuantizeMidi()
+{
+    QuantizeMidiDialog dlg(this);
+    if (dlg.exec() != QDialog::Accepted)
+        return;
+    const double bpm =
+        tempoBpmAtTime(m_projectSettings.tempoMarkers, 0.0,
+                       static_cast<double>(qBound(20, AppSettings::instance().metronomeBpm(), 300)));
+    const double quarterSec = 60.0 / std::max(1.0, bpm);
+    const double gridSec = quarterSec * dlg.gridAsQuarterNoteFraction();
+    const double strength = dlg.strength();
+    bool any = false;
+    for (auto* w : m_trackWidgets)
+    {
+        if (w->trackData().type != TrackType::MIDI)
+            continue;
+        if (dlg.applyToArmedTrackOnly() && !w->isArmed())
+            continue;
+        TrackData d = w->trackData();
+        quantizeMidiNotesInPlace(d.midiNotes, gridSec, strength);
+        w->setTrackData(d);
+        any = true;
+    }
+    if (any)
+        markDirty();
+    else
+        QMessageBox::information(this, tr("Quantize MIDI"),
+                                 tr("No MIDI tracks were changed."));
 }
 
 void MainWindow::onMetronomeSettings()
@@ -2478,7 +2755,13 @@ void MainWindow::startMetronomeIfEnabled()
     // while keeping the audio path completely silent.
     if (!m_metronomeTimer)
         m_metronomeTimer = new QTimer(this);
-    const int intervalMs = 60000 / qBound(20, AppSettings::instance().metronomeBpm(), 300);
+    const int appBpm = AppSettings::instance().metronomeBpm();
+    const double effBpm = tempoBpmAtTime(
+        m_projectSettings.tempoMarkers,
+        m_isActive ? (m_activeTimer.elapsed() / 1000.0) : 0.0,
+        static_cast<double>(appBpm));
+    const int intervalMs =
+        static_cast<int>(60000.0 / qBound(20.0, effBpm, 300.0));
     connect(m_metronomeTimer, &QTimer::timeout, this, [this]()
     {
         if (m_timeDisplay)

@@ -74,6 +74,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#nagrywanie-audio">Nagrywanie audio</a></li>
 <li><a href="#efekty-insert-tylko-sciezki-audio">Efekty insert (tylko ścieżki audio)</a></li>
 <li><a href="#mix-effects-full-project">Mix effects (full project)</a></li>
+<li><a href="#per-track-mixer-mutesolo-trim-and-midi-details">Per-track mixer, mute/solo, trim, and MIDI details</a></li>
 <li><a href="#monitorowanie-podczas-nagrywania">Monitorowanie podczas nagrywania</a></li>
 <li><a href="#nagrywanie-midi">Nagrywanie MIDI</a></li>
 </ul>
@@ -89,6 +90,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#menu">Menu</a><ul>
 <li><a href="#menu-plik">Menu Plik</a></li>
 <li><a href="#menu-projekt">Menu Projekt</a></li>
+<li><a href="#menu-edycja">Menu Edycja</a></li>
 <li><a href="#menu-ustawienia">Menu Ustawienia</a></li>
 <li><a href="#menu-narzedzia">Menu Narzędzia</a></li>
 <li><a href="#menu-help">Menu Help</a></li>
@@ -279,7 +281,20 @@ budujesz <strong>uporządkowany łańcuch</strong> efektów insert dla nagrań n
 w <code>project.json</code> w <code>audioEffectChain</code>.</p>
 <h3 id="mix-effects-full-project">Mix effects (full project)</h3>
 <p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>, <strong>Vibrato (Tremolo)</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p><strong>Project → Project Settings → Aux / Send Bus</strong> configures a <strong>shared effect chain</strong> fed by each track’s <strong>Aux</strong> send slider (on the track row). The dry mix of all tracks is summed, each track’s post-gain/post-pan signal is scaled by its <strong>Aux</strong> level and sent through this bus, then the <strong>wet aux</strong> output is added back to the dry sum <strong>before</strong> <strong>Mix Effects</strong> run. Use it for a single shared reverb/delay while keeping per-track insert effects independent.</p>
 <p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
+<h3 id="per-track-mixer-mutesolo-trim-and-midi-details">Per-track mixer, mute/solo, trim, and MIDI details</h3>
+<p>Each track row includes a compact <strong>mixer strip</strong>:</p>
+<ul>
+<li><strong>Gain</strong>: Per-track level in decibels (the slider uses tenths of a dB; 0 dB = unity gain).</li>
+<li><strong>Pan</strong>: Stereo placement (-100 = full left, +100 = full right).</li>
+<li><strong>Aux</strong>: Send amount (0–100%) into the project <strong>Aux / Send Bus</strong> (see above).</li>
+<li><strong>Mute</strong>: Silences the track in the mix without disabling it in the arrange view.</li>
+<li><strong>Solo</strong>: If <strong>any</strong> track has <strong>Solo</strong> enabled, <strong>only</strong> soloed tracks are heard (unless they are also muted).</li>
+</ul>
+<p><strong>Options → Track Configuration</strong> also offers <strong>Clip trim (non-destructive)</strong>: <strong>Trim start</strong> and <strong>Trim end</strong> skip that many seconds from the beginning and end of the clip for <strong>playback, mix, and export</strong> without deleting the underlying recording.</p>
+<p>MIDI tracks can carry <strong>control change (CC)</strong> automation stored in the project and in exported <code>.mid</code> files; offline playback and mix use these events when rendering MIDI to audio.</p>
+<p><strong>Edit → Undo</strong> / <strong>Redo</strong> (standard shortcuts) apply to mixer and trim changes made on tracks.</p>
 <h3 id="monitorowanie-podczas-nagrywania">Monitorowanie podczas nagrywania</h3>
 <p>Obok <strong>wyświetlacza czasu</strong> pole <strong>Monitoruj dźwięk podczas nagrywania</strong> włącza lub wyłącza wysyłanie <strong>żywego wejścia</strong>
 do <strong>wyjścia audio projektu</strong> w trakcie nagrywania:</p>
@@ -393,6 +408,8 @@ zakończeniu 3-sekundowego odliczania), i zatrzymuje się po zakończeniu nagryw
 <p><img alt="Ustawienia audio projektu" src="screenshots/MusiciansCanvas_7_ProjectAudioSettings.png" /></p>
 <h4 id="mix-effects-tab">Mix Effects tab</h4>
 <p>The <strong>Mix Effects</strong> tab is a scrollable list with the same controls as <strong>Track effects</strong> (<strong>Add effect…</strong>, drag <strong>≡</strong> to reorder, <strong>✕</strong> to remove). Processing order is <strong>top to bottom</strong> on the <strong>combined</strong> mix of all enabled tracks. These effects run during <strong>whole-project playback</strong> and when <strong>mixing to a single WAV or FLAC file</strong>; they are <strong>not</strong> baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.</p>
+<h4 id="aux-send-bus-tab">Aux / Send Bus tab</h4>
+<p>Configure the <strong>shared aux effect chain</strong> (same effect types as track inserts). Each track’s <strong>Aux</strong> slider on the track row controls how much of that track’s signal is sent through this bus; the wet aux return is summed with the dry mix <strong>before</strong> <strong>Mix Effects</strong> are applied.</p>
 <h2 id="menu">Menu</h2>
 <h3 id="menu-plik">Menu Plik</h3>
 <table>
@@ -434,12 +451,39 @@ zakończeniu 3-sekundowego odliczania), i zatrzymuje się po zakończeniu nagryw
 <tr>
 <td>Project Settings</td>
 <td>Ctrl+P</td>
-<td>Konfiguruj ustawienia specyficzne dla projektu</td>
+<td>Skonfiguruj ustawienia projektu (w tym <strong>Aux / Send Bus</strong>)</td>
+</tr>
+<tr>
+<td>Tempo map</td>
+<td></td>
+<td>Zmiany tempa (s vs BPM): metronom i kwantyzacja MIDI</td>
 </tr>
 <tr>
 <td>Add Demo Data to Selected Track</td>
 <td></td>
 <td>Dodaj przykładowe nuty MIDI do demonstracji</td>
+</tr>
+</tbody>
+</table>
+<h3 id="menu-edycja">Menu Edycja</h3>
+<table>
+<thead>
+<tr>
+<th>Element menu</th>
+<th>Skrót</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Undo</td>
+<td>Ctrl+Z</td>
+<td>Cofnij zmiany miksera/przycięcia na ścieżkach</td>
+</tr>
+<tr>
+<td>Redo</td>
+<td>Ctrl+Shift+Z</td>
+<td>Ponów</td>
 </tr>
 </tbody>
 </table>
@@ -474,6 +518,21 @@ zakończeniu 3-sekundowego odliczania), i zatrzymuje się po zakończeniu nagryw
 <td>Mix tracks to file</td>
 <td>Ctrl+M</td>
 <td>Eksportuj wszystkie włączone ścieżki do pliku</td>
+</tr>
+<tr>
+<td>Export stems to folder</td>
+<td></td>
+<td>Jeden plik WAV na ścieżkę (gain/pan/trim; bez master Mix Effects)</td>
+</tr>
+<tr>
+<td>Recording options</td>
+<td></td>
+<td><strong>Punch-in</strong> dla audio; <strong>loop</strong> odtwarzania całego projektu</td>
+</tr>
+<tr>
+<td>Quantize MIDI</td>
+<td></td>
+<td>Przyciąganie początków nut MIDI do siatki (wszystkie lub tylko uzbrojona ścieżka)</td>
 </tr>
 <tr>
 <td>Add drum track</td>
@@ -523,6 +582,14 @@ zakończeniu 3-sekundowego odliczania), i zatrzymuje się po zakończeniu nagryw
 <td>Zapisz projekt</td>
 </tr>
 <tr>
+<td>Ctrl+Z</td>
+<td>Cofnij (mikser/trim)</td>
+</tr>
+<tr>
+<td>Ctrl+Shift+Z</td>
+<td>Ponów</td>
+</tr>
+<tr>
 <td>Ctrl+O</td>
 <td>Otwórz projekt</td>
 </tr>
@@ -541,6 +608,10 @@ zakończeniu 3-sekundowego odliczania), i zatrzymuje się po zakończeniu nagryw
 <tr>
 <td>Ctrl+,</td>
 <td>Ustawienia / Konfiguracja</td>
+</tr>
+<tr>
+<td>Alt+M</td>
+<td>Podręcznik PDF (Help)</td>
 </tr>
 <tr>
 <td>Ctrl+Q / Alt+F4</td>

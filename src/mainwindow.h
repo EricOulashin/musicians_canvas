@@ -3,8 +3,10 @@
 
 #include <QMainWindow>
 #include <QVector>
+#include <QHash>
 #include <QIcon>
 #include <QElapsedTimer>
+#include <QUndoStack>
 #include <memory>
 #include "trackdata.h"
 #include "projectsettings.h"
@@ -74,6 +76,12 @@ private slots:
     void onTimeDisplayTick();
     void onAbout();
     void onManual();
+    void onExportStems();
+    void onRecordingOptions();
+    void onTempoMapEditor();
+    void onQuantizeMidi();
+    void onTrackMixerInteractionStarted(TrackWidget* w);
+    void onTrackMixerInteractionEnded(TrackWidget* w);
 
 private:
     void setupMenuBar();
@@ -126,6 +134,7 @@ private:
     void applyLiveRecordingMonitorState();
 #endif
     void syncMonitorCheckboxFromSettings();
+    void wireTrackWidget(TrackWidget* widget);
 
     QToolBar* m_toolBar = nullptr;
     QToolButton* m_tbOpen = nullptr;
@@ -191,6 +200,9 @@ private:
 
     // Real-time MIDI playback (used when an external MIDI output is selected).
     std::unique_ptr<MidiPlayer> m_midiPlayer;
+
+    QUndoStack m_undoStack;
+    QHash<TrackWidget*, TrackData> m_mixerUndoBaseline;
 };
 
 #endif // MAINWINDOW_H
