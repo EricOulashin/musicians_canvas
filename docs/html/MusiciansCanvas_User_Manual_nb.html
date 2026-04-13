@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas Brukermanual</h1>
 <p>Flerspors musikkopptaksapplikasjon &mdash; Version 0.1.1</p>
-<p>2026-04-11</p>
+<p>2026-04-13</p>
 </div>
 <div class="toc">
 <h2>Innholdsfortegnelse</h2>
@@ -91,6 +91,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#prosjekt-menyen">Prosjekt-menyen</a></li>
 <li><a href="#innstillingsmenyen">Innstillingsmenyen</a></li>
 <li><a href="#verktymenyen">Verktøymenyen</a></li>
+<li><a href="#hjelp-menyen">Hjelp-menyen</a></li>
 </ul>
 </li>
 <li><a href="#tastatursnarveier">Tastatursnarveier</a><ul>
@@ -258,7 +259,9 @@ direkte til Musician's Canvas-vinduet for å legge dem til som nye lydspor.</p>
 <p>Lydspor har en knapp <strong>Effekter</strong> rett under <strong>Options</strong>. Den åpner dialogen <strong>Spor-effekter</strong>, der du
 bygger en <strong>ordnet kjede</strong> med insert-effekter for opptak på dette sporet:</p>
 <p><img alt="Dialogen Spor-effekter" src="screenshots/Track_Effects_Dialog.png" /></p>
-<p>Effekttypene inkluderer <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong> og <strong>Amp &amp; cabinet</strong> (modellering av forsterker og høyttalerkabinett: amptype, kabinett, gain, bass/mellomtone/discant, luft og blandning). Skjermbilder av <strong>Amp &amp; cabinet</strong>:</p>
+<p>Effekttypene inkluderer <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong> (modellering av forsterker og høyttalerkabinett: amptype, kabinett, gain, bass/mellomtone/discant, luft og blandning) og <strong>Vibrato (Tremolo)</strong>.</p>
+<p><strong>Vibrato (Tremolo)</strong> er klassisk Fender‑“Vibrato” (tremolo): en <strong>periodisk volum-modulasjon</strong>. Bruk <strong>Speed</strong> for pulshastighet og <strong>Intensity</strong> (Depth) for dybde (fra subtil shimmer til full “chop”).</p>
+<p>Skjermbilder av <strong>Amp &amp; cabinet</strong>:</p>
 <p><img alt="Amp &amp; cabinet-modellering (1)" src="screenshots/Amp_And_Cabinet_Model_1.png" /></p>
 <p><img alt="Amp &amp; cabinet-modellering (2)" src="screenshots/Amp_And_Cabinet_Model_2.png" /></p>
 <ul>
@@ -272,7 +275,7 @@ bygger en <strong>ordnet kjede</strong> med insert-effekter for opptak på dette
 <p>Effekter brukes når du <strong>stopper opptaket</strong>, etter vanlig capture og resampling. Konfigurasjonen lagres i
 <code>project.json</code> under <code>audioEffectChain</code>.</p>
 <h3 id="mix-effects-full-project">Mix effects (full project)</h3>
-<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>, <strong>Vibrato (Tremolo)</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
 <p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
 <h3 id="overvak-under-opptak">Overvåk under opptak</h3>
 <p>Ved siden av <strong>tidsdisplayet</strong> styr <strong>Overvåk lyd under opptak</strong> om <strong>live-inngang</strong> sendes til <strong>prosjektets lydutgang</strong>
@@ -478,6 +481,28 @@ hjelpe deg å holde takten. Klikk på metronomknappen på knapperaden (under men
 <td>Virtual MIDI Keyboard</td>
 <td></td>
 <td>Starte følgeapplikasjonen for keyboard</td>
+</tr>
+</tbody>
+</table>
+<h3 id="hjelp-menyen">Hjelp-menyen</h3>
+<table>
+<thead>
+<tr>
+<th>Menypunkt</th>
+<th>Snarvei</th>
+<th>Beskrivelse</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manual</td>
+<td>Alt+M</td>
+<td>Åpne PDF-brukermanualen på språket som er valgt i appen</td>
+</tr>
+<tr>
+<td>About</td>
+<td></td>
+<td>Vis versjon og programinformasjon</td>
 </tr>
 </tbody>
 </table>

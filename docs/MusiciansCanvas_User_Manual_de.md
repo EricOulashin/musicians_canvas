@@ -204,7 +204,11 @@ auf dieser Spur einrichten:
 
 ![Dialog Spureffekte](../screenshots/Track_Effects_Dialog.png)
 
-Zur Verfügung stehen u. a. **Hall**, **Chorus**, **Flanger**, **Overdrive / distortion** und **Amp & cabinet** (Modellierung von Verstärker und Lautsprecherbox: Amp-Typ, Box, Gain, Bass/Mitten/Höhen, Air und Mischung). Screenshots des Effekts **Amp & cabinet**:
+Zur Verfügung stehen u. a. **Hall**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet** (Modellierung von Verstärker und Lautsprecherbox: Amp-Typ, Box, Gain, Bass/Mitten/Höhen, Air und Mischung) sowie **Vibrato (Tremolo)**.
+
+**Vibrato (Tremolo)** ist das klassische Fender‑„Vibrato“ aus vielen Verstärkern: eine **periodische Lautstärkemodulation**. Mit **Speed** stellen Sie die Puls‑Geschwindigkeit ein, mit **Intensity** (Depth) die Stärke (von dezentem Schimmern bis zum „Chop“).
+
+Screenshots des Effekts **Amp & cabinet**:
 
 ![Amp & cabinet-Modellierung (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
 
@@ -470,6 +474,13 @@ Wie bei **Track effects**: scrollbare Liste mit **Effekt hinzufügen…**, **≡
 | Mix tracks to file    | Ctrl+M        | Alle aktivierten Spuren in eine Datei exportieren |
 | Add drum track        | D        | MIDI-Schlagzeugspur anlegen und `.mid`-Groove schreiben |
 | Virtual MIDI Keyboard |               | Die Begleit-Tastaturanwendung starten         |
+
+### Menue "Help"
+
+| Menüeintrag | Tastenkürzel | Beschreibung |
+|------------|--------------|--------------|
+| Manual     | Alt+M        | Öffnet das PDF‑Benutzerhandbuch in der aktuell ausgewählten Sprache |
+| About      |              | Zeigt Versions- und Programminformationen |
 
 ## Tastenkürzel
 

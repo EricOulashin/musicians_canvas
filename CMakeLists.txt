@@ -65,6 +65,8 @@ set(SOURCES
     src/choruswidget.h
     src/flangewidget.cpp
     src/flangewidget.h
+    src/vibratoeffect.cpp
+    src/vibratoeffect.h
     src/effectsdialog.cpp
     src/effectsdialog.h
     src/effectchaineditorwidget.cpp

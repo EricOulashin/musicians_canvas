@@ -661,6 +661,48 @@ private:
     float m_airLpR = 0.f;
 };
 
+// ── Fender-style "Vibrato" (tremolo): amplitude modulation ────────────────────────────────
+
+class VibratoTremoloDsp
+{
+public:
+    void configure(const QJsonObject& p, int sampleRateIn)
+    {
+        m_sr = normalizedSampleRate(sampleRateIn);
+        m_speedHz   = float(p.value(QStringLiteral("speedHz")).toDouble(3.5));
+        m_intensity = float(p.value(QStringLiteral("intensity")).toDouble(0.35));
+
+        m_speedHz   = clampf(m_speedHz, 0.05f, 12.f);
+        m_intensity = clampf(m_intensity, 0.f, 1.f);
+        reset();
+    }
+
+    void reset()
+    {
+        m_phase = 0.f;
+    }
+
+    void processFrame(float& l, float& r)
+    {
+        // Mod factor maps intensity to 1..(1-intensity) at LFO trough, and 1 at peak.
+        const float s = std::sin(m_phase);
+        m_phase += 2.f * float(M_PI) * m_speedHz / float(m_sr);
+        if (m_phase > float(M_PI) * 2.f)
+            m_phase -= float(M_PI) * 2.f;
+
+        const float u = 0.5f * (1.f + s);                // 0..1
+        const float g = (1.f - m_intensity) + m_intensity * u; // (1-intensity)..1
+        l *= g;
+        r *= g;
+    }
+
+private:
+    int   m_sr = 44100;
+    float m_speedHz = 3.5f;
+    float m_intensity = 0.35f;
+    float m_phase = 0.f;
+};
+
 // ── Chain runner ──────────────────────────────────────────────────────────────────────────
 
 void applyChainImpl(QByteArray& pcm, int channelCount, int sampleRate, const QJsonArray& chain)
@@ -677,12 +719,14 @@ void applyChainImpl(QByteArray& pcm, int channelCount, int sampleRate, const QJs
     std::vector<FlangeDsp> flangers;
     std::vector<OverdriveDistortionDsp> odDists;
     std::vector<AmpCabinetModelDsp> ampCabs;
+    std::vector<VibratoTremoloDsp> vibratos;
     reverbs.reserve(size_t(chain.size()));
     choruses.reserve(size_t(chain.size()));
     flangers.reserve(size_t(chain.size()));
     odDists.reserve(size_t(chain.size()));
     ampCabs.reserve(size_t(chain.size()));
-    enum class Kind { Reverb, Chorus, Flanger, OverdriveDistortion, AmpCabinet };
+    vibratos.reserve(size_t(chain.size()));
+    enum class Kind { Reverb, Chorus, Flanger, OverdriveDistortion, AmpCabinet, Vibrato };
     std::vector<Kind> kinds;
     kinds.reserve(size_t(chain.size()));
 
@@ -728,6 +772,13 @@ void applyChainImpl(QByteArray& pcm, int channelCount, int sampleRate, const QJs
             ampCabs.push_back(std::move(ac));
             kinds.push_back(Kind::AmpCabinet);
         }
+        else if (type == QStringLiteral("vibrato"))
+        {
+            VibratoTremoloDsp vb;
+            vb.configure(params, sampleRate);
+            vibratos.push_back(std::move(vb));
+            kinds.push_back(Kind::Vibrato);
+        }
     }
 
     if (kinds.empty())
@@ -739,6 +790,7 @@ void applyChainImpl(QByteArray& pcm, int channelCount, int sampleRate, const QJs
     size_t iz = 0;
     size_t io = 0;
     size_t ia = 0;
+    size_t iv = 0;
     for (Kind k : kinds)
     {
         if (k == Kind::Reverb)
@@ -749,8 +801,10 @@ void applyChainImpl(QByteArray& pcm, int channelCount, int sampleRate, const QJs
             flangers[iz++].reset();
         else if (k == Kind::OverdriveDistortion)
             odDists[io++].reset();
-        else
+        else if (k == Kind::AmpCabinet)
             ampCabs[ia++].reset();
+        else
+            vibratos[iv++].reset();
     }
 
     ir = 0;
@@ -758,6 +812,7 @@ void applyChainImpl(QByteArray& pcm, int channelCount, int sampleRate, const QJs
     iz = 0;
     io = 0;
     ia = 0;
+    iv = 0;
 
     auto* s = reinterpret_cast<qint16*>(pcm.data());
     const int frameCount = pcm.size() / bytesPerFrame;
@@ -774,6 +829,7 @@ void applyChainImpl(QByteArray& pcm, int channelCount, int sampleRate, const QJs
             iz = 0;
             io = 0;
             ia = 0;
+            iv = 0;
             for (Kind k : kinds)
             {
                 if (k == Kind::Reverb)
@@ -784,8 +840,10 @@ void applyChainImpl(QByteArray& pcm, int channelCount, int sampleRate, const QJs
                     flangers[iz++].processFrame(l, r);
                 else if (k == Kind::OverdriveDistortion)
                     odDists[io++].processFrame(l, r);
-                else
+                else if (k == Kind::AmpCabinet)
                     ampCabs[ia++].processFrame(l, r);
+                else
+                    vibratos[iv++].processFrame(l, r);
             }
             x = (l + r) * 0.5f;
             x = AudioPcmLimits::guardFloatSampleForInt16Pcm(x);
@@ -804,6 +862,7 @@ void applyChainImpl(QByteArray& pcm, int channelCount, int sampleRate, const QJs
             iz = 0;
             io = 0;
             ia = 0;
+            iv = 0;
             for (Kind k : kinds)
             {
                 if (k == Kind::Reverb)
@@ -814,8 +873,10 @@ void applyChainImpl(QByteArray& pcm, int channelCount, int sampleRate, const QJs
                     flangers[iz++].processFrame(l, r);
                 else if (k == Kind::OverdriveDistortion)
                     odDists[io++].processFrame(l, r);
-                else
+                else if (k == Kind::AmpCabinet)
                     ampCabs[ia++].processFrame(l, r);
+                else
+                    vibratos[iv++].processFrame(l, r);
             }
             l = AudioPcmLimits::guardFloatSampleForInt16Pcm(l);
             r = AudioPcmLimits::guardFloatSampleForInt16Pcm(r);

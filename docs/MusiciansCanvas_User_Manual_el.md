@@ -160,7 +160,11 @@ lang: "el"
 
 ![Διάλογος εφέ καναλιού](../screenshots/Track_Effects_Dialog.png)
 
-Περιλαμβάνονται **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion** και **Amp & cabinet** (μοντελοποίηση ενισχυτή και καμπίνας: τύπος ενισχυτή, καμπίνα, κέρδος, μπάσα/μεσαία/πρίμα, «αέρας» και μίξη). Στιγμιότυπα του **Amp & cabinet**:
+Περιλαμβάνονται **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet** (μοντελοποίηση ενισχυτή και καμπίνας: τύπος ενισχυτή, καμπίνα, κέρδος, μπάσα/μεσαία/πρίμα, «αέρας» και μίξη) και **Vibrato (Tremolo)**.
+
+**Vibrato (Tremolo)** είναι το κλασικό Fender “Vibrato” (στην πράξη tremolo): **περιοδική διαμόρφωση έντασης**. Το **Speed** ορίζει την ταχύτητα παλμού και το **Intensity** (Depth) το βάθος (από διακριτικό “shimmer” έως πλήρες “chop”).
+
+Στιγμιότυπα του **Amp & cabinet**:
 
 ![Μοντελοποίηση Amp & cabinet (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
 
@@ -175,7 +179,7 @@ lang: "el"
 
 ### Mix effects (full project)
 
-**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
+**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**, **Vibrato (Tremolo)**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
 
 To reduce harsh [digital clipping](https://en.wikipedia.org/wiki/Clipping_%28audio%29) when processing pushes peaks toward full scale, the effect engine applies a **soft limiter** to normalized float samples immediately before conversion to 16-bit PCM. The **EffectWidget** base class documents `guardFloatSampleForInt16Pcm()` and `softLimitFloatSampleForInt16Pcm()` for any new real-time code that writes to 16-bit audio.
 
@@ -358,6 +362,13 @@ The **Mix Effects** tab is a scrollable list with the same controls as **Track e
 | Mix tracks to file     | Ctrl+M     | Εξαγωγή όλων των ενεργοποιημένων καναλιών σε αρχείο |
 | Add drum track        | D        | Προσθήκη MIDI τυμπάνων και `.mid` (δείτε παρακάτω) |
 | Virtual MIDI Keyboard  |            | Εκκίνηση της συνοδευτικής εφαρμογής πληκτρολογίου    |
+
+### Μενού Help
+
+| Στοιχείο Μενού | Συντόμευση | Περιγραφή |
+|---------------|------------|----------|
+| Manual        | Alt+M      | Άνοιγμα του PDF εγχειριδίου στη γλώσσα που είναι επιλεγμένη στην εφαρμογή |
+| About         |            | Εμφάνιση πληροφοριών έκδοσης και εφαρμογής |
 
 ## Συντομεύσεις Πληκτρολογίου
 

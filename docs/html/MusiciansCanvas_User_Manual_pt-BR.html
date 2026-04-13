@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Manual do Usu&aacute;rio do Musician&#8217;s Canvas</h1>
 <p>Aplicativo de Gravacao Musical Multi-Faixa &mdash; Version 0.1.1</p>
-<p>2026-04-11</p>
+<p>2026-04-13</p>
 </div>
 <div class="toc">
 <h2>&Iacute;ndice</h2>
@@ -91,6 +91,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#menu-project">Menu Project</a></li>
 <li><a href="#menu-settings">Menu Settings</a></li>
 <li><a href="#menu-tools">Menu Tools</a></li>
+<li><a href="#menu-help">Menu Help</a></li>
 </ul>
 </li>
 <li><a href="#atalhos-de-teclado">Atalhos de Teclado</a><ul>
@@ -298,7 +299,9 @@ configuracoes, etc.) sao desabilitados para evitar alteracoes acidentais.</p>
 <p>Faixas de audio tem o botao <strong>Efeitos</strong> logo abaixo de <strong>Options</strong>. Ele abre o dialogo <strong>Efeitos da
 faixa</strong>, onde voce monta uma <strong>cadeia ordenada</strong> de efeitos de insercao para gravacoes nessa faixa:</p>
 <p><img alt="Dialogo Efeitos da faixa" src="screenshots/Track_Effects_Dialog.png" /></p>
-<p>Tipos incluem <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distorcao</strong> e <strong>Amp &amp; cabinet</strong> (modelagem de amplificador e caixa: tipo de amp, caixa, ganho, graves/medios/agudos, ar e mistura). Telas do efeito <strong>Amp &amp; cabinet</strong>:</p>
+<p>Tipos incluem <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distorcao</strong>, <strong>Amp &amp; cabinet</strong> (modelagem de amplificador e caixa: tipo de amp, caixa, ganho, graves/medios/agudos, ar e mistura) e <strong>Vibrato (Trêmolo)</strong>.</p>
+<p><strong>Vibrato (Trêmolo)</strong> e o “Vibrato” classico de amps Fender (na pratica, trêmolo): uma <strong>modulacao periodica de volume</strong>. Use <strong>Speed</strong> para a velocidade da pulsacao e <strong>Intensity</strong> (Depth) para a profundidade (de um tremor sutil ate um corte total).</p>
+<p>Telas do efeito <strong>Amp &amp; cabinet</strong>:</p>
 <p><img alt="Modelagem Amp &amp; cabinet (1)" src="screenshots/Amp_And_Cabinet_Model_1.png" /></p>
 <p><img alt="Modelagem Amp &amp; cabinet (2)" src="screenshots/Amp_And_Cabinet_Model_2.png" /></p>
 <ul>
@@ -312,7 +315,7 @@ faixa</strong>, onde voce monta uma <strong>cadeia ordenada</strong> de efeitos 
 <p>Os efeitos sao aplicados ao <strong>parar a gravacao</strong>, apos captura e reamostragem usuais. A configuracao fica em
 <code>project.json</code> em <code>audioEffectChain</code>.</p>
 <h3 id="mix-effects-full-project">Mix effects (full project)</h3>
-<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>, <strong>Vibrato (Tremolo)</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
 <p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
 <h3 id="monitorar-durante-a-gravacao">Monitorar durante a gravacao</h3>
 <p>Ao lado do <strong>mostrador de tempo</strong>, a caixa <strong>Monitorar audio durante a gravacao</strong> envia ou nao a <strong>entrada ao vivo</strong>
@@ -577,6 +580,28 @@ sao salvas dentro do arquivo <code>project.json</code>.</p>
 <td>Virtual MIDI Keyboard</td>
 <td></td>
 <td>Iniciar o aplicativo de teclado complementar</td>
+</tr>
+</tbody>
+</table>
+<h3 id="menu-help">Menu Help</h3>
+<table>
+<thead>
+<tr>
+<th>Item do Menu</th>
+<th>Atalho</th>
+<th>Descricao</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manual</td>
+<td>Alt+M</td>
+<td>Abre o manual PDF no idioma selecionado atualmente</td>
+</tr>
+<tr>
+<td>About</td>
+<td></td>
+<td>Mostra informacoes de versao e do aplicativo</td>
 </tr>
 </tbody>
 </table>

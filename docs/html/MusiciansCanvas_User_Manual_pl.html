@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Podr&#281;cznik u&#380;ytkownika Musician&#8217;s Canvas</h1>
 <p>Wielościeżkowa aplikacja do nagrywania muzyki &mdash; Version 0.1.1</p>
-<p>2026-04-11</p>
+<p>2026-04-13</p>
 </div>
 <div class="toc">
 <h2>Spis tre&sacute;ci</h2>
@@ -91,6 +91,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#menu-projekt">Menu Projekt</a></li>
 <li><a href="#menu-ustawienia">Menu Ustawienia</a></li>
 <li><a href="#menu-narzedzia">Menu Narzędzia</a></li>
+<li><a href="#menu-help">Menu Help</a></li>
 </ul>
 </li>
 <li><a href="#skroty-klawiaturowe">Skróty klawiaturowe</a><ul>
@@ -261,7 +262,9 @@ nowe ścieżki audio.</p>
 <p>Ścieżki audio mają przycisk <strong>Efekty</strong> tuż pod <strong>Options</strong>. Otwiera on okno <strong>Efekty ścieżki</strong>, gdzie
 budujesz <strong>uporządkowany łańcuch</strong> efektów insert dla nagrań na tej ścieżce:</p>
 <p><img alt="Okno efektów ścieżki" src="screenshots/Track_Effects_Dialog.png" /></p>
-<p>Dostępne są m.in. <strong>Pogłos</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong> i <strong>Amp &amp; cabinet</strong> (modelowanie wzmacniacza i kolumny: typ wzm., kolumna, przester, bas/średnie/wysokie, „powietrze” i mieszanie). Zrzuty ekranu efektu <strong>Amp &amp; cabinet</strong>:</p>
+<p>Dostępne są m.in. <strong>Pogłos</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong> (modelowanie wzmacniacza i kolumny: typ wzm., kolumna, przester, bas/średnie/wysokie, „powietrze” i mieszanie) oraz <strong>Vibrato (Tremolo)</strong>.</p>
+<p><strong>Vibrato (Tremolo)</strong> to klasyczne fenderowskie „Vibrato” (w praktyce tremolo): <strong>okresowa modulacja głośności</strong>. <strong>Speed</strong> ustawia szybkość pulsowania, a <strong>Intensity</strong> (Depth) jego głębokość (od subtelnego „shimmer” do pełnego „chop”).</p>
+<p>Zrzuty ekranu efektu <strong>Amp &amp; cabinet</strong>:</p>
 <p><img alt="Modelowanie Amp &amp; cabinet (1)" src="screenshots/Amp_And_Cabinet_Model_1.png" /></p>
 <p><img alt="Modelowanie Amp &amp; cabinet (2)" src="screenshots/Amp_And_Cabinet_Model_2.png" /></p>
 <ul>
@@ -275,7 +278,7 @@ budujesz <strong>uporządkowany łańcuch</strong> efektów insert dla nagrań n
 <p>Efekty stosuje się po <strong>zatrzymaniu nagrywania</strong>, po zwykłym przechwyceniu i resamplingu. Konfiguracja jest
 w <code>project.json</code> w <code>audioEffectChain</code>.</p>
 <h3 id="mix-effects-full-project">Mix effects (full project)</h3>
-<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>, <strong>Vibrato (Tremolo)</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
 <p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
 <h3 id="monitorowanie-podczas-nagrywania">Monitorowanie podczas nagrywania</h3>
 <p>Obok <strong>wyświetlacza czasu</strong> pole <strong>Monitoruj dźwięk podczas nagrywania</strong> włącza lub wyłącza wysyłanie <strong>żywego wejścia</strong>
@@ -481,6 +484,28 @@ zakończeniu 3-sekundowego odliczania), i zatrzymuje się po zakończeniu nagryw
 <td>Virtual MIDI Keyboard</td>
 <td></td>
 <td>Uruchom aplikację towarzyszącą klawiatury</td>
+</tr>
+</tbody>
+</table>
+<h3 id="menu-help">Menu Help</h3>
+<table>
+<thead>
+<tr>
+<th>Element menu</th>
+<th>Skrót</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manual</td>
+<td>Alt+M</td>
+<td>Otwórz podręcznik PDF w aktualnie wybranym języku</td>
+</tr>
+<tr>
+<td>About</td>
+<td></td>
+<td>Pokaż informacje o wersji i aplikacji</td>
 </tr>
 </tbody>
 </table>

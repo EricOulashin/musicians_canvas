@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas &#8212; A Pirate&#8217;s Guide</h1>
 <p>A Multi-Shanty Music Plunderin' Application fer Scallywags an' Sea Dogs Alike &mdash; Version 0.1.1</p>
-<p>2026-04-11</p>
+<p>2026-04-13</p>
 </div>
 <div class="toc">
 <h2>Table of Contents</h2>
@@ -91,6 +91,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#project-menu">Project Menu</a></li>
 <li><a href="#settings-menu">Settings Menu</a></li>
 <li><a href="#tools-menu">Tools Menu</a></li>
+<li><a href="#help-menu">Help Menu</a></li>
 </ul>
 </li>
 <li><a href="#keyboard-shortcuts">Keyboard Shortcuts</a><ul>
@@ -258,7 +259,9 @@ fresh audio shanties.</p>
 <h3 id="insert-effects-audio-shanties-only">Insert effects (audio shanties only)</h3>
 <p>Audio shanties have an <strong>Effects</strong> button just below <strong>Options</strong>. It opens <strong>Track effects</strong>, where ye build a <strong>ordered chain</strong> o' plunder-time insert effects fer this shanty:</p>
 <p><img alt="Track effects dialog" src="screenshots/Track_Effects_Dialog.png" /></p>
-<p>Ye can haul aboard <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, an' <strong>Amp &amp; cabinet</strong> (modelin' amp an' speaker box: amp voice, cabinet, gain, bass/middle/treble, air, an' wet/dry). Spyglass on <strong>Amp &amp; cabinet</strong>:</p>
+<p>Ye can haul aboard <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong> (modelin' amp an' speaker box: amp voice, cabinet, gain, bass/middle/treble, air, an' wet/dry), an' <strong>Vibrato (Tremolo)</strong>.</p>
+<p><strong>Vibrato (Tremolo)</strong> be that classic Fender “Vibrato” (aye, a tremolo): an <strong>oscillatin' change in volume over time</strong>. Set <strong>Speed</strong> fer how fast she pulses, an' <strong>Intensity</strong> (Depth) fer how deep she dips (from a wee shimmer to a full-on chop).</p>
+<p>Spyglass on <strong>Amp &amp; cabinet</strong>:</p>
 <p><img alt="Amp &amp; cabinet modelin' (1)" src="screenshots/Amp_And_Cabinet_Model_1.png" /></p>
 <p><img alt="Amp &amp; cabinet modelin' (2)" src="screenshots/Amp_And_Cabinet_Model_2.png" /></p>
 <ul>
@@ -269,7 +272,7 @@ fresh audio shanties.</p>
 </ul>
 <p>Effects be applied <strong>when ye click Stop</strong>, after the usual capture an' resample. The rig be stored in <code>project.json</code> under <code>audioEffectChain</code>.</p>
 <h3 id="mix-effects-full-project">Mix effects (full project)</h3>
-<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>, <strong>Vibrato (Tremolo)</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
 <p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
 <h3 id="hear-yer-racket-live">Hear yer racket live</h3>
 <p>Beside the <strong>time glass</strong>, <strong>Hear yer racket live while recordin'</strong> sends <strong>live plunder</strong> to the <strong>project's speakin' tubes</strong> while ye capture:</p>
@@ -490,6 +493,28 @@ durin' recordin' to keep yer crew in time. Click the metronome button on the but
 <td>Virtual MIDI Keyboard</td>
 <td></td>
 <td>Launch the companion keyboard vessel</td>
+</tr>
+</tbody>
+</table>
+<h3 id="help-menu">Help Menu</h3>
+<table>
+<thead>
+<tr>
+<th>Menu Item</th>
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manual</td>
+<td>Alt+M</td>
+<td>Open the PDF manual in the tongue ye selected</td>
+</tr>
+<tr>
+<td>About</td>
+<td></td>
+<td>Show version an' app info</td>
 </tr>
 </tbody>
 </table>

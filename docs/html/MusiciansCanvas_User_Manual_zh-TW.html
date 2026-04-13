@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas &#20351;&#29992;&#25163;&#20874;</h1>
 <p>多軌音樂錄製應用程式 &mdash; Version 0.1.1</p>
-<p>2026-04-11</p>
+<p>2026-04-13</p>
 </div>
 <div class="toc">
 <h2>&#30446;&#37636;</h2>
@@ -91,6 +91,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#project">Project 選單</a></li>
 <li><a href="#settings">Settings 選單</a></li>
 <li><a href="#tools">Tools 選單</a></li>
+<li><a href="#help">Help 選單</a></li>
 </ul>
 </li>
 <li><a href="#_30">鍵盤快捷鍵</a><ul>
@@ -250,7 +251,9 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <h3 id="_16">插入式效果（僅音訊音軌）</h3>
 <p>音訊音軌在 <strong>Options</strong> 下方有 <strong>效果</strong> 按鈕，可開啟 <strong>軌道效果</strong> 對話方塊，為該音軌的錄音建立 <strong>有序效果链</strong>：</p>
 <p><img alt="軌道效果對話框" src="screenshots/Track_Effects_Dialog.png" /></p>
-<p>可加入 <strong>殘響</strong>、<strong>合唱</strong>、<strong>鑲邊（Flanger）</strong>、<strong>過載／失真（Overdrive / distortion）</strong> 與 <strong>音箱頭與箱體建模（Amp &amp; cabinet）</strong>（箱頭類型、箱體、增益、低／中／高頻、空氣感與溼乾比等）。以下為 <strong>Amp &amp; cabinet</strong> 的介面範例：</p>
+<p>可加入 <strong>殘響</strong>、<strong>合唱</strong>、<strong>鑲邊（Flanger）</strong>、<strong>過載／失真（Overdrive / distortion）</strong>、<strong>音箱頭與箱體建模（Amp &amp; cabinet）</strong>（箱頭類型、箱體、增益、低／中／高頻、空氣感與溼乾比等），以及 <strong>顫音（Vibrato / Tremolo）</strong>。</p>
+<p><strong>顫音（Vibrato / Tremolo）</strong> 是 Fender 許多音箱上標示為 “Vibrato” 的經典效果（其實是 <strong>音量隨時間週期性起伏</strong> 的 tremolo）。使用 <strong>Speed</strong> 調整起伏速度，使用 <strong>Intensity</strong>（Depth）調整深度（從細微閃動到強烈斷奏）。</p>
+<p>以下為 <strong>Amp &amp; cabinet</strong> 的介面範例：</p>
 <p><img alt="Amp &amp; cabinet 建模 (1)" src="screenshots/Amp_And_Cabinet_Model_1.png" /></p>
 <p><img alt="Amp &amp; cabinet 建模 (2)" src="screenshots/Amp_And_Cabinet_Model_2.png" /></p>
 <ul>
@@ -261,7 +264,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </ul>
 <p>效果在 <strong>停止錄製</strong> 後套用（經一般擷取與重取樣）。設定儲存在 <code>project.json</code> 的 <code>audioEffectChain</code>。</p>
 <h3 id="mix-effects-full-project">Mix effects (full project)</h3>
-<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>, <strong>Vibrato (Tremolo)</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
 <p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
 <h3 id="_17">錄製時監聽</h3>
 <p>在 <strong>時間顯示</strong> 右側，<strong>錄音時監聽音訊</strong> 控制錄製期間是否將 <strong>即時輸入</strong> 送到 <strong>專案的音訊輸出</strong>：</p>
@@ -471,6 +474,28 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <td>Virtual MIDI Keyboard</td>
 <td></td>
 <td>啟動附屬鍵盤應用程式</td>
+</tr>
+</tbody>
+</table>
+<h3 id="help">Help 選單</h3>
+<table>
+<thead>
+<tr>
+<th>選單項目</th>
+<th>快捷鍵</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manual</td>
+<td>Alt+M</td>
+<td>開啟目前所選語言的 PDF 使用手冊</td>
+</tr>
+<tr>
+<td>About</td>
+<td></td>
+<td>顯示版本與應用資訊</td>
 </tr>
 </tbody>
 </table>

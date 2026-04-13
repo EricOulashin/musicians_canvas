@@ -55,6 +55,7 @@
 #include <QFrame>
 #include <QProcess>
 #include <QDir>
+#include <QDesktopServices>
 #include <QIcon>
 #include <QPixmap>
 #include <QTemporaryFile>
@@ -108,6 +109,60 @@ void applyMixBusEffectsToPathIfSet(const QString& path, const QJsonArray& chain)
     if (!QFile::exists(path))
         return;
     static_cast<void>(AudioUtils::applyMixEffectChainToAudioFile(path, chain));
+}
+
+QString normalizedManualTag(const QString& lang)
+{
+    if (lang.isEmpty())
+        return {};
+
+    QString l = lang;
+    l.replace(QLatin1Char('-'), QLatin1Char('_'));
+    const QStringList parts = l.split(QLatin1Char('_'), Qt::SkipEmptyParts);
+    if (parts.isEmpty())
+        return {};
+
+    const QString language = parts.value(0).toLower();
+    const QString region   = parts.value(1).toUpper();
+    if (!region.isEmpty())
+        return language + QLatin1Char('-') + region;
+    return language;
+}
+
+QString resolveManualPdfPathForLanguage(const QString& langSetting)
+{
+    const QString effective =
+        !langSetting.isEmpty() ? langSetting : QLocale::system().name();
+
+    const QString tagExact = normalizedManualTag(effective);
+    const QString tagShort = normalizedManualTag(effective.left(2));
+
+    const QString baseName = QStringLiteral("MusiciansCanvas_User_Manual");
+    const QString fileBase = baseName + QStringLiteral(".pdf");
+
+    QStringList candidates;
+    candidates.reserve(6);
+    if (!tagExact.isEmpty() && tagExact != QStringLiteral("en"))
+        candidates.append(baseName + QLatin1Char('_') + tagExact + QStringLiteral(".pdf"));
+    if (!tagShort.isEmpty() && tagShort != QStringLiteral("en") && tagShort != tagExact)
+        candidates.append(baseName + QLatin1Char('_') + tagShort + QStringLiteral(".pdf"));
+    candidates.append(fileBase);
+
+    // Search for docs/ in and above the executable directory (supports running from build/).
+    QDir dir(QCoreApplication::applicationDirPath());
+    for (int up = 0; up < 6; ++up)
+    {
+        const QString docsDir = dir.absoluteFilePath(QStringLiteral("docs"));
+        for (const QString& f : candidates)
+        {
+            const QString full = QDir(docsDir).absoluteFilePath(f);
+            if (QFile::exists(full))
+                return full;
+        }
+        if (!dir.cdUp())
+            break;
+    }
+    return {};
 }
 }  // namespace
 
@@ -270,6 +325,9 @@ void MainWindow::setupMenuBar()
     connect(vkAction, &QAction::triggered, this, &MainWindow::onVirtualMidiKeyboard);
 
     auto* helpMenu = menuBar->addMenu(tr("&Help"));
+    auto* manualAction = helpMenu->addAction(tr("&Manual"));
+    connect(manualAction, &QAction::triggered, this, &MainWindow::onManual);
+    helpMenu->addSeparator();
     auto* aboutAction = helpMenu->addAction(tr("&About"));
     connect(aboutAction, &QAction::triggered, this, &MainWindow::onAbout);
 }
@@ -2446,6 +2504,24 @@ void MainWindow::onAbout()
     ).arg(QStringLiteral(APP_VERSION),
           QStringLiteral("https://github.com/EricOulashin/musicians_canvas"));
     QMessageBox::about(this, tr("About Musician's Canvas"), text);
+}
+
+void MainWindow::onManual()
+{
+    const QString pdfPath = resolveManualPdfPathForLanguage(AppSettings::instance().language());
+    if (pdfPath.isEmpty() || !QFile::exists(pdfPath))
+    {
+        QMessageBox::warning(this, tr("Manual"),
+                             tr("The user manual PDF could not be found."));
+        return;
+    }
+
+    const QUrl url = QUrl::fromLocalFile(pdfPath);
+    if (!QDesktopServices::openUrl(url))
+    {
+        QMessageBox::warning(this, tr("Manual"),
+                             tr("Could not open the user manual:\n%1").arg(pdfPath));
+    }
 }
 
 void MainWindow::onTimeDisplayTick()

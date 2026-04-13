@@ -161,7 +161,11 @@ Tá cnaipe **Éifeachtaí** ar rianta fuaime díreach faoi **Options**. Osclaío
 
 ![Dialóg éifeachtaí rian](../screenshots/Track_Effects_Dialog.png)
 
-Tá **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion** agus **Amp & cabinet** (samhaltú sainmhéadra agus cáibín: cineál sainmhéadra, cáibín, gnóthachán, dóigh/barr/díreach, aer agus meascthán) ar fáil. Seatanna scáileáin an éifeachta **Amp & cabinet**:
+Tá **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet** (samhaltú sainmhéadra agus cáibín: cineál sainmhéadra, cáibín, gnóthachán, dóigh/barr/díreach, aer agus meascthán) agus **Vibrato (Tremolo)** ar fáil.
+
+Is é **Vibrato (Tremolo)** an “Vibrato” clasaiceach i stíl Fender (i ndáiríre tremolo): **modhnú tréimhsiúil ar an toirt**. Socraíonn **Speed** luas na bíogaireachta agus socraíonn **Intensity** (Depth) an doimhneacht (ó shíomrógín mín go “chop” iomlán).
+
+Seatanna scáileáin an éifeachta **Amp & cabinet**:
 
 ![Samhaltú Amp & cabinet (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
 
@@ -176,7 +180,7 @@ Cuirtear éifeachtaí i bhfeidhm **nuair a stopann tú an taifeadadh**, tar éis
 
 ### Mix effects (full project)
 
-**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
+**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**, **Vibrato (Tremolo)**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
 
 To reduce harsh [digital clipping](https://en.wikipedia.org/wiki/Clipping_%28audio%29) when processing pushes peaks toward full scale, the effect engine applies a **soft limiter** to normalized float samples immediately before conversion to 16-bit PCM. The **EffectWidget** base class documents `guardFloatSampleForInt16Pcm()` and `softLimitFloatSampleForInt16Pcm()` for any new real-time code that writes to 16-bit audio.
 
@@ -360,6 +364,13 @@ The **Mix Effects** tab is a scrollable list with the same controls as **Track e
 | Mix tracks to file     | Ctrl+M     | Easpórtáil gach rian cumasaithe go comhad       |
 | Add drum track        | D        | Rian MIDI drumaí agus `.mid` (féach thíos) |
 | Virtual MIDI Keyboard  |            | Seoladh an fheidhmchláir mhéarchláir chomhpháirtigh|
+
+### Roghchlár Help
+
+| Mír Roghchláir | Aicearra | Cur Síos |
+|---------------|----------|----------|
+| Manual        | Alt+M    | Oscail an lámhleabhar PDF sa teanga atá roghnaithe san aip faoi láthair |
+| About         |          | Taispeáin eolas faoi leagan agus faoin aip |
 
 ## Aicearraí Méarchláir
 

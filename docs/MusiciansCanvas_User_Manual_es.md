@@ -161,7 +161,11 @@ grabaciones en esa pista:
 
 ![Diálogo Efectos de pista](../screenshots/Track_Effects_Dialog.png)
 
-Puede usar **Reverb**, **Chorus**, **Flanger**, **Overdrive / distorsión** y **Amp & cabinet** (modelado de amplificador y pantalla: tipo de ampli, pantalla, ganancia, graves/medios/agudos, aire y mezcla). Capturas del efecto **Amp & cabinet**:
+Puede usar **Reverb**, **Chorus**, **Flanger**, **Overdrive / distorsión**, **Amp & cabinet** (modelado de amplificador y pantalla: tipo de ampli, pantalla, ganancia, graves/medios/agudos, aire y mezcla) y **Vibrato (Trémolo)**.
+
+**Vibrato (Trémolo)** es el clásico “Vibrato” de Fender (en realidad un trémolo): un **cambio oscilante de volumen con el tiempo**. Use **Speed** para ajustar la velocidad del pulso y **Intensity** (Depth) para ajustar la profundidad (de un movimiento sutil a un “chop” completo).
+
+Capturas del efecto **Amp & cabinet**:
 
 ![Modelado Amp & cabinet (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
 
@@ -180,7 +184,7 @@ remuestreo. La configuración se guarda en `project.json` en `audioEffectChain`.
 
 ### Mix effects (full project)
 
-**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
+**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**, **Vibrato (Tremolo)**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
 
 To reduce harsh [digital clipping](https://en.wikipedia.org/wiki/Clipping_%28audio%29) when processing pushes peaks toward full scale, the effect engine applies a **soft limiter** to normalized float samples immediately before conversion to 16-bit PCM. The **EffectWidget** base class documents `guardFloatSampleForInt16Pcm()` and `softLimitFloatSampleForInt16Pcm()` for any new real-time code that writes to 16-bit audio.
 
@@ -380,6 +384,13 @@ The **Mix Effects** tab is a scrollable list with the same controls as **Track e
 | Mix tracks to file     | Ctrl+M   | Exportar todas las pistas habilitadas a un archivo |
 | Add drum track        | D        | Añadir pista MIDI de batería y escribir un `.mid` (ver abajo) |
 | Virtual MIDI Keyboard  |          | Iniciar la aplicación complementaria de teclado    |
+
+### Menú Help
+
+| Elemento del Menú | Atajo | Descripción |
+|-------------------|-------|-------------|
+| Manual            | Alt+M | Abre el manual PDF en el idioma seleccionado actualmente |
+| About             |       | Muestra información de versión y de la aplicación |
 
 ## Atajos de Teclado
 

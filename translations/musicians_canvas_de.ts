@@ -238,52 +238,57 @@ Bitte installieren Sie einen ASIO-Treiber und starten Sie die Anwendung neu:
 <context>
     <name>EffectChainEditorWidget</name>
     <message>
-        <location filename="../src/effectchaineditorwidget.cpp" line="64"/>
+        <location filename="../src/effectchaineditorwidget.cpp" line="65"/>
         <source>Add effect…</source>
         <translation type="unfinished">Effekt hinzufügen…</translation>
     </message>
     <message>
-        <location filename="../src/effectchaineditorwidget.cpp" line="187"/>
+        <location filename="../src/effectchaineditorwidget.cpp" line="190"/>
         <source>Add effect</source>
         <translation type="unfinished">Effekt hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/effectchaineditorwidget.cpp" line="189"/>
+        <location filename="../src/effectchaineditorwidget.cpp" line="192"/>
         <source>Choose an effect:</source>
         <translation type="unfinished">Effekt wählen:</translation>
     </message>
     <message>
-        <location filename="../src/effectchaineditorwidget.cpp" line="191"/>
+        <location filename="../src/effectchaineditorwidget.cpp" line="194"/>
         <source>Reverb</source>
         <translation type="unfinished">Hall</translation>
     </message>
     <message>
-        <location filename="../src/effectchaineditorwidget.cpp" line="192"/>
+        <location filename="../src/effectchaineditorwidget.cpp" line="195"/>
         <source>Chorus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/effectchaineditorwidget.cpp" line="193"/>
+        <location filename="../src/effectchaineditorwidget.cpp" line="196"/>
         <source>Flanger</source>
         <translation type="unfinished">Flanger</translation>
     </message>
     <message>
-        <location filename="../src/effectchaineditorwidget.cpp" line="194"/>
+        <location filename="../src/effectchaineditorwidget.cpp" line="197"/>
         <source>Overdrive / distortion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/effectchaineditorwidget.cpp" line="195"/>
+        <location filename="../src/effectchaineditorwidget.cpp" line="198"/>
         <source>Amp &amp; cabinet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/effectchaineditorwidget.cpp" line="209"/>
+        <location filename="../src/effectchaineditorwidget.cpp" line="199"/>
+        <source>Vibrato (Tremolo)</source>
+        <translation>Vibrato (Tremolo)</translation>
+    </message>
+    <message>
+        <location filename="../src/effectchaineditorwidget.cpp" line="213"/>
         <source>Effects</source>
         <translation type="unfinished">Effekte</translation>
     </message>
     <message>
-        <location filename="../src/effectchaineditorwidget.cpp" line="209"/>
+        <location filename="../src/effectchaineditorwidget.cpp" line="213"/>
         <source>Unknown effect type.</source>
         <translation type="unfinished">Unbekannter Effekttyp.</translation>
     </message>
@@ -402,176 +407,181 @@ Bitte installieren Sie einen ASIO-Treiber und starten Sie die Anwendung neu:
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="169"/>
-        <location filename="../src/mainwindow.cpp" line="206"/>
+        <location filename="../src/mainwindow.cpp" line="224"/>
+        <location filename="../src/mainwindow.cpp" line="261"/>
         <source>Musician&apos;s Canvas</source>
         <translation>Musician&apos;s Canvas</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="237"/>
+        <location filename="../src/mainwindow.cpp" line="292"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="238"/>
+        <location filename="../src/mainwindow.cpp" line="293"/>
         <source>&amp;Save Project</source>
         <translation>Projekt &amp;speichern</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="241"/>
+        <location filename="../src/mainwindow.cpp" line="296"/>
         <source>&amp;Open Project...</source>
         <translation>Projekt &amp;öffnen...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="245"/>
+        <location filename="../src/mainwindow.cpp" line="300"/>
         <source>&amp;Close</source>
         <translation>S&amp;chließen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="249"/>
+        <location filename="../src/mainwindow.cpp" line="304"/>
         <source>&amp;Project</source>
         <translation>&amp;Projekt</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="250"/>
+        <location filename="../src/mainwindow.cpp" line="305"/>
         <source>&amp;Project Settings</source>
         <translation>&amp;Projekteinstellungen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="254"/>
+        <location filename="../src/mainwindow.cpp" line="309"/>
         <source>Add Demo &amp;Data to Selected Track</source>
         <translation>&amp;Demodaten zur ausgewählten Spur hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="257"/>
+        <location filename="../src/mainwindow.cpp" line="312"/>
         <source>&amp;Settings</source>
         <translation>&amp;Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="258"/>
+        <location filename="../src/mainwindow.cpp" line="313"/>
         <source>&amp;Configuration</source>
         <translation>&amp;Konfiguration</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="262"/>
+        <location filename="../src/mainwindow.cpp" line="317"/>
         <source>&amp;Tools</source>
         <translation>&amp;Werkzeuge</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="263"/>
+        <location filename="../src/mainwindow.cpp" line="318"/>
         <source>&amp;Mix tracks to file...</source>
         <translation>Spuren in Datei &amp;mischen...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="269"/>
+        <location filename="../src/mainwindow.cpp" line="324"/>
         <source>&amp;Virtual MIDI Keyboard</source>
         <translation>&amp;Virtuelle MIDI-Tastatur</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="212"/>
-        <location filename="../src/mainwindow.cpp" line="341"/>
+        <location filename="../src/mainwindow.cpp" line="267"/>
+        <location filename="../src/mainwindow.cpp" line="399"/>
         <source>Project location:</source>
         <translation>Projektverzeichnis:</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="344"/>
+        <location filename="../src/mainwindow.cpp" line="402"/>
         <source>Select a project directory...</source>
         <translation>Projektverzeichnis auswählen...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="214"/>
-        <location filename="../src/mainwindow.cpp" line="359"/>
+        <location filename="../src/mainwindow.cpp" line="269"/>
+        <location filename="../src/mainwindow.cpp" line="417"/>
         <source>Browse...</source>
         <translation>Durchsuchen...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="372"/>
-        <location filename="../src/mainwindow.cpp" line="920"/>
+        <location filename="../src/mainwindow.cpp" line="430"/>
+        <location filename="../src/mainwindow.cpp" line="978"/>
         <source>Play all tracks</source>
         <translation>Alle Spuren abspielen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="216"/>
-        <location filename="../src/mainwindow.cpp" line="377"/>
+        <location filename="../src/mainwindow.cpp" line="271"/>
+        <location filename="../src/mainwindow.cpp" line="435"/>
         <source>+ Add Track</source>
         <translation>+ Spur hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="218"/>
-        <location filename="../src/mainwindow.cpp" line="384"/>
-        <location filename="../src/mainwindow.cpp" line="2323"/>
+        <location filename="../src/mainwindow.cpp" line="273"/>
+        <location filename="../src/mainwindow.cpp" line="442"/>
+        <location filename="../src/mainwindow.cpp" line="2381"/>
         <source>Clear Tracks</source>
         <translation>Spuren löschen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="222"/>
-        <location filename="../src/mainwindow.cpp" line="300"/>
+        <location filename="../src/mainwindow.cpp" line="277"/>
+        <location filename="../src/mainwindow.cpp" line="358"/>
         <source>Project Settings</source>
         <translation>Projekteinstellungen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="223"/>
-        <location filename="../src/mainwindow.cpp" line="306"/>
+        <location filename="../src/mainwindow.cpp" line="278"/>
+        <location filename="../src/mainwindow.cpp" line="364"/>
         <source>Configuration</source>
         <translation>Konfiguration</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="224"/>
-        <location filename="../src/mainwindow.cpp" line="314"/>
+        <location filename="../src/mainwindow.cpp" line="279"/>
+        <location filename="../src/mainwindow.cpp" line="372"/>
         <source>Metronome Settings</source>
         <translation>Metronom-Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="226"/>
-        <location filename="../src/mainwindow.cpp" line="401"/>
+        <location filename="../src/mainwindow.cpp" line="281"/>
+        <location filename="../src/mainwindow.cpp" line="459"/>
         <source>Monitor audio while recording</source>
         <translation>Ton während der Aufnahme mithören</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="266"/>
+        <location filename="../src/mainwindow.cpp" line="321"/>
         <source>Add &amp;drum track</source>
         <translation>Schlagzeug&amp;spur hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="272"/>
+        <location filename="../src/mainwindow.cpp" line="327"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="273"/>
+        <location filename="../src/mainwindow.cpp" line="328"/>
+        <source>&amp;Manual</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="331"/>
         <source>&amp;About</source>
         <translation>&amp;Über</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="465"/>
-        <location filename="../src/mainwindow.cpp" line="502"/>
+        <location filename="../src/mainwindow.cpp" line="523"/>
+        <location filename="../src/mainwindow.cpp" line="560"/>
         <source>Add drum track</source>
         <translation>Schlagzeugspur hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="466"/>
+        <location filename="../src/mainwindow.cpp" line="524"/>
         <source>Please choose a project directory before adding a drum track.</source>
         <translation>Bitte wählen Sie zuerst ein Projektverzeichnis, bevor Sie eine Schlagzeugspur hinzufügen.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="503"/>
+        <location filename="../src/mainwindow.cpp" line="561"/>
         <source>Could not write drum MIDI file:
 %1</source>
         <translation>Die MIDI-Datei für Schlagzeug konnte nicht geschrieben werden:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="535"/>
+        <location filename="../src/mainwindow.cpp" line="593"/>
         <source>Drums</source>
         <translation>Schlagzeug</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="633"/>
+        <location filename="../src/mainwindow.cpp" line="691"/>
         <source>Unsupported file type</source>
         <translation>Nicht unterstützter Dateityp</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="634"/>
+        <location filename="../src/mainwindow.cpp" line="692"/>
         <source>The following file(s) were skipped because they are not in a supported audio format:
 %1
 
@@ -582,276 +592,294 @@ Supported formats: %2</source>
 Unterstützte Formate: %2</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="671"/>
+        <location filename="../src/mainwindow.cpp" line="729"/>
         <source>File already exists</source>
         <translation>Datei existiert bereits</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="672"/>
+        <location filename="../src/mainwindow.cpp" line="730"/>
         <source>A file named &quot;%1&quot; already exists in the project directory. Replace it?</source>
         <translation>Eine Datei namens &quot;%1&quot; existiert bereits im Projektverzeichnis. Ersetzen?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="683"/>
+        <location filename="../src/mainwindow.cpp" line="741"/>
         <source>Copy failed</source>
         <translation>Kopieren fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="684"/>
+        <location filename="../src/mainwindow.cpp" line="742"/>
         <source>Could not copy %1 into the project directory.</source>
         <translation>%1 konnte nicht in das Projektverzeichnis kopiert werden.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="784"/>
+        <location filename="../src/mainwindow.cpp" line="842"/>
         <source>Mix Complete</source>
         <translation>Mischung abgeschlossen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="785"/>
+        <location filename="../src/mainwindow.cpp" line="843"/>
         <source>Audio exported successfully to:
 %1</source>
         <translation>Audio erfolgreich exportiert nach:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="789"/>
+        <location filename="../src/mainwindow.cpp" line="847"/>
         <source>Mix Failed</source>
         <translation>Mischung fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="790"/>
+        <location filename="../src/mainwindow.cpp" line="848"/>
         <source>Could not export audio. Please check that you have at least one enabled track with content, and a SoundFont configured for MIDI tracks.</source>
         <translation>Audio konnte nicht exportiert werden. Bitte stellen Sie sicher, dass mindestens eine aktivierte Spur mit Inhalt vorhanden ist und ein SoundFont für MIDI-Spuren konfiguriert wurde.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="800"/>
+        <location filename="../src/mainwindow.cpp" line="858"/>
         <source>Select Project Directory</source>
         <translation>Projektverzeichnis auswählen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="908"/>
+        <location filename="../src/mainwindow.cpp" line="966"/>
         <source>Stop</source>
         <translation>Stopp</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="914"/>
+        <location filename="../src/mainwindow.cpp" line="972"/>
         <source>Record armed track</source>
         <translation>Aufnahmebereit geschaltete Spur aufnehmen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="971"/>
-        <location filename="../src/mainwindow.cpp" line="988"/>
-        <location filename="../src/mainwindow.cpp" line="1019"/>
+        <location filename="../src/mainwindow.cpp" line="1029"/>
+        <location filename="../src/mainwindow.cpp" line="1046"/>
+        <location filename="../src/mainwindow.cpp" line="1077"/>
         <source>Playback Error</source>
         <translation>Wiedergabefehler</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="971"/>
+        <location filename="../src/mainwindow.cpp" line="1029"/>
         <source>Could not create temporary file.</source>
         <translation>Temporäre Datei konnte nicht erstellt werden.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="989"/>
-        <location filename="../src/mainwindow.cpp" line="1020"/>
+        <location filename="../src/mainwindow.cpp" line="1047"/>
+        <location filename="../src/mainwindow.cpp" line="1078"/>
         <source>Could not mix tracks for playback. Make sure tracks have content.</source>
         <translation>Spuren konnten nicht für die Wiedergabe gemischt werden. Stellen Sie sicher, dass die Spuren Inhalt haben.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1065"/>
+        <location filename="../src/mainwindow.cpp" line="1123"/>
         <source>Playback</source>
         <translation>Wiedergabe</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1066"/>
+        <location filename="../src/mainwindow.cpp" line="1124"/>
         <source>Qt Multimedia is not available. Build with Qt6::Multimedia for playback support.</source>
         <translation>Qt Multimedia ist nicht verfügbar. Kompilieren Sie mit Qt6::Multimedia für Wiedergabeunterstützung.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1079"/>
+        <location filename="../src/mainwindow.cpp" line="1137"/>
         <source>Project Directory Required</source>
         <translation>Projektverzeichnis erforderlich</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1080"/>
+        <location filename="../src/mainwindow.cpp" line="1138"/>
         <source>You must choose a project directory before recording.
 Please select a directory to store your recorded files.</source>
         <translation>Sie müssen vor der Aufnahme ein Projektverzeichnis auswählen.
 Bitte wählen Sie ein Verzeichnis zum Speichern Ihrer aufgenommenen Dateien.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1097"/>
-        <location filename="../src/mainwindow.cpp" line="1124"/>
-        <location filename="../src/mainwindow.cpp" line="1600"/>
+        <location filename="../src/mainwindow.cpp" line="1155"/>
+        <location filename="../src/mainwindow.cpp" line="1182"/>
+        <location filename="../src/mainwindow.cpp" line="1658"/>
         <source>Recording Error</source>
         <translation>Aufnahmefehler</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1098"/>
+        <location filename="../src/mainwindow.cpp" line="1156"/>
         <source>No MIDI input device is configured for this project. Open Project Settings and choose a MIDI input device before recording a MIDI track.</source>
         <translation>Für dieses Projekt ist kein MIDI-Eingabegerät konfiguriert. Öffnen Sie die Projekteinstellungen und wählen Sie ein MIDI-Eingabegerät, bevor Sie eine MIDI-Spur aufnehmen.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1125"/>
+        <location filename="../src/mainwindow.cpp" line="1183"/>
         <source>No audio input device found. Configure one in Settings.</source>
         <translation>Kein Audio-Eingabegerät gefunden. Konfigurieren Sie eines in den Einstellungen.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1139"/>
-        <location filename="../src/mainwindow.cpp" line="1149"/>
+        <location filename="../src/mainwindow.cpp" line="1197"/>
+        <location filename="../src/mainwindow.cpp" line="1207"/>
         <source>Get ready...  %1</source>
         <translation>Machen Sie sich bereit...  %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1163"/>
+        <location filename="../src/mainwindow.cpp" line="1221"/>
         <source>Recording</source>
         <translation>Aufnahme</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1164"/>
+        <location filename="../src/mainwindow.cpp" line="1222"/>
         <source>Qt Multimedia is not available. Build with Qt6::Multimedia for recording support.</source>
         <translation>Qt Multimedia ist nicht verfügbar. Kompilieren Sie mit Qt6::Multimedia für Aufnahmeunterstützung.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1601"/>
+        <location filename="../src/mainwindow.cpp" line="1659"/>
         <source>Could not open MIDI input port &quot;%1&quot;:
 %2</source>
         <translation>MIDI-Eingangsport &quot;%1&quot; konnte nicht geöffnet werden:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1610"/>
+        <location filename="../src/mainwindow.cpp" line="1668"/>
         <source>● Recording</source>
         <translation>● Aufnahme</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1765"/>
+        <location filename="../src/mainwindow.cpp" line="1823"/>
         <source>PortAudio</source>
         <translation>PortAudio</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1766"/>
+        <location filename="../src/mainwindow.cpp" line="1824"/>
         <source>Could not start PortAudio recording (%1). Falling back to Qt Multimedia.</source>
         <translation>PortAudio-Aufnahme konnte nicht gestartet werden (%1). Rückfall auf Qt Multimedia.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="221"/>
-        <location filename="../src/mainwindow.cpp" line="292"/>
-        <location filename="../src/mainwindow.cpp" line="1975"/>
+        <location filename="../src/mainwindow.cpp" line="276"/>
+        <location filename="../src/mainwindow.cpp" line="350"/>
+        <location filename="../src/mainwindow.cpp" line="2033"/>
         <source>Save Project</source>
         <translation>Projekt speichern</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1976"/>
+        <location filename="../src/mainwindow.cpp" line="2034"/>
         <source>Please choose a project directory before saving.</source>
         <translation>Bitte wählen Sie vor dem Speichern ein Projektverzeichnis aus.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2084"/>
+        <location filename="../src/mainwindow.cpp" line="2142"/>
         <source>Save Failed</source>
         <translation>Speichern fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2085"/>
+        <location filename="../src/mainwindow.cpp" line="2143"/>
         <source>Could not write project file:
 %1</source>
         <translation>Projektdatei konnte nicht geschrieben werden:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2091"/>
+        <location filename="../src/mainwindow.cpp" line="2149"/>
         <source>Project Saved</source>
         <translation>Projekt gespeichert</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2092"/>
+        <location filename="../src/mainwindow.cpp" line="2150"/>
         <source>Project saved to:
 %1</source>
         <translation>Projekt gespeichert unter:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="220"/>
-        <location filename="../src/mainwindow.cpp" line="286"/>
-        <location filename="../src/mainwindow.cpp" line="2101"/>
+        <location filename="../src/mainwindow.cpp" line="275"/>
+        <location filename="../src/mainwindow.cpp" line="344"/>
+        <location filename="../src/mainwindow.cpp" line="2159"/>
         <source>Open Project</source>
         <translation>Projekt öffnen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2102"/>
+        <location filename="../src/mainwindow.cpp" line="2160"/>
         <source>Project files (*.json);;All files (*)</source>
         <translation>Projektdateien (*.json);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2113"/>
-        <location filename="../src/mainwindow.cpp" line="2121"/>
+        <location filename="../src/mainwindow.cpp" line="2171"/>
+        <location filename="../src/mainwindow.cpp" line="2179"/>
         <source>Open Failed</source>
         <translation>Öffnen fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2114"/>
+        <location filename="../src/mainwindow.cpp" line="2172"/>
         <source>Could not read project file:
 %1</source>
         <translation>Projektdatei konnte nicht gelesen werden:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2121"/>
+        <location filename="../src/mainwindow.cpp" line="2179"/>
         <source>Invalid project file format.</source>
         <translation>Ungültiges Projektdateiformat.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2324"/>
+        <location filename="../src/mainwindow.cpp" line="2382"/>
         <source>Remove all %1 track(s) from the project?</source>
         <translation>Alle %1 Spur(en) aus dem Projekt entfernen?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2342"/>
+        <location filename="../src/mainwindow.cpp" line="2400"/>
         <source>Unsaved Changes</source>
         <translation>Ungespeicherte Änderungen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2343"/>
+        <location filename="../src/mainwindow.cpp" line="2401"/>
         <source>The project has unsaved changes. Save before closing?</source>
         <translation>Das Projekt hat ungespeicherte Änderungen. Vor dem Schließen speichern?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2437"/>
+        <location filename="../src/mainwindow.cpp" line="2495"/>
         <source>&lt;h3&gt;Musician&apos;s Canvas %1&lt;/h3&gt;&lt;p&gt;A multi-track music recording application for desktop PCs, supporting audio and MIDI tracks, an integrated FluidSynth synthesizer, overdub recording, a built-in metronome, and high-quality sample-rate conversion.&lt;/p&gt;&lt;p&gt;Written in C++ with Qt6.&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; Eric Oulashin&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;</source>
         <translation>&lt;h3&gt;Musician&apos;s Canvas %1&lt;/h3&gt;&lt;p&gt;Eine Mehrspur-Musikaufnahmeanwendung für Desktop-PCs mit Unterstützung für Audio- und MIDI-Spuren, integriertem FluidSynth-Synthesizer, Overdub-Aufnahme, eingebautem Metronom und hochwertiger Abtastratenkonvertierung.&lt;/p&gt;&lt;p&gt;Geschrieben in C++ mit Qt6.&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; Eric Oulashin&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2448"/>
+        <location filename="../src/mainwindow.cpp" line="2506"/>
         <source>About Musician&apos;s Canvas</source>
         <translation>Über Musician&apos;s Canvas</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2461"/>
+        <location filename="../src/mainwindow.cpp" line="2514"/>
+        <location filename="../src/mainwindow.cpp" line="2522"/>
+        <source>Manual</source>
+        <translation>Handbuch</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2515"/>
+        <source>The user manual PDF could not be found.</source>
+        <translation>Das PDF-Benutzerhandbuch wurde nicht gefunden.</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2523"/>
+        <source>Could not open the user manual:
+%1</source>
+        <translation>Das Benutzerhandbuch konnte nicht geöffnet werden:
+%1</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2537"/>
         <source>No Tracks</source>
         <translation>Keine Spuren</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2461"/>
+        <location filename="../src/mainwindow.cpp" line="2537"/>
         <source>Add a track first, then select it.</source>
         <translation>Fügen Sie zuerst eine Spur hinzu und wählen Sie diese aus.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2473"/>
-        <location filename="../src/mainwindow.cpp" line="2478"/>
+        <location filename="../src/mainwindow.cpp" line="2549"/>
+        <location filename="../src/mainwindow.cpp" line="2554"/>
         <source>Demo Data</source>
         <translation>Demodaten</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2474"/>
+        <location filename="../src/mainwindow.cpp" line="2550"/>
         <source>Demo MIDI notes added. Try Mix → Mix tracks to file to export.</source>
         <translation>Demo-MIDI-Noten hinzugefügt. Versuchen Sie Werkzeuge → Spuren in Datei mischen zum Exportieren.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2479"/>
+        <location filename="../src/mainwindow.cpp" line="2555"/>
         <source>Switch the track to MIDI type (Options) to add demo notes.</source>
         <translation>Wechseln Sie die Spur zum MIDI-Typ (Optionen), um Demonoten hinzuzufügen.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2487"/>
+        <location filename="../src/mainwindow.cpp" line="2563"/>
         <source>Track %1</source>
         <translation>Spur %1</translation>
     </message>
@@ -1011,252 +1039,252 @@ Bitte wählen Sie ein Verzeichnis zum Speichern Ihrer aufgenommenen Dateien.</tr
 <context>
     <name>ProjectSettingsDialog</name>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="46"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="47"/>
         <source>Project Settings</source>
         <translation>Projekteinstellungen</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="102"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="103"/>
         <source>MIDI Output Device</source>
         <translation>MIDI-Ausgabegerät</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="111"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="112"/>
         <source>MIDI Input Device (for recording MIDI tracks)</source>
         <translation>MIDI-Eingabegerät (zum Aufnehmen von MIDI-Spuren)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="119"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="120"/>
         <source>Refresh</source>
         <translation>Aktualisieren</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="125"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="126"/>
         <source>SoundFont (for MIDI synthesis)</source>
         <translation>SoundFont (für MIDI-Synthese)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="128"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="129"/>
         <source>Path to .sf2 SoundFont file (empty = app default)</source>
         <translation>Pfad zur .sf2-SoundFont-Datei (leer = App-Standard)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="132"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="133"/>
         <source>Browse...</source>
         <translation>Durchsuchen...</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="133"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="134"/>
         <source>Choose a SoundFont (.sf2) file.</source>
         <translation type="unfinished">Eine SoundFont-Datei (.sf2) auswählen.</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="140"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="141"/>
         <source>Render to audio file for playback</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="145"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="146"/>
         <source>MIDI Volume (playback only)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="147"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="148"/>
         <source>Use app default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="152"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="153"/>
         <source>Volume:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="164"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="165"/>
         <source>This affects MIDI playback volume, not mix/export.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="180"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="181"/>
         <source>MIDI</source>
         <translation>MIDI</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="189"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="190"/>
         <source>Audio Input Device</source>
         <translation>Audio-Eingabegerät</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="199"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="200"/>
         <source>Recording capture</source>
         <translation>Aufnahmeerfassung</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="202"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="203"/>
         <source>PortAudio (native input, recommended when built-in)</source>
         <translation>PortAudio (nativer Eingang, empfohlen wenn integriert)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="203"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="204"/>
         <source>Qt Multimedia</source>
         <translation>Qt Multimedia</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="210"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="211"/>
         <source>PortAudio input device:</source>
         <translation>PortAudio-Eingabegerät:</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="226"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="227"/>
         <source>Audio Output Device</source>
         <translation>Audio-Ausgabegerät</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="235"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="236"/>
         <source>Audio Format (applies to all audio tracks)</source>
         <translation>Audioformat (gilt für alle Audiospuren)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="240"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="241"/>
         <source>Sample rate:</source>
         <translation>Abtastrate:</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="249"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="250"/>
         <source>Channels:</source>
         <translation>Kanäle:</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="250"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="251"/>
         <source>Mono</source>
         <translation>Mono</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="251"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="252"/>
         <source>Stereo</source>
         <translation>Stereo</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="270"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="271"/>
         <source>Audio</source>
         <translation>Audio</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="278"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="279"/>
         <source>Effects on the full mix when playing all tracks and when exporting a mixed file. Order is top to bottom (same as track effects).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="282"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="287"/>
         <source>Mix Effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="289"/>
-        <location filename="../src/projectsettingsdialog.cpp" line="332"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="294"/>
         <location filename="../src/projectsettingsdialog.cpp" line="337"/>
         <location filename="../src/projectsettingsdialog.cpp" line="342"/>
-        <location filename="../src/projectsettingsdialog.cpp" line="343"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="347"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="348"/>
         <source>(App default)</source>
         <translation>(App-Standard)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="290"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="295"/>
         <source>Built-in FluidSynth synthesizer</source>
         <translation>Integrierter FluidSynth-Synthesizer</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="312"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="317"/>
         <source>(None)</source>
         <translation>(Keines)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="442"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="447"/>
         <source>Saved device %1 (not in current list)</source>
         <translation>Gespeichertes Gerät %1 (nicht in aktueller Liste)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="635"/>
-        <location filename="../src/projectsettingsdialog.cpp" line="652"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="640"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="657"/>
         <source> (native)</source>
         <translation> (nativ)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="637"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="642"/>
         <source> (resampled)</source>
         <translation> (resampled)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="686"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="691"/>
         <source>Select SoundFont</source>
         <translation>SoundFont auswählen</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="688"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="693"/>
         <source>SoundFont files (*.sf2 *.SF2);;All files (*)</source>
         <translation>SoundFont-Dateien (*.sf2 *.SF2);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="697"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="702"/>
         <source>(Default audio input)</source>
         <translation>(Standard-Audio-Eingang)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="106"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="107"/>
         <source>Select the MIDI output device for this project (used for realtime MIDI playback when enabled).</source>
         <translation>Wählen Sie das MIDI-Ausgabegerät für dieses Projekt (wird bei aktivierter Echtzeit-MIDI-Wiedergabe verwendet).</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="115"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="116"/>
         <source>Select the MIDI input device used to record MIDI tracks.</source>
         <translation>Wählen Sie das MIDI-Eingabegerät, das zum Aufnehmen von MIDI-Spuren verwendet wird.</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="120"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="121"/>
         <source>Re-scan for available MIDI and audio devices.</source>
         <translation>Verfügbare MIDI- und Audiogeräte erneut suchen.</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="129"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="130"/>
         <source>Override the SoundFont (.sf2) used by the built-in synthesizer for this project.</source>
         <translation>SoundFont (.sf2) überschreiben, die der integrierte Synthesizer für dieses Projekt verwendet.</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="142"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="143"/>
         <source>When enabled, MIDI tracks are rendered to audio for playback so they can be heard with audio tracks.</source>
         <translation>Wenn aktiviert, werden MIDI-Spuren für die Wiedergabe in Audio gerendert, damit sie zusammen mit Audiospuren hörbar sind.</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="149"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="150"/>
         <source>Use the default MIDI volume from Settings → Configuration.</source>
         <translation>Standard-MIDI-Lautstärke aus Einstellungen → Konfiguration verwenden.</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="157"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="158"/>
         <source>Override MIDI playback volume for this project (does not change mix/export).</source>
         <translation>MIDI-Wiedergabelautstärke für dieses Projekt überschreiben (ändert nicht Mix/Export).</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="193"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="194"/>
         <source>Select the audio input device used for recording in this project.</source>
         <translation>Wählen Sie das Audio-Eingabegerät, das in diesem Projekt zum Aufnehmen verwendet wird.</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="230"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="231"/>
         <source>Select the audio output device used for playback in this project.</source>
         <translation>Wählen Sie das Audio-Ausgabegerät, das in diesem Projekt für die Wiedergabe verwendet wird.</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="242"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="243"/>
         <source>Sample rate used when recording audio and rendering MIDI in this project.</source>
         <translation>Abtastrate, die beim Aufnehmen von Audio und beim Rendern von MIDI in diesem Projekt verwendet wird.</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="252"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="253"/>
         <source>Record audio tracks in mono (1 channel).</source>
         <translation>Audiospuren in Mono aufnehmen (1 Kanal).</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="253"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="254"/>
         <source>Record audio tracks in stereo (2 channels).</source>
         <translation>Audiospuren in Stereo aufnehmen (2 Kanäle).</translation>
     </message>
@@ -1804,6 +1832,34 @@ Bitte wählen Sie ein Verzeichnis zum Speichern Ihrer aufgenommenen Dateien.</tr
         <location filename="../src/trackwidget.cpp" line="137"/>
         <source>Select this track as the target for recording.</source>
         <translation>Diese Spur als Ziel für die Aufnahme auswählen.</translation>
+    </message>
+</context>
+<context>
+    <name>VibratoEffect</name>
+    <message>
+        <location filename="../src/vibratoeffect.cpp" line="19"/>
+        <source>Vibrato (Tremolo)</source>
+        <translation>Vibrato (Tremolo)</translation>
+    </message>
+    <message>
+        <location filename="../src/vibratoeffect.cpp" line="57"/>
+        <source>Speed: %1 Hz</source>
+        <translation>Geschwindigkeit: %1 Hz</translation>
+    </message>
+    <message>
+        <location filename="../src/vibratoeffect.cpp" line="59"/>
+        <source>Intensity: %1%</source>
+        <translation>Intensität: %1%</translation>
+    </message>
+    <message>
+        <location filename="../src/vibratoeffect.cpp" line="103"/>
+        <source>Modulation speed (Hz ×10, e.g. 35 = 3.5 Hz)</source>
+        <translation>Modulationsgeschwindigkeit (Hz ×10, z. B. 35 = 3,5 Hz)</translation>
+    </message>
+    <message>
+        <location filename="../src/vibratoeffect.cpp" line="105"/>
+        <source>Depth of volume modulation (0% subtle shimmer, 100% full chop)</source>
+        <translation>Tiefe der Lautstärkemodulation (0% dezentes Schimmern, 100% voller Chop)</translation>
     </message>
 </context>
 <context>

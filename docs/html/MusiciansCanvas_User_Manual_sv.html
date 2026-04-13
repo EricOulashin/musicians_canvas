@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas Anv&#228;ndarmanual</h1>
 <p>Applikation för flerspårsinspelning av musik &mdash; Version 0.1.1</p>
-<p>2026-04-11</p>
+<p>2026-04-13</p>
 </div>
 <div class="toc">
 <h2>Inneh&aring;llsf&ouml;rteckning</h2>
@@ -91,6 +91,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#project-menyn">Project-menyn</a></li>
 <li><a href="#settings-menyn">Settings-menyn</a></li>
 <li><a href="#tools-menyn">Tools-menyn</a></li>
+<li><a href="#help-menyn">Help-menyn</a></li>
 </ul>
 </li>
 <li><a href="#kortkommandon">Kortkommandon</a><ul>
@@ -284,7 +285,9 @@ för att förhindra oavsiktliga ändringar.</p>
 <p>Ljudspår har en knapp <strong>Effekter</strong> direkt under <strong>Options</strong>. Den öppnar dialogen <strong>Spår-effekter</strong>, där
 du bygger en <strong>ordnad kedja</strong> av insert-effekter för inspelning på detta spår:</p>
 <p><img alt="Dialogruta för spår-effekter" src="screenshots/Track_Effects_Dialog.png" /></p>
-<p>Effekttyper inkluderar <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong> och <strong>Amp &amp; cabinet</strong> (modellering av förstärkare och högtalarlåda: amptyp, kabinett, förstärkning, bas/mellan/discant, luft och blandning). Skärmbilder av <strong>Amp &amp; cabinet</strong>:</p>
+<p>Effekttyper inkluderar <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong> (modellering av förstärkare och högtalarlåda: amptyp, kabinett, förstärkning, bas/mellan/discant, luft och blandning) och <strong>Vibrato (Tremolo)</strong>.</p>
+<p><strong>Vibrato (Tremolo)</strong> är klassiska Fender‑”Vibrato” (tremolo): en <strong>periodisk volymmodulation</strong>. Använd <strong>Speed</strong> för pulshastighet och <strong>Intensity</strong> (Depth) för djup (från subtilt skimmer till full “chop”).</p>
+<p>Skärmbilder av <strong>Amp &amp; cabinet</strong>:</p>
 <p><img alt="Amp &amp; cabinet-modellering (1)" src="screenshots/Amp_And_Cabinet_Model_1.png" /></p>
 <p><img alt="Amp &amp; cabinet-modellering (2)" src="screenshots/Amp_And_Cabinet_Model_2.png" /></p>
 <ul>
@@ -298,7 +301,7 @@ du bygger en <strong>ordnad kedja</strong> av insert-effekter för inspelning p�
 <p>Effekter tillämpas när du <strong>stoppar inspelningen</strong>, efter normal capture och omsampling. Konfigurationen lagras
 i <code>project.json</code> under <code>audioEffectChain</code>.</p>
 <h3 id="mix-effects-full-project">Mix effects (full project)</h3>
-<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>, <strong>Vibrato (Tremolo)</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
 <p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
 <h3 id="overvaka-under-inspelning">Övervaka under inspelning</h3>
 <p>Bredvid <strong>tidsdisplayen</strong> styr <strong>Övervaka ljud under inspelning</strong> om <strong>live-ingång</strong> skickas till <strong>projektets ljudutgång</strong>
@@ -536,6 +539,28 @@ eller ljudenhet. Projektspecifika inställningar sparas i filen <code>project.js
 <td>Virtual MIDI Keyboard</td>
 <td></td>
 <td>Starta den kompletterande klaviaturappen</td>
+</tr>
+</tbody>
+</table>
+<h3 id="help-menyn">Help-menyn</h3>
+<table>
+<thead>
+<tr>
+<th>Menypost</th>
+<th>Genväg</th>
+<th>Beskrivning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manual</td>
+<td>Alt+M</td>
+<td>Öppna PDF-manualen på det språk som är valt i appen</td>
+</tr>
+<tr>
+<td>About</td>
+<td></td>
+<td>Visa versions- och programinformation</td>
 </tr>
 </tbody>
 </table>

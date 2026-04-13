@@ -73,6 +73,7 @@ private slots:
     void onMetronomeSettings();
     void onTimeDisplayTick();
     void onAbout();
+    void onManual();
 
 private:
     void setupMenuBar();

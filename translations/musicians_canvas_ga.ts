@@ -238,52 +238,57 @@ Suiteáil tiománaí ASIO le do thoil agus ansin atosaigh an feidhmchlár:
 <context>
     <name>EffectChainEditorWidget</name>
     <message>
-        <location filename="../src/effectchaineditorwidget.cpp" line="64"/>
+        <location filename="../src/effectchaineditorwidget.cpp" line="65"/>
         <source>Add effect…</source>
         <translation type="unfinished">Cuir éifeacht leis…</translation>
     </message>
     <message>
-        <location filename="../src/effectchaineditorwidget.cpp" line="187"/>
+        <location filename="../src/effectchaineditorwidget.cpp" line="190"/>
         <source>Add effect</source>
         <translation type="unfinished">Cuir éifeacht leis</translation>
     </message>
     <message>
-        <location filename="../src/effectchaineditorwidget.cpp" line="189"/>
+        <location filename="../src/effectchaineditorwidget.cpp" line="192"/>
         <source>Choose an effect:</source>
         <translation type="unfinished">Roghnaigh éifeacht:</translation>
     </message>
     <message>
-        <location filename="../src/effectchaineditorwidget.cpp" line="191"/>
+        <location filename="../src/effectchaineditorwidget.cpp" line="194"/>
         <source>Reverb</source>
         <translation type="unfinished">Athfhuaimniú</translation>
     </message>
     <message>
-        <location filename="../src/effectchaineditorwidget.cpp" line="192"/>
+        <location filename="../src/effectchaineditorwidget.cpp" line="195"/>
         <source>Chorus</source>
         <translation type="unfinished">Cór</translation>
     </message>
     <message>
-        <location filename="../src/effectchaineditorwidget.cpp" line="193"/>
+        <location filename="../src/effectchaineditorwidget.cpp" line="196"/>
         <source>Flanger</source>
         <translation type="unfinished">Flanger</translation>
     </message>
     <message>
-        <location filename="../src/effectchaineditorwidget.cpp" line="194"/>
+        <location filename="../src/effectchaineditorwidget.cpp" line="197"/>
         <source>Overdrive / distortion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/effectchaineditorwidget.cpp" line="195"/>
+        <location filename="../src/effectchaineditorwidget.cpp" line="198"/>
         <source>Amp &amp; cabinet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/effectchaineditorwidget.cpp" line="209"/>
+        <location filename="../src/effectchaineditorwidget.cpp" line="199"/>
+        <source>Vibrato (Tremolo)</source>
+        <translation>Vibrato (Tremolo)</translation>
+    </message>
+    <message>
+        <location filename="../src/effectchaineditorwidget.cpp" line="213"/>
         <source>Effects</source>
         <translation type="unfinished">Éifeachtaí</translation>
     </message>
     <message>
-        <location filename="../src/effectchaineditorwidget.cpp" line="209"/>
+        <location filename="../src/effectchaineditorwidget.cpp" line="213"/>
         <source>Unknown effect type.</source>
         <translation type="unfinished">Cineál éifeachta anaithnid.</translation>
     </message>
@@ -402,176 +407,181 @@ Suiteáil tiománaí ASIO le do thoil agus ansin atosaigh an feidhmchlár:
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="169"/>
-        <location filename="../src/mainwindow.cpp" line="206"/>
+        <location filename="../src/mainwindow.cpp" line="224"/>
+        <location filename="../src/mainwindow.cpp" line="261"/>
         <source>Musician&apos;s Canvas</source>
         <translation>Musician&apos;s Canvas</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="212"/>
-        <location filename="../src/mainwindow.cpp" line="341"/>
+        <location filename="../src/mainwindow.cpp" line="267"/>
+        <location filename="../src/mainwindow.cpp" line="399"/>
         <source>Project location:</source>
         <translation>Suíomh an tionscadail:</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="214"/>
-        <location filename="../src/mainwindow.cpp" line="359"/>
+        <location filename="../src/mainwindow.cpp" line="269"/>
+        <location filename="../src/mainwindow.cpp" line="417"/>
         <source>Browse...</source>
         <translation>Brabhsáil...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="216"/>
-        <location filename="../src/mainwindow.cpp" line="377"/>
+        <location filename="../src/mainwindow.cpp" line="271"/>
+        <location filename="../src/mainwindow.cpp" line="435"/>
         <source>+ Add Track</source>
         <translation>+ Cuir Rian Leis</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="218"/>
-        <location filename="../src/mainwindow.cpp" line="384"/>
-        <location filename="../src/mainwindow.cpp" line="2323"/>
+        <location filename="../src/mainwindow.cpp" line="273"/>
+        <location filename="../src/mainwindow.cpp" line="442"/>
+        <location filename="../src/mainwindow.cpp" line="2381"/>
         <source>Clear Tracks</source>
         <translation>Glan Rianta</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="222"/>
-        <location filename="../src/mainwindow.cpp" line="300"/>
+        <location filename="../src/mainwindow.cpp" line="277"/>
+        <location filename="../src/mainwindow.cpp" line="358"/>
         <source>Project Settings</source>
         <translation>Socruithe Tionscadail</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="223"/>
-        <location filename="../src/mainwindow.cpp" line="306"/>
+        <location filename="../src/mainwindow.cpp" line="278"/>
+        <location filename="../src/mainwindow.cpp" line="364"/>
         <source>Configuration</source>
         <translation>Cumraíocht</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="224"/>
-        <location filename="../src/mainwindow.cpp" line="314"/>
+        <location filename="../src/mainwindow.cpp" line="279"/>
+        <location filename="../src/mainwindow.cpp" line="372"/>
         <source>Metronome Settings</source>
         <translation>Socruithe meatranóim</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="226"/>
-        <location filename="../src/mainwindow.cpp" line="401"/>
+        <location filename="../src/mainwindow.cpp" line="281"/>
+        <location filename="../src/mainwindow.cpp" line="459"/>
         <source>Monitor audio while recording</source>
         <translation>Monatóir fuaim agus í á taifeadadh</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="237"/>
+        <location filename="../src/mainwindow.cpp" line="292"/>
         <source>&amp;File</source>
         <translation>&amp;Comhad</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="238"/>
+        <location filename="../src/mainwindow.cpp" line="293"/>
         <source>&amp;Save Project</source>
         <translation>&amp;Sábháil Tionscadal</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="241"/>
+        <location filename="../src/mainwindow.cpp" line="296"/>
         <source>&amp;Open Project...</source>
         <translation>&amp;Oscail Tionscadal...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="245"/>
+        <location filename="../src/mainwindow.cpp" line="300"/>
         <source>&amp;Close</source>
         <translation>&amp;Dún</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="249"/>
+        <location filename="../src/mainwindow.cpp" line="304"/>
         <source>&amp;Project</source>
         <translation>&amp;Tionscadal</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="250"/>
+        <location filename="../src/mainwindow.cpp" line="305"/>
         <source>&amp;Project Settings</source>
         <translation>&amp;Socruithe Tionscadail</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="254"/>
+        <location filename="../src/mainwindow.cpp" line="309"/>
         <source>Add Demo &amp;Data to Selected Track</source>
         <translation>Cuir &amp;Sonraí Taispeána leis an Rian Roghnaithe</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="257"/>
+        <location filename="../src/mainwindow.cpp" line="312"/>
         <source>&amp;Settings</source>
         <translation>&amp;Socruithe</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="258"/>
+        <location filename="../src/mainwindow.cpp" line="313"/>
         <source>&amp;Configuration</source>
         <translation>&amp;Cumraíocht</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="262"/>
+        <location filename="../src/mainwindow.cpp" line="317"/>
         <source>&amp;Tools</source>
         <translation>&amp;Uirlisí</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="263"/>
+        <location filename="../src/mainwindow.cpp" line="318"/>
         <source>&amp;Mix tracks to file...</source>
         <translation>&amp;Measc rianta go comhad...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="266"/>
+        <location filename="../src/mainwindow.cpp" line="321"/>
         <source>Add &amp;drum track</source>
         <translation>Cuir rian &amp;drumaí leis</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="269"/>
+        <location filename="../src/mainwindow.cpp" line="324"/>
         <source>&amp;Virtual MIDI Keyboard</source>
         <translation>Méarchlár &amp;Fíorúil MIDI</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="272"/>
+        <location filename="../src/mainwindow.cpp" line="327"/>
         <source>&amp;Help</source>
         <translation>C&amp;abhair</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="273"/>
+        <location filename="../src/mainwindow.cpp" line="328"/>
+        <source>&amp;Manual</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="331"/>
         <source>&amp;About</source>
         <translation>&amp;Maidir leis</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="344"/>
+        <location filename="../src/mainwindow.cpp" line="402"/>
         <source>Select a project directory...</source>
         <translation>Roghnaigh eolaire tionscadail...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="372"/>
-        <location filename="../src/mainwindow.cpp" line="920"/>
+        <location filename="../src/mainwindow.cpp" line="430"/>
+        <location filename="../src/mainwindow.cpp" line="978"/>
         <source>Play all tracks</source>
         <translation>Seinn gach rian</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="465"/>
-        <location filename="../src/mainwindow.cpp" line="502"/>
+        <location filename="../src/mainwindow.cpp" line="523"/>
+        <location filename="../src/mainwindow.cpp" line="560"/>
         <source>Add drum track</source>
         <translation>Cuir rian drumaí leis</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="466"/>
+        <location filename="../src/mainwindow.cpp" line="524"/>
         <source>Please choose a project directory before adding a drum track.</source>
         <translation>Roghnaigh comhadlann an tionscadail sula gcuirtear rian drumaí leis.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="503"/>
+        <location filename="../src/mainwindow.cpp" line="561"/>
         <source>Could not write drum MIDI file:
 %1</source>
         <translation>Níorbh fhéidir an comhad MIDI drumaí a scríobh:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="535"/>
+        <location filename="../src/mainwindow.cpp" line="593"/>
         <source>Drums</source>
         <translation>Drumaí</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="633"/>
+        <location filename="../src/mainwindow.cpp" line="691"/>
         <source>Unsupported file type</source>
         <translation>Cineál comhaid nach dtacaítear leis</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="634"/>
+        <location filename="../src/mainwindow.cpp" line="692"/>
         <source>The following file(s) were skipped because they are not in a supported audio format:
 %1
 
@@ -582,276 +592,294 @@ Supported formats: %2</source>
 Formáidí tacaithe: %2</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="671"/>
+        <location filename="../src/mainwindow.cpp" line="729"/>
         <source>File already exists</source>
         <translation>Tá an comhad ann cheana</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="672"/>
+        <location filename="../src/mainwindow.cpp" line="730"/>
         <source>A file named &quot;%1&quot; already exists in the project directory. Replace it?</source>
         <translation>Tá comhad darb ainm &quot;%1&quot; ann cheana sa chomhadlann tionscadail. Ionadaigh é?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="683"/>
+        <location filename="../src/mainwindow.cpp" line="741"/>
         <source>Copy failed</source>
         <translation>Theip ar an gcóipeáil</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="684"/>
+        <location filename="../src/mainwindow.cpp" line="742"/>
         <source>Could not copy %1 into the project directory.</source>
         <translation>Níorbh fhéidir %1 a chóipeáil isteach sa chomhadlann tionscadail.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="784"/>
+        <location filename="../src/mainwindow.cpp" line="842"/>
         <source>Mix Complete</source>
         <translation>Meascadh Críochnaithe</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="785"/>
+        <location filename="../src/mainwindow.cpp" line="843"/>
         <source>Audio exported successfully to:
 %1</source>
         <translation>Easpórtáladh an fuaim go rathúil go:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="789"/>
+        <location filename="../src/mainwindow.cpp" line="847"/>
         <source>Mix Failed</source>
         <translation>Theip ar an Meascadh</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="790"/>
+        <location filename="../src/mainwindow.cpp" line="848"/>
         <source>Could not export audio. Please check that you have at least one enabled track with content, and a SoundFont configured for MIDI tracks.</source>
         <translation>Níorbh fhéidir an fhuaim a easpórtáil. Seiceáil le do thoil go bhfuil rian amháin cumasaithe ar a laghad le hábhar, agus SoundFont cumraithe do rianta MIDI.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="800"/>
+        <location filename="../src/mainwindow.cpp" line="858"/>
         <source>Select Project Directory</source>
         <translation>Roghnaigh Eolaire Tionscadail</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="908"/>
+        <location filename="../src/mainwindow.cpp" line="966"/>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="914"/>
+        <location filename="../src/mainwindow.cpp" line="972"/>
         <source>Record armed track</source>
         <translation>Taifead rian armtha</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="971"/>
-        <location filename="../src/mainwindow.cpp" line="988"/>
-        <location filename="../src/mainwindow.cpp" line="1019"/>
+        <location filename="../src/mainwindow.cpp" line="1029"/>
+        <location filename="../src/mainwindow.cpp" line="1046"/>
+        <location filename="../src/mainwindow.cpp" line="1077"/>
         <source>Playback Error</source>
         <translation>Earráid Athsheanma</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="971"/>
+        <location filename="../src/mainwindow.cpp" line="1029"/>
         <source>Could not create temporary file.</source>
         <translation>Níorbh fhéidir comhad sealadach a chruthú.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="989"/>
-        <location filename="../src/mainwindow.cpp" line="1020"/>
+        <location filename="../src/mainwindow.cpp" line="1047"/>
+        <location filename="../src/mainwindow.cpp" line="1078"/>
         <source>Could not mix tracks for playback. Make sure tracks have content.</source>
         <translation>Níorbh fhéidir rianta a mheascadh le haghaidh athsheinm. Cinntigh go bhfuil ábhar sna rianta.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1065"/>
+        <location filename="../src/mainwindow.cpp" line="1123"/>
         <source>Playback</source>
         <translation>Athsheinm</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1066"/>
+        <location filename="../src/mainwindow.cpp" line="1124"/>
         <source>Qt Multimedia is not available. Build with Qt6::Multimedia for playback support.</source>
         <translation>Níl Qt Multimedia ar fáil. Tóg le Qt6::Multimedia le haghaidh tacaíochta athsheinm.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1079"/>
+        <location filename="../src/mainwindow.cpp" line="1137"/>
         <source>Project Directory Required</source>
         <translation>Eolaire Tionscadail ag Teastáil</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1080"/>
+        <location filename="../src/mainwindow.cpp" line="1138"/>
         <source>You must choose a project directory before recording.
 Please select a directory to store your recorded files.</source>
         <translation>Caithfidh tú eolaire tionscadail a roghnú roimh thaifeadadh.
 Roghnaigh eolaire le do thoil chun do chomhaid thaifeadta a stóráil.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1097"/>
-        <location filename="../src/mainwindow.cpp" line="1124"/>
-        <location filename="../src/mainwindow.cpp" line="1600"/>
+        <location filename="../src/mainwindow.cpp" line="1155"/>
+        <location filename="../src/mainwindow.cpp" line="1182"/>
+        <location filename="../src/mainwindow.cpp" line="1658"/>
         <source>Recording Error</source>
         <translation>Earráid Taifeadta</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1098"/>
+        <location filename="../src/mainwindow.cpp" line="1156"/>
         <source>No MIDI input device is configured for this project. Open Project Settings and choose a MIDI input device before recording a MIDI track.</source>
         <translation>Níl gléas ionchurtha MIDI cumraithe don tionscadal seo. Oscail Socruithe an Tionscadail agus roghnaigh gléas ionchurtha MIDI sula dtaifeadtar rian MIDI.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1125"/>
+        <location filename="../src/mainwindow.cpp" line="1183"/>
         <source>No audio input device found. Configure one in Settings.</source>
         <translation>Níor aimsíodh gléas ionchuir fuaime. Cumraigh ceann sna Socruithe.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1139"/>
-        <location filename="../src/mainwindow.cpp" line="1149"/>
+        <location filename="../src/mainwindow.cpp" line="1197"/>
+        <location filename="../src/mainwindow.cpp" line="1207"/>
         <source>Get ready...  %1</source>
         <translation>Bí réidh...  %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1163"/>
+        <location filename="../src/mainwindow.cpp" line="1221"/>
         <source>Recording</source>
         <translation>Ag Taifeadadh</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1164"/>
+        <location filename="../src/mainwindow.cpp" line="1222"/>
         <source>Qt Multimedia is not available. Build with Qt6::Multimedia for recording support.</source>
         <translation>Níl Qt Multimedia ar fáil. Tóg le Qt6::Multimedia le haghaidh tacaíochta taifeadta.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1601"/>
+        <location filename="../src/mainwindow.cpp" line="1659"/>
         <source>Could not open MIDI input port &quot;%1&quot;:
 %2</source>
         <translation>Níorbh fhéidir an port ionchurtha MIDI &quot;%1&quot; a oscailt:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1610"/>
+        <location filename="../src/mainwindow.cpp" line="1668"/>
         <source>● Recording</source>
         <translation>● Ag Taifeadadh</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1765"/>
+        <location filename="../src/mainwindow.cpp" line="1823"/>
         <source>PortAudio</source>
         <translation>PortAudio</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1766"/>
+        <location filename="../src/mainwindow.cpp" line="1824"/>
         <source>Could not start PortAudio recording (%1). Falling back to Qt Multimedia.</source>
         <translation>Níorbh fhéidir taifeadadh PortAudio a thosú (%1). Ag filleadh ar Qt Multimedia.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="221"/>
-        <location filename="../src/mainwindow.cpp" line="292"/>
-        <location filename="../src/mainwindow.cpp" line="1975"/>
+        <location filename="../src/mainwindow.cpp" line="276"/>
+        <location filename="../src/mainwindow.cpp" line="350"/>
+        <location filename="../src/mainwindow.cpp" line="2033"/>
         <source>Save Project</source>
         <translation>Sábháil Tionscadal</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1976"/>
+        <location filename="../src/mainwindow.cpp" line="2034"/>
         <source>Please choose a project directory before saving.</source>
         <translation>Roghnaigh eolaire tionscadail le do thoil roimh shábháil.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2084"/>
+        <location filename="../src/mainwindow.cpp" line="2142"/>
         <source>Save Failed</source>
         <translation>Theip ar Shábháil</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2085"/>
+        <location filename="../src/mainwindow.cpp" line="2143"/>
         <source>Could not write project file:
 %1</source>
         <translation>Níorbh fhéidir comhad an tionscadail a scríobh:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2091"/>
+        <location filename="../src/mainwindow.cpp" line="2149"/>
         <source>Project Saved</source>
         <translation>Tionscadal Sábháilte</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2092"/>
+        <location filename="../src/mainwindow.cpp" line="2150"/>
         <source>Project saved to:
 %1</source>
         <translation>Sábháladh an tionscadal go:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="220"/>
-        <location filename="../src/mainwindow.cpp" line="286"/>
-        <location filename="../src/mainwindow.cpp" line="2101"/>
+        <location filename="../src/mainwindow.cpp" line="275"/>
+        <location filename="../src/mainwindow.cpp" line="344"/>
+        <location filename="../src/mainwindow.cpp" line="2159"/>
         <source>Open Project</source>
         <translation>Oscail Tionscadal</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2102"/>
+        <location filename="../src/mainwindow.cpp" line="2160"/>
         <source>Project files (*.json);;All files (*)</source>
         <translation>Comhaid tionscadail (*.json);;Gach comhad (*)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2113"/>
-        <location filename="../src/mainwindow.cpp" line="2121"/>
+        <location filename="../src/mainwindow.cpp" line="2171"/>
+        <location filename="../src/mainwindow.cpp" line="2179"/>
         <source>Open Failed</source>
         <translation>Theip ar Oscailt</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2114"/>
+        <location filename="../src/mainwindow.cpp" line="2172"/>
         <source>Could not read project file:
 %1</source>
         <translation>Níorbh fhéidir comhad an tionscadail a léamh:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2121"/>
+        <location filename="../src/mainwindow.cpp" line="2179"/>
         <source>Invalid project file format.</source>
         <translation>Formáid chomhad tionscadail neamhbhailí.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2324"/>
+        <location filename="../src/mainwindow.cpp" line="2382"/>
         <source>Remove all %1 track(s) from the project?</source>
         <translation>Bain gach %1 rian as an tionscadal?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2342"/>
+        <location filename="../src/mainwindow.cpp" line="2400"/>
         <source>Unsaved Changes</source>
         <translation>Athruithe Neamhshábháilte</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2343"/>
+        <location filename="../src/mainwindow.cpp" line="2401"/>
         <source>The project has unsaved changes. Save before closing?</source>
         <translation>Tá athruithe neamhshábháilte sa tionscadal. Sábháil roimh dhúnadh?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2437"/>
+        <location filename="../src/mainwindow.cpp" line="2495"/>
         <source>&lt;h3&gt;Musician&apos;s Canvas %1&lt;/h3&gt;&lt;p&gt;A multi-track music recording application for desktop PCs, supporting audio and MIDI tracks, an integrated FluidSynth synthesizer, overdub recording, a built-in metronome, and high-quality sample-rate conversion.&lt;/p&gt;&lt;p&gt;Written in C++ with Qt6.&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; Eric Oulashin&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;</source>
         <translation>&lt;h3&gt;Musician&apos;s Canvas %1&lt;/h3&gt;&lt;p&gt;Feidhmchlár taifeadta ceoil ilrian do ríomhairí deisce, le tacaíocht do rianta fuaime agus MIDI, sintéiseoir FluidSynth comhtháite, taifeadadh forshraite, méadrónóm ionsuite, agus comhshó sampla-ráta ardchaighdeáin.&lt;/p&gt;&lt;p&gt;Scríofa i C++ le Qt6.&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; Eric Oulashin&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2448"/>
+        <location filename="../src/mainwindow.cpp" line="2506"/>
         <source>About Musician&apos;s Canvas</source>
         <translation>Maidir le Musician&apos;s Canvas</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2461"/>
+        <location filename="../src/mainwindow.cpp" line="2514"/>
+        <location filename="../src/mainwindow.cpp" line="2522"/>
+        <source>Manual</source>
+        <translation>Lámhleabhar</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2515"/>
+        <source>The user manual PDF could not be found.</source>
+        <translation>Níor aimsíodh PDF an lámhleabhair úsáideora.</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2523"/>
+        <source>Could not open the user manual:
+%1</source>
+        <translation>Níorbh fhéidir an lámhleabhar úsáideora a oscailt:
+%1</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2537"/>
         <source>No Tracks</source>
         <translation>Gan Rianta</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2461"/>
+        <location filename="../src/mainwindow.cpp" line="2537"/>
         <source>Add a track first, then select it.</source>
         <translation>Cuir rian leis ar dtús, ansin roghnaigh é.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2473"/>
-        <location filename="../src/mainwindow.cpp" line="2478"/>
+        <location filename="../src/mainwindow.cpp" line="2549"/>
+        <location filename="../src/mainwindow.cpp" line="2554"/>
         <source>Demo Data</source>
         <translation>Sonraí Taispeána</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2474"/>
+        <location filename="../src/mainwindow.cpp" line="2550"/>
         <source>Demo MIDI notes added. Try Mix → Mix tracks to file to export.</source>
         <translation>Cuireadh nótaí MIDI taispeána leis. Bain triail as Measc → Measc rianta go comhad chun easpórtáil.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2479"/>
+        <location filename="../src/mainwindow.cpp" line="2555"/>
         <source>Switch the track to MIDI type (Options) to add demo notes.</source>
         <translation>Athraigh an rian go cineál MIDI (Roghanna) chun nótaí taispeána a chur leis.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2487"/>
+        <location filename="../src/mainwindow.cpp" line="2563"/>
         <source>Track %1</source>
         <translation>Rian %1</translation>
     </message>
@@ -1011,252 +1039,252 @@ Roghnaigh eolaire le do thoil chun do chomhaid thaifeadta a stóráil.</translat
 <context>
     <name>ProjectSettingsDialog</name>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="46"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="47"/>
         <source>Project Settings</source>
         <translation>Socruithe Tionscadail</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="102"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="103"/>
         <source>MIDI Output Device</source>
         <translation>Gléas Aschuir MIDI</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="106"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="107"/>
         <source>Select the MIDI output device for this project (used for realtime MIDI playback when enabled).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="111"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="112"/>
         <source>MIDI Input Device (for recording MIDI tracks)</source>
         <translation>Gléas Ionchurtha MIDI (chun rianta MIDI a thaifeadadh)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="115"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="116"/>
         <source>Select the MIDI input device used to record MIDI tracks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="119"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="120"/>
         <source>Refresh</source>
         <translation>Athnuaigh</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="120"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="121"/>
         <source>Re-scan for available MIDI and audio devices.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="125"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="126"/>
         <source>SoundFont (for MIDI synthesis)</source>
         <translation>SoundFont (le haghaidh sintéise MIDI)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="128"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="129"/>
         <source>Path to .sf2 SoundFont file (empty = app default)</source>
         <translation>Conair chuig comhad SoundFont .sf2 (folamh = réamhshocrú feidhmchláir)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="129"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="130"/>
         <source>Override the SoundFont (.sf2) used by the built-in synthesizer for this project.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="132"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="133"/>
         <source>Browse...</source>
         <translation>Brabhsáil...</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="133"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="134"/>
         <source>Choose a SoundFont (.sf2) file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="140"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="141"/>
         <source>Render to audio file for playback</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="142"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="143"/>
         <source>When enabled, MIDI tracks are rendered to audio for playback so they can be heard with audio tracks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="145"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="146"/>
         <source>MIDI Volume (playback only)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="147"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="148"/>
         <source>Use app default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="149"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="150"/>
         <source>Use the default MIDI volume from Settings → Configuration.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="152"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="153"/>
         <source>Volume:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="157"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="158"/>
         <source>Override MIDI playback volume for this project (does not change mix/export).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="164"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="165"/>
         <source>This affects MIDI playback volume, not mix/export.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="180"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="181"/>
         <source>MIDI</source>
         <translation>MIDI</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="189"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="190"/>
         <source>Audio Input Device</source>
         <translation>Gléas Ionchuir Fuaime</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="193"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="194"/>
         <source>Select the audio input device used for recording in this project.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="199"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="200"/>
         <source>Recording capture</source>
         <translation>Gabháil taifeadta</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="202"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="203"/>
         <source>PortAudio (native input, recommended when built-in)</source>
         <translation>PortAudio (ionchur dúchasach, molta nuair atá sé ionsuite)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="203"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="204"/>
         <source>Qt Multimedia</source>
         <translation>Qt Multimedia</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="210"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="211"/>
         <source>PortAudio input device:</source>
         <translation>Gléas ionchuir PortAudio:</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="226"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="227"/>
         <source>Audio Output Device</source>
         <translation>Gléas Aschuir Fuaime</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="230"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="231"/>
         <source>Select the audio output device used for playback in this project.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="235"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="236"/>
         <source>Audio Format (applies to all audio tracks)</source>
         <translation>Formáid Fuaime (baineann le gach rian fuaime)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="240"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="241"/>
         <source>Sample rate:</source>
         <translation>Ráta sampláilte:</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="242"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="243"/>
         <source>Sample rate used when recording audio and rendering MIDI in this project.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="249"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="250"/>
         <source>Channels:</source>
         <translation>Cainéil:</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="250"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="251"/>
         <source>Mono</source>
         <translation>Monafónach</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="251"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="252"/>
         <source>Stereo</source>
         <translation>Steiréafónach</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="252"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="253"/>
         <source>Record audio tracks in mono (1 channel).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="253"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="254"/>
         <source>Record audio tracks in stereo (2 channels).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="270"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="271"/>
         <source>Audio</source>
         <translation>Fuaim</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="278"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="279"/>
         <source>Effects on the full mix when playing all tracks and when exporting a mixed file. Order is top to bottom (same as track effects).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="282"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="287"/>
         <source>Mix Effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="289"/>
-        <location filename="../src/projectsettingsdialog.cpp" line="332"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="294"/>
         <location filename="../src/projectsettingsdialog.cpp" line="337"/>
         <location filename="../src/projectsettingsdialog.cpp" line="342"/>
-        <location filename="../src/projectsettingsdialog.cpp" line="343"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="347"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="348"/>
         <source>(App default)</source>
         <translation>(Réamhshocrú feidhmchláir)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="290"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="295"/>
         <source>Built-in FluidSynth synthesizer</source>
         <translation>Sintéiseoir ionsuite FluidSynth</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="312"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="317"/>
         <source>(None)</source>
         <translation>(Gan aon)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="442"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="447"/>
         <source>Saved device %1 (not in current list)</source>
         <translation>Gléas sábháilte %1 (níl sa liosta reatha)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="635"/>
-        <location filename="../src/projectsettingsdialog.cpp" line="652"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="640"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="657"/>
         <source> (native)</source>
         <translation> (dúchasach)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="637"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="642"/>
         <source> (resampled)</source>
         <translation> (ath-shampláilte)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="686"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="691"/>
         <source>Select SoundFont</source>
         <translation>Roghnaigh SoundFont</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="688"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="693"/>
         <source>SoundFont files (*.sf2 *.SF2);;All files (*)</source>
         <translation>Comhaid SoundFont (*.sf2 *.SF2);;Gach comhad (*)</translation>
     </message>
     <message>
-        <location filename="../src/projectsettingsdialog.cpp" line="697"/>
+        <location filename="../src/projectsettingsdialog.cpp" line="702"/>
         <source>(Default audio input)</source>
         <translation>(Ionchur fuaime réamhshocraithe)</translation>
     </message>
@@ -1804,6 +1832,34 @@ Roghnaigh eolaire le do thoil chun do chomhaid thaifeadta a stóráil.</translat
         <location filename="../src/trackwidget.cpp" line="300"/>
         <source>Audio track — click to change input type</source>
         <translation>Rian fuaime — cliceáil chun an cineál ionchuir a athrú</translation>
+    </message>
+</context>
+<context>
+    <name>VibratoEffect</name>
+    <message>
+        <location filename="../src/vibratoeffect.cpp" line="19"/>
+        <source>Vibrato (Tremolo)</source>
+        <translation>Vibrato (Tremolo)</translation>
+    </message>
+    <message>
+        <location filename="../src/vibratoeffect.cpp" line="57"/>
+        <source>Speed: %1 Hz</source>
+        <translation>Luas: %1 Hz</translation>
+    </message>
+    <message>
+        <location filename="../src/vibratoeffect.cpp" line="59"/>
+        <source>Intensity: %1%</source>
+        <translation>Déine: %1%</translation>
+    </message>
+    <message>
+        <location filename="../src/vibratoeffect.cpp" line="103"/>
+        <source>Modulation speed (Hz ×10, e.g. 35 = 3.5 Hz)</source>
+        <translation>Luas modhnaithe (Hz ×10, m.sh. 35 = 3,5 Hz)</translation>
+    </message>
+    <message>
+        <location filename="../src/vibratoeffect.cpp" line="105"/>
+        <source>Depth of volume modulation (0% subtle shimmer, 100% full chop)</source>
+        <translation>Doimhneacht modhnaithe toirte (0% glioscarnach mín, 100% gearradh iomlán)</translation>
     </message>
 </context>
 <context>

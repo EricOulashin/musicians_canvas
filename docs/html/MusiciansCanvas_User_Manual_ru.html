@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas &#1056;&#1091;&#1082;&#1086;&#1074;&#1086;&#1076;&#1089;&#1090;&#1074;&#1086; &#1087;&#1086;&#1083;&#1100;&#1079;&#1086;&#1074;&#1072;&#1090;&#1077;&#1083;&#1103;</h1>
 <p>Приложение для многодорожечной записи музыки &mdash; Version 0.1.1</p>
-<p>2026-04-11</p>
+<p>2026-04-13</p>
 </div>
 <div class="toc">
 <h2>&#1057;&#1086;&#1076;&#1077;&#1088;&#1078;&#1072;&#1085;&#1080;&#1077;</h2>
@@ -91,6 +91,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#project">Меню Project</a></li>
 <li><a href="#settings">Меню Settings</a></li>
 <li><a href="#tools">Меню Tools</a></li>
+<li><a href="#help">Меню Help</a></li>
 </ul>
 </li>
 <li><a href="#_35">Сочетания клавиш</a><ul>
@@ -288,7 +289,9 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <p>У аудиодорожек есть кнопка <strong>Эффекты</strong> под <strong>Options</strong>. Она открывает диалог <strong>Эффекты дорожки</strong>, где
 настраивается <strong>упорядоченная цепочка</strong> вставных эффектов для записи на этой дорожке:</p>
 <p><img alt="Диалог эффектов дорожки" src="screenshots/Track_Effects_Dialog.png" /></p>
-<p>Доступны <strong>Реверб</strong>, <strong>Хорус</strong>, <strong>Фленджер</strong>, <strong>Overdrive / distortion</strong> и <strong>Amp &amp; cabinet</strong> (моделирование усилителя и кабинета: тип усилителя, кабинет, усиление, НЧ/СЧ/ВЧ, «воздух» и смесь). Снимки эффекта <strong>Amp &amp; cabinet</strong>:</p>
+<p>Доступны <strong>Реверб</strong>, <strong>Хорус</strong>, <strong>Фленджер</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong> (моделирование усилителя и кабинета: тип усилителя, кабинет, усиление, НЧ/СЧ/ВЧ, «воздух» и смесь) и <strong>Vibrato (Tremolo)</strong>.</p>
+<p><strong>Vibrato (Tremolo)</strong> — это классическое фэндеровское “Vibrato” (на деле тремоло): <strong>периодическая модуляция громкости</strong>. Параметр <strong>Speed</strong> задаёт скорость пульсации, а <strong>Intensity</strong> (Depth) — глубину (от лёгкого мерцания до полного “chop”).</p>
+<p>Снимки эффекта <strong>Amp &amp; cabinet</strong>:</p>
 <p><img alt="Моделирование Amp &amp; cabinet (1)" src="screenshots/Amp_And_Cabinet_Model_1.png" /></p>
 <p><img alt="Моделирование Amp &amp; cabinet (2)" src="screenshots/Amp_And_Cabinet_Model_2.png" /></p>
 <ul>
@@ -303,7 +306,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <p>Эффекты применяются при <strong>остановке записи</strong>, после обычного захвата и передискретизации. Конфигурация
 хранится в <code>project.json</code> в поле <code>audioEffectChain</code>.</p>
 <h3 id="mix-effects-full-project">Mix effects (full project)</h3>
-<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>, <strong>Vibrato (Tremolo)</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
 <p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
 <h3 id="_17">Мониторинг при записи</h3>
 <p>Рядом с <strong>индикатором времени</strong> флажок <strong>Мониторинг звука при записи</strong> включает или отключает вывод <strong>живого входа</strong>
@@ -545,6 +548,28 @@ SoundFont или аудиоустройства. Настройки проект
 <td>Virtual MIDI Keyboard</td>
 <td></td>
 <td>Запустить сопутствующее приложение клавиатуры</td>
+</tr>
+</tbody>
+</table>
+<h3 id="help">Меню Help</h3>
+<table>
+<thead>
+<tr>
+<th>Пункт меню</th>
+<th>Сочетание клавиш</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manual</td>
+<td>Alt+M</td>
+<td>Открыть PDF-руководство на текущем выбранном языке</td>
+</tr>
+<tr>
+<td>About</td>
+<td></td>
+<td>Показать версию и сведения о приложении</td>
 </tr>
 </tbody>
 </table>

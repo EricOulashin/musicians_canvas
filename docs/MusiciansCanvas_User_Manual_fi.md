@@ -188,7 +188,11 @@ poistetaan käytöstä tahattomien muutosten estämiseksi.
 
 ![Raidan tehosteet -valintaikkuna](../screenshots/Track_Effects_Dialog.png)
 
-Saatavilla ovat mm. **Kaiku**, **Kuoro**, **Flanger**, **Overdrive / distortion** ja **Amp & cabinet** (vahvistimen ja kaapin mallinnus: vahvistintyyppi, kaappi, vahvistus, basso/keski/discantti, ilmavuus ja sekoitus). Kuvakaappaukset **Amp & cabinet** -tehosteesta:
+Saatavilla ovat mm. **Kaiku**, **Kuoro**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet** (vahvistimen ja kaapin mallinnus: vahvistintyyppi, kaappi, vahvistus, basso/keski/discantti, ilmavuus ja sekoitus) sekä **Vibrato (Tremolo)**.
+
+**Vibrato (Tremolo)** on Fender-tyylinen “Vibrato” (tremolo): **aaltomainen äänenvoimakkuuden modulaatio**. **Speed** säätää pulssin nopeutta ja **Intensity** (Depth) syvyyttä (hienovaraisesta väreilystä täyteen “chop”-katkoon).
+
+Kuvakaappaukset **Amp & cabinet** -tehosteesta:
 
 ![Amp & cabinet -mallinnus (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
 
@@ -205,7 +209,7 @@ tallennetaan `project.json`-tiedostoon avaimella `audioEffectChain`.
 
 ### Mix effects (full project)
 
-**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
+**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**, **Vibrato (Tremolo)**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
 
 To reduce harsh [digital clipping](https://en.wikipedia.org/wiki/Clipping_%28audio%29) when processing pushes peaks toward full scale, the effect engine applies a **soft limiter** to normalized float samples immediately before conversion to 16-bit PCM. The **EffectWidget** base class documents `guardFloatSampleForInt16Pcm()` and `softLimitFloatSampleForInt16Pcm()` for any new real-time code that writes to 16-bit audio.
 
@@ -424,6 +428,13 @@ The **Mix Effects** tab is a scrollable list with the same controls as **Track e
 | Mix tracks to file     | Ctrl+M      | Vie kaikki käytössä olevat raidat tiedostoon  |
 | Add drum track        | D        | MIDI-rumpuraita ja `.mid` (katso alla) |
 | Virtual MIDI Keyboard  |             | Käynnistä lisäkoskettimistosovellus           |
+
+### Help-valikko
+
+| Valikkokohta | Pikanäppäin | Kuvaus |
+|-------------|-------------|--------|
+| Manual      | Alt+M       | Avaa PDF-käyttöohjeen tällä hetkellä valitulla kielellä |
+| About       |             | Näyttää version ja sovellustiedot |
 
 ## Pikanäppäimet
 

@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Llawlyfr Defnyddiwr Musician&#8217;s Canvas</h1>
 <p>Cymhwysiad Recordio Cerddoriaeth Aml-Drac &mdash; Version 0.1.1</p>
-<p>2026-04-11</p>
+<p>2026-04-13</p>
 </div>
 <div class="toc">
 <h2>Tabl Cynnwys</h2>
@@ -91,6 +91,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#dewislen-project">Dewislen Project</a></li>
 <li><a href="#dewislen-settings">Dewislen Settings</a></li>
 <li><a href="#dewislen-tools">Dewislen Tools</a></li>
+<li><a href="#dewislen-help">Dewislen Help</a></li>
 </ul>
 </li>
 <li><a href="#llwybrau-byr-bysellfwrdd">Llwybrau Byr Bysellfwrdd</a><ul>
@@ -259,7 +260,9 @@ sain newydd.</p>
 <h3 id="effeithiau-mewnosod-traciau-sain-yn-unig">Effeithiau mewnosod (traciau sain yn unig)</h3>
 <p>Mae botwm <strong>Effeithiau</strong> ar draciau sain union dan <strong>Options</strong>. Mae'n agor y ddeialog <strong>Effeithiau trac</strong>, lle rydych chi'n adeiladu <strong>cadwyn wedi'i threfnu</strong> o effeithiau mewnosod ar gyfer recordio ar y trac hwnnw:</p>
 <p><img alt="Deialog effeithiau trac" src="screenshots/Track_Effects_Dialog.png" /></p>
-<p>Mae <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong> a <strong>Amp &amp; cabinet</strong> (modelu amplyffydd a chabinet: math o amplyffydd, cabinet, ennill, bas/canol/uchel, awyr a chymysgu) ar gael. Sgrinluniau'r effaith <strong>Amp &amp; cabinet</strong>:</p>
+<p>Mae <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong> (modelu amplyffydd a chabinet: math o amplyffydd, cabinet, ennill, bas/canol/uchel, awyr a chymysgu) a <strong>Vibrato (Tremolo)</strong> ar gael.</p>
+<p>Mae <strong>Vibrato (Tremolo)</strong> yn “Vibrato” clasurol Fender (tremolo mewn gwirionedd): <strong>modiwleiddio cyfaint cyfnodol</strong>. Mae <strong>Speed</strong> yn gosod cyflymder y pwls, a <strong>Intensity</strong> (Depth) yn gosod y dyfnder (o symudiad cynnil i “chop” llawn).</p>
+<p>Sgrinluniau'r effaith <strong>Amp &amp; cabinet</strong>:</p>
 <p><img alt="Modelu Amp &amp; cabinet (1)" src="screenshots/Amp_And_Cabinet_Model_1.png" /></p>
 <p><img alt="Modelu Amp &amp; cabinet (2)" src="screenshots/Amp_And_Cabinet_Model_2.png" /></p>
 <ul>
@@ -270,7 +273,7 @@ sain newydd.</p>
 </ul>
 <p>Cynnir effeithiau <strong>pan fyddwch chi'n stopio recordio</strong>, ar ôl cipio ac ailsampla fel arfer. Mae'r ffurfweddiad yn cael ei gadw yn <code>project.json</code> dan <code>audioEffectChain</code>.</p>
 <h3 id="mix-effects-full-project">Mix effects (full project)</h3>
-<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>, <strong>Vibrato (Tremolo)</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
 <p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
 <h3 id="monitro-wrth-recordio">Monitro wrth recordio</h3>
 <p>Wrth ymyl <strong>arddangosfa'r amser</strong>, mae <strong>Monitro sain wrth recordio</strong> yn pennu a yw <strong>mewnbwn byw</strong> yn mynd i <strong>allbwn sain y prosiect</strong>
@@ -476,6 +479,28 @@ go iawn (ar ôl i'r cyfrif tuag at i lawr 3 eiliad gwblhau), ac yn stopio pan dd
 <td>Virtual MIDI Keyboard</td>
 <td></td>
 <td>Lansio'r cymhwysiad bysellfwrdd cydymaith</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dewislen-help">Dewislen Help</h3>
+<table>
+<thead>
+<tr>
+<th>Eitem Dewislen</th>
+<th>Llwybr Byr</th>
+<th>Disgrifiad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manual</td>
+<td>Alt+M</td>
+<td>Agor y llawlyfr PDF yn yr iaith sydd wedi’i dewis ar hyn o bryd</td>
+</tr>
+<tr>
+<td>About</td>
+<td></td>
+<td>Dangos gwybodaeth fersiwn a’r cymhwysiad</td>
 </tr>
 </tbody>
 </table>

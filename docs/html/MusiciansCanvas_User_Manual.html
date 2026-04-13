@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas User Manual</h1>
 <p>Multi-Track Music Recording Application &mdash; Version 0.1.1</p>
-<p>2026-04-11</p>
+<p>2026-04-13</p>
 </div>
 <div class="toc">
 <h2>Table of Contents</h2>
@@ -91,6 +91,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#project-menu">Project Menu</a></li>
 <li><a href="#settings-menu">Settings Menu</a></li>
 <li><a href="#tools-menu">Tools Menu</a></li>
+<li><a href="#help-menu">Help Menu</a></li>
 <li><a href="#add-drum-track">Add drum track</a></li>
 </ul>
 </li>
@@ -291,7 +292,9 @@ are disabled to prevent accidental changes.</p>
 effects</strong> dialog, where you can build an <strong>ordered chain</strong> of insert effects for recordings
 on that track:</p>
 <p><img alt="Track effects dialog" src="screenshots/Track_Effects_Dialog.png" /></p>
-<p>You can add <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, and <strong>Amp &amp; cabinet</strong> (amplifier and speaker modeling: amp type, cabinet, gain, bass/mid/treble, air/presence, and wet/dry mix). The following screenshots show the <strong>Amp &amp; cabinet</strong> effect:</p>
+<p>You can add <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong> (amplifier and speaker modeling: amp type, cabinet, gain, bass/mid/treble, air/presence, and wet/dry mix), and <strong>Vibrato (Tremolo)</strong>.</p>
+<p><strong>Vibrato (Tremolo)</strong> is the classic Fender-style “Vibrato” found on many amplifiers: an <strong>oscillating change in volume over time</strong>. Use <strong>Speed</strong> to set how fast the volume pulses and <strong>Intensity</strong> (Depth) to set how strong the pulsing is (from subtle shimmer to full chop).</p>
+<p>The following screenshots show the <strong>Amp &amp; cabinet</strong> effect:</p>
 <p><img alt="Amp &amp; cabinet modeling (1)" src="screenshots/Amp_And_Cabinet_Model_1.png" /></p>
 <p><img alt="Amp &amp; cabinet modeling (2)" src="screenshots/Amp_And_Cabinet_Model_2.png" /></p>
 <ul>
@@ -312,7 +315,7 @@ sample-rate conversion pipeline—so what you hear from the effect controls matc
 baked into the FLAC for that take. The effect configuration is stored in <code>project.json</code>
 under that track’s <code>audioEffectChain</code> entry.</p>
 <h3 id="mix-effects-full-project">Mix effects (full project)</h3>
-<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>, <strong>Vibrato (Tremolo)</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
 <p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
 <h3 id="monitor-while-recording">Monitor while recording</h3>
 <p>Next to the main <strong>time display</strong>, the <strong>Monitor audio while recording</strong> checkbox controls
@@ -574,6 +577,28 @@ or audio device. Project-specific settings are saved inside the <code>project.js
 <td>Virtual MIDI Keyboard</td>
 <td></td>
 <td>Launch the companion keyboard app</td>
+</tr>
+</tbody>
+</table>
+<h3 id="help-menu">Help Menu</h3>
+<table>
+<thead>
+<tr>
+<th>Menu Item</th>
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manual</td>
+<td>Alt+M</td>
+<td>Open the PDF user manual in the currently selected language</td>
+</tr>
+<tr>
+<td>About</td>
+<td></td>
+<td>Show version and application information</td>
 </tr>
 </tbody>
 </table>

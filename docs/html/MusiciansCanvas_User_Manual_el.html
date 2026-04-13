@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Musician&#8217;s Canvas &#917;&#947;&#967;&#949;&#953;&#961;&#943;&#948;&#953;&#959; &#935;&#961;&#942;&#963;&#964;&#951;</h1>
 <p>Εφαρμογή Εγγραφής Μουσικής Πολλαπλών Καναλιών &mdash; Version 0.1.1</p>
-<p>2026-04-11</p>
+<p>2026-04-13</p>
 </div>
 <div class="toc">
 <h2>&#928;&#943;&#957;&#945;&#954;&#945;&#962; &#928;&#949;&#961;&#953;&#949;&#967;&#959;&#956;&#941;&#957;&#969;&#957;</h2>
@@ -91,6 +91,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#project">Μενού Project</a></li>
 <li><a href="#settings">Μενού Settings</a></li>
 <li><a href="#tools">Μενού Tools</a></li>
+<li><a href="#help">Μενού Help</a></li>
 </ul>
 </li>
 <li><a href="#_28">Συντομεύσεις Πληκτρολογίου</a><ul>
@@ -260,7 +261,9 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <h3 id="_16">Εφέ εισαγωγής (μόνο κανάλια ήχου)</h3>
 <p>Τα κανάλια ήχου έχουν κουμπί <strong>Εφέ</strong> ακριβώς κάτω από <strong>Options</strong>. Ανοίγει το παράθυρο <strong>Εφέ καναλιού</strong>, όπου χτίζετε μια <strong>διατεταγμένη αλυσίδα</strong> εισαγόμενων εφέ για εγγραφή σε αυτό το κανάλι:</p>
 <p><img alt="Διάλογος εφέ καναλιού" src="screenshots/Track_Effects_Dialog.png" /></p>
-<p>Περιλαμβάνονται <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong> και <strong>Amp &amp; cabinet</strong> (μοντελοποίηση ενισχυτή και καμπίνας: τύπος ενισχυτή, καμπίνα, κέρδος, μπάσα/μεσαία/πρίμα, «αέρας» και μίξη). Στιγμιότυπα του <strong>Amp &amp; cabinet</strong>:</p>
+<p>Περιλαμβάνονται <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong> (μοντελοποίηση ενισχυτή και καμπίνας: τύπος ενισχυτή, καμπίνα, κέρδος, μπάσα/μεσαία/πρίμα, «αέρας» και μίξη) και <strong>Vibrato (Tremolo)</strong>.</p>
+<p><strong>Vibrato (Tremolo)</strong> είναι το κλασικό Fender “Vibrato” (στην πράξη tremolo): <strong>περιοδική διαμόρφωση έντασης</strong>. Το <strong>Speed</strong> ορίζει την ταχύτητα παλμού και το <strong>Intensity</strong> (Depth) το βάθος (από διακριτικό “shimmer” έως πλήρες “chop”).</p>
+<p>Στιγμιότυπα του <strong>Amp &amp; cabinet</strong>:</p>
 <p><img alt="Μοντελοποίηση Amp &amp; cabinet (1)" src="screenshots/Amp_And_Cabinet_Model_1.png" /></p>
 <p><img alt="Μοντελοποίηση Amp &amp; cabinet (2)" src="screenshots/Amp_And_Cabinet_Model_2.png" /></p>
 <ul>
@@ -271,7 +274,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 </ul>
 <p>Τα εφέ εφαρμόζονται όταν <strong>σταματάτε την εγγραφή</strong>, μετά τη συνήθη καταγραφή και επαναδειγματοληψία. Η ρύθμιση αποθηκεύεται στο <code>project.json</code> στο πεδίο <code>audioEffectChain</code>.</p>
 <h3 id="mix-effects-full-project">Mix effects (full project)</h3>
-<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>, <strong>Vibrato (Tremolo)</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
 <p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
 <h3 id="_17">Παρακολούθηση κατά την εγγραφή</h3>
 <p>Δίπλα στην <strong>ένδειξη χρόνου</strong>, το πλαίσιο <strong>Παρακολούθηση ήχου κατά την εγγραφή</strong> ενεργοποιεί ή όχι τη μετάδοση <strong>ζωντανής εισόδου</strong>
@@ -477,6 +480,28 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <td>Virtual MIDI Keyboard</td>
 <td></td>
 <td>Εκκίνηση της συνοδευτικής εφαρμογής πληκτρολογίου</td>
+</tr>
+</tbody>
+</table>
+<h3 id="help">Μενού Help</h3>
+<table>
+<thead>
+<tr>
+<th>Στοιχείο Μενού</th>
+<th>Συντόμευση</th>
+<th>Περιγραφή</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manual</td>
+<td>Alt+M</td>
+<td>Άνοιγμα του PDF εγχειριδίου στη γλώσσα που είναι επιλεγμένη στην εφαρμογή</td>
+</tr>
+<tr>
+<td>About</td>
+<td></td>
+<td>Εμφάνιση πληροφοριών έκδοσης και εφαρμογής</td>
 </tr>
 </tbody>
 </table>

@@ -7,6 +7,7 @@
 #include "flangewidget.h"
 #include "overdrivedistortionwidget.h"
 #include "reverbwidget.h"
+#include "vibratoeffect.h"
 
 #include <QComboBox>
 #include <QCursor>
@@ -126,6 +127,8 @@ EffectWidget* EffectChainEditorWidget::createEffectWidget(const QString& type)
         w = new OverdriveDistortionWidget(m_chainContainer);
     else if (type == QStringLiteral("amp_cabinet"))
         w = new AmpAndCabinetModelWidget(m_chainContainer);
+    else if (type == QStringLiteral("vibrato"))
+        w = new VibratoEffect(m_chainContainer);
 
     if (!w)
         return nullptr;
@@ -193,6 +196,7 @@ void EffectChainEditorWidget::onAddEffect()
     combo->addItem(tr("Flanger"), QStringLiteral("flanger"));
     combo->addItem(tr("Overdrive / distortion"), QStringLiteral("overdrive_distortion"));
     combo->addItem(tr("Amp & cabinet"), QStringLiteral("amp_cabinet"));
+    combo->addItem(tr("Vibrato (Tremolo)"), QStringLiteral("vibrato"));
     vl->addWidget(combo);
     auto* bb = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &chooser);
     vl->addWidget(bb);

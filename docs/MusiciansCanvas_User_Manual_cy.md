@@ -159,7 +159,11 @@ Mae botwm **Effeithiau** ar draciau sain union dan **Options**. Mae'n agor y dde
 
 ![Deialog effeithiau trac](../screenshots/Track_Effects_Dialog.png)
 
-Mae **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion** a **Amp & cabinet** (modelu amplyffydd a chabinet: math o amplyffydd, cabinet, ennill, bas/canol/uchel, awyr a chymysgu) ar gael. Sgrinluniau'r effaith **Amp & cabinet**:
+Mae **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet** (modelu amplyffydd a chabinet: math o amplyffydd, cabinet, ennill, bas/canol/uchel, awyr a chymysgu) a **Vibrato (Tremolo)** ar gael.
+
+Mae **Vibrato (Tremolo)** yn “Vibrato” clasurol Fender (tremolo mewn gwirionedd): **modiwleiddio cyfaint cyfnodol**. Mae **Speed** yn gosod cyflymder y pwls, a **Intensity** (Depth) yn gosod y dyfnder (o symudiad cynnil i “chop” llawn).
+
+Sgrinluniau'r effaith **Amp & cabinet**:
 
 ![Modelu Amp & cabinet (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
 
@@ -174,7 +178,7 @@ Cynnir effeithiau **pan fyddwch chi'n stopio recordio**, ar ôl cipio ac ailsamp
 
 ### Mix effects (full project)
 
-**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
+**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**, **Vibrato (Tremolo)**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
 
 To reduce harsh [digital clipping](https://en.wikipedia.org/wiki/Clipping_%28audio%29) when processing pushes peaks toward full scale, the effect engine applies a **soft limiter** to normalized float samples immediately before conversion to 16-bit PCM. The **EffectWidget** base class documents `guardFloatSampleForInt16Pcm()` and `softLimitFloatSampleForInt16Pcm()` for any new real-time code that writes to 16-bit audio.
 
@@ -357,6 +361,13 @@ The **Mix Effects** tab is a scrollable list with the same controls as **Track e
 | Mix tracks to file     | Ctrl+M     | Allforio'r holl draciau galluogedig i ffeil      |
 | Add drum track        | D        | Trac MIDI drymiau a `.mid` (gweler isod) |
 | Virtual MIDI Keyboard  |            | Lansio'r cymhwysiad bysellfwrdd cydymaith        |
+
+### Dewislen Help
+
+| Eitem Dewislen | Llwybr Byr | Disgrifiad |
+|---------------|------------|------------|
+| Manual        | Alt+M      | Agor y llawlyfr PDF yn yr iaith sydd wedi’i dewis ar hyn o bryd |
+| About         |            | Dangos gwybodaeth fersiwn a’r cymhwysiad |
 
 ## Llwybrau Byr Bysellfwrdd
 

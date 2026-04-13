@@ -159,7 +159,11 @@ sætter en **ordnet kæde** af insert-effekter til optagelse på det spor:
 
 ![Dialogen Spor-effekter](../screenshots/Track_Effects_Dialog.png)
 
-Effekttyper omfatter **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion** og **Amp & cabinet** (modellering af forstærker og kabinet: amptype, kabinet, gain, bas/mellem/discant, luft og mix). Skærmbilleder af **Amp & cabinet**:
+Effekttyper omfatter **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet** (modellering af forstærker og kabinet: amptype, kabinet, gain, bas/mellem/discant, luft og mix) og **Vibrato (Tremolo)**.
+
+**Vibrato (Tremolo)** er Fender‑stil “Vibrato” (tremolo): en **periodisk volumenmodulation**. Brug **Speed** til hastighed og **Intensity** (Depth) til dybde (fra subtilt skær til fuld “chop”).
+
+Skærmbilleder af **Amp & cabinet**:
 
 ![Amp & cabinet-modellering (1)](../screenshots/Amp_And_Cabinet_Model_1.png)
 
@@ -177,7 +181,7 @@ gemmes i `project.json` under `audioEffectChain`.
 
 ### Mix effects (full project)
 
-**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
+**Project → Project Settings → Mix Effects** lets you build the same kind of ordered effect chain as **Track effects** (**Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion**, **Amp & cabinet**, **Vibrato (Tremolo)**), but applied to the **entire mixed program**: when you press **Play** to hear all enabled tracks together, and when you export with **Mix tracks to file** (toolbar or **Tools** menu). The chain is saved in `project.json` under `projectSettings` → `mixEffectChain`.
 
 To reduce harsh [digital clipping](https://en.wikipedia.org/wiki/Clipping_%28audio%29) when processing pushes peaks toward full scale, the effect engine applies a **soft limiter** to normalized float samples immediately before conversion to 16-bit PCM. The **EffectWidget** base class documents `guardFloatSampleForInt16Pcm()` and `softLimitFloatSampleForInt16Pcm()` for any new real-time code that writes to 16-bit audio.
 
@@ -359,6 +363,13 @@ The **Mix Effects** tab is a scrollable list with the same controls as **Track e
 | Mix tracks to file    | Ctrl+M   | Eksportér alle aktiverede spor til en fil      |
 | Add drum track        | D        | MIDI-trommespor og `.mid` (se nedenfor) |
 | Virtual MIDI Keyboard |          | Start ledsagerapplikationen til keyboard       |
+
+### Hjælp-menuen
+
+| Menupunkt | Genvej | Beskrivelse |
+|----------|--------|-------------|
+| Manual   | Alt+M  | Åbn PDF-brugermanualen på det aktuelt valgte sprog |
+| About    |        | Vis versions- og programinformation |
 
 ## Tastaturgenveje
 

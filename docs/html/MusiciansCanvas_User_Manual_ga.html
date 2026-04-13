@@ -46,7 +46,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <div class="title-block">
 <h1>Tr&#233;oirleabhar &#218;s&#225;ideora Musician&#8217;s Canvas</h1>
 <p>Feidhmchlár Taifeadta Ceoil Il-Rian &mdash; Version 0.1.1</p>
-<p>2026-04-11</p>
+<p>2026-04-13</p>
 </div>
 <div class="toc">
 <h2>Cl&aacute;r &Aacute;bhair</h2>
@@ -91,6 +91,7 @@ img { max-width: 100%; height: auto; border: 1px solid #dfe2e5; border-radius: 6
 <li><a href="#roghchlar-project">Roghchlár Project</a></li>
 <li><a href="#roghchlar-settings">Roghchlár Settings</a></li>
 <li><a href="#roghchlar-tools">Roghchlár Tools</a></li>
+<li><a href="#roghchlar-help">Roghchlár Help</a></li>
 </ul>
 </li>
 <li><a href="#aicearrai-mearchlair">Aicearraí Méarchláir</a><ul>
@@ -261,7 +262,9 @@ Canvas chun iad a chur leis mar rianta fuaime nua.</p>
 <h3 id="eifeachtai-insert-rianta-fuaime-amhain">Éifeachtaí insert (rianta fuaime amháin)</h3>
 <p>Tá cnaipe <strong>Éifeachtaí</strong> ar rianta fuaime díreach faoi <strong>Options</strong>. Osclaíonn sé an dialóg <strong>Éifeachtaí rian</strong>, áit a gcuireann tú <strong>slabhra ordaithe</strong> d'éifeachtaí insert le chéile le haghaidh taifeadta ar an rian sin:</p>
 <p><img alt="Dialóg éifeachtaí rian" src="screenshots/Track_Effects_Dialog.png" /></p>
-<p>Tá <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong> agus <strong>Amp &amp; cabinet</strong> (samhaltú sainmhéadra agus cáibín: cineál sainmhéadra, cáibín, gnóthachán, dóigh/barr/díreach, aer agus meascthán) ar fáil. Seatanna scáileáin an éifeachta <strong>Amp &amp; cabinet</strong>:</p>
+<p>Tá <strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong> (samhaltú sainmhéadra agus cáibín: cineál sainmhéadra, cáibín, gnóthachán, dóigh/barr/díreach, aer agus meascthán) agus <strong>Vibrato (Tremolo)</strong> ar fáil.</p>
+<p>Is é <strong>Vibrato (Tremolo)</strong> an “Vibrato” clasaiceach i stíl Fender (i ndáiríre tremolo): <strong>modhnú tréimhsiúil ar an toirt</strong>. Socraíonn <strong>Speed</strong> luas na bíogaireachta agus socraíonn <strong>Intensity</strong> (Depth) an doimhneacht (ó shíomrógín mín go “chop” iomlán).</p>
+<p>Seatanna scáileáin an éifeachta <strong>Amp &amp; cabinet</strong>:</p>
 <p><img alt="Samhaltú Amp &amp; cabinet (1)" src="screenshots/Amp_And_Cabinet_Model_1.png" /></p>
 <p><img alt="Samhaltú Amp &amp; cabinet (2)" src="screenshots/Amp_And_Cabinet_Model_2.png" /></p>
 <ul>
@@ -272,7 +275,7 @@ Canvas chun iad a chur leis mar rianta fuaime nua.</p>
 </ul>
 <p>Cuirtear éifeachtaí i bhfeidhm <strong>nuair a stopann tú an taifeadadh</strong>, tar éis gabhála agus athshamplála gnáth. Sábháiltear cumraíocht in <code>project.json</code> faoi <code>audioEffectChain</code>.</p>
 <h3 id="mix-effects-full-project">Mix effects (full project)</h3>
-<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
+<p><strong>Project → Project Settings → Mix Effects</strong> lets you build the same kind of ordered effect chain as <strong>Track effects</strong> (<strong>Reverb</strong>, <strong>Chorus</strong>, <strong>Flanger</strong>, <strong>Overdrive / distortion</strong>, <strong>Amp &amp; cabinet</strong>, <strong>Vibrato (Tremolo)</strong>), but applied to the <strong>entire mixed program</strong>: when you press <strong>Play</strong> to hear all enabled tracks together, and when you export with <strong>Mix tracks to file</strong> (toolbar or <strong>Tools</strong> menu). The chain is saved in <code>project.json</code> under <code>projectSettings</code> → <code>mixEffectChain</code>.</p>
 <p>To reduce harsh <a href="https://en.wikipedia.org/wiki/Clipping_%28audio%29">digital clipping</a> when processing pushes peaks toward full scale, the effect engine applies a <strong>soft limiter</strong> to normalized float samples immediately before conversion to 16-bit PCM. The <strong>EffectWidget</strong> base class documents <code>guardFloatSampleForInt16Pcm()</code> and <code>softLimitFloatSampleForInt16Pcm()</code> for any new real-time code that writes to 16-bit audio.</p>
 <h3 id="monatoireacht-le-linn-taifeadta">Monatóireacht le linn taifeadta</h3>
 <p>Taobh le <strong>taispeántas ama</strong>, rialann <strong>Monatóir fuaim agus í á taifeadadh</strong> an sás <strong>beo</strong> a sheoladh chuig <strong>aschur fuaime an tionscadail</strong>
@@ -479,6 +482,28 @@ an taifeadadh.</p>
 <td>Virtual MIDI Keyboard</td>
 <td></td>
 <td>Seoladh an fheidhmchláir mhéarchláir chomhpháirtigh</td>
+</tr>
+</tbody>
+</table>
+<h3 id="roghchlar-help">Roghchlár Help</h3>
+<table>
+<thead>
+<tr>
+<th>Mír Roghchláir</th>
+<th>Aicearra</th>
+<th>Cur Síos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manual</td>
+<td>Alt+M</td>
+<td>Oscail an lámhleabhar PDF sa teanga atá roghnaithe san aip faoi láthair</td>
+</tr>
+<tr>
+<td>About</td>
+<td></td>
+<td>Taispeáin eolas faoi leagan agus faoin aip</td>
 </tr>
 </tbody>
 </table>
