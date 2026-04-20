@@ -469,7 +469,12 @@ jobs:
           set -euxo pipefail
           cd "${GITHUB_WORKSPACE}/musicians_canvas"
           chmod +x ./makeDiz.sh
-          ./makeDiz.sh "Windows Installer"
+          ./makeDiz.sh "Windows installer"
+          # For the installer artifact we want the second line to be just:
+          #   "             Windows installer"
+          # (no trailing "version" text).
+          sed -i -E 's/^([[:space:]]*Windows installer) version[[:space:]]*$/\1/' FILE_ID.DIZ
+          cp FILE_ID.DIZ "${GITHUB_WORKSPACE}/FILE_ID.DIZ"
 
       - name: Upload Windows installer (.exe)
         uses: actions/upload-artifact@v5
@@ -481,6 +486,6 @@ jobs:
           name: MusiciansCanvas_${{ steps.version.outputs.ver }}_Windows_Installer
           path: |
             ${{ github.workspace }}/MusiciansCanvas_${{ steps.version.outputs.ver }}_Windows.exe
-            ${{ github.workspace }}/musicians_canvas/FILE_ID.DIZ
+            ${{ github.workspace }}/FILE_ID.DIZ
           if-no-files-found: error
           retention-days: 90
