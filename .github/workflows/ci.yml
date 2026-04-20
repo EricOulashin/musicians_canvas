@@ -90,6 +90,14 @@ jobs:
           ver=$(grep 'project(musicians_canvas VERSION' "${GITHUB_WORKSPACE}/musicians_canvas/CMakeLists.txt" | sed -E 's/.*VERSION ([0-9.]+).*/\1/' | tr -d '.')
           echo "ver=$ver" >> "$GITHUB_OUTPUT"
 
+      - name: Generate FILE_ID.DIZ
+        shell: bash
+        run: |
+          set -euxo pipefail
+          cd "${GITHUB_WORKSPACE}/musicians_canvas"
+          chmod +x ./makeDiz.sh
+          ./makeDiz.sh "${{ matrix.artifact_os }}"
+
       - name: Test
         run: |
           cd "${GITHUB_WORKSPACE}/musicians_canvas/build"
@@ -109,6 +117,9 @@ jobs:
           BUILD="${ROOT}/musicians_canvas/build"
           ARTIFACT_DIR="${ROOT}/MusiciansCanvas_${{ matrix.artifact_os }}"
           mkdir -p "${ARTIFACT_DIR}/docs"
+
+          # Include FILE_ID.DIZ in the root of the packaged zip.
+          cp "${ROOT}/musicians_canvas/FILE_ID.DIZ" "${ARTIFACT_DIR}/"
 
           if [ "${{ runner.os }}" = "macOS" ]; then
             # macOS: single .app bundle (virtual_midi_keyboard is inside Contents/MacOS/)
@@ -240,6 +251,14 @@ jobs:
           echo "ver=$ver" >> "$GITHUB_OUTPUT"
           echo "verdot=$verdot" >> "$GITHUB_OUTPUT"
 
+      - name: Generate FILE_ID.DIZ
+        shell: msys2 {0}
+        run: |
+          set -euxo pipefail
+          cd "${GITHUB_WORKSPACE}/musicians_canvas"
+          chmod +x ./makeDiz.sh
+          ./makeDiz.sh "Windows"
+
       - name: Test
         shell: msys2 {0}
         run: |
@@ -259,6 +278,9 @@ jobs:
           ROOT="${GITHUB_WORKSPACE}"
           ARTIFACT_DIR="${ROOT}/MusiciansCanvas_Windows"
           mkdir -p "${ARTIFACT_DIR}/docs"
+
+          # Include FILE_ID.DIZ in the root of the packaged zip.
+          cp "${ROOT}/musicians_canvas/FILE_ID.DIZ" "${ARTIFACT_DIR}/"
 
           # Copy executables
           cp "${ROOT}/musicians_canvas/build/musicians_canvas.exe" "${ARTIFACT_DIR}/"
