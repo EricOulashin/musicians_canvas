@@ -463,6 +463,14 @@ jobs:
           }
           Write-Host "Installer built successfully: $((Get-Item $exePath).Length) bytes"
 
+      - name: Generate FILE_ID.DIZ (Windows Installer)
+        shell: msys2 {0}
+        run: |
+          set -euxo pipefail
+          cd "${GITHUB_WORKSPACE}/musicians_canvas"
+          chmod +x ./makeDiz.sh
+          ./makeDiz.sh "Windows Installer"
+
       - name: Upload Windows installer (.exe)
         uses: actions/upload-artifact@v5
         with:
@@ -471,6 +479,8 @@ jobs:
           # .zip for download; that wrapping is unavoidable, but the resulting
           # download zip contains nothing other than this single .exe file.)
           name: MusiciansCanvas_${{ steps.version.outputs.ver }}_Windows_Installer
-          path: ${{ github.workspace }}/MusiciansCanvas_${{ steps.version.outputs.ver }}_Windows.exe
+          path: |
+            ${{ github.workspace }}/MusiciansCanvas_${{ steps.version.outputs.ver }}_Windows.exe
+            ${{ github.workspace }}/musicians_canvas/FILE_ID.DIZ
           if-no-files-found: error
           retention-days: 90
