@@ -76,19 +76,27 @@ int main(int argc, char* argv[])
     pw_init(&argc, &argv);
 #endif
 
-    QApplication app(argc, argv);
-    app.setApplicationName("Virtual MIDI Keyboard");
+    // QApplication, VkMainWindow, and all Qt/FluidSynth objects are scoped so
+    // they are fully destroyed BEFORE pw_deinit() runs.  Calling pw_deinit()
+    // while a QAudioSink (backed by PipeWire) still exists causes a segfault
+    // on exit because the sink's internal thread tries to use an already-freed
+    // PipeWire context.
+    int result = 0;
+    {
+        QApplication app(argc, argv);
+        app.setApplicationName("Virtual MIDI Keyboard");
 
-    // Optional override (same as Musician's Canvas) for translators / screenshots.
-    const QByteArray langEnv = qgetenv("MUSICIANS_CANVAS_LANG");
-    if (!langEnv.isEmpty())
-        loadVkTranslation(QString::fromLocal8Bit(langEnv));
-    else
-        loadVkTranslation(VkSettings::instance().language());
+        // Optional override (same as Musician's Canvas) for translators / screenshots.
+        const QByteArray langEnv = qgetenv("MUSICIANS_CANVAS_LANG");
+        if (!langEnv.isEmpty())
+            loadVkTranslation(QString::fromLocal8Bit(langEnv));
+        else
+            loadVkTranslation(VkSettings::instance().language());
 
-    VkMainWindow window;
-    window.show();
-    const int result = app.exec();
+        VkMainWindow window;
+        window.show();
+        result = app.exec();
+    } // window and app destroyed here — all PipeWire/Qt audio state released
 
 #ifdef HAVE_PIPEWIRE
     pw_deinit();
