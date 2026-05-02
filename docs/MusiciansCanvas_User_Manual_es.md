@@ -1,7 +1,7 @@
 ---
 title: "Manual de Usuario de Musician's Canvas"
 subtitle: "Aplicación de Grabación Musical Multipista"
-version: "0.1.1"
+version: "0.1.2"
 date: "2026-04-03"
 author: "Eric Oulashin"
 lang: "es"
@@ -11,7 +11,7 @@ lang: "es"
 
 ## Introducción
 
-Musician's Canvas es una aplicación de grabación musical multipista para computadoras de escritorio. Soporta grabación de audio desde micrófonos y dispositivos de entrada de línea, grabación MIDI desde teclados y controladores, y mezcla de todas las pistas en un único archivo WAV o FLAC. Una aplicación complementaria, Virtual MIDI Keyboard, proporciona un teclado de piano por software para enviar notas MIDI.
+Musician's Canvas es una aplicación de grabación musical multipista para computadoras de escritorio. Soporta grabación de audio desde micrófonos y dispositivos de entrada de línea, grabación MIDI desde teclados y controladores, y mezcla de todas las pistas en un único archivo de audio (WAV, FLAC, MP3, Ogg Vorbis o AIFF). Una aplicación complementaria, Virtual MIDI Keyboard, proporciona un teclado de piano por software para enviar notas MIDI.
 
 Musician's Canvas está diseñado para ser fácil de usar y al mismo tiempo ofrecer funciones comúnmente encontradas en estaciones de trabajo de audio digital (DAWs):
 
@@ -21,7 +21,7 @@ Musician's Canvas está diseñado para ser fácil de usar y al mismo tiempo ofre
 - Conversión de frecuencia de muestreo de alta calidad para grabar a cualquier frecuencia de muestreo del proyecto
 - Detección automática de dispositivos mono/estéreo
 - Configuración basada en proyectos con ajustes específicos por proyecto
-- Mezcla a WAV o FLAC
+- Mezcla a WAV, FLAC, MP3, Ogg Vorbis o AIFF
 - Temas oscuro y claro
 - Localizado en 18 idiomas incluyendo English, Deutsch, Español, Français, Japanese, Português, Chinese, Русский, Svenska, Suomi, Dansk, Norsk, Polski, Ελληνικά, Gaeilge, Cymraeg y Pirate
 - Aplicación complementaria Virtual MIDI Keyboard
@@ -89,7 +89,7 @@ compatibles desde su administrador de archivos (Explorador de Windows, Finder
 de macOS, administrador de archivos de Linux, etc.) directamente a la ventana
 de Musician's Canvas para agregarlos como nuevas pistas de audio.
 
-- **Formatos compatibles:** `.wav` y `.flac`. Los archivos en cualquier otro
+- **Formatos compatibles:** `.wav`, `.flac`, `.mp3`, `.ogg`, `.aiff`, `.aif` y `.aifc`. Los archivos en cualquier otro
   formato se omiten silenciosamente, y al final un diálogo enumera qué
   archivos se omitieron.
 - **Copia de archivos:** Si el archivo soltado aún no está en el directorio del
@@ -587,7 +587,7 @@ Son **programas independientes**. Inicie Virtual MIDI Keyboard desde **Tools > V
 
 ### ¿Por qué no funciona arrastrar y soltar archivos de audio?
 
-Solo se aceptan archivos si hay **directorio de proyecto** y Musician's Canvas **no** está reproduciendo ni grabando. Los formatos admitidos son **`.wav`** y **`.flac`**; otros se omiten y se listan en un diálogo. Cada archivo crea una nueva pista **audio** con el nombre del archivo sin extensión.
+Solo se aceptan archivos si hay **directorio de proyecto** y Musician's Canvas **no** está reproduciendo ni grabando. Se admiten **`.wav`**, **`.flac`**, **`.mp3`**, **`.ogg`**, **`.aiff`**, **`.aif`** y **`.aifc`**; otros se omiten y se listan en un diálogo. Cada archivo crea una nueva pista **audio** con el nombre del archivo sin extensión.
 
 ### ¿Dónde se guardan mis grabaciones?
 

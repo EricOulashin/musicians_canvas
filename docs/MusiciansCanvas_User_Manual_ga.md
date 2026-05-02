@@ -1,7 +1,7 @@
 ---
 title: "Lámhleabhar Úsáideora Musician's Canvas"
 subtitle: "Feidhmchlár Taifeadta Ceoil Il-Rian"
-version: "0.1.1"
+version: "0.1.2"
 date: "2026-04-03"
 author: "Eric Oulashin"
 lang: "ga"

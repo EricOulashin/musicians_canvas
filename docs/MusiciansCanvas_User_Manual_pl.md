@@ -1,7 +1,7 @@
 ---
 title: "Musician's Canvas Podręcznik Użytkownika"
 subtitle: "Wielościeżkowa aplikacja do nagrywania muzyki"
-version: "0.1.1"
+version: "0.1.2"
 date: "2026-04-03"
 author: "Eric Oulashin"
 lang: "pl"

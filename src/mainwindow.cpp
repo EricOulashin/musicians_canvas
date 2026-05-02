@@ -41,6 +41,11 @@
 #include <QAction>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QDialog>
+#include <QProgressDialog>
+#include <QFutureWatcher>
+#include <QEventLoop>
+#include <QtConcurrent/QtConcurrentRun>
 #include <QApplication>
 #include <QEvent>
 #include <QStyle>
@@ -241,11 +246,9 @@ static bool loadAudioFile(const QString& path, QByteArray& audioData,
                           int& sampleRate, int& channelCount)
 {
     const QString ext = QStringLiteral(".") + QFileInfo(path).suffix().toLower();
-    if (ext == QStringLiteral(".flac"))
-        return AudioUtils::readFlacAudioData(path, audioData, sampleRate, channelCount);
     if (ext == QStringLiteral(".wav"))
         return AudioUtils::readWavInt16Pcm(path, audioData, sampleRate, channelCount);
-    return false;
+    return AudioUtils::readEncodedAudioFile(path, audioData, sampleRate, channelCount);
 }
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
@@ -680,7 +683,7 @@ QString MainWindow::allocateUniqueDrumTrackName() const
 // ─── Drag-and-drop of audio files ─────────────────────────────────────────
 //
 // While a project is open, the user may drag one or more supported audio
-// files (currently .wav and .flac — see src/audioformats.h for the central
+// files — see src/audioformats.h for the central
 // list) onto the main window.  Each accepted file is copied into the project
 // directory if it isn't already there, and a new audio track is created with
 // the file's base name as the track name and the file's audio data preloaded.
@@ -905,12 +908,38 @@ void MainWindow::onMix()
             : AppSettings::instance().midiVolumePercent();
     const double midiGainMultiplier = std::clamp(volPct, 0, 200) / 100.0;
 
-    if (AudioUtils::mixTracksToFile(tracks, outputPath, projectPath,
-                                    m_projectSettings.sampleRate,
-                                    m_projectSettings.soundFontPath,
-                                    /*renderMidiToAudio=*/true,
-                                    /*midiGainMultiplier=*/midiGainMultiplier,
-                                    m_projectSettings.auxEffectChain))
+    const int sampleRate        = m_projectSettings.sampleRate;
+    const QString soundFontPath = m_projectSettings.soundFontPath;
+    const QJsonArray auxChain   = m_projectSettings.auxEffectChain;
+
+    QProgressDialog progress(tr("Mixing tracks to file…"), QString(), 0, 0, this);
+    progress.setWindowTitle(tr("Mix in progress"));
+    progress.setWindowModality(Qt::ApplicationModal);
+    progress.setMinimumDuration(0);
+    progress.setCancelButton(nullptr);
+    progress.setRange(0, 0);
+
+    QFuture<bool> future =
+        QtConcurrent::run([tracks, outputPath, projectPath, sampleRate, soundFontPath,
+                           midiGainMultiplier, auxChain]()
+                            {
+                                return AudioUtils::mixTracksToFile(tracks, outputPath, projectPath,
+                                                                   sampleRate, soundFontPath,
+                                                                   /*renderMidiToAudio=*/true,
+                                                                   midiGainMultiplier, auxChain);
+                            });
+
+    QEventLoop waitLoop;
+    QFutureWatcher<bool> watcher;
+    QObject::connect(&watcher, &QFutureWatcher<bool>::finished, &waitLoop, &QEventLoop::quit);
+    watcher.setFuture(future);
+    progress.show();
+    waitLoop.exec();
+
+    progress.close();
+
+    const bool mixOk = future.result();
+    if (mixOk)
     {
         applyMixBusEffectsToPathIfSet(outputPath, m_projectSettings.mixEffectChain);
         QMessageBox::information(this, tr("Mix Complete"),
@@ -2652,10 +2681,13 @@ void MainWindow::onExportStems()
                              tr("Please set a project directory before exporting stems."));
         return;
     }
-    const QString dir = QFileDialog::getExistingDirectory(
-        this, tr("Export stems"), projectPath, QFileDialog::ShowDirsOnly);
+    StemExportDialog dlg(projectPath, this);
+    if (dlg.exec() != QDialog::Accepted)
+        return;
+    const QString dir = dlg.outputDirectory();
     if (dir.isEmpty())
         return;
+    const QString stemExt = dlg.outputFileExtension();
     QDir().mkpath(dir);
     QVector<TrackData> tracks;
     for (auto* w : m_trackWidgets)
@@ -2669,7 +2701,7 @@ void MainWindow::onExportStems()
     if (sf.isEmpty())
         sf = AppSettings::instance().soundFontPath();
     if (AudioUtils::exportStemsToDirectory(tracks, dir, projectPath, m_projectSettings.sampleRate,
-                                           sf, true, midiGainMultiplier))
+                                           sf, true, midiGainMultiplier, stemExt))
         QMessageBox::information(this, tr("Export stems"),
                                  tr("Stems exported to:\n%1").arg(dir));
     else

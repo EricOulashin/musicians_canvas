@@ -19,14 +19,14 @@ Versuch, etwas Besseres zu schaffen.
 - **Overdub-Aufnahme**: Beim Aufnehmen einer neuen Spur, während vorhandene Spuren aktiviert sind, werden die vorhandenen Spuren gemischt und in Echtzeit wiedergegeben, damit Sie sie beim Aufnehmen hören können. Wiedergabe und Aufnahme sind synchronisiert, um alle Spuren ausgerichtet zu halten
 - **Visuelle Rückmeldung**: Audio-Wellenformanzeige für Audiospuren (mit Live-Pegelanzeige während der Aufnahme), MIDI-Pianorollenansicht für MIDI-Spuren
 - **Integrierter MIDI-Synthesizer**: Rendert MIDI-Spuren zu Audio mittels FluidSynth mit konfigurierbarem SoundFont
-- **Zu einzelner Audiodatei mischen**: Alle aktivierten Spuren in eine einzelne gemischte WAV- oder FLAC-Datei exportieren, unter Verwendung der [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp)-Bibliothek
+- **Zu einzelner Audiodatei mischen**: Alle aktivierten Spuren in eine einzelne gemischte Datei (WAV, FLAC, MP3, Ogg Vorbis oder AIFF) exportieren — über **Tools → Mix tracks to file** — unter Verwendung der [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp)-Bibliothek und **libsndfile**
 - **Projekt speichern / öffnen**: Das vollständige Projekt (Spuren, Namen, Typen, MIDI-Noten, Audiodatei-Referenzen) in eine JSON-Datei serialisieren und daraus wiederherstellen, mit Erkennung nicht gespeicherter Änderungen beim Beenden
 - **Projektspezifische Einstellungen**: Globale MIDI- und Audio-Standardwerte pro Projekt überschreiben (Abtastrate, SoundFont, MIDI-Gerät)
 - **PortAudio-Aufnahme (optionaler Build)**: Wenn das Projekt mit PortAudio gebaut wird (`HAVE_PORTAUDIO`), kann die Aufnahme einen nativen PortAudio-Eingabepfad verwenden (ähnlich wie bei Audacity) anstelle von Qt Multimedia. **Project → Project Settings → Audio** ermöglicht die Wahl zwischen **PortAudio** oder **Qt Multimedia** und die Auswahl eines PortAudio-Eingabegeräts. Wenn PortAudio nicht installiert ist, wird der Build dennoch erfolgreich durchgeführt und die Aufnahme verwendet nur Qt Multimedia.
 - **Hochwertige Abtastratenkonvertierung**: Nimmt mit der nativen Rate des Audiogeräts auf und konvertiert zur Projektrate mittels gefensterter Sinc-Interpolation (Kaiser-Fenster, ~96 dB Sperrdämpfung), derselbe Algorithmus-Familie, die von Audacity / libsoxr verwendet wird. Dies ermöglicht die Aufnahme mit jeder Projekt-Abtastrate (8000 Hz bis 192000 Hz) unabhängig von der nativen Geräterate, ohne Tonhöhen- oder Daueränderung.
 - **Automatische Mono/Stereo-Verarbeitung**: Erkennt physisch mono Geräte, die als Stereo beworben werden (häufig bei USB-Webcam-Mikrofonen unter PipeWire), und konvertiert zwischen Mono und Stereo nach Bedarf (Verdopplung oder Mittelung), entsprechend dem Kanal-Routing-Ansatz von Audacity
 - **Aufnahme-Insert-Effekte (Audiospuren)**: Über die Schaltfläche **Effects** (unter **Options** bei jeder Audiospur) öffnen Sie den Dialog **Track effects**. Fügen Sie **Reverb**, **Chorus**, **Flanger**, **Overdrive / distortion** und **Amp & cabinet** (Amp- und Boxen-Modellierung) hinzu und konfigurieren Sie sie, ziehen Sie den **≡**-Griff, um die Kette neu zu ordnen (oben läuft zuerst), und speichern Sie mit dem Projekt. Die Effekte werden auf die aufgenommene Aufnahme angewendet, wenn Sie die Aufnahme stoppen; die Parameter sind in realen Einheiten (ms, Hz), sodass sich das Verhalten bei Mono oder Stereo und typischen Projekt-Abtastraten (8 kHz–192 kHz) nach der Normalisierung der Aufnahme konsistent bleibt. Siehe das [Benutzerhandbuch](docs/MusiciansCanvas_User_Manual_de.md). Übersetzer können die Effektzeichenketten per `scripts/effect_i18n.tsv` (von `scripts/build_effect_tsv.py` erzeugt) und `scripts/fill_effect_i18n.py` nach `lupdate` stapelweise aktualisieren.
-- **Mix-Effekte (Summenbus)**: Unter **Project → Project Settings → Mix Effects** legen Sie eine Effektkette für den **gesamten Mix** fest — dieselben Typen und dieselbe Reihenfolge wie bei Spureffekten. Sie wird bei **Wiedergabe aller Spuren** und beim **Mischen in eine Datei** (WAV/FLAC) angewendet. Die Einstellungen stehen pro Projekt in `project.json` unter `mixEffectChain`.
+- **Mix-Effekte (Summenbus)**: Unter **Project → Project Settings → Mix Effects** legen Sie eine Effektkette für den **gesamten Mix** fest — dieselben Typen und dieselbe Reihenfolge wie bei Spureffekten. Sie wird bei **Wiedergabe aller Spuren** und beim **Mischen in eine Datei** (unterstützte Exportformate) angewendet. Die Einstellungen stehen pro Projekt in `project.json` unter `mixEffectChain`.
 - **Anti-Clipping am Effektausgang**: Die integrierte DSP-Kette weicht Pegel vor der 16-Bit-PCM-Wandlung weich aus, um hartes digitales Clipping zu vermeiden. **EffectWidget** stellt `guardFloatSampleForInt16Pcm()` und `softLimitFloatSampleForInt16Pcm()` für neue Echtzeitverarbeitung bereit.
 - **Mithören während der Aufnahme**: Das Kontrollkästchen **Ton während der Aufnahme mithören** (rechts neben der Zahlen-Uhr) leitet den Live-Eingang zum **im Projekt gewählten Audioausgang** während der Aufnahme. Bei **Audiospuren** ist das der gleiche Signalpfad wie die Aufnahme (zusätzlich zur Overdub-Wiedergabe). Bei **MIDI-Spuren** klingt das Spiel über FluidSynth, wenn **MIDI für Wiedergabe in Audio rendern** aktiv ist und ein SoundFont verfügbar ist. Die Einstellung wird im **Projekt** gespeichert (`monitorWhileRecording` in `project.json`). Deaktivieren Sie sie, um z. B. akustische Rückkopplung ins Mikrofon zu vermeiden.
 - **Audio mit niedriger Latenz**: Unter Windows sorgt die ASIO-Treibererkennung für Audio mit niedriger Latenz; unter Linux wird die Prozessplanungspriorität für geringeren Jitter mit PipeWire / PulseAudio / ALSA erhöht
@@ -66,8 +66,8 @@ Ein **C++17**-fähiger Compiler wird benötigt (GCC 8+, Clang 7+, MSVC 2017+).
 
 ### audio_mixer_cpp (auf allen Plattformen erforderlich)
 
-Die Misch- und FLAC-Exportfunktionalität hängt von der
-[audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp)-Bibliothek ab.
+Die Mischfunktion und Exportencoder (FLAC, WAV, MP3, Ogg Vorbis, AIFF) hängen von der
+[audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp)-Bibliothek und **libsndfile** ab.
 Klonen Sie sie als Geschwisterverzeichnis dieses Repositorys vor dem Erstellen:
 
 ```bash
@@ -75,6 +75,12 @@ git clone https://github.com/EricOulashin/audio_mixer_cpp.git
 ```
 
 Der CMake-Build erwartet sie unter `../audio_mixer_cpp` relativ zum Stammverzeichnis dieses Projekts.
+
+---
+
+### libsndfile (erforderlich)
+
+MP3-, Ogg-Vorbis- und AIFF-Unterstützung erfolgt über **libsndfile** (neben den bestehenden FLAC- und WAV-Pfad in audio_mixer_cpp). Installieren Sie das Entwicklungspaket (`libsndfile1-dev` unter Debian/Ubuntu, `libsndfile-devel` unter Fedora usw.).
 
 ---
 
@@ -112,7 +118,7 @@ daher müssen Sie den SoundFont manuell in
 sudo apt install build-essential cmake \
   qt6-base-dev qt6-multimedia-dev \
   qt6-l10n-tools \
-  libfluidsynth-dev librtmidi-dev libflac-dev \
+  libfluidsynth-dev librtmidi-dev libflac-dev libsndfile1-dev \
   libportaudio2 portaudio19-dev \
   libpipewire-0.3-dev \
   fluid-soundfont-gm
@@ -130,7 +136,7 @@ sudo apt install build-essential cmake \
 ```bash
 sudo dnf install cmake gcc-c++ \
   qt6-qtbase-devel qt6-qtmultimedia-devel \
-  fluidsynth-devel rtmidi-devel flac-devel \
+  fluidsynth-devel rtmidi-devel flac-devel libsndfile-devel \
   portaudio-devel \
   pipewire-devel \
   fluid-soundfont-gm
@@ -144,7 +150,7 @@ sudo dnf install cmake gcc-c++ \
 ```bash
 sudo pacman -S base-devel cmake \
   qt6-base qt6-multimedia \
-  fluidsynth rtmidi flac portaudio \
+  fluidsynth rtmidi flac libsndfile portaudio \
   pipewire \
   soundfont-fluid
 ```
@@ -156,7 +162,7 @@ sudo pacman -S base-devel cmake \
 ### macOS
 
 ```bash
-brew install cmake qt fluidsynth rtmidi flac portaudio
+brew install cmake qt fluidsynth rtmidi flac libsndfile portaudio
 ```
 
 > PipeWire ist ein reines Linux-Subsystem und wird auf macOS **nicht** benötigt. FluidSynth
@@ -193,6 +199,7 @@ pacman -S mingw-w64-x86_64-qt6-multimedia
 pacman -S mingw-w64-x86_64-fluidsynth
 pacman -S mingw-w64-ucrt-x86_64-rtmidi
 pacman -S mingw-w64-x86_64-flac
+pacman -S mingw-w64-x86_64-libsndfile
 pacman -S mingw-w64-x86_64-portaudio
 pacman -S mingw-w64-x86_64-soundfont-fluid
 ```

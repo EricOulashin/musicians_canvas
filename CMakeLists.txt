@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(musicians_canvas VERSION 0.1.1 LANGUAGES CXX)
+project(musicians_canvas VERSION 0.1.2 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -8,7 +8,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Concurrent)
 find_package(Qt6 COMPONENTS Multimedia QUIET)
 find_package(Qt6 COMPONENTS LinguistTools QUIET)
 set(QT_MULTIMEDIA_FOUND ${Qt6Multimedia_FOUND})
@@ -30,6 +30,12 @@ if(NOT FLAC_LIBRARY)
     message(FATAL_ERROR "libFLAC not found. Install libflac-dev")
 endif()
 
+find_library(SNDFILE_LIBRARY NAMES sndfile libsndfile)
+find_path(SNDFILE_INCLUDE_DIR sndfile.h)
+if(NOT SNDFILE_LIBRARY OR NOT SNDFILE_INCLUDE_DIR)
+    message(FATAL_ERROR "libsndfile not found. Install libsndfile-dev (required for MP3, Ogg Vorbis, and AIFF)")
+endif()
+
 # Path to the shared audio_mixer_cpp library sources (relative to this project)
 set(AUDIO_MIXER_CPP_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../audio_mixer_cpp/code/common)
 
@@ -42,6 +48,14 @@ set(AUDIO_MIXER_SOURCES
     ${AUDIO_MIXER_CPP_DIR}/FLACFile.cpp
     ${AUDIO_MIXER_CPP_DIR}/FLACFileInfo.cpp
     ${AUDIO_MIXER_CPP_DIR}/MetadataAudioFile.cpp
+    ${AUDIO_MIXER_CPP_DIR}/SndFileBackedMetadataAudioFile.cpp
+    ${AUDIO_MIXER_CPP_DIR}/SndFileHelpers.cpp
+    ${AUDIO_MIXER_CPP_DIR}/MP3File.cpp
+    ${AUDIO_MIXER_CPP_DIR}/MP3FileInfo.cpp
+    ${AUDIO_MIXER_CPP_DIR}/OggFile.cpp
+    ${AUDIO_MIXER_CPP_DIR}/OggFileInfo.cpp
+    ${AUDIO_MIXER_CPP_DIR}/AiffFile.cpp
+    ${AUDIO_MIXER_CPP_DIR}/AiffFileInfo.cpp
     ${AUDIO_MIXER_CPP_DIR}/WAVFile.cpp
     ${AUDIO_MIXER_CPP_DIR}/WAVFileInfo.cpp
     ${AUDIO_MIXER_CPP_DIR}/utilFunctions.cpp
@@ -85,6 +99,7 @@ set(SOURCES
     src/projectsettingsdialog.cpp
     src/projectsettingsdialog.h
     src/audioformats.h
+    src/audioformats.cpp
     src/midirecorder.cpp
     src/midirecorder.h
     src/midiplayer.cpp
@@ -263,6 +278,8 @@ if(BUILD_TESTING)
         ${FLAC_LIBRARY}
         ${FLUIDSYNTH_LIBRARY}
     )
+    target_include_directories(musicians_canvas_tests PRIVATE ${SNDFILE_INCLUDE_DIR})
+    target_link_libraries(musicians_canvas_tests PRIVATE ${SNDFILE_LIBRARY})
     target_include_directories(musicians_canvas_tests PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
         ${AUDIO_MIXER_CPP_DIR}
@@ -332,10 +349,13 @@ target_link_libraries(musicians_canvas PRIVATE
     Qt6::Core
     Qt6::Gui
     Qt6::Widgets
+    Qt6::Concurrent
     ${FLUIDSYNTH_LIBRARY}
     ${RTMIDI_LIBRARY}
     ${FLAC_LIBRARY}
 )
+target_include_directories(musicians_canvas PRIVATE ${SNDFILE_INCLUDE_DIR})
+target_link_libraries(musicians_canvas PRIVATE ${SNDFILE_LIBRARY})
 if(QT_MULTIMEDIA_FOUND)
     target_sources(musicians_canvas PRIVATE ${MC_MONITOR_SOURCES})
     target_link_libraries(musicians_canvas PRIVATE Qt6::Multimedia)

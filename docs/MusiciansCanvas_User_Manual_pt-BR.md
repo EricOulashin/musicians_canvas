@@ -1,7 +1,7 @@
 ---
 title: "Manual do Utilizador do Musician's Canvas"
 subtitle: "Aplicativo de Gravacao Musical Multi-Faixa"
-version: "0.1.1"
+version: "0.1.2"
 date: "2026-04-03"
 author: "Eric Oulashin"
 lang: "pt-BR"

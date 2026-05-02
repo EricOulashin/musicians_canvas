@@ -17,7 +17,7 @@ public:
                               int sampleRate = 44100,
                               const QString& soundFontPath = QString());
 
-    // Mix to WAV or FLAC using audio_mixer_cpp.
+    // Mix to WAV, FLAC, MP3, Ogg Vorbis, or AIFF using audio_mixer_cpp (via temporary WAV + encoder).
     // When renderMidiToAudio is true, MIDI tracks are synthesized offline and mixed in.
     // When false, MIDI tracks are ignored (useful for real-time MIDI-out playback).
     [[nodiscard]] static bool mixTracksToFile(const QVector<TrackData>& tracks,
@@ -29,14 +29,22 @@ public:
                                double midiGainMultiplier = 1.0,
                                const QJsonArray& auxEffectChain = QJsonArray());
 
-    /// Export each non-empty track as its own WAV file (mixer gain/pan/trim; no aux/master FX).
+    /// Export each non-empty track as its own file (mixer gain/pan/trim; no aux/master FX).
+    /// \p outputExtension must include the dot (e.g. ".wav", ".flac", ".mp3").
     [[nodiscard]] static bool exportStemsToDirectory(const QVector<TrackData>& tracks,
                                                       const QString& outputDirectory,
                                                       const QString& projectPath,
                                                       int sampleRate = 44100,
                                                       const QString& soundFontPath = QString(),
                                                       bool renderMidiToAudio = true,
-                                                      double midiGainMultiplier = 1.0);
+                                                      double midiGainMultiplier = 1.0,
+                                                      const QString& outputExtension = QStringLiteral(".wav"));
+
+    // Encode Int16 PCM to a supported audio file (extension selects FLAC, MP3, Ogg, AIFF; WAV writes directly).
+    [[nodiscard]] static bool writeInt16PcmToAudioFile(const QByteArray& int16Data,
+                                                      int sampleRate,
+                                                      int channelCount,
+                                                      const QString& path);
 
     // Encode Int16 PCM audio data to a FLAC file via a temporary WAV intermediate.
     // Returns true on success.
@@ -44,6 +52,12 @@ public:
                                                     int sampleRate,
                                                     int channelCount,
                                                     const QString& flacPath);
+
+    /// Decode WAV (built-in reader) or any format handled by audio_mixer_cpp / libsndfile (FLAC, MP3, …).
+    [[nodiscard]] static bool readEncodedAudioFile(const QString& path,
+                                                    QByteArray& audioData,
+                                                    int& sampleRate,
+                                                    int& channelCount);
 
     // Decode a FLAC file into Int16 PCM and populate audioData, sampleRate,
     // and channelCount.  Returns true on success.
@@ -79,7 +93,7 @@ public:
     [[nodiscard]] static bool writeWavInt16Pcm(const QString& path, const QByteArray& int16Interleaved,
                                                 int sampleRate, int channelCount);
 
-    /// Apply mix-bus effect chain to an existing WAV or FLAC file (same formats as mix export).
+    /// Apply mix-bus effect chain to an existing audio file (same formats as mix export / import).
     [[nodiscard]] static bool applyMixEffectChainToAudioFile(const QString& path,
                                                               const QJsonArray& chain);
 };

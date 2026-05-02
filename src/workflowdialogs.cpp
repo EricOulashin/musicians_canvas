@@ -14,6 +14,10 @@
 #include <QRadioButton>
 #include <QButtonGroup>
 #include <QGroupBox>
+#include <QLineEdit>
+#include <QFileDialog>
+#include <QDir>
+#include "audioformats.h"
 #include <algorithm>
 #include <cmath>
 
@@ -80,6 +84,74 @@ ProjectSettings RecordingOptionsDialog::settings() const
     s.loopStartSec = m_loopStart ? m_loopStart->value() : 0;
     s.loopEndSec = m_loopEnd ? m_loopEnd->value() : 0;
     return s;
+}
+
+// --- StemExportDialog ---
+
+StemExportDialog::StemExportDialog(const QString& defaultDir, QWidget* parent)
+    : QDialog(parent)
+{
+    setWindowTitle(tr("Export stems"));
+    setMinimumWidth(520);
+
+    auto* root = new QVBoxLayout(this);
+    root->setSpacing(10);
+    root->setContentsMargins(16, 16, 16, 16);
+
+    auto* folderRow = new QHBoxLayout();
+    folderRow->addWidget(new QLabel(tr("Folder:")));
+    m_dirEdit = new QLineEdit();
+    m_dirEdit->setText(defaultDir);
+    folderRow->addWidget(m_dirEdit, 1);
+    auto* browseBtn = new QPushButton(tr("Browse..."));
+    connect(browseBtn, &QPushButton::clicked, this, &StemExportDialog::onBrowseDirectory);
+    folderRow->addWidget(browseBtn);
+    root->addLayout(folderRow);
+
+    root->addWidget(new QLabel(tr("File format for stem files:")));
+    m_formatCombo = new QComboBox();
+    const QVector<AudioFormats::Format>& fmts = AudioFormats::all();
+    int wavIndex = 0;
+    for (int i = 0; i < fmts.size(); ++i)
+    {
+        const QString ext = QString::fromLatin1(fmts[i].extension);
+        if (ext == QLatin1String(".wav"))
+            wavIndex = i;
+        m_formatCombo->addItem(tr("%1 (%2)")
+                                     .arg(AudioFormats::formatTitleForUi(ext), ext),
+                                 ext);
+    }
+    m_formatCombo->setCurrentIndex(wavIndex);
+    root->addWidget(m_formatCombo);
+
+    auto* buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    connect(buttons, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(buttons, &QDialogButtonBox::rejected, this, &QDialog::reject);
+    root->addWidget(buttons);
+}
+
+QString StemExportDialog::outputDirectory() const
+{
+    return m_dirEdit ? m_dirEdit->text().trimmed() : QString();
+}
+
+QString StemExportDialog::outputFileExtension() const
+{
+    if (!m_formatCombo)
+        return QStringLiteral(".wav");
+    const QVariant v = m_formatCombo->currentData();
+    return v.isValid() ? v.toString() : QStringLiteral(".wav");
+}
+
+void StemExportDialog::onBrowseDirectory()
+{
+    const QString start = m_dirEdit && !m_dirEdit->text().trimmed().isEmpty()
+                              ? m_dirEdit->text().trimmed()
+                              : QDir::homePath();
+    const QString d =
+        QFileDialog::getExistingDirectory(this, tr("Export stems"), start, QFileDialog::ShowDirsOnly);
+    if (!d.isEmpty() && m_dirEdit)
+        m_dirEdit->setText(d);
 }
 
 // --- TempoMapDialog ---

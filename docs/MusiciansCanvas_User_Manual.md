@@ -1,7 +1,7 @@
 ---
 title: "Musician's Canvas User Manual"
 subtitle: "Multi-Track Music Recording Application"
-version: "0.1.1"
+version: "0.1.2"
 date: "2026-04-03"
 author: "Eric Oulashin"
 ---
@@ -12,7 +12,7 @@ author: "Eric Oulashin"
 
 Musician's Canvas is a multi-track music recording application for desktop PCs. It supports
 audio recording from microphones and line-in devices, MIDI recording from keyboards and
-controllers, and mixing all tracks to a single WAV or FLAC file. A companion application,
+controllers, and mixing all tracks to a single audio file (WAV, FLAC, MP3, Ogg Vorbis, or AIFF). A companion application,
 Virtual MIDI Keyboard, provides a software piano keyboard for sending MIDI notes.
 
 Musician's Canvas is designed for ease of use while providing features commonly found in
@@ -24,7 +24,7 @@ digital audio workstations (DAWs):
 - High-quality sample-rate conversion for recording at any project sample rate
 - Automatic mono/stereo device detection
 - Project-based settings with per-project overrides
-- Mix to WAV or FLAC
+- Mix to WAV, FLAC, MP3, Ogg Vorbis, or AIFF
 - Dark and light themes
 - Localized in 18 languages including English, German, Spanish, French, Japanese, Portuguese, Chinese, Russian, Swedish, Finnish, Danish, Norwegian, Polish, Greek, Irish, Welsh, and Pirate
 - Companion Virtual MIDI Keyboard application
@@ -106,7 +106,7 @@ While a project is open, you can drag one or more supported audio files from you
 file manager (Windows Explorer, macOS Finder, Linux file manager, etc.) directly
 onto the Musician's Canvas window to add them as new audio tracks.
 
-- **Supported formats:** `.wav` and `.flac`. Files in any other format are
+- **Supported formats:** `.wav`, `.flac`, `.mp3`, `.ogg`, `.aiff`, `.aif`, and `.aifc`. Files in any other format are
   silently skipped, and a dialog at the end lists which files were skipped.
 - **File copying:** If the dropped file is not already in the project directory,
   it is copied there automatically. If a file with the same name already exists
@@ -335,7 +335,7 @@ Click the **Play** button to mix and play back all enabled tracks. The button to
 changes to indicate whether it will play or record based on whether a track is armed.
 Disabled tracks (unchecked) are excluded from playback.
 
-During playback, audio tracks are decoded from their FLAC files and MIDI tracks are
+During playback, audio tracks are decoded from their audio files on disk (typically FLAC in the project folder) and MIDI tracks are
 rendered to audio using the built-in FluidSynth synthesizer. All tracks are mixed
 together and played through the system's audio output device.
 
@@ -347,14 +347,16 @@ Use **Tools > Mix tracks to file** (Ctrl+M) to export all enabled tracks to a si
 audio file. A dialog lets you choose the output path and format:
 
 - **Output file**: Browse to select the destination file path.
-- **Format**: Choose between FLAC (lossless compression, smaller files) or WAV
-  (uncompressed).
+- **Format**: Choose the file extension when you browse — **FLAC** (lossless compression),
+  **WAV** (uncompressed PCM), **MP3**, **Ogg Vorbis**, or **AIFF**. Lossy formats (MP3, Ogg)
+  produce smaller files; WAV, FLAC, and AIFF can be lossless depending on source content.
 
 The mix uses the project's configured sample rate. MIDI tracks are rendered using the
 configured SoundFont. Per-track **gain**, **pan**, **mute/solo**, **aux send**, and
 **trim** are applied the same way as during playback.
 
-**Tools → Export stems to folder** writes one **WAV** file per track (enabled tracks that
+**Tools → Export stems to folder** opens a dialog where you pick the output folder and **file format**
+(WAV, FLAC, MP3, Ogg Vorbis, AIFF, etc.). One stem file is written per track (enabled tracks that
 participate in the mix). Each stem reflects that track’s mixer settings and trim; master
 **Mix Effects** on the full program are **not** applied to individual stems.
 
@@ -453,7 +455,7 @@ or audio device. Project-specific settings are saved inside the `project.json` f
 
 #### Mix Effects tab
 
-The **Mix Effects** tab is a scrollable list with the same controls as **Track effects** (**Add effect…**, drag **≡** to reorder, **✕** to remove). Processing order is **top to bottom** on the **combined** mix of all enabled tracks. These effects run during **whole-project playback** and when **mixing to a single WAV or FLAC file**; they are **not** baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer’s own level handling.
+The **Mix Effects** tab is a scrollable list with the same controls as **Track effects** (**Add effect…**, drag **≡** to reorder, **✕** to remove). Processing order is **top to bottom** on the **combined** mix of all enabled tracks. These effects run during **whole-project playback** and when **mixing to a single audio file** (same formats as export); they are **not** baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer’s own level handling.
 
 #### Aux / Send Bus tab
 
@@ -495,7 +497,7 @@ Configure the **shared aux effect chain** (same effect types as track inserts). 
 | Menu Item             | Shortcut | Description                              |
 |-----------------------|----------|------------------------------------------|
 | Mix tracks to file    | Ctrl+M   | Export all enabled tracks to a file      |
-| Export stems to folder |         | Write one WAV stem per track (with mixer gain/pan/trim; no master Mix Effects) |
+| Export stems to folder |         | Write one stem file per track; choose format in the dialog (with mixer gain/pan/trim; no master Mix Effects) |
 | Recording options     |          | **Punch-in** region for audio retakes; **loop playback** region for whole-project play |
 | Quantize MIDI         |          | Snap MIDI note starts to a grid (all MIDI tracks or armed track only) |
 | Add drum track        | D        | Add a MIDI drum track and write a `.mid` groove (see below) |
@@ -686,7 +688,7 @@ They are **separate programs**. Launch Virtual MIDI Keyboard from **Tools > Virt
 
 ### Why won’t drag-and-drop add audio files?
 
-Dropping files is only accepted when a **project directory is set**, and Musician's Canvas is **not** playing or recording. Supported types are **`.wav`** and **`.flac`**; other extensions are skipped and listed in a dialog. Each dropped file becomes a new **audio** track named from the file’s base name.
+Dropping files is only accepted when a **project directory is set**, and Musician's Canvas is **not** playing or recording. Supported extensions include **`.wav`**, **`.flac`**, **`.mp3`**, **`.ogg`**, **`.aiff`**, **`.aif`**, and **`.aifc`**; other extensions are skipped and listed in a dialog. Each dropped file becomes a new **audio** track named from the file’s base name.
 
 ### Where are my recordings stored?
 

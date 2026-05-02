@@ -27,7 +27,7 @@ directory works) and run:
 ```cmd
 iscc /Qp ^
     "/DStagingDir=path\to\staging" ^
-    "/DAppVersion=0.1.1" ^
+    "/DAppVersion=0.1.2" ^
     "/DOutputBaseName=MusiciansCanvas_011_Windows_Setup" ^
     windows_installer\musicians_canvas.iss
 ```

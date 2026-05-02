@@ -2,7 +2,7 @@
 ; See windows_installer/README.md for build instructions and a feature overview.
 ;
 ; Build (locally or in CI):
-;   iscc /Qp /DStagingDir=path\to\staging /DAppVersion=0.1.1 musicians_canvas.iss
+;   iscc /Qp /DStagingDir=path\to\staging /DAppVersion=0.1.2 musicians_canvas.iss
 ;
 ; The /DStagingDir variable must point to a directory containing the same layout
 ; as the Windows zip artifact (musicians_canvas.exe, virtual_midi_keyboard.exe,
@@ -12,7 +12,7 @@
   #error StagingDir must be defined on the command line: iscc /DStagingDir=path
 #endif
 #ifndef AppVersion
-  #define AppVersion "0.1.1"
+  #define AppVersion "0.1.2"
 #endif
 #ifndef OutputBaseName
   #define OutputBaseName "MusiciansCanvas_Windows_Setup"

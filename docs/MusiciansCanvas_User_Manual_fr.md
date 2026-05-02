@@ -1,7 +1,7 @@
 ---
 title: "Manuel d'utilisation de Musician's Canvas"
 subtitle: "Application d'enregistrement musical multipiste"
-version: "0.1.1"
+version: "0.1.2"
 date: "2026-04-03"
 author: "Eric Oulashin"
 lang: "fr"
@@ -14,7 +14,7 @@ lang: "fr"
 Musician's Canvas est une application d'enregistrement musical multipiste pour ordinateurs
 de bureau. Elle prend en charge l'enregistrement audio depuis des microphones et des
 entrées ligne, l'enregistrement MIDI depuis des claviers et des contrôleurs, ainsi que le
-mixage de toutes les pistes dans un seul fichier WAV ou FLAC. Une application compagnon,
+mixage de toutes les pistes dans un seul fichier audio (WAV, FLAC, MP3, Ogg Vorbis ou AIFF). Une application compagnon,
 Virtual MIDI Keyboard, fournit un clavier de piano logiciel pour envoyer des notes MIDI.
 
 Musician's Canvas est conçue pour être facile à utiliser tout en offrant des
@@ -26,7 +26,7 @@ fonctionnalités couramment présentes dans les stations de travail audio numér
 - Conversion de fréquence d'échantillonnage de haute qualité pour enregistrer à n'importe quel taux d'échantillonnage du projet
 - Détection automatique mono/stéréo des périphériques
 - Paramètres basés sur le projet avec possibilité de remplacement par projet
-- Mixage vers WAV ou FLAC
+- Mixage vers WAV, FLAC, MP3, Ogg Vorbis ou AIFF
 - Thèmes sombre et clair
 - Localisé en 18 langues dont English, Deutsch, Español, Français, Japanese, Português, Chinese, Русский, Svenska, Suomi, Dansk, Norsk, Polski, Ελληνικά, Gaeilge, Cymraeg et Pirate
 - Application compagnon Virtual MIDI Keyboard
@@ -111,7 +111,7 @@ audio pris en charge depuis votre gestionnaire de fichiers (Explorateur Windows,
 Finder macOS, gestionnaire de fichiers Linux, etc.) directement sur la fenêtre
 de Musician's Canvas pour les ajouter en tant que nouvelles pistes audio.
 
-- **Formats pris en charge :** `.wav` et `.flac`. Les fichiers dans tout autre
+- **Formats pris en charge :** `.wav`, `.flac`, `.mp3`, `.ogg`, `.aiff`, `.aif` et `.aifc`. Les fichiers dans tout autre
   format sont ignorés silencieusement, et une boîte de dialogue à la fin
   répertorie les fichiers qui ont été ignorés.
 - **Copie de fichiers :** Si le fichier déposé ne se trouve pas déjà dans le
@@ -344,7 +344,7 @@ Cliquez sur le bouton **Play** pour mixer et lire toutes les pistes activées. L
 du bouton change pour indiquer s'il va lire ou enregistrer selon qu'une piste est armée
 ou non. Les pistes désactivées (décochées) sont exclues de la lecture.
 
-Pendant la lecture, les pistes audio sont décodées depuis leurs fichiers FLAC et les
+Pendant la lecture, les pistes audio sont décodées depuis leurs fichiers audio sur disque (généralement FLAC dans le dossier du projet) et les
 pistes MIDI sont rendues en audio à l'aide du synthétiseur FluidSynth intégré. Toutes
 les pistes sont mixées ensemble et jouées via le périphérique de sortie audio du système.
 
@@ -357,11 +357,16 @@ dans un seul fichier audio. Une boîte de dialogue vous permet de choisir le che
 sortie et le format :
 
 - **Fichier de sortie** : Naviguez pour sélectionner le chemin du fichier de destination.
-- **Format** : Choisissez entre FLAC (compression sans perte, fichiers plus petits) ou
-  WAV (non compressé).
+- **Format** : Indiquez l’extension lors de l’enregistrement — **FLAC** (compression sans perte),
+  **WAV** (PCM non compressé), **MP3**, **Ogg Vorbis** ou **AIFF**. Les formats avec perte (MP3, Ogg)
+  produisent des fichiers plus petits ; WAV, FLAC et AIFF peuvent rester sans perte selon la source.
 
 Le mixage utilise la fréquence d'échantillonnage configurée du projet. Les pistes MIDI
 sont rendues en utilisant le SoundFont configuré.
+
+**Tools → Export stems to folder** ouvre une boîte de dialogue pour choisir le **dossier** et le **format**
+(WAV, FLAC, MP3, Ogg Vorbis, AIFF, etc.). Un fichier stem est écrit par piste concernée par le mix.
+Les réglages **gain**, **pan** et **trim** de la piste s’appliquent ; les **Mix Effects** maîtres ne s’appliquent pas aux stems individuels.
 
 ## Paramètres
 
@@ -470,7 +475,7 @@ paramètres spécifiques au projet sont sauvegardés dans le fichier `project.js
 
 #### Mix Effects tab
 
-The **Mix Effects** tab is a scrollable list with the same controls as **Track effects** (**Add effect…**, drag **≡** to reorder, **✕** to remove). Processing order is **top to bottom** on the **combined** mix of all enabled tracks. These effects run during **whole-project playback** and when **mixing to a single WAV or FLAC file**; they are **not** baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.
+L’onglet **Mix Effects** est une liste défilante avec les mêmes commandes que **Track effects** (**Add effect…**, faites glisser **≡** pour réordonner, **✕** pour retirer). L’ordre de traitement est **de haut en bas** sur le **mix combiné** de toutes les pistes activées. Ces effets s’appliquent pendant la **lecture de tout le projet** et lors du **mixage vers un fichier audio** (mêmes formats d’export qu’ailleurs) ; ils ne sont **pas** intégrés dans les fichiers de piste individuels sur disque. Une liste vide laisse le signal mixé inchangé hormis la gestion de niveau du mixeur.
 
 #### Aux / Send Bus tab
 
@@ -512,7 +517,7 @@ Configure the **shared aux effect chain** (same effect types as track inserts). 
 | Élément du menu       | Raccourci | Description                                      |
 |-----------------------|-----------|--------------------------------------------------|
 | Mix tracks to file    | Ctrl+M    | Exporter toutes les pistes activées vers un fichier |
-| Export stems to folder |          | One WAV stem per track (gain/pan/trim; no master Mix Effects) |
+| Export stems to folder |          | Un stem par piste ; choisir le format dans la boîte de dialogue (gain/pan/trim ; pas d’effets Mix maîtres) |
 | Recording options     |          | **Punch-in** region for audio; **loop playback** for the whole project |
 | Quantize MIDI         |          | Snap MIDI note starts to a grid (all MIDI tracks or armed track only) |
 | Add drum track        | D        | Piste MIDI batterie et groove `.mid` (voir ci-dessous) |
@@ -709,7 +714,7 @@ Ce sont **deux applications distinctes**. Lancez Virtual MIDI Keyboard via **Too
 
 ### Pourquoi le glisser-déposer n’ajoute-t-il pas de fichiers audio ?
 
-Le dépôt n’est accepté que si un **répertoire de projet est défini** et que Musician's Canvas **ne lit ni n’enregistre** pas. Les types pris en charge sont **`.wav`** et **`.flac`** ; les autres extensions sont ignorées et listées dans une boîte de dialogue. Chaque fichier devient une nouvelle piste **audio** nommée d’après le nom de fichier sans extension.
+Le dépôt n’est accepté que si un **répertoire de projet est défini** et que Musician's Canvas **ne lit ni n’enregistre** pas. Les extensions prises en charge incluent **`.wav`**, **`.flac`**, **`.mp3`**, **`.ogg`**, **`.aiff`**, **`.aif`** et **`.aifc`** ; les autres sont ignorées et listées dans une boîte de dialogue. Chaque fichier devient une nouvelle piste **audio** nommée d’après le nom de fichier sans extension.
 
 ### Où sont stockés mes enregistrements ?
 

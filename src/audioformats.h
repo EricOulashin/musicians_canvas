@@ -4,6 +4,7 @@
 #include <QString>
 #include <QStringList>
 #include <QFileInfo>
+#include <QVector>
 
 // Central registry of audio file formats supported by Musician's Canvas.
 //
@@ -13,29 +14,19 @@
 // the audio loader, the project-file loader, etc. — should consult this
 // header instead of hard-coding extension lists.
 //
-// Adding a new format (e.g. .mp3, .ogg, .aiff): add a new entry to
-// AudioFormats::all() below and implement the corresponding read/write
-// function.  No other code needs to change.
+// Adding a new format: add a new entry to AudioFormats::all() in
+// audioformats.cpp and ensure AudioUtils can read/write it (via
+// audio_mixer_cpp).  Update translations for format labels in fileDialogFilter().
 namespace AudioFormats {
 
 struct Format
 {
-    const char* extension;     // lowercase, including leading dot, e.g. ".flac"
-    const char* description;   // human-readable description, e.g. "FLAC"
+    const char* extension; // lowercase, including leading dot, e.g. ".flac"
 };
 
-// All formats Musician's Canvas can currently read AND write.
-// Update this list when adding support for new formats (e.g. mp3, ogg, aiff).
-inline const QVector<Format>& all()
-{
-    static const QVector<Format> formats = {
-        { ".flac", "FLAC" },
-        { ".wav",  "WAV"  },
-    };
-    return formats;
-}
+const QVector<Format>& all();
 
-// Returns just the extensions, e.g. {".flac", ".wav"}.
+// Returns just the extensions, e.g. {".flac", ".wav", ".mp3", ...}.
 inline QStringList extensions()
 {
     QStringList exts;
@@ -65,39 +56,12 @@ inline bool isSupported(const QString& filenameOrPath)
     return false;
 }
 
+// Human-readable format name for UI (translated, context "AudioFormats").
+QString formatTitleForUi(const QString& extensionWithLeadingDot);
+
 // Builds a Qt file-dialog filter string covering all supported audio formats.
-//
-// Two layouts are produced:
-//
-//   asCombinedFilter == true:
-//     "Audio files (*.flac *.wav);;FLAC files (*.flac);;WAV files (*.wav);;All files (*)"
-//   asCombinedFilter == false:
-//     "FLAC files (*.flac);;WAV files (*.wav);;All files (*)"
-//
-// The combined-filter form is preferred for "open" dialogs where the user
-// might want to see every supported audio file at once; the split form is
-// fine for "save" dialogs where the user picks one specific output type.
-inline QString fileDialogFilter(bool asCombinedFilter = false)
-{
-    QStringList parts;
-
-    if (asCombinedFilter)
-    {
-        QStringList allExts;
-        for (const auto& f : all())
-            allExts.append(QStringLiteral("*") + QString::fromLatin1(f.extension));
-        parts.append(QStringLiteral("Audio files (%1)").arg(allExts.join(QChar(' '))));
-    }
-
-    for (const auto& f : all())
-    {
-        parts.append(QStringLiteral("%1 files (*%2)")
-                         .arg(QString::fromLatin1(f.description),
-                              QString::fromLatin1(f.extension)));
-    }
-    parts.append(QStringLiteral("All files (*)"));
-    return parts.join(QStringLiteral(";;"));
-}
+// Strings are translated (context "AudioFormats"; see audioformats.cpp).
+QString fileDialogFilter(bool asCombinedFilter = false);
 
 } // namespace AudioFormats
 

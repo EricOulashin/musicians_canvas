@@ -174,45 +174,25 @@ static QString writeAudioTrackToTempWav(const TrackData& track)
 }
 
 
-bool AudioUtils::writeAudioDataToFlac(const QByteArray& int16Data,
-                                       int sampleRate,
-                                       int channelCount,
-                                       const QString& flacPath)
+bool AudioUtils::writeInt16PcmToAudioFile(const QByteArray& int16Data,
+                                           int sampleRate,
+                                           int channelCount,
+                                           const QString& path)
 {
-    // Write int16Data to a temporary WAV file
-    QTemporaryFile tmpWav(QDir::temp().filePath("mc_rec_XXXXXX.wav"));
-    tmpWav.setAutoRemove(false);
+    const QString ext = QStringLiteral(".") + QFileInfo(path).suffix().toLower();
+    if (ext == QStringLiteral(".wav"))
+        return writeWavInt16Pcm(path, int16Data, sampleRate, channelCount);
+
+    QTemporaryFile tmpWav(QDir::temp().filePath("mc_enc_XXXXXX.wav"));
+    tmpWav.setAutoRemove(true);
     if (!tmpWav.open())
         return false;
     const QString tmpWavPath = tmpWav.fileName();
-
-    const quint32 sr  = static_cast<quint32>(sampleRate > 0 ? sampleRate : 44100);
-    const quint16 ch  = static_cast<quint16>(channelCount > 0 ? channelCount : 2);
-    const quint16 bps = 16;
-    const quint16 blk = ch * (bps / 8);
-    const quint32 byteRate = sr * blk;
-    const quint32 dataSize = static_cast<quint32>(int16Data.size());
-    const quint32 fileSize = 36 + dataSize;
-    const quint16 wavFmt   = 1;  // PCM
-    quint32 fmtSize = 16;
-
-    tmpWav.write("RIFF", 4);
-    tmpWav.write(reinterpret_cast<const char*>(&fileSize), 4);
-    tmpWav.write("WAVE", 4);
-    tmpWav.write("fmt ", 4);
-    tmpWav.write(reinterpret_cast<const char*>(&fmtSize),   4);
-    tmpWav.write(reinterpret_cast<const char*>(&wavFmt),    2);
-    tmpWav.write(reinterpret_cast<const char*>(&ch),        2);
-    tmpWav.write(reinterpret_cast<const char*>(&sr),        4);
-    tmpWav.write(reinterpret_cast<const char*>(&byteRate),  4);
-    tmpWav.write(reinterpret_cast<const char*>(&blk),       2);
-    tmpWav.write(reinterpret_cast<const char*>(&bps),       2);
-    tmpWav.write("data", 4);
-    tmpWav.write(reinterpret_cast<const char*>(&dataSize),  4);
-    tmpWav.write(int16Data);
     tmpWav.close();
 
-    // Open the temp WAV via EOUtils and encode to FLAC
+    if (!writeWavInt16Pcm(tmpWavPath, int16Data, sampleRate, channelCount))
+        return false;
+
     auto wavFile = EOUtils::createAudioFileObjForExistingFile(tmpWavPath.toStdString().c_str());
     if (!wavFile)
     {
@@ -228,17 +208,17 @@ bool AudioUtils::writeAudioDataToFlac(const QByteArray& int16Data,
 
     const EOUtils::AudioFileInfo wavInfo = wavFile->getAudioFileInfo();
 
-    auto flacFile = EOUtils::createAudioFileObjForNewFile(flacPath.toStdString().c_str());
-    if (!flacFile)
+    auto outFile = EOUtils::createAudioFileObjForNewFile(path.toStdString().c_str());
+    if (!outFile)
     {
         wavFile->close();
         QFile::remove(tmpWavPath);
         return false;
     }
 
-    flacFile->setAudioFileInfo(wavInfo);
+    outFile->setAudioFileInfo(wavInfo);
 
-    if (!flacFile->open(EOUtils::AUDIO_FILE_WRITE))
+    if (!outFile->open(EOUtils::AUDIO_FILE_WRITE))
     {
         wavFile->close();
         QFile::remove(tmpWavPath);
@@ -251,42 +231,49 @@ bool AudioUtils::writeAudioDataToFlac(const QByteArray& int16Data,
         int64_t sample = 0;
         if (!wavFile->getNextSample_int64(sample))
             break;
-        flacFile->writeSample_int64(sample);
+        outFile->writeSample_int64(sample);
     }
 
     wavFile->close();
-    flacFile->close();
+    outFile->close();
     QFile::remove(tmpWavPath);
     return true;
 }
 
-bool AudioUtils::readFlacAudioData(const QString& path,
+bool AudioUtils::writeAudioDataToFlac(const QByteArray& int16Data,
+                                       int sampleRate,
+                                       int channelCount,
+                                       const QString& flacPath)
+{
+    return writeInt16PcmToAudioFile(int16Data, sampleRate, channelCount, flacPath);
+}
+
+bool AudioUtils::readEncodedAudioFile(const QString& path,
                                     QByteArray& audioData,
                                     int& sampleRate,
                                     int& channelCount)
 {
-    auto flacFile = EOUtils::createAudioFileObjForExistingFile(path.toStdString().c_str());
-    if (!flacFile)
+    auto audioFile = EOUtils::createAudioFileObjForExistingFile(path.toStdString().c_str());
+    if (!audioFile)
         return false;
 
-    if (!flacFile->open(EOUtils::AUDIO_FILE_READ))
+    if (!audioFile->open(EOUtils::AUDIO_FILE_READ))
         return false;
 
-    const EOUtils::AudioFileInfo info = flacFile->getAudioFileInfo();
+    const EOUtils::AudioFileInfo info = audioFile->getAudioFileInfo();
     sampleRate   = info.SampleRateHz();
     channelCount = info.NumChannels();
 
     const int16_t bitsPerSample = info.BitsPerSample();
-    const size_t numSamples = flacFile->numSamples();
+    const size_t numSamples = audioFile->numSamples();
     audioData.resize(static_cast<int>(numSamples * sizeof(qint16)));
     qint16* dst = reinterpret_cast<qint16*>(audioData.data());
 
     for (size_t i = 0; i < numSamples; ++i)
     {
         int64_t sample = 0;
-        if (!flacFile->getNextSample_int64(sample))
+        if (!audioFile->getNextSample_int64(sample))
             break;
-        // Scale to 16-bit if the source has a different bit depth
         if (bitsPerSample > 16)
             sample >>= (bitsPerSample - 16);
         else if (bitsPerSample > 0 && bitsPerSample < 16)
@@ -296,8 +283,16 @@ bool AudioUtils::readFlacAudioData(const QString& path,
                      std::min(static_cast<int64_t>(32767), sample)));
     }
 
-    flacFile->close();
+    audioFile->close();
     return true;
+}
+
+bool AudioUtils::readFlacAudioData(const QString& path,
+                                    QByteArray& audioData,
+                                    int& sampleRate,
+                                    int& channelCount)
+{
+    return readEncodedAudioFile(path, audioData, sampleRate, channelCount);
 }
 
 // ── Windowed sinc resampler ──────────────────────────────────────────────
@@ -738,10 +733,10 @@ bool AudioUtils::mixTracksToFile(const QVector<TrackData>& tracks,
     const float norm = (peak > 0.9f) ? (0.9f / peak) : 1.f;
 
     const QString outExt = QFileInfo(outputPath).suffix().toLower();
-    const bool outFlac = (outExt == QLatin1String("flac"));
+    const bool outWav = (outExt == QLatin1String("wav"));
 
     QTemporaryFile tmpWav(QDir::temp().filePath("mc_mixout_XXXXXX.wav"));
-    tmpWav.setAutoRemove(outFlac);
+    tmpWav.setAutoRemove(false);
     if (!tmpWav.open())
         return false;
     const QString wavOutPath = tmpWav.fileName();
@@ -765,17 +760,7 @@ bool AudioUtils::mixTracksToFile(const QVector<TrackData>& tracks,
     }
     file.close();
 
-    if (outFlac)
-    {
-        QByteArray pcmData;
-        int sr = mixSampleRate;
-        int ch = 2;
-        if (!readWavInt16Pcm(wavOutPath, pcmData, sr, ch))
-            return false;
-        if (!writeAudioDataToFlac(pcmData, sr, ch, outputPath))
-            return false;
-    }
-    else
+    if (outWav)
     {
         if (QFile::exists(outputPath))
             QFile::remove(outputPath);
@@ -785,6 +770,23 @@ bool AudioUtils::mixTracksToFile(const QVector<TrackData>& tracks,
                 return false;
             QFile::remove(wavOutPath);
         }
+    }
+    else
+    {
+        QByteArray pcmData;
+        int sr = mixSampleRate;
+        int ch = 2;
+        if (!readWavInt16Pcm(wavOutPath, pcmData, sr, ch))
+        {
+            QFile::remove(wavOutPath);
+            return false;
+        }
+        if (!writeInt16PcmToAudioFile(pcmData, sr, ch, outputPath))
+        {
+            QFile::remove(wavOutPath);
+            return false;
+        }
+        QFile::remove(wavOutPath);
     }
 
     return true;
@@ -796,7 +798,8 @@ bool AudioUtils::exportStemsToDirectory(const QVector<TrackData>& tracks,
                                           int sampleRate,
                                           const QString& soundFontPath,
                                           bool renderMidiToAudio,
-                                          double midiGainMultiplier)
+                                          double midiGainMultiplier,
+                                          const QString& outputExtension)
 {
     if (outputDirectory.isEmpty() || !QDir(outputDirectory).exists())
         return false;
@@ -831,9 +834,12 @@ bool AudioUtils::exportStemsToDirectory(const QVector<TrackData>& tracks,
         QString base = sanitizedTrackFilesystemName(track.name);
         if (base.isEmpty())
             base = QStringLiteral("track_%1").arg(track.id);
-        const QString pathWav =
-            outputDirectory + QDir::separator() + base + QStringLiteral("_stem.wav");
-        if (!writeWavInt16Pcm(pathWav, pcm, mixSampleRate, 2))
+        const QString ext =
+            outputExtension.startsWith(QLatin1Char('.')) ? outputExtension
+                                                          : QLatin1Char('.') + outputExtension;
+        const QString outPath = outputDirectory + QDir::separator() + base
+                                + QStringLiteral("_stem") + ext;
+        if (!writeInt16PcmToAudioFile(pcm, mixSampleRate, 2, outPath))
             return false;
     }
     return true;
@@ -963,17 +969,13 @@ bool AudioUtils::applyMixEffectChainToAudioFile(const QString& path, const QJson
         if (!readWavInt16Pcm(path, pcm, sampleRate, channelCount))
             return false;
     }
-    else if (ext == QStringLiteral(".flac"))
+    else
     {
-        if (!readFlacAudioData(path, pcm, sampleRate, channelCount))
+        if (!readEncodedAudioFile(path, pcm, sampleRate, channelCount))
             return false;
     }
-    else
-        return false;
 
     applyAudioEffectChain(pcm, channelCount, sampleRate, chain);
 
-    if (ext == QStringLiteral(".wav"))
-        return writeWavInt16Pcm(path, pcm, sampleRate, channelCount);
-    return writeAudioDataToFlac(pcm, sampleRate, channelCount, path);
+    return writeInt16PcmToAudioFile(pcm, sampleRate, channelCount, path);
 }

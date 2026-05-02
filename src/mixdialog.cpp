@@ -54,7 +54,7 @@ void MixDialog::onBrowse()
     if (path.isEmpty()) return;
 
     // Ensure a recognised audio extension is present; default to the first
-    // entry in the central audio-formats list (currently .flac).
+    // entry in the central audio-formats list (see audioformats.cpp).
     if (!AudioFormats::isSupported(path))
         path += QString::fromLatin1(AudioFormats::all().first().extension);
 

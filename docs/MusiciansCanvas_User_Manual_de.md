@@ -1,7 +1,7 @@
 ---
 title: "Musician's Canvas Benutzerhandbuch"
 subtitle: "Mehrspurige Musikaufnahme-Anwendung"
-version: "0.1.1"
+version: "0.1.2"
 date: "2026-04-03"
 author: "Eric Oulashin"
 lang: "de"
@@ -13,7 +13,7 @@ lang: "de"
 
 Musician's Canvas ist eine Mehrspuranwendung zur Musikaufnahme für Desktop-PCs. Sie unterstützt
 Audioaufnahmen von Mikrofonen und Line-In-Geräten, MIDI-Aufnahmen von Keyboards und
-Controllern sowie das Abmischen aller Spuren in eine einzelne WAV- oder FLAC-Datei. Eine
+Controllern sowie das Abmischen aller Spuren in eine einzelne Audiodatei (WAV, FLAC, MP3, Ogg Vorbis oder AIFF). Eine
 Begleitanwendung, Virtual MIDI Keyboard, stellt eine Software-Klaviertastatur zum Senden von
 MIDI-Noten bereit.
 
@@ -26,7 +26,7 @@ häufig in digitalen Audio-Workstations (DAWs) zu finden sind:
 - Hochwertige Abtastratenkonvertierung für Aufnahmen mit beliebiger Projekt-Abtastrate
 - Automatische Mono/Stereo-Geräteerkennung
 - Projektbasierte Einstellungen mit projektspezifischen Überschreibungen
-- Abmischen in WAV oder FLAC
+- Abmischen in WAV, FLAC, MP3, Ogg Vorbis oder AIFF
 - Dunkles und helles Design
 - Lokalisiert in 18 Sprachen, darunter English, Deutsch, Español, Français, Japanese, Português, Chinese, Русский, Svenska, Suomi, Dansk, Norsk, Polski, Ελληνικά, Gaeilge, Cymraeg und Pirate
 - Begleitanwendung Virtual MIDI Keyboard
@@ -111,7 +111,7 @@ Audiodateien aus Ihrem Dateimanager (Windows Explorer, macOS Finder, Linux-
 Dateimanager usw.) direkt auf das Musician's Canvas-Fenster ziehen, um sie
 als neue Audiospuren hinzuzufügen.
 
-- **Unterstützte Formate:** `.wav` und `.flac`. Dateien in anderen Formaten
+- **Unterstützte Formate:** `.wav`, `.flac`, `.mp3`, `.ogg`, `.aiff`, `.aif` und `.aifc`. Dateien in anderen Formaten
   werden stillschweigend übersprungen, und am Ende zeigt ein Dialog an,
   welche Dateien übersprungen wurden.
 - **Dateikopieren:** Wenn sich die abgelegte Datei noch nicht im Projektordner
@@ -342,7 +342,7 @@ wiederzugeben. Der Tooltip der Schaltfläche zeigt an, ob sie abspielen oder auf
 je nachdem ob eine Spur scharfgeschaltet ist. Deaktivierte Spuren (nicht angehakt) werden von
 der Wiedergabe ausgeschlossen.
 
-Während der Wiedergabe werden Audiospuren aus ihren FLAC-Dateien dekodiert und MIDI-Spuren
+Während der Wiedergabe werden Audiospuren aus ihren Audiodateien auf der Festplatte (üblicherweise FLAC im Projektordner) dekodiert und MIDI-Spuren
 mit dem integrierten FluidSynth-Synthesizer in Audio umgewandelt. Alle Spuren werden
 zusammengemischt und über das Audio-Ausgabegerät des Systems wiedergegeben.
 
@@ -355,14 +355,16 @@ einzelne Audiodatei zu exportieren. Ein Dialog ermöglicht die Auswahl des Ausga
 Formats:
 
 - **Ausgabedatei**: Navigieren Sie zum gewünschten Zieldateipfad.
-- **Format**: Wählen Sie zwischen FLAC (verlustfreie Komprimierung, kleinere Dateien) oder
-  WAV (unkomprimiert).
+- **Format**: Legen Sie die Dateiendung beim Speichern fest — **FLAC** (verlustfreie Komprimierung),
+  **WAV** (unkomprimiertes PCM), **MP3**, **Ogg Vorbis** oder **AIFF**. Verlustbehaftete Formate (MP3, Ogg)
+  ergeben kleinere Dateien; WAV, FLAC und AIFF können je nach Quelle verlustfrei sein.
 
 Die Abmischung verwendet die konfigurierte Projekt-Abtastrate. MIDI-Spuren werden mit dem
 konfigurierten SoundFont gerendert. **Gain**, **Pan**, **Stumm/Solo**, **Aux-Send** und **Trim**
 pro Spur werden wie bei der Wiedergabe angewendet.
 
-**Tools → Export stems to folder** schreibt eine **WAV**-Datei pro Spur (aktivierte Spuren, die am Mix
+**Tools → Export stems to folder** öffnet einen Dialog zur Auswahl von **Zielordner** und **Dateiformat**
+(WAV, FLAC, MP3, Ogg Vorbis, AIFF usw.). Es wird eine Stem-Datei pro Spur geschrieben (aktivierte Spuren, die am Mix
 teilnehmen). Jeder Stem übernimmt die Mixer-Einstellungen und den Trim dieser Spur; die **Mix Effects**
 des Gesamtprogramms werden **nicht** auf einzelne Stems angewendet.
 
@@ -465,7 +467,7 @@ Projektspezifische Einstellungen werden in der Datei `project.json` gespeichert.
 
 #### Registerkarte Mix Effects
 
-Wie bei **Track effects**: scrollbare Liste mit **Effekt hinzufügen…**, **≡** zum Neuordnen, **✕** zum Entfernen. Die Reihenfolge ist **von oben nach unten** auf dem **Summensignal**, nachdem alle aktivierten Spuren gemischt wurden. Diese Effekte laufen bei **Wiedergabe aller Spuren** und beim **Mix zu einer Datei**; sie werden **nicht** in die einzelnen Spurdateien auf der Festplatte „eingebacken“. Eine leere Liste lässt den Mix unverändert (abgesehen von der internen Pegelführung des Mixers).
+Wie bei **Track effects**: scrollbare Liste mit **Effekt hinzufügen…**, **≡** zum Neuordnen, **✕** zum Entfernen. Die Reihenfolge ist **von oben nach unten** auf dem **Summensignal**, nachdem alle aktivierten Spuren gemischt wurden. Diese Effekte laufen bei **Wiedergabe aller Spuren** und beim **Mix zu einer Datei** (gleiche Exportformate wie beim Speichern); sie werden **nicht** in die einzelnen Spurdateien auf der Festplatte „eingebacken“. Eine leere Liste lässt den Mix unverändert (abgesehen von der internen Pegelführung des Mixers).
 
 #### Registerkarte Aux / Send Bus
 
@@ -507,7 +509,7 @@ Hier konfigurieren Sie die **gemeinsame Aux-Effektkette** (dieselben Effekttypen
 | Menüeintrag          | Tastenkürzel | Beschreibung                                  |
 |-----------------------|---------------|-----------------------------------------------|
 | Mix tracks to file    | Ctrl+M        | Alle aktivierten Spuren in eine Datei exportieren |
-| Export stems to folder |               | Ein WAV-Stem pro Spur (Gain/Pan/Trim; ohne Master-Mix-Effects) |
+| Export stems to folder |               | Ein Stem pro Spur; Format im Dialog wählen (Gain/Pan/Trim; ohne Master-Mix-Effects) |
 | Recording options     |               | **Punch-in**-Bereich für Audio-Retakes; **Loop**-Wiedergabe für das ganze Projekt |
 | Quantize MIDI         |               | MIDI-Notenanfänge auf ein Raster rastern (alle MIDI-Spuren oder nur scharfgeschaltete) |
 | Add drum track        | D        | MIDI-Schlagzeugspur anlegen und `.mid`-Groove schreiben |
@@ -706,7 +708,7 @@ Es sind **zwei getrennte Programme**. Starten Sie Virtual MIDI Keyboard über **
 
 ### Warum funktioniert Drag-and-Drop für Audiodateien nicht?
 
-Dateien werden nur akzeptiert, wenn ein **Projektverzeichnis gesetzt** ist und **weder Wiedergabe noch Aufnahme** läuft. Unterstützt werden **`.wav`** und **`.flac`**; andere Endungen werden übersprungen und in einem Dialog aufgelistet. Jede Datei wird eine neue **Audio**-Spur mit Namen aus dem Dateinamen (ohne Erweiterung).
+Dateien werden nur akzeptiert, wenn ein **Projektverzeichnis gesetzt** ist und **weder Wiedergabe noch Aufnahme** läuft. Unterstützt werden unter anderem **`.wav`**, **`.flac`**, **`.mp3`**, **`.ogg`**, **`.aiff`**, **`.aif`** und **`.aifc`**; andere Endungen werden übersprungen und in einem Dialog aufgelistet. Jede Datei wird eine neue **Audio**-Spur mit Namen aus dem Dateinamen (ohne Erweiterung).
 
 ### Wo werden meine Aufnahmen gespeichert?
 

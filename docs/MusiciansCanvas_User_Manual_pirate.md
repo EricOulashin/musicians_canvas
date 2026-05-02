@@ -1,7 +1,7 @@
 ---
 title: "Musician's Canvas Captain's Log & User Manual"
 subtitle: "A Multi-Shanty Music Plunderin' Application fer Scallywags an' Sea Dogs Alike"
-version: "0.1.1"
+version: "0.1.2"
 date: "2026-04-03"
 author: "Cap'n Eric Oulashin"
 lang: "en-pirate"
@@ -11,7 +11,7 @@ lang: "en-pirate"
 
 ## Introduction
 
-Ahoy, matey! Welcome aboard Musician's Canvas, a mighty multi-shanty music plunderin' application fer desktop vessels. She supports plunderin' sounds from microphones an' line-in devices, capturin' MIDI treasure from keyboards an' controllers, an' mixin' all yer shanties down to a single WAV or FLAC file. A trusty companion ship, Virtual MIDI Keyboard, provides a software pianer keyboard fer sendin' MIDI notes across the briny deep.
+Ahoy, matey! Welcome aboard Musician's Canvas, a mighty multi-shanty music plunderin' application fer desktop vessels. She supports plunderin' sounds from microphones an' line-in devices, capturin' MIDI treasure from keyboards an' controllers, an' mixin' all yer shanties down to a single audio chest — WAV, FLAC, MP3, Ogg Vorbis, or AIFF. A trusty companion ship, Virtual MIDI Keyboard, provides a software pianer keyboard fer sendin' MIDI notes across the briny deep.
 
 Musician's Canvas be designed fer ease o' use while providin' features commonly found in digital audio workstations (DAWs), savvy?
 
@@ -21,7 +21,7 @@ Musician's Canvas be designed fer ease o' use while providin' features commonly 
 - High-quality sample-rate conversion fer plunderin' at any project sample rate
 - Automatic mono/stereo device detection -- she figures it out on 'er own!
 - Project-based settings with per-project overrides
-- Mix to WAV or FLAC
+- Mix to WAV, FLAC, MP3, Ogg Vorbis, or AIFF
 - Dark an' light themes (fer sailin' by night or by day)
 - Localized in 18 tongues includin' English, Deutsch, Español, Français, Japanese, Português, Chinese, Русский, Svenska, Suomi, Dansk, Norsk, Polski, Ελληνικά, Gaeilge, Cymraeg, an' Pirate -- the finest language on the seven seas!
 - Companion Virtual MIDI Keyboard application
@@ -88,7 +88,7 @@ yer file manager (Windows Explorer, macOS Finder, Linux file manager, or whate'e
 chart ye use) directly onto the Musician's Canvas windo' to haul 'em aboard as
 fresh audio shanties.
 
-- **Seaworthy formats:** `.wav` and `.flac`. Files in any other format be quietly
+- **Seaworthy formats:** `.wav`, `.flac`, `.mp3`, `.ogg`, `.aiff`, `.aif`, an' `.aifc`. Files in any other format be quietly
   tossed overboard, an' a dialog at the end lists which files were cast off.
 - **Copyin' the booty:** If the dropped file ain't already stashed in the
   project's hold, it be copied there automatic-like. If a file with the same
@@ -264,7 +264,7 @@ When the metronome be enabled, it starts tickin' once recordin' actually begins 
 
 Click the **Play** button to mix an' replay all enabled shanties. The button tooltip changes to indicate whether it will play or record based on whether a shanty be armed. Disabled shanties (unchecked) be excluded from replayin' -- they stay below deck.
 
-Durin' replayin', audio shanties be decoded from their FLAC files an' MIDI shanties be rendered to audio using the built-in FluidSynth synthesizer. All shanties be mixed together an' played through the system's audio output device. 'Tis a grand sound, if ye do say so yerself!
+Durin' replayin', audio shanties be decoded from their treasure files on disk (usually FLAC in the hold) an' MIDI shanties be rendered to audio using the built-in FluidSynth synthesizer. All shanties be mixed together an' played through the system's audio output device. 'Tis a grand sound, if ye do say so yerself!
 
 Click the **Stop** button to end replayin' at any time.
 
@@ -273,9 +273,11 @@ Click the **Stop** button to end replayin' at any time.
 Use **Tools > Mix tracks to file** (Ctrl+M) to export all enabled shanties to a single audio file. A dialog lets ye choose the output path an' format:
 
 - **Output file**: Browse to select the destination file path -- where shall we bury this treasure?
-- **Format**: Choose between FLAC (lossless compression, smaller files) or WAV (uncompressed).
+- **Format**: Pick the extension when ye browse — **FLAC** (lossless compression), **WAV** (PCM), **MP3**, **Ogg Vorbis**, or **AIFF**. Lossy codecs shrink the chest; WAV, FLAC, an' AIFF stay true dependin' on the voyage.
 
 The mix uses the project's configured sample rate. MIDI shanties be rendered using the configured SoundFont.
+
+**Tools → Export stems to folder** opens a chest where ye pick the **hold** an' **format** (WAV, FLAC, MP3, Ogg Vorbis, AIFF, …). One stem file per shanty that sails in the mix. Master **Mix Effects** don't touch individual stems.
 
 ## Settings
 
@@ -361,7 +363,7 @@ Use **Project > Project Settings** (Ctrl+P) to override global defaults fer the 
 
 #### Mix Effects tab
 
-The **Mix Effects** tab is a scrollable list with the same controls as **Track effects** (**Add effect…**, drag **≡** to reorder, **✕** to remove). Processing order is **top to bottom** on the **combined** mix of all enabled tracks. These effects run during **whole-project playback** and when **mixing to a single WAV or FLAC file**; they are **not** baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.
+The **Mix Effects** tab is a scrollable list with the same controls as **Track effects** (**Add effect…**, drag **≡** to reorder, **✕** to remove). Processing order is **top to bottom** on the **combined** mix of all enabled tracks. These effects run during **whole-project playback** and when **mixing to a single audio file** (same export formats as elsewhere); they are **not** baked into individual track files on disk. An empty list leaves the mixed signal unchanged aside from the mixer's own level handling.
 
 #### Aux / Send Bus tab
 
@@ -403,7 +405,7 @@ Configure the **shared aux effect chain** (same effect types as track inserts). 
 | Menu Item             | Shortcut | Description                                      |
 |-----------------------|----------|--------------------------------------------------|
 | Mix tracks to file    | Ctrl+M   | Export all enabled shanties to a single file      |
-| Export stems to folder |          | One WAV stem per track (gain/pan/trim; no master Mix Effects) |
+| Export stems to folder |          | One stem per shanty; choose format in the dialog (gain/pan/trim; no master Mix Effects) |
 | Recording options     |          | **Punch-in** region for audio; **loop playback** for the whole project |
 | Quantize MIDI         |          | Snap MIDI note starts to a grid (all MIDI tracks or armed track only) |
 | Add drum track        | D        | Add a MIDI drum deck an' a `.mid` scroll (see below) |
@@ -574,7 +576,7 @@ They be **two separate vessels**. Launch Virtual MIDI Keyboard from **Tools > Vi
 
 ### Why won't drag-and-drop take me audio files?
 
-Files be accepted only with a **project directory** set and when Musician's Canvas **ain't** playin' nor recordin'. **`.wav`** and **`.flac`** be welcome; other extensions walk the plank and get listed in a dialog. Each file becomes a new **audio** track named from the file's stem.
+Files be accepted only with a **project directory** set and when Musician's Canvas **ain't** playin' nor recordin'. **`.wav`**, **`.flac`**, **`.mp3`**, **`.ogg`**, **`.aiff`**, **`.aif`**, an' **`.aifc`** be welcome; other extensions walk the plank and get listed in a dialog. Each file becomes a new **audio** track named from the file's stem.
 
 ### Where be me recordings stowed?
 

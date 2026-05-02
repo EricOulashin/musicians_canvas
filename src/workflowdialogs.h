@@ -47,6 +47,26 @@ private:
     QDoubleSpinBox* m_bpmSpin = nullptr;
 };
 
+class QLineEdit;
+
+/// Choose folder and stem file format (extension) for **Tools → Export stems**.
+class StemExportDialog final : public QDialog
+{
+    Q_OBJECT
+public:
+    explicit StemExportDialog(const QString& defaultDir, QWidget* parent = nullptr);
+    [[nodiscard]] QString outputDirectory() const;
+    /// Includes leading dot, e.g. ".wav"
+    [[nodiscard]] QString outputFileExtension() const;
+
+private slots:
+    void onBrowseDirectory();
+
+private:
+    QLineEdit* m_dirEdit = nullptr;
+    QComboBox* m_formatCombo = nullptr;
+};
+
 class QuantizeMidiDialog final : public QDialog
 {
     Q_OBJECT

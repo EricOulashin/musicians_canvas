@@ -111,7 +111,7 @@ więc musisz skonfigurować SoundFont ręcznie w
 sudo apt install build-essential cmake \
   qt6-base-dev qt6-multimedia-dev \
   qt6-l10n-tools \
-  libfluidsynth-dev librtmidi-dev libflac-dev \
+  libfluidsynth-dev librtmidi-dev libflac-dev libsndfile1-dev \
   libportaudio2 portaudio19-dev \
   libpipewire-0.3-dev \
   fluid-soundfont-gm
@@ -129,7 +129,7 @@ sudo apt install build-essential cmake \
 ```bash
 sudo dnf install cmake gcc-c++ \
   qt6-qtbase-devel qt6-qtmultimedia-devel \
-  fluidsynth-devel rtmidi-devel flac-devel \
+  fluidsynth-devel rtmidi-devel flac-devel libsndfile-devel \
   portaudio-devel \
   pipewire-devel \
   fluid-soundfont-gm
@@ -143,7 +143,7 @@ sudo dnf install cmake gcc-c++ \
 ```bash
 sudo pacman -S base-devel cmake \
   qt6-base qt6-multimedia \
-  fluidsynth rtmidi flac portaudio \
+  fluidsynth rtmidi flac libsndfile portaudio \
   pipewire \
   soundfont-fluid
 ```
@@ -155,7 +155,7 @@ sudo pacman -S base-devel cmake \
 ### macOS
 
 ```bash
-brew install cmake qt fluidsynth rtmidi flac portaudio
+brew install cmake qt fluidsynth rtmidi flac libsndfile portaudio
 ```
 
 > PipeWire jest podsystemem wyłącznie dla Linuxa i **nie** jest wymagany na macOS. FluidSynth
@@ -192,6 +192,7 @@ pacman -S mingw-w64-x86_64-qt6-multimedia
 pacman -S mingw-w64-x86_64-fluidsynth
 pacman -S mingw-w64-ucrt-x86_64-rtmidi
 pacman -S mingw-w64-x86_64-flac
+pacman -S mingw-w64-x86_64-libsndfile
 pacman -S mingw-w64-x86_64-portaudio
 pacman -S mingw-w64-x86_64-soundfont-fluid
 ```
