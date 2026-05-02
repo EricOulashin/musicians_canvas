@@ -19,7 +19,7 @@ rud éigin níos fearr a dhéanamh.
 - **Taifeadadh overdub**: Nuair a thaifeadtar rian nua agus rianta reatha cumasaithe, measctar agus seinntear na rianta reatha i bhfíor-am ionas gur féidir leat iad a chloisteáil agus tú ag taifeadadh. Tá an athsheinm agus an ghabháil sioncronaithe chun na rianta go léir a choinneáil ailínithe
 - **Aiseolas amhairc**: Taispeáint tonnfhoirm fuaime do rianta fuaime (le méadar leibhéil beo le linn taifeadta), radharcra MIDI piano roll do rianta MIDI
 - **Sintéiseoir MIDI ionsuite**: Rindreálann rianta MIDI go fuaim ag úsáid FluidSynth le SoundFont inchumraithe
-- **Measc go comhad fuaime singil**: Easpórtáil na rianta cumasaithe go léir go comhad singil measctha WAV nó FLAC ag úsáid leabharlann [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp)
+- **Measc go comhad fuaime singil**: Easpórtáil na rianta cumasaithe go léir go comhad measctha amháin (WAV, FLAC, MP3, Ogg Vorbis nó AIFF) ag baint úsáide as leabharlann [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp) (**Tools → Mix tracks to file**). Úsáideann an ionchódú na ranganna céanna leis an tionscadal gaolta (`MP3File`, `OggFile`, `AiffFile`) le **libsndfile**. Nuair is **MP3** nó **Ogg Vorbis** an spriocean, taispeántar rannóg **Encoding** sa dialóg le hidrbande agus caighdeán (CBR/ABR/VBR MP3 agus Vorbis de réir caighdeáin nó bitrate ainmnithe gar-mheasta); ní thairgtear roghanna bitrate ann do **WAV**, **FLAC** ná **AIFF**.
 - **Sábháil / Oscail tionscadal**: Srathú agus athchóiriú an tionscadail iomlán (rianta, ainmneacha, cineálacha, nótaí MIDI, tagairtí comhad fuaime) go/ó chomhad JSON, le brath athruithe neamhshábháilte ar dhúnadh
 - **Socruithe sainiúla tionscadail**: Sáraigh réamhshocruithe domhanda MIDI agus fuaime in aghaidh an tionscadail (ráta samplála, SoundFont, gléas MIDI)
 - **Gabháil PortAudio (tógáil roghnach)**: Nuair a thógtar an tionscadal le PortAudio (`HAVE_PORTAUDIO`), is féidir leis an taifeadadh cosán ionchuir dhúchais PortAudio a úsáid (cosúil i spiorad le Audacity) in ionad Qt Multimedia. Ligeann **Project → Project Settings → Audio** duit **PortAudio** nó **Qt Multimedia** a roghnú agus gléas ionchuir PortAudio a phiocadh. Mura bhfuil PortAudio suiteáilte, éiríonn leis an tógáil fós agus úsáideann an taifeadadh Qt Multimedia amháin.
@@ -296,7 +296,7 @@ Scríobhtar an HTML ginte go `docs/html/` agus an PDF go `docs/MusiciansCanvas_U
 6. **Socruithe tionscadail**: Úsáid **Project → Project Settings** (Ctrl+P) chun socruithe MIDI agus fuaime a shárú don tionscadal reatha amháin (m.sh. ráta samplála nó SoundFont difriúil in aghaidh an amhráin)
 7. **Taifead**: Seiceáil "Arm" ar an rian sprice, ansin cliceáil an cnaipe taifeadta (ciorcal dearg). Ní féidir ach rian amháin a bheith armáilte ag an am
 8. **Seinn**: Cliceáil an cnaipe seinnte chun na rianta cumasaithe go léir a mheascadh agus a sheinm
-9. **Measc go comhad**: Úsáid **Tools → Mix tracks to file** (Ctrl+M) chun easpórtáil go WAV nó FLAC
+9. **Measc go comhad**: Úsáid **Tools → Mix tracks to file** (Ctrl+M) chun easpórtáil go WAV, FLAC, MP3, Ogg Vorbis nó AIFF. Do **MP3** agus **Ogg**, socraigh bitrate nó caighdeán sa rannóg **Encoding** roimh an meascadh.
 10. **Sábháil / Oscail**: Úsáid **File → Save Project** (Ctrl+S) agus **File → Open Project** (Ctrl+O)
 
 ### virtual_midi_keyboard

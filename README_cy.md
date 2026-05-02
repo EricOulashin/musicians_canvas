@@ -19,7 +19,7 @@ i wneud rhywbeth gwell.
 - **Recordio overdub**: Wrth recordio trac newydd tra bod traciau presennol wedi'u galluogi, mae'r traciau presennol yn cael eu cymysgu a'u chwarae'n ôl mewn amser real fel y gallwch eu clywed wrth recordio. Mae chwarae'n ôl a chipio wedi'u cydamseru i gadw'r holl draciau wedi'u halinio
 - **Adborth gweledol**: Arddangos ffurf ton sain ar gyfer traciau sain (gyda mesurydd lefel byw yn ystod recordio), golwg MIDI piano roll ar gyfer traciau MIDI
 - **Syntheseisydd MIDI mewnol**: Rendro traciau MIDI i sain gan ddefnyddio FluidSynth gyda SoundFont y gellir ei ffurfweddu
-- **Cymysgu i un ffeil sain**: Allforio'r holl draciau a alluogwyd i un ffeil WAV neu FLAC wedi'i chymysgu gan ddefnyddio llyfrgell [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp)
+- **Cymysgu i un ffeil sain**: Allforio'r holl draciau a alluogwyd i un ffeil gymysg (WAV, FLAC, MP3, Ogg Vorbis neu AIFF) gan ddefnyddio llyfrgell [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp) (**Tools → Mix tracks to file**). Mae'r amgodio yn defnyddio'r un dosbarthiadau â'r prosiect brawd (`MP3File`, `OggFile`, `AiffFile`) gyda **libsndfile**. Pan fo'r cyrchfan yn **MP3** neu **Ogg Vorbis**, mae'r dialog yn dangos adran **Encoding** ar gyfer modd diddeb a manylder (CBR/ABR/VBR MP3 ac Ogg yn ôl ansawdd neu ddiddeb enwol bras); nid oes rheolaethau diddeb yn y dialog ar gyfer **WAV**, **FLAC** na **AIFF**.
 - **Cadw / Agor prosiect**: Cyfresoli ac adfer y prosiect llawn (traciau, enwau, mathau, nodau MIDI, cyfeiriadau ffeiliau sain) i/o ffeil JSON, gyda chanfod newidiadau heb eu cadw wrth gau
 - **Gosodiadau penodol i'r prosiect**: Diystyru rhagosodiadau MIDI a sain byd-eang fesul prosiect (cyfradd samplu, SoundFont, dyfais MIDI)
 - **Cipio PortAudio (adeilad dewisol)**: Pan gaiff y prosiect ei adeiladu gyda PortAudio (`HAVE_PORTAUDIO`), gall y recordiad ddefnyddio llwybr mewnbwn brodorol PortAudio (tebyg o ran ysbryd i Audacity) yn lle Qt Multimedia. Mae **Project → Project Settings → Audio** yn gadael i chi ddewis **PortAudio** neu **Qt Multimedia** a dewis dyfais fewnbwn PortAudio. Os nad yw PortAudio wedi'i osod, mae'r adeilad yn llwyddo o hyd ac mae'r recordiad yn defnyddio Qt Multimedia yn unig.
@@ -297,7 +297,7 @@ Ysgrifennir yr HTML a gynhyrchir i `docs/html/` a'r PDF i `docs/MusiciansCanvas_
 6. **Gosodiadau prosiect**: Defnyddiwch **Project → Project Settings** (Ctrl+P) i ddiystyru gosodiadau MIDI a sain ar gyfer y prosiect presennol yn unig (e.e. cyfradd samplu neu SoundFont gwahanol fesul cân)
 7. **Recordio**: Ticiwch "Arm" ar y trac targed, yna cliciwch y botwm recordio (cylch coch). Dim ond un trac y gellir ei arfogi ar y tro
 8. **Chwarae**: Cliciwch y botwm chwarae i gymysgu a chwarae'r holl draciau a alluogwyd
-9. **Cymysgu i ffeil**: Defnyddiwch **Tools → Mix tracks to file** (Ctrl+M) i allforio i WAV neu FLAC
+9. **Cymysgu i ffeil**: Defnyddiwch **Tools → Mix tracks to file** (Ctrl+M) i allforio i WAV, FLAC, MP3, Ogg Vorbis neu AIFF. Ar gyfer **MP3** ac **Ogg**, dewiswch diddeb neu ansawdd yn yr adran **Encoding** cyn cymysgu.
 10. **Cadw / Agor**: Defnyddiwch **File → Save Project** (Ctrl+S) a **File → Open Project** (Ctrl+O)
 
 ### virtual_midi_keyboard

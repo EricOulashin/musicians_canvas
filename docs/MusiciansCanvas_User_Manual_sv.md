@@ -13,7 +13,7 @@ lang: "sv"
 
 Musician's Canvas är en applikation för flerspårsinspelning av musik för stationära datorer. Den stöder
 ljudinspelning från mikrofoner och linjeinenheter, MIDI-inspelning från klaviaturer och kontroller,
-samt mixning av alla spår till en enda WAV- eller FLAC-fil. En kompletterande applikation,
+samt mixning av alla spår till en enda ljudfil (WAV, FLAC, MP3, Ogg Vorbis eller AIFF). En kompletterande applikation,
 Virtual MIDI Keyboard, tillhandahåller ett mjukvarupianoklaviatur för att skicka MIDI-noter.
 
 Musician's Canvas är utformad för att vara enkel att använda och erbjuder samtidigt funktioner som vanligen
@@ -25,7 +25,7 @@ finns i digitala ljudarbetsstationer (DAW):
 - Högkvalitativ samplingsfrekvenskonvertering för inspelning med valfri projektsamplingsfrekvens
 - Automatisk mono/stereo-enhetsdetektering
 - Projektbaserade inställningar med projektspecifika åsidosättningar
-- Mixa till WAV eller FLAC
+- Mixa till WAV, FLAC, MP3, Ogg Vorbis eller AIFF (valfri bithastighet/kvalitet för MP3 och Ogg i **Mix tracks to file**)
 - Mörka och ljusa teman
 - Lokaliserad på flera språk (engelska, tyska, spanska, franska, japanska, portugisiska, kinesiska och Pirate)
 - Kompletterande applikation Virtual MIDI Keyboard
@@ -317,7 +317,8 @@ Använd **Tools > Mix tracks to file** (Ctrl+M) för att exportera alla aktivera
 ljudfil. En dialog låter dig välja utmatningsväg och format:
 
 - **Utmatningsfil**: Bläddra för att välja destinationsfilens sökväg.
-- **Format**: Välj mellan FLAC (förlustfri komprimering, mindre filer) eller WAV (okomprimerad).
+- **Format**: Välj filändelse när du sparar — **FLAC** (förlustfri komprimering), **WAV** (okomprimerad PCM), **MP3**, **Ogg Vorbis** eller **AIFF**. Förlustformat (MP3, Ogg) ger mindre filer; WAV, FLAC och AIFF kan vara förlustfria beroende på källan.
+- **Encoding** (endast MP3 och Ogg Vorbis): Om destinationsfilnamnet slutar på `.mp3`, `.ogg` eller `.oga` visas avsnittet **Encoding** i dialogrutan. För **MP3** väljer du CBR, ABR eller VBR och ställer in bithastighet eller VBR-kvalitet. För **Ogg Vorbis** väljer du kvalitetsstyrd variabel bithastighet eller ungefärlig nominell bithastighet. **WAV**, **FLAC** och **AIFF** visar inte detta avsnitt.
 
 Mixen använder projektets konfigurerade samplingsfrekvens. MIDI-spår renderas med den konfigurerade
 SoundFont.

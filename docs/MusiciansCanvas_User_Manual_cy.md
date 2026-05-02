@@ -11,7 +11,7 @@ lang: "cy"
 
 ## Cyflwyniad
 
-Mae Musician's Canvas yn gymhwysiad recordio cerddoriaeth aml-drac ar gyfer cyfrifiaduron bwrdd gwaith. Mae'n cefnogi recordio sain o feicroffonau a dyfeisiau line-in, recordio MIDI o fysellfyrddau a rheolyddion, a chymysgu'r holl draciau i ffeil WAV neu FLAC sengl. Mae cymhwysiad cydymaith, Virtual MIDI Keyboard, yn darparu bysellfwrdd piano meddalwedd ar gyfer anfon nodau MIDI.
+Mae Musician's Canvas yn gymhwysiad recordio cerddoriaeth aml-drac ar gyfer cyfrifiaduron bwrdd gwaith. Mae'n cefnogi recordio sain o feicroffonau a dyfeisiau line-in, recordio MIDI o fysellfyrddau a rheolyddion, a chymysgu'r holl draciau i ffeil sain sengl (WAV, FLAC, MP3, Ogg Vorbis neu AIFF). Mae cymhwysiad cydymaith, Virtual MIDI Keyboard, yn darparu bysellfwrdd piano meddalwedd ar gyfer anfon nodau MIDI.
 
 Mae Musician's Canvas wedi'i ddylunio ar gyfer hawster defnydd tra'n darparu nodweddion a geir yn gyffredin mewn gorsafoedd gwaith sain digidol (DAWs):
 
@@ -21,7 +21,7 @@ Mae Musician's Canvas wedi'i ddylunio ar gyfer hawster defnydd tra'n darparu nod
 - Trawsnewid cyfradd samplu o ansawdd uchel ar gyfer recordio ar unrhyw gyfradd samplu prosiect
 - Canfod dyfais mono/stereo yn awtomatig
 - Gosodiadau sy'n seiliedig ar brosiect gyda gorosgyniadau fesul prosiect
-- Cymysgu i WAV neu FLAC
+- Cymysgu i WAV, FLAC, MP3, Ogg Vorbis neu AIFF (dewisol diddeb/ansawdd ar gyfer MP3 ac Ogg yn **Mix tracks to file**)
 - Themâu tywyll a golau
 - Wedi'i leoleiddio mewn sawl iaith (Saesneg, Almaeneg, Sbaeneg, Ffrangeg, Siapanëeg, Portiwgaleg, Tsieinëeg, a Môr-ladron)
 - Cymhwysiad cydymaith Virtual MIDI Keyboard
@@ -275,7 +275,8 @@ Cliciwch y botwm **Stop** i orffen chwarae'n ôl ar unrhyw adeg.
 Defnyddiwch **Tools > Mix tracks to file** (Ctrl+M) i allforio'r holl draciau galluogedig i ffeil sain sengl. Mae deialog yn gadael i chi ddewis y llwybr allbwn a'r fformat:
 
 - **Ffeil allbwn**: Porwch i ddewis llwybr ffeil y cyrchfan.
-- **Fformat**: Dewiswch rhwng FLAC (cywasgu di-golled, ffeiliau llai) neu WAV (heb ei gywasgu).
+- **Fformat**: Dewiswch yr estyniad wrth gadw — **FLAC** (cywasgu di-golled), **WAV** (PCM heb ei gywasgu), **MP3**, **Ogg Vorbis** neu **AIFF**. Mae formatiau â cholled (MP3, Ogg) yn cynhyrchu ffeiliau llai; gall WAV, FLAC ac AIFF fod yn ddi-golled yn ôl y cynnwys.
+- **Encoding** (MP3 ac Ogg Vorbis yn unig): Os yw enw'r ffeil gyrchfan yn gorffen gyda `.mp3`, `.ogg` neu `.oga`, mae adran **Encoding** yn ymddangos yn y deialog. Ar gyfer **MP3**, dewiswch CBR, ABR neu VBR a gosodwch y bitrate neu ansawdd VBR. Ar gyfer **Ogg Vorbis**, dewiswch VBR yn seiliedig ar ansawdd neu bitrate enwol bras. Nid yw **WAV**, **FLAC** na **AIFF** yn dangos yr adran hon.
 
 Mae'r cymysgedd yn defnyddio cyfradd samplu ffurfweddig y prosiect. Mae traciau MIDI yn cael eu rendro gan ddefnyddio'r SoundFont ffurfweddig.
 

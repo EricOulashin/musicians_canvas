@@ -20,6 +20,8 @@
 #include "AudioFileTools.h"
 #include "AudioFileInfo.h"
 #include "FLACFileInfo.h"
+#include "MP3File.h"
+#include "OggFile.h"
 
 QString AudioUtils::sanitizedTrackFilesystemName(const QString& trackName)
 {
@@ -173,11 +175,47 @@ static QString writeAudioTrackToTempWav(const TrackData& track)
     return path;
 }
 
+namespace
+{
+void applyMixExportEncodeSettings(const std::shared_ptr<EOUtils::AudioFile>& outFile,
+                                  const MixExportEncodeSettings& s)
+{
+    if (!outFile || !outFile->BitrateIsAdjustable())
+        return;
+    if (auto* mp3 = dynamic_cast<EOUtils::MP3File*>(outFile.get()))
+    {
+        using Mk = MixExportEncodeSettings::Mp3BitrateKind;
+        switch (s.mp3Kind)
+        {
+        case Mk::Constant:
+            mp3->setMp3WriteBitrateMode(EOUtils::Mp3BitrateMode::Constant);
+            mp3->setMp3WriteNominalBitrateKbps(s.mp3NominalKbps);
+            break;
+        case Mk::Average:
+            mp3->setMp3WriteBitrateMode(EOUtils::Mp3BitrateMode::Average);
+            mp3->setMp3WriteNominalBitrateKbps(s.mp3NominalKbps);
+            break;
+        case Mk::Variable:
+            mp3->setMp3WriteVariableBitrateCompression(s.mp3VbrCompressionZeroBestOneWorst);
+            break;
+        }
+        return;
+    }
+    if (auto* ogg = dynamic_cast<EOUtils::OggFile*>(outFile.get()))
+    {
+        if (s.oggKind == MixExportEncodeSettings::OggEncodeKind::QualityVbr)
+            ogg->setOggWriteQualityBestOneWorstZero(s.oggQualityBestOneWorstZero);
+        else
+            ogg->setOggWriteApproxNominalBitrateKbps(s.oggApproxNominalKbps);
+    }
+}
+}  // namespace
 
 bool AudioUtils::writeInt16PcmToAudioFile(const QByteArray& int16Data,
                                            int sampleRate,
                                            int channelCount,
-                                           const QString& path)
+                                           const QString& path,
+                                           const MixExportEncodeSettings* encodeSettings)
 {
     const QString ext = QStringLiteral(".") + QFileInfo(path).suffix().toLower();
     if (ext == QStringLiteral(".wav"))
@@ -217,6 +255,8 @@ bool AudioUtils::writeInt16PcmToAudioFile(const QByteArray& int16Data,
     }
 
     outFile->setAudioFileInfo(wavInfo);
+    if (encodeSettings && outFile->BitrateIsAdjustable())
+        applyMixExportEncodeSettings(outFile, *encodeSettings);
 
     if (!outFile->open(EOUtils::AUDIO_FILE_WRITE))
     {
@@ -639,6 +679,14 @@ void int16StereoToFloat(const QByteArray& pcm, QVector<float>& L, QVector<float>
 
 }  // namespace
 
+bool AudioUtils::exportDestinationSupportsAdjustableBitrate(const QString& path)
+{
+    if (path.trimmed().isEmpty())
+        return false;
+    auto f = EOUtils::createAudioFileObjForNewFile(path.toStdString().c_str());
+    return f && f->BitrateIsAdjustable();
+}
+
 bool AudioUtils::mixTracksToFile(const QVector<TrackData>& tracks,
                                   const QString& outputPath,
                                   const QString& projectPath,
@@ -646,7 +694,8 @@ bool AudioUtils::mixTracksToFile(const QVector<TrackData>& tracks,
                                   const QString& soundFontPath,
                                   bool renderMidiToAudio,
                                   double midiGainMultiplier,
-                                  const QJsonArray& auxEffectChain)
+                                  const QJsonArray& auxEffectChain,
+                                  const MixExportEncodeSettings* encodeSettings)
 {
     int mixSampleRate = sampleRate;
     for (const auto& track : tracks)
@@ -781,7 +830,7 @@ bool AudioUtils::mixTracksToFile(const QVector<TrackData>& tracks,
             QFile::remove(wavOutPath);
             return false;
         }
-        if (!writeInt16PcmToAudioFile(pcmData, sr, ch, outputPath))
+        if (!writeInt16PcmToAudioFile(pcmData, sr, ch, outputPath, encodeSettings))
         {
             QFile::remove(wavOutPath);
             return false;

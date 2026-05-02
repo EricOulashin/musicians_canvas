@@ -19,7 +19,7 @@ de créer quelque chose de mieux.
 - **Enregistrement overdub** : Lors de l'enregistrement d'une nouvelle piste avec des pistes existantes activées, les pistes existantes sont mixées et lues en temps réel pour que vous puissiez les entendre pendant l'enregistrement. La lecture et la capture sont synchronisées pour garder toutes les pistes alignées
 - **Retour visuel** : Affichage de forme d'onde audio pour les pistes audio (avec vumètre en direct pendant l'enregistrement), vue piano roll MIDI pour les pistes MIDI
 - **Synthétiseur MIDI intégré** : Effectue le rendu des pistes MIDI en audio en utilisant FluidSynth avec un SoundFont configurable
-- **Mixage vers un seul fichier audio** : Exporter toutes les pistes activées vers un seul fichier WAV ou FLAC mixé en utilisant la bibliothèque [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp)
+- **Mixage vers un seul fichier audio** : Exporter toutes les pistes activées vers un fichier mixé unique (WAV, FLAC, MP3, Ogg Vorbis ou AIFF) avec la bibliothèque [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp) (**Tools → Mix tracks to file**). L’encodage reprend les mêmes classes que le projet associé (`MP3File`, `OggFile`, `AiffFile`) avec **libsndfile**. Pour une destination **MP3** ou **Ogg Vorbis**, la boîte de dialogue affiche une section **Encoding** pour le débit et la qualité (CBR/ABR/VBR pour le MP3, qualité ou débit nominal approximatif pour l’Ogg) ; **WAV**, **FLAC** et **AIFF** n’affichent pas ces réglages de débit.
 - **Sauvegarder / Ouvrir un projet** : Sérialiser et restaurer le projet complet (pistes, noms, types, notes MIDI, références de fichiers audio) vers/depuis un fichier JSON, avec détection des modifications non sauvegardées à la fermeture
 - **Paramètres spécifiques au projet** : Remplacer les valeurs par défaut globales MIDI et audio par projet (fréquence d'échantillonnage, SoundFont, périphérique MIDI)
 - **Capture PortAudio (compilation optionnelle)** : Lorsque le projet est compilé avec PortAudio (`HAVE_PORTAUDIO`), l'enregistrement peut utiliser un chemin d'entrée natif PortAudio (similaire en esprit à Audacity) au lieu de Qt Multimedia. **Project → Project Settings → Audio** permet de choisir **PortAudio** ou **Qt Multimedia** et de sélectionner un périphérique d'entrée PortAudio. Si PortAudio n'est pas installé, la compilation réussit quand même et l'enregistrement utilise uniquement Qt Multimedia.
@@ -297,7 +297,7 @@ Le HTML généré est écrit dans `docs/html/` et le PDF dans `docs/MusiciansCan
 6. **Paramètres du projet** : Utilisez **Project → Project Settings** (Ctrl+P) pour remplacer les paramètres MIDI et audio uniquement pour le projet actuel (par exemple une fréquence d'échantillonnage ou un SoundFont différent par chanson)
 7. **Enregistrer** : Cochez "Arm" sur la piste cible, puis cliquez sur le bouton d'enregistrement (cercle rouge). Une seule piste peut être armée à la fois
 8. **Lecture** : Cliquez sur le bouton de lecture pour mixer et lire toutes les pistes activées
-9. **Mixer vers un fichier** : Utilisez **Tools → Mix tracks to file** (Ctrl+M) pour exporter en WAV ou FLAC
+9. **Mixer vers un fichier** : Utilisez **Tools → Mix tracks to file** (Ctrl+M) pour exporter en WAV, FLAC, MP3, Ogg Vorbis ou AIFF. Pour **MP3** et **Ogg**, réglez le débit ou la qualité dans la section **Encoding** avant le mixage.
 10. **Sauvegarder / Ouvrir** : Utilisez **File → Save Project** (Ctrl+S) et **File → Open Project** (Ctrl+O)
 
 ### virtual_midi_keyboard

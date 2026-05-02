@@ -21,7 +21,7 @@ Musician's Canvas está diseñado para ser fácil de usar y al mismo tiempo ofre
 - Conversión de frecuencia de muestreo de alta calidad para grabar a cualquier frecuencia de muestreo del proyecto
 - Detección automática de dispositivos mono/estéreo
 - Configuración basada en proyectos con ajustes específicos por proyecto
-- Mezcla a WAV, FLAC, MP3, Ogg Vorbis o AIFF
+- Mezcla a WAV, FLAC, MP3, Ogg Vorbis o AIFF (bitrate/calidad opcionales para MP3 y Ogg en **Mix tracks to file**)
 - Temas oscuro y claro
 - Localizado en 18 idiomas incluyendo English, Deutsch, Español, Français, Japanese, Português, Chinese, Русский, Svenska, Suomi, Dansk, Norsk, Polski, Ελληνικά, Gaeilge, Cymraeg y Pirate
 - Aplicación complementaria Virtual MIDI Keyboard
@@ -281,7 +281,10 @@ Haga clic en el botón **Stop** para detener la reproducción en cualquier momen
 Use **Tools > Mix tracks to file** (Ctrl+M) para exportar todas las pistas habilitadas a un único archivo de audio. Un diálogo le permite elegir la ruta de salida y el formato:
 
 - **Archivo de salida**: Navegue para seleccionar la ruta del archivo de destino.
-- **Formato**: Elija entre FLAC (compresión sin pérdida, archivos más pequeños) o WAV (sin comprimir).
+- **Formato**: Elija la extensión al guardar — **FLAC** (compresión sin pérdidas),
+  **WAV** (PCM sin comprimir), **MP3**, **Ogg Vorbis** o **AIFF**. Los formatos con pérdidas (MP3, Ogg)
+  producen archivos más pequeños; WAV, FLAC y AIFF pueden ser sin pérdidas según el contenido.
+- **Encoding** (solo MP3 y Ogg Vorbis): si el nombre de destino termina en `.mp3`, `.ogg` u `.oga`, aparece la sección **Encoding**. Para **MP3**, elija CBR, ABR o VBR y ajuste la tasa de bits o la calidad VBR. Para **Ogg Vorbis**, elija VBR por calidad o una tasa nominal aproximada. Los destinos **WAV**, **FLAC** y **AIFF** no muestran esta sección.
 
 La mezcla utiliza la frecuencia de muestreo configurada del proyecto. Las pistas MIDI se renderizan usando el SoundFont configurado. Se aplican **Gain**, **Pan**, **mute/solo**, **envío Aux** y **trim** por pista igual que en reproducción.
 

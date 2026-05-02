@@ -19,7 +19,7 @@ Versuch, etwas Besseres zu schaffen.
 - **Overdub-Aufnahme**: Beim Aufnehmen einer neuen Spur, während vorhandene Spuren aktiviert sind, werden die vorhandenen Spuren gemischt und in Echtzeit wiedergegeben, damit Sie sie beim Aufnehmen hören können. Wiedergabe und Aufnahme sind synchronisiert, um alle Spuren ausgerichtet zu halten
 - **Visuelle Rückmeldung**: Audio-Wellenformanzeige für Audiospuren (mit Live-Pegelanzeige während der Aufnahme), MIDI-Pianorollenansicht für MIDI-Spuren
 - **Integrierter MIDI-Synthesizer**: Rendert MIDI-Spuren zu Audio mittels FluidSynth mit konfigurierbarem SoundFont
-- **Zu einzelner Audiodatei mischen**: Alle aktivierten Spuren in eine einzelne gemischte Datei (WAV, FLAC, MP3, Ogg Vorbis oder AIFF) exportieren — über **Tools → Mix tracks to file** — unter Verwendung der [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp)-Bibliothek und **libsndfile**
+- **Zu einzelner Audiodatei mischen**: Alle aktivierten Spuren in eine einzelne gemischte Datei (WAV, FLAC, MP3, Ogg Vorbis oder AIFF) exportieren — über **Tools → Mix tracks to file** — unter Verwendung der [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp)-Bibliothek und **libsndfile**. Ist das Ziel **MP3** oder **Ogg Vorbis**, zeigt der Dialog einen Bereich **Encoding** für Bitratenmodus und Qualität (u. a. MP3 CBR/ABR/VBR sowie Ogg nach Qualität oder nominaler Bitrate); bei **WAV**, **FLAC** und **AIFF** gibt es dort keine Bitratenauswahl.
 - **Projekt speichern / öffnen**: Das vollständige Projekt (Spuren, Namen, Typen, MIDI-Noten, Audiodatei-Referenzen) in eine JSON-Datei serialisieren und daraus wiederherstellen, mit Erkennung nicht gespeicherter Änderungen beim Beenden
 - **Projektspezifische Einstellungen**: Globale MIDI- und Audio-Standardwerte pro Projekt überschreiben (Abtastrate, SoundFont, MIDI-Gerät)
 - **PortAudio-Aufnahme (optionaler Build)**: Wenn das Projekt mit PortAudio gebaut wird (`HAVE_PORTAUDIO`), kann die Aufnahme einen nativen PortAudio-Eingabepfad verwenden (ähnlich wie bei Audacity) anstelle von Qt Multimedia. **Project → Project Settings → Audio** ermöglicht die Wahl zwischen **PortAudio** oder **Qt Multimedia** und die Auswahl eines PortAudio-Eingabegeräts. Wenn PortAudio nicht installiert ist, wird der Build dennoch erfolgreich durchgeführt und die Aufnahme verwendet nur Qt Multimedia.
@@ -303,7 +303,7 @@ Das generierte HTML wird nach `docs/html/` geschrieben und das PDF nach `docs/Mu
 6. **Projekteinstellungen**: Verwenden Sie **Project → Project Settings** (Ctrl+P), um MIDI- und Audio-Einstellungen nur für das aktuelle Projekt zu überschreiben (z. B. eine andere Abtastrate oder ein anderer SoundFont pro Song)
 7. **Aufnehmen**: Aktivieren Sie "Arm" auf der Zielspur und klicken Sie dann auf die Aufnahmetaste (roter Kreis). Nur eine Spur kann gleichzeitig aufnahmebereit sein
 8. **Wiedergabe**: Klicken Sie auf die Wiedergabetaste, um alle aktivierten Spuren zu mischen und wiederzugeben
-9. **Zu Datei mischen**: Verwenden Sie **Tools → Mix tracks to file** (Ctrl+M), um nach WAV oder FLAC zu exportieren
+9. **Zu Datei mischen**: Verwenden Sie **Tools → Mix tracks to file** (Ctrl+M), um nach WAV, FLAC, MP3, Ogg Vorbis oder AIFF zu exportieren. Bei **MP3** und **Ogg** legen Sie Bitrate oder Qualität im Bereich **Encoding** des Dialogs fest, bevor gemischt wird.
 10. **Speichern / Öffnen**: Verwenden Sie **File → Save Project** (Ctrl+S) und **File → Open Project** (Ctrl+O)
 
 ### virtual_midi_keyboard

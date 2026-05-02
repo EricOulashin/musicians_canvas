@@ -20,7 +20,7 @@ to make something better.
 - **Drag-and-drop import**: While a project is open, drag one or more supported audio files (`.wav`, `.flac`, `.mp3`, `.ogg`, `.aiff`, `.aif`, `.aifc`) from the file manager onto the main window to add them as new audio tracks. Files outside the project directory are copied in automatically; the file's base name becomes the new track name. The list of supported formats is centralised in `src/audioformats.h` and `src/audioformats.cpp`.
 - **Visual feedback**: Audio waveform display for audio tracks (with live level meter during recording), MIDI piano roll for MIDI tracks
 - **Built-in MIDI synthesizer**: Renders MIDI tracks to audio using FluidSynth with a configurable SoundFont
-- **Mix to single audio file**: Export all enabled tracks to a single mixed file (WAV, FLAC, MP3, Ogg Vorbis, or AIFF) using the [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp) library (via **Tools → Mix tracks to file**). Encoding uses the same classes as the sibling project (`MP3File`, `OggFile`, `AiffFile`) together with **libsndfile**.
+- **Mix to single audio file**: Export all enabled tracks to a single mixed file (WAV, FLAC, MP3, Ogg Vorbis, or AIFF) using the [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp) library (via **Tools → Mix tracks to file**). Encoding uses the same classes as the sibling project (`MP3File`, `OggFile`, `AiffFile`) together with **libsndfile**. When the destination is **MP3** or **Ogg Vorbis**, the mix dialog shows an **Encoding** section so you can set bitrate mode and quality (MP3 CBR/ABR/VBR and Ogg quality or approximate bitrate); **WAV**, **FLAC**, and **AIFF** do not offer bitrate controls in that dialog.
 - **Save / Open project**: Serialize and restore the full project (tracks, names, types, MIDI notes, audio file references) to/from a JSON file, with unsaved-changes detection on exit
 - **Project-specific settings**: Override global MIDI and audio defaults per project (sample rate, SoundFont, MIDI device)
 - **PortAudio capture (optional build)**: When the project is built with PortAudio (`HAVE_PORTAUDIO`), recording can use a native PortAudio input path (similar in spirit to Audacity) instead of Qt Multimedia. **Project → Project Settings → Audio** lets you choose **PortAudio** or **Qt Multimedia** and pick a PortAudio input device. If PortAudio is not installed, the build still succeeds and recording uses Qt Multimedia only.
@@ -311,7 +311,7 @@ The generated HTML is written to `docs/html/` and the PDF to `docs/MusiciansCanv
 6. **Project settings**: Use **Project → Project Settings** (Ctrl+P) to override MIDI and audio settings for the current project only (e.g. a different sample rate or SoundFont per song)
 7. **Record**: Check "Arm" on the target track, then click the record button (red circle). Only one track can be armed at a time
 8. **Play**: Click the play button to mix and play back all enabled tracks
-9. **Mix to file**: Use **Tools → Mix tracks to file** (Ctrl+M) to export to WAV, FLAC, MP3, Ogg Vorbis, or AIFF
+9. **Mix to file**: Use **Tools → Mix tracks to file** (Ctrl+M) to export to WAV, FLAC, MP3, Ogg Vorbis, or AIFF. For **MP3** and **Ogg**, use the **Encoding** section in the dialog to choose bitrate or quality before mixing.
 10. **Save / Open**: Use **File → Save Project** (Ctrl+S) and **File → Open Project** (Ctrl+O)
 
 ### virtual_midi_keyboard

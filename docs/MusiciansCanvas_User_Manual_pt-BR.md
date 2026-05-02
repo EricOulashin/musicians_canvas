@@ -13,8 +13,8 @@ lang: "pt-BR"
 
 Musician's Canvas e um aplicativo de gravacao musical multi-faixa para desktops. Ele suporta
 gravacao de audio a partir de microfones e dispositivos de entrada de linha, gravacao MIDI
-a partir de teclados e controladores, e mixagem de todas as faixas em um unico arquivo WAV
-ou FLAC. Um aplicativo complementar, Virtual MIDI Keyboard, fornece um teclado de piano
+a partir de teclados e controladores, e mixagem de todas as faixas em um unico arquivo de audio
+(WAV, FLAC, MP3, Ogg Vorbis ou AIFF). Um aplicativo complementar, Virtual MIDI Keyboard, fornece um teclado de piano
 virtual para envio de notas MIDI.
 
 Musician's Canvas foi projetado para facilidade de uso, oferecendo recursos comumente
@@ -26,7 +26,7 @@ encontrados em estacoes de trabalho de audio digital (DAWs):
 - Conversao de taxa de amostragem de alta qualidade para gravacao em qualquer taxa de amostragem do projeto
 - Deteccao automatica de dispositivos mono/estereo
 - Configuracoes baseadas em projeto com opcoes especificas por projeto
-- Mixagem para WAV ou FLAC
+- Mixagem para WAV, FLAC, MP3, Ogg Vorbis ou AIFF (bitrate/qualidade opcionais para MP3 e Ogg em **Mix tracks to file**)
 - Temas escuro e claro
 - Localizado em 18 idiomas incluindo English, Deutsch, Español, Français, Japanese, Português, Chinese, Русский, Svenska, Suomi, Dansk, Norsk, Polski, Ελληνικά, Gaeilge, Cymraeg e Pirate
 - Aplicativo complementar Virtual MIDI Keyboard
@@ -340,8 +340,8 @@ para um unico arquivo de audio. Um dialogo permite que voce escolha o caminho de
 o formato:
 
 - **Arquivo de saida**: Navegue para selecionar o caminho do arquivo de destino.
-- **Formato**: Escolha entre FLAC (compressao sem perdas, arquivos menores) ou WAV
-  (sem compressao).
+- **Formato**: Escolha a extensao ao salvar — **FLAC** (compressao sem perdas), **WAV** (PCM sem compressao), **MP3**, **Ogg Vorbis** ou **AIFF**. Formatos com perda (MP3, Ogg) geram arquivos menores; WAV, FLAC e AIFF podem ser sem perdas conforme a fonte.
+- **Encoding** (somente MP3 e Ogg Vorbis): Se o nome do arquivo de destino terminar em `.mp3`, `.ogg` ou `.oga`, aparece a secao **Encoding** no dialogo. Para **MP3**, escolha CBR, ABR ou VBR e defina o bitrate ou a qualidade VBR. Para **Ogg Vorbis**, escolha VBR guiado por qualidade ou um bitrate nominal aproximado. Destinos **WAV**, **FLAC** e **AIFF** nao mostram esta secao.
 
 A mixagem usa a taxa de amostragem configurada do projeto. Faixas MIDI sao renderizadas
 usando o SoundFont configurado.

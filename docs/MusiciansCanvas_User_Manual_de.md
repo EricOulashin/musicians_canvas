@@ -26,7 +26,7 @@ häufig in digitalen Audio-Workstations (DAWs) zu finden sind:
 - Hochwertige Abtastratenkonvertierung für Aufnahmen mit beliebiger Projekt-Abtastrate
 - Automatische Mono/Stereo-Geräteerkennung
 - Projektbasierte Einstellungen mit projektspezifischen Überschreibungen
-- Abmischen in WAV, FLAC, MP3, Ogg Vorbis oder AIFF
+- Abmischen in WAV, FLAC, MP3, Ogg Vorbis oder AIFF (optional Bitrate/Qualität für MP3 und Ogg im Dialog **Mix tracks to file**)
 - Dunkles und helles Design
 - Lokalisiert in 18 Sprachen, darunter English, Deutsch, Español, Français, Japanese, Português, Chinese, Русский, Svenska, Suomi, Dansk, Norsk, Polski, Ελληνικά, Gaeilge, Cymraeg und Pirate
 - Begleitanwendung Virtual MIDI Keyboard
@@ -358,6 +358,7 @@ Formats:
 - **Format**: Legen Sie die Dateiendung beim Speichern fest — **FLAC** (verlustfreie Komprimierung),
   **WAV** (unkomprimiertes PCM), **MP3**, **Ogg Vorbis** oder **AIFF**. Verlustbehaftete Formate (MP3, Ogg)
   ergeben kleinere Dateien; WAV, FLAC und AIFF können je nach Quelle verlustfrei sein.
+- **Encoding** (nur MP3 und Ogg Vorbis): Endet der Zieldateiname auf `.mp3`, `.ogg` oder `.oga`, erscheint im Dialog der Bereich **Encoding**. Bei **MP3** wählen Sie konstante (CBR), mittlere (ABR) oder variable Bitrate (VBR) und stellen Bitrate bzw. VBR-Qualität ein. Bei **Ogg Vorbis** stehen qualitätsbasiertes VBR oder eine ungefähre nominale Bitrate zur Verfügung. Für **WAV**, **FLAC** und **AIFF** wird dieser Bereich nicht angezeigt.
 
 Die Abmischung verwendet die konfigurierte Projekt-Abtastrate. MIDI-Spuren werden mit dem
 konfigurierten SoundFont gerendert. **Gain**, **Pan**, **Stumm/Solo**, **Aux-Send** und **Trim**

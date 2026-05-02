@@ -19,7 +19,7 @@ GUI 库。此应用程序旨在为 Linux、Windows 和 Mac OS 构建。易用性
 - **叠录**：在现有轨道启用的情况下录制新轨道时，现有轨道会被混音并实时播放，让您在录音时能够听到它们。播放和录制是同步的，以保持所有轨道对齐
 - **视觉反馈**：音频轨道的音频波形显示（录音期间有实时电平表），MIDI 轨道的 MIDI 钢琴卷帘
 - **内置 MIDI 合成器**：使用 FluidSynth 搭配可配置的 SoundFont 将 MIDI 轨道渲染为音频
-- **混音为单一音频文件**：使用 [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp) 库将所有启用的轨道导出为单一混音的 WAV 或 FLAC 文件
+- **混音为单一音频文件**：使用 [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp) 库（**Tools → Mix tracks to file**）将所有启用的轨道导出为单个混音文件（WAV、FLAC、MP3、Ogg Vorbis、AIFF）。编码使用同源项目的相同类（`MP3File`、`OggFile`、`AiffFile`）以及 **libsndfile**。若目标格式为 **MP3** 或 **Ogg Vorbis**，混音对话框会显示 **Encoding** 分区，用于设置比特率模式与音质（例如 MP3 的 CBR/ABR/VBR，以及 Ogg 的音质型 VBR 或近似标称比特率）；**WAV**、**FLAC**、**AIFF** 不在该对话框中提供比特率选项。
 - **保存/打开项目**：将完整项目（轨道、名称、类型、MIDI 音符、音频文件引用）序列化到 JSON 文件并从中恢复，退出时可检测未保存的更改
 - **项目特定设置**：按项目覆盖全局 MIDI 和音频默认值（采样率、SoundFont、MIDI 设备）
 - **PortAudio 捕获（可选构建）**：当项目使用 PortAudio 构建时（`HAVE_PORTAUDIO`），录音可以使用原生 PortAudio 输入路径（精神上类似 Audacity）而非 Qt Multimedia。**Project → Project Settings → Audio** 可让您选择 **PortAudio** 或 **Qt Multimedia** 并选取 PortAudio 输入设备。若未安装 PortAudio，构建仍会成功，录音仅使用 Qt Multimedia。
@@ -296,7 +296,7 @@ cd docs
 6. **项目设置**：使用 **Project → Project Settings**（Ctrl+P）仅为当前项目覆盖 MIDI 和音频设置（例如每首歌不同的采样率或 SoundFont）
 7. **录音**：在目标轨道上勾选"Arm"，然后点击录音按钮（红色圆圈）。一次只能有一个轨道处于预备录音状态
 8. **播放**：点击播放按钮以混音并播放所有启用的轨道
-9. **混音为文件**：使用 **Tools → Mix tracks to file**（Ctrl+M）导出为 WAV 或 FLAC
+9. **混音为文件**：使用 **Tools → Mix tracks to file**（Ctrl+M）导出为 WAV、FLAC、MP3、Ogg Vorbis、AIFF。**MP3** 与 **Ogg** 请在混音前于对话框的 **Encoding** 分区设置比特率或音质。
 10. **保存/打开**：使用 **File → Save Project**（Ctrl+S）和 **File → Open Project**（Ctrl+O）
 
 ### virtual_midi_keyboard

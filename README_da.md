@@ -19,7 +19,7 @@ på at lave noget bedre.
 - **Overdub-optagelse**: Når du optager et nyt spor, mens eksisterende spor er aktiveret, mikses og afspilles de eksisterende spor i realtid, så du kan høre dem, mens du optager. Afspilning og optagelse er synkroniseret for at holde alle spor justeret
 - **Visuel feedback**: Lydbølgeformsvisning for lydspor (med live-niveaumåler under optagelse), MIDI-pianorulle for MIDI-spor
 - **Indbygget MIDI-synthesizer**: Renderer MIDI-spor til lyd ved hjælp af FluidSynth med en konfigurerbar SoundFont
-- **Miks til enkelt lydfil**: Eksporter alle aktiverede spor til en enkelt mikset WAV- eller FLAC-fil ved hjælp af [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp)-biblioteket
+- **Miks til enkelt lydfil**: Eksporter alle aktiverede spor til én mikset fil (WAV, FLAC, MP3, Ogg Vorbis eller AIFF) med [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp) (**Tools → Mix tracks to file**). Kodning bruger de samme klasser som søsterprojektet (`MP3File`, `OggFile`, `AiffFile`) og **libsndfile**. Ved destination **MP3** eller **Ogg Vorbis** vises **Encoding** til bitrate og kvalitet (MP3 CBR/ABR/VBR og Ogg kvalitet eller ca. nominel bitrate); **WAV**, **FLAC** og **AIFF** har ikke disse valg.
 - **Gem / Åbn projekt**: Serialiser og gendan det fulde projekt (spor, navne, typer, MIDI-noder, lydfil-referencer) til/fra en JSON-fil med detektion af ugemte ændringer ved afslutning
 - **Projektspecifikke indstillinger**: Tilsidesæt globale MIDI- og lydstandardindstillinger per projekt (samplerate, SoundFont, MIDI-enhed)
 - **PortAudio-optagelse (valgfrit build)**: Når projektet bygges med PortAudio (`HAVE_PORTAUDIO`), kan optagelsen bruge en nativ PortAudio-inputsti (lignende i ånd som Audacity) i stedet for Qt Multimedia. **Project → Project Settings → Audio** lader dig vælge **PortAudio** eller **Qt Multimedia** og vælge en PortAudio-inputenhed. Hvis PortAudio ikke er installeret, lykkes bygningen stadig, og optagelsen bruger kun Qt Multimedia.
@@ -297,7 +297,7 @@ Den genererede HTML skrives til `docs/html/` og PDF'en til `docs/MusiciansCanvas
 6. **Projektindstillinger**: Brug **Project → Project Settings** (Ctrl+P) til at tilsidesætte MIDI- og lydindstillinger kun for det aktuelle projekt (f.eks. en anden samplerate eller SoundFont per sang)
 7. **Optag**: Sæt hak ved "Arm" på målsporet, klik derefter på optagelsesknappen (rød cirkel). Kun ét spor kan være armeret ad gangen
 8. **Afspil**: Klik på afspilningsknappen for at mikse og afspille alle aktiverede spor
-9. **Miks til fil**: Brug **Tools → Mix tracks to file** (Ctrl+M) til at eksportere til WAV eller FLAC
+9. **Miks til fil**: Brug **Tools → Mix tracks to file** (Ctrl+M) til at eksportere til WAV, FLAC, MP3, Ogg Vorbis eller AIFF. For **MP3** og **Ogg** skal du indstille bitrate eller kvalitet under **Encoding** før miks.
 10. **Gem / Åbn**: Brug **File → Save Project** (Ctrl+S) og **File → Open Project** (Ctrl+O)
 
 ### virtual_midi_keyboard

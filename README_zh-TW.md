@@ -19,7 +19,7 @@ GUI 函式庫。此應用程式旨在為 Linux、Windows 和 Mac OS 構建。易
 - **疊錄**：在現有軌道啟用的情況下錄製新軌道時，現有軌道會被混音並即時播放，讓您在錄音時能夠聽到它們。播放和錄製是同步的，以保持所有軌道對齊
 - **視覺回饋**：音訊軌道的音訊波形顯示（錄音期間有即時電平表），MIDI 軌道的 MIDI 鋼琴捲簾
 - **內建 MIDI 合成器**：使用 FluidSynth 搭配可設定的 SoundFont 將 MIDI 軌道渲染為音訊
-- **混音為單一音訊檔案**：使用 [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp) 函式庫將所有啟用的軌道匯出為單一混音的 WAV 或 FLAC 檔案
+- **混音為單一音訊檔案**：使用 [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp) 函式庫（**Tools → Mix tracks to file**）將所有啟用的軌道匯出為單一混音檔（WAV、FLAC、MP3、Ogg Vorbis、AIFF）。編碼沿用同源專案的類別（`MP3File`、`OggFile`、`AiffFile`）與 **libsndfile**。若目的地為 **MP3** 或 **Ogg Vorbis**，混音對話框會顯示 **Encoding** 區塊以設定位元率模式與品質（例如 MP3 的 CBR/ABR/VBR，以及 Ogg 的品質型 VBR 或近似標稱位元率）；**WAV**、**FLAC**、**AIFF** 在此對話框不提供位元率選項。
 - **儲存/開啟專案**：將完整專案（軌道、名稱、類型、MIDI 音符、音訊檔案參照）序列化到 JSON 檔案並從中還原，退出時可偵測未儲存的變更
 - **專案特定設定**：按專案覆寫全域 MIDI 和音訊預設值（取樣率、SoundFont、MIDI 裝置）
 - **PortAudio 擷取（選用構建）**：當專案使用 PortAudio 構建時（`HAVE_PORTAUDIO`），錄音可以使用原生 PortAudio 輸入路徑（精神上類似 Audacity）而非 Qt Multimedia。**Project → Project Settings → Audio** 可讓您選擇 **PortAudio** 或 **Qt Multimedia** 並選取 PortAudio 輸入裝置。若未安裝 PortAudio，構建仍會成功，錄音僅使用 Qt Multimedia。
@@ -296,7 +296,7 @@ cd docs
 6. **專案設定**：使用 **Project → Project Settings**（Ctrl+P）僅為目前專案覆寫 MIDI 和音訊設定（例如每首歌不同的取樣率或 SoundFont）
 7. **錄音**：在目標軌道上勾選「Arm」，然後點擊錄音按鈕（紅色圓圈）。一次只能有一個軌道處於待錄狀態
 8. **播放**：點擊播放按鈕以混音並播放所有啟用的軌道
-9. **混音為檔案**：使用 **Tools → Mix tracks to file**（Ctrl+M）匯出為 WAV 或 FLAC
+9. **混音為檔案**：使用 **Tools → Mix tracks to file**（Ctrl+M）匯出為 WAV、FLAC、MP3、Ogg Vorbis、AIFF。**MP3** 與 **Ogg** 請在混音前於對話框的 **Encoding** 區設定位元率或品質。
 10. **儲存/開啟**：使用 **File → Save Project**（Ctrl+S）和 **File → Open Project**（Ctrl+O）
 
 ### virtual_midi_keyboard

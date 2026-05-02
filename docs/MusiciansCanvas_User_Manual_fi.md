@@ -13,7 +13,7 @@ lang: "fi"
 
 Musician's Canvas on moniraitainen musiikin tallennussovellus pöytätietokoneille. Se tukee
 äänen tallennusta mikrofoneista ja linjasisääntuloista, MIDI-tallennusta koskettimistoista ja
-ohjaimista sekä kaikkien raitojen miksausta yhdeksi WAV- tai FLAC-tiedostoksi. Lisäsovellus
+ohjaimista sekä kaikkien raitojen miksausta yhdeksi äänitiedostoksi (WAV, FLAC, MP3, Ogg Vorbis tai AIFF). Lisäsovellus
 Virtual MIDI Keyboard tarjoaa ohjelmistopianokoskettimiston MIDI-nuottien lähettämiseen.
 
 Musician's Canvas on suunniteltu helppokäyttöiseksi, ja se tarjoaa samalla digitaalisille
@@ -25,7 +25,7 @@ Musician's Canvas on suunniteltu helppokäyttöiseksi, ja se tarjoaa samalla dig
 - Korkealaatuinen näytteenottotaajuuden muunnos tallennukseen millä tahansa projektin näytteenottotaajuudella
 - Automaattinen mono/stereo-laitetunnistus
 - Projektikohtaiset asetukset projektikohtaisilla ohituksilla
-- Miksaus WAV- tai FLAC-muotoon
+- Miksaus WAV-, FLAC-, MP3-, Ogg Vorbis- tai AIFF-muotoon (valinnainen bittinopeus/laatu MP3:lle ja Oggille dialogissa **Mix tracks to file**)
 - Tumma ja vaalea teema
 - Lokalisoitu useille kielille (englanti, saksa, espanja, ranska, japani, portugali, kiina ja Pirate)
 - Lisäsovellus Virtual MIDI Keyboard
@@ -323,7 +323,8 @@ Käytä **Tools > Mix tracks to file** (Ctrl+M) viedäksesi kaikki käytössä o
 äänitiedostoksi. Valintaikkuna antaa sinun valita tulostuspolun ja muodon:
 
 - **Tulostiedosto**: Selaa valitaksesi kohdetiedoston polun.
-- **Muoto**: Valitse FLAC (häviötön pakkaus, pienemmät tiedostot) tai WAV (pakkaamaton).
+- **Muoto**: Valitse tallennuksessa tiedostopääte — **FLAC** (häviötön pakkaus), **WAV** (pakkaamaton PCM), **MP3**, **Ogg Vorbis** tai **AIFF**. Häviölliset muodot (MP3, Ogg) tuottavat pienempiä tiedostoja; WAV, FLAC ja AIFF voivat olla häviöttömiä lähteestä riippuen.
+- **Encoding** (vain MP3 ja Ogg Vorbis): Jos kohdetiedoston nimi päättyy `.mp3`-, `.ogg`- tai `.oga`-päätteeseen, valintaikkunaan tulee **Encoding**-osio. **MP3**:lle valitse CBR, ABR tai VBR ja aseta bittinopeus tai VBR-laatu. **Ogg Vorbis** -tapauksessa laatuun perustuva muuttuva bittinopeus tai likimääräinen nimellisbittinopeus. **WAV**-, **FLAC**- ja **AIFF** -kohteissa tätä osiota ei näytetä.
 
 Miksaus käyttää projektin määritettyä näytteenottotaajuutta. MIDI-raidat renderöidään käyttäen
 määritettyä SoundFont-tiedostoa.

@@ -11,7 +11,7 @@ lang: "pl"
 
 ## Wprowadzenie
 
-Musician's Canvas to wielościeżkowa aplikacja do nagrywania muzyki na komputery stacjonarne. Obsługuje nagrywanie dźwięku z mikrofonów i urządzeń line-in, nagrywanie MIDI z klawiatur i kontrolerów oraz miksowanie wszystkich ścieżek do jednego pliku WAV lub FLAC. Aplikacja towarzysząca, Virtual MIDI Keyboard, udostępnia programową klawiaturę fortepianową do wysyłania nut MIDI.
+Musician's Canvas to wielościeżkowa aplikacja do nagrywania muzyki na komputery stacjonarne. Obsługuje nagrywanie dźwięku z mikrofonów i urządzeń line-in, nagrywanie MIDI z klawiatur i kontrolerów oraz miksowanie wszystkich ścieżek do jednego pliku audio (WAV, FLAC, MP3, Ogg Vorbis lub AIFF). Aplikacja towarzysząca, Virtual MIDI Keyboard, udostępnia programową klawiaturę fortepianową do wysyłania nut MIDI.
 
 Musician's Canvas został zaprojektowany z myślą o łatwości użytkowania, oferując jednocześnie funkcje powszechnie spotykane w cyfrowych stacjach roboczych audio (DAW):
 
@@ -21,7 +21,7 @@ Musician's Canvas został zaprojektowany z myślą o łatwości użytkowania, of
 - Wysokiej jakości konwersja częstotliwości próbkowania przy nagrywaniu z dowolną częstotliwością próbkowania projektu
 - Automatyczne wykrywanie urządzeń mono/stereo
 - Ustawienia oparte na projektach z nadpisywaniem ustawień per projekt
-- Miksowanie do WAV lub FLAC
+- Miksowanie do WAV, FLAC, MP3, Ogg Vorbis lub AIFF (opcjonalny bitrate/jakość dla MP3 i Ogg w **Mix tracks to file**)
 - Ciemne i jasne motywy
 - Lokalizacja w wielu językach (angielski, niemiecki, hiszpański, francuski, japoński, portugalski, chiński i piracki)
 - Aplikacja towarzysząca Virtual MIDI Keyboard
@@ -280,7 +280,8 @@ Kliknij przycisk **Stop**, aby zakończyć odtwarzanie w dowolnym momencie.
 Użyj **Tools > Mix tracks to file** (Ctrl+M), aby wyeksportować wszystkie włączone ścieżki do pojedynczego pliku audio. Dialog pozwala wybrać ścieżkę wyjściową i format:
 
 - **Plik wyjściowy**: Przejdź, aby wybrać docelową ścieżkę pliku.
-- **Format**: Wybierz między FLAC (bezstratna kompresja, mniejsze pliki) lub WAV (nieskompresowany).
+- **Format**: Wybierz rozszerzenie przy zapisie — **FLAC** (kompresja bezstratna), **WAV** (nieskompresowany PCM), **MP3**, **Ogg Vorbis** lub **AIFF**. Formaty stratne (MP3, Ogg) dają mniejsze pliki; WAV, FLAC i AIFF mogą być bezstratne w zależności od źródła.
+- **Encoding** (tylko MP3 i Ogg Vorbis): Jeśli nazwa pliku docelowego kończy się na `.mp3`, `.ogg` lub `.oga`, w oknie pojawia się sekcja **Encoding**. Dla **MP3** wybierz CBR, ABR lub VBR i ustaw bitrate lub jakość VBR. Dla **Ogg Vorbis** — VBR oparty na jakości lub przybliżony nominalny bitrate. Dla **WAV**, **FLAC** i **AIFF** ta sekcja się nie pokazuje.
 
 Miks używa skonfigurowanej częstotliwości próbkowania projektu. Ścieżki MIDI są renderowane przy użyciu skonfigurowanego SoundFont.
 

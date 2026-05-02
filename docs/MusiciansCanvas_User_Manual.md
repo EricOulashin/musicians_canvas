@@ -24,7 +24,7 @@ digital audio workstations (DAWs):
 - High-quality sample-rate conversion for recording at any project sample rate
 - Automatic mono/stereo device detection
 - Project-based settings with per-project overrides
-- Mix to WAV, FLAC, MP3, Ogg Vorbis, or AIFF
+- Mix to WAV, FLAC, MP3, Ogg Vorbis, or AIFF (with optional bitrate/quality for MP3 and Ogg in **Mix tracks to file**)
 - Dark and light themes
 - Localized in 18 languages including English, German, Spanish, French, Japanese, Portuguese, Chinese, Russian, Swedish, Finnish, Danish, Norwegian, Polish, Greek, Irish, Welsh, and Pirate
 - Companion Virtual MIDI Keyboard application
@@ -350,6 +350,7 @@ audio file. A dialog lets you choose the output path and format:
 - **Format**: Choose the file extension when you browse — **FLAC** (lossless compression),
   **WAV** (uncompressed PCM), **MP3**, **Ogg Vorbis**, or **AIFF**. Lossy formats (MP3, Ogg)
   produce smaller files; WAV, FLAC, and AIFF can be lossless depending on source content.
+- **Encoding** (MP3 and Ogg Vorbis only): If the destination filename ends with `.mp3`, `.ogg`, or `.oga`, an **Encoding** section appears in the dialog. For **MP3**, choose constant (CBR), average (ABR), or variable bitrate (VBR), and set the bitrate or VBR quality as shown. For **Ogg Vorbis**, choose quality-based variable bitrate or an approximate nominal bitrate. **WAV**, **FLAC**, and **AIFF** destinations do not show this section.
 
 The mix uses the project's configured sample rate. MIDI tracks are rendered using the
 configured SoundFont. Per-track **gain**, **pan**, **mute/solo**, **aux send**, and

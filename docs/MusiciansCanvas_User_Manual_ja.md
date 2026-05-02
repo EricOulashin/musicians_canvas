@@ -21,7 +21,7 @@ Musician's Canvasは、デジタルオーディオワークステーション（
 - 任意のプロジェクトサンプルレートで録音するための高品質サンプルレート変換
 - 自動モノラル/ステレオデバイス検出
 - プロジェクト単位の設定とプロジェクトごとのオーバーライド
-- WAV、FLAC、MP3、Ogg Vorbis、AIFFへのミックス
+- WAV、FLAC、MP3、Ogg Vorbis、AIFFへのミックス（**Mix tracks to file** で MP3／Ogg のビットレート・品質を任意指定可能）
 - ダークテーマとライトテーマ
 - 18言語にローカライズ（English、Deutsch、Español、Français、Japanese、Português、Chinese、Русский、Svenska、Suomi、Dansk、Norsk、Polski、Ελληνικά、Gaeilge、Cymraeg、Pirate）
 - コンパニオンアプリケーション Virtual MIDI Keyboard
@@ -266,7 +266,8 @@ Musician's Canvasには、録音中にテンポを保つのに役立つ内蔵メ
 **Tools > Mix tracks to file** (Ctrl+M) を使用して、すべての有効なトラックを単一のオーディオファイルにエクスポートします。ダイアログで出力パスとフォーマットを選択できます：
 
 - **出力ファイル**: 出力先のファイルパスを参照して選択します。
-- **フォーマット**: FLAC（ロスレス圧縮、小さいファイルサイズ）またはWAV（非圧縮）から選択します。
+- **フォーマット**: 保存時の拡張子で選びます — **FLAC**（可逆圧縮）、**WAV**（非圧縮 PCM）、**MP3**、**Ogg Vorbis**、**AIFF**。ロッシー形式（MP3、Ogg）はファイルが小さくなります。WAV、FLAC、AIFF はソースによって可逆にできます。
+- **Encoding**（MP3 と Ogg Vorbis のみ）: 保存先のファイル名が `.mp3`、`.ogg`、`.oga` で終わる場合、ダイアログに **Encoding** セクションが表示されます。**MP3** では CBR、ABR、VBR を選び、ビットレートまたは VBR 品質を設定します。**Ogg Vorbis** では品質ベースの可変ビットレート、またはおおよその名目ビットレートを選びます。**WAV**、**FLAC**、**AIFF** ではこのセクションは表示されません。
 
 ミックスにはプロジェクトの設定サンプルレートが使用されます。MIDIトラックは設定されたSoundFontを使用してレンダリングされます。
 

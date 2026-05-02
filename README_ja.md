@@ -14,7 +14,7 @@
 - **オーバーダブ録音**：既存のトラックが有効な状態で新しいトラックを録音すると、既存のトラックがミックスされてリアルタイムで再生されるため、録音中に聴くことができます。再生とキャプチャは同期され、すべてのトラックが揃った状態を維持します
 - **ビジュアルフィードバック**：オーディオトラック用のオーディオ波形表示（録音中のライブレベルメーター付き）、MIDIトラック用のMIDIピアノロール
 - **内蔵MIDIシンセサイザー**：設定可能なSoundFontを使用してFluidSynthでMIDIトラックをオーディオにレンダリング
-- **単一オーディオファイルへのミックス**：[audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp)ライブラリを使用して、有効なすべてのトラックを単一のミックスされたWAVまたはFLACファイルにエクスポート
+- **単一オーディオファイルへのミックス**：[audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp) ライブラリ（**Tools → Mix tracks to file**）により、有効なすべてのトラックを1つのミックスファイル（WAV、FLAC、MP3、Ogg Vorbis、AIFF）にエクスポート。エンコードは関連プロジェクトと同じクラス（`MP3File`、`OggFile`、`AiffFile`）と **libsndfile** を使用。出力が **MP3** または **Ogg Vorbis** のとき、ミックスダイアログに **Encoding** セクションが表示され、ビットレートモードや品質（MP3 の CBR/ABR/VBR、Ogg の品質ベースまたはおおよそのビットレート）を設定できます。**WAV**、**FLAC**、**AIFF** ではそのダイアログにビットレート設定はありません。
 - **プロジェクトの保存/開く**：完全なプロジェクト（トラック、名前、タイプ、MIDIノート、オーディオファイル参照）をJSONファイルにシリアライズおよび復元。終了時に未保存の変更を検出
 - **プロジェクト固有の設定**：プロジェクトごとにグローバルMIDIおよびオーディオのデフォルトを上書き（サンプルレート、SoundFont、MIDIデバイス）
 - **PortAudioキャプチャ（オプションビルド）**：プロジェクトがPortAudioでビルドされている場合（`HAVE_PORTAUDIO`）、録音はQt Multimediaの代わりにネイティブPortAudio入力パスを使用できます（Audacityと同様の精神）。**Project → Project Settings → Audio** で **PortAudio** または **Qt Multimedia** を選択し、PortAudio入力デバイスを選択できます。PortAudioがインストールされていない場合でもビルドは成功し、録音はQt Multimediaのみを使用します。
@@ -290,7 +290,7 @@ cd docs
 6. **プロジェクト設定**：**Project → Project Settings**（Ctrl+P）を使用して、現在のプロジェクトのMIDIおよびオーディオ設定のみを上書き（例：曲ごとに異なるサンプルレートやSoundFont）
 7. **録音**：ターゲットトラックで「Arm」をチェックし、録音ボタン（赤い丸）をクリック。一度にアームできるトラックは1つだけです
 8. **再生**：再生ボタンをクリックして、有効なすべてのトラックをミックスして再生
-9. **ファイルにミックス**：**Tools → Mix tracks to file**（Ctrl+M）を使用してWAVまたはFLACにエクスポート
+9. **ファイルにミックス**：**Tools → Mix tracks to file**（Ctrl+M）を使用して WAV、FLAC、MP3、Ogg Vorbis、AIFF にエクスポート。**MP3** と **Ogg** では、ミックス前にダイアログの **Encoding** でビットレートまたは品質を設定します。
 10. **保存/開く**：**File → Save Project**（Ctrl+S）と**File → Open Project**（Ctrl+O）を使用
 
 ### virtual_midi_keyboard

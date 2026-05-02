@@ -5,6 +5,29 @@
 #include <QVector>
 #include "trackdata.h"
 
+/// Lossy export options for formats where \c AudioFile::BitrateIsAdjustable() is true (e.g. MP3, Ogg).
+struct MixExportEncodeSettings
+{
+    enum class Mp3BitrateKind
+    {
+        Constant,
+        Average,
+        Variable
+    };
+    Mp3BitrateKind mp3Kind = Mp3BitrateKind::Constant;
+    quint32 mp3NominalKbps = 192;
+    double mp3VbrCompressionZeroBestOneWorst = 0.35;
+
+    enum class OggEncodeKind
+    {
+        QualityVbr,
+        ApproxNominalBitrate
+    };
+    OggEncodeKind oggKind = OggEncodeKind::QualityVbr;
+    double oggQualityBestOneWorstZero = 0.7;
+    quint32 oggApproxNominalKbps = 192;
+};
+
 class AudioUtils
 {
 public:
@@ -27,7 +50,11 @@ public:
                                const QString& soundFontPath = QString(),
                                bool renderMidiToAudio = true,
                                double midiGainMultiplier = 1.0,
-                               const QJsonArray& auxEffectChain = QJsonArray());
+                               const QJsonArray& auxEffectChain = QJsonArray(),
+                               const MixExportEncodeSettings* encodeSettings = nullptr);
+
+    /// True when \p path selects a format that supports user-chosen encoding (MP3, Ogg Vorbis).
+    [[nodiscard]] static bool exportDestinationSupportsAdjustableBitrate(const QString& path);
 
     /// Export each non-empty track as its own file (mixer gain/pan/trim; no aux/master FX).
     /// \p outputExtension must include the dot (e.g. ".wav", ".flac", ".mp3").
@@ -44,7 +71,8 @@ public:
     [[nodiscard]] static bool writeInt16PcmToAudioFile(const QByteArray& int16Data,
                                                       int sampleRate,
                                                       int channelCount,
-                                                      const QString& path);
+                                                      const QString& path,
+                                                      const MixExportEncodeSettings* encodeSettings = nullptr);
 
     // Encode Int16 PCM audio data to a FLAC file via a temporary WAV intermediate.
     // Returns true on success.

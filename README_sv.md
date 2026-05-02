@@ -19,7 +19,7 @@ att skapa något bättre.
 - **Overdub-inspelning**: Vid inspelning av ett nytt spår medan befintliga spår är aktiverade, mixas och spelas de befintliga spåren upp i realtid så att du kan höra dem medan du spelar in. Uppspelning och fångst är synkroniserade för att hålla alla spår justerade
 - **Visuell återkoppling**: Ljudvågsformsvisning för ljudspår (med livnivåmätare under inspelning), MIDI-pianorulle för MIDI-spår
 - **Inbyggd MIDI-synthesizer**: Renderar MIDI-spår till ljud med FluidSynth och en konfigurerbar SoundFont
-- **Mixa till en enda ljudfil**: Exportera alla aktiverade spår till en enda mixad WAV- eller FLAC-fil med hjälp av biblioteket [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp)
+- **Mixa till en enda ljudfil**: Exportera alla aktiverade spår till en enda mixad fil (WAV, FLAC, MP3, Ogg Vorbis eller AIFF) med biblioteket [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp) (**Tools → Mix tracks to file**). Kodning använder samma klasser som syskonprojektet (`MP3File`, `OggFile`, `AiffFile`) tillsammans med **libsndfile**. Vid destination **MP3** eller **Ogg Vorbis** visas avsnittet **Encoding** för bithastighetsläge och kvalitet (MP3 CBR/ABR/VBR och Ogg kvalitet eller ungefärlig nominell bithastighet); **WAV**, **FLAC** och **AIFF** har inga sådana reglage.
 - **Spara / Öppna projekt**: Serialisera och återställa hela projektet (spår, namn, typer, MIDI-noter, ljudfilsreferenser) till/från en JSON-fil, med detektering av osparade ändringar vid avslut
 - **Projektspecifika inställningar**: Åsidosätta globala MIDI- och ljudstandardvärden per projekt (samplingsfrekvens, SoundFont, MIDI-enhet)
 - **PortAudio-inspelning (valfritt bygge)**: När projektet byggs med PortAudio (`HAVE_PORTAUDIO`) kan inspelningen använda en nativ PortAudio-inmatningsväg (liknande i anda som Audacity) istället för Qt Multimedia. **Project → Project Settings → Audio** låter dig välja **PortAudio** eller **Qt Multimedia** och välja en PortAudio-inmatningsenhet. Om PortAudio inte är installerat lyckas bygget ändå och inspelningen använder bara Qt Multimedia.
@@ -297,7 +297,7 @@ Den genererade HTML:en skrivs till `docs/html/` och PDF:en till `docs/MusiciansC
 6. **Projektinställningar**: Använd **Project → Project Settings** (Ctrl+P) för att åsidosätta MIDI- och ljudinställningar bara för det aktuella projektet (t.ex. en annan samplingsfrekvens eller SoundFont per låt)
 7. **Spela in**: Markera "Arm" på målspåret, klicka sedan på inspelningsknappen (röd cirkel). Bara ett spår kan vara armerat åt gången
 8. **Spela upp**: Klicka på uppspelningsknappen för att mixa och spela upp alla aktiverade spår
-9. **Mixa till fil**: Använd **Tools → Mix tracks to file** (Ctrl+M) för att exportera till WAV eller FLAC
+9. **Mixa till fil**: Använd **Tools → Mix tracks to file** (Ctrl+M) för att exportera till WAV, FLAC, MP3, Ogg Vorbis eller AIFF. För **MP3** och **Ogg**, ställ in bithastighet eller kvalitet under **Encoding** innan du mixar.
 10. **Spara / Öppna**: Använd **File → Save Project** (Ctrl+S) och **File → Open Project** (Ctrl+O)
 
 ### virtual_midi_keyboard

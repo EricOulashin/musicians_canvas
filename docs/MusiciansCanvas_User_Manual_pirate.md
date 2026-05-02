@@ -21,7 +21,7 @@ Musician's Canvas be designed fer ease o' use while providin' features commonly 
 - High-quality sample-rate conversion fer plunderin' at any project sample rate
 - Automatic mono/stereo device detection -- she figures it out on 'er own!
 - Project-based settings with per-project overrides
-- Mix to WAV, FLAC, MP3, Ogg Vorbis, or AIFF
+- Mix to WAV, FLAC, MP3, Ogg Vorbis, or AIFF (optional bitrate or quality fer MP3 an' Ogg in **Mix tracks to file**)
 - Dark an' light themes (fer sailin' by night or by day)
 - Localized in 18 tongues includin' English, Deutsch, Español, Français, Japanese, Português, Chinese, Русский, Svenska, Suomi, Dansk, Norsk, Polski, Ελληνικά, Gaeilge, Cymraeg, an' Pirate -- the finest language on the seven seas!
 - Companion Virtual MIDI Keyboard application
@@ -274,6 +274,7 @@ Use **Tools > Mix tracks to file** (Ctrl+M) to export all enabled shanties to a 
 
 - **Output file**: Browse to select the destination file path -- where shall we bury this treasure?
 - **Format**: Pick the extension when ye browse — **FLAC** (lossless compression), **WAV** (PCM), **MP3**, **Ogg Vorbis**, or **AIFF**. Lossy codecs shrink the chest; WAV, FLAC, an' AIFF stay true dependin' on the voyage.
+- **Encoding** (MP3 an' Ogg Vorbis only): If the destination filename ends with `.mp3`, `.ogg`, or `.oga`, an **Encoding** section appears in the dialog. Fer **MP3**, choose CBR, ABR, or VBR an' set the bitrate or VBR quality. Fer **Ogg Vorbis**, choose quality-based VBR or an approximate nominal bitrate. **WAV**, **FLAC**, an' **AIFF** destinations don't show this section.
 
 The mix uses the project's configured sample rate. MIDI shanties be rendered using the configured SoundFont.
 

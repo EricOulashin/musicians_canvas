@@ -11,7 +11,7 @@ lang: "ga"
 
 ## Réamhrá
 
-Is feidhmchlár taifeadta ceoil il-rian do ríomhairí deisce é Musician's Canvas. Tacaíonn sé le taifeadadh fuaime ó mhicreafóin agus gléasanna line-in, taifeadadh MIDI ó mhéarchláir agus rialtóirí, agus meascadh na rianta go léir i gcomhad WAV nó FLAC amháin. Soláthraíonn feidhmchlár comhpháirteach, Virtual MIDI Keyboard, méarchlár pianó bogearraí chun nótaí MIDI a sheoladh.
+Is feidhmchlár taifeadta ceoil il-rian do ríomhairí deisce é Musician's Canvas. Tacaíonn sé le taifeadadh fuaime ó mhicreafóin agus gléasanna line-in, taifeadadh MIDI ó mhéarchláir agus rialtóirí, agus meascadh na rianta go léir i gcomhad amháin (WAV, FLAC, MP3, Ogg Vorbis nó AIFF). Soláthraíonn feidhmchlár comhpháirteach, Virtual MIDI Keyboard, méarchlár pianó bogearraí chun nótaí MIDI a sheoladh.
 
 Tá Musician's Canvas deartha le bheith éasca le húsáid agus gnéithe a thairiscint a fhaightear go coitianta i stáisiúin oibre fuaime digiteacha (DAWanna):
 
@@ -21,7 +21,7 @@ Tá Musician's Canvas deartha le bheith éasca le húsáid agus gnéithe a thair
 - Tiontú ardchaighdeáin ráta samplála le haghaidh taifeadta ag aon ráta samplála tionscadail
 - Braith uathoibríoch monafónach/steiréafónach ar ghléasanna
 - Socruithe bunaithe ar thionscadal le forchealú in aghaidh an tionscadail
-- Measc go WAV nó FLAC
+- Measc go WAV, FLAC, MP3, Ogg Vorbis nó AIFF (roghanna bitrate/cáilíocht roghnach do MP3 agus Ogg i **Mix tracks to file**)
 - Téamaí dorcha agus éadroma
 - Logánaithe i dteangacha iomaí (Béarla, Gearmáinis, Spáinnis, Fraincis, Seapáinis, Portaingéilis, Sínis, agus Foghlaeireacht)
 - Feidhmchlár comhpháirteach Virtual MIDI Keyboard
@@ -278,7 +278,8 @@ Cliceáil an cnaipe **Stop** chun an athsheinm a chríochnú ag am ar bith.
 Úsáid **Tools > Mix tracks to file** (Ctrl+M) chun gach rian cumasaithe a easpórtáil go comhad fuaime amháin. Ligeann dialóg duit an cosán aschuir agus an formáid a roghnú:
 
 - **Comhad aschuir**: Brabhsáil chun cosán comhad cinn scríbe a roghnú.
-- **Formáid**: Roghnaigh idir FLAC (comhbhrú gan chaillteanas, comhaid níos lú) nó WAV (neamh-chomhbhrúite).
+- **Formáid**: Roghnaigh an iarmhír agus tú ag sábháil — **FLAC** (comhbhrú gan chaillteanas), **WAV** (PCM neamh-chomhbhrúite), **MP3**, **Ogg Vorbis** nó **AIFF**. Is iad formáidí le caillteanas (MP3, Ogg) a chruthaíonn comhaid níos lú; is féidir le WAV, FLAC agus AIFF fanacht gan chaillteanas ag brath ar an bhfoinse.
+- **Encoding** (MP3 agus Ogg Vorbis amháin): Má chríochnaíonn ainm an chomhaid sprioc le `.mp3`, `.ogg` nó `.oga`, feictear rannóg **Encoding** sa dialóg. Do **MP3**, roghnaigh CBR, ABR nó VBR agus socraigh an bitrate nó cáilíocht VBR. Do **Ogg Vorbis**, roghnaigh VBR bunaithe ar cháilíocht nó bitrate ainmniúil gar-chruinn. Ní thaispeántar an rannóg seo do **WAV**, **FLAC** ná **AIFF**.
 
 Úsáideann an meascadh ráta samplála cumraithe an tionscadail. Rindreáiltear rianta MIDI ag úsáid an SoundFont cumraithe.
 

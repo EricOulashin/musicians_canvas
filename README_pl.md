@@ -19,7 +19,7 @@ stworzenia czegoś lepszego.
 - **Nagrywanie overdub**: Podczas nagrywania nowej ścieżki, gdy istniejące ścieżki są włączone, istniejące ścieżki są miksowane i odtwarzane w czasie rzeczywistym, abyś mógł je słyszeć podczas nagrywania. Odtwarzanie i przechwytywanie są synchronizowane, aby utrzymać wyrównanie wszystkich ścieżek
 - **Wizualne sprzężenie zwrotne**: Wyświetlanie fali dźwiękowej dla ścieżek audio (z miernikiem poziomu na żywo podczas nagrywania), widok MIDI piano roll dla ścieżek MIDI
 - **Wbudowany syntezator MIDI**: Renderuje ścieżki MIDI do dźwięku przy użyciu FluidSynth z konfigurowalnym SoundFont
-- **Miksowanie do pojedynczego pliku audio**: Eksport wszystkich włączonych ścieżek do pojedynczego zmiksowanego pliku WAV lub FLAC przy użyciu biblioteki [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp)
+- **Miksowanie do pojedynczego pliku audio**: Eksport wszystkich włączonych ścieżek do pojedynczego zmiksowanego pliku (WAV, FLAC, MP3, Ogg Vorbis lub AIFF) przy użyciu biblioteki [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp) (**Tools → Mix tracks to file**). Kodowanie wykorzystuje te same klasy co projekt pokrewny (`MP3File`, `OggFile`, `AiffFile`) oraz **libsndfile**. Gdy celem jest **MP3** lub **Ogg Vorbis**, dialog miksu pokazuje sekcję **Encoding** do wyboru trybu bitrate i jakości (MP3 CBR/ABR/VBR oraz Ogg wg jakości lub przybliżonego nominalnego bitrate); **WAV**, **FLAC** i **AIFF** nie oferują tam ustawień bitrate.
 - **Zapisz / Otwórz projekt**: Serializacja i przywracanie pełnego projektu (ścieżki, nazwy, typy, nuty MIDI, odniesienia do plików audio) do/z pliku JSON, z wykrywaniem niezapisanych zmian przy wyjściu
 - **Ustawienia specyficzne dla projektu**: Nadpisywanie globalnych domyślnych ustawień MIDI i audio per projekt (częstotliwość próbkowania, SoundFont, urządzenie MIDI)
 - **Przechwytywanie PortAudio (opcjonalna kompilacja)**: Gdy projekt jest zbudowany z PortAudio (`HAVE_PORTAUDIO`), nagrywanie może używać natywnej ścieżki wejściowej PortAudio (podobnej w duchu do Audacity) zamiast Qt Multimedia. **Project → Project Settings → Audio** pozwala wybrać **PortAudio** lub **Qt Multimedia** i wybrać urządzenie wejściowe PortAudio. Jeśli PortAudio nie jest zainstalowane, kompilacja nadal się powiedzie, a nagrywanie używa tylko Qt Multimedia.
@@ -296,7 +296,7 @@ Wygenerowany HTML jest zapisywany do `docs/html/`, a PDF do `docs/MusiciansCanva
 6. **Ustawienia projektu**: Użyj **Project → Project Settings** (Ctrl+P), aby nadpisać ustawienia MIDI i audio tylko dla bieżącego projektu (np. inna częstotliwość próbkowania lub SoundFont per utwór)
 7. **Nagrywaj**: Zaznacz "Arm" na docelowej ścieżce, następnie kliknij przycisk nagrywania (czerwone kółko). Tylko jedna ścieżka może być uzbrojona jednocześnie
 8. **Odtwarzaj**: Kliknij przycisk odtwarzania, aby zmiksować i odtworzyć wszystkie włączone ścieżki
-9. **Miksuj do pliku**: Użyj **Tools → Mix tracks to file** (Ctrl+M), aby wyeksportować do WAV lub FLAC
+9. **Miksuj do pliku**: Użyj **Tools → Mix tracks to file** (Ctrl+M), aby wyeksportować do WAV, FLAC, MP3, Ogg Vorbis lub AIFF. Dla **MP3** i **Ogg** ustaw bitrate lub jakość w sekcji **Encoding** przed miksem.
 10. **Zapisz / Otwórz**: Użyj **File → Save Project** (Ctrl+S) i **File → Open Project** (Ctrl+O)
 
 ### virtual_midi_keyboard

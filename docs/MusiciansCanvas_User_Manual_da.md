@@ -11,7 +11,7 @@ lang: "da"
 
 ## Introduktion
 
-Musician's Canvas er en multispors musikoptagelsesapplikation til stationære computere. Den understøtter lydoptagelse fra mikrofoner og line-in-enheder, MIDI-optagelse fra keyboards og controllere samt miksning af alle spor til en enkelt WAV- eller FLAC-fil. Et ledsagerprogram, Virtual MIDI Keyboard, giver et software-klaviatur til afsendelse af MIDI-noter.
+Musician's Canvas er en multispors musikoptagelsesapplikation til stationære computere. Den understøtter lydoptagelse fra mikrofoner og line-in-enheder, MIDI-optagelse fra keyboards og controllere samt miksning af alle spor til en enkelt lydfil (WAV, FLAC, MP3, Ogg Vorbis eller AIFF). Et ledsagerprogram, Virtual MIDI Keyboard, giver et software-klaviatur til afsendelse af MIDI-noter.
 
 Musician's Canvas er designet til at være let at bruge, samtidig med at det tilbyder funktioner, der ofte findes i digitale lydarbejdsstationer (DAW'er):
 
@@ -21,7 +21,7 @@ Musician's Canvas er designet til at være let at bruge, samtidig med at det til
 - Højkvalitets sampleratekonvertering ved optagelse med enhver projektsamplerate
 - Automatisk mono/stereo-enhedsdetektering
 - Projektbaserede indstillinger med projektspecifikke tilsidesættelser
-- Miks til WAV eller FLAC
+- Miks til WAV, FLAC, MP3, Ogg Vorbis eller AIFF (valgfri bitrate/kvalitet for MP3 og Ogg i **Mix tracks to file**)
 - Mørke og lyse temaer
 - Lokaliseret på flere sprog (engelsk, tysk, spansk, fransk, japansk, portugisisk, kinesisk og pirat)
 - Ledsagerapplikation Virtual MIDI Keyboard
@@ -277,7 +277,8 @@ Klik på knappen **Stop** for at afslutte afspilningen når som helst.
 Brug **Tools > Mix tracks to file** (Ctrl+M) til at eksportere alle aktiverede spor til en enkelt lydfil. En dialog giver dig mulighed for at vælge outputstien og formatet:
 
 - **Outputfil**: Gennemse for at vælge destinationsfilstien.
-- **Format**: Vælg mellem FLAC (tabsfri komprimering, mindre filer) eller WAV (ukomprimeret).
+- **Format**: Vælg filtypenavnet ved gem — **FLAC** (tabsfri komprimering), **WAV** (ukomprimeret PCM), **MP3**, **Ogg Vorbis** eller **AIFF**. Tabende formater (MP3, Ogg) giver mindre filer; WAV, FLAC og AIFF kan være tabsfrie afhængigt af kilden.
+- **Encoding** (kun MP3 og Ogg Vorbis): Hvis destinationsfilnavnet slutter på `.mp3`, `.ogg` eller `.oga`, vises afsnittet **Encoding** i dialogen. For **MP3** vælg CBR, ABR eller VBR og angiv bitrate eller VBR-kvalitet. For **Ogg Vorbis** vælg kvalitetsbaseret variabel bitrate eller omtrentlig nominal bitrate. **WAV**, **FLAC** og **AIFF** viser ikke dette afsnit.
 
 Mikset bruger projektets konfigurerede samplerate. MIDI-spor renderes ved hjælp af den konfigurerede SoundFont.
 

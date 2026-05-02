@@ -26,7 +26,7 @@ fonctionnalités couramment présentes dans les stations de travail audio numér
 - Conversion de fréquence d'échantillonnage de haute qualité pour enregistrer à n'importe quel taux d'échantillonnage du projet
 - Détection automatique mono/stéréo des périphériques
 - Paramètres basés sur le projet avec possibilité de remplacement par projet
-- Mixage vers WAV, FLAC, MP3, Ogg Vorbis ou AIFF
+- Mixage vers WAV, FLAC, MP3, Ogg Vorbis ou AIFF (débit / qualité optionnels pour MP3 et Ogg dans **Mix tracks to file**)
 - Thèmes sombre et clair
 - Localisé en 18 langues dont English, Deutsch, Español, Français, Japanese, Português, Chinese, Русский, Svenska, Suomi, Dansk, Norsk, Polski, Ελληνικά, Gaeilge, Cymraeg et Pirate
 - Application compagnon Virtual MIDI Keyboard
@@ -360,6 +360,7 @@ sortie et le format :
 - **Format** : Indiquez l’extension lors de l’enregistrement — **FLAC** (compression sans perte),
   **WAV** (PCM non compressé), **MP3**, **Ogg Vorbis** ou **AIFF**. Les formats avec perte (MP3, Ogg)
   produisent des fichiers plus petits ; WAV, FLAC et AIFF peuvent rester sans perte selon la source.
+- **Encoding** (MP3 et Ogg Vorbis uniquement) : lorsque le nom du fichier de destination se termine par `.mp3`, `.ogg` ou `.oga`, une section **Encoding** apparaît. Pour le **MP3**, choisissez débit constant (CBR), moyen (ABR) ou variable (VBR), puis le débit ou la qualité VBR. Pour **Ogg Vorbis**, choisissez un VBR guidé par la qualité ou un débit nominal approximatif. Les destinations **WAV**, **FLAC** et **AIFF** n’affichent pas cette section.
 
 Le mixage utilise la fréquence d'échantillonnage configurée du projet. Les pistes MIDI
 sont rendues en utilisant le SoundFont configuré.

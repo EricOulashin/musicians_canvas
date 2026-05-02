@@ -78,6 +78,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <functional>
+#include <optional>
 #include <vector>
 #include <cstring>
 
@@ -901,6 +902,8 @@ void MainWindow::onMix()
     const QString outputPath = dlg.outputFilename();
     if (outputPath.isEmpty()) return;
 
+    const std::optional<MixExportEncodeSettings> mixEnc = dlg.mixEncodeSettings();
+
     const QString projectPath = effectiveProjectPath();
     const int volPct =
         (m_projectSettings.midiVolumePercent >= 0)
@@ -921,12 +924,15 @@ void MainWindow::onMix()
 
     QFuture<bool> future =
         QtConcurrent::run([tracks, outputPath, projectPath, sampleRate, soundFontPath,
-                           midiGainMultiplier, auxChain]()
+                           midiGainMultiplier, auxChain, mixEnc]()
                             {
+                                const MixExportEncodeSettings* encPtr =
+                                    mixEnc.has_value() ? &mixEnc.value() : nullptr;
                                 return AudioUtils::mixTracksToFile(tracks, outputPath, projectPath,
                                                                    sampleRate, soundFontPath,
                                                                    /*renderMidiToAudio=*/true,
-                                                                   midiGainMultiplier, auxChain);
+                                                                   midiGainMultiplier, auxChain,
+                                                                   encPtr);
                             });
 
     QEventLoop waitLoop;

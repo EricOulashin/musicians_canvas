@@ -19,7 +19,7 @@ tehdä jotain parempaa.
 - **Overdub-tallennus**: Kun tallennat uutta raitaa olemassa olevien raitojen ollessa käytössä, olemassa olevat raidat miksataan ja toistetaan reaaliaikaisesti, jotta voit kuulla ne tallennuksen aikana. Toisto ja tallennus on synkronoitu pitämään kaikki raidat kohdistettuina
 - **Visuaalinen palaute**: Ääniaaltokäyrän näyttö ääniraidoille (live-tasomittarilla tallennuksen aikana), MIDI-pianorulla MIDI-raidoille
 - **Sisäänrakennettu MIDI-syntetisaattori**: Renderöi MIDI-raidat ääneksi FluidSynth-ohjelmalla konfiguroitavalla SoundFont-tiedostolla
-- **Miksaus yhdeksi äänitiedostoksi**: Vie kaikki käytössä olevat raidat yhdeksi miksatuksi WAV- tai FLAC-tiedostoksi [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp)-kirjastolla
+- **Miksaus yhdeksi äänitiedostoksi**: Vie kaikki käytössä olevat raidat yhdeksi miksatuksi tiedostoksi (WAV, FLAC, MP3, Ogg Vorbis tai AIFF) [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp)-kirjastolla (**Tools → Mix tracks to file**). Koodaus käyttää samaa luokkaperhettä (`MP3File`, `OggFile`, `AiffFile`) ja **libsndfile**-kirjastoa. Kun kohde on **MP3** tai **Ogg Vorbis**, miksausdialogissa näkyy **Encoding**-osio bittinopeuden ja laadun valintaan (MP3 CBR/ABR/VBR ja Ogg laatu tai likimääräinen nimellinen bittinopeus); **WAV**-, **FLAC**- ja **AIFF**-vienti ei tarjoa näitä valintoja.
 - **Tallenna / Avaa projekti**: Sarjallista ja palauta koko projekti (raidat, nimet, tyypit, MIDI-nuotit, äänitiedostoviittaukset) JSON-tiedostoon/tiedostosta, tallentamattomien muutosten tunnistuksella sulkemisen yhteydessä
 - **Projektikohtaiset asetukset**: Ohita yleiset MIDI- ja ääniasetukset projektikohtaisesti (näytteenottotaajuus, SoundFont, MIDI-laite)
 - **PortAudio-tallennus (valinnainen koonti)**: Kun projekti rakennetaan PortAudio-tuella (`HAVE_PORTAUDIO`), tallennus voi käyttää natiivia PortAudio-syöttöpolkua (hengeltään samanlainen kuin Audacity) Qt Multimedian sijaan. **Project → Project Settings → Audio** antaa valita **PortAudio** tai **Qt Multimedia** ja valita PortAudio-syöttölaitteen. Jos PortAudio ei ole asennettu, koonti onnistuu silti ja tallennus käyttää vain Qt Multimediaa.
@@ -297,7 +297,7 @@ Generoitu HTML kirjoitetaan kohteeseen `docs/html/` ja PDF kohteeseen `docs/Musi
 6. **Projektiasetukset**: Käytä **Project → Project Settings** (Ctrl+P) ohittaaksesi MIDI- ja ääniasetukset vain nykyiselle projektille (esim. eri näytteenottotaajuus tai SoundFont per kappale)
 7. **Tallenna**: Valitse kohderaidan "Arm", napsauta sitten tallennuspainiketta (punainen ympyrä). Vain yksi raita voi olla viritettynä kerrallaan
 8. **Toista**: Napsauta toistopainiketta miksataksesi ja toistaaksesi kaikki käytössä olevat raidat
-9. **Miksaa tiedostoon**: Käytä **Tools → Mix tracks to file** (Ctrl+M) viedäksesi WAV- tai FLAC-muotoon
+9. **Miksaa tiedostoon**: Käytä **Tools → Mix tracks to file** (Ctrl+M) viedäksesi WAV-, FLAC-, MP3-, Ogg Vorbis- tai AIFF-muotoon. **MP3**- ja **Ogg** -kohteille valitse bittinopeus tai laatu **Encoding**-osiosta ennen miksausta.
 10. **Tallenna / Avaa**: Käytä **File → Save Project** (Ctrl+S) ja **File → Open Project** (Ctrl+O)
 
 ### virtual_midi_keyboard

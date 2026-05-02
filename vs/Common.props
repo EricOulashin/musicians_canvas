@@ -20,9 +20,8 @@
         </PropertyGroup>
       </Project>
 
-    Required MSYS2 packages (install with: pacman -S mingw-w64-x86_64-fluidsynth mingw-w64-x86_64-rtmidi):
-      mingw-w64-x86_64-fluidsynth
-      mingw-w64-x86_64-rtmidi
+    Required MSYS2 packages (same stack as sibling audio_mixer_cpp: FLAC + libsndfile for MP3/Ogg/AIFF):
+      mingw-w64-x86_64-fluidsynth mingw-w64-x86_64-rtmidi mingw-w64-x86_64-flac mingw-w64-x86_64-libsndfile mingw-w64-x86_64-portaudio
   -->
 
   <PropertyGroup Label="UserMacros">
@@ -50,7 +49,7 @@
 
   <!-- IntelliSense paths (used by NMakeIncludeSearchPath / NMakePreprocessorDefinitions) -->
   <PropertyGroup>
-    <SharedIncludePaths>$(QtDir)\include;$(QtDir)\include\QtCore;$(QtDir)\include\QtGui;$(QtDir)\include\QtWidgets;$(Msys2MingwDir)\include;$(Msys2MingwDir)\include\rtmidi;$(SolutionDir)..\src</SharedIncludePaths>
+    <SharedIncludePaths>$(QtDir)\include;$(QtDir)\include\QtCore;$(QtDir)\include\QtGui;$(QtDir)\include\QtWidgets;$(Msys2MingwDir)\include;$(Msys2MingwDir)\include\rtmidi;$(Msys2MingwDir)\include\FLAC;$(SolutionDir)..\src</SharedIncludePaths>
     <SharedPreprocessorDefs>WIN32;UNICODE;_UNICODE;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB</SharedPreprocessorDefs>
   </PropertyGroup>
 

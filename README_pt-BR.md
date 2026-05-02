@@ -19,7 +19,7 @@ de criar algo melhor.
 - **Gravação overdub**: Ao gravar uma nova faixa enquanto faixas existentes estão habilitadas, as faixas existentes são mixadas e reproduzidas em tempo real para que você possa ouvi-las durante a gravação. A reprodução e a captura são sincronizadas para manter todas as faixas alinhadas
 - **Feedback visual**: Exibição de forma de onda de áudio para faixas de áudio (com medidor de nível ao vivo durante a gravação), visualização de piano roll MIDI para faixas MIDI
 - **Sintetizador MIDI integrado**: Renderiza faixas MIDI em áudio usando FluidSynth com um SoundFont configurável
-- **Mixar para um único arquivo de áudio**: Exportar todas as faixas habilitadas para um único arquivo WAV ou FLAC mixado usando a biblioteca [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp)
+- **Mixar para um único arquivo de áudio**: Exportar todas as faixas habilitadas para um único arquivo mixado (WAV, FLAC, MP3, Ogg Vorbis ou AIFF) usando a biblioteca [audio_mixer_cpp](https://github.com/EricOulashin/audio_mixer_cpp) (**Tools → Mix tracks to file**). A codificação usa as mesmas classes do projeto relacionado (`MP3File`, `OggFile`, `AiffFile`) com **libsndfile**. Quando o destino é **MP3** ou **Ogg Vorbis**, o diálogo exibe a seção **Encoding** para modo de taxa de bits e qualidade (CBR/ABR/VBR no MP3 e Ogg por qualidade ou taxa nominal aproximada); **WAV**, **FLAC** e **AIFF** não oferecem essas opções.
 - **Salvar / Abrir projeto**: Serializar e restaurar o projeto completo (faixas, nomes, tipos, notas MIDI, referências de arquivos de áudio) de/para um arquivo JSON, com detecção de alterações não salvas ao sair
 - **Configurações específicas do projeto**: Sobrescrever os padrões globais de MIDI e áudio por projeto (taxa de amostragem, SoundFont, dispositivo MIDI)
 - **Captura PortAudio (compilação opcional)**: Quando o projeto é compilado com PortAudio (`HAVE_PORTAUDIO`), a gravação pode usar um caminho de entrada nativo PortAudio (similar em espírito ao Audacity) em vez de Qt Multimedia. **Project → Project Settings → Audio** permite escolher **PortAudio** ou **Qt Multimedia** e selecionar um dispositivo de entrada PortAudio. Se PortAudio não estiver instalado, a compilação ainda é bem-sucedida e a gravação usa apenas Qt Multimedia.
@@ -297,7 +297,7 @@ O HTML gerado é gravado em `docs/html/` e o PDF em `docs/MusiciansCanvas_User_M
 6. **Configurações do projeto**: Use **Project → Project Settings** (Ctrl+P) para sobrescrever as configurações de MIDI e áudio apenas para o projeto atual (ex: uma taxa de amostragem ou SoundFont diferente por música)
 7. **Gravar**: Marque "Arm" na faixa alvo e clique no botão de gravação (círculo vermelho). Apenas uma faixa pode ser armada por vez
 8. **Reproduzir**: Clique no botão de reprodução para mixar e reproduzir todas as faixas habilitadas
-9. **Mixar para arquivo**: Use **Tools → Mix tracks to file** (Ctrl+M) para exportar em WAV ou FLAC
+9. **Mixar para arquivo**: Use **Tools → Mix tracks to file** (Ctrl+M) para exportar em WAV, FLAC, MP3, Ogg Vorbis ou AIFF. Para **MP3** e **Ogg**, defina taxa de bits ou qualidade na seção **Encoding** antes de mixar.
 10. **Salvar / Abrir**: Use **File → Save Project** (Ctrl+S) e **File → Open Project** (Ctrl+O)
 
 ### virtual_midi_keyboard

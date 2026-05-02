@@ -459,216 +459,216 @@ Installér venligst en ASIO-driver og genstart derefter applikationen:
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="256"/>
-        <location filename="../src/mainwindow.cpp" line="293"/>
+        <location filename="../src/mainwindow.cpp" line="257"/>
+        <location filename="../src/mainwindow.cpp" line="294"/>
         <source>Musician&apos;s Canvas</source>
         <translation>Musician&apos;s Canvas</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="299"/>
-        <location filename="../src/mainwindow.cpp" line="444"/>
+        <location filename="../src/mainwindow.cpp" line="300"/>
+        <location filename="../src/mainwindow.cpp" line="445"/>
         <source>Project location:</source>
         <translation>Projektplacering:</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="301"/>
-        <location filename="../src/mainwindow.cpp" line="462"/>
+        <location filename="../src/mainwindow.cpp" line="302"/>
+        <location filename="../src/mainwindow.cpp" line="463"/>
         <source>Browse...</source>
         <translation>Gennemse...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="303"/>
-        <location filename="../src/mainwindow.cpp" line="480"/>
+        <location filename="../src/mainwindow.cpp" line="304"/>
+        <location filename="../src/mainwindow.cpp" line="481"/>
         <source>+ Add Track</source>
         <translation>+ Tilføj spor</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="305"/>
-        <location filename="../src/mainwindow.cpp" line="487"/>
-        <location filename="../src/mainwindow.cpp" line="2590"/>
+        <location filename="../src/mainwindow.cpp" line="306"/>
+        <location filename="../src/mainwindow.cpp" line="488"/>
+        <location filename="../src/mainwindow.cpp" line="2596"/>
         <source>Clear Tracks</source>
         <translation>Ryd spor</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="309"/>
-        <location filename="../src/mainwindow.cpp" line="403"/>
+        <location filename="../src/mainwindow.cpp" line="310"/>
+        <location filename="../src/mainwindow.cpp" line="404"/>
         <source>Project Settings</source>
         <translation>Projektindstillinger</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="310"/>
-        <location filename="../src/mainwindow.cpp" line="409"/>
+        <location filename="../src/mainwindow.cpp" line="311"/>
+        <location filename="../src/mainwindow.cpp" line="410"/>
         <source>Configuration</source>
         <translation>Konfiguration</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="311"/>
-        <location filename="../src/mainwindow.cpp" line="417"/>
+        <location filename="../src/mainwindow.cpp" line="312"/>
+        <location filename="../src/mainwindow.cpp" line="418"/>
         <source>Metronome Settings</source>
         <translation>Metronomindstillinger</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="313"/>
-        <location filename="../src/mainwindow.cpp" line="504"/>
+        <location filename="../src/mainwindow.cpp" line="314"/>
+        <location filename="../src/mainwindow.cpp" line="505"/>
         <source>Monitor audio while recording</source>
         <translation>Lyt til lyd under optagelse</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="324"/>
+        <location filename="../src/mainwindow.cpp" line="325"/>
         <source>&amp;File</source>
         <translation>&amp;Fil</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="325"/>
+        <location filename="../src/mainwindow.cpp" line="326"/>
         <source>&amp;Edit</source>
         <translation>&amp;Edit</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="326"/>
+        <location filename="../src/mainwindow.cpp" line="327"/>
         <source>&amp;Undo</source>
         <translation>&amp;Undo</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="327"/>
+        <location filename="../src/mainwindow.cpp" line="328"/>
         <source>&amp;Redo</source>
         <translation>&amp;Redo</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="329"/>
+        <location filename="../src/mainwindow.cpp" line="330"/>
         <source>&amp;Save Project</source>
         <translation>&amp;Gem projekt</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="332"/>
+        <location filename="../src/mainwindow.cpp" line="333"/>
         <source>&amp;Open Project...</source>
         <translation>&amp;Åbn projekt...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="336"/>
+        <location filename="../src/mainwindow.cpp" line="337"/>
         <source>&amp;Close</source>
         <translation>&amp;Luk</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="340"/>
+        <location filename="../src/mainwindow.cpp" line="341"/>
         <source>&amp;Project</source>
         <translation>&amp;Projekt</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="341"/>
+        <location filename="../src/mainwindow.cpp" line="342"/>
         <source>&amp;Project Settings</source>
         <translation>&amp;Projektindstillinger</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="344"/>
+        <location filename="../src/mainwindow.cpp" line="345"/>
         <source>&amp;Tempo map...</source>
         <translation>&amp;Tempo map...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="347"/>
+        <location filename="../src/mainwindow.cpp" line="348"/>
         <source>Add Demo &amp;Data to Selected Track</source>
         <translation>Tilføj demo&amp;data til valgt spor</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="350"/>
+        <location filename="../src/mainwindow.cpp" line="351"/>
         <source>&amp;Settings</source>
         <translation>&amp;Indstillinger</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="351"/>
+        <location filename="../src/mainwindow.cpp" line="352"/>
         <source>&amp;Configuration</source>
         <translation>&amp;Konfiguration</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="355"/>
+        <location filename="../src/mainwindow.cpp" line="356"/>
         <source>&amp;Tools</source>
         <translation>&amp;Værktøjer</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="356"/>
+        <location filename="../src/mainwindow.cpp" line="357"/>
         <source>&amp;Mix tracks to file...</source>
         <translation>&amp;Mix spor til fil...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="359"/>
+        <location filename="../src/mainwindow.cpp" line="360"/>
         <source>Export &amp;stems to folder...</source>
         <translation>Export &amp;stems to folder...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="361"/>
+        <location filename="../src/mainwindow.cpp" line="362"/>
         <source>&amp;Recording options...</source>
         <translation>&amp;Recording options...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="363"/>
+        <location filename="../src/mainwindow.cpp" line="364"/>
         <source>&amp;Quantize MIDI...</source>
         <translation>&amp;Quantize MIDI...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="366"/>
+        <location filename="../src/mainwindow.cpp" line="367"/>
         <source>Add &amp;drum track</source>
         <translation>Tilføj tromme&amp;spor</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="369"/>
+        <location filename="../src/mainwindow.cpp" line="370"/>
         <source>&amp;Virtual MIDI Keyboard</source>
         <translation>&amp;Virtuelt MIDI-keyboard</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="372"/>
+        <location filename="../src/mainwindow.cpp" line="373"/>
         <source>&amp;Help</source>
         <translation>&amp;Hjælp</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="373"/>
+        <location filename="../src/mainwindow.cpp" line="374"/>
         <source>&amp;Manual</source>
         <translation>&amp;Manual</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="376"/>
+        <location filename="../src/mainwindow.cpp" line="377"/>
         <source>&amp;About</source>
         <translation>&amp;Om</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="447"/>
+        <location filename="../src/mainwindow.cpp" line="448"/>
         <source>Select a project directory...</source>
         <translation>Vælg en projektmappe...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="475"/>
-        <location filename="../src/mainwindow.cpp" line="1081"/>
+        <location filename="../src/mainwindow.cpp" line="476"/>
+        <location filename="../src/mainwindow.cpp" line="1087"/>
         <source>Play all tracks</source>
         <translation>Afspil alle spor</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="606"/>
-        <location filename="../src/mainwindow.cpp" line="648"/>
+        <location filename="../src/mainwindow.cpp" line="607"/>
+        <location filename="../src/mainwindow.cpp" line="649"/>
         <source>Add drum track</source>
         <translation>Tilføj trommespor</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="607"/>
+        <location filename="../src/mainwindow.cpp" line="608"/>
         <source>Please choose a project directory before adding a drum track.</source>
         <translation>Vælg en projektmappe, før du tilføjer et trommespor.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="649"/>
+        <location filename="../src/mainwindow.cpp" line="650"/>
         <source>Could not write drum MIDI file:
 %1</source>
         <translation>Kunne ikke skrive tromme-MIDI-filen:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="672"/>
+        <location filename="../src/mainwindow.cpp" line="673"/>
         <source>Drums</source>
         <translation>Trommer</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="770"/>
+        <location filename="../src/mainwindow.cpp" line="771"/>
         <source>Unsupported file type</source>
         <translation>Filtype understøttes ikke</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="771"/>
+        <location filename="../src/mainwindow.cpp" line="772"/>
         <source>The following file(s) were skipped because they are not in a supported audio format:
 %1
 
@@ -679,338 +679,338 @@ Supported formats: %2</source>
 Understøttede formater: %2</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="808"/>
+        <location filename="../src/mainwindow.cpp" line="809"/>
         <source>File already exists</source>
         <translation>Filen findes allerede</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="809"/>
+        <location filename="../src/mainwindow.cpp" line="810"/>
         <source>A file named &quot;%1&quot; already exists in the project directory. Replace it?</source>
         <translation>En fil med navnet &quot;%1&quot; findes allerede i projektmappen. Erstat den?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="820"/>
+        <location filename="../src/mainwindow.cpp" line="821"/>
         <source>Copy failed</source>
         <translation>Kopiering mislykkedes</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="821"/>
+        <location filename="../src/mainwindow.cpp" line="822"/>
         <source>Could not copy %1 into the project directory.</source>
         <translation>Kunne ikke kopiere %1 til projektmappen.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="915"/>
+        <location filename="../src/mainwindow.cpp" line="918"/>
         <source>Mixing tracks to file…</source>
         <translation>Mixer spor til fil…</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="916"/>
+        <location filename="../src/mainwindow.cpp" line="919"/>
         <source>Mix in progress</source>
         <translation>Miksning i gang</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="945"/>
+        <location filename="../src/mainwindow.cpp" line="951"/>
         <source>Mix Complete</source>
         <translation>Mix fuldført</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="946"/>
+        <location filename="../src/mainwindow.cpp" line="952"/>
         <source>Audio exported successfully to:
 %1</source>
         <translation>Lyd eksporteret succesfuldt til:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="950"/>
+        <location filename="../src/mainwindow.cpp" line="956"/>
         <source>Mix Failed</source>
         <translation>Mix mislykkedes</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="951"/>
+        <location filename="../src/mainwindow.cpp" line="957"/>
         <source>Could not export audio. Please check that you have at least one enabled track with content, and a SoundFont configured for MIDI tracks.</source>
         <translation>Kunne ikke eksportere lyd. Kontrollér venligst, at du har mindst ét aktiveret spor med indhold og en SoundFont konfigureret til MIDI-spor.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="961"/>
+        <location filename="../src/mainwindow.cpp" line="967"/>
         <source>Select Project Directory</source>
         <translation>Vælg projektmappe</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1069"/>
+        <location filename="../src/mainwindow.cpp" line="1075"/>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1075"/>
+        <location filename="../src/mainwindow.cpp" line="1081"/>
         <source>Record armed track</source>
         <translation>Optag klart spor</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1133"/>
-        <location filename="../src/mainwindow.cpp" line="1151"/>
-        <location filename="../src/mainwindow.cpp" line="1183"/>
+        <location filename="../src/mainwindow.cpp" line="1139"/>
+        <location filename="../src/mainwindow.cpp" line="1157"/>
+        <location filename="../src/mainwindow.cpp" line="1189"/>
         <source>Playback Error</source>
         <translation>Afspilningsfejl</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1133"/>
+        <location filename="../src/mainwindow.cpp" line="1139"/>
         <source>Could not create temporary file.</source>
         <translation>Kunne ikke oprette midlertidig fil.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1152"/>
-        <location filename="../src/mainwindow.cpp" line="1184"/>
+        <location filename="../src/mainwindow.cpp" line="1158"/>
+        <location filename="../src/mainwindow.cpp" line="1190"/>
         <source>Could not mix tracks for playback. Make sure tracks have content.</source>
         <translation>Kunne ikke mixe spor til afspilning. Sørg for, at sporene har indhold.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1243"/>
+        <location filename="../src/mainwindow.cpp" line="1249"/>
         <source>Playback</source>
         <translation>Afspilning</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1244"/>
+        <location filename="../src/mainwindow.cpp" line="1250"/>
         <source>Qt Multimedia is not available. Build with Qt6::Multimedia for playback support.</source>
         <translation>Qt Multimedia er ikke tilgængeligt. Byg med Qt6::Multimedia for afspilningsunderstøttelse.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1257"/>
+        <location filename="../src/mainwindow.cpp" line="1263"/>
         <source>Project Directory Required</source>
         <translation>Projektmappe påkrævet</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1258"/>
+        <location filename="../src/mainwindow.cpp" line="1264"/>
         <source>You must choose a project directory before recording.
 Please select a directory to store your recorded files.</source>
         <translation>Du skal vælge en projektmappe inden optagelse.
 Vælg venligst en mappe til at gemme dine optagede filer.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1275"/>
-        <location filename="../src/mainwindow.cpp" line="1302"/>
-        <location filename="../src/mainwindow.cpp" line="1794"/>
+        <location filename="../src/mainwindow.cpp" line="1281"/>
+        <location filename="../src/mainwindow.cpp" line="1308"/>
+        <location filename="../src/mainwindow.cpp" line="1800"/>
         <source>Recording Error</source>
         <translation>Optagelsesfejl</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1276"/>
+        <location filename="../src/mainwindow.cpp" line="1282"/>
         <source>No MIDI input device is configured for this project. Open Project Settings and choose a MIDI input device before recording a MIDI track.</source>
         <translation>Der er ingen MIDI-inputenhed konfigureret for dette projekt. Åbn Projektindstillinger og vælg en MIDI-inputenhed, før du optager et MIDI-spor.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1303"/>
+        <location filename="../src/mainwindow.cpp" line="1309"/>
         <source>No audio input device found. Configure one in Settings.</source>
         <translation>Ingen lydinputenhed fundet. Konfigurér en under Indstillinger.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1317"/>
-        <location filename="../src/mainwindow.cpp" line="1327"/>
+        <location filename="../src/mainwindow.cpp" line="1323"/>
+        <location filename="../src/mainwindow.cpp" line="1333"/>
         <source>Get ready...  %1</source>
         <translation>Gør dig klar...  %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1341"/>
+        <location filename="../src/mainwindow.cpp" line="1347"/>
         <source>Recording</source>
         <translation>Optagelse</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1342"/>
+        <location filename="../src/mainwindow.cpp" line="1348"/>
         <source>Qt Multimedia is not available. Build with Qt6::Multimedia for recording support.</source>
         <translation>Qt Multimedia er ikke tilgængeligt. Byg med Qt6::Multimedia for optagelsesunderstøttelse.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1795"/>
+        <location filename="../src/mainwindow.cpp" line="1801"/>
         <source>Could not open MIDI input port &quot;%1&quot;:
 %2</source>
         <translation>Kunne ikke åbne MIDI-inputporten &quot;%1&quot;:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1804"/>
+        <location filename="../src/mainwindow.cpp" line="1810"/>
         <source>● Recording</source>
         <translation>● Optager</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1959"/>
+        <location filename="../src/mainwindow.cpp" line="1965"/>
         <source>PortAudio</source>
         <translation>PortAudio</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1960"/>
+        <location filename="../src/mainwindow.cpp" line="1966"/>
         <source>Could not start PortAudio recording (%1). Falling back to Qt Multimedia.</source>
         <translation>Kunne ikke starte PortAudio-optagelse (%1). Falder tilbage til Qt Multimedia.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="308"/>
-        <location filename="../src/mainwindow.cpp" line="395"/>
-        <location filename="../src/mainwindow.cpp" line="2169"/>
+        <location filename="../src/mainwindow.cpp" line="309"/>
+        <location filename="../src/mainwindow.cpp" line="396"/>
+        <location filename="../src/mainwindow.cpp" line="2175"/>
         <source>Save Project</source>
         <translation>Gem projekt</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2170"/>
+        <location filename="../src/mainwindow.cpp" line="2176"/>
         <source>Please choose a project directory before saving.</source>
         <translation>Vælg venligst en projektmappe inden du gemmer.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2313"/>
+        <location filename="../src/mainwindow.cpp" line="2319"/>
         <source>Save Failed</source>
         <translation>Gemning mislykkedes</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2314"/>
+        <location filename="../src/mainwindow.cpp" line="2320"/>
         <source>Could not write project file:
 %1</source>
         <translation>Kunne ikke skrive projektfil:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2320"/>
+        <location filename="../src/mainwindow.cpp" line="2326"/>
         <source>Project Saved</source>
         <translation>Projekt gemt</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2321"/>
+        <location filename="../src/mainwindow.cpp" line="2327"/>
         <source>Project saved to:
 %1</source>
         <translation>Projekt gemt til:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="307"/>
-        <location filename="../src/mainwindow.cpp" line="389"/>
-        <location filename="../src/mainwindow.cpp" line="2330"/>
+        <location filename="../src/mainwindow.cpp" line="308"/>
+        <location filename="../src/mainwindow.cpp" line="390"/>
+        <location filename="../src/mainwindow.cpp" line="2336"/>
         <source>Open Project</source>
         <translation>Åbn projekt</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2331"/>
+        <location filename="../src/mainwindow.cpp" line="2337"/>
         <source>Project files (*.json);;All files (*)</source>
         <translation>Projektfiler (*.json);;Alle filer (*)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2342"/>
-        <location filename="../src/mainwindow.cpp" line="2350"/>
+        <location filename="../src/mainwindow.cpp" line="2348"/>
+        <location filename="../src/mainwindow.cpp" line="2356"/>
         <source>Open Failed</source>
         <translation>Åbning mislykkedes</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2343"/>
+        <location filename="../src/mainwindow.cpp" line="2349"/>
         <source>Could not read project file:
 %1</source>
         <translation>Kunne ikke læse projektfil:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2350"/>
+        <location filename="../src/mainwindow.cpp" line="2356"/>
         <source>Invalid project file format.</source>
         <translation>Ugyldigt projektfilformat.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2591"/>
+        <location filename="../src/mainwindow.cpp" line="2597"/>
         <source>Remove all %1 track(s) from the project?</source>
         <translation>Fjern alle %1 spor fra projektet?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2610"/>
+        <location filename="../src/mainwindow.cpp" line="2616"/>
         <source>Unsaved Changes</source>
         <translation>Ikke-gemte ændringer</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2611"/>
+        <location filename="../src/mainwindow.cpp" line="2617"/>
         <source>The project has unsaved changes. Save before closing?</source>
         <translation>Projektet har ikke-gemte ændringer. Gem inden lukning?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2680"/>
-        <location filename="../src/mainwindow.cpp" line="2705"/>
-        <location filename="../src/mainwindow.cpp" line="2708"/>
+        <location filename="../src/mainwindow.cpp" line="2686"/>
+        <location filename="../src/mainwindow.cpp" line="2711"/>
+        <location filename="../src/mainwindow.cpp" line="2714"/>
         <source>Export stems</source>
         <translation>Export stems</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2681"/>
+        <location filename="../src/mainwindow.cpp" line="2687"/>
         <source>Please set a project directory before exporting stems.</source>
         <translation>Please set a project directory before exporting stems.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2706"/>
+        <location filename="../src/mainwindow.cpp" line="2712"/>
         <source>Stems exported to:
 %1</source>
         <translation>Stems exported to:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2709"/>
+        <location filename="../src/mainwindow.cpp" line="2715"/>
         <source>Could not export stems. Ensure tracks have audio or MIDI.</source>
         <translation>Could not export stems. Ensure tracks have audio or MIDI.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2762"/>
+        <location filename="../src/mainwindow.cpp" line="2768"/>
         <source>Quantize MIDI</source>
         <translation>Quantize MIDI</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2763"/>
+        <location filename="../src/mainwindow.cpp" line="2769"/>
         <source>No MIDI tracks were changed.</source>
         <translation>No MIDI tracks were changed.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2810"/>
+        <location filename="../src/mainwindow.cpp" line="2816"/>
         <source>&lt;h3&gt;Musician&apos;s Canvas %1&lt;/h3&gt;&lt;p&gt;A multi-track music recording application for desktop PCs, supporting audio and MIDI tracks, an integrated FluidSynth synthesizer, overdub recording, a built-in metronome, and high-quality sample-rate conversion.&lt;/p&gt;&lt;p&gt;Written in C++ with Qt6.&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; Eric Oulashin&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;</source>
         <translation>&lt;h3&gt;Musician&apos;s Canvas %1&lt;/h3&gt;&lt;p&gt;En multispors musikoptagelsesprogram til stationære pc&apos;er, der understøtter lyd- og MIDI-spor, integreret FluidSynth-synthesizer, overdub-optagelse, indbygget metronom og samplerate-konvertering af høj kvalitet.&lt;/p&gt;&lt;p&gt;Skrevet i C++ med Qt6.&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; Eric Oulashin&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2821"/>
+        <location filename="../src/mainwindow.cpp" line="2827"/>
         <source>About Musician&apos;s Canvas</source>
         <translation>Om Musician&apos;s Canvas</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2829"/>
-        <location filename="../src/mainwindow.cpp" line="2837"/>
+        <location filename="../src/mainwindow.cpp" line="2835"/>
+        <location filename="../src/mainwindow.cpp" line="2843"/>
         <source>Manual</source>
         <translation>Brugervejledning</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2830"/>
+        <location filename="../src/mainwindow.cpp" line="2836"/>
         <source>The user manual PDF could not be found.</source>
         <translation>PDF&apos;en til brugervejledningen kunne ikke findes.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2838"/>
+        <location filename="../src/mainwindow.cpp" line="2844"/>
         <source>Could not open the user manual:
 %1</source>
         <translation>Kunne ikke åbne brugervejledningen:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2852"/>
+        <location filename="../src/mainwindow.cpp" line="2858"/>
         <source>No Tracks</source>
         <translation>Ingen spor</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2852"/>
+        <location filename="../src/mainwindow.cpp" line="2858"/>
         <source>Add a track first, then select it.</source>
         <translation>Tilføj et spor først, og vælg det derefter.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2864"/>
-        <location filename="../src/mainwindow.cpp" line="2869"/>
+        <location filename="../src/mainwindow.cpp" line="2870"/>
+        <location filename="../src/mainwindow.cpp" line="2875"/>
         <source>Demo Data</source>
         <translation>Demodata</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2865"/>
+        <location filename="../src/mainwindow.cpp" line="2871"/>
         <source>Demo MIDI notes added. Try Mix → Mix tracks to file to export.</source>
         <translation>Demo-MIDI-noder tilføjet. Prøv Mix → Mix spor til fil for at eksportere.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2870"/>
+        <location filename="../src/mainwindow.cpp" line="2876"/>
         <source>Switch the track to MIDI type (Options) to add demo notes.</source>
         <translation>Skift sporet til MIDI-type (Indstillinger) for at tilføje demonoder.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2878"/>
+        <location filename="../src/mainwindow.cpp" line="2884"/>
         <source>Track %1</source>
         <translation>Spor %1</translation>
     </message>
@@ -1059,42 +1059,114 @@ Vælg venligst en mappe til at gemme dine optagede filer.</translation>
 <context>
     <name>MixDialog</name>
     <message>
-        <location filename="../src/mixdialog.cpp" line="16"/>
+        <location filename="../src/mixdialog.cpp" line="22"/>
         <source>Mix Tracks to File</source>
         <translation>Mix spor til fil</translation>
     </message>
     <message>
-        <location filename="../src/mixdialog.cpp" line="25"/>
+        <location filename="../src/mixdialog.cpp" line="30"/>
         <source>Output file:</source>
         <translation>Outputfil:</translation>
     </message>
     <message>
-        <location filename="../src/mixdialog.cpp" line="27"/>
+        <location filename="../src/mixdialog.cpp" line="32"/>
         <source>Choose output filename...</source>
         <translation>Vælg outputfilnavn...</translation>
     </message>
     <message>
-        <location filename="../src/mixdialog.cpp" line="29"/>
+        <location filename="../src/mixdialog.cpp" line="35"/>
         <source>Browse...</source>
         <translation>Gennemse...</translation>
     </message>
     <message>
-        <location filename="../src/mixdialog.cpp" line="36"/>
+        <location filename="../src/mixdialog.cpp" line="40"/>
+        <source>Encoding</source>
+        <translation>Kodning</translation>
+    </message>
+    <message>
+        <location filename="../src/mixdialog.cpp" line="48"/>
+        <source>Constant bitrate (CBR)</source>
+        <translation>Konstant bitrate (CBR)</translation>
+    </message>
+    <message>
+        <location filename="../src/mixdialog.cpp" line="49"/>
+        <source>Average bitrate (ABR)</source>
+        <translation>Gennemsnitlig bitrate (ABR)</translation>
+    </message>
+    <message>
+        <location filename="../src/mixdialog.cpp" line="50"/>
+        <source>Variable bitrate (VBR)</source>
+        <translation>Variabel bitrate (VBR)</translation>
+    </message>
+    <message>
+        <location filename="../src/mixdialog.cpp" line="53"/>
+        <source>Bitrate mode:</source>
+        <translation>Bitrate-tilstand:</translation>
+    </message>
+    <message>
+        <location filename="../src/mixdialog.cpp" line="60"/>
+        <source>Bitrate:</source>
+        <translation>Bitrate:</translation>
+    </message>
+    <message>
+        <location filename="../src/mixdialog.cpp" line="70"/>
+        <location filename="../src/mixdialog.cpp" line="199"/>
+        <source>%1% — lower is higher quality, larger files</source>
+        <translation>%1% — lavere = højere kvalitet, større filer</translation>
+    </message>
+    <message>
+        <location filename="../src/mixdialog.cpp" line="76"/>
+        <source>VBR setting:</source>
+        <translation>VBR-indstilling:</translation>
+    </message>
+    <message>
+        <location filename="../src/mixdialog.cpp" line="85"/>
+        <source>Quality-based VBR</source>
+        <translation>Kvalitetsbaseret VBR</translation>
+    </message>
+    <message>
+        <location filename="../src/mixdialog.cpp" line="86"/>
+        <source>Approximate nominal bitrate</source>
+        <translation>Omtrentlig nominel bitrate</translation>
+    </message>
+    <message>
+        <location filename="../src/mixdialog.cpp" line="89"/>
+        <source>Encoding:</source>
+        <translation>Kodning:</translation>
+    </message>
+    <message>
+        <location filename="../src/mixdialog.cpp" line="99"/>
+        <location filename="../src/mixdialog.cpp" line="210"/>
+        <source>%1% — higher is better quality</source>
+        <translation>%1% — højere = bedre kvalitet</translation>
+    </message>
+    <message>
+        <location filename="../src/mixdialog.cpp" line="105"/>
+        <source>Quality:</source>
+        <translation>Kvalitet:</translation>
+    </message>
+    <message>
+        <location filename="../src/mixdialog.cpp" line="112"/>
+        <source>Nominal bitrate:</source>
+        <translation>Nominel bitrate:</translation>
+    </message>
+    <message>
+        <location filename="../src/mixdialog.cpp" line="120"/>
         <source>Mix</source>
         <translation>Mix</translation>
     </message>
     <message>
-        <location filename="../src/mixdialog.cpp" line="52"/>
+        <location filename="../src/mixdialog.cpp" line="217"/>
         <source>Choose output file</source>
         <translation>Vælg outputfil</translation>
     </message>
     <message>
-        <location filename="../src/mixdialog.cpp" line="68"/>
+        <location filename="../src/mixdialog.cpp" line="231"/>
         <source>No file chosen</source>
         <translation>Ingen fil valgt</translation>
     </message>
     <message>
-        <location filename="../src/mixdialog.cpp" line="68"/>
+        <location filename="../src/mixdialog.cpp" line="231"/>
         <source>Please choose an output file.</source>
         <translation>Vælg venligst en outputfil.</translation>
     </message>

@@ -52,6 +52,7 @@ jobs:
             libfluidsynth-dev \
             librtmidi-dev \
             libflac-dev \
+            libsndfile1-dev \
             libpipewire-0.3-dev \
             portaudio19-dev \
             qt6-l10n-tools \
@@ -62,15 +63,15 @@ jobs:
       - name: Install dependencies (macOS)
         if: runner.os == 'macOS'
         run: |
-          brew install cmake ninja qt@6 fluidsynth rtmidi flac portaudio pkgconf
+          brew install cmake ninja qt@6 fluidsynth rtmidi flac libsndfile portaudio pkgconf
           pip3 install --break-system-packages markdown weasyprint 2>/dev/null || \
           pip3 install markdown weasyprint || true
 
       - name: Configure Homebrew paths for CMake (macOS)
         if: runner.os == 'macOS'
         run: |
-          echo "CMAKE_PREFIX_PATH=$(brew --prefix qt@6);$(brew --prefix)" >> "$GITHUB_ENV"
-          echo "PKG_CONFIG_PATH=$(brew --prefix portaudio)/lib/pkgconfig:$(brew --prefix flac)/lib/pkgconfig:$(brew --prefix fluidsynth)/lib/pkgconfig:${PKG_CONFIG_PATH:-}" >> "$GITHUB_ENV"
+          echo "CMAKE_PREFIX_PATH=$(brew --prefix qt@6);$(brew --prefix);$(brew --prefix libsndfile)" >> "$GITHUB_ENV"
+          echo "PKG_CONFIG_PATH=$(brew --prefix portaudio)/lib/pkgconfig:$(brew --prefix flac)/lib/pkgconfig:$(brew --prefix fluidsynth)/lib/pkgconfig:$(brew --prefix libsndfile)/lib/pkgconfig:${PKG_CONFIG_PATH:-}" >> "$GITHUB_ENV"
           echo "$(brew --prefix qt@6)/bin" >> "$GITHUB_PATH"
 
       - name: Configure and build
@@ -211,6 +212,7 @@ jobs:
             mingw-w64-x86_64-qt6-tools
             mingw-w64-x86_64-fluidsynth
             mingw-w64-x86_64-flac
+            mingw-w64-x86_64-libsndfile
             mingw-w64-x86_64-portaudio
             mingw-w64-x86_64-pkg-config
             mingw-w64-x86_64-python-pip
