@@ -2,7 +2,7 @@
 
 Tämä on moniraitainen musiikin tallennussovellus pöytätietokoneille. Se on kirjoitettu C++:lla ja käyttää Qt:tä
 graafisen käyttöliittymän kirjastona. Tämä sovellus on tarkoitettu rakennettavaksi Linuxille, Windowsille ja Mac OS:lle. Helppokäyttöisyys on
-tärkein suunnitteluperiaate. Tämä projekti alkoi kokeiluna Cursorin (tekoälykoodaustyökalu) kanssa nähdäkseen, mitä
+tärkein suunnitteluperiaate. Tämä projekti alkoi kokeiluna Cursor & Claude -ohjelmistolla (tekoälykoodaustyökalut) kanssa nähdäkseen, mitä
 se pystyisi luomaan tämänkaltaisena sovelluksena, jatkuvalla tekoälykehityksellä sekä
 perinteisellä ohjelmistokehityksellä.
 

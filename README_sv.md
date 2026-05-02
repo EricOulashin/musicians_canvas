@@ -2,7 +2,7 @@
 
 Detta är en flerspårs musikinspelningsapplikation för stationära datorer. Den är skriven i C++ och använder Qt som
 GUI-bibliotek. Denna applikation är avsedd att byggas för Linux, Windows och Mac OS. Användarvänlighet är en
-huvudsaklig designövervägande. Detta projekt startade som ett experiment med Cursor (AI-kodningsverktyg) för att se vad
+huvudsaklig designövervägande. Detta projekt startade som ett experiment med Cursor & Claude (AI-kodningsverktyg) för att se vad
 det skulle kunna skapa som en applikation av detta slag, med fortsatt användning av AI-utveckling samt
 traditionell mjukvaruutveckling.
 

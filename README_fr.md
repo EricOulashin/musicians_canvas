@@ -2,7 +2,7 @@
 
 Ceci est une application d'enregistrement musical multipiste pour PC de bureau. Elle est écrite en C++ et utilise Qt comme
 bibliothèque d'interface graphique. Cette application est conçue pour Linux, Windows et Mac OS. La facilité d'utilisation est une
-considération de conception principale. Ce projet a commencé comme une expérience avec Cursor (outil de codage par IA) pour voir ce qu'il
+considération de conception principale. Ce projet a commencé comme une expérience avec Cursor et Claude (des outils de programmation basés sur l'IA) pour voir ce qu'il
 serait capable de créer comme application de ce type, avec une utilisation continue du développement par IA ainsi
 que du développement logiciel traditionnel.
 

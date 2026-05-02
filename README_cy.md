@@ -2,7 +2,7 @@
 
 Mae hwn yn raglen recordio cerddoriaeth aml-drac ar gyfer cyfrifiaduron bwrdd gwaith. Mae wedi'i ysgrifennu yn C++ ac yn defnyddio Qt fel
 llyfrgell GUI. Mae'r rhaglen hon wedi'i bwriadu i'w hadeiladu ar gyfer Linux, Windows, a Mac OS. Hawster defnydd yw
-prif ystyriaeth y dyluniad. Dechreuodd y prosiect hwn fel arbrawf gyda Cursor (offeryn codio AI) i weld beth
+prif ystyriaeth y dyluniad. Dechreuodd y prosiect hwn fel arbrawf gyda Cursor & Claude (offer codio AI) i weld beth
 fyddai'n gallu ei greu fel rhaglen o'r math hwn, gyda defnydd parhaus o ddatblygiad AI yn ogystal â
 datblygiad meddalwedd traddodiadol.
 

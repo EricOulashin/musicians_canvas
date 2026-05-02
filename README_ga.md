@@ -2,7 +2,7 @@
 
 Is feidhmchlár taifeadta ceoil ilrianach é seo do ríomhairí deisce. Tá sé scríofa i C++ agus úsáideann sé Qt mar
 leabharlann GUI. Tá an feidhmchlár seo ceaptha le tógáil do Linux, Windows, agus Mac OS. Is príomhchúis dearaidh é
-éascaíocht úsáide. Thosaigh an tionscadal seo mar thurgnamh le Cursor (uirlis códaithe AI) le feiceáil cad
+éascaíocht úsáide. Thosaigh an tionscadal seo mar thurgnamh le Cursor & Claude (uirlisí códaithe AI) le feiceáil cad
 a bheadh sé in ann a chruthú mar fheidhmchlár den chineál seo, le húsáid leanúnach d'fhorbairt AI chomh maith
 le forbairt bogearraí traidisiúnta.
 

@@ -2,9 +2,9 @@
 
 This is a multi-track music recording application for desktop PCs. This is written in C++ and uses Qt for
 the GUI library. This application is meant to be built for Linux, Windows, and Mac OS. Ease of use is a
-main design consideration.  This project started as an experiment with Cursor (AI coding tool) to see what
-it would be able to create as far as an application like this, with continued use of AI development as well
-as traditional software development.
+main design consideration.  This project started as an experiment with Cursor & Claude (AI coding tools) to
+see what it would be able to create as far as an application like this, with continued use of AI development
+as well as traditional software development.
 
 Years ago, I made a multi-track music recording program in college (with the same name); this is an attempt
 to make something better.

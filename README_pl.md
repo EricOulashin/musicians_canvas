@@ -2,7 +2,7 @@
 
 Jest to wielościeżkowa aplikacja do nagrywania muzyki na komputery stacjonarne. Została napisana w C++ i używa Qt jako
 biblioteki interfejsu graficznego. Aplikacja jest przeznaczona do budowania na systemy Linux, Windows i Mac OS. Łatwość użycia jest
-głównym aspektem projektowania. Ten projekt rozpoczął się jako eksperyment z Cursor (narzędzie do kodowania z AI), aby zobaczyć, co
+głównym aspektem projektowania. Ten projekt rozpoczął się jako eksperyment z Cursor i Claude (narzędzie do kodowania z AI), aby zobaczyć, co
 byłoby w stanie stworzyć jako aplikację tego typu, z kontynuacją wykorzystania rozwoju z AI oraz
 tradycyjnego tworzenia oprogramowania.
 

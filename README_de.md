@@ -2,7 +2,7 @@
 
 Dies ist eine Mehrspuraufnahme-Anwendung für Desktop-PCs. Sie wurde in C++ geschrieben und verwendet Qt als
 GUI-Bibliothek. Diese Anwendung ist für Linux, Windows und Mac OS konzipiert. Benutzerfreundlichkeit ist ein
-wesentliches Designziel. Dieses Projekt begann als Experiment mit Cursor (KI-Programmierwerkzeug), um zu sehen, was
+wesentliches Designziel. Dieses Projekt begann als Experiment mit Cursor & Claude (KI-Programmierwerkzeuge), um zu sehen, was
 es in der Lage wäre, als Anwendung dieser Art zu erstellen, mit fortgesetzter KI-Entwicklung sowie
 traditioneller Softwareentwicklung.
 

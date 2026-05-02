@@ -2,7 +2,7 @@
 
 Dette er en flersporsprogramm til musikoptagelse til stationære computere. Det er skrevet i C++ og bruger Qt som
 GUI-bibliotek. Denne applikation er beregnet til at blive bygget til Linux, Windows og Mac OS. Brugervenlighed er en
-vigtig designovervejelse. Dette projekt startede som et eksperiment med Cursor (AI-kodningsværktøj) for at se, hvad
+vigtig designovervejelse. Dette projekt startede som et eksperiment med Cursor & Claude (AI-kodningsværktøjer) for at se, hvad
 det ville være i stand til at skabe som en applikation af denne type, med fortsat brug af AI-udvikling samt
 traditionel softwareudvikling.
 
